@@ -52,6 +52,9 @@ pub struct SqlBackupRunsDeleteRequest {
 }
 
 impl SqlBackupRunsDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -99,6 +102,9 @@ pub struct SqlBackupRunsGetRequest {
 }
 
 impl SqlBackupRunsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -145,6 +151,9 @@ pub struct SqlBackupRunsInsertRequest {
 }
 
 impl SqlBackupRunsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -197,6 +206,9 @@ pub struct SqlBackupRunsListRequest {
 }
 
 impl SqlBackupRunsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -322,6 +334,9 @@ pub struct BackupRun {
 }
 
 impl BackupRun {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::BackupRun::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -460,6 +475,9 @@ pub struct BackupRunsListResponse {
 }
 
 impl BackupRunsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::BackupRunsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -513,6 +531,9 @@ pub struct GetConnectSettingsRequest {
 }
 
 impl GetConnectSettingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -594,6 +615,9 @@ pub struct ConnectSettings {
 }
 
 impl ConnectSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::ConnectSettings::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -669,13 +693,12 @@ pub mod connect_settings {
 
     /// Various Certificate Authority (CA) modes for certificate signing.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(std::string::String);
+    pub struct CaMode(std::borrow::Cow<'static, str>);
 
     impl CaMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CaMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -686,16 +709,24 @@ pub mod connect_settings {
 
     /// Useful constants to work with [CaMode](CaMode)
     pub mod ca_mode {
+        use super::CaMode;
+        
 
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: &str = "CA_MODE_UNSPECIFIED";
+        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new("CA_MODE_UNSPECIFIED");
 
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: &str = "GOOGLE_MANAGED_INTERNAL_CA";
+        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new("GOOGLE_MANAGED_INTERNAL_CA");
 
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: &str = "GOOGLE_MANAGED_CAS_CA";
+        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
+    }
+
+    impl std::convert::From<std::string::String> for CaMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -733,6 +764,9 @@ pub struct GenerateEphemeralCertRequest {
 }
 
 impl GenerateEphemeralCertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -790,6 +824,9 @@ pub struct GenerateEphemeralCertResponse {
 }
 
 impl GenerateEphemeralCertResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
     pub fn set_ephemeral_cert<T: std::convert::Into<std::option::Option<crate::model::SslCert>>>(mut self, v: T) -> Self {
@@ -825,6 +862,9 @@ pub struct SqlDatabasesDeleteRequest {
 }
 
 impl SqlDatabasesDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -872,6 +912,9 @@ pub struct SqlDatabasesGetRequest {
 }
 
 impl SqlDatabasesGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -918,6 +961,9 @@ pub struct SqlDatabasesInsertRequest {
 }
 
 impl SqlDatabasesInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -961,6 +1007,9 @@ pub struct SqlDatabasesListRequest {
 }
 
 impl SqlDatabasesListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1005,6 +1054,9 @@ pub struct SqlDatabasesUpdateRequest {
 }
 
 impl SqlDatabasesUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1054,6 +1106,9 @@ pub struct DatabasesListResponse {
 }
 
 impl DatabasesListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DatabasesListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1093,6 +1148,9 @@ pub struct SqlFlagsListRequest {
 }
 
 impl SqlFlagsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
     pub fn set_database_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1124,6 +1182,9 @@ pub struct FlagsListResponse {
 }
 
 impl FlagsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::FlagsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1215,6 +1276,9 @@ pub struct Flag {
 }
 
 impl Flag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::Flag::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1315,6 +1379,9 @@ pub struct SqlInstancesAddServerCaRequest {
 }
 
 impl SqlInstancesAddServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1356,6 +1423,9 @@ pub struct SqlInstancesCloneRequest {
 }
 
 impl SqlInstancesCloneRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1399,6 +1469,9 @@ pub struct SqlInstancesDeleteRequest {
 }
 
 impl SqlInstancesDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1439,6 +1512,9 @@ pub struct SqlInstancesDemoteMasterRequest {
 }
 
 impl SqlInstancesDemoteMasterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1486,6 +1562,9 @@ pub struct SqlInstancesDemoteRequest {
 }
 
 impl SqlInstancesDemoteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1532,6 +1611,9 @@ pub struct SqlInstancesExportRequest {
 }
 
 impl SqlInstancesExportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1578,6 +1660,9 @@ pub struct SqlInstancesFailoverRequest {
 }
 
 impl SqlInstancesFailoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1621,6 +1706,9 @@ pub struct SqlInstancesGetRequest {
 }
 
 impl SqlInstancesGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1661,6 +1749,9 @@ pub struct SqlInstancesImportRequest {
 }
 
 impl SqlInstancesImportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1704,6 +1795,9 @@ pub struct SqlInstancesInsertRequest {
 }
 
 impl SqlInstancesInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1760,6 +1854,9 @@ pub struct SqlInstancesListRequest {
 }
 
 impl SqlInstancesListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1809,6 +1906,9 @@ pub struct SqlInstancesListServerCasRequest {
 }
 
 impl SqlInstancesListServerCasRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1849,6 +1949,9 @@ pub struct SqlInstancesPatchRequest {
 }
 
 impl SqlInstancesPatchRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1901,6 +2004,9 @@ pub struct SqlInstancesPromoteReplicaRequest {
 }
 
 impl SqlInstancesPromoteReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1950,6 +2056,9 @@ pub struct SqlInstancesSwitchoverRequest {
 }
 
 impl SqlInstancesSwitchoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1993,6 +2102,9 @@ pub struct SqlInstancesResetSslConfigRequest {
 }
 
 impl SqlInstancesResetSslConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2030,6 +2142,9 @@ pub struct SqlInstancesRestartRequest {
 }
 
 impl SqlInstancesRestartRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2070,6 +2185,9 @@ pub struct SqlInstancesRestoreBackupRequest {
 }
 
 impl SqlInstancesRestoreBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2116,6 +2234,9 @@ pub struct SqlInstancesRotateServerCaRequest {
 }
 
 impl SqlInstancesRotateServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2159,6 +2280,9 @@ pub struct SqlInstancesStartReplicaRequest {
 }
 
 impl SqlInstancesStartReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2196,6 +2320,9 @@ pub struct SqlInstancesStopReplicaRequest {
 }
 
 impl SqlInstancesStopReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2236,6 +2363,9 @@ pub struct SqlInstancesTruncateLogRequest {
 }
 
 impl SqlInstancesTruncateLogRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2283,6 +2413,9 @@ pub struct SqlInstancesPerformDiskShrinkRequest {
 }
 
 impl SqlInstancesPerformDiskShrinkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2329,6 +2462,9 @@ pub struct SqlInstancesUpdateRequest {
 }
 
 impl SqlInstancesUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2375,6 +2511,9 @@ pub struct SqlInstancesRescheduleMaintenanceRequest {
 }
 
 impl SqlInstancesRescheduleMaintenanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2422,6 +2561,9 @@ pub struct SqlInstancesReencryptRequest {
 }
 
 impl SqlInstancesReencryptRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2461,6 +2603,9 @@ pub struct InstancesReencryptRequest {
 }
 
 impl InstancesReencryptRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
     pub fn set_backup_reencryption_config<T: std::convert::Into<std::option::Option<crate::model::BackupReencryptionConfig>>>(mut self, v: T) -> Self {
@@ -2492,6 +2637,9 @@ pub struct BackupReencryptionConfig {
 }
 
 impl BackupReencryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
     pub fn set_backup_limit<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
@@ -2520,13 +2668,12 @@ pub mod backup_reencryption_config {
 
     /// Backup type for re-encryption
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackupType(std::string::String);
+    pub struct BackupType(std::borrow::Cow<'static, str>);
 
     impl BackupType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new BackupType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2537,15 +2684,23 @@ pub mod backup_reencryption_config {
 
     /// Useful constants to work with [BackupType](BackupType)
     pub mod backup_type {
+        use super::BackupType;
+        
 
         /// Unknown backup type, will be defaulted to AUTOMATIC backup type
-        pub const BACKUP_TYPE_UNSPECIFIED: &str = "BACKUP_TYPE_UNSPECIFIED";
+        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new("BACKUP_TYPE_UNSPECIFIED");
 
         /// Reencrypt automatic backups
-        pub const AUTOMATED: &str = "AUTOMATED";
+        pub const AUTOMATED: BackupType = BackupType::new("AUTOMATED");
 
         /// Reencrypt on-demand backups
-        pub const ON_DEMAND: &str = "ON_DEMAND";
+        pub const ON_DEMAND: BackupType = BackupType::new("ON_DEMAND");
+    }
+
+    impl std::convert::From<std::string::String> for BackupType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -2566,6 +2721,9 @@ pub struct SqlInstancesGetDiskShrinkConfigRequest {
 }
 
 impl SqlInstancesGetDiskShrinkConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2624,6 +2782,9 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
 }
 
 impl SqlInstancesVerifyExternalSyncSettingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2713,13 +2874,12 @@ pub mod sql_instances_verify_external_sync_settings_request {
 
 
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExternalSyncMode(std::string::String);
+    pub struct ExternalSyncMode(std::borrow::Cow<'static, str>);
 
     impl ExternalSyncMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ExternalSyncMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2730,29 +2890,36 @@ pub mod sql_instances_verify_external_sync_settings_request {
 
     /// Useful constants to work with [ExternalSyncMode](ExternalSyncMode)
     pub mod external_sync_mode {
+        use super::ExternalSyncMode;
+        
 
         /// Unknown external sync mode, will be defaulted to ONLINE mode
-        pub const EXTERNAL_SYNC_MODE_UNSPECIFIED: &str = "EXTERNAL_SYNC_MODE_UNSPECIFIED";
+        pub const EXTERNAL_SYNC_MODE_UNSPECIFIED: ExternalSyncMode = ExternalSyncMode::new("EXTERNAL_SYNC_MODE_UNSPECIFIED");
 
         /// Online external sync will set up replication after initial data external
         /// sync
-        pub const ONLINE: &str = "ONLINE";
+        pub const ONLINE: ExternalSyncMode = ExternalSyncMode::new("ONLINE");
 
         /// Offline external sync only dumps and loads a one-time snapshot of
         /// the primary instance's data
-        pub const OFFLINE: &str = "OFFLINE";
+        pub const OFFLINE: ExternalSyncMode = ExternalSyncMode::new("OFFLINE");
+    }
+
+    impl std::convert::From<std::string::String> for ExternalSyncMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// MigrationType determines whether the migration is a physical file-based
     /// migration or a logical dump file-based migration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MigrationType(std::string::String);
+    pub struct MigrationType(std::borrow::Cow<'static, str>);
 
     impl MigrationType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new MigrationType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2763,15 +2930,23 @@ pub mod sql_instances_verify_external_sync_settings_request {
 
     /// Useful constants to work with [MigrationType](MigrationType)
     pub mod migration_type {
+        use super::MigrationType;
+        
 
         /// Default value is a logical dump file-based migration
-        pub const MIGRATION_TYPE_UNSPECIFIED: &str = "MIGRATION_TYPE_UNSPECIFIED";
+        pub const MIGRATION_TYPE_UNSPECIFIED: MigrationType = MigrationType::new("MIGRATION_TYPE_UNSPECIFIED");
 
         /// Logical dump file-based migration
-        pub const LOGICAL: &str = "LOGICAL";
+        pub const LOGICAL: MigrationType = MigrationType::new("LOGICAL");
 
         /// Physical file-based migration
-        pub const PHYSICAL: &str = "PHYSICAL";
+        pub const PHYSICAL: MigrationType = MigrationType::new("PHYSICAL");
+    }
+
+    impl std::convert::From<std::string::String> for MigrationType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2818,6 +2993,9 @@ pub struct SqlInstancesStartExternalSyncRequest {
 }
 
 impl SqlInstancesStartExternalSyncRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2926,6 +3104,9 @@ pub struct SqlInstancesResetReplicaSizeRequest {
 }
 
 impl SqlInstancesResetReplicaSizeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2966,6 +3147,9 @@ pub struct SqlInstancesCreateEphemeralCertRequest {
 }
 
 impl SqlInstancesCreateEphemeralCertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3005,6 +3189,9 @@ pub struct InstancesCloneRequest {
 }
 
 impl InstancesCloneRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
     pub fn set_clone_context<T: std::convert::Into<std::option::Option<crate::model::CloneContext>>>(mut self, v: T) -> Self {
@@ -3032,6 +3219,9 @@ pub struct InstancesDemoteMasterRequest {
 }
 
 impl InstancesDemoteMasterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
     pub fn set_demote_master_context<T: std::convert::Into<std::option::Option<crate::model::DemoteMasterContext>>>(mut self, v: T) -> Self {
@@ -3060,6 +3250,9 @@ pub struct InstancesDemoteRequest {
 }
 
 impl InstancesDemoteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
     pub fn set_demote_context<T: std::convert::Into<std::option::Option<crate::model::DemoteContext>>>(mut self, v: T) -> Self {
@@ -3087,6 +3280,9 @@ pub struct InstancesExportRequest {
 }
 
 impl InstancesExportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [export_context][crate::model::InstancesExportRequest::export_context].
     pub fn set_export_context<T: std::convert::Into<std::option::Option<crate::model::ExportContext>>>(mut self, v: T) -> Self {
@@ -3114,6 +3310,9 @@ pub struct InstancesFailoverRequest {
 }
 
 impl InstancesFailoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
     pub fn set_failover_context<T: std::convert::Into<std::option::Option<crate::model::FailoverContext>>>(mut self, v: T) -> Self {
@@ -3145,6 +3344,9 @@ pub struct SslCertsCreateEphemeralRequest {
 }
 
 impl SslCertsCreateEphemeralRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [public_key][crate::model::SslCertsCreateEphemeralRequest::public_key].
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3178,6 +3380,9 @@ pub struct InstancesImportRequest {
 }
 
 impl InstancesImportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [import_context][crate::model::InstancesImportRequest::import_context].
     pub fn set_import_context<T: std::convert::Into<std::option::Option<crate::model::ImportContext>>>(mut self, v: T) -> Self {
@@ -3218,6 +3423,9 @@ pub struct InstancesListResponse {
 }
 
 impl InstancesListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::InstancesListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3280,6 +3488,9 @@ pub struct InstancesListServerCasResponse {
 }
 
 impl InstancesListServerCasResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [active_version][crate::model::InstancesListServerCasResponse::active_version].
     pub fn set_active_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3324,6 +3535,9 @@ pub struct InstancesRestoreBackupRequest {
 }
 
 impl InstancesRestoreBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
     pub fn set_restore_backup_context<T: std::convert::Into<std::option::Option<crate::model::RestoreBackupContext>>>(mut self, v: T) -> Self {
@@ -3351,6 +3565,9 @@ pub struct InstancesRotateServerCaRequest {
 }
 
 impl InstancesRotateServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
     pub fn set_rotate_server_ca_context<T: std::convert::Into<std::option::Option<crate::model::RotateServerCaContext>>>(mut self, v: T) -> Self {
@@ -3378,6 +3595,9 @@ pub struct InstancesTruncateLogRequest {
 }
 
 impl InstancesTruncateLogRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
     pub fn set_truncate_log_context<T: std::convert::Into<std::option::Option<crate::model::TruncateLogContext>>>(mut self, v: T) -> Self {
@@ -3405,6 +3625,9 @@ pub struct InstancesAcquireSsrsLeaseRequest {
 }
 
 impl InstancesAcquireSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
     pub fn set_acquire_ssrs_lease_context<T: std::convert::Into<std::option::Option<crate::model::AcquireSsrsLeaseContext>>>(mut self, v: T) -> Self {
@@ -3440,6 +3663,9 @@ pub struct SqlInstancesVerifyExternalSyncSettingsResponse {
 }
 
 impl SqlInstancesVerifyExternalSyncSettingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesVerifyExternalSyncSettingsResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3497,6 +3723,9 @@ pub struct SqlInstancesGetDiskShrinkConfigResponse {
 }
 
 impl SqlInstancesGetDiskShrinkConfigResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetDiskShrinkConfigResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3540,6 +3769,9 @@ pub struct SqlInstancesGetLatestRecoveryTimeRequest {
 }
 
 impl SqlInstancesGetLatestRecoveryTimeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3577,6 +3809,9 @@ pub struct SqlInstancesGetLatestRecoveryTimeResponse {
 }
 
 impl SqlInstancesGetLatestRecoveryTimeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3650,6 +3885,9 @@ pub struct CloneContext {
 }
 
 impl CloneContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::CloneContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3732,6 +3970,9 @@ pub struct BinLogCoordinates {
 }
 
 impl BinLogCoordinates {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [bin_log_file_name][crate::model::BinLogCoordinates::bin_log_file_name].
     pub fn set_bin_log_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3996,6 +4237,9 @@ pub struct DatabaseInstance {
 }
 
 impl DatabaseInstance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DatabaseInstance::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4331,6 +4575,9 @@ pub mod database_instance {
     }
 
     impl SqlFailoverReplica {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [name][crate::model::database_instance::SqlFailoverReplica::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4373,6 +4620,9 @@ pub mod database_instance {
     }
 
     impl SqlScheduledMaintenance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
         pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
@@ -4433,6 +4683,9 @@ pub mod database_instance {
     }
 
     impl SqlOutOfDiskReport {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
         pub fn set_sql_out_of_disk_state<T: std::convert::Into<std::option::Option<crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState>>>(mut self, v: T) -> Self {
@@ -4461,13 +4714,12 @@ pub mod database_instance {
 
         /// This enum lists all possible states regarding out-of-disk issues.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SqlOutOfDiskState(std::string::String);
+        pub struct SqlOutOfDiskState(std::borrow::Cow<'static, str>);
 
         impl SqlOutOfDiskState {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new SqlOutOfDiskState instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -4478,28 +4730,35 @@ pub mod database_instance {
 
         /// Useful constants to work with [SqlOutOfDiskState](SqlOutOfDiskState)
         pub mod sql_out_of_disk_state {
+            use super::SqlOutOfDiskState;
+            
 
             /// Unspecified state
-            pub const SQL_OUT_OF_DISK_STATE_UNSPECIFIED: &str = "SQL_OUT_OF_DISK_STATE_UNSPECIFIED";
+            pub const SQL_OUT_OF_DISK_STATE_UNSPECIFIED: SqlOutOfDiskState = SqlOutOfDiskState::new("SQL_OUT_OF_DISK_STATE_UNSPECIFIED");
 
             /// The instance has plenty space on data disk
-            pub const NORMAL: &str = "NORMAL";
+            pub const NORMAL: SqlOutOfDiskState = SqlOutOfDiskState::new("NORMAL");
 
             /// Data disk is almost used up. It is shutdown to prevent data
             /// corruption.
-            pub const SOFT_SHUTDOWN: &str = "SOFT_SHUTDOWN";
+            pub const SOFT_SHUTDOWN: SqlOutOfDiskState = SqlOutOfDiskState::new("SOFT_SHUTDOWN");
+        }
+
+        impl std::convert::From<std::string::String> for SqlOutOfDiskState {
+          fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+          }
         }
     }
 
     /// The current serving state of the database instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlInstanceState(std::string::String);
+    pub struct SqlInstanceState(std::borrow::Cow<'static, str>);
 
     impl SqlInstanceState {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlInstanceState instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4510,42 +4769,49 @@ pub mod database_instance {
 
     /// Useful constants to work with [SqlInstanceState](SqlInstanceState)
     pub mod sql_instance_state {
+        use super::SqlInstanceState;
+        
 
         /// The state of the instance is unknown.
-        pub const SQL_INSTANCE_STATE_UNSPECIFIED: &str = "SQL_INSTANCE_STATE_UNSPECIFIED";
+        pub const SQL_INSTANCE_STATE_UNSPECIFIED: SqlInstanceState = SqlInstanceState::new("SQL_INSTANCE_STATE_UNSPECIFIED");
 
         /// The instance is running, or has been stopped by owner.
-        pub const RUNNABLE: &str = "RUNNABLE";
+        pub const RUNNABLE: SqlInstanceState = SqlInstanceState::new("RUNNABLE");
 
         /// The instance is not available, for example due to problems with billing.
-        pub const SUSPENDED: &str = "SUSPENDED";
+        pub const SUSPENDED: SqlInstanceState = SqlInstanceState::new("SUSPENDED");
 
         /// The instance is being deleted.
-        pub const PENDING_DELETE: &str = "PENDING_DELETE";
+        pub const PENDING_DELETE: SqlInstanceState = SqlInstanceState::new("PENDING_DELETE");
 
         /// The instance is being created.
-        pub const PENDING_CREATE: &str = "PENDING_CREATE";
+        pub const PENDING_CREATE: SqlInstanceState = SqlInstanceState::new("PENDING_CREATE");
 
         /// The instance is down for maintenance.
-        pub const MAINTENANCE: &str = "MAINTENANCE";
+        pub const MAINTENANCE: SqlInstanceState = SqlInstanceState::new("MAINTENANCE");
 
         /// The creation of the instance failed or a fatal error occurred during
         /// maintenance.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: SqlInstanceState = SqlInstanceState::new("FAILED");
 
         /// Deprecated
-        pub const ONLINE_MAINTENANCE: &str = "ONLINE_MAINTENANCE";
+        pub const ONLINE_MAINTENANCE: SqlInstanceState = SqlInstanceState::new("ONLINE_MAINTENANCE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlInstanceState {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The SQL network architecture for the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlNetworkArchitecture(std::string::String);
+    pub struct SqlNetworkArchitecture(std::borrow::Cow<'static, str>);
 
     impl SqlNetworkArchitecture {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlNetworkArchitecture instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4556,14 +4822,22 @@ pub mod database_instance {
 
     /// Useful constants to work with [SqlNetworkArchitecture](SqlNetworkArchitecture)
     pub mod sql_network_architecture {
+        use super::SqlNetworkArchitecture;
+        
 
-        pub const SQL_NETWORK_ARCHITECTURE_UNSPECIFIED: &str = "SQL_NETWORK_ARCHITECTURE_UNSPECIFIED";
+        pub const SQL_NETWORK_ARCHITECTURE_UNSPECIFIED: SqlNetworkArchitecture = SqlNetworkArchitecture::new("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED");
 
         /// The instance uses the new network architecture.
-        pub const NEW_NETWORK_ARCHITECTURE: &str = "NEW_NETWORK_ARCHITECTURE";
+        pub const NEW_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new("NEW_NETWORK_ARCHITECTURE");
 
         /// The instance uses the old network architecture.
-        pub const OLD_NETWORK_ARCHITECTURE: &str = "OLD_NETWORK_ARCHITECTURE";
+        pub const OLD_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new("OLD_NETWORK_ARCHITECTURE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlNetworkArchitecture {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -4600,6 +4874,9 @@ pub struct GeminiInstanceConfig {
 }
 
 impl GeminiInstanceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
     pub fn set_entitled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
@@ -4679,6 +4956,9 @@ pub struct ReplicationCluster {
 }
 
 impl ReplicationCluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [psa_write_endpoint][crate::model::ReplicationCluster::psa_write_endpoint].
     pub fn set_psa_write_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4727,6 +5007,9 @@ pub struct AvailableDatabaseVersion {
 }
 
 impl AvailableDatabaseVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
     pub fn set_major_version<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
@@ -4766,6 +5049,9 @@ pub struct SqlInstancesRescheduleMaintenanceRequestBody {
 }
 
 impl SqlInstancesRescheduleMaintenanceRequestBody {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
     pub fn set_reschedule<T: std::convert::Into<std::option::Option<crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule>>>(mut self, v: T) -> Self {
@@ -4804,6 +5090,9 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     }
 
     impl Reschedule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [reschedule_type][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::reschedule_type].
         pub fn set_reschedule_type<T: std::convert::Into<crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType>>(mut self, v: T) -> Self {
@@ -4825,13 +5114,12 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     }
 
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(std::string::String);
+    pub struct RescheduleType(std::borrow::Cow<'static, str>);
 
     impl RescheduleType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RescheduleType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4842,18 +5130,26 @@ pub mod sql_instances_reschedule_maintenance_request_body {
 
     /// Useful constants to work with [RescheduleType](RescheduleType)
     pub mod reschedule_type {
+        use super::RescheduleType;
+        
 
-        pub const RESCHEDULE_TYPE_UNSPECIFIED: &str = "RESCHEDULE_TYPE_UNSPECIFIED";
+        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new("RESCHEDULE_TYPE_UNSPECIFIED");
 
         /// Reschedules maintenance to happen now (within 5 minutes).
-        pub const IMMEDIATE: &str = "IMMEDIATE";
+        pub const IMMEDIATE: RescheduleType = RescheduleType::new("IMMEDIATE");
 
         /// Reschedules maintenance to occur within one week from the originally
         /// scheduled day and time.
-        pub const NEXT_AVAILABLE_WINDOW: &str = "NEXT_AVAILABLE_WINDOW";
+        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new("NEXT_AVAILABLE_WINDOW");
 
         /// Reschedules maintenance to a specific time and day.
-        pub const SPECIFIC_TIME: &str = "SPECIFIC_TIME";
+        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+    }
+
+    impl std::convert::From<std::string::String> for RescheduleType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -4893,6 +5189,9 @@ pub struct DemoteMasterContext {
 }
 
 impl DemoteMasterContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4950,6 +5249,9 @@ pub struct DemoteContext {
 }
 
 impl DemoteContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4988,6 +5290,9 @@ pub struct FailoverContext {
 }
 
 impl FailoverContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [settings_version][crate::model::FailoverContext::settings_version].
     pub fn set_settings_version<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -5034,6 +5339,9 @@ pub struct RestoreBackupContext {
 }
 
 impl RestoreBackupContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::RestoreBackupContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5084,6 +5392,9 @@ pub struct RotateServerCaContext {
 }
 
 impl RotateServerCaContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::RotateServerCaContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5122,6 +5433,9 @@ pub struct TruncateLogContext {
 }
 
 impl TruncateLogContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::TruncateLogContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5164,6 +5478,9 @@ pub struct SqlExternalSyncSettingError {
 }
 
 impl SqlExternalSyncSettingError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlExternalSyncSettingError::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5197,13 +5514,12 @@ pub mod sql_external_sync_setting_error {
 
 
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlExternalSyncSettingErrorType(std::string::String);
+    pub struct SqlExternalSyncSettingErrorType(std::borrow::Cow<'static, str>);
 
     impl SqlExternalSyncSettingErrorType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlExternalSyncSettingErrorType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5214,172 +5530,180 @@ pub mod sql_external_sync_setting_error {
 
     /// Useful constants to work with [SqlExternalSyncSettingErrorType](SqlExternalSyncSettingErrorType)
     pub mod sql_external_sync_setting_error_type {
+        use super::SqlExternalSyncSettingErrorType;
+        
 
-        pub const SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED: &str = "SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED";
+        pub const SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED");
 
-        pub const CONNECTION_FAILURE: &str = "CONNECTION_FAILURE";
+        pub const CONNECTION_FAILURE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("CONNECTION_FAILURE");
 
-        pub const BINLOG_NOT_ENABLED: &str = "BINLOG_NOT_ENABLED";
+        pub const BINLOG_NOT_ENABLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("BINLOG_NOT_ENABLED");
 
-        pub const INCOMPATIBLE_DATABASE_VERSION: &str = "INCOMPATIBLE_DATABASE_VERSION";
+        pub const INCOMPATIBLE_DATABASE_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INCOMPATIBLE_DATABASE_VERSION");
 
-        pub const REPLICA_ALREADY_SETUP: &str = "REPLICA_ALREADY_SETUP";
+        pub const REPLICA_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("REPLICA_ALREADY_SETUP");
 
         /// The replication user is missing privileges that are required.
-        pub const INSUFFICIENT_PRIVILEGE: &str = "INSUFFICIENT_PRIVILEGE";
+        pub const INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_PRIVILEGE");
 
         /// Unsupported migration type.
-        pub const UNSUPPORTED_MIGRATION_TYPE: &str = "UNSUPPORTED_MIGRATION_TYPE";
+        pub const UNSUPPORTED_MIGRATION_TYPE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_MIGRATION_TYPE");
 
         /// No pglogical extension installed on databases, applicable for postgres.
-        pub const NO_PGLOGICAL_INSTALLED: &str = "NO_PGLOGICAL_INSTALLED";
+        pub const NO_PGLOGICAL_INSTALLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("NO_PGLOGICAL_INSTALLED");
 
         /// pglogical node already exists on databases, applicable for postgres.
-        pub const PGLOGICAL_NODE_ALREADY_EXISTS: &str = "PGLOGICAL_NODE_ALREADY_EXISTS";
+        pub const PGLOGICAL_NODE_ALREADY_EXISTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PGLOGICAL_NODE_ALREADY_EXISTS");
 
         /// The value of parameter wal_level is not set to logical.
-        pub const INVALID_WAL_LEVEL: &str = "INVALID_WAL_LEVEL";
+        pub const INVALID_WAL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_WAL_LEVEL");
 
         /// The value of parameter shared_preload_libraries does not include
         /// pglogical.
-        pub const INVALID_SHARED_PRELOAD_LIBRARY: &str = "INVALID_SHARED_PRELOAD_LIBRARY";
+        pub const INVALID_SHARED_PRELOAD_LIBRARY: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_SHARED_PRELOAD_LIBRARY");
 
         /// The value of parameter max_replication_slots is not sufficient.
-        pub const INSUFFICIENT_MAX_REPLICATION_SLOTS: &str = "INSUFFICIENT_MAX_REPLICATION_SLOTS";
+        pub const INSUFFICIENT_MAX_REPLICATION_SLOTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_REPLICATION_SLOTS");
 
         /// The value of parameter max_wal_senders is not sufficient.
-        pub const INSUFFICIENT_MAX_WAL_SENDERS: &str = "INSUFFICIENT_MAX_WAL_SENDERS";
+        pub const INSUFFICIENT_MAX_WAL_SENDERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_WAL_SENDERS");
 
         /// The value of parameter max_worker_processes is not sufficient.
-        pub const INSUFFICIENT_MAX_WORKER_PROCESSES: &str = "INSUFFICIENT_MAX_WORKER_PROCESSES";
+        pub const INSUFFICIENT_MAX_WORKER_PROCESSES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_WORKER_PROCESSES");
 
         /// Extensions installed are either not supported or having unsupported
         /// versions.
-        pub const UNSUPPORTED_EXTENSIONS: &str = "UNSUPPORTED_EXTENSIONS";
+        pub const UNSUPPORTED_EXTENSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_EXTENSIONS");
 
         /// The value of parameter rds.logical_replication is not set to 1.
-        pub const INVALID_RDS_LOGICAL_REPLICATION: &str = "INVALID_RDS_LOGICAL_REPLICATION";
+        pub const INVALID_RDS_LOGICAL_REPLICATION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_RDS_LOGICAL_REPLICATION");
 
         /// The primary instance logging setup doesn't allow EM sync.
-        pub const INVALID_LOGGING_SETUP: &str = "INVALID_LOGGING_SETUP";
+        pub const INVALID_LOGGING_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_LOGGING_SETUP");
 
         /// The primary instance database parameter setup doesn't allow EM sync.
-        pub const INVALID_DB_PARAM: &str = "INVALID_DB_PARAM";
+        pub const INVALID_DB_PARAM: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_DB_PARAM");
 
         /// The gtid_mode is not supported, applicable for MySQL.
-        pub const UNSUPPORTED_GTID_MODE: &str = "UNSUPPORTED_GTID_MODE";
+        pub const UNSUPPORTED_GTID_MODE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_GTID_MODE");
 
         /// SQL Server Agent is not running.
-        pub const SQLSERVER_AGENT_NOT_RUNNING: &str = "SQLSERVER_AGENT_NOT_RUNNING";
+        pub const SQLSERVER_AGENT_NOT_RUNNING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQLSERVER_AGENT_NOT_RUNNING");
 
         /// The table definition is not support due to missing primary key or replica
         /// identity, applicable for postgres.
-        pub const UNSUPPORTED_TABLE_DEFINITION: &str = "UNSUPPORTED_TABLE_DEFINITION";
+        pub const UNSUPPORTED_TABLE_DEFINITION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_TABLE_DEFINITION");
 
         /// The customer has a definer that will break EM setup.
-        pub const UNSUPPORTED_DEFINER: &str = "UNSUPPORTED_DEFINER";
+        pub const UNSUPPORTED_DEFINER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_DEFINER");
 
         /// SQL Server @@SERVERNAME does not match actual host name.
-        pub const SQLSERVER_SERVERNAME_MISMATCH: &str = "SQLSERVER_SERVERNAME_MISMATCH";
+        pub const SQLSERVER_SERVERNAME_MISMATCH: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQLSERVER_SERVERNAME_MISMATCH");
 
         /// The primary instance has been setup and will fail the setup.
-        pub const PRIMARY_ALREADY_SETUP: &str = "PRIMARY_ALREADY_SETUP";
+        pub const PRIMARY_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PRIMARY_ALREADY_SETUP");
 
         /// The primary instance has unsupported binary log format.
-        pub const UNSUPPORTED_BINLOG_FORMAT: &str = "UNSUPPORTED_BINLOG_FORMAT";
+        pub const UNSUPPORTED_BINLOG_FORMAT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_BINLOG_FORMAT");
 
         /// The primary instance's binary log retention setting.
-        pub const BINLOG_RETENTION_SETTING: &str = "BINLOG_RETENTION_SETTING";
+        pub const BINLOG_RETENTION_SETTING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("BINLOG_RETENTION_SETTING");
 
         /// The primary instance has tables with unsupported storage engine.
-        pub const UNSUPPORTED_STORAGE_ENGINE: &str = "UNSUPPORTED_STORAGE_ENGINE";
+        pub const UNSUPPORTED_STORAGE_ENGINE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_STORAGE_ENGINE");
 
         /// Source has tables with limited support
         /// eg: PostgreSQL tables without primary keys.
-        pub const LIMITED_SUPPORT_TABLES: &str = "LIMITED_SUPPORT_TABLES";
+        pub const LIMITED_SUPPORT_TABLES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("LIMITED_SUPPORT_TABLES");
 
         /// The replica instance contains existing data.
-        pub const EXISTING_DATA_IN_REPLICA: &str = "EXISTING_DATA_IN_REPLICA";
+        pub const EXISTING_DATA_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXISTING_DATA_IN_REPLICA");
 
         /// The replication user is missing privileges that are optional.
-        pub const MISSING_OPTIONAL_PRIVILEGES: &str = "MISSING_OPTIONAL_PRIVILEGES";
+        pub const MISSING_OPTIONAL_PRIVILEGES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("MISSING_OPTIONAL_PRIVILEGES");
 
         /// Additional BACKUP_ADMIN privilege is granted to the replication user
         /// which may lock source MySQL 8 instance for DDLs during initial sync.
-        pub const RISKY_BACKUP_ADMIN_PRIVILEGE: &str = "RISKY_BACKUP_ADMIN_PRIVILEGE";
+        pub const RISKY_BACKUP_ADMIN_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("RISKY_BACKUP_ADMIN_PRIVILEGE");
 
         /// The Cloud Storage bucket is missing necessary permissions.
-        pub const INSUFFICIENT_GCS_PERMISSIONS: &str = "INSUFFICIENT_GCS_PERMISSIONS";
+        pub const INSUFFICIENT_GCS_PERMISSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_GCS_PERMISSIONS");
 
         /// The Cloud Storage bucket has an error in the file or contains invalid
         /// file information.
-        pub const INVALID_FILE_INFO: &str = "INVALID_FILE_INFO";
+        pub const INVALID_FILE_INFO: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_FILE_INFO");
 
         /// The source instance has unsupported database settings for migration.
-        pub const UNSUPPORTED_DATABASE_SETTINGS: &str = "UNSUPPORTED_DATABASE_SETTINGS";
+        pub const UNSUPPORTED_DATABASE_SETTINGS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_DATABASE_SETTINGS");
 
         /// The replication user is missing parallel import specific privileges.
         /// (e.g. LOCK TABLES) for MySQL.
-        pub const MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE: &str = "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE";
+        pub const MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE");
 
         /// The global variable local_infile is off on external server replica.
-        pub const LOCAL_INFILE_OFF: &str = "LOCAL_INFILE_OFF";
+        pub const LOCAL_INFILE_OFF: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("LOCAL_INFILE_OFF");
 
         /// This code instructs customers to turn on point-in-time recovery manually
         /// for the instance after promoting the Cloud SQL for PostgreSQL instance.
-        pub const TURN_ON_PITR_AFTER_PROMOTE: &str = "TURN_ON_PITR_AFTER_PROMOTE";
+        pub const TURN_ON_PITR_AFTER_PROMOTE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("TURN_ON_PITR_AFTER_PROMOTE");
 
         /// The minor version of replica database is incompatible with the source.
-        pub const INCOMPATIBLE_DATABASE_MINOR_VERSION: &str = "INCOMPATIBLE_DATABASE_MINOR_VERSION";
+        pub const INCOMPATIBLE_DATABASE_MINOR_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INCOMPATIBLE_DATABASE_MINOR_VERSION");
 
         /// This warning message indicates that Cloud SQL uses the maximum number of
         /// subscriptions to migrate data from the source to the destination.
-        pub const SOURCE_MAX_SUBSCRIPTIONS: &str = "SOURCE_MAX_SUBSCRIPTIONS";
+        pub const SOURCE_MAX_SUBSCRIPTIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SOURCE_MAX_SUBSCRIPTIONS");
 
         /// Unable to verify definers on the source for MySQL.
-        pub const UNABLE_TO_VERIFY_DEFINERS: &str = "UNABLE_TO_VERIFY_DEFINERS";
+        pub const UNABLE_TO_VERIFY_DEFINERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNABLE_TO_VERIFY_DEFINERS");
 
         /// If a time out occurs while the subscription counts are calculated, then
         /// this value is set to 1. Otherwise, this value is set to 2.
-        pub const SUBSCRIPTION_CALCULATION_STATUS: &str = "SUBSCRIPTION_CALCULATION_STATUS";
+        pub const SUBSCRIPTION_CALCULATION_STATUS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SUBSCRIPTION_CALCULATION_STATUS");
 
         /// Count of subscriptions needed to sync source data for PostgreSQL
         /// database.
-        pub const PG_SUBSCRIPTION_COUNT: &str = "PG_SUBSCRIPTION_COUNT";
+        pub const PG_SUBSCRIPTION_COUNT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_SUBSCRIPTION_COUNT");
 
         /// Final parallel level that is used to do migration.
-        pub const PG_SYNC_PARALLEL_LEVEL: &str = "PG_SYNC_PARALLEL_LEVEL";
+        pub const PG_SYNC_PARALLEL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_SYNC_PARALLEL_LEVEL");
 
         /// The disk size of the replica instance is smaller than the data size of
         /// the source instance.
-        pub const INSUFFICIENT_DISK_SIZE: &str = "INSUFFICIENT_DISK_SIZE";
+        pub const INSUFFICIENT_DISK_SIZE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_DISK_SIZE");
 
         /// The data size of the source instance is greater than 1 TB, the number of
         /// cores of the replica instance is less than 8, and the memory of the
         /// replica is less than 32 GB.
-        pub const INSUFFICIENT_MACHINE_TIER: &str = "INSUFFICIENT_MACHINE_TIER";
+        pub const INSUFFICIENT_MACHINE_TIER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MACHINE_TIER");
 
         /// The warning message indicates the unsupported extensions will not be
         /// migrated to the destination.
-        pub const UNSUPPORTED_EXTENSIONS_NOT_MIGRATED: &str = "UNSUPPORTED_EXTENSIONS_NOT_MIGRATED";
+        pub const UNSUPPORTED_EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED");
 
         /// The warning message indicates the pg_cron extension and settings will not
         /// be migrated to the destination.
-        pub const EXTENSIONS_NOT_MIGRATED: &str = "EXTENSIONS_NOT_MIGRATED";
+        pub const EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXTENSIONS_NOT_MIGRATED");
 
         /// The error message indicates that pg_cron flags are enabled on the
         /// destination which is not supported during the migration.
-        pub const PG_CRON_FLAG_ENABLED_IN_REPLICA: &str = "PG_CRON_FLAG_ENABLED_IN_REPLICA";
+        pub const PG_CRON_FLAG_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_CRON_FLAG_ENABLED_IN_REPLICA");
 
         /// This error message indicates that the specified extensions are not
         /// enabled on destination instance. For example, before you can migrate
         /// data to the destination instance, you must enable the PGAudit extension
         /// on the instance.
-        pub const EXTENSIONS_NOT_ENABLED_IN_REPLICA: &str = "EXTENSIONS_NOT_ENABLED_IN_REPLICA";
+        pub const EXTENSIONS_NOT_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXTENSIONS_NOT_ENABLED_IN_REPLICA");
 
         /// The source database has generated columns that can't be migrated. Please
         /// change them to regular columns before migration.
-        pub const UNSUPPORTED_COLUMNS: &str = "UNSUPPORTED_COLUMNS";
+        pub const UNSUPPORTED_COLUMNS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_COLUMNS");
+    }
+
+    impl std::convert::From<std::string::String> for SqlExternalSyncSettingErrorType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -5429,6 +5753,9 @@ pub struct OnPremisesConfiguration {
 }
 
 impl OnPremisesConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host_port][crate::model::OnPremisesConfiguration::host_port].
     pub fn set_host_port<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5527,6 +5854,9 @@ pub struct ReplicaConfiguration {
 }
 
 impl ReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::ReplicaConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5584,6 +5914,9 @@ pub struct SqlInstancesAcquireSsrsLeaseRequest {
 }
 
 impl SqlInstancesAcquireSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5623,6 +5956,9 @@ pub struct SqlInstancesAcquireSsrsLeaseResponse {
 }
 
 impl SqlInstancesAcquireSsrsLeaseResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesAcquireSsrsLeaseResponse::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5657,6 +5993,9 @@ pub struct SqlInstancesReleaseSsrsLeaseRequest {
 }
 
 impl SqlInstancesReleaseSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5690,6 +6029,9 @@ pub struct SqlInstancesReleaseSsrsLeaseResponse {
 }
 
 impl SqlInstancesReleaseSsrsLeaseResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesReleaseSsrsLeaseResponse::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5721,6 +6063,9 @@ pub struct SqlOperationsGetRequest {
 }
 
 impl SqlOperationsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5766,6 +6111,9 @@ pub struct SqlOperationsListRequest {
 }
 
 impl SqlOperationsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5820,6 +6168,9 @@ pub struct OperationsListResponse {
 }
 
 impl OperationsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5868,6 +6219,9 @@ pub struct SqlOperationsCancelRequest {
 }
 
 impl SqlOperationsCancelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5915,6 +6269,9 @@ pub struct AclEntry {
 }
 
 impl AclEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [value][crate::model::AclEntry::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5967,6 +6324,9 @@ pub struct ApiWarning {
 }
 
 impl ApiWarning {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [code][crate::model::ApiWarning::code].
     pub fn set_code<T: std::convert::Into<crate::model::api_warning::SqlApiWarningCode>>(mut self, v: T) -> Self {
@@ -6000,13 +6360,12 @@ pub mod api_warning {
 
 
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlApiWarningCode(std::string::String);
+    pub struct SqlApiWarningCode(std::borrow::Cow<'static, str>);
 
     impl SqlApiWarningCode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlApiWarningCode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6017,25 +6376,33 @@ pub mod api_warning {
 
     /// Useful constants to work with [SqlApiWarningCode](SqlApiWarningCode)
     pub mod sql_api_warning_code {
+        use super::SqlApiWarningCode;
+        
 
         /// An unknown or unset warning type from Cloud SQL API.
-        pub const SQL_API_WARNING_CODE_UNSPECIFIED: &str = "SQL_API_WARNING_CODE_UNSPECIFIED";
+        pub const SQL_API_WARNING_CODE_UNSPECIFIED: SqlApiWarningCode = SqlApiWarningCode::new("SQL_API_WARNING_CODE_UNSPECIFIED");
 
         /// Warning when one or more regions are not reachable.  The returned result
         /// set may be incomplete.
-        pub const REGION_UNREACHABLE: &str = "REGION_UNREACHABLE";
+        pub const REGION_UNREACHABLE: SqlApiWarningCode = SqlApiWarningCode::new("REGION_UNREACHABLE");
 
         /// Warning when user provided maxResults parameter exceeds the limit.  The
         /// returned result set may be incomplete.
-        pub const MAX_RESULTS_EXCEEDS_LIMIT: &str = "MAX_RESULTS_EXCEEDS_LIMIT";
+        pub const MAX_RESULTS_EXCEEDS_LIMIT: SqlApiWarningCode = SqlApiWarningCode::new("MAX_RESULTS_EXCEEDS_LIMIT");
 
         /// Warning when user tries to create/update a user with credentials that
         /// have previously been compromised by a public data breach.
-        pub const COMPROMISED_CREDENTIALS: &str = "COMPROMISED_CREDENTIALS";
+        pub const COMPROMISED_CREDENTIALS: SqlApiWarningCode = SqlApiWarningCode::new("COMPROMISED_CREDENTIALS");
 
         /// Warning when the operation succeeds but some non-critical workflow state
         /// failed.
-        pub const INTERNAL_STATE_FAILURE: &str = "INTERNAL_STATE_FAILURE";
+        pub const INTERNAL_STATE_FAILURE: SqlApiWarningCode = SqlApiWarningCode::new("INTERNAL_STATE_FAILURE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlApiWarningCode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -6058,6 +6425,9 @@ pub struct BackupRetentionSettings {
 }
 
 impl BackupRetentionSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [retention_unit][crate::model::BackupRetentionSettings::retention_unit].
     pub fn set_retention_unit<T: std::convert::Into<crate::model::backup_retention_settings::RetentionUnit>>(mut self, v: T) -> Self {
@@ -6086,13 +6456,12 @@ pub mod backup_retention_settings {
 
     /// The units that retained_backups specifies, we only support COUNT.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RetentionUnit(std::string::String);
+    pub struct RetentionUnit(std::borrow::Cow<'static, str>);
 
     impl RetentionUnit {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RetentionUnit instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6103,12 +6472,20 @@ pub mod backup_retention_settings {
 
     /// Useful constants to work with [RetentionUnit](RetentionUnit)
     pub mod retention_unit {
+        use super::RetentionUnit;
+        
 
         /// Backup retention unit is unspecified, will be treated as COUNT.
-        pub const RETENTION_UNIT_UNSPECIFIED: &str = "RETENTION_UNIT_UNSPECIFIED";
+        pub const RETENTION_UNIT_UNSPECIFIED: RetentionUnit = RetentionUnit::new("RETENTION_UNIT_UNSPECIFIED");
 
         /// Retention will be by count, eg. "retain the most recent 7 backups".
-        pub const COUNT: &str = "COUNT";
+        pub const COUNT: RetentionUnit = RetentionUnit::new("COUNT");
+    }
+
+    impl std::convert::From<std::string::String> for RetentionUnit {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -6165,6 +6542,9 @@ pub struct BackupConfiguration {
 }
 
 impl BackupConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [start_time][crate::model::BackupConfiguration::start_time].
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6242,13 +6622,12 @@ pub mod backup_configuration {
     /// This value contains the storage location of the transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionalLogStorageState(std::string::String);
+    pub struct TransactionalLogStorageState(std::borrow::Cow<'static, str>);
 
     impl TransactionalLogStorageState {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new TransactionalLogStorageState instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6259,27 +6638,35 @@ pub mod backup_configuration {
 
     /// Useful constants to work with [TransactionalLogStorageState](TransactionalLogStorageState)
     pub mod transactional_log_storage_state {
+        use super::TransactionalLogStorageState;
+        
 
         /// Unspecified.
-        pub const TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED: &str = "TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED";
+        pub const TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED: TransactionalLogStorageState = TransactionalLogStorageState::new("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED");
 
         /// The transaction logs used for PITR for the instance are stored
         /// on a data disk.
-        pub const DISK: &str = "DISK";
+        pub const DISK: TransactionalLogStorageState = TransactionalLogStorageState::new("DISK");
 
         /// The transaction logs used for PITR for the instance are switching from
         /// being stored on a data disk to being stored in Cloud Storage.
         /// Only applicable to MySQL.
-        pub const SWITCHING_TO_CLOUD_STORAGE: &str = "SWITCHING_TO_CLOUD_STORAGE";
+        pub const SWITCHING_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("SWITCHING_TO_CLOUD_STORAGE");
 
         /// The transaction logs used for PITR for the instance are now stored
         /// in Cloud Storage. Previously, they were stored on a data disk.
         /// Only applicable to MySQL.
-        pub const SWITCHED_TO_CLOUD_STORAGE: &str = "SWITCHED_TO_CLOUD_STORAGE";
+        pub const SWITCHED_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("SWITCHED_TO_CLOUD_STORAGE");
 
         /// The transaction logs used for PITR for the instance are stored in
         /// Cloud Storage. Only applicable to MySQL and PostgreSQL.
-        pub const CLOUD_STORAGE: &str = "CLOUD_STORAGE";
+        pub const CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("CLOUD_STORAGE");
+    }
+
+    impl std::convert::From<std::string::String> for TransactionalLogStorageState {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -6296,6 +6683,9 @@ pub struct PerformDiskShrinkContext {
 }
 
 impl PerformDiskShrinkContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [target_size_gb][crate::model::PerformDiskShrinkContext::target_size_gb].
     pub fn set_target_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -6327,6 +6717,9 @@ pub struct BackupContext {
 }
 
 impl BackupContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_id][crate::model::BackupContext::backup_id].
     pub fn set_backup_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -6394,6 +6787,9 @@ pub struct Database {
 }
 
 impl Database {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::Database::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6512,6 +6908,9 @@ pub struct SqlServerDatabaseDetails {
 }
 
 impl SqlServerDatabaseDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [compatibility_level][crate::model::SqlServerDatabaseDetails::compatibility_level].
     pub fn set_compatibility_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -6555,6 +6954,9 @@ pub struct DatabaseFlags {
 }
 
 impl DatabaseFlags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::DatabaseFlags::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6588,6 +6990,9 @@ pub struct MySqlSyncConfig {
 }
 
 impl MySqlSyncConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [initial_sync_flags][crate::model::MySqlSyncConfig::initial_sync_flags].
     pub fn set_initial_sync_flags<T, V>(mut self, v: T) -> Self
@@ -6626,6 +7031,9 @@ pub struct SyncFlags {
 }
 
 impl SyncFlags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::SyncFlags::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6669,6 +7077,9 @@ pub struct InstanceReference {
 }
 
 impl InstanceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::InstanceReference::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6718,6 +7129,9 @@ pub struct DemoteMasterConfiguration {
 }
 
 impl DemoteMasterConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6773,6 +7187,9 @@ pub struct DemoteMasterMySqlReplicaConfiguration {
 }
 
 impl DemoteMasterMySqlReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterMySqlReplicaConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6873,6 +7290,9 @@ pub struct ExportContext {
 }
 
 impl ExportContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [uri][crate::model::ExportContext::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6971,6 +7391,9 @@ pub mod export_context {
     }
 
     impl SqlCsvExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [select_query][crate::model::export_context::SqlCsvExportOptions::select_query].
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7042,6 +7465,9 @@ pub mod export_context {
     }
 
     impl SqlExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
         pub fn set_schema_only<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7115,6 +7541,9 @@ pub mod export_context {
         }
 
         impl MysqlExportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
             pub fn set_master_data<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -7149,6 +7578,9 @@ pub mod export_context {
         }
 
         impl PostgresExportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
             pub fn set_clean<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7201,6 +7633,9 @@ pub mod export_context {
     }
 
     impl SqlBakExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
         pub fn set_striped<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7287,6 +7722,9 @@ pub struct ImportContext {
 }
 
 impl ImportContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [uri][crate::model::ImportContext::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7369,6 +7807,9 @@ pub mod import_context {
     }
 
     impl SqlImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [threads][crate::model::import_context::SqlImportOptions::threads].
         pub fn set_threads<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -7419,6 +7860,9 @@ pub mod import_context {
         }
 
         impl PostgresImportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
             pub fn set_clean<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7476,6 +7920,9 @@ pub mod import_context {
     }
 
     impl SqlCsvImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [table][crate::model::import_context::SqlCsvImportOptions::table].
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7570,6 +8017,9 @@ pub mod import_context {
     }
 
     impl SqlBakImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
         pub fn set_encryption_options<T: std::convert::Into<std::option::Option<crate::model::import_context::sql_bak_import_options::EncryptionOptions>>>(mut self, v: T) -> Self {
@@ -7650,6 +8100,9 @@ pub mod import_context {
         }
 
         impl EncryptionOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [cert_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::cert_path].
             pub fn set_cert_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7762,6 +8215,9 @@ pub struct IpConfiguration {
 }
 
 impl IpConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
     pub fn set_ipv4_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7837,13 +8293,12 @@ pub mod ip_configuration {
 
     /// The SSL options for database connections.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SslMode(std::string::String);
+    pub struct SslMode(std::borrow::Cow<'static, str>);
 
     impl SslMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SslMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7854,9 +8309,11 @@ pub mod ip_configuration {
 
     /// Useful constants to work with [SslMode](SslMode)
     pub mod ssl_mode {
+        use super::SslMode;
+        
 
         /// The SSL mode is unknown.
-        pub const SSL_MODE_UNSPECIFIED: &str = "SSL_MODE_UNSPECIFIED";
+        pub const SSL_MODE_UNSPECIFIED: SslMode = SslMode::new("SSL_MODE_UNSPECIFIED");
 
         /// Allow non-SSL/non-TLS and SSL/TLS connections.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
@@ -7864,7 +8321,7 @@ pub mod ip_configuration {
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ALLOW_UNENCRYPTED_AND_ENCRYPTED: &str = "ALLOW_UNENCRYPTED_AND_ENCRYPTED";
+        pub const ALLOW_UNENCRYPTED_AND_ENCRYPTED: SslMode = SslMode::new("ALLOW_UNENCRYPTED_AND_ENCRYPTED");
 
         /// Only allow connections encrypted with SSL/TLS.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
@@ -7872,7 +8329,7 @@ pub mod ip_configuration {
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ENCRYPTED_ONLY: &str = "ENCRYPTED_ONLY";
+        pub const ENCRYPTED_ONLY: SslMode = SslMode::new("ENCRYPTED_ONLY");
 
         /// Only allow connections encrypted with SSL/TLS and with valid
         /// client certificates.
@@ -7888,18 +8345,23 @@ pub mod ip_configuration {
         /// to enforce client identity verification.
         ///
         /// Only applicable to MySQL and PostgreSQL. Not applicable to SQL Server.
-        pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: &str = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED";
+        pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: SslMode = SslMode::new("TRUSTED_CLIENT_CERTIFICATE_REQUIRED");
+    }
+
+    impl std::convert::From<std::string::String> for SslMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// Various Certificate Authority (CA) modes for certificate signing.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(std::string::String);
+    pub struct CaMode(std::borrow::Cow<'static, str>);
 
     impl CaMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CaMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7910,16 +8372,24 @@ pub mod ip_configuration {
 
     /// Useful constants to work with [CaMode](CaMode)
     pub mod ca_mode {
+        use super::CaMode;
+        
 
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: &str = "CA_MODE_UNSPECIFIED";
+        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new("CA_MODE_UNSPECIFIED");
 
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: &str = "GOOGLE_MANAGED_INTERNAL_CA";
+        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new("GOOGLE_MANAGED_INTERNAL_CA");
 
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: &str = "GOOGLE_MANAGED_CAS_CA";
+        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
+    }
+
+    impl std::convert::From<std::string::String> for CaMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -7945,6 +8415,9 @@ pub struct PscConfig {
 }
 
 impl PscConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
     pub fn set_psc_enabled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
@@ -8002,6 +8475,9 @@ pub struct LocationPreference {
 }
 
 impl LocationPreference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [follow_gae_application][crate::model::LocationPreference::follow_gae_application].
     pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8063,6 +8539,9 @@ pub struct MaintenanceWindow {
 }
 
 impl MaintenanceWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [hour][crate::model::MaintenanceWindow::hour].
     pub fn set_hour<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -8124,6 +8603,9 @@ pub struct DenyMaintenancePeriod {
 }
 
 impl DenyMaintenancePeriod {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [start_date][crate::model::DenyMaintenancePeriod::start_date].
     pub fn set_start_date<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8182,6 +8664,9 @@ pub struct InsightsConfig {
 }
 
 impl InsightsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [query_insights_enabled][crate::model::InsightsConfig::query_insights_enabled].
     pub fn set_query_insights_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -8281,6 +8766,9 @@ pub struct MySqlReplicaConfiguration {
 }
 
 impl MySqlReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [dump_file_path][crate::model::MySqlReplicaConfiguration::dump_file_path].
     pub fn set_dump_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8372,6 +8860,9 @@ pub struct DiskEncryptionConfiguration {
 }
 
 impl DiskEncryptionConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kms_key_name][crate::model::DiskEncryptionConfiguration::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8409,6 +8900,9 @@ pub struct DiskEncryptionStatus {
 }
 
 impl DiskEncryptionStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kms_key_version_name][crate::model::DiskEncryptionStatus::kms_key_version_name].
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8456,6 +8950,9 @@ pub struct IpMapping {
 }
 
 impl IpMapping {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [r#type][crate::model::IpMapping::type].
     pub fn set_type<T: std::convert::Into<crate::model::SqlIpAddressType>>(mut self, v: T) -> Self {
@@ -8584,6 +9081,9 @@ pub struct Operation {
 }
 
 impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::Operation::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8708,13 +9208,12 @@ pub mod operation {
 
     /// The type of Cloud SQL operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationType(std::string::String);
+    pub struct SqlOperationType(std::borrow::Cow<'static, str>);
 
     impl SqlOperationType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlOperationType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -8725,169 +9224,176 @@ pub mod operation {
 
     /// Useful constants to work with [SqlOperationType](SqlOperationType)
     pub mod sql_operation_type {
+        use super::SqlOperationType;
+        
 
         /// Unknown operation type.
-        pub const SQL_OPERATION_TYPE_UNSPECIFIED: &str = "SQL_OPERATION_TYPE_UNSPECIFIED";
+        pub const SQL_OPERATION_TYPE_UNSPECIFIED: SqlOperationType = SqlOperationType::new("SQL_OPERATION_TYPE_UNSPECIFIED");
 
         /// Imports data into a Cloud SQL instance.
-        pub const IMPORT: &str = "IMPORT";
+        pub const IMPORT: SqlOperationType = SqlOperationType::new("IMPORT");
 
         /// Exports data from a Cloud SQL instance to a Cloud Storage
         /// bucket.
-        pub const EXPORT: &str = "EXPORT";
+        pub const EXPORT: SqlOperationType = SqlOperationType::new("EXPORT");
 
         /// Creates a new Cloud SQL instance.
-        pub const CREATE: &str = "CREATE";
+        pub const CREATE: SqlOperationType = SqlOperationType::new("CREATE");
 
         /// Updates the settings of a Cloud SQL instance.
-        pub const UPDATE: &str = "UPDATE";
+        pub const UPDATE: SqlOperationType = SqlOperationType::new("UPDATE");
 
         /// Deletes a Cloud SQL instance.
-        pub const DELETE: &str = "DELETE";
+        pub const DELETE: SqlOperationType = SqlOperationType::new("DELETE");
 
         /// Restarts the Cloud SQL instance.
-        pub const RESTART: &str = "RESTART";
+        pub const RESTART: SqlOperationType = SqlOperationType::new("RESTART");
 
-        pub const BACKUP: &str = "BACKUP";
+        pub const BACKUP: SqlOperationType = SqlOperationType::new("BACKUP");
 
-        pub const SNAPSHOT: &str = "SNAPSHOT";
+        pub const SNAPSHOT: SqlOperationType = SqlOperationType::new("SNAPSHOT");
 
         /// Performs instance backup.
-        pub const BACKUP_VOLUME: &str = "BACKUP_VOLUME";
+        pub const BACKUP_VOLUME: SqlOperationType = SqlOperationType::new("BACKUP_VOLUME");
 
         /// Deletes an instance backup.
-        pub const DELETE_VOLUME: &str = "DELETE_VOLUME";
+        pub const DELETE_VOLUME: SqlOperationType = SqlOperationType::new("DELETE_VOLUME");
 
         /// Restores an instance backup.
-        pub const RESTORE_VOLUME: &str = "RESTORE_VOLUME";
+        pub const RESTORE_VOLUME: SqlOperationType = SqlOperationType::new("RESTORE_VOLUME");
 
         /// Injects a privileged user in mysql for MOB instances.
-        pub const INJECT_USER: &str = "INJECT_USER";
+        pub const INJECT_USER: SqlOperationType = SqlOperationType::new("INJECT_USER");
 
         /// Clones a Cloud SQL instance.
-        pub const CLONE: &str = "CLONE";
+        pub const CLONE: SqlOperationType = SqlOperationType::new("CLONE");
 
         /// Stops replication on a Cloud SQL read replica instance.
-        pub const STOP_REPLICA: &str = "STOP_REPLICA";
+        pub const STOP_REPLICA: SqlOperationType = SqlOperationType::new("STOP_REPLICA");
 
         /// Starts replication on a Cloud SQL read replica instance.
-        pub const START_REPLICA: &str = "START_REPLICA";
+        pub const START_REPLICA: SqlOperationType = SqlOperationType::new("START_REPLICA");
 
         /// Promotes a Cloud SQL replica instance.
-        pub const PROMOTE_REPLICA: &str = "PROMOTE_REPLICA";
+        pub const PROMOTE_REPLICA: SqlOperationType = SqlOperationType::new("PROMOTE_REPLICA");
 
         /// Creates a Cloud SQL replica instance.
-        pub const CREATE_REPLICA: &str = "CREATE_REPLICA";
+        pub const CREATE_REPLICA: SqlOperationType = SqlOperationType::new("CREATE_REPLICA");
 
         /// Creates a new user in a Cloud SQL instance.
-        pub const CREATE_USER: &str = "CREATE_USER";
+        pub const CREATE_USER: SqlOperationType = SqlOperationType::new("CREATE_USER");
 
         /// Deletes a user from a Cloud SQL instance.
-        pub const DELETE_USER: &str = "DELETE_USER";
+        pub const DELETE_USER: SqlOperationType = SqlOperationType::new("DELETE_USER");
 
         /// Updates an existing user in a Cloud SQL instance.
-        pub const UPDATE_USER: &str = "UPDATE_USER";
+        pub const UPDATE_USER: SqlOperationType = SqlOperationType::new("UPDATE_USER");
 
         /// Creates a database in the Cloud SQL instance.
-        pub const CREATE_DATABASE: &str = "CREATE_DATABASE";
+        pub const CREATE_DATABASE: SqlOperationType = SqlOperationType::new("CREATE_DATABASE");
 
         /// Deletes a database in the Cloud SQL instance.
-        pub const DELETE_DATABASE: &str = "DELETE_DATABASE";
+        pub const DELETE_DATABASE: SqlOperationType = SqlOperationType::new("DELETE_DATABASE");
 
         /// Updates a database in the Cloud SQL instance.
-        pub const UPDATE_DATABASE: &str = "UPDATE_DATABASE";
+        pub const UPDATE_DATABASE: SqlOperationType = SqlOperationType::new("UPDATE_DATABASE");
 
         /// Performs failover of an HA-enabled Cloud SQL
         /// failover replica.
-        pub const FAILOVER: &str = "FAILOVER";
+        pub const FAILOVER: SqlOperationType = SqlOperationType::new("FAILOVER");
 
         /// Deletes the backup taken by a backup run.
-        pub const DELETE_BACKUP: &str = "DELETE_BACKUP";
+        pub const DELETE_BACKUP: SqlOperationType = SqlOperationType::new("DELETE_BACKUP");
 
-        pub const RECREATE_REPLICA: &str = "RECREATE_REPLICA";
+        pub const RECREATE_REPLICA: SqlOperationType = SqlOperationType::new("RECREATE_REPLICA");
 
         /// Truncates a general or slow log table in MySQL.
-        pub const TRUNCATE_LOG: &str = "TRUNCATE_LOG";
+        pub const TRUNCATE_LOG: SqlOperationType = SqlOperationType::new("TRUNCATE_LOG");
 
         /// Demotes the stand-alone instance to be a Cloud SQL
         /// read replica for an external database server.
-        pub const DEMOTE_MASTER: &str = "DEMOTE_MASTER";
+        pub const DEMOTE_MASTER: SqlOperationType = SqlOperationType::new("DEMOTE_MASTER");
 
         /// Indicates that the instance is currently in maintenance. Maintenance
         /// typically causes the instance to be unavailable for 1-3 minutes.
-        pub const MAINTENANCE: &str = "MAINTENANCE";
+        pub const MAINTENANCE: SqlOperationType = SqlOperationType::new("MAINTENANCE");
 
         /// This field is deprecated, and will be removed in future version of API.
-        pub const ENABLE_PRIVATE_IP: &str = "ENABLE_PRIVATE_IP";
+        pub const ENABLE_PRIVATE_IP: SqlOperationType = SqlOperationType::new("ENABLE_PRIVATE_IP");
 
-        pub const DEFER_MAINTENANCE: &str = "DEFER_MAINTENANCE";
+        pub const DEFER_MAINTENANCE: SqlOperationType = SqlOperationType::new("DEFER_MAINTENANCE");
 
         /// Creates clone instance.
-        pub const CREATE_CLONE: &str = "CREATE_CLONE";
+        pub const CREATE_CLONE: SqlOperationType = SqlOperationType::new("CREATE_CLONE");
 
         /// Reschedule maintenance to another time.
-        pub const RESCHEDULE_MAINTENANCE: &str = "RESCHEDULE_MAINTENANCE";
+        pub const RESCHEDULE_MAINTENANCE: SqlOperationType = SqlOperationType::new("RESCHEDULE_MAINTENANCE");
 
         /// Starts external sync of a Cloud SQL EM replica to an external primary
         /// instance.
-        pub const START_EXTERNAL_SYNC: &str = "START_EXTERNAL_SYNC";
+        pub const START_EXTERNAL_SYNC: SqlOperationType = SqlOperationType::new("START_EXTERNAL_SYNC");
 
         /// Recovers logs from an instance's old data disk.
-        pub const LOG_CLEANUP: &str = "LOG_CLEANUP";
+        pub const LOG_CLEANUP: SqlOperationType = SqlOperationType::new("LOG_CLEANUP");
 
         /// Performs auto-restart of an HA-enabled Cloud SQL database for auto
         /// recovery.
-        pub const AUTO_RESTART: &str = "AUTO_RESTART";
+        pub const AUTO_RESTART: SqlOperationType = SqlOperationType::new("AUTO_RESTART");
 
         /// Re-encrypts CMEK instances with latest key version.
-        pub const REENCRYPT: &str = "REENCRYPT";
+        pub const REENCRYPT: SqlOperationType = SqlOperationType::new("REENCRYPT");
 
         /// Switches the roles of the primary and replica pair. The target instance
         /// should be the replica.
-        pub const SWITCHOVER: &str = "SWITCHOVER";
+        pub const SWITCHOVER: SqlOperationType = SqlOperationType::new("SWITCHOVER");
 
         /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const ACQUIRE_SSRS_LEASE: &str = "ACQUIRE_SSRS_LEASE";
+        pub const ACQUIRE_SSRS_LEASE: SqlOperationType = SqlOperationType::new("ACQUIRE_SSRS_LEASE");
 
         /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const RELEASE_SSRS_LEASE: &str = "RELEASE_SSRS_LEASE";
+        pub const RELEASE_SSRS_LEASE: SqlOperationType = SqlOperationType::new("RELEASE_SSRS_LEASE");
 
         /// Reconfigures old primary after a promote replica operation. Effect of a
         /// promote operation to the old primary is executed in this operation,
         /// asynchronously from the promote replica operation executed to the
         /// replica.
-        pub const RECONFIGURE_OLD_PRIMARY: &str = "RECONFIGURE_OLD_PRIMARY";
+        pub const RECONFIGURE_OLD_PRIMARY: SqlOperationType = SqlOperationType::new("RECONFIGURE_OLD_PRIMARY");
 
         /// Indicates that the instance, its read replicas, and its cascading
         /// replicas are in maintenance. Maintenance typically gets initiated on
         /// groups of replicas first, followed by the primary instance. For each
         /// instance, maintenance typically causes the instance to be unavailable for
         /// 1-3 minutes.
-        pub const CLUSTER_MAINTENANCE: &str = "CLUSTER_MAINTENANCE";
+        pub const CLUSTER_MAINTENANCE: SqlOperationType = SqlOperationType::new("CLUSTER_MAINTENANCE");
 
         /// Indicates that the instance (and any of its replicas) are currently in
         /// maintenance. This is initiated as a self-service request by using SSM.
         /// Maintenance typically causes the instance to be unavailable for 1-3
         /// minutes.
-        pub const SELF_SERVICE_MAINTENANCE: &str = "SELF_SERVICE_MAINTENANCE";
+        pub const SELF_SERVICE_MAINTENANCE: SqlOperationType = SqlOperationType::new("SELF_SERVICE_MAINTENANCE");
 
         /// Switches a primary instance to a replica. This operation runs as part of
         /// a switchover operation to the original primary instance.
-        pub const SWITCHOVER_TO_REPLICA: &str = "SWITCHOVER_TO_REPLICA";
+        pub const SWITCHOVER_TO_REPLICA: SqlOperationType = SqlOperationType::new("SWITCHOVER_TO_REPLICA");
 
         /// Updates the major version of a Cloud SQL instance.
-        pub const MAJOR_VERSION_UPGRADE: &str = "MAJOR_VERSION_UPGRADE";
+        pub const MAJOR_VERSION_UPGRADE: SqlOperationType = SqlOperationType::new("MAJOR_VERSION_UPGRADE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlOperationType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The status of an operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationStatus(std::string::String);
+    pub struct SqlOperationStatus(std::borrow::Cow<'static, str>);
 
     impl SqlOperationStatus {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlOperationStatus instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -8898,18 +9404,26 @@ pub mod operation {
 
     /// Useful constants to work with [SqlOperationStatus](SqlOperationStatus)
     pub mod sql_operation_status {
+        use super::SqlOperationStatus;
+        
 
         /// The state of the operation is unknown.
-        pub const SQL_OPERATION_STATUS_UNSPECIFIED: &str = "SQL_OPERATION_STATUS_UNSPECIFIED";
+        pub const SQL_OPERATION_STATUS_UNSPECIFIED: SqlOperationStatus = SqlOperationStatus::new("SQL_OPERATION_STATUS_UNSPECIFIED");
 
         /// The operation has been queued, but has not started yet.
-        pub const PENDING: &str = "PENDING";
+        pub const PENDING: SqlOperationStatus = SqlOperationStatus::new("PENDING");
 
         /// The operation is running.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: SqlOperationStatus = SqlOperationStatus::new("RUNNING");
 
         /// The operation completed.
-        pub const DONE: &str = "DONE";
+        pub const DONE: SqlOperationStatus = SqlOperationStatus::new("DONE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlOperationStatus {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -8934,6 +9448,9 @@ pub struct OperationError {
 }
 
 impl OperationError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationError::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8977,6 +9494,9 @@ pub struct OperationErrors {
 }
 
 impl OperationErrors {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationErrors::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9040,6 +9560,9 @@ pub struct PasswordValidationPolicy {
 }
 
 impl PasswordValidationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
     pub fn set_min_length<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -9098,13 +9621,12 @@ pub mod password_validation_policy {
 
     /// The complexity choices of the password.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Complexity(std::string::String);
+    pub struct Complexity(std::borrow::Cow<'static, str>);
 
     impl Complexity {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Complexity instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -9115,13 +9637,21 @@ pub mod password_validation_policy {
 
     /// Useful constants to work with [Complexity](Complexity)
     pub mod complexity {
+        use super::Complexity;
+        
 
         /// Complexity check is not specified.
-        pub const COMPLEXITY_UNSPECIFIED: &str = "COMPLEXITY_UNSPECIFIED";
+        pub const COMPLEXITY_UNSPECIFIED: Complexity = Complexity::new("COMPLEXITY_UNSPECIFIED");
 
         /// A combination of lowercase, uppercase, numeric, and non-alphanumeric
         /// characters.
-        pub const COMPLEXITY_DEFAULT: &str = "COMPLEXITY_DEFAULT";
+        pub const COMPLEXITY_DEFAULT: Complexity = Complexity::new("COMPLEXITY_DEFAULT");
+    }
+
+    impl std::convert::From<std::string::String> for Complexity {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -9137,6 +9667,9 @@ pub struct DataCacheConfig {
 }
 
 impl DataCacheConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [data_cache_enabled][crate::model::DataCacheConfig::data_cache_enabled].
     pub fn set_data_cache_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -9343,6 +9876,9 @@ pub struct Settings {
 }
 
 impl Settings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [settings_version][crate::model::Settings::settings_version].
     pub fn set_settings_version<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
@@ -9584,13 +10120,12 @@ pub mod settings {
 
     /// Specifies when the instance is activated.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlActivationPolicy(std::string::String);
+    pub struct SqlActivationPolicy(std::borrow::Cow<'static, str>);
 
     impl SqlActivationPolicy {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlActivationPolicy instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -9601,29 +10136,36 @@ pub mod settings {
 
     /// Useful constants to work with [SqlActivationPolicy](SqlActivationPolicy)
     pub mod sql_activation_policy {
+        use super::SqlActivationPolicy;
+        
 
         /// Unknown activation plan.
-        pub const SQL_ACTIVATION_POLICY_UNSPECIFIED: &str = "SQL_ACTIVATION_POLICY_UNSPECIFIED";
+        pub const SQL_ACTIVATION_POLICY_UNSPECIFIED: SqlActivationPolicy = SqlActivationPolicy::new("SQL_ACTIVATION_POLICY_UNSPECIFIED");
 
         /// The instance is always up and running.
-        pub const ALWAYS: &str = "ALWAYS";
+        pub const ALWAYS: SqlActivationPolicy = SqlActivationPolicy::new("ALWAYS");
 
         /// The instance never starts.
-        pub const NEVER: &str = "NEVER";
+        pub const NEVER: SqlActivationPolicy = SqlActivationPolicy::new("NEVER");
 
         /// The instance starts upon receiving requests.
-        pub const ON_DEMAND: &str = "ON_DEMAND";
+        pub const ON_DEMAND: SqlActivationPolicy = SqlActivationPolicy::new("ON_DEMAND");
+    }
+
+    impl std::convert::From<std::string::String> for SqlActivationPolicy {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Edition(std::string::String);
+    pub struct Edition(std::borrow::Cow<'static, str>);
 
     impl Edition {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Edition instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -9634,26 +10176,33 @@ pub mod settings {
 
     /// Useful constants to work with [Edition](Edition)
     pub mod edition {
+        use super::Edition;
+        
 
         /// The instance did not specify the edition.
-        pub const EDITION_UNSPECIFIED: &str = "EDITION_UNSPECIFIED";
+        pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
 
         /// The instance is an enterprise edition.
-        pub const ENTERPRISE: &str = "ENTERPRISE";
+        pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
 
         /// The instance is an Enterprise Plus edition.
-        pub const ENTERPRISE_PLUS: &str = "ENTERPRISE_PLUS";
+        pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    }
+
+    impl std::convert::From<std::string::String> for Edition {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The options for enforcing Cloud SQL connectors in the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectorEnforcement(std::string::String);
+    pub struct ConnectorEnforcement(std::borrow::Cow<'static, str>);
 
     impl ConnectorEnforcement {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ConnectorEnforcement instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -9664,17 +10213,25 @@ pub mod settings {
 
     /// Useful constants to work with [ConnectorEnforcement](ConnectorEnforcement)
     pub mod connector_enforcement {
+        use super::ConnectorEnforcement;
+        
 
         /// The requirement for Cloud SQL connectors is unknown.
-        pub const CONNECTOR_ENFORCEMENT_UNSPECIFIED: &str = "CONNECTOR_ENFORCEMENT_UNSPECIFIED";
+        pub const CONNECTOR_ENFORCEMENT_UNSPECIFIED: ConnectorEnforcement = ConnectorEnforcement::new("CONNECTOR_ENFORCEMENT_UNSPECIFIED");
 
         /// Do not require Cloud SQL connectors.
-        pub const NOT_REQUIRED: &str = "NOT_REQUIRED";
+        pub const NOT_REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new("NOT_REQUIRED");
 
         /// Require all connections to use Cloud SQL connectors, including the
         /// Cloud SQL Auth Proxy and Cloud SQL Java, Python, and Go connectors.
         /// Note: This disables all existing authorized networks.
-        pub const REQUIRED: &str = "REQUIRED";
+        pub const REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new("REQUIRED");
+    }
+
+    impl std::convert::From<std::string::String> for ConnectorEnforcement {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -9690,6 +10247,9 @@ pub struct AdvancedMachineFeatures {
 }
 
 impl AdvancedMachineFeatures {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
     pub fn set_threads_per_core<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -9753,6 +10313,9 @@ pub struct SslCert {
 }
 
 impl SslCert {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCert::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9833,6 +10396,9 @@ pub struct SslCertDetail {
 }
 
 impl SslCertDetail {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [cert_info][crate::model::SslCertDetail::cert_info].
     pub fn set_cert_info<T: std::convert::Into<std::option::Option<crate::model::SslCert>>>(mut self, v: T) -> Self {
@@ -9870,6 +10436,9 @@ pub struct SqlActiveDirectoryConfig {
 }
 
 impl SqlActiveDirectoryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlActiveDirectoryConfig::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9915,6 +10484,9 @@ pub struct SqlServerAuditConfig {
 }
 
 impl SqlServerAuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlServerAuditConfig::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9974,6 +10546,9 @@ pub struct AcquireSsrsLeaseContext {
 }
 
 impl AcquireSsrsLeaseContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
     pub fn set_setup_login<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
@@ -10026,6 +10601,9 @@ pub struct SqlSslCertsDeleteRequest {
 }
 
 impl SqlSslCertsDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10072,6 +10650,9 @@ pub struct SqlSslCertsGetRequest {
 }
 
 impl SqlSslCertsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10117,6 +10698,9 @@ pub struct SqlSslCertsInsertRequest {
 }
 
 impl SqlSslCertsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10159,6 +10743,9 @@ pub struct SqlSslCertsListRequest {
 }
 
 impl SqlSslCertsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10193,6 +10780,9 @@ pub struct SslCertsInsertRequest {
 }
 
 impl SslCertsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [common_name][crate::model::SslCertsInsertRequest::common_name].
     pub fn set_common_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10234,6 +10824,9 @@ pub struct SslCertsInsertResponse {
 }
 
 impl SslCertsInsertResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCertsInsertResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10283,6 +10876,9 @@ pub struct SslCertsListResponse {
 }
 
 impl SslCertsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCertsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10321,6 +10917,9 @@ pub struct SqlTiersListRequest {
 }
 
 impl SqlTiersListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10352,6 +10951,9 @@ pub struct TiersListResponse {
 }
 
 impl TiersListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::TiersListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10409,6 +11011,9 @@ pub struct Tier {
 }
 
 impl Tier {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [tier][crate::model::Tier::tier].
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10476,6 +11081,9 @@ pub struct SqlUsersDeleteRequest {
 }
 
 impl SqlUsersDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10533,6 +11141,9 @@ pub struct SqlUsersGetRequest {
 }
 
 impl SqlUsersGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10584,6 +11195,9 @@ pub struct SqlUsersInsertRequest {
 }
 
 impl SqlUsersInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10626,6 +11240,9 @@ pub struct SqlUsersListRequest {
 }
 
 impl SqlUsersListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10673,6 +11290,9 @@ pub struct SqlUsersUpdateRequest {
 }
 
 impl SqlUsersUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10738,6 +11358,9 @@ pub struct UserPasswordValidationPolicy {
 }
 
 impl UserPasswordValidationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [allowed_failed_attempts][crate::model::UserPasswordValidationPolicy::allowed_failed_attempts].
     pub fn set_allowed_failed_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -10792,6 +11415,9 @@ pub struct PasswordStatus {
 }
 
 impl PasswordStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [locked][crate::model::PasswordStatus::locked].
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -10876,6 +11502,9 @@ pub struct User {
 }
 
 impl User {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::User::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10984,13 +11613,12 @@ pub mod user {
 
     /// The user type.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlUserType(std::string::String);
+    pub struct SqlUserType(std::borrow::Cow<'static, str>);
 
     impl SqlUserType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SqlUserType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -11001,35 +11629,42 @@ pub mod user {
 
     /// Useful constants to work with [SqlUserType](SqlUserType)
     pub mod sql_user_type {
+        use super::SqlUserType;
+        
 
         /// The database's built-in user type.
-        pub const BUILT_IN: &str = "BUILT_IN";
+        pub const BUILT_IN: SqlUserType = SqlUserType::new("BUILT_IN");
 
         /// Cloud IAM user.
-        pub const CLOUD_IAM_USER: &str = "CLOUD_IAM_USER";
+        pub const CLOUD_IAM_USER: SqlUserType = SqlUserType::new("CLOUD_IAM_USER");
 
         /// Cloud IAM service account.
-        pub const CLOUD_IAM_SERVICE_ACCOUNT: &str = "CLOUD_IAM_SERVICE_ACCOUNT";
+        pub const CLOUD_IAM_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new("CLOUD_IAM_SERVICE_ACCOUNT");
 
         /// Cloud IAM group non-login user.
-        pub const CLOUD_IAM_GROUP: &str = "CLOUD_IAM_GROUP";
+        pub const CLOUD_IAM_GROUP: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP");
 
         /// Cloud IAM group login user.
-        pub const CLOUD_IAM_GROUP_USER: &str = "CLOUD_IAM_GROUP_USER";
+        pub const CLOUD_IAM_GROUP_USER: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP_USER");
 
         /// Cloud IAM group login service account.
-        pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: &str = "CLOUD_IAM_GROUP_SERVICE_ACCOUNT";
+        pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP_SERVICE_ACCOUNT");
+    }
+
+    impl std::convert::From<std::string::String> for SqlUserType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The type of retained password.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DualPasswordType(std::string::String);
+    pub struct DualPasswordType(std::borrow::Cow<'static, str>);
 
     impl DualPasswordType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new DualPasswordType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -11040,18 +11675,26 @@ pub mod user {
 
     /// Useful constants to work with [DualPasswordType](DualPasswordType)
     pub mod dual_password_type {
+        use super::DualPasswordType;
+        
 
         /// The default value.
-        pub const DUAL_PASSWORD_TYPE_UNSPECIFIED: &str = "DUAL_PASSWORD_TYPE_UNSPECIFIED";
+        pub const DUAL_PASSWORD_TYPE_UNSPECIFIED: DualPasswordType = DualPasswordType::new("DUAL_PASSWORD_TYPE_UNSPECIFIED");
 
         /// Do not update the user's dual password status.
-        pub const NO_MODIFY_DUAL_PASSWORD: &str = "NO_MODIFY_DUAL_PASSWORD";
+        pub const NO_MODIFY_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("NO_MODIFY_DUAL_PASSWORD");
 
         /// No dual password usable for connecting using this user.
-        pub const NO_DUAL_PASSWORD: &str = "NO_DUAL_PASSWORD";
+        pub const NO_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("NO_DUAL_PASSWORD");
 
         /// Dual password usable for connecting using this user.
-        pub const DUAL_PASSWORD: &str = "DUAL_PASSWORD";
+        pub const DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("DUAL_PASSWORD");
+    }
+
+    impl std::convert::From<std::string::String> for DualPasswordType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// User details for specific database type
@@ -11079,6 +11722,9 @@ pub struct SqlServerUserDetails {
 }
 
 impl SqlServerUserDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [disabled][crate::model::SqlServerUserDetails::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -11125,6 +11771,9 @@ pub struct UsersListResponse {
 }
 
 impl UsersListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::UsersListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -11158,13 +11807,12 @@ impl wkt::message::Message for UsersListResponse {
 
 /// The status of a backup run.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunStatus(std::string::String);
+pub struct SqlBackupRunStatus(std::borrow::Cow<'static, str>);
 
 impl SqlBackupRunStatus {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlBackupRunStatus instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11175,50 +11823,57 @@ impl SqlBackupRunStatus {
 
 /// Useful constants to work with [SqlBackupRunStatus](SqlBackupRunStatus)
 pub mod sql_backup_run_status {
+    use super::SqlBackupRunStatus;
+    
 
     /// The status of the run is unknown.
-    pub const SQL_BACKUP_RUN_STATUS_UNSPECIFIED: &str = "SQL_BACKUP_RUN_STATUS_UNSPECIFIED";
+    pub const SQL_BACKUP_RUN_STATUS_UNSPECIFIED: SqlBackupRunStatus = SqlBackupRunStatus::new("SQL_BACKUP_RUN_STATUS_UNSPECIFIED");
 
     /// The backup operation was enqueued.
-    pub const ENQUEUED: &str = "ENQUEUED";
+    pub const ENQUEUED: SqlBackupRunStatus = SqlBackupRunStatus::new("ENQUEUED");
 
     /// The backup is overdue across a given backup window. Indicates a
     /// problem. Example: Long-running operation in progress during
     /// the whole window.
-    pub const OVERDUE: &str = "OVERDUE";
+    pub const OVERDUE: SqlBackupRunStatus = SqlBackupRunStatus::new("OVERDUE");
 
     /// The backup is in progress.
-    pub const RUNNING: &str = "RUNNING";
+    pub const RUNNING: SqlBackupRunStatus = SqlBackupRunStatus::new("RUNNING");
 
     /// The backup failed.
-    pub const FAILED: &str = "FAILED";
+    pub const FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new("FAILED");
 
     /// The backup was successful.
-    pub const SUCCESSFUL: &str = "SUCCESSFUL";
+    pub const SUCCESSFUL: SqlBackupRunStatus = SqlBackupRunStatus::new("SUCCESSFUL");
 
     /// The backup was skipped (without problems) for a given backup
     /// window. Example: Instance was idle.
-    pub const SKIPPED: &str = "SKIPPED";
+    pub const SKIPPED: SqlBackupRunStatus = SqlBackupRunStatus::new("SKIPPED");
 
     /// The backup is about to be deleted.
-    pub const DELETION_PENDING: &str = "DELETION_PENDING";
+    pub const DELETION_PENDING: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETION_PENDING");
 
     /// The backup deletion failed.
-    pub const DELETION_FAILED: &str = "DELETION_FAILED";
+    pub const DELETION_FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETION_FAILED");
 
     /// The backup has been deleted.
-    pub const DELETED: &str = "DELETED";
+    pub const DELETED: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETED");
+}
+
+impl std::convert::From<std::string::String> for SqlBackupRunStatus {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// Defines the supported backup kinds.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupKind(std::string::String);
+pub struct SqlBackupKind(std::borrow::Cow<'static, str>);
 
 impl SqlBackupKind {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlBackupKind instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11229,26 +11884,33 @@ impl SqlBackupKind {
 
 /// Useful constants to work with [SqlBackupKind](SqlBackupKind)
 pub mod sql_backup_kind {
+    use super::SqlBackupKind;
+    
 
     /// This is an unknown BackupKind.
-    pub const SQL_BACKUP_KIND_UNSPECIFIED: &str = "SQL_BACKUP_KIND_UNSPECIFIED";
+    pub const SQL_BACKUP_KIND_UNSPECIFIED: SqlBackupKind = SqlBackupKind::new("SQL_BACKUP_KIND_UNSPECIFIED");
 
     /// The snapshot based backups
-    pub const SNAPSHOT: &str = "SNAPSHOT";
+    pub const SNAPSHOT: SqlBackupKind = SqlBackupKind::new("SNAPSHOT");
 
     /// Physical backups
-    pub const PHYSICAL: &str = "PHYSICAL";
+    pub const PHYSICAL: SqlBackupKind = SqlBackupKind::new("PHYSICAL");
+}
+
+impl std::convert::From<std::string::String> for SqlBackupKind {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// Type of backup (i.e. automated, on demand, etc).
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunType(std::string::String);
+pub struct SqlBackupRunType(std::borrow::Cow<'static, str>);
 
 impl SqlBackupRunType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlBackupRunType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11259,25 +11921,32 @@ impl SqlBackupRunType {
 
 /// Useful constants to work with [SqlBackupRunType](SqlBackupRunType)
 pub mod sql_backup_run_type {
+    use super::SqlBackupRunType;
+    
 
     /// This is an unknown BackupRun type.
-    pub const SQL_BACKUP_RUN_TYPE_UNSPECIFIED: &str = "SQL_BACKUP_RUN_TYPE_UNSPECIFIED";
+    pub const SQL_BACKUP_RUN_TYPE_UNSPECIFIED: SqlBackupRunType = SqlBackupRunType::new("SQL_BACKUP_RUN_TYPE_UNSPECIFIED");
 
     /// The backup schedule automatically triggers a backup.
-    pub const AUTOMATED: &str = "AUTOMATED";
+    pub const AUTOMATED: SqlBackupRunType = SqlBackupRunType::new("AUTOMATED");
 
     /// The user manually triggers a backup.
-    pub const ON_DEMAND: &str = "ON_DEMAND";
+    pub const ON_DEMAND: SqlBackupRunType = SqlBackupRunType::new("ON_DEMAND");
+}
+
+impl std::convert::From<std::string::String> for SqlBackupRunType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFlagType(std::string::String);
+pub struct SqlFlagType(std::borrow::Cow<'static, str>);
 
 impl SqlFlagType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlFlagType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11288,42 +11957,49 @@ impl SqlFlagType {
 
 /// Useful constants to work with [SqlFlagType](SqlFlagType)
 pub mod sql_flag_type {
+    use super::SqlFlagType;
+    
 
     /// This is an unknown flag type.
-    pub const SQL_FLAG_TYPE_UNSPECIFIED: &str = "SQL_FLAG_TYPE_UNSPECIFIED";
+    pub const SQL_FLAG_TYPE_UNSPECIFIED: SqlFlagType = SqlFlagType::new("SQL_FLAG_TYPE_UNSPECIFIED");
 
     /// Boolean type flag.
-    pub const BOOLEAN: &str = "BOOLEAN";
+    pub const BOOLEAN: SqlFlagType = SqlFlagType::new("BOOLEAN");
 
     /// String type flag.
-    pub const STRING: &str = "STRING";
+    pub const STRING: SqlFlagType = SqlFlagType::new("STRING");
 
     /// Integer type flag.
-    pub const INTEGER: &str = "INTEGER";
+    pub const INTEGER: SqlFlagType = SqlFlagType::new("INTEGER");
 
     /// Flag type used for a server startup option.
-    pub const NONE: &str = "NONE";
+    pub const NONE: SqlFlagType = SqlFlagType::new("NONE");
 
     /// Type introduced specially for MySQL TimeZone offset. Accept a string value
     /// with the format [-12:59, 13:00].
-    pub const MYSQL_TIMEZONE_OFFSET: &str = "MYSQL_TIMEZONE_OFFSET";
+    pub const MYSQL_TIMEZONE_OFFSET: SqlFlagType = SqlFlagType::new("MYSQL_TIMEZONE_OFFSET");
 
     /// Float type flag.
-    pub const FLOAT: &str = "FLOAT";
+    pub const FLOAT: SqlFlagType = SqlFlagType::new("FLOAT");
 
     /// Comma-separated list of the strings in a SqlFlagType enum.
-    pub const REPEATED_STRING: &str = "REPEATED_STRING";
+    pub const REPEATED_STRING: SqlFlagType = SqlFlagType::new("REPEATED_STRING");
+}
+
+impl std::convert::From<std::string::String> for SqlFlagType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// External Sync parallel level.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExternalSyncParallelLevel(std::string::String);
+pub struct ExternalSyncParallelLevel(std::borrow::Cow<'static, str>);
 
 impl ExternalSyncParallelLevel {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ExternalSyncParallelLevel instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11334,28 +12010,35 @@ impl ExternalSyncParallelLevel {
 
 /// Useful constants to work with [ExternalSyncParallelLevel](ExternalSyncParallelLevel)
 pub mod external_sync_parallel_level {
+    use super::ExternalSyncParallelLevel;
+    
 
     /// Unknown sync parallel level. Will be defaulted to OPTIMAL.
-    pub const EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED: &str = "EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED";
+    pub const EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED");
 
     /// Minimal parallel level.
-    pub const MIN: &str = "MIN";
+    pub const MIN: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("MIN");
 
     /// Optimal parallel level.
-    pub const OPTIMAL: &str = "OPTIMAL";
+    pub const OPTIMAL: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("OPTIMAL");
 
     /// Maximum parallel level.
-    pub const MAX: &str = "MAX";
+    pub const MAX: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("MAX");
+}
+
+impl std::convert::From<std::string::String> for ExternalSyncParallelLevel {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlInstanceType(std::string::String);
+pub struct SqlInstanceType(std::borrow::Cow<'static, str>);
 
 impl SqlInstanceType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlInstanceType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11366,31 +12049,38 @@ impl SqlInstanceType {
 
 /// Useful constants to work with [SqlInstanceType](SqlInstanceType)
 pub mod sql_instance_type {
+    use super::SqlInstanceType;
+    
 
     /// This is an unknown Cloud SQL instance type.
-    pub const SQL_INSTANCE_TYPE_UNSPECIFIED: &str = "SQL_INSTANCE_TYPE_UNSPECIFIED";
+    pub const SQL_INSTANCE_TYPE_UNSPECIFIED: SqlInstanceType = SqlInstanceType::new("SQL_INSTANCE_TYPE_UNSPECIFIED");
 
     /// A regular Cloud SQL instance that is not replicating from a primary
     /// instance.
-    pub const CLOUD_SQL_INSTANCE: &str = "CLOUD_SQL_INSTANCE";
+    pub const CLOUD_SQL_INSTANCE: SqlInstanceType = SqlInstanceType::new("CLOUD_SQL_INSTANCE");
 
     /// An instance running on the customer's premises that is not managed by
     /// Cloud SQL.
-    pub const ON_PREMISES_INSTANCE: &str = "ON_PREMISES_INSTANCE";
+    pub const ON_PREMISES_INSTANCE: SqlInstanceType = SqlInstanceType::new("ON_PREMISES_INSTANCE");
 
     /// A Cloud SQL instance acting as a read-replica.
-    pub const READ_REPLICA_INSTANCE: &str = "READ_REPLICA_INSTANCE";
+    pub const READ_REPLICA_INSTANCE: SqlInstanceType = SqlInstanceType::new("READ_REPLICA_INSTANCE");
+}
+
+impl std::convert::From<std::string::String> for SqlInstanceType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The suspension reason of the database instance if the state is SUSPENDED.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlSuspensionReason(std::string::String);
+pub struct SqlSuspensionReason(std::borrow::Cow<'static, str>);
 
 impl SqlSuspensionReason {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlSuspensionReason instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11401,34 +12091,41 @@ impl SqlSuspensionReason {
 
 /// Useful constants to work with [SqlSuspensionReason](SqlSuspensionReason)
 pub mod sql_suspension_reason {
+    use super::SqlSuspensionReason;
+    
 
     /// This is an unknown suspension reason.
-    pub const SQL_SUSPENSION_REASON_UNSPECIFIED: &str = "SQL_SUSPENSION_REASON_UNSPECIFIED";
+    pub const SQL_SUSPENSION_REASON_UNSPECIFIED: SqlSuspensionReason = SqlSuspensionReason::new("SQL_SUSPENSION_REASON_UNSPECIFIED");
 
     /// The instance is suspended due to billing issues (for example:, GCP account
     /// issue)
-    pub const BILLING_ISSUE: &str = "BILLING_ISSUE";
+    pub const BILLING_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("BILLING_ISSUE");
 
     /// The instance is suspended due to illegal content (for example:, child
     /// pornography, copyrighted material, etc.).
-    pub const LEGAL_ISSUE: &str = "LEGAL_ISSUE";
+    pub const LEGAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("LEGAL_ISSUE");
 
     /// The instance is causing operational issues (for example:, causing the
     /// database to crash).
-    pub const OPERATIONAL_ISSUE: &str = "OPERATIONAL_ISSUE";
+    pub const OPERATIONAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("OPERATIONAL_ISSUE");
 
     /// The KMS key used by the instance is either revoked or denied access to
-    pub const KMS_KEY_ISSUE: &str = "KMS_KEY_ISSUE";
+    pub const KMS_KEY_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("KMS_KEY_ISSUE");
+}
+
+impl std::convert::From<std::string::String> for SqlSuspensionReason {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFileType(std::string::String);
+pub struct SqlFileType(std::borrow::Cow<'static, str>);
 
 impl SqlFileType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlFileType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11439,27 +12136,34 @@ impl SqlFileType {
 
 /// Useful constants to work with [SqlFileType](SqlFileType)
 pub mod sql_file_type {
+    use super::SqlFileType;
+    
 
     /// Unknown file type.
-    pub const SQL_FILE_TYPE_UNSPECIFIED: &str = "SQL_FILE_TYPE_UNSPECIFIED";
+    pub const SQL_FILE_TYPE_UNSPECIFIED: SqlFileType = SqlFileType::new("SQL_FILE_TYPE_UNSPECIFIED");
 
     /// File containing SQL statements.
-    pub const SQL: &str = "SQL";
+    pub const SQL: SqlFileType = SqlFileType::new("SQL");
 
     /// File in CSV format.
-    pub const CSV: &str = "CSV";
+    pub const CSV: SqlFileType = SqlFileType::new("CSV");
 
-    pub const BAK: &str = "BAK";
+    pub const BAK: SqlFileType = SqlFileType::new("BAK");
+}
+
+impl std::convert::From<std::string::String> for SqlFileType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BakType(std::string::String);
+pub struct BakType(std::borrow::Cow<'static, str>);
 
 impl BakType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new BakType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11470,28 +12174,35 @@ impl BakType {
 
 /// Useful constants to work with [BakType](BakType)
 pub mod bak_type {
+    use super::BakType;
+    
 
     /// Default type.
-    pub const BAK_TYPE_UNSPECIFIED: &str = "BAK_TYPE_UNSPECIFIED";
+    pub const BAK_TYPE_UNSPECIFIED: BakType = BakType::new("BAK_TYPE_UNSPECIFIED");
 
     /// Full backup.
-    pub const FULL: &str = "FULL";
+    pub const FULL: BakType = BakType::new("FULL");
 
     /// Differential backup.
-    pub const DIFF: &str = "DIFF";
+    pub const DIFF: BakType = BakType::new("DIFF");
 
     /// Transaction Log backup
-    pub const TLOG: &str = "TLOG";
+    pub const TLOG: BakType = BakType::new("TLOG");
+}
+
+impl std::convert::From<std::string::String> for BakType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackendType(std::string::String);
+pub struct SqlBackendType(std::borrow::Cow<'static, str>);
 
 impl SqlBackendType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlBackendType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11502,28 +12213,35 @@ impl SqlBackendType {
 
 /// Useful constants to work with [SqlBackendType](SqlBackendType)
 pub mod sql_backend_type {
+    use super::SqlBackendType;
+    
 
     /// This is an unknown backend type for instance.
-    pub const SQL_BACKEND_TYPE_UNSPECIFIED: &str = "SQL_BACKEND_TYPE_UNSPECIFIED";
+    pub const SQL_BACKEND_TYPE_UNSPECIFIED: SqlBackendType = SqlBackendType::new("SQL_BACKEND_TYPE_UNSPECIFIED");
 
     /// V1 speckle instance.
-    pub const FIRST_GEN: &str = "FIRST_GEN";
+    pub const FIRST_GEN: SqlBackendType = SqlBackendType::new("FIRST_GEN");
 
     /// V2 speckle instance.
-    pub const SECOND_GEN: &str = "SECOND_GEN";
+    pub const SECOND_GEN: SqlBackendType = SqlBackendType::new("SECOND_GEN");
 
     /// On premises instance.
-    pub const EXTERNAL: &str = "EXTERNAL";
+    pub const EXTERNAL: SqlBackendType = SqlBackendType::new("EXTERNAL");
+}
+
+impl std::convert::From<std::string::String> for SqlBackendType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlIpAddressType(std::string::String);
+pub struct SqlIpAddressType(std::borrow::Cow<'static, str>);
 
 impl SqlIpAddressType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlIpAddressType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11534,38 +12252,45 @@ impl SqlIpAddressType {
 
 /// Useful constants to work with [SqlIpAddressType](SqlIpAddressType)
 pub mod sql_ip_address_type {
+    use super::SqlIpAddressType;
+    
 
     /// This is an unknown IP address type.
-    pub const SQL_IP_ADDRESS_TYPE_UNSPECIFIED: &str = "SQL_IP_ADDRESS_TYPE_UNSPECIFIED";
+    pub const SQL_IP_ADDRESS_TYPE_UNSPECIFIED: SqlIpAddressType = SqlIpAddressType::new("SQL_IP_ADDRESS_TYPE_UNSPECIFIED");
 
     /// IP address the customer is supposed to connect to. Usually this is the
     /// load balancer's IP address
-    pub const PRIMARY: &str = "PRIMARY";
+    pub const PRIMARY: SqlIpAddressType = SqlIpAddressType::new("PRIMARY");
 
     /// Source IP address of the connection a read replica establishes to its
     /// external primary instance. This IP address can be allowlisted by the
     /// customer in case it has a firewall that filters incoming connection to its
     /// on premises primary instance.
-    pub const OUTGOING: &str = "OUTGOING";
+    pub const OUTGOING: SqlIpAddressType = SqlIpAddressType::new("OUTGOING");
 
     /// Private IP used when using private IPs and network peering.
-    pub const PRIVATE: &str = "PRIVATE";
+    pub const PRIVATE: SqlIpAddressType = SqlIpAddressType::new("PRIVATE");
 
     /// V1 IP of a migrated instance. We want the user to
     /// decommission this IP as soon as the migration is complete.
     /// Note: V1 instances with V1 ip addresses will be counted as PRIMARY.
-    pub const MIGRATED_1ST_GEN: &str = "MIGRATED_1ST_GEN";
+    pub const MIGRATED_1ST_GEN: SqlIpAddressType = SqlIpAddressType::new("MIGRATED_1ST_GEN");
+}
+
+impl std::convert::From<std::string::String> for SqlIpAddressType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The database engine type and version.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDatabaseVersion(std::string::String);
+pub struct SqlDatabaseVersion(std::borrow::Cow<'static, str>);
 
 impl SqlDatabaseVersion {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlDatabaseVersion instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11576,149 +12301,156 @@ impl SqlDatabaseVersion {
 
 /// Useful constants to work with [SqlDatabaseVersion](SqlDatabaseVersion)
 pub mod sql_database_version {
+    use super::SqlDatabaseVersion;
+    
 
     /// This is an unknown database version.
-    pub const SQL_DATABASE_VERSION_UNSPECIFIED: &str = "SQL_DATABASE_VERSION_UNSPECIFIED";
+    pub const SQL_DATABASE_VERSION_UNSPECIFIED: SqlDatabaseVersion = SqlDatabaseVersion::new("SQL_DATABASE_VERSION_UNSPECIFIED");
 
     /// The database version is MySQL 5.1.
-    pub const MYSQL_5_1: &str = "MYSQL_5_1";
+    pub const MYSQL_5_1: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_1");
 
     /// The database version is MySQL 5.5.
-    pub const MYSQL_5_5: &str = "MYSQL_5_5";
+    pub const MYSQL_5_5: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_5");
 
     /// The database version is MySQL 5.6.
-    pub const MYSQL_5_6: &str = "MYSQL_5_6";
+    pub const MYSQL_5_6: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_6");
 
     /// The database version is MySQL 5.7.
-    pub const MYSQL_5_7: &str = "MYSQL_5_7";
+    pub const MYSQL_5_7: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_7");
 
     /// The database version is SQL Server 2017 Standard.
-    pub const SQLSERVER_2017_STANDARD: &str = "SQLSERVER_2017_STANDARD";
+    pub const SQLSERVER_2017_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_STANDARD");
 
     /// The database version is SQL Server 2017 Enterprise.
-    pub const SQLSERVER_2017_ENTERPRISE: &str = "SQLSERVER_2017_ENTERPRISE";
+    pub const SQLSERVER_2017_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_ENTERPRISE");
 
     /// The database version is SQL Server 2017 Express.
-    pub const SQLSERVER_2017_EXPRESS: &str = "SQLSERVER_2017_EXPRESS";
+    pub const SQLSERVER_2017_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_EXPRESS");
 
     /// The database version is SQL Server 2017 Web.
-    pub const SQLSERVER_2017_WEB: &str = "SQLSERVER_2017_WEB";
+    pub const SQLSERVER_2017_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_WEB");
 
     /// The database version is PostgreSQL 9.6.
-    pub const POSTGRES_9_6: &str = "POSTGRES_9_6";
+    pub const POSTGRES_9_6: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_9_6");
 
     /// The database version is PostgreSQL 10.
-    pub const POSTGRES_10: &str = "POSTGRES_10";
+    pub const POSTGRES_10: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_10");
 
     /// The database version is PostgreSQL 11.
-    pub const POSTGRES_11: &str = "POSTGRES_11";
+    pub const POSTGRES_11: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_11");
 
     /// The database version is PostgreSQL 12.
-    pub const POSTGRES_12: &str = "POSTGRES_12";
+    pub const POSTGRES_12: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_12");
 
     /// The database version is PostgreSQL 13.
-    pub const POSTGRES_13: &str = "POSTGRES_13";
+    pub const POSTGRES_13: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_13");
 
     /// The database version is PostgreSQL 14.
-    pub const POSTGRES_14: &str = "POSTGRES_14";
+    pub const POSTGRES_14: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_14");
 
     /// The database version is PostgreSQL 15.
-    pub const POSTGRES_15: &str = "POSTGRES_15";
+    pub const POSTGRES_15: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_15");
 
     /// The database version is PostgreSQL 16.
-    pub const POSTGRES_16: &str = "POSTGRES_16";
+    pub const POSTGRES_16: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_16");
 
     /// The database version is MySQL 8.
-    pub const MYSQL_8_0: &str = "MYSQL_8_0";
+    pub const MYSQL_8_0: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0");
 
     /// The database major version is MySQL 8.0 and the minor version is 18.
-    pub const MYSQL_8_0_18: &str = "MYSQL_8_0_18";
+    pub const MYSQL_8_0_18: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_18");
 
     /// The database major version is MySQL 8.0 and the minor version is 26.
-    pub const MYSQL_8_0_26: &str = "MYSQL_8_0_26";
+    pub const MYSQL_8_0_26: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_26");
 
     /// The database major version is MySQL 8.0 and the minor version is 27.
-    pub const MYSQL_8_0_27: &str = "MYSQL_8_0_27";
+    pub const MYSQL_8_0_27: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_27");
 
     /// The database major version is MySQL 8.0 and the minor version is 28.
-    pub const MYSQL_8_0_28: &str = "MYSQL_8_0_28";
+    pub const MYSQL_8_0_28: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_28");
 
     /// The database major version is MySQL 8.0 and the minor version is 29.
-    pub const MYSQL_8_0_29: &str = "MYSQL_8_0_29";
+    pub const MYSQL_8_0_29: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_29");
 
     /// The database major version is MySQL 8.0 and the minor version is 30.
-    pub const MYSQL_8_0_30: &str = "MYSQL_8_0_30";
+    pub const MYSQL_8_0_30: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_30");
 
     /// The database major version is MySQL 8.0 and the minor version is 31.
-    pub const MYSQL_8_0_31: &str = "MYSQL_8_0_31";
+    pub const MYSQL_8_0_31: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_31");
 
     /// The database major version is MySQL 8.0 and the minor version is 32.
-    pub const MYSQL_8_0_32: &str = "MYSQL_8_0_32";
+    pub const MYSQL_8_0_32: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_32");
 
     /// The database major version is MySQL 8.0 and the minor version is 33.
-    pub const MYSQL_8_0_33: &str = "MYSQL_8_0_33";
+    pub const MYSQL_8_0_33: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_33");
 
     /// The database major version is MySQL 8.0 and the minor version is 34.
-    pub const MYSQL_8_0_34: &str = "MYSQL_8_0_34";
+    pub const MYSQL_8_0_34: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_34");
 
     /// The database major version is MySQL 8.0 and the minor version is 35.
-    pub const MYSQL_8_0_35: &str = "MYSQL_8_0_35";
+    pub const MYSQL_8_0_35: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_35");
 
     /// The database major version is MySQL 8.0 and the minor version is 36.
-    pub const MYSQL_8_0_36: &str = "MYSQL_8_0_36";
+    pub const MYSQL_8_0_36: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_36");
 
     /// The database major version is MySQL 8.0 and the minor version is 37.
-    pub const MYSQL_8_0_37: &str = "MYSQL_8_0_37";
+    pub const MYSQL_8_0_37: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_37");
 
     /// The database major version is MySQL 8.0 and the minor version is 38.
-    pub const MYSQL_8_0_38: &str = "MYSQL_8_0_38";
+    pub const MYSQL_8_0_38: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_38");
 
     /// The database major version is MySQL 8.0 and the minor version is 39.
-    pub const MYSQL_8_0_39: &str = "MYSQL_8_0_39";
+    pub const MYSQL_8_0_39: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_39");
 
     /// The database major version is MySQL 8.0 and the minor version is 40.
-    pub const MYSQL_8_0_40: &str = "MYSQL_8_0_40";
+    pub const MYSQL_8_0_40: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_40");
 
     /// The database version is MySQL 8.4.
-    pub const MYSQL_8_4: &str = "MYSQL_8_4";
+    pub const MYSQL_8_4: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_4");
 
     /// The database version is MySQL 8.4 and the patch version is 0.
-    pub const MYSQL_8_4_0: &str = "MYSQL_8_4_0";
+    pub const MYSQL_8_4_0: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_4_0");
 
     /// The database version is SQL Server 2019 Standard.
-    pub const SQLSERVER_2019_STANDARD: &str = "SQLSERVER_2019_STANDARD";
+    pub const SQLSERVER_2019_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_STANDARD");
 
     /// The database version is SQL Server 2019 Enterprise.
-    pub const SQLSERVER_2019_ENTERPRISE: &str = "SQLSERVER_2019_ENTERPRISE";
+    pub const SQLSERVER_2019_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_ENTERPRISE");
 
     /// The database version is SQL Server 2019 Express.
-    pub const SQLSERVER_2019_EXPRESS: &str = "SQLSERVER_2019_EXPRESS";
+    pub const SQLSERVER_2019_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_EXPRESS");
 
     /// The database version is SQL Server 2019 Web.
-    pub const SQLSERVER_2019_WEB: &str = "SQLSERVER_2019_WEB";
+    pub const SQLSERVER_2019_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_WEB");
 
     /// The database version is SQL Server 2022 Standard.
-    pub const SQLSERVER_2022_STANDARD: &str = "SQLSERVER_2022_STANDARD";
+    pub const SQLSERVER_2022_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_STANDARD");
 
     /// The database version is SQL Server 2022 Enterprise.
-    pub const SQLSERVER_2022_ENTERPRISE: &str = "SQLSERVER_2022_ENTERPRISE";
+    pub const SQLSERVER_2022_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_ENTERPRISE");
 
     /// The database version is SQL Server 2022 Express.
-    pub const SQLSERVER_2022_EXPRESS: &str = "SQLSERVER_2022_EXPRESS";
+    pub const SQLSERVER_2022_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_EXPRESS");
 
     /// The database version is SQL Server 2022 Web.
-    pub const SQLSERVER_2022_WEB: &str = "SQLSERVER_2022_WEB";
+    pub const SQLSERVER_2022_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_WEB");
+}
+
+impl std::convert::From<std::string::String> for SqlDatabaseVersion {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The pricing plan for this instance.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlPricingPlan(std::string::String);
+pub struct SqlPricingPlan(std::borrow::Cow<'static, str>);
 
 impl SqlPricingPlan {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlPricingPlan instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11729,25 +12461,32 @@ impl SqlPricingPlan {
 
 /// Useful constants to work with [SqlPricingPlan](SqlPricingPlan)
 pub mod sql_pricing_plan {
+    use super::SqlPricingPlan;
+    
 
     /// This is an unknown pricing plan for this instance.
-    pub const SQL_PRICING_PLAN_UNSPECIFIED: &str = "SQL_PRICING_PLAN_UNSPECIFIED";
+    pub const SQL_PRICING_PLAN_UNSPECIFIED: SqlPricingPlan = SqlPricingPlan::new("SQL_PRICING_PLAN_UNSPECIFIED");
 
     /// The instance is billed at a monthly flat rate.
-    pub const PACKAGE: &str = "PACKAGE";
+    pub const PACKAGE: SqlPricingPlan = SqlPricingPlan::new("PACKAGE");
 
     /// The instance is billed per usage.
-    pub const PER_USE: &str = "PER_USE";
+    pub const PER_USE: SqlPricingPlan = SqlPricingPlan::new("PER_USE");
+}
+
+impl std::convert::From<std::string::String> for SqlPricingPlan {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlReplicationType(std::string::String);
+pub struct SqlReplicationType(std::borrow::Cow<'static, str>);
 
 impl SqlReplicationType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlReplicationType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11758,30 +12497,37 @@ impl SqlReplicationType {
 
 /// Useful constants to work with [SqlReplicationType](SqlReplicationType)
 pub mod sql_replication_type {
+    use super::SqlReplicationType;
+    
 
     /// This is an unknown replication type for a Cloud SQL instance.
-    pub const SQL_REPLICATION_TYPE_UNSPECIFIED: &str = "SQL_REPLICATION_TYPE_UNSPECIFIED";
+    pub const SQL_REPLICATION_TYPE_UNSPECIFIED: SqlReplicationType = SqlReplicationType::new("SQL_REPLICATION_TYPE_UNSPECIFIED");
 
     /// The synchronous replication mode for First Generation instances. It is the
     /// default value.
-    pub const SYNCHRONOUS: &str = "SYNCHRONOUS";
+    pub const SYNCHRONOUS: SqlReplicationType = SqlReplicationType::new("SYNCHRONOUS");
 
     /// The asynchronous replication mode for First Generation instances. It
     /// provides a slight performance gain, but if an outage occurs while this
     /// option is set to asynchronous, you can lose up to a few seconds of updates
     /// to your data.
-    pub const ASYNCHRONOUS: &str = "ASYNCHRONOUS";
+    pub const ASYNCHRONOUS: SqlReplicationType = SqlReplicationType::new("ASYNCHRONOUS");
+}
+
+impl std::convert::From<std::string::String> for SqlReplicationType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The type of disk that is used for a v2 instance to use.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDataDiskType(std::string::String);
+pub struct SqlDataDiskType(std::borrow::Cow<'static, str>);
 
 impl SqlDataDiskType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlDataDiskType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11792,30 +12538,37 @@ impl SqlDataDiskType {
 
 /// Useful constants to work with [SqlDataDiskType](SqlDataDiskType)
 pub mod sql_data_disk_type {
+    use super::SqlDataDiskType;
+    
 
     /// This is an unknown data disk type.
-    pub const SQL_DATA_DISK_TYPE_UNSPECIFIED: &str = "SQL_DATA_DISK_TYPE_UNSPECIFIED";
+    pub const SQL_DATA_DISK_TYPE_UNSPECIFIED: SqlDataDiskType = SqlDataDiskType::new("SQL_DATA_DISK_TYPE_UNSPECIFIED");
 
     /// An SSD data disk.
-    pub const PD_SSD: &str = "PD_SSD";
+    pub const PD_SSD: SqlDataDiskType = SqlDataDiskType::new("PD_SSD");
 
     /// An HDD data disk.
-    pub const PD_HDD: &str = "PD_HDD";
+    pub const PD_HDD: SqlDataDiskType = SqlDataDiskType::new("PD_HDD");
 
     /// This field is deprecated and will be removed from a future version of the
     /// API.
-    pub const OBSOLETE_LOCAL_SSD: &str = "OBSOLETE_LOCAL_SSD";
+    pub const OBSOLETE_LOCAL_SSD: SqlDataDiskType = SqlDataDiskType::new("OBSOLETE_LOCAL_SSD");
+}
+
+impl std::convert::From<std::string::String> for SqlDataDiskType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The availability type of the given Cloud SQL instance.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlAvailabilityType(std::string::String);
+pub struct SqlAvailabilityType(std::borrow::Cow<'static, str>);
 
 impl SqlAvailabilityType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlAvailabilityType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11826,25 +12579,32 @@ impl SqlAvailabilityType {
 
 /// Useful constants to work with [SqlAvailabilityType](SqlAvailabilityType)
 pub mod sql_availability_type {
+    use super::SqlAvailabilityType;
+    
 
     /// This is an unknown Availability type.
-    pub const SQL_AVAILABILITY_TYPE_UNSPECIFIED: &str = "SQL_AVAILABILITY_TYPE_UNSPECIFIED";
+    pub const SQL_AVAILABILITY_TYPE_UNSPECIFIED: SqlAvailabilityType = SqlAvailabilityType::new("SQL_AVAILABILITY_TYPE_UNSPECIFIED");
 
     /// Zonal available instance.
-    pub const ZONAL: &str = "ZONAL";
+    pub const ZONAL: SqlAvailabilityType = SqlAvailabilityType::new("ZONAL");
 
     /// Regional available instance.
-    pub const REGIONAL: &str = "REGIONAL";
+    pub const REGIONAL: SqlAvailabilityType = SqlAvailabilityType::new("REGIONAL");
+}
+
+impl std::convert::From<std::string::String> for SqlAvailabilityType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlUpdateTrack(std::string::String);
+pub struct SqlUpdateTrack(std::borrow::Cow<'static, str>);
 
 impl SqlUpdateTrack {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SqlUpdateTrack instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -11855,24 +12615,32 @@ impl SqlUpdateTrack {
 
 /// Useful constants to work with [SqlUpdateTrack](SqlUpdateTrack)
 pub mod sql_update_track {
+    use super::SqlUpdateTrack;
+    
 
     /// This is an unknown maintenance timing preference.
-    pub const SQL_UPDATE_TRACK_UNSPECIFIED: &str = "SQL_UPDATE_TRACK_UNSPECIFIED";
+    pub const SQL_UPDATE_TRACK_UNSPECIFIED: SqlUpdateTrack = SqlUpdateTrack::new("SQL_UPDATE_TRACK_UNSPECIFIED");
 
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 7 to 14 days
     /// after the notification is sent out. Also referred to as `Week 1` (Console)
     /// and `preview` (gcloud CLI).
-    pub const CANARY: &str = "canary";
+    pub const CANARY: SqlUpdateTrack = SqlUpdateTrack::new("CANARY");
 
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 15 to 21 days
     /// after the notification is sent out. Also referred to as `Week 2` (Console)
     /// and `production` (gcloud CLI).
-    pub const STABLE: &str = "stable";
+    pub const STABLE: SqlUpdateTrack = SqlUpdateTrack::new("STABLE");
 
     /// For instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 35 to 42 days
     /// after the notification is sent out.
-    pub const WEEK_5: &str = "week5";
+    pub const WEEK_5: SqlUpdateTrack = SqlUpdateTrack::new("WEEK_5");
+}
+
+impl std::convert::From<std::string::String> for SqlUpdateTrack {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }

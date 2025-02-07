@@ -53,6 +53,10 @@ pub struct RetryBuildRequest {
 }
 
 impl RetryBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RetryBuildRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -104,6 +108,10 @@ pub struct RunBuildTriggerRequest {
 }
 
 impl RunBuildTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RunBuildTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -167,6 +175,10 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::StorageSource::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -210,13 +222,12 @@ pub mod storage_source {
 
     /// Specifies the tool to fetch the source file for the build.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SourceFetcher(std::string::String);
+    pub struct SourceFetcher(std::borrow::Cow<'static, str>);
 
     impl SourceFetcher {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SourceFetcher instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -227,15 +238,23 @@ pub mod storage_source {
 
     /// Useful constants to work with [SourceFetcher](SourceFetcher)
     pub mod source_fetcher {
+        use super::SourceFetcher;
 
         /// Unspecified. Defaults to GSUTIL.
-        pub const SOURCE_FETCHER_UNSPECIFIED: &str = "SOURCE_FETCHER_UNSPECIFIED";
+        pub const SOURCE_FETCHER_UNSPECIFIED: SourceFetcher =
+            SourceFetcher::new("SOURCE_FETCHER_UNSPECIFIED");
 
         /// Use the "gsutil" tool to download the source file.
-        pub const GSUTIL: &str = "GSUTIL";
+        pub const GSUTIL: SourceFetcher = SourceFetcher::new("GSUTIL");
 
         /// Use the Cloud Storage Fetcher tool to download the source file.
-        pub const GCS_FETCHER: &str = "GCS_FETCHER";
+        pub const GCS_FETCHER: SourceFetcher = SourceFetcher::new("GCS_FETCHER");
+    }
+
+    impl std::convert::From<std::string::String> for SourceFetcher {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -273,6 +292,10 @@ pub struct GitSource {
 }
 
 impl GitSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [url][crate::model::GitSource::url].
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
@@ -336,6 +359,10 @@ pub struct RepoSource {
 }
 
 impl RepoSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::RepoSource::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -509,6 +536,10 @@ pub struct StorageSourceManifest {
 }
 
 impl StorageSourceManifest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::StorageSourceManifest::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -546,6 +577,10 @@ pub struct Source {
 }
 
 impl Source {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `source`.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
@@ -716,6 +751,10 @@ pub struct BuiltImage {
 }
 
 impl BuiltImage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BuiltImage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -764,6 +803,10 @@ pub struct UploadedPythonPackage {
 }
 
 impl UploadedPythonPackage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::UploadedPythonPackage::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -815,6 +858,10 @@ pub struct UploadedMavenArtifact {
 }
 
 impl UploadedMavenArtifact {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::UploadedMavenArtifact::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -867,6 +914,10 @@ pub struct UploadedGoModule {
 }
 
 impl UploadedGoModule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::UploadedGoModule::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -919,6 +970,10 @@ pub struct UploadedNpmPackage {
 }
 
 impl UploadedNpmPackage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::UploadedNpmPackage::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -1090,6 +1145,10 @@ pub struct BuildStep {
 }
 
 impl BuildStep {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BuildStep::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1270,6 +1329,10 @@ pub struct Volume {
 }
 
 impl Volume {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Volume::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1347,6 +1410,10 @@ pub struct Results {
 }
 
 impl Results {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [artifact_manifest][crate::model::Results::artifact_manifest].
     pub fn set_artifact_manifest<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1476,6 +1543,10 @@ pub struct ArtifactResult {
 }
 
 impl ArtifactResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [location][crate::model::ArtifactResult::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
@@ -1688,6 +1759,10 @@ pub struct Build {
 }
 
 impl Build {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Build::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1974,6 +2049,10 @@ pub mod build {
     }
 
     impl Warning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [text][crate::model::build::Warning::text].
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
@@ -2003,13 +2082,12 @@ pub mod build {
 
         /// The relative importance of this warning.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Priority(std::string::String);
+        pub struct Priority(std::borrow::Cow<'static, str>);
 
         impl Priority {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Priority instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -2020,18 +2098,25 @@ pub mod build {
 
         /// Useful constants to work with [Priority](Priority)
         pub mod priority {
+            use super::Priority;
 
             /// Should not be used.
-            pub const PRIORITY_UNSPECIFIED: &str = "PRIORITY_UNSPECIFIED";
+            pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
 
             /// e.g. deprecation warnings and alternative feature highlights.
-            pub const INFO: &str = "INFO";
+            pub const INFO: Priority = Priority::new("INFO");
 
             /// e.g. automated detection of possible issues with the build.
-            pub const WARNING: &str = "WARNING";
+            pub const WARNING: Priority = Priority::new("WARNING");
 
             /// e.g. alerts that a feature used in the build is pending removal
-            pub const ALERT: &str = "ALERT";
+            pub const ALERT: Priority = Priority::new("ALERT");
+        }
+
+        impl std::convert::From<std::string::String> for Priority {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -2051,6 +2136,10 @@ pub mod build {
     }
 
     impl FailureInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::build::FailureInfo::type].
         pub fn set_type<T: std::convert::Into<crate::model::build::failure_info::FailureType>>(
             mut self,
@@ -2081,13 +2170,12 @@ pub mod build {
         /// The name of a fatal problem encountered during the execution of the
         /// build.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FailureType(std::string::String);
+        pub struct FailureType(std::borrow::Cow<'static, str>);
 
         impl FailureType {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new FailureType instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -2098,39 +2186,46 @@ pub mod build {
 
         /// Useful constants to work with [FailureType](FailureType)
         pub mod failure_type {
+            use super::FailureType;
 
             /// Type unspecified
-            pub const FAILURE_TYPE_UNSPECIFIED: &str = "FAILURE_TYPE_UNSPECIFIED";
+            pub const FAILURE_TYPE_UNSPECIFIED: FailureType =
+                FailureType::new("FAILURE_TYPE_UNSPECIFIED");
 
             /// Unable to push the image to the repository.
-            pub const PUSH_FAILED: &str = "PUSH_FAILED";
+            pub const PUSH_FAILED: FailureType = FailureType::new("PUSH_FAILED");
 
             /// Final image not found.
-            pub const PUSH_IMAGE_NOT_FOUND: &str = "PUSH_IMAGE_NOT_FOUND";
+            pub const PUSH_IMAGE_NOT_FOUND: FailureType = FailureType::new("PUSH_IMAGE_NOT_FOUND");
 
             /// Unauthorized push of the final image.
-            pub const PUSH_NOT_AUTHORIZED: &str = "PUSH_NOT_AUTHORIZED";
+            pub const PUSH_NOT_AUTHORIZED: FailureType = FailureType::new("PUSH_NOT_AUTHORIZED");
 
             /// Backend logging failures. Should retry.
-            pub const LOGGING_FAILURE: &str = "LOGGING_FAILURE";
+            pub const LOGGING_FAILURE: FailureType = FailureType::new("LOGGING_FAILURE");
 
             /// A build step has failed.
-            pub const USER_BUILD_STEP: &str = "USER_BUILD_STEP";
+            pub const USER_BUILD_STEP: FailureType = FailureType::new("USER_BUILD_STEP");
 
             /// The source fetching has failed.
-            pub const FETCH_SOURCE_FAILED: &str = "FETCH_SOURCE_FAILED";
+            pub const FETCH_SOURCE_FAILED: FailureType = FailureType::new("FETCH_SOURCE_FAILED");
+        }
+
+        impl std::convert::From<std::string::String> for FailureType {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
     /// Possible status of a build or build step.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::string::String);
+    pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Status instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2141,37 +2236,44 @@ pub mod build {
 
     /// Useful constants to work with [Status](Status)
     pub mod status {
+        use super::Status;
 
         /// Status of the build is unknown.
-        pub const STATUS_UNKNOWN: &str = "STATUS_UNKNOWN";
+        pub const STATUS_UNKNOWN: Status = Status::new("STATUS_UNKNOWN");
 
         /// Build has been created and is pending execution and queuing. It has not
         /// been queued.
-        pub const PENDING: &str = "PENDING";
+        pub const PENDING: Status = Status::new("PENDING");
 
         /// Build or step is queued; work has not yet begun.
-        pub const QUEUED: &str = "QUEUED";
+        pub const QUEUED: Status = Status::new("QUEUED");
 
         /// Build or step is being executed.
-        pub const WORKING: &str = "WORKING";
+        pub const WORKING: Status = Status::new("WORKING");
 
         /// Build or step finished successfully.
-        pub const SUCCESS: &str = "SUCCESS";
+        pub const SUCCESS: Status = Status::new("SUCCESS");
 
         /// Build or step failed to complete successfully.
-        pub const FAILURE: &str = "FAILURE";
+        pub const FAILURE: Status = Status::new("FAILURE");
 
         /// Build or step failed due to an internal cause.
-        pub const INTERNAL_ERROR: &str = "INTERNAL_ERROR";
+        pub const INTERNAL_ERROR: Status = Status::new("INTERNAL_ERROR");
 
         /// Build or step took longer than was allowed.
-        pub const TIMEOUT: &str = "TIMEOUT";
+        pub const TIMEOUT: Status = Status::new("TIMEOUT");
 
         /// Build or step was canceled by a user.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: Status = Status::new("CANCELLED");
 
         /// Build was enqueued for longer than the value of `queue_ttl`.
-        pub const EXPIRED: &str = "EXPIRED";
+        pub const EXPIRED: Status = Status::new("EXPIRED");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2248,6 +2350,10 @@ pub struct Artifacts {
 }
 
 impl Artifacts {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [objects][crate::model::Artifacts::objects].
     pub fn set_objects<
         T: std::convert::Into<std::option::Option<crate::model::artifacts::ArtifactObjects>>,
@@ -2352,6 +2458,10 @@ pub mod artifacts {
     }
 
     impl ArtifactObjects {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [location][crate::model::artifacts::ArtifactObjects::location].
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
@@ -2426,6 +2536,10 @@ pub mod artifacts {
     }
 
     impl MavenArtifact {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [repository][crate::model::artifacts::MavenArtifact::repository].
         pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository = v.into();
@@ -2508,6 +2622,10 @@ pub mod artifacts {
     }
 
     impl GoModule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [repository_name][crate::model::artifacts::GoModule::repository_name].
         pub fn set_repository_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -2587,6 +2705,10 @@ pub mod artifacts {
     }
 
     impl PythonPackage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [repository][crate::model::artifacts::PythonPackage::repository].
         pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository = v.into();
@@ -2633,6 +2755,10 @@ pub mod artifacts {
     }
 
     impl NpmPackage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [repository][crate::model::artifacts::NpmPackage::repository].
         pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository = v.into();
@@ -2672,6 +2798,10 @@ pub struct TimeSpan {
 }
 
 impl TimeSpan {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::TimeSpan::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -2709,6 +2839,10 @@ pub struct BuildOperationMetadata {
 }
 
 impl BuildOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [build][crate::model::BuildOperationMetadata::build].
     pub fn set_build<T: std::convert::Into<std::option::Option<crate::model::Build>>>(
         mut self,
@@ -2763,6 +2897,10 @@ pub struct SourceProvenance {
 }
 
 impl SourceProvenance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
     pub fn set_resolved_storage_source<
         T: std::convert::Into<std::option::Option<crate::model::StorageSource>>,
@@ -2828,6 +2966,10 @@ pub struct FileHashes {
 }
 
 impl FileHashes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_hash][crate::model::FileHashes::file_hash].
     pub fn set_file_hash<T, V>(mut self, v: T) -> Self
     where
@@ -2863,6 +3005,10 @@ pub struct Hash {
 }
 
 impl Hash {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Hash::type].
     pub fn set_type<T: std::convert::Into<crate::model::hash::HashType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -2889,13 +3035,12 @@ pub mod hash {
 
     /// Specifies the hash algorithm, if any.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HashType(std::string::String);
+    pub struct HashType(std::borrow::Cow<'static, str>);
 
     impl HashType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new HashType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2906,21 +3051,28 @@ pub mod hash {
 
     /// Useful constants to work with [HashType](HashType)
     pub mod hash_type {
+        use super::HashType;
 
         /// No hash requested.
-        pub const NONE: &str = "NONE";
+        pub const NONE: HashType = HashType::new("NONE");
 
         /// Use a sha256 hash.
-        pub const SHA256: &str = "SHA256";
+        pub const SHA256: HashType = HashType::new("SHA256");
 
         /// Use a md5 hash.
-        pub const MD5: &str = "MD5";
+        pub const MD5: HashType = HashType::new("MD5");
 
         /// Dirhash of a Go module's source code which is then hex-encoded.
-        pub const GO_MODULE_H1: &str = "GO_MODULE_H1";
+        pub const GO_MODULE_H1: HashType = HashType::new("GO_MODULE_H1");
 
         /// Use a sha512 hash.
-        pub const SHA512: &str = "SHA512";
+        pub const SHA512: HashType = HashType::new("SHA512");
+    }
+
+    impl std::convert::From<std::string::String> for HashType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2941,6 +3093,10 @@ pub struct Secrets {
 }
 
 impl Secrets {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret_manager][crate::model::Secrets::secret_manager].
     pub fn set_secret_manager<T, V>(mut self, v: T) -> Self
     where
@@ -2994,6 +3150,10 @@ pub struct InlineSecret {
 }
 
 impl InlineSecret {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kms_key_name][crate::model::InlineSecret::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -3038,6 +3198,10 @@ pub struct SecretManagerSecret {
 }
 
 impl SecretManagerSecret {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version_name][crate::model::SecretManagerSecret::version_name].
     pub fn set_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_name = v.into();
@@ -3083,6 +3247,10 @@ pub struct Secret {
 }
 
 impl Secret {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kms_key_name][crate::model::Secret::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -3129,6 +3297,10 @@ pub struct CreateBuildRequest {
 }
 
 impl CreateBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBuildRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3178,6 +3350,10 @@ pub struct GetBuildRequest {
 }
 
 impl GetBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBuildRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3239,6 +3415,10 @@ pub struct ListBuildsRequest {
 }
 
 impl ListBuildsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBuildsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3293,6 +3473,10 @@ pub struct ListBuildsResponse {
 }
 
 impl ListBuildsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBuildsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3351,6 +3535,10 @@ pub struct CancelBuildRequest {
 }
 
 impl CancelBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CancelBuildRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3393,6 +3581,10 @@ pub struct ApproveBuildRequest {
 }
 
 impl ApproveBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ApproveBuildRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3437,6 +3629,10 @@ pub struct BuildApproval {
 }
 
 impl BuildApproval {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::BuildApproval::state].
     pub fn set_state<T: std::convert::Into<crate::model::build_approval::State>>(
         mut self,
@@ -3478,13 +3674,12 @@ pub mod build_approval {
 
     /// Specifies the current state of a build's approval.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3495,21 +3690,28 @@ pub mod build_approval {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Default enum type. This should not be used.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Build approval is pending.
-        pub const PENDING: &str = "PENDING";
+        pub const PENDING: State = State::new("PENDING");
 
         /// Build approval has been approved.
-        pub const APPROVED: &str = "APPROVED";
+        pub const APPROVED: State = State::new("APPROVED");
 
         /// Build approval has been rejected.
-        pub const REJECTED: &str = "REJECTED";
+        pub const REJECTED: State = State::new("REJECTED");
 
         /// Build was cancelled while it was still pending approval.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3526,6 +3728,10 @@ pub struct ApprovalConfig {
 }
 
 impl ApprovalConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [approval_required][crate::model::ApprovalConfig::approval_required].
     pub fn set_approval_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.approval_required = v.into();
@@ -3571,6 +3777,10 @@ pub struct ApprovalResult {
 }
 
 impl ApprovalResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [approver_account][crate::model::ApprovalResult::approver_account].
     pub fn set_approver_account<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3625,13 +3835,12 @@ pub mod approval_result {
     /// Specifies whether or not this manual approval result is to approve
     /// or reject a build.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Decision(std::string::String);
+    pub struct Decision(std::borrow::Cow<'static, str>);
 
     impl Decision {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Decision instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3642,15 +3851,22 @@ pub mod approval_result {
 
     /// Useful constants to work with [Decision](Decision)
     pub mod decision {
+        use super::Decision;
 
         /// Default enum type. This should not be used.
-        pub const DECISION_UNSPECIFIED: &str = "DECISION_UNSPECIFIED";
+        pub const DECISION_UNSPECIFIED: Decision = Decision::new("DECISION_UNSPECIFIED");
 
         /// Build is approved.
-        pub const APPROVED: &str = "APPROVED";
+        pub const APPROVED: Decision = Decision::new("APPROVED");
 
         /// Build is rejected.
-        pub const REJECTED: &str = "REJECTED";
+        pub const REJECTED: Decision = Decision::new("REJECTED");
+    }
+
+    impl std::convert::From<std::string::String> for Decision {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3684,6 +3900,10 @@ pub struct GitRepoSource {
 }
 
 impl GitRepoSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::GitRepoSource::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -3854,6 +4074,10 @@ pub struct GitFileSource {
 }
 
 impl GitFileSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::GitFileSource::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -3968,13 +4192,12 @@ pub mod git_file_source {
     /// The type of the repo, since it may not be explicit from the `repo` field
     /// (e.g from a URL).
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RepoType(std::string::String);
+    pub struct RepoType(std::borrow::Cow<'static, str>);
 
     impl RepoType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RepoType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3985,23 +4208,30 @@ pub mod git_file_source {
 
     /// Useful constants to work with [RepoType](RepoType)
     pub mod repo_type {
+        use super::RepoType;
 
         /// The default, unknown repo type. Don't use it, instead use one of
         /// the other repo types.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: RepoType = RepoType::new("UNKNOWN");
 
         /// A Google Cloud Source Repositories-hosted repo.
-        pub const CLOUD_SOURCE_REPOSITORIES: &str = "CLOUD_SOURCE_REPOSITORIES";
+        pub const CLOUD_SOURCE_REPOSITORIES: RepoType = RepoType::new("CLOUD_SOURCE_REPOSITORIES");
 
         /// A GitHub-hosted repo not necessarily on "github.com" (i.e. GitHub
         /// Enterprise).
-        pub const GITHUB: &str = "GITHUB";
+        pub const GITHUB: RepoType = RepoType::new("GITHUB");
 
         /// A Bitbucket Server-hosted repo.
-        pub const BITBUCKET_SERVER: &str = "BITBUCKET_SERVER";
+        pub const BITBUCKET_SERVER: RepoType = RepoType::new("BITBUCKET_SERVER");
 
         /// A GitLab-hosted repo.
-        pub const GITLAB: &str = "GITLAB";
+        pub const GITLAB: RepoType = RepoType::new("GITLAB");
+    }
+
+    impl std::convert::From<std::string::String> for RepoType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The source of the SCM repo.
@@ -4159,6 +4389,10 @@ pub struct BuildTrigger {
 }
 
 impl BuildTrigger {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_name][crate::model::BuildTrigger::resource_name].
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
@@ -4495,6 +4729,10 @@ pub struct RepositoryEventConfig {
 }
 
 impl RepositoryEventConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [repository][crate::model::RepositoryEventConfig::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -4595,13 +4833,12 @@ pub mod repository_event_config {
 
     /// All possible SCM repo types from Repo API.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RepositoryType(std::string::String);
+    pub struct RepositoryType(std::borrow::Cow<'static, str>);
 
     impl RepositoryType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RepositoryType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4612,18 +4849,26 @@ pub mod repository_event_config {
 
     /// Useful constants to work with [RepositoryType](RepositoryType)
     pub mod repository_type {
+        use super::RepositoryType;
 
         /// If unspecified, RepositoryType defaults to GITHUB.
-        pub const REPOSITORY_TYPE_UNSPECIFIED: &str = "REPOSITORY_TYPE_UNSPECIFIED";
+        pub const REPOSITORY_TYPE_UNSPECIFIED: RepositoryType =
+            RepositoryType::new("REPOSITORY_TYPE_UNSPECIFIED");
 
         /// The SCM repo is GITHUB.
-        pub const GITHUB: &str = "GITHUB";
+        pub const GITHUB: RepositoryType = RepositoryType::new("GITHUB");
 
         /// The SCM repo is GITHUB Enterprise.
-        pub const GITHUB_ENTERPRISE: &str = "GITHUB_ENTERPRISE";
+        pub const GITHUB_ENTERPRISE: RepositoryType = RepositoryType::new("GITHUB_ENTERPRISE");
 
         /// The SCM repo is GITLAB Enterprise.
-        pub const GITLAB_ENTERPRISE: &str = "GITLAB_ENTERPRISE";
+        pub const GITLAB_ENTERPRISE: RepositoryType = RepositoryType::new("GITLAB_ENTERPRISE");
+    }
+
+    impl std::convert::From<std::string::String> for RepositoryType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The types of filter to trigger a build.
@@ -4667,6 +4912,10 @@ pub struct GitHubEventsConfig {
 }
 
 impl GitHubEventsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [installation_id][crate::model::GitHubEventsConfig::installation_id].
     pub fn set_installation_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.installation_id = v.into();
@@ -4805,6 +5054,10 @@ pub struct PubsubConfig {
 }
 
 impl PubsubConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [subscription][crate::model::PubsubConfig::subscription].
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
@@ -4850,13 +5103,12 @@ pub mod pubsub_config {
     /// Enumerates potential issues with the underlying Pub/Sub subscription
     /// configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4867,21 +5119,28 @@ pub mod pubsub_config {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The subscription configuration has not been checked.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The Pub/Sub subscription is properly configured.
-        pub const OK: &str = "OK";
+        pub const OK: State = State::new("OK");
 
         /// The subscription has been deleted.
-        pub const SUBSCRIPTION_DELETED: &str = "SUBSCRIPTION_DELETED";
+        pub const SUBSCRIPTION_DELETED: State = State::new("SUBSCRIPTION_DELETED");
 
         /// The topic has been deleted.
-        pub const TOPIC_DELETED: &str = "TOPIC_DELETED";
+        pub const TOPIC_DELETED: State = State::new("TOPIC_DELETED");
 
         /// Some of the subscription's field are misconfigured.
-        pub const SUBSCRIPTION_MISCONFIGURED: &str = "SUBSCRIPTION_MISCONFIGURED";
+        pub const SUBSCRIPTION_MISCONFIGURED: State = State::new("SUBSCRIPTION_MISCONFIGURED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4902,6 +5161,10 @@ pub struct WebhookConfig {
 }
 
 impl WebhookConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::WebhookConfig::state].
     pub fn set_state<T: std::convert::Into<crate::model::webhook_config::State>>(
         mut self,
@@ -4959,13 +5222,12 @@ pub mod webhook_config {
     /// Enumerates potential issues with the Secret Manager secret provided by the
     /// user.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4976,15 +5238,22 @@ pub mod webhook_config {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The webhook auth configuration not been checked.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The auth configuration is properly setup.
-        pub const OK: &str = "OK";
+        pub const OK: State = State::new("OK");
 
         /// The secret provided in auth_method has been deleted.
-        pub const SECRET_DELETED: &str = "SECRET_DELETED";
+        pub const SECRET_DELETED: State = State::new("SECRET_DELETED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Auth method specifies how the webhook authenticates with GCP.
@@ -5018,6 +5287,10 @@ pub struct PullRequestFilter {
 }
 
 impl PullRequestFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [comment_control][crate::model::PullRequestFilter::comment_control].
     pub fn set_comment_control<
         T: std::convert::Into<crate::model::pull_request_filter::CommentControl>,
@@ -5082,13 +5355,12 @@ pub mod pull_request_filter {
 
     /// Controls behavior of Pull Request comments.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommentControl(std::string::String);
+    pub struct CommentControl(std::borrow::Cow<'static, str>);
 
     impl CommentControl {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CommentControl instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5099,18 +5371,25 @@ pub mod pull_request_filter {
 
     /// Useful constants to work with [CommentControl](CommentControl)
     pub mod comment_control {
+        use super::CommentControl;
 
         /// Do not require comments on Pull Requests before builds are triggered.
-        pub const COMMENTS_DISABLED: &str = "COMMENTS_DISABLED";
+        pub const COMMENTS_DISABLED: CommentControl = CommentControl::new("COMMENTS_DISABLED");
 
         /// Enforce that repository owners or collaborators must comment on Pull
         /// Requests before builds are triggered.
-        pub const COMMENTS_ENABLED: &str = "COMMENTS_ENABLED";
+        pub const COMMENTS_ENABLED: CommentControl = CommentControl::new("COMMENTS_ENABLED");
 
         /// Enforce that repository owners or collaborators must comment on external
         /// contributors' Pull Requests before builds are triggered.
-        pub const COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY: &str =
-            "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY";
+        pub const COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY: CommentControl =
+            CommentControl::new("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY");
+    }
+
+    impl std::convert::From<std::string::String> for CommentControl {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Target refs to match.
@@ -5144,6 +5423,10 @@ pub struct PushFilter {
 }
 
 impl PushFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [invert_regex][crate::model::PushFilter::invert_regex].
     pub fn set_invert_regex<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.invert_regex = v.into();
@@ -5256,6 +5539,10 @@ pub struct CreateBuildTriggerRequest {
 }
 
 impl CreateBuildTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBuildTriggerRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5305,6 +5592,10 @@ pub struct GetBuildTriggerRequest {
 }
 
 impl GetBuildTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBuildTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5354,6 +5645,10 @@ pub struct ListBuildTriggersRequest {
 }
 
 impl ListBuildTriggersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBuildTriggersRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5401,6 +5696,10 @@ pub struct ListBuildTriggersResponse {
 }
 
 impl ListBuildTriggersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBuildTriggersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5459,6 +5758,10 @@ pub struct DeleteBuildTriggerRequest {
 }
 
 impl DeleteBuildTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBuildTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5510,6 +5813,10 @@ pub struct UpdateBuildTriggerRequest {
 }
 
 impl UpdateBuildTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::UpdateBuildTriggerRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -5648,6 +5955,10 @@ pub struct BuildOptions {
 }
 
 impl BuildOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [requested_verify_option][crate::model::BuildOptions::requested_verify_option].
     pub fn set_requested_verify_option<
         T: std::convert::Into<crate::model::build_options::VerifyOption>,
@@ -5827,6 +6138,10 @@ pub mod build_options {
     }
 
     impl PoolOption {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::build_options::PoolOption::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -5851,13 +6166,12 @@ pub mod build_options {
     /// For more information, see [Viewing Build
     /// Provenance](https://cloud.google.com/build/docs/securing-builds/view-build-provenance).
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VerifyOption(std::string::String);
+    pub struct VerifyOption(std::borrow::Cow<'static, str>);
 
     impl VerifyOption {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new VerifyOption instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5868,25 +6182,31 @@ pub mod build_options {
 
     /// Useful constants to work with [VerifyOption](VerifyOption)
     pub mod verify_option {
+        use super::VerifyOption;
 
         /// Not a verifiable build (the default).
-        pub const NOT_VERIFIED: &str = "NOT_VERIFIED";
+        pub const NOT_VERIFIED: VerifyOption = VerifyOption::new("NOT_VERIFIED");
 
         /// Build must be verified.
-        pub const VERIFIED: &str = "VERIFIED";
+        pub const VERIFIED: VerifyOption = VerifyOption::new("VERIFIED");
+    }
+
+    impl std::convert::From<std::string::String> for VerifyOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Supported Compute Engine machine types.
     /// For more information, see [Machine
     /// types](https://cloud.google.com/compute/docs/machine-types).
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MachineType(std::string::String);
+    pub struct MachineType(std::borrow::Cow<'static, str>);
 
     impl MachineType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new MachineType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5897,35 +6217,41 @@ pub mod build_options {
 
     /// Useful constants to work with [MachineType](MachineType)
     pub mod machine_type {
+        use super::MachineType;
 
         /// Standard machine type.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: MachineType = MachineType::new("UNSPECIFIED");
 
         /// Highcpu machine with 8 CPUs.
-        pub const N1_HIGHCPU_8: &str = "N1_HIGHCPU_8";
+        pub const N1_HIGHCPU_8: MachineType = MachineType::new("N1_HIGHCPU_8");
 
         /// Highcpu machine with 32 CPUs.
-        pub const N1_HIGHCPU_32: &str = "N1_HIGHCPU_32";
+        pub const N1_HIGHCPU_32: MachineType = MachineType::new("N1_HIGHCPU_32");
 
         /// Highcpu e2 machine with 8 CPUs.
-        pub const E2_HIGHCPU_8: &str = "E2_HIGHCPU_8";
+        pub const E2_HIGHCPU_8: MachineType = MachineType::new("E2_HIGHCPU_8");
 
         /// Highcpu e2 machine with 32 CPUs.
-        pub const E2_HIGHCPU_32: &str = "E2_HIGHCPU_32";
+        pub const E2_HIGHCPU_32: MachineType = MachineType::new("E2_HIGHCPU_32");
 
         /// E2 machine with 1 CPU.
-        pub const E2_MEDIUM: &str = "E2_MEDIUM";
+        pub const E2_MEDIUM: MachineType = MachineType::new("E2_MEDIUM");
+    }
+
+    impl std::convert::From<std::string::String> for MachineType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Specifies the behavior when there is an error in the substitution checks.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SubstitutionOption(std::string::String);
+    pub struct SubstitutionOption(std::borrow::Cow<'static, str>);
 
     impl SubstitutionOption {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SubstitutionOption instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5936,24 +6262,30 @@ pub mod build_options {
 
     /// Useful constants to work with [SubstitutionOption](SubstitutionOption)
     pub mod substitution_option {
+        use super::SubstitutionOption;
 
         /// Fails the build if error in substitutions checks, like missing
         /// a substitution in the template or in the map.
-        pub const MUST_MATCH: &str = "MUST_MATCH";
+        pub const MUST_MATCH: SubstitutionOption = SubstitutionOption::new("MUST_MATCH");
 
         /// Do not fail the build if error in substitutions checks.
-        pub const ALLOW_LOOSE: &str = "ALLOW_LOOSE";
+        pub const ALLOW_LOOSE: SubstitutionOption = SubstitutionOption::new("ALLOW_LOOSE");
+    }
+
+    impl std::convert::From<std::string::String> for SubstitutionOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Specifies the behavior when writing build logs to Cloud Storage.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogStreamingOption(std::string::String);
+    pub struct LogStreamingOption(std::borrow::Cow<'static, str>);
 
     impl LogStreamingOption {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LogStreamingOption instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5964,27 +6296,33 @@ pub mod build_options {
 
     /// Useful constants to work with [LogStreamingOption](LogStreamingOption)
     pub mod log_streaming_option {
+        use super::LogStreamingOption;
 
         /// Service may automatically determine build log streaming behavior.
-        pub const STREAM_DEFAULT: &str = "STREAM_DEFAULT";
+        pub const STREAM_DEFAULT: LogStreamingOption = LogStreamingOption::new("STREAM_DEFAULT");
 
         /// Build logs should be streamed to Cloud Storage.
-        pub const STREAM_ON: &str = "STREAM_ON";
+        pub const STREAM_ON: LogStreamingOption = LogStreamingOption::new("STREAM_ON");
 
         /// Build logs should not be streamed to Cloud Storage; they will be
         /// written when the build is completed.
-        pub const STREAM_OFF: &str = "STREAM_OFF";
+        pub const STREAM_OFF: LogStreamingOption = LogStreamingOption::new("STREAM_OFF");
+    }
+
+    impl std::convert::From<std::string::String> for LogStreamingOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Specifies the logging mode.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LoggingMode(std::string::String);
+    pub struct LoggingMode(std::borrow::Cow<'static, str>);
 
     impl LoggingMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LoggingMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5995,38 +6333,44 @@ pub mod build_options {
 
     /// Useful constants to work with [LoggingMode](LoggingMode)
     pub mod logging_mode {
+        use super::LoggingMode;
 
         /// The service determines the logging mode. The default is `LEGACY`. Do not
         /// rely on the default logging behavior as it may change in the future.
-        pub const LOGGING_UNSPECIFIED: &str = "LOGGING_UNSPECIFIED";
+        pub const LOGGING_UNSPECIFIED: LoggingMode = LoggingMode::new("LOGGING_UNSPECIFIED");
 
         /// Build logs are stored in Cloud Logging and Cloud Storage.
-        pub const LEGACY: &str = "LEGACY";
+        pub const LEGACY: LoggingMode = LoggingMode::new("LEGACY");
 
         /// Build logs are stored in Cloud Storage.
-        pub const GCS_ONLY: &str = "GCS_ONLY";
+        pub const GCS_ONLY: LoggingMode = LoggingMode::new("GCS_ONLY");
 
         /// This option is the same as CLOUD_LOGGING_ONLY.
-        pub const STACKDRIVER_ONLY: &str = "STACKDRIVER_ONLY";
+        pub const STACKDRIVER_ONLY: LoggingMode = LoggingMode::new("STACKDRIVER_ONLY");
 
         /// Build logs are stored in Cloud Logging. Selecting this option will not
         /// allow [logs
         /// streaming](https://cloud.google.com/sdk/gcloud/reference/builds/log).
-        pub const CLOUD_LOGGING_ONLY: &str = "CLOUD_LOGGING_ONLY";
+        pub const CLOUD_LOGGING_ONLY: LoggingMode = LoggingMode::new("CLOUD_LOGGING_ONLY");
 
         /// Turn off all logging. No build logs will be captured.
-        pub const NONE: &str = "NONE";
+        pub const NONE: LoggingMode = LoggingMode::new("NONE");
+    }
+
+    impl std::convert::From<std::string::String> for LoggingMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Default Cloud Storage log bucket behavior options.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DefaultLogsBucketBehavior(std::string::String);
+    pub struct DefaultLogsBucketBehavior(std::borrow::Cow<'static, str>);
 
     impl DefaultLogsBucketBehavior {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new DefaultLogsBucketBehavior instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6037,18 +6381,27 @@ pub mod build_options {
 
     /// Useful constants to work with [DefaultLogsBucketBehavior](DefaultLogsBucketBehavior)
     pub mod default_logs_bucket_behavior {
+        use super::DefaultLogsBucketBehavior;
 
         /// Unspecified.
-        pub const DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED: &str =
-            "DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED";
+        pub const DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED: DefaultLogsBucketBehavior =
+            DefaultLogsBucketBehavior::new("DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED");
 
         /// Bucket is located in user-owned project in the same region as the
         /// build. The builder service account must have access to create and write
         /// to Cloud Storage buckets in the build project.
-        pub const REGIONAL_USER_OWNED_BUCKET: &str = "REGIONAL_USER_OWNED_BUCKET";
+        pub const REGIONAL_USER_OWNED_BUCKET: DefaultLogsBucketBehavior =
+            DefaultLogsBucketBehavior::new("REGIONAL_USER_OWNED_BUCKET");
 
         /// Bucket is located in a Google-owned project and is not regionalized.
-        pub const LEGACY_BUCKET: &str = "LEGACY_BUCKET";
+        pub const LEGACY_BUCKET: DefaultLogsBucketBehavior =
+            DefaultLogsBucketBehavior::new("LEGACY_BUCKET");
+    }
+
+    impl std::convert::From<std::string::String> for DefaultLogsBucketBehavior {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6082,6 +6435,10 @@ pub struct ReceiveTriggerWebhookRequest {
 }
 
 impl ReceiveTriggerWebhookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ReceiveTriggerWebhookRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6130,7 +6487,11 @@ impl wkt::message::Message for ReceiveTriggerWebhookRequest {
 #[non_exhaustive]
 pub struct ReceiveTriggerWebhookResponse {}
 
-impl ReceiveTriggerWebhookResponse {}
+impl ReceiveTriggerWebhookResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ReceiveTriggerWebhookResponse {
     fn typename() -> &'static str {
@@ -6194,6 +6555,10 @@ pub struct GitHubEnterpriseConfig {
 }
 
 impl GitHubEnterpriseConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GitHubEnterpriseConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6289,6 +6654,10 @@ pub struct GitHubEnterpriseSecrets {
 }
 
 impl GitHubEnterpriseSecrets {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [private_key_version_name][crate::model::GitHubEnterpriseSecrets::private_key_version_name].
     pub fn set_private_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6402,6 +6771,10 @@ pub struct WorkerPool {
 }
 
 impl WorkerPool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::WorkerPool::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6531,13 +6904,12 @@ pub mod worker_pool {
 
     /// State of the `WorkerPool`.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6548,24 +6920,31 @@ pub mod worker_pool {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// State of the `WorkerPool` is unknown.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// `WorkerPool` is being created.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// `WorkerPool` is running.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// `WorkerPool` is being deleted: cancelling builds and draining workers.
-        pub const DELETING: &str = "DELETING";
+        pub const DELETING: State = State::new("DELETING");
 
         /// `WorkerPool` is deleted.
-        pub const DELETED: &str = "DELETED";
+        pub const DELETED: State = State::new("DELETED");
 
         /// `WorkerPool` is being updated; new builds cannot be run.
-        pub const UPDATING: &str = "UPDATING";
+        pub const UPDATING: State = State::new("UPDATING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Configuration for the `WorkerPool`.
@@ -6599,6 +6978,10 @@ pub struct PrivatePoolV1Config {
 }
 
 impl PrivatePoolV1Config {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [worker_config][crate::model::PrivatePoolV1Config::worker_config].
     pub fn set_worker_config<
         T: std::convert::Into<
@@ -6674,6 +7057,10 @@ pub mod private_pool_v_1_config {
     }
 
     impl WorkerConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [machine_type][crate::model::private_pool_v_1_config::WorkerConfig::machine_type].
         pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -6729,6 +7116,10 @@ pub mod private_pool_v_1_config {
     }
 
     impl NetworkConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [peered_network][crate::model::private_pool_v_1_config::NetworkConfig::peered_network].
         pub fn set_peered_network<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -6772,13 +7163,12 @@ pub mod private_pool_v_1_config {
 
         /// Defines the egress option for the pool.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EgressOption(std::string::String);
+        pub struct EgressOption(std::borrow::Cow<'static, str>);
 
         impl EgressOption {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new EgressOption instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -6789,17 +7179,25 @@ pub mod private_pool_v_1_config {
 
         /// Useful constants to work with [EgressOption](EgressOption)
         pub mod egress_option {
+            use super::EgressOption;
 
             /// If set, defaults to PUBLIC_EGRESS.
-            pub const EGRESS_OPTION_UNSPECIFIED: &str = "EGRESS_OPTION_UNSPECIFIED";
+            pub const EGRESS_OPTION_UNSPECIFIED: EgressOption =
+                EgressOption::new("EGRESS_OPTION_UNSPECIFIED");
 
             /// If set, workers are created without any public address, which prevents
             /// network egress to public IPs unless a network proxy is configured.
-            pub const NO_PUBLIC_EGRESS: &str = "NO_PUBLIC_EGRESS";
+            pub const NO_PUBLIC_EGRESS: EgressOption = EgressOption::new("NO_PUBLIC_EGRESS");
 
             /// If set, workers are created with a public address which allows for
             /// public internet egress.
-            pub const PUBLIC_EGRESS: &str = "PUBLIC_EGRESS";
+            pub const PUBLIC_EGRESS: EgressOption = EgressOption::new("PUBLIC_EGRESS");
+        }
+
+        impl std::convert::From<std::string::String> for EgressOption {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -6839,6 +7237,10 @@ pub mod private_pool_v_1_config {
     }
 
     impl PrivateServiceConnect {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [network_attachment][crate::model::private_pool_v_1_config::PrivateServiceConnect::network_attachment].
         pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -6897,6 +7299,10 @@ pub struct CreateWorkerPoolRequest {
 }
 
 impl CreateWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6944,6 +7350,10 @@ pub struct GetWorkerPoolRequest {
 }
 
 impl GetWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6984,6 +7394,10 @@ pub struct DeleteWorkerPoolRequest {
 }
 
 impl DeleteWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7038,6 +7452,10 @@ pub struct UpdateWorkerPoolRequest {
 }
 
 impl UpdateWorkerPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
     pub fn set_worker_pool<T: std::convert::Into<std::option::Option<crate::model::WorkerPool>>>(
         mut self,
@@ -7091,6 +7509,10 @@ pub struct ListWorkerPoolsRequest {
 }
 
 impl ListWorkerPoolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListWorkerPoolsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7134,6 +7556,10 @@ pub struct ListWorkerPoolsResponse {
 }
 
 impl ListWorkerPoolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListWorkerPoolsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -7193,6 +7619,10 @@ pub struct CreateWorkerPoolOperationMetadata {
 }
 
 impl CreateWorkerPoolOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolOperationMetadata::worker_pool].
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
@@ -7246,6 +7676,10 @@ pub struct UpdateWorkerPoolOperationMetadata {
 }
 
 impl UpdateWorkerPoolOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolOperationMetadata::worker_pool].
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
@@ -7299,6 +7733,10 @@ pub struct DeleteWorkerPoolOperationMetadata {
 }
 
 impl DeleteWorkerPoolOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [worker_pool][crate::model::DeleteWorkerPoolOperationMetadata::worker_pool].
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();

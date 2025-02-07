@@ -1,0 +1,11 @@
+{
+    "api_id": "iam-meta-api.googleapis.com",
+    "api_shortname": "iam-meta-api",
+    "client_documentation": "https://docs.rs/iam-v1-golden-protobuf/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

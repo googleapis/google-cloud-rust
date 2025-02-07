@@ -201,6 +201,10 @@ pub struct Backup {
 }
 
 impl Backup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::Backup::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -369,13 +373,12 @@ pub mod backup {
 
     /// Indicates the current state of the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -386,16 +389,23 @@ pub mod backup {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The pending backup is still being created. Operations on the
         /// backup may fail with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The backup is complete and ready for use.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -439,6 +449,10 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -523,6 +537,10 @@ pub struct CreateBackupMetadata {
 }
 
 impl CreateBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -611,6 +629,10 @@ pub struct CopyBackupRequest {
 }
 
 impl CopyBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -705,6 +727,10 @@ pub struct CopyBackupMetadata {
 }
 
 impl CopyBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -771,6 +797,10 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
@@ -813,6 +843,10 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -843,6 +877,10 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -932,6 +970,10 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -987,6 +1029,10 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1132,6 +1178,10 @@ pub struct ListBackupOperationsRequest {
 }
 
 impl ListBackupOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1197,6 +1247,10 @@ pub struct ListBackupOperationsResponse {
 }
 
 impl ListBackupOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1268,6 +1322,10 @@ pub struct BackupInfo {
 }
 
 impl BackupInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::BackupInfo::backup].
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -1345,6 +1403,10 @@ pub struct CreateBackupEncryptionConfig {
 }
 
 impl CreateBackupEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::CreateBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>,
@@ -1387,13 +1449,12 @@ pub mod create_backup_encryption_config {
 
     /// Encryption types for the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1404,9 +1465,11 @@ pub mod create_backup_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// Use the same encryption configuration as the database. This is the
         /// default option when
@@ -1416,14 +1479,23 @@ pub mod create_backup_encryption_config {
         /// KMS key as the database.
         ///
         /// [google.spanner.admin.database.v1.CreateBackupEncryptionConfig]: crate::model::CreateBackupEncryptionConfig
-        pub const USE_DATABASE_ENCRYPTION: &str = "USE_DATABASE_ENCRYPTION";
+        pub const USE_DATABASE_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_DATABASE_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, `kms_key_name`
         /// must contain a valid Cloud KMS key.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1468,6 +1540,10 @@ pub struct CopyBackupEncryptionConfig {
 }
 
 impl CopyBackupEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::CopyBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>,
@@ -1510,13 +1586,12 @@ pub mod copy_backup_encryption_config {
 
     /// Encryption types for the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1527,9 +1602,11 @@ pub mod copy_backup_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// This is the default option for
         /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]
@@ -1541,15 +1618,23 @@ pub mod copy_backup_encryption_config {
         ///
         /// [google.spanner.admin.database.v1.CopyBackupEncryptionConfig]: crate::model::CopyBackupEncryptionConfig
         /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
-        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: &str =
-            "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION";
+        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, either `kms_key_name` or
         /// `kms_key_names` must contain valid Cloud KMS key(s).
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1562,7 +1647,11 @@ pub mod copy_backup_encryption_config {
 #[non_exhaustive]
 pub struct FullBackupSpec {}
 
-impl FullBackupSpec {}
+impl FullBackupSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for FullBackupSpec {
     fn typename() -> &'static str {
@@ -1582,7 +1671,11 @@ impl wkt::message::Message for FullBackupSpec {
 #[non_exhaustive]
 pub struct IncrementalBackupSpec {}
 
-impl IncrementalBackupSpec {}
+impl IncrementalBackupSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for IncrementalBackupSpec {
     fn typename() -> &'static str {
@@ -1602,6 +1695,10 @@ pub struct BackupScheduleSpec {
 }
 
 impl BackupScheduleSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `schedule_spec`.
     pub fn set_schedule_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
@@ -1717,6 +1814,10 @@ pub struct BackupSchedule {
 }
 
 impl BackupSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BackupSchedule::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1903,6 +2004,10 @@ pub struct CrontabSpec {
 }
 
 impl CrontabSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::CrontabSpec::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -1956,6 +2061,10 @@ pub struct CreateBackupScheduleRequest {
 }
 
 impl CreateBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2006,6 +2115,10 @@ pub struct GetBackupScheduleRequest {
 }
 
 impl GetBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2036,6 +2149,10 @@ pub struct DeleteBackupScheduleRequest {
 }
 
 impl DeleteBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2081,6 +2198,10 @@ pub struct ListBackupSchedulesRequest {
 }
 
 impl ListBackupSchedulesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2129,6 +2250,10 @@ pub struct ListBackupSchedulesResponse {
 }
 
 impl ListBackupSchedulesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2191,6 +2316,10 @@ pub struct UpdateBackupScheduleRequest {
 }
 
 impl UpdateBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
@@ -2240,6 +2369,10 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
@@ -2304,6 +2437,10 @@ pub struct EncryptionConfig {
 }
 
 impl EncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -2350,6 +2487,10 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
@@ -2388,13 +2529,12 @@ pub mod encryption_info {
 
     /// Possible encryption types.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2405,19 +2545,26 @@ pub mod encryption_info {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Encryption type was not specified, though data at rest remains encrypted.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// The data is encrypted at rest with a key that is
         /// fully managed by Google. No key version or status will be populated.
         /// This is the default state.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: Type = Type::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// The data is encrypted at rest with a key that is
         /// managed by the customer. The active version of the key. `kms_key_version`
         /// will be populated, and `encryption_status` may be populated.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: Type = Type::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2436,6 +2583,10 @@ pub struct RestoreInfo {
 }
 
 impl RestoreInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
@@ -2594,6 +2745,10 @@ pub struct Database {
 }
 
 impl Database {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Database::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2707,13 +2862,12 @@ pub mod database {
 
     /// Indicates the current state of the database.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2724,16 +2878,17 @@ pub mod database {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The database is still being created. Operations on the database may fail
         /// with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The database is fully created and ready for use.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
 
         /// The database is fully created and ready for use, but is still
         /// being optimized for performance and cannot handle full load.
@@ -2743,7 +2898,13 @@ pub mod database {
         /// from being deleted. When optimizations are complete, the full performance
         /// of the database will be restored, and the database will transition to
         /// `READY` state.
-        pub const READY_OPTIMIZING: &str = "READY_OPTIMIZING";
+        pub const READY_OPTIMIZING: State = State::new("READY_OPTIMIZING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2777,6 +2938,10 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2825,6 +2990,10 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2923,6 +3092,10 @@ pub struct CreateDatabaseRequest {
 }
 
 impl CreateDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2997,6 +3170,10 @@ pub struct CreateDatabaseMetadata {
 }
 
 impl CreateDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::CreateDatabaseMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3026,6 +3203,10 @@ pub struct GetDatabaseRequest {
 }
 
 impl GetDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3061,6 +3242,10 @@ pub struct UpdateDatabaseRequest {
 }
 
 impl UpdateDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::option::Option<crate::model::Database>>>(
         mut self,
@@ -3117,6 +3302,10 @@ pub struct UpdateDatabaseMetadata {
 }
 
 impl UpdateDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request][crate::model::UpdateDatabaseMetadata::request].
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::UpdateDatabaseRequest>>,
@@ -3238,6 +3427,10 @@ pub struct UpdateDatabaseDdlRequest {
 }
 
 impl UpdateDatabaseDdlRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3306,6 +3499,10 @@ pub struct DdlStatementActionInfo {
 }
 
 impl DdlStatementActionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [action][crate::model::DdlStatementActionInfo::action].
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
@@ -3384,6 +3581,10 @@ pub struct UpdateDatabaseDdlMetadata {
 }
 
 impl UpdateDatabaseDdlMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3462,6 +3663,10 @@ pub struct DropDatabaseRequest {
 }
 
 impl DropDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3492,6 +3697,10 @@ pub struct GetDatabaseDdlRequest {
 }
 
 impl GetDatabaseDdlRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3530,6 +3739,10 @@ pub struct GetDatabaseDdlResponse {
 }
 
 impl GetDatabaseDdlResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
@@ -3636,6 +3849,10 @@ pub struct ListDatabaseOperationsRequest {
 }
 
 impl ListDatabaseOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3697,6 +3914,10 @@ pub struct ListDatabaseOperationsResponse {
 }
 
 impl ListDatabaseOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3775,6 +3996,10 @@ pub struct RestoreDatabaseRequest {
 }
 
 impl RestoreDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3897,6 +4122,10 @@ pub struct RestoreDatabaseEncryptionConfig {
 }
 
 impl RestoreDatabaseEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::RestoreDatabaseEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>,
@@ -3939,13 +4168,12 @@ pub mod restore_database_encryption_config {
 
     /// Encryption types for the database to be restored.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3956,24 +4184,34 @@ pub mod restore_database_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// This is the default option when
         /// [encryption_config][google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]
         /// is not specified.
         ///
         /// [google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]: crate::model::RestoreDatabaseEncryptionConfig
-        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: &str =
-            "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION";
+        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, `kms_key_name` must
         /// must contain a valid Cloud KMS key.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4045,6 +4283,10 @@ pub struct RestoreDatabaseMetadata {
 }
 
 impl RestoreDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RestoreDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4177,6 +4419,10 @@ pub struct OptimizeRestoredDatabaseMetadata {
 }
 
 impl OptimizeRestoredDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::OptimizeRestoredDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4215,6 +4461,10 @@ pub struct DatabaseRole {
 }
 
 impl DatabaseRole {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DatabaseRole::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4259,6 +4509,10 @@ pub struct ListDatabaseRolesRequest {
 }
 
 impl ListDatabaseRolesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4307,6 +4561,10 @@ pub struct ListDatabaseRolesResponse {
 }
 
 impl ListDatabaseRolesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4344,15 +4602,208 @@ impl gax::paginator::PageableResponse for ListDatabaseRolesResponse {
     }
 }
 
+/// The request for
+/// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
+///
+/// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AddSplitPointsRequest {
+    /// Required. The database on whose tables/indexes split points are to be
+    /// added. Values are of the form
+    /// `projects/<project>/instances/<instance>/databases/<database>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub database: std::string::String,
+
+    /// Required. The split points to add.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub split_points: std::vec::Vec<crate::model::SplitPoints>,
+
+    /// Optional. A user-supplied tag associated with the split points.
+    /// For example, "intital_data_load", "special_event_1".
+    /// Defaults to "CloudAddSplitPointsAPI" if not specified.
+    /// The length of the tag must not exceed 50 characters,else will be trimmed.
+    /// Only valid UTF8 characters are allowed.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub initiator: std::string::String,
+}
+
+impl AddSplitPointsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+    pub fn set_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.initiator = v.into();
+        self
+    }
+
+    /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
+    pub fn set_split_points<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SplitPoints>,
+    {
+        use std::iter::Iterator;
+        self.split_points = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AddSplitPointsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.AddSplitPointsRequest"
+    }
+}
+
+/// The response for
+/// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
+///
+/// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AddSplitPointsResponse {}
+
+impl AddSplitPointsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for AddSplitPointsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.AddSplitPointsResponse"
+    }
+}
+
+/// The split points of a table/index.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SplitPoints {
+    /// The table to split.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub table: std::string::String,
+
+    /// The index to split.
+    /// If specified, the `table` field must refer to the index's base table.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub index: std::string::String,
+
+    /// Required. The list of split keys, i.e., the split boundaries.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub keys: std::vec::Vec<crate::model::split_points::Key>,
+
+    /// Optional. The expiration timestamp of the split points.
+    /// A timestamp in the past means immediate expiration.
+    /// The maximum value can be 30 days in the future.
+    /// Defaults to 10 days in the future if not specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl SplitPoints {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table][crate::model::SplitPoints::table].
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [index][crate::model::SplitPoints::index].
+    pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.index = v.into();
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [keys][crate::model::SplitPoints::keys].
+    pub fn set_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::split_points::Key>,
+    {
+        use std::iter::Iterator;
+        self.keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SplitPoints {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.SplitPoints"
+    }
+}
+
+/// Defines additional types related to SplitPoints
+pub mod split_points {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A split key.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Key {
+        /// Required. The column values making up the split key.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub key_parts: std::option::Option<wkt::ListValue>,
+    }
+
+    impl Key {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key_parts][crate::model::split_points::Key::key_parts].
+        pub fn set_key_parts<T: std::convert::Into<std::option::Option<wkt::ListValue>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key_parts = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Key {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.admin.database.v1.SplitPoints.Key"
+        }
+    }
+}
+
 /// Indicates the dialect type of a database.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DatabaseDialect(std::string::String);
+pub struct DatabaseDialect(std::borrow::Cow<'static, str>);
 
 impl DatabaseDialect {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new DatabaseDialect instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4363,27 +4814,34 @@ impl DatabaseDialect {
 
 /// Useful constants to work with [DatabaseDialect](DatabaseDialect)
 pub mod database_dialect {
+    use super::DatabaseDialect;
 
     /// Default value. This value will create a database with the
     /// GOOGLE_STANDARD_SQL dialect.
-    pub const DATABASE_DIALECT_UNSPECIFIED: &str = "DATABASE_DIALECT_UNSPECIFIED";
+    pub const DATABASE_DIALECT_UNSPECIFIED: DatabaseDialect =
+        DatabaseDialect::new("DATABASE_DIALECT_UNSPECIFIED");
 
     /// GoogleSQL supported SQL.
-    pub const GOOGLE_STANDARD_SQL: &str = "GOOGLE_STANDARD_SQL";
+    pub const GOOGLE_STANDARD_SQL: DatabaseDialect = DatabaseDialect::new("GOOGLE_STANDARD_SQL");
 
     /// PostgreSQL supported SQL.
-    pub const POSTGRESQL: &str = "POSTGRESQL";
+    pub const POSTGRESQL: DatabaseDialect = DatabaseDialect::new("POSTGRESQL");
+}
+
+impl std::convert::From<std::string::String> for DatabaseDialect {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Indicates the type of the restore source.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RestoreSourceType(std::string::String);
+pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
 
 impl RestoreSourceType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new RestoreSourceType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4394,10 +4852,17 @@ impl RestoreSourceType {
 
 /// Useful constants to work with [RestoreSourceType](RestoreSourceType)
 pub mod restore_source_type {
+    use super::RestoreSourceType;
 
     /// No restore associated.
-    pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+    pub const TYPE_UNSPECIFIED: RestoreSourceType = RestoreSourceType::new("TYPE_UNSPECIFIED");
 
     /// A backup was used as the source of the restore.
-    pub const BACKUP: &str = "BACKUP";
+    pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+}
+
+impl std::convert::From<std::string::String> for RestoreSourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

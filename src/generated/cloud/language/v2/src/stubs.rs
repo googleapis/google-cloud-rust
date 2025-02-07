@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,18 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Provides text analysis operations such as sentiment analysis and entity
-/// recognition.
+/// Defines the trait used to implement [crate::client::LanguageService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the language clients.
+/// Application developers may need to implement this trait to mock
+/// `client::LanguageService`.  In other use-cases, application developers only
+/// use `client::LanguageService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait LanguageService: std::fmt::Debug + Send + Sync {
-    /// Analyzes the sentiment of the provided text.
+    /// Implements [crate::client::LanguageService::analyze_sentiment].
     fn analyze_sentiment(
         &self,
         _req: crate::model::AnalyzeSentimentRequest,
@@ -51,9 +52,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Finds named entities (currently proper names and common nouns) in the text
-    /// along with entity types, probability, mentions for each entity, and
-    /// other properties.
+    /// Implements [crate::client::LanguageService::analyze_entities].
     fn analyze_entities(
         &self,
         _req: crate::model::AnalyzeEntitiesRequest,
@@ -65,7 +64,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Classifies a document into categories.
+    /// Implements [crate::client::LanguageService::classify_text].
     fn classify_text(
         &self,
         _req: crate::model::ClassifyTextRequest,
@@ -77,7 +76,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Moderates a document for harmful and sensitive categories.
+    /// Implements [crate::client::LanguageService::moderate_text].
     fn moderate_text(
         &self,
         _req: crate::model::ModerateTextRequest,
@@ -89,7 +88,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// A convenience method that provides all features in one call.
+    /// Implements [crate::client::LanguageService::annotate_text].
     fn annotate_text(
         &self,
         _req: crate::model::AnnotateTextRequest,

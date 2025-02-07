@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `CloudBuild`.
+/// A dyn-compatible, crate-private version of [super::CloudBuild].
 #[async_trait::async_trait]
 pub trait CloudBuild: std::fmt::Debug + Send + Sync {
     async fn create_build(

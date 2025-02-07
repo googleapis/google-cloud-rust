@@ -103,6 +103,28 @@ mod test {
         assert!(fmt.contains("UserCredential"));
     }
 
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credential_adc_service_account_credentials() {
+        let contents = r#"{
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        }"#;
+
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let sac = create_access_token_credential().await.unwrap();
+        let fmt = format!("{:?}", sac);
+        assert!(fmt.contains("ServiceAccountCredential"));
+    }
+
     mockall::mock! {
         #[derive(Debug)]
         Credential {}

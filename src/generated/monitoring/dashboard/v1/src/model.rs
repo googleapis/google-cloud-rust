@@ -47,6 +47,10 @@ pub struct AlertChart {
 }
 
 impl AlertChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AlertChart::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -72,6 +76,10 @@ pub struct CollapsibleGroup {
 }
 
 impl CollapsibleGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [collapsed][crate::model::CollapsibleGroup::collapsed].
     pub fn set_collapsed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.collapsed = v.into();
@@ -184,6 +192,10 @@ pub struct Aggregation {
 }
 
 impl Aggregation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
     pub fn set_alignment_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -247,13 +259,12 @@ pub mod aggregation {
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Aligner(std::string::String);
+    pub struct Aligner(std::borrow::Cow<'static, str>);
 
     impl Aligner {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Aligner instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -264,11 +275,12 @@ pub mod aggregation {
 
     /// Useful constants to work with [Aligner](Aligner)
     pub mod aligner {
+        use super::Aligner;
 
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
         /// is requested. The `value_type` of the result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_NONE: &str = "ALIGN_NONE";
+        pub const ALIGN_NONE: Aligner = Aligner::new("ALIGN_NONE");
 
         /// Align and convert to
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA].
@@ -280,7 +292,7 @@ pub mod aggregation {
         /// with no data, then the aligned value for such a period is created by
         /// interpolation. The `value_type`  of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_DELTA: &str = "ALIGN_DELTA";
+        pub const ALIGN_DELTA: Aligner = Aligner::new("ALIGN_DELTA");
 
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
@@ -295,70 +307,70 @@ pub mod aggregation {
         ///
         /// If, by "rate", you mean "percentage change", see the
         /// `ALIGN_PERCENT_CHANGE` aligner instead.
-        pub const ALIGN_RATE: &str = "ALIGN_RATE";
+        pub const ALIGN_RATE: Aligner = Aligner::new("ALIGN_RATE");
 
         /// Align by interpolating between adjacent points around the alignment
         /// period boundary. This aligner is valid for `GAUGE` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_INTERPOLATE: &str = "ALIGN_INTERPOLATE";
+        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new("ALIGN_INTERPOLATE");
 
         /// Align by moving the most recent data point before the end of the
         /// alignment period to the boundary at the end of the alignment
         /// period. This aligner is valid for `GAUGE` metrics. The `value_type` of
         /// the aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_NEXT_OLDER: &str = "ALIGN_NEXT_OLDER";
+        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new("ALIGN_NEXT_OLDER");
 
         /// Align the time series by returning the minimum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MIN: &str = "ALIGN_MIN";
+        pub const ALIGN_MIN: Aligner = Aligner::new("ALIGN_MIN");
 
         /// Align the time series by returning the maximum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MAX: &str = "ALIGN_MAX";
+        pub const ALIGN_MAX: Aligner = Aligner::new("ALIGN_MAX");
 
         /// Align the time series by returning the mean value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is `DOUBLE`.
-        pub const ALIGN_MEAN: &str = "ALIGN_MEAN";
+        pub const ALIGN_MEAN: Aligner = Aligner::new("ALIGN_MEAN");
 
         /// Align the time series by returning the number of values in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric or Boolean values. The `value_type` of the aligned result is
         /// `INT64`.
-        pub const ALIGN_COUNT: &str = "ALIGN_COUNT";
+        pub const ALIGN_COUNT: Aligner = Aligner::new("ALIGN_COUNT");
 
         /// Align the time series by returning the sum of the values in each
         /// alignment period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with numeric and distribution values. The `value_type` of the
         /// aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_SUM: &str = "ALIGN_SUM";
+        pub const ALIGN_SUM: Aligner = Aligner::new("ALIGN_SUM");
 
         /// Align the time series by returning the standard deviation of the values
         /// in each alignment period. This aligner is valid for `GAUGE` and
         /// `DELTA` metrics with numeric values. The `value_type` of the output is
         /// `DOUBLE`.
-        pub const ALIGN_STDDEV: &str = "ALIGN_STDDEV";
+        pub const ALIGN_STDDEV: Aligner = Aligner::new("ALIGN_STDDEV");
 
         /// Align the time series by returning the number of `True` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_TRUE: &str = "ALIGN_COUNT_TRUE";
+        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new("ALIGN_COUNT_TRUE");
 
         /// Align the time series by returning the number of `False` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_FALSE: &str = "ALIGN_COUNT_FALSE";
+        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new("ALIGN_COUNT_FALSE");
 
         /// Align the time series by returning the ratio of the number of `True`
         /// values to the total number of values in each alignment period. This
         /// aligner is valid for `GAUGE` metrics with Boolean values. The output
         /// value is in the range [0.0, 1.0] and has `value_type` `DOUBLE`.
-        pub const ALIGN_FRACTION_TRUE: &str = "ALIGN_FRACTION_TRUE";
+        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new("ALIGN_FRACTION_TRUE");
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -366,7 +378,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_99: &str = "ALIGN_PERCENTILE_99";
+        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new("ALIGN_PERCENTILE_99");
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -374,7 +386,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_95: &str = "ALIGN_PERCENTILE_95";
+        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new("ALIGN_PERCENTILE_95");
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -382,7 +394,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_50: &str = "ALIGN_PERCENTILE_50";
+        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new("ALIGN_PERCENTILE_50");
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -390,7 +402,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_05: &str = "ALIGN_PERCENTILE_05";
+        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new("ALIGN_PERCENTILE_05");
 
         /// Align and convert to a percentage change. This aligner is valid for
         /// `GAUGE` and `DELTA` metrics with numeric values. This alignment returns
@@ -408,7 +420,13 @@ pub mod aggregation {
         /// metrics are accepted by this alignment, special care should be taken that
         /// the values for the metric will always be positive. The output is a
         /// `GAUGE` metric with `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENT_CHANGE: &str = "ALIGN_PERCENT_CHANGE";
+        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new("ALIGN_PERCENT_CHANGE");
+    }
+
+    impl std::convert::From<std::string::String> for Aligner {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// A Reducer operation describes how to aggregate data points from multiple
@@ -416,13 +434,12 @@ pub mod aggregation {
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reducer(std::string::String);
+    pub struct Reducer(std::borrow::Cow<'static, str>);
 
     impl Reducer {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Reducer instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -433,10 +450,11 @@ pub mod aggregation {
 
     /// Useful constants to work with [Reducer](Reducer)
     pub mod reducer {
+        use super::Reducer;
 
         /// No cross-time series reduction. The output of the `Aligner` is
         /// returned.
-        pub const REDUCE_NONE: &str = "REDUCE_NONE";
+        pub const REDUCE_NONE: Reducer = Reducer::new("REDUCE_NONE");
 
         /// Reduce by computing the mean value across time series for each
         /// alignment period. This reducer is valid for
@@ -444,84 +462,90 @@ pub mod aggregation {
         /// [GAUGE][google.api.MetricDescriptor.MetricKind.GAUGE] metrics with
         /// numeric or distribution values. The `value_type` of the output is
         /// [DOUBLE][google.api.MetricDescriptor.ValueType.DOUBLE].
-        pub const REDUCE_MEAN: &str = "REDUCE_MEAN";
+        pub const REDUCE_MEAN: Reducer = Reducer::new("REDUCE_MEAN");
 
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MIN: &str = "REDUCE_MIN";
+        pub const REDUCE_MIN: Reducer = Reducer::new("REDUCE_MIN");
 
         /// Reduce by computing the maximum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MAX: &str = "REDUCE_MAX";
+        pub const REDUCE_MAX: Reducer = Reducer::new("REDUCE_MAX");
 
         /// Reduce by computing the sum across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric and distribution values. The `value_type` of the output is
         /// the same as the `value_type` of the input.
-        pub const REDUCE_SUM: &str = "REDUCE_SUM";
+        pub const REDUCE_SUM: Reducer = Reducer::new("REDUCE_SUM");
 
         /// Reduce by computing the standard deviation across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics with numeric or distribution values. The `value_type`
         /// of the output is `DOUBLE`.
-        pub const REDUCE_STDDEV: &str = "REDUCE_STDDEV";
+        pub const REDUCE_STDDEV: Reducer = Reducer::new("REDUCE_STDDEV");
 
         /// Reduce by computing the number of data points across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of numeric, Boolean, distribution, and string
         /// `value_type`. The `value_type` of the output is `INT64`.
-        pub const REDUCE_COUNT: &str = "REDUCE_COUNT";
+        pub const REDUCE_COUNT: Reducer = Reducer::new("REDUCE_COUNT");
 
         /// Reduce by computing the number of `True`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_TRUE: &str = "REDUCE_COUNT_TRUE";
+        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new("REDUCE_COUNT_TRUE");
 
         /// Reduce by computing the number of `False`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_FALSE: &str = "REDUCE_COUNT_FALSE";
+        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new("REDUCE_COUNT_FALSE");
 
         /// Reduce by computing the ratio of the number of `True`-valued data points
         /// to the total number of data points for each alignment period. This
         /// reducer is valid for `DELTA` and `GAUGE` metrics of Boolean `value_type`.
         /// The output value is in the range [0.0, 1.0] and has `value_type`
         /// `DOUBLE`.
-        pub const REDUCE_FRACTION_TRUE: &str = "REDUCE_FRACTION_TRUE";
+        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new("REDUCE_FRACTION_TRUE");
 
         /// Reduce by computing the [99th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_99: &str = "REDUCE_PERCENTILE_99";
+        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new("REDUCE_PERCENTILE_99");
 
         /// Reduce by computing the [95th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_95: &str = "REDUCE_PERCENTILE_95";
+        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new("REDUCE_PERCENTILE_95");
 
         /// Reduce by computing the [50th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_50: &str = "REDUCE_PERCENTILE_50";
+        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new("REDUCE_PERCENTILE_50");
 
         /// Reduce by computing the [5th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_05: &str = "REDUCE_PERCENTILE_05";
+        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new("REDUCE_PERCENTILE_05");
+    }
+
+    impl std::convert::From<std::string::String> for Reducer {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -554,6 +578,10 @@ pub struct PickTimeSeriesFilter {
 }
 
 impl PickTimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ranking_method][crate::model::PickTimeSeriesFilter::ranking_method].
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::pick_time_series_filter::Method>,
@@ -605,13 +633,12 @@ pub mod pick_time_series_filter {
 
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::string::String);
+    pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Method instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -622,36 +649,42 @@ pub mod pick_time_series_filter {
 
     /// Useful constants to work with [Method](Method)
     pub mod method {
+        use super::Method;
 
         /// Not allowed. You must specify a different `Method` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const METHOD_UNSPECIFIED: &str = "METHOD_UNSPECIFIED";
+        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
 
         /// Select the mean of all values.
-        pub const METHOD_MEAN: &str = "METHOD_MEAN";
+        pub const METHOD_MEAN: Method = Method::new("METHOD_MEAN");
 
         /// Select the maximum value.
-        pub const METHOD_MAX: &str = "METHOD_MAX";
+        pub const METHOD_MAX: Method = Method::new("METHOD_MAX");
 
         /// Select the minimum value.
-        pub const METHOD_MIN: &str = "METHOD_MIN";
+        pub const METHOD_MIN: Method = Method::new("METHOD_MIN");
 
         /// Compute the sum of all values.
-        pub const METHOD_SUM: &str = "METHOD_SUM";
+        pub const METHOD_SUM: Method = Method::new("METHOD_SUM");
 
         /// Select the most recent value.
-        pub const METHOD_LATEST: &str = "METHOD_LATEST";
+        pub const METHOD_LATEST: Method = Method::new("METHOD_LATEST");
+    }
+
+    impl std::convert::From<std::string::String> for Method {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Describes the ranking directions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::string::String);
+    pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Direction instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -662,16 +695,23 @@ pub mod pick_time_series_filter {
 
     /// Useful constants to work with [Direction](Direction)
     pub mod direction {
+        use super::Direction;
 
         /// Not allowed. You must specify a different `Direction` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const DIRECTION_UNSPECIFIED: &str = "DIRECTION_UNSPECIFIED";
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
 
         /// Pass the highest `num_time_series` ranking inputs.
-        pub const TOP: &str = "TOP";
+        pub const TOP: Direction = Direction::new("TOP");
 
         /// Pass the lowest `num_time_series` ranking inputs.
-        pub const BOTTOM: &str = "BOTTOM";
+        pub const BOTTOM: Direction = Direction::new("BOTTOM");
+    }
+
+    impl std::convert::From<std::string::String> for Direction {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -695,6 +735,10 @@ pub struct StatisticalTimeSeriesFilter {
 }
 
 impl StatisticalTimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ranking_method][crate::model::StatisticalTimeSeriesFilter::ranking_method].
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::statistical_time_series_filter::Method>,
@@ -726,13 +770,12 @@ pub mod statistical_time_series_filter {
 
     /// The filter methods that can be applied to a stream.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::string::String);
+    pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Method instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -743,12 +786,19 @@ pub mod statistical_time_series_filter {
 
     /// Useful constants to work with [Method](Method)
     pub mod method {
+        use super::Method;
 
         /// Not allowed in well-formed requests.
-        pub const METHOD_UNSPECIFIED: &str = "METHOD_UNSPECIFIED";
+        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
 
         /// Compute the outlier score of each stream.
-        pub const METHOD_CLUSTER_OUTLIER: &str = "METHOD_CLUSTER_OUTLIER";
+        pub const METHOD_CLUSTER_OUTLIER: Method = Method::new("METHOD_CLUSTER_OUTLIER");
+    }
+
+    impl std::convert::From<std::string::String> for Method {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -791,6 +841,10 @@ pub struct Dashboard {
 }
 
 impl Dashboard {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Dashboard::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1006,6 +1060,10 @@ pub struct DashboardFilter {
 }
 
 impl DashboardFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_key][crate::model::DashboardFilter::label_key].
     pub fn set_label_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label_key = v.into();
@@ -1080,13 +1138,12 @@ pub mod dashboard_filter {
 
     /// The type for the dashboard filter
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FilterType(std::string::String);
+    pub struct FilterType(std::borrow::Cow<'static, str>);
 
     impl FilterType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new FilterType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1097,24 +1154,31 @@ pub mod dashboard_filter {
 
     /// Useful constants to work with [FilterType](FilterType)
     pub mod filter_type {
+        use super::FilterType;
 
         /// Filter type is unspecified. This is not valid in a well-formed request.
-        pub const FILTER_TYPE_UNSPECIFIED: &str = "FILTER_TYPE_UNSPECIFIED";
+        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new("FILTER_TYPE_UNSPECIFIED");
 
         /// Filter on a resource label value
-        pub const RESOURCE_LABEL: &str = "RESOURCE_LABEL";
+        pub const RESOURCE_LABEL: FilterType = FilterType::new("RESOURCE_LABEL");
 
         /// Filter on a metrics label value
-        pub const METRIC_LABEL: &str = "METRIC_LABEL";
+        pub const METRIC_LABEL: FilterType = FilterType::new("METRIC_LABEL");
 
         /// Filter on a user metadata label value
-        pub const USER_METADATA_LABEL: &str = "USER_METADATA_LABEL";
+        pub const USER_METADATA_LABEL: FilterType = FilterType::new("USER_METADATA_LABEL");
 
         /// Filter on a system metadata label value
-        pub const SYSTEM_METADATA_LABEL: &str = "SYSTEM_METADATA_LABEL";
+        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::new("SYSTEM_METADATA_LABEL");
 
         /// Filter on a group id
-        pub const GROUP: &str = "GROUP";
+        pub const GROUP: FilterType = FilterType::new("GROUP");
+    }
+
+    impl std::convert::From<std::string::String> for FilterType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The default value used in the filter comparison
@@ -1153,6 +1217,10 @@ pub struct CreateDashboardRequest {
 }
 
 impl CreateDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDashboardRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1208,6 +1276,10 @@ pub struct ListDashboardsRequest {
 }
 
 impl ListDashboardsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDashboardsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1251,6 +1323,10 @@ pub struct ListDashboardsResponse {
 }
 
 impl ListDashboardsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDashboardsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1304,6 +1380,10 @@ pub struct GetDashboardRequest {
 }
 
 impl GetDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDashboardRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1333,6 +1413,10 @@ pub struct DeleteDashboardRequest {
 }
 
 impl DeleteDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteDashboardRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1362,6 +1446,10 @@ pub struct UpdateDashboardRequest {
 }
 
 impl UpdateDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
     pub fn set_dashboard<T: std::convert::Into<std::option::Option<crate::model::Dashboard>>>(
         mut self,
@@ -1418,6 +1506,10 @@ pub struct ErrorReportingPanel {
 }
 
 impl ErrorReportingPanel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_names][crate::model::ErrorReportingPanel::project_names].
     pub fn set_project_names<T, V>(mut self, v: T) -> Self
     where
@@ -1479,6 +1571,10 @@ pub struct IncidentList {
 }
 
 impl IncidentList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [monitored_resources][crate::model::IncidentList::monitored_resources].
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
@@ -1526,6 +1622,10 @@ pub struct GridLayout {
 }
 
 impl GridLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::GridLayout::columns].
     pub fn set_columns<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.columns = v.into();
@@ -1568,6 +1668,10 @@ pub struct MosaicLayout {
 }
 
 impl MosaicLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::MosaicLayout::columns].
     pub fn set_columns<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.columns = v.into();
@@ -1627,6 +1731,10 @@ pub mod mosaic_layout {
     }
 
     impl Tile {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [x_pos][crate::model::mosaic_layout::Tile::x_pos].
         pub fn set_x_pos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.x_pos = v.into();
@@ -1681,6 +1789,10 @@ pub struct RowLayout {
 }
 
 impl RowLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rows][crate::model::RowLayout::rows].
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
@@ -1723,6 +1835,10 @@ pub mod row_layout {
     }
 
     impl Row {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [weight][crate::model::row_layout::Row::weight].
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
@@ -1761,6 +1877,10 @@ pub struct ColumnLayout {
 }
 
 impl ColumnLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::ColumnLayout::columns].
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
@@ -1803,6 +1923,10 @@ pub mod column_layout {
     }
 
     impl Column {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [weight][crate::model::column_layout::Column::weight].
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
@@ -1848,6 +1972,10 @@ pub struct LogsPanel {
 }
 
 impl LogsPanel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::LogsPanel::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -1903,6 +2031,10 @@ pub struct TimeSeriesQuery {
 }
 
 impl TimeSeriesQuery {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [unit_override][crate::model::TimeSeriesQuery::unit_override].
     pub fn set_unit_override<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit_override = v.into();
@@ -2105,6 +2237,10 @@ pub struct TimeSeriesFilter {
 }
 
 impl TimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::TimeSeriesFilter::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -2260,6 +2396,10 @@ pub struct TimeSeriesFilterRatio {
 }
 
 impl TimeSeriesFilterRatio {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
     pub fn set_numerator<
         T: std::convert::Into<std::option::Option<crate::model::time_series_filter_ratio::RatioPart>>,
@@ -2405,6 +2545,10 @@ pub mod time_series_filter_ratio {
     }
 
     impl RatioPart {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [filter][crate::model::time_series_filter_ratio::RatioPart::filter].
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
@@ -2470,6 +2614,10 @@ pub struct Threshold {
 }
 
 impl Threshold {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label][crate::model::Threshold::label].
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
@@ -2525,13 +2673,12 @@ pub mod threshold {
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Color(std::string::String);
+    pub struct Color(std::borrow::Cow<'static, str>);
 
     impl Color {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Color instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2542,27 +2689,33 @@ pub mod threshold {
 
     /// Useful constants to work with [Color](Color)
     pub mod color {
+        use super::Color;
 
         /// Color is unspecified. Not allowed in well-formed requests.
-        pub const COLOR_UNSPECIFIED: &str = "COLOR_UNSPECIFIED";
+        pub const COLOR_UNSPECIFIED: Color = Color::new("COLOR_UNSPECIFIED");
 
         /// Crossing the threshold is "concerning" behavior.
-        pub const YELLOW: &str = "YELLOW";
+        pub const YELLOW: Color = Color::new("YELLOW");
 
         /// Crossing the threshold is "emergency" behavior.
-        pub const RED: &str = "RED";
+        pub const RED: Color = Color::new("RED");
+    }
+
+    impl std::convert::From<std::string::String> for Color {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::string::String);
+    pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Direction instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2573,28 +2726,34 @@ pub mod threshold {
 
     /// Useful constants to work with [Direction](Direction)
     pub mod direction {
+        use super::Direction;
 
         /// Not allowed in well-formed requests.
-        pub const DIRECTION_UNSPECIFIED: &str = "DIRECTION_UNSPECIFIED";
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
 
         /// The threshold will be considered crossed if the actual value is above
         /// the threshold value.
-        pub const ABOVE: &str = "ABOVE";
+        pub const ABOVE: Direction = Direction::new("ABOVE");
 
         /// The threshold will be considered crossed if the actual value is below
         /// the threshold value.
-        pub const BELOW: &str = "BELOW";
+        pub const BELOW: Direction = Direction::new("BELOW");
+    }
+
+    impl std::convert::From<std::string::String> for Direction {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// An axis identifier.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetAxis(std::string::String);
+    pub struct TargetAxis(std::borrow::Cow<'static, str>);
 
     impl TargetAxis {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new TargetAxis instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2605,15 +2764,22 @@ pub mod threshold {
 
     /// Useful constants to work with [TargetAxis](TargetAxis)
     pub mod target_axis {
+        use super::TargetAxis;
 
         /// The target axis was not specified. Defaults to Y1.
-        pub const TARGET_AXIS_UNSPECIFIED: &str = "TARGET_AXIS_UNSPECIFIED";
+        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
 
         /// The y_axis (the right axis of chart).
-        pub const Y1: &str = "Y1";
+        pub const Y1: TargetAxis = TargetAxis::new("Y1");
 
         /// The y2_axis (the left axis of chart).
-        pub const Y2: &str = "Y2";
+        pub const Y2: TargetAxis = TargetAxis::new("Y2");
+    }
+
+    impl std::convert::From<std::string::String> for TargetAxis {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2635,6 +2801,10 @@ pub struct PieChart {
 }
 
 impl PieChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [chart_type][crate::model::PieChart::chart_type].
     pub fn set_chart_type<T: std::convert::Into<crate::model::pie_chart::PieChartType>>(
         mut self,
@@ -2703,6 +2873,10 @@ pub mod pie_chart {
     }
 
     impl PieChartDataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -2743,13 +2917,12 @@ pub mod pie_chart {
 
     /// Types for the pie chart.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PieChartType(std::string::String);
+    pub struct PieChartType(std::borrow::Cow<'static, str>);
 
     impl PieChartType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new PieChartType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2760,15 +2933,23 @@ pub mod pie_chart {
 
     /// Useful constants to work with [PieChartType](PieChartType)
     pub mod pie_chart_type {
+        use super::PieChartType;
 
         /// The zero value. No type specified. Do not use.
-        pub const PIE_CHART_TYPE_UNSPECIFIED: &str = "PIE_CHART_TYPE_UNSPECIFIED";
+        pub const PIE_CHART_TYPE_UNSPECIFIED: PieChartType =
+            PieChartType::new("PIE_CHART_TYPE_UNSPECIFIED");
 
         /// A Pie type PieChart.
-        pub const PIE: &str = "PIE";
+        pub const PIE: PieChartType = PieChartType::new("PIE");
 
         /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
-        pub const DONUT: &str = "DONUT";
+        pub const DONUT: PieChartType = PieChartType::new("DONUT");
+    }
+
+    impl std::convert::From<std::string::String> for PieChartType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2832,6 +3013,10 @@ pub struct Scorecard {
 }
 
 impl Scorecard {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_series_query][crate::model::Scorecard::time_series_query].
     pub fn set_time_series_query<
         T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -2978,6 +3163,10 @@ pub mod scorecard {
     }
 
     impl GaugeView {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [lower_bound][crate::model::scorecard::GaugeView::lower_bound].
         pub fn set_lower_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.lower_bound = v.into();
@@ -3019,6 +3208,10 @@ pub mod scorecard {
     }
 
     impl SparkChartView {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [spark_chart_type][crate::model::scorecard::SparkChartView::spark_chart_type].
         pub fn set_spark_chart_type<T: std::convert::Into<crate::model::SparkChartType>>(
             mut self,
@@ -3078,6 +3271,10 @@ pub struct SectionHeader {
 }
 
 impl SectionHeader {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [subtitle][crate::model::SectionHeader::subtitle].
     pub fn set_subtitle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subtitle = v.into();
@@ -3106,7 +3303,11 @@ impl wkt::message::Message for SectionHeader {
 #[non_exhaustive]
 pub struct SingleViewGroup {}
 
-impl SingleViewGroup {}
+impl SingleViewGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for SingleViewGroup {
     fn typename() -> &'static str {
@@ -3133,6 +3334,10 @@ pub struct TimeSeriesTable {
 }
 
 impl TimeSeriesTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metric_visualization][crate::model::TimeSeriesTable::metric_visualization].
     pub fn set_metric_visualization<
         T: std::convert::Into<crate::model::time_series_table::MetricVisualization>,
@@ -3211,6 +3416,10 @@ pub mod time_series_table {
     }
 
     impl TableDataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -3275,6 +3484,10 @@ pub mod time_series_table {
     }
 
     impl ColumnSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [column][crate::model::time_series_table::ColumnSettings::column].
         pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.column = v.into();
@@ -3296,13 +3509,12 @@ pub mod time_series_table {
 
     /// Enum for metric metric_visualization
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricVisualization(std::string::String);
+    pub struct MetricVisualization(std::borrow::Cow<'static, str>);
 
     impl MetricVisualization {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new MetricVisualization instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3313,15 +3525,23 @@ pub mod time_series_table {
 
     /// Useful constants to work with [MetricVisualization](MetricVisualization)
     pub mod metric_visualization {
+        use super::MetricVisualization;
 
         /// Unspecified state
-        pub const METRIC_VISUALIZATION_UNSPECIFIED: &str = "METRIC_VISUALIZATION_UNSPECIFIED";
+        pub const METRIC_VISUALIZATION_UNSPECIFIED: MetricVisualization =
+            MetricVisualization::new("METRIC_VISUALIZATION_UNSPECIFIED");
 
         /// Default text rendering
-        pub const NUMBER: &str = "NUMBER";
+        pub const NUMBER: MetricVisualization = MetricVisualization::new("NUMBER");
 
         /// Horizontal bar rendering
-        pub const BAR: &str = "BAR";
+        pub const BAR: MetricVisualization = MetricVisualization::new("BAR");
+    }
+
+    impl std::convert::From<std::string::String> for MetricVisualization {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3338,6 +3558,10 @@ pub struct TableDisplayOptions {
 }
 
 impl TableDisplayOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [shown_columns][crate::model::TableDisplayOptions::shown_columns].
     pub fn set_shown_columns<T, V>(mut self, v: T) -> Self
     where
@@ -3375,6 +3599,10 @@ pub struct Text {
 }
 
 impl Text {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content][crate::model::Text::content].
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
@@ -3440,6 +3668,10 @@ pub mod text {
     }
 
     impl TextStyle {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [background_color][crate::model::text::TextStyle::background_color].
         pub fn set_background_color<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -3520,13 +3752,12 @@ pub mod text {
 
         /// The horizontal alignment of both the title and content on a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct HorizontalAlignment(std::string::String);
+        pub struct HorizontalAlignment(std::borrow::Cow<'static, str>);
 
         impl HorizontalAlignment {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new HorizontalAlignment instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -3537,29 +3768,36 @@ pub mod text {
 
         /// Useful constants to work with [HorizontalAlignment](HorizontalAlignment)
         pub mod horizontal_alignment {
+            use super::HorizontalAlignment;
 
             /// No horizontal alignment specified, will default to H_LEFT
-            pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: &str = "HORIZONTAL_ALIGNMENT_UNSPECIFIED";
+            pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: HorizontalAlignment =
+                HorizontalAlignment::new("HORIZONTAL_ALIGNMENT_UNSPECIFIED");
 
             /// Left-align
-            pub const H_LEFT: &str = "H_LEFT";
+            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::new("H_LEFT");
 
             /// Center-align
-            pub const H_CENTER: &str = "H_CENTER";
+            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::new("H_CENTER");
 
             /// Right-align
-            pub const H_RIGHT: &str = "H_RIGHT";
+            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new("H_RIGHT");
+        }
+
+        impl std::convert::From<std::string::String> for HorizontalAlignment {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// The vertical alignment of both the title and content on a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct VerticalAlignment(std::string::String);
+        pub struct VerticalAlignment(std::borrow::Cow<'static, str>);
 
         impl VerticalAlignment {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new VerticalAlignment instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -3570,29 +3808,36 @@ pub mod text {
 
         /// Useful constants to work with [VerticalAlignment](VerticalAlignment)
         pub mod vertical_alignment {
+            use super::VerticalAlignment;
 
             /// No vertical alignment specified, will default to V_TOP
-            pub const VERTICAL_ALIGNMENT_UNSPECIFIED: &str = "VERTICAL_ALIGNMENT_UNSPECIFIED";
+            pub const VERTICAL_ALIGNMENT_UNSPECIFIED: VerticalAlignment =
+                VerticalAlignment::new("VERTICAL_ALIGNMENT_UNSPECIFIED");
 
             /// Top-align
-            pub const V_TOP: &str = "V_TOP";
+            pub const V_TOP: VerticalAlignment = VerticalAlignment::new("V_TOP");
 
             /// Center-align
-            pub const V_CENTER: &str = "V_CENTER";
+            pub const V_CENTER: VerticalAlignment = VerticalAlignment::new("V_CENTER");
 
             /// Bottom-align
-            pub const V_BOTTOM: &str = "V_BOTTOM";
+            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new("V_BOTTOM");
+        }
+
+        impl std::convert::From<std::string::String> for VerticalAlignment {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// Specifies padding size around a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PaddingSize(std::string::String);
+        pub struct PaddingSize(std::borrow::Cow<'static, str>);
 
         impl PaddingSize {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new PaddingSize instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -3603,35 +3848,42 @@ pub mod text {
 
         /// Useful constants to work with [PaddingSize](PaddingSize)
         pub mod padding_size {
+            use super::PaddingSize;
 
             /// No padding size specified, will default to P_EXTRA_SMALL
-            pub const PADDING_SIZE_UNSPECIFIED: &str = "PADDING_SIZE_UNSPECIFIED";
+            pub const PADDING_SIZE_UNSPECIFIED: PaddingSize =
+                PaddingSize::new("PADDING_SIZE_UNSPECIFIED");
 
             /// Extra small padding
-            pub const P_EXTRA_SMALL: &str = "P_EXTRA_SMALL";
+            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::new("P_EXTRA_SMALL");
 
             /// Small padding
-            pub const P_SMALL: &str = "P_SMALL";
+            pub const P_SMALL: PaddingSize = PaddingSize::new("P_SMALL");
 
             /// Medium padding
-            pub const P_MEDIUM: &str = "P_MEDIUM";
+            pub const P_MEDIUM: PaddingSize = PaddingSize::new("P_MEDIUM");
 
             /// Large padding
-            pub const P_LARGE: &str = "P_LARGE";
+            pub const P_LARGE: PaddingSize = PaddingSize::new("P_LARGE");
 
             /// Extra large padding
-            pub const P_EXTRA_LARGE: &str = "P_EXTRA_LARGE";
+            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new("P_EXTRA_LARGE");
+        }
+
+        impl std::convert::From<std::string::String> for PaddingSize {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// Specifies a font size for the title and content of a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FontSize(std::string::String);
+        pub struct FontSize(std::borrow::Cow<'static, str>);
 
         impl FontSize {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new FontSize instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -3642,36 +3894,42 @@ pub mod text {
 
         /// Useful constants to work with [FontSize](FontSize)
         pub mod font_size {
+            use super::FontSize;
 
             /// No font size specified, will default to FS_LARGE
-            pub const FONT_SIZE_UNSPECIFIED: &str = "FONT_SIZE_UNSPECIFIED";
+            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::new("FONT_SIZE_UNSPECIFIED");
 
             /// Extra small font size
-            pub const FS_EXTRA_SMALL: &str = "FS_EXTRA_SMALL";
+            pub const FS_EXTRA_SMALL: FontSize = FontSize::new("FS_EXTRA_SMALL");
 
             /// Small font size
-            pub const FS_SMALL: &str = "FS_SMALL";
+            pub const FS_SMALL: FontSize = FontSize::new("FS_SMALL");
 
             /// Medium font size
-            pub const FS_MEDIUM: &str = "FS_MEDIUM";
+            pub const FS_MEDIUM: FontSize = FontSize::new("FS_MEDIUM");
 
             /// Large font size
-            pub const FS_LARGE: &str = "FS_LARGE";
+            pub const FS_LARGE: FontSize = FontSize::new("FS_LARGE");
 
             /// Extra large font size
-            pub const FS_EXTRA_LARGE: &str = "FS_EXTRA_LARGE";
+            pub const FS_EXTRA_LARGE: FontSize = FontSize::new("FS_EXTRA_LARGE");
+        }
+
+        impl std::convert::From<std::string::String> for FontSize {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// Specifies where a visual pointer is placed on a text widget (also
         /// sometimes called a "tail")
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PointerLocation(std::string::String);
+        pub struct PointerLocation(std::borrow::Cow<'static, str>);
 
         impl PointerLocation {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new PointerLocation instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -3682,57 +3940,64 @@ pub mod text {
 
         /// Useful constants to work with [PointerLocation](PointerLocation)
         pub mod pointer_location {
+            use super::PointerLocation;
 
             /// No visual pointer
-            pub const POINTER_LOCATION_UNSPECIFIED: &str = "POINTER_LOCATION_UNSPECIFIED";
+            pub const POINTER_LOCATION_UNSPECIFIED: PointerLocation =
+                PointerLocation::new("POINTER_LOCATION_UNSPECIFIED");
 
             /// Placed in the middle of the top of the widget
-            pub const PL_TOP: &str = "PL_TOP";
+            pub const PL_TOP: PointerLocation = PointerLocation::new("PL_TOP");
 
             /// Placed in the middle of the right side of the widget
-            pub const PL_RIGHT: &str = "PL_RIGHT";
+            pub const PL_RIGHT: PointerLocation = PointerLocation::new("PL_RIGHT");
 
             /// Placed in the middle of the bottom of the widget
-            pub const PL_BOTTOM: &str = "PL_BOTTOM";
+            pub const PL_BOTTOM: PointerLocation = PointerLocation::new("PL_BOTTOM");
 
             /// Placed in the middle of the left side of the widget
-            pub const PL_LEFT: &str = "PL_LEFT";
+            pub const PL_LEFT: PointerLocation = PointerLocation::new("PL_LEFT");
 
             /// Placed on the left side of the top of the widget
-            pub const PL_TOP_LEFT: &str = "PL_TOP_LEFT";
+            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::new("PL_TOP_LEFT");
 
             /// Placed on the right side of the top of the widget
-            pub const PL_TOP_RIGHT: &str = "PL_TOP_RIGHT";
+            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::new("PL_TOP_RIGHT");
 
             /// Placed on the top of the right side of the widget
-            pub const PL_RIGHT_TOP: &str = "PL_RIGHT_TOP";
+            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::new("PL_RIGHT_TOP");
 
             /// Placed on the bottom of the right side of the widget
-            pub const PL_RIGHT_BOTTOM: &str = "PL_RIGHT_BOTTOM";
+            pub const PL_RIGHT_BOTTOM: PointerLocation = PointerLocation::new("PL_RIGHT_BOTTOM");
 
             /// Placed on the right side of the bottom of the widget
-            pub const PL_BOTTOM_RIGHT: &str = "PL_BOTTOM_RIGHT";
+            pub const PL_BOTTOM_RIGHT: PointerLocation = PointerLocation::new("PL_BOTTOM_RIGHT");
 
             /// Placed on the left side of the bottom of the widget
-            pub const PL_BOTTOM_LEFT: &str = "PL_BOTTOM_LEFT";
+            pub const PL_BOTTOM_LEFT: PointerLocation = PointerLocation::new("PL_BOTTOM_LEFT");
 
             /// Placed on the bottom of the left side of the widget
-            pub const PL_LEFT_BOTTOM: &str = "PL_LEFT_BOTTOM";
+            pub const PL_LEFT_BOTTOM: PointerLocation = PointerLocation::new("PL_LEFT_BOTTOM");
 
             /// Placed on the top of the left side of the widget
-            pub const PL_LEFT_TOP: &str = "PL_LEFT_TOP";
+            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new("PL_LEFT_TOP");
+        }
+
+        impl std::convert::From<std::string::String> for PointerLocation {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
     /// The format type of the text content.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(std::string::String);
+    pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Format instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3743,15 +4008,22 @@ pub mod text {
 
     /// Useful constants to work with [Format](Format)
     pub mod format {
+        use super::Format;
 
         /// Format is unspecified. Defaults to MARKDOWN.
-        pub const FORMAT_UNSPECIFIED: &str = "FORMAT_UNSPECIFIED";
+        pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
 
         /// The text contains Markdown formatting.
-        pub const MARKDOWN: &str = "MARKDOWN";
+        pub const MARKDOWN: Format = Format::new("MARKDOWN");
 
         /// The text contains no special formatting.
-        pub const RAW: &str = "RAW";
+        pub const RAW: Format = Format::new("RAW");
+    }
+
+    impl std::convert::From<std::string::String> for Format {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3777,6 +4049,10 @@ pub struct Widget {
 }
 
 impl Widget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [title][crate::model::Widget::title].
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
@@ -4230,6 +4506,10 @@ pub struct XyChart {
 }
 
 impl XyChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
     pub fn set_timeshift_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -4344,6 +4624,10 @@ pub mod xy_chart {
     }
 
     impl DataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -4409,13 +4693,12 @@ pub mod xy_chart {
 
         /// The types of plotting strategies for data sets.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PlotType(std::string::String);
+        pub struct PlotType(std::borrow::Cow<'static, str>);
 
         impl PlotType {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new PlotType instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -4426,41 +4709,47 @@ pub mod xy_chart {
 
         /// Useful constants to work with [PlotType](PlotType)
         pub mod plot_type {
+            use super::PlotType;
 
             /// Plot type is unspecified. The view will default to `LINE`.
-            pub const PLOT_TYPE_UNSPECIFIED: &str = "PLOT_TYPE_UNSPECIFIED";
+            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::new("PLOT_TYPE_UNSPECIFIED");
 
             /// The data is plotted as a set of lines (one line per series).
-            pub const LINE: &str = "LINE";
+            pub const LINE: PlotType = PlotType::new("LINE");
 
             /// The data is plotted as a set of filled areas (one area per series),
             /// with the areas stacked vertically (the base of each area is the top of
             /// its predecessor, and the base of the first area is the x-axis). Since
             /// the areas do not overlap, each is filled with a different opaque color.
-            pub const STACKED_AREA: &str = "STACKED_AREA";
+            pub const STACKED_AREA: PlotType = PlotType::new("STACKED_AREA");
 
             /// The data is plotted as a set of rectangular boxes (one box per series),
             /// with the boxes stacked vertically (the base of each box is the top of
             /// its predecessor, and the base of the first box is the x-axis). Since
             /// the boxes do not overlap, each is filled with a different opaque color.
-            pub const STACKED_BAR: &str = "STACKED_BAR";
+            pub const STACKED_BAR: PlotType = PlotType::new("STACKED_BAR");
 
             /// The data is plotted as a heatmap. The series being plotted must have a
             /// `DISTRIBUTION` value type. The value of each bucket in the distribution
             /// is displayed as a color. This type is not currently available in the
             /// Stackdriver Monitoring application.
-            pub const HEATMAP: &str = "HEATMAP";
+            pub const HEATMAP: PlotType = PlotType::new("HEATMAP");
+        }
+
+        impl std::convert::From<std::string::String> for PlotType {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// An axis identifier.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetAxis(std::string::String);
+        pub struct TargetAxis(std::borrow::Cow<'static, str>);
 
         impl TargetAxis {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new TargetAxis instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -4471,15 +4760,23 @@ pub mod xy_chart {
 
         /// Useful constants to work with [TargetAxis](TargetAxis)
         pub mod target_axis {
+            use super::TargetAxis;
 
             /// The target axis was not specified. Defaults to Y1.
-            pub const TARGET_AXIS_UNSPECIFIED: &str = "TARGET_AXIS_UNSPECIFIED";
+            pub const TARGET_AXIS_UNSPECIFIED: TargetAxis =
+                TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
 
             /// The y_axis (the right axis of chart).
-            pub const Y1: &str = "Y1";
+            pub const Y1: TargetAxis = TargetAxis::new("Y1");
 
             /// The y2_axis (the left axis of chart).
-            pub const Y2: &str = "Y2";
+            pub const Y2: TargetAxis = TargetAxis::new("Y2");
+        }
+
+        impl std::convert::From<std::string::String> for TargetAxis {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -4498,6 +4795,10 @@ pub mod xy_chart {
     }
 
     impl Axis {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [label][crate::model::xy_chart::Axis::label].
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
@@ -4527,13 +4828,12 @@ pub mod xy_chart {
 
         /// Types of scales used in axes.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Scale(std::string::String);
+        pub struct Scale(std::borrow::Cow<'static, str>);
 
         impl Scale {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Scale instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -4544,15 +4844,22 @@ pub mod xy_chart {
 
         /// Useful constants to work with [Scale](Scale)
         pub mod scale {
+            use super::Scale;
 
             /// Scale is unspecified. The view will default to `LINEAR`.
-            pub const SCALE_UNSPECIFIED: &str = "SCALE_UNSPECIFIED";
+            pub const SCALE_UNSPECIFIED: Scale = Scale::new("SCALE_UNSPECIFIED");
 
             /// Linear scale.
-            pub const LINEAR: &str = "LINEAR";
+            pub const LINEAR: Scale = Scale::new("LINEAR");
 
             /// Logarithmic scale (base 10).
-            pub const LOG10: &str = "LOG10";
+            pub const LOG10: Scale = Scale::new("LOG10");
+        }
+
+        impl std::convert::From<std::string::String> for Scale {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -4568,6 +4875,10 @@ pub struct ChartOptions {
 }
 
 impl ChartOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::ChartOptions::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::chart_options::Mode>>(
         mut self,
@@ -4591,13 +4902,12 @@ pub mod chart_options {
 
     /// Chart mode options.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::string::String);
+    pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Mode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4608,33 +4918,39 @@ pub mod chart_options {
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
+        use super::Mode;
 
         /// Mode is unspecified. The view will default to `COLOR`.
-        pub const MODE_UNSPECIFIED: &str = "MODE_UNSPECIFIED";
+        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
 
         /// The chart distinguishes data series using different color. Line
         /// colors may get reused when there are many lines in the chart.
-        pub const COLOR: &str = "COLOR";
+        pub const COLOR: Mode = Mode::new("COLOR");
 
         /// The chart uses the Stackdriver x-ray mode, in which each
         /// data set is plotted using the same semi-transparent color.
-        pub const X_RAY: &str = "X_RAY";
+        pub const X_RAY: Mode = Mode::new("X_RAY");
 
         /// The chart displays statistics such as average, median, 95th percentile,
         /// and more.
-        pub const STATS: &str = "STATS";
+        pub const STATS: Mode = Mode::new("STATS");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SparkChartType(std::string::String);
+pub struct SparkChartType(std::borrow::Cow<'static, str>);
 
 impl SparkChartType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new SparkChartType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4645,13 +4961,21 @@ impl SparkChartType {
 
 /// Useful constants to work with [SparkChartType](SparkChartType)
 pub mod spark_chart_type {
+    use super::SparkChartType;
 
     /// Not allowed in well-formed requests.
-    pub const SPARK_CHART_TYPE_UNSPECIFIED: &str = "SPARK_CHART_TYPE_UNSPECIFIED";
+    pub const SPARK_CHART_TYPE_UNSPECIFIED: SparkChartType =
+        SparkChartType::new("SPARK_CHART_TYPE_UNSPECIFIED");
 
     /// The sparkline will be rendered as a small line chart.
-    pub const SPARK_LINE: &str = "SPARK_LINE";
+    pub const SPARK_LINE: SparkChartType = SparkChartType::new("SPARK_LINE");
 
     /// The sparkbar will be rendered as a small bar chart.
-    pub const SPARK_BAR: &str = "SPARK_BAR";
+    pub const SPARK_BAR: SparkChartType = SparkChartType::new("SPARK_BAR");
+}
+
+impl std::convert::From<std::string::String> for SparkChartType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

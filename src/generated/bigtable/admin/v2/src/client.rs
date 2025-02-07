@@ -18,19 +18,25 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::BigtableInstanceAdmin] to make requests with.
+/// Implements a client for the Cloud Bigtable Admin API.
 ///
-/// `BigtableInstanceAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service for creating, configuring, and deleting Cloud Bigtable Instances and
+/// Clusters. Provides access to the Instance and Cluster schemas only, not the
+/// tables' metadata or data stored in those tables.
+///
+/// # Configuration
+///
+/// `BigtableInstanceAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `BigtableInstanceAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BigtableInstanceAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service for creating, configuring, and deleting Cloud Bigtable Instances and
-/// Clusters. Provides access to the Instance and Cluster schemas only, not the
-/// tables' metadata or data stored in those tables.
 #[derive(Clone, Debug)]
 pub struct BigtableInstanceAdmin {
     inner: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>,
@@ -113,7 +119,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::CreateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -131,7 +137,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::CreateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -241,7 +247,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::UpdateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -259,7 +265,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::UpdateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -354,7 +360,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::CreateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -372,7 +378,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::CreateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -474,7 +480,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::UpdateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -492,7 +498,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::UpdateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -583,7 +589,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::PartialUpdateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -601,7 +607,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Cluster, model::PartialUpdateClusterMetadata>
     /// ) -> Result<model::Cluster> {
@@ -717,7 +723,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AppProfile, model::UpdateAppProfileMetadata>
     /// ) -> Result<model::AppProfile> {
@@ -735,7 +741,7 @@ impl BigtableInstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AppProfile, model::UpdateAppProfileMetadata>
     /// ) -> Result<model::AppProfile> {
@@ -885,20 +891,26 @@ impl BigtableInstanceAdmin {
     }
 }
 
-/// An implementation of [crate::stubs::BigtableTableAdmin] to make requests with.
+/// Implements a client for the Cloud Bigtable Admin API.
 ///
-/// `BigtableTableAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `BigtableTableAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `BigtableTableAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Service for creating, configuring, and deleting Cloud Bigtable tables.
 ///
 /// Provides access to the table schemas only, not the data stored within
 /// the tables.
+///
+/// # Configuration
+///
+/// `BigtableTableAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `BigtableTableAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `BigtableTableAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct BigtableTableAdmin {
     inner: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>,
@@ -993,7 +1005,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::CreateTableFromSnapshotMetadata>
     /// ) -> Result<model::Table> {
@@ -1011,7 +1023,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::CreateTableFromSnapshotMetadata>
     /// ) -> Result<model::Table> {
@@ -1109,7 +1121,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::UpdateTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1127,7 +1139,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::UpdateTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1216,7 +1228,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::UndeleteTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1234,7 +1246,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::UndeleteTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1314,7 +1326,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AuthorizedView, model::CreateAuthorizedViewMetadata>
     /// ) -> Result<model::AuthorizedView> {
@@ -1332,7 +1344,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AuthorizedView, model::CreateAuthorizedViewMetadata>
     /// ) -> Result<model::AuthorizedView> {
@@ -1430,7 +1442,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AuthorizedView, model::UpdateAuthorizedViewMetadata>
     /// ) -> Result<model::AuthorizedView> {
@@ -1448,7 +1460,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::AuthorizedView, model::UpdateAuthorizedViewMetadata>
     /// ) -> Result<model::AuthorizedView> {
@@ -1590,7 +1602,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Snapshot, model::SnapshotTableMetadata>
     /// ) -> Result<model::Snapshot> {
@@ -1608,7 +1620,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Snapshot, model::SnapshotTableMetadata>
     /// ) -> Result<model::Snapshot> {
@@ -1746,7 +1758,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -1764,7 +1776,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -1893,7 +1905,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::RestoreTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1911,7 +1923,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Table, model::RestoreTableMetadata>
     /// ) -> Result<model::Table> {
@@ -1992,7 +2004,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -2010,7 +2022,7 @@ impl BigtableTableAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_bigtable_admin_v2::model;
+    /// # use google_cloud_bigtable_admin_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {

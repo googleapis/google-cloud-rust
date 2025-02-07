@@ -14,8 +14,8 @@ scalable relational database service.
 
 The main types to work with this crate are the clients:
 
-* [InstanceAdmin](https://docs.rs/gcp-sdk-spanner-admin-instance-v1/latest/gcp_sdk_spanner_admin_instance_v1/client/struct.InstanceAdmin.html)
+* [InstanceAdmin](https://docs.rs/google-cloud-spanner-admin-instance-v1/latest/google_cloud_spanner_admin_instance_v1/client/struct.InstanceAdmin.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-spanner-admin-instance-v1/latest/gcp-sdk-spanner-admin-instance-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-spanner-admin-instance-v1/latest/google-cloud-spanner-admin-instance-v1)

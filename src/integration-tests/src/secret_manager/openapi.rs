@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, Rng};
 
 async fn new_client(
     config: Option<gax::options::ClientConfig>,
@@ -42,7 +42,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         tracing::subscriber::set_default(subscriber)
     };
     let project_id = crate::project_id()?;
-    let secret_id: String = rand::thread_rng()
+    let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(crate::SECRET_ID_LENGTH)
         .map(char::from)
@@ -55,10 +55,9 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .create_secret(&project_id)
         .set_secret_id(&secret_id)
         .set_request_body(
-            smo::model::Secret::default()
+            smo::model::Secret::new()
                 .set_replication(
-                    smo::model::Replication::default()
-                        .set_automatic(smo::model::Automatic::default()),
+                    smo::model::Replication::new().set_automatic(smo::model::Automatic::new()),
                 )
                 .set_labels([("integration-test", "true")]),
         )
@@ -88,7 +87,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .set_update_mask(
             wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
         )
-        .set_request_body(smo::model::Secret::default().set_labels(new_labels))
+        .set_request_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -177,7 +176,7 @@ async fn run_iam(
     }
     if !found {
         new_policy.bindings.push(
-            smo::model::Binding::default()
+            smo::model::Binding::new()
                 .set_role(ROLE.to_string())
                 .set_members([format!("serviceAccount:{service_account}")].to_vec()),
         );
@@ -206,7 +205,7 @@ async fn run_secret_versions(
     let create = client
         .add_secret_version(project_id, secret_id)
         .set_payload(
-            smo::model::SecretPayload::default()
+            smo::model::SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc_32_c(checksum as i64),
         )

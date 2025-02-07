@@ -20,6 +20,7 @@ coverage:
     patch: off
 # Ignore generated code that lives with handcrafted code.
 ignore:
+  - guide/samples
   - src/generated
   - src/wkt/src/generated
   - src/integration-tests

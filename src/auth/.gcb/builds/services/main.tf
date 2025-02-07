@@ -14,9 +14,9 @@
 
 variable "project" {}
 
-resource "google_project_service" "cloudbuild" {
+resource "google_project_service" "secretmanager" {
   project = var.project
-  service = "cloudbuild.googleapis.com"
+  service = "secretmanager.googleapis.com"
 
   timeouts {
     create = "30m"

@@ -353,6 +353,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
 	updateMethodPagination(result)
+	updateAutoPopulatedFields(serviceConfig, result)
 	return result
 }
 
@@ -511,12 +512,13 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 	for _, mf := range m.Field {
 		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
 		field := &api.Field{
-			Name:     mf.GetName(),
-			ID:       mFQN + "." + mf.GetName(),
-			JSONName: mf.GetJsonName(),
-			Optional: isProtoOptional,
-			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-			IsOneOf:  mf.OneofIndex != nil && !isProtoOptional,
+			Name:          mf.GetName(),
+			ID:            mFQN + "." + mf.GetName(),
+			JSONName:      mf.GetJsonName(),
+			Optional:      isProtoOptional,
+			Repeated:      mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+			IsOneOf:       mf.OneofIndex != nil && !isProtoOptional,
+			AutoPopulated: protobufIsAutoPopulated(mf),
 		}
 		normalizeTypes(state, mf, field)
 		message.Fields = append(message.Fields, field)

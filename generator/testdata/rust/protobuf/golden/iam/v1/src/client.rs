@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::IAMPolicy] to make requests with.
+/// Implements a client for the .
 ///
-/// `IAMPolicy` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `IAMPolicy` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `IAMPolicy` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// API Overview
 ///
@@ -53,6 +47,18 @@ use std::sync::Arc;
 /// This is intentionally not a CRUD style API because access control policies
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
+///
+/// # Configuration
+///
+/// `IAMPolicy` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `IAMPolicy` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `IAMPolicy` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct IAMPolicy {
     inner: Arc<dyn crate::stubs::dynamic::IAMPolicy>,

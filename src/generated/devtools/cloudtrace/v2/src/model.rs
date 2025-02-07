@@ -130,6 +130,10 @@ pub struct Span {
 }
 
 impl Span {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Span::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -293,6 +297,10 @@ pub mod span {
     }
 
     impl Attributes {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
         pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_attributes_count = v.into();
@@ -335,6 +343,10 @@ pub mod span {
     }
 
     impl TimeEvent {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time][crate::model::span::TimeEvent::time].
         pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -451,6 +463,10 @@ pub mod span {
         }
 
         impl Annotation {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [description][crate::model::span::time_event::Annotation::description].
             pub fn set_description<
                 T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -508,6 +524,10 @@ pub mod span {
         }
 
         impl MessageEvent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [r#type][crate::model::span::time_event::MessageEvent::type].
             pub fn set_type<
                 T: std::convert::Into<crate::model::span::time_event::message_event::Type>,
@@ -551,16 +571,12 @@ pub mod span {
 
             /// Indicates whether the message was sent or received.
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(std::string::String);
+            pub struct Type(std::borrow::Cow<'static, str>);
 
             impl Type {
-                /// Sets the enum value.
-                pub fn set_value<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.0 = v.into();
-                    self
+                /// Creates a new Type instance.
+                pub const fn new(v: &'static str) -> Self {
+                    Self(std::borrow::Cow::Borrowed(v))
                 }
 
                 /// Gets the enum value.
@@ -571,15 +587,22 @@ pub mod span {
 
             /// Useful constants to work with [Type](Type)
             pub mod r#type {
+                use super::Type;
 
                 /// Unknown event type.
-                pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+                pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
                 /// Indicates a sent message.
-                pub const SENT: &str = "SENT";
+                pub const SENT: Type = Type::new("SENT");
 
                 /// Indicates a received message.
-                pub const RECEIVED: &str = "RECEIVED";
+                pub const RECEIVED: Type = Type::new("RECEIVED");
+            }
+
+            impl std::convert::From<std::string::String> for Type {
+                fn from(value: std::string::String) -> Self {
+                    Self(std::borrow::Cow::Owned(value))
+                }
             }
         }
 
@@ -618,6 +641,10 @@ pub mod span {
     }
 
     impl TimeEvents {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
         pub fn set_dropped_annotations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_annotations_count = v.into();
@@ -679,6 +706,10 @@ pub mod span {
     }
 
     impl Link {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [trace_id][crate::model::span::Link::trace_id].
         pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trace_id = v.into();
@@ -726,13 +757,12 @@ pub mod span {
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::string::String);
+        pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Type instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -743,15 +773,22 @@ pub mod span {
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
+            use super::Type;
 
             /// The relationship of the two spans is unknown.
-            pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
             /// The linked span is a child of the current span.
-            pub const CHILD_LINKED_SPAN: &str = "CHILD_LINKED_SPAN";
+            pub const CHILD_LINKED_SPAN: Type = Type::new("CHILD_LINKED_SPAN");
 
             /// The linked span is a parent of the current span.
-            pub const PARENT_LINKED_SPAN: &str = "PARENT_LINKED_SPAN";
+            pub const PARENT_LINKED_SPAN: Type = Type::new("PARENT_LINKED_SPAN");
+        }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -772,6 +809,10 @@ pub mod span {
     }
 
     impl Links {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
         pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_links_count = v.into();
@@ -799,13 +840,12 @@ pub mod span {
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpanKind(std::string::String);
+    pub struct SpanKind(std::borrow::Cow<'static, str>);
 
     impl SpanKind {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SpanKind instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -816,33 +856,40 @@ pub mod span {
 
     /// Useful constants to work with [SpanKind](SpanKind)
     pub mod span_kind {
+        use super::SpanKind;
 
         /// Unspecified. Do NOT use as default.
         /// Implementations MAY assume SpanKind.INTERNAL to be default.
-        pub const SPAN_KIND_UNSPECIFIED: &str = "SPAN_KIND_UNSPECIFIED";
+        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new("SPAN_KIND_UNSPECIFIED");
 
         /// Indicates that the span is used internally. Default value.
-        pub const INTERNAL: &str = "INTERNAL";
+        pub const INTERNAL: SpanKind = SpanKind::new("INTERNAL");
 
         /// Indicates that the span covers server-side handling of an RPC or other
         /// remote network request.
-        pub const SERVER: &str = "SERVER";
+        pub const SERVER: SpanKind = SpanKind::new("SERVER");
 
         /// Indicates that the span covers the client-side wrapper around an RPC or
         /// other remote request.
-        pub const CLIENT: &str = "CLIENT";
+        pub const CLIENT: SpanKind = SpanKind::new("CLIENT");
 
         /// Indicates that the span describes producer sending a message to a broker.
         /// Unlike client and  server, there is no direct critical path latency
         /// relationship between producer and consumer spans (e.g. publishing a
         /// message to a pubsub service).
-        pub const PRODUCER: &str = "PRODUCER";
+        pub const PRODUCER: SpanKind = SpanKind::new("PRODUCER");
 
         /// Indicates that the span describes consumer receiving a message from a
         /// broker. Unlike client and  server, there is no direct critical path
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
-        pub const CONSUMER: &str = "CONSUMER";
+        pub const CONSUMER: SpanKind = SpanKind::new("CONSUMER");
+    }
+
+    impl std::convert::From<std::string::String> for SpanKind {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -858,6 +905,10 @@ pub struct AttributeValue {
 }
 
 impl AttributeValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `value`.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>,
@@ -992,6 +1043,10 @@ pub struct StackTrace {
 }
 
 impl StackTrace {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [stack_frames][crate::model::StackTrace::stack_frames].
     pub fn set_stack_frames<
         T: std::convert::Into<std::option::Option<crate::model::stack_trace::StackFrames>>,
@@ -1063,6 +1118,10 @@ pub mod stack_trace {
     }
 
     impl StackFrame {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
         pub fn set_function_name<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -1152,6 +1211,10 @@ pub mod stack_trace {
     }
 
     impl StackFrames {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
         pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_frames_count = v.into();
@@ -1195,6 +1258,10 @@ pub struct Module {
 }
 
 impl Module {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [module][crate::model::Module::module].
     pub fn set_module<
         T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -1246,6 +1313,10 @@ pub struct TruncatableString {
 }
 
 impl TruncatableString {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [value][crate::model::TruncatableString::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
@@ -1283,6 +1354,10 @@ pub struct BatchWriteSpansRequest {
 }
 
 impl BatchWriteSpansRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

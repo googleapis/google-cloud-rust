@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_wkt::Any;
-use gcp_sdk_wkt::Duration;
+use google_cloud_wkt::Any;
+use google_cloud_wkt::Duration;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -25,7 +25,7 @@ pub struct TestOnly {
     pub filter: Option<String>,
 }
 
-impl gcp_sdk_wkt::message::Message for TestOnly {
+impl google_cloud_wkt::message::Message for TestOnly {
     fn typename() -> &'static str {
         "type.googleapis.com/wkt.test.TEstOnly"
     }

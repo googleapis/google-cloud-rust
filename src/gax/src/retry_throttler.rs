@@ -187,7 +187,7 @@ impl AdaptiveThrottler {
         } else {
             reject_probability
         };
-        rng.gen_range(0.0..=1.0) <= reject_probability
+        rng.random_range(0.0..=1.0) <= reject_probability
     }
 }
 
@@ -211,7 +211,7 @@ impl std::default::Default for AdaptiveThrottler {
 
 impl RetryThrottler for AdaptiveThrottler {
     fn throttle_retry_attempt(&self) -> bool {
-        self.throttle(&mut rand::thread_rng())
+        self.throttle(&mut rand::rng())
     }
 
     fn on_retry_failure(&mut self, flow: &LoopState) {
@@ -419,14 +419,14 @@ mod tests {
         // StepRng::new(x, 0) always produces the same value. We pick the values
         // to trigger the desired behavior.
         let mut rng = rand::rngs::mock::StepRng::new(0, 0);
-        assert_eq!(rng.gen_range(0.0..=1.0), 0.0);
+        assert_eq!(rng.random_range(0.0..=1.0), 0.0);
         assert!(throttler.throttle(&mut rng), "{throttler:?}");
 
-        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX / 2 + 1, 0);
+        let mut rng = rand::rngs::mock::StepRng::new(u64::MAX - u64::MAX / 4, 0);
         assert!(
-            rng.gen_range(0.0..=1.0) > 0.5,
+            rng.random_range(0.0..=1.0) > 0.5,
             "{}",
-            rng.gen_range(0.0..=1.0)
+            rng.random_range(0.0..=1.0)
         );
         assert!(!throttler.throttle(&mut rng), "{throttler:?}");
 

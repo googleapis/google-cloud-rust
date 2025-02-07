@@ -79,6 +79,10 @@ pub struct SubmitBuildRequest {
 }
 
 impl SubmitBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::SubmitBuildRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -253,7 +257,11 @@ pub mod submit_build_request {
     #[non_exhaustive]
     pub struct DockerBuild {}
 
-    impl DockerBuild {}
+    impl DockerBuild {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for DockerBuild {
         fn typename() -> &'static str {
@@ -300,6 +308,10 @@ pub mod submit_build_request {
     }
 
     impl BuildpacksBuild {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [runtime][crate::model::submit_build_request::BuildpacksBuild::runtime].
         pub fn set_runtime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.runtime = v.into();
@@ -397,6 +409,10 @@ pub struct SubmitBuildResponse {
 }
 
 impl SubmitBuildResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
     pub fn set_build_operation<
         T: std::convert::Into<std::option::Option<longrunning::model::Operation>>,
@@ -456,6 +472,10 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::StorageSource::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -519,6 +539,10 @@ pub struct Condition {
 }
 
 impl Condition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Condition::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -662,13 +686,12 @@ pub mod condition {
 
     /// Represents the possible Condition states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -679,32 +702,38 @@ pub mod condition {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Transient state: Reconciliation has not started yet.
-        pub const CONDITION_PENDING: &str = "CONDITION_PENDING";
+        pub const CONDITION_PENDING: State = State::new("CONDITION_PENDING");
 
         /// Transient state: reconciliation is still in progress.
-        pub const CONDITION_RECONCILING: &str = "CONDITION_RECONCILING";
+        pub const CONDITION_RECONCILING: State = State::new("CONDITION_RECONCILING");
 
         /// Terminal state: Reconciliation did not succeed.
-        pub const CONDITION_FAILED: &str = "CONDITION_FAILED";
+        pub const CONDITION_FAILED: State = State::new("CONDITION_FAILED");
 
         /// Terminal state: Reconciliation completed successfully.
-        pub const CONDITION_SUCCEEDED: &str = "CONDITION_SUCCEEDED";
+        pub const CONDITION_SUCCEEDED: State = State::new("CONDITION_SUCCEEDED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Represents the severity of the condition failures.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::string::String);
+    pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Severity instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -715,29 +744,35 @@ pub mod condition {
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
+        use super::Severity;
 
         /// Unspecified severity
-        pub const SEVERITY_UNSPECIFIED: &str = "SEVERITY_UNSPECIFIED";
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
 
         /// Error severity.
-        pub const ERROR: &str = "ERROR";
+        pub const ERROR: Severity = Severity::new("ERROR");
 
         /// Warning severity.
-        pub const WARNING: &str = "WARNING";
+        pub const WARNING: Severity = Severity::new("WARNING");
 
         /// Info severity.
-        pub const INFO: &str = "INFO";
+        pub const INFO: Severity = Severity::new("INFO");
+    }
+
+    impl std::convert::From<std::string::String> for Severity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Reasons common to all types of conditions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommonReason(std::string::String);
+    pub struct CommonReason(std::borrow::Cow<'static, str>);
 
     impl CommonReason {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CommonReason instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -748,63 +783,76 @@ pub mod condition {
 
     /// Useful constants to work with [CommonReason](CommonReason)
     pub mod common_reason {
+        use super::CommonReason;
 
         /// Default value.
-        pub const COMMON_REASON_UNDEFINED: &str = "COMMON_REASON_UNDEFINED";
+        pub const COMMON_REASON_UNDEFINED: CommonReason =
+            CommonReason::new("COMMON_REASON_UNDEFINED");
 
         /// Reason unknown. Further details will be in message.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: CommonReason = CommonReason::new("UNKNOWN");
 
         /// Revision creation process failed.
-        pub const REVISION_FAILED: &str = "REVISION_FAILED";
+        pub const REVISION_FAILED: CommonReason = CommonReason::new("REVISION_FAILED");
 
         /// Timed out waiting for completion.
-        pub const PROGRESS_DEADLINE_EXCEEDED: &str = "PROGRESS_DEADLINE_EXCEEDED";
+        pub const PROGRESS_DEADLINE_EXCEEDED: CommonReason =
+            CommonReason::new("PROGRESS_DEADLINE_EXCEEDED");
 
         /// The container image path is incorrect.
-        pub const CONTAINER_MISSING: &str = "CONTAINER_MISSING";
+        pub const CONTAINER_MISSING: CommonReason = CommonReason::new("CONTAINER_MISSING");
 
         /// Insufficient permissions on the container image.
-        pub const CONTAINER_PERMISSION_DENIED: &str = "CONTAINER_PERMISSION_DENIED";
+        pub const CONTAINER_PERMISSION_DENIED: CommonReason =
+            CommonReason::new("CONTAINER_PERMISSION_DENIED");
 
         /// Container image is not authorized by policy.
-        pub const CONTAINER_IMAGE_UNAUTHORIZED: &str = "CONTAINER_IMAGE_UNAUTHORIZED";
+        pub const CONTAINER_IMAGE_UNAUTHORIZED: CommonReason =
+            CommonReason::new("CONTAINER_IMAGE_UNAUTHORIZED");
 
         /// Container image policy authorization check failed.
-        pub const CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED: &str =
-            "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED";
+        pub const CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED: CommonReason =
+            CommonReason::new("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED");
 
         /// Insufficient permissions on encryption key.
-        pub const ENCRYPTION_KEY_PERMISSION_DENIED: &str = "ENCRYPTION_KEY_PERMISSION_DENIED";
+        pub const ENCRYPTION_KEY_PERMISSION_DENIED: CommonReason =
+            CommonReason::new("ENCRYPTION_KEY_PERMISSION_DENIED");
 
         /// Permission check on encryption key failed.
-        pub const ENCRYPTION_KEY_CHECK_FAILED: &str = "ENCRYPTION_KEY_CHECK_FAILED";
+        pub const ENCRYPTION_KEY_CHECK_FAILED: CommonReason =
+            CommonReason::new("ENCRYPTION_KEY_CHECK_FAILED");
 
         /// At least one Access check on secrets failed.
-        pub const SECRETS_ACCESS_CHECK_FAILED: &str = "SECRETS_ACCESS_CHECK_FAILED";
+        pub const SECRETS_ACCESS_CHECK_FAILED: CommonReason =
+            CommonReason::new("SECRETS_ACCESS_CHECK_FAILED");
 
         /// Waiting for operation to complete.
-        pub const WAITING_FOR_OPERATION: &str = "WAITING_FOR_OPERATION";
+        pub const WAITING_FOR_OPERATION: CommonReason = CommonReason::new("WAITING_FOR_OPERATION");
 
         /// System will retry immediately.
-        pub const IMMEDIATE_RETRY: &str = "IMMEDIATE_RETRY";
+        pub const IMMEDIATE_RETRY: CommonReason = CommonReason::new("IMMEDIATE_RETRY");
 
         /// System will retry later; current attempt failed.
-        pub const POSTPONED_RETRY: &str = "POSTPONED_RETRY";
+        pub const POSTPONED_RETRY: CommonReason = CommonReason::new("POSTPONED_RETRY");
 
         /// An internal error occurred. Further information may be in the message.
-        pub const INTERNAL: &str = "INTERNAL";
+        pub const INTERNAL: CommonReason = CommonReason::new("INTERNAL");
+    }
+
+    impl std::convert::From<std::string::String> for CommonReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Reasons specific to Revision resource.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RevisionReason(std::string::String);
+    pub struct RevisionReason(std::borrow::Cow<'static, str>);
 
     impl RevisionReason {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RevisionReason instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -815,63 +863,76 @@ pub mod condition {
 
     /// Useful constants to work with [RevisionReason](RevisionReason)
     pub mod revision_reason {
+        use super::RevisionReason;
 
         /// Default value.
-        pub const REVISION_REASON_UNDEFINED: &str = "REVISION_REASON_UNDEFINED";
+        pub const REVISION_REASON_UNDEFINED: RevisionReason =
+            RevisionReason::new("REVISION_REASON_UNDEFINED");
 
         /// Revision in Pending state.
-        pub const PENDING: &str = "PENDING";
+        pub const PENDING: RevisionReason = RevisionReason::new("PENDING");
 
         /// Revision is in Reserve state.
-        pub const RESERVE: &str = "RESERVE";
+        pub const RESERVE: RevisionReason = RevisionReason::new("RESERVE");
 
         /// Revision is Retired.
-        pub const RETIRED: &str = "RETIRED";
+        pub const RETIRED: RevisionReason = RevisionReason::new("RETIRED");
 
         /// Revision is being retired.
-        pub const RETIRING: &str = "RETIRING";
+        pub const RETIRING: RevisionReason = RevisionReason::new("RETIRING");
 
         /// Revision is being recreated.
-        pub const RECREATING: &str = "RECREATING";
+        pub const RECREATING: RevisionReason = RevisionReason::new("RECREATING");
 
         /// There was a health check error.
-        pub const HEALTH_CHECK_CONTAINER_ERROR: &str = "HEALTH_CHECK_CONTAINER_ERROR";
+        pub const HEALTH_CHECK_CONTAINER_ERROR: RevisionReason =
+            RevisionReason::new("HEALTH_CHECK_CONTAINER_ERROR");
 
         /// Health check failed due to user error from customized path of the
         /// container. System will retry.
-        pub const CUSTOMIZED_PATH_RESPONSE_PENDING: &str = "CUSTOMIZED_PATH_RESPONSE_PENDING";
+        pub const CUSTOMIZED_PATH_RESPONSE_PENDING: RevisionReason =
+            RevisionReason::new("CUSTOMIZED_PATH_RESPONSE_PENDING");
 
         /// A revision with min_instance_count > 0 was created and is reserved, but
         /// it was not configured to serve traffic, so it's not live. This can also
         /// happen momentarily during traffic migration.
-        pub const MIN_INSTANCES_NOT_PROVISIONED: &str = "MIN_INSTANCES_NOT_PROVISIONED";
+        pub const MIN_INSTANCES_NOT_PROVISIONED: RevisionReason =
+            RevisionReason::new("MIN_INSTANCES_NOT_PROVISIONED");
 
         /// The maximum allowed number of active revisions has been reached.
-        pub const ACTIVE_REVISION_LIMIT_REACHED: &str = "ACTIVE_REVISION_LIMIT_REACHED";
+        pub const ACTIVE_REVISION_LIMIT_REACHED: RevisionReason =
+            RevisionReason::new("ACTIVE_REVISION_LIMIT_REACHED");
 
         /// There was no deployment defined.
         /// This value is no longer used, but Services created in older versions of
         /// the API might contain this value.
-        pub const NO_DEPLOYMENT: &str = "NO_DEPLOYMENT";
+        pub const NO_DEPLOYMENT: RevisionReason = RevisionReason::new("NO_DEPLOYMENT");
 
         /// A revision's container has no port specified since the revision is of a
         /// manually scaled service with 0 instance count
-        pub const HEALTH_CHECK_SKIPPED: &str = "HEALTH_CHECK_SKIPPED";
+        pub const HEALTH_CHECK_SKIPPED: RevisionReason =
+            RevisionReason::new("HEALTH_CHECK_SKIPPED");
 
         /// A revision with min_instance_count > 0 was created and is waiting for
         /// enough instances to begin a traffic migration.
-        pub const MIN_INSTANCES_WARMING: &str = "MIN_INSTANCES_WARMING";
+        pub const MIN_INSTANCES_WARMING: RevisionReason =
+            RevisionReason::new("MIN_INSTANCES_WARMING");
+    }
+
+    impl std::convert::From<std::string::String> for RevisionReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Reasons specific to Execution resource.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionReason(std::string::String);
+    pub struct ExecutionReason(std::borrow::Cow<'static, str>);
 
     impl ExecutionReason {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ExecutionReason instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -882,25 +943,34 @@ pub mod condition {
 
     /// Useful constants to work with [ExecutionReason](ExecutionReason)
     pub mod execution_reason {
+        use super::ExecutionReason;
 
         /// Default value.
-        pub const EXECUTION_REASON_UNDEFINED: &str = "EXECUTION_REASON_UNDEFINED";
+        pub const EXECUTION_REASON_UNDEFINED: ExecutionReason =
+            ExecutionReason::new("EXECUTION_REASON_UNDEFINED");
 
         /// Internal system error getting execution status. System will retry.
-        pub const JOB_STATUS_SERVICE_POLLING_ERROR: &str = "JOB_STATUS_SERVICE_POLLING_ERROR";
+        pub const JOB_STATUS_SERVICE_POLLING_ERROR: ExecutionReason =
+            ExecutionReason::new("JOB_STATUS_SERVICE_POLLING_ERROR");
 
         /// A task reached its retry limit and the last attempt failed due to the
         /// user container exiting with a non-zero exit code.
-        pub const NON_ZERO_EXIT_CODE: &str = "NON_ZERO_EXIT_CODE";
+        pub const NON_ZERO_EXIT_CODE: ExecutionReason = ExecutionReason::new("NON_ZERO_EXIT_CODE");
 
         /// The execution was cancelled by users.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: ExecutionReason = ExecutionReason::new("CANCELLED");
 
         /// The execution is in the process of being cancelled.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: ExecutionReason = ExecutionReason::new("CANCELLING");
 
         /// The execution was deleted.
-        pub const DELETED: &str = "DELETED";
+        pub const DELETED: ExecutionReason = ExecutionReason::new("DELETED");
+    }
+
+    impl std::convert::From<std::string::String> for ExecutionReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The reason for this condition. Depending on the condition type,
@@ -934,6 +1004,10 @@ pub struct GetExecutionRequest {
 }
 
 impl GetExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -973,6 +1047,10 @@ pub struct ListExecutionsRequest {
 }
 
 impl ListExecutionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1021,6 +1099,10 @@ pub struct ListExecutionsResponse {
 }
 
 impl ListExecutionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1082,6 +1164,10 @@ pub struct DeleteExecutionRequest {
 }
 
 impl DeleteExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1131,6 +1217,10 @@ pub struct CancelExecutionRequest {
 }
 
 impl CancelExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1300,6 +1390,10 @@ pub struct Execution {
 }
 
 impl Execution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Execution::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1554,6 +1648,10 @@ pub struct ExecutionTemplate {
 }
 
 impl ExecutionTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parallelism][crate::model::ExecutionTemplate::parallelism].
     pub fn set_parallelism<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.parallelism = v.into();
@@ -1633,6 +1731,10 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1681,6 +1783,10 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1715,6 +1821,10 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
@@ -1768,6 +1878,10 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1816,6 +1930,10 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1876,6 +1994,10 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1929,6 +2051,10 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RunJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1993,6 +2119,10 @@ pub mod run_job_request {
     }
 
     impl Overrides {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [task_count][crate::model::run_job_request::Overrides::task_count].
         pub fn set_task_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.task_count = v.into();
@@ -2056,6 +2186,10 @@ pub mod run_job_request {
         }
 
         impl ContainerOverride {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [name][crate::model::run_job_request::overrides::ContainerOverride::name].
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
@@ -2252,6 +2386,10 @@ pub struct Job {
 }
 
 impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Job::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2571,6 +2709,10 @@ pub struct ExecutionReference {
 }
 
 impl ExecutionReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ExecutionReference::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2629,13 +2771,12 @@ pub mod execution_reference {
 
     /// Possible execution completion status.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompletionStatus(std::string::String);
+    pub struct CompletionStatus(std::borrow::Cow<'static, str>);
 
     impl CompletionStatus {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CompletionStatus instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2646,24 +2787,34 @@ pub mod execution_reference {
 
     /// Useful constants to work with [CompletionStatus](CompletionStatus)
     pub mod completion_status {
+        use super::CompletionStatus;
 
         /// The default value. This value is used if the state is omitted.
-        pub const COMPLETION_STATUS_UNSPECIFIED: &str = "COMPLETION_STATUS_UNSPECIFIED";
+        pub const COMPLETION_STATUS_UNSPECIFIED: CompletionStatus =
+            CompletionStatus::new("COMPLETION_STATUS_UNSPECIFIED");
 
         /// Job execution has succeeded.
-        pub const EXECUTION_SUCCEEDED: &str = "EXECUTION_SUCCEEDED";
+        pub const EXECUTION_SUCCEEDED: CompletionStatus =
+            CompletionStatus::new("EXECUTION_SUCCEEDED");
 
         /// Job execution has failed.
-        pub const EXECUTION_FAILED: &str = "EXECUTION_FAILED";
+        pub const EXECUTION_FAILED: CompletionStatus = CompletionStatus::new("EXECUTION_FAILED");
 
         /// Job execution is running normally.
-        pub const EXECUTION_RUNNING: &str = "EXECUTION_RUNNING";
+        pub const EXECUTION_RUNNING: CompletionStatus = CompletionStatus::new("EXECUTION_RUNNING");
 
         /// Waiting for backing resources to be provisioned.
-        pub const EXECUTION_PENDING: &str = "EXECUTION_PENDING";
+        pub const EXECUTION_PENDING: CompletionStatus = CompletionStatus::new("EXECUTION_PENDING");
 
         /// Job execution has been cancelled by the user.
-        pub const EXECUTION_CANCELLED: &str = "EXECUTION_CANCELLED";
+        pub const EXECUTION_CANCELLED: CompletionStatus =
+            CompletionStatus::new("EXECUTION_CANCELLED");
+    }
+
+    impl std::convert::From<std::string::String> for CompletionStatus {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2742,6 +2893,10 @@ pub struct Container {
 }
 
 impl Container {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Container::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2884,6 +3039,10 @@ pub struct ResourceRequirements {
 }
 
 impl ResourceRequirements {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cpu_idle][crate::model::ResourceRequirements::cpu_idle].
     pub fn set_cpu_idle<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cpu_idle = v.into();
@@ -2931,6 +3090,10 @@ pub struct EnvVar {
 }
 
 impl EnvVar {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnvVar::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3031,6 +3194,10 @@ pub struct EnvVarSource {
 }
 
 impl EnvVarSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
     pub fn set_secret_key_ref<
         T: std::convert::Into<std::option::Option<crate::model::SecretKeySelector>>,
@@ -3070,6 +3237,10 @@ pub struct SecretKeySelector {
 }
 
 impl SecretKeySelector {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret][crate::model::SecretKeySelector::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
@@ -3106,6 +3277,10 @@ pub struct ContainerPort {
 }
 
 impl ContainerPort {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ContainerPort::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3145,6 +3320,10 @@ pub struct VolumeMount {
 }
 
 impl VolumeMount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::VolumeMount::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3179,6 +3358,10 @@ pub struct Volume {
 }
 
 impl Volume {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Volume::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3406,6 +3589,10 @@ pub struct SecretVolumeSource {
 }
 
 impl SecretVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret][crate::model::SecretVolumeSource::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
@@ -3471,6 +3658,10 @@ pub struct VersionToPath {
 }
 
 impl VersionToPath {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::VersionToPath::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -3515,6 +3706,10 @@ pub struct CloudSqlInstance {
 }
 
 impl CloudSqlInstance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instances][crate::model::CloudSqlInstance::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -3560,6 +3755,10 @@ pub struct EmptyDirVolumeSource {
 }
 
 impl EmptyDirVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [medium][crate::model::EmptyDirVolumeSource::medium].
     pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(
         mut self,
@@ -3589,13 +3788,12 @@ pub mod empty_dir_volume_source {
 
     /// The different types of medium supported for EmptyDir.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Medium(std::string::String);
+    pub struct Medium(std::borrow::Cow<'static, str>);
 
     impl Medium {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Medium instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3606,13 +3804,20 @@ pub mod empty_dir_volume_source {
 
     /// Useful constants to work with [Medium](Medium)
     pub mod medium {
+        use super::Medium;
 
         /// When not specified, falls back to the default implementation which
         /// is currently in memory (this may change over time).
-        pub const MEDIUM_UNSPECIFIED: &str = "MEDIUM_UNSPECIFIED";
+        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new("MEDIUM_UNSPECIFIED");
 
         /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
-        pub const MEMORY: &str = "MEMORY";
+        pub const MEMORY: Medium = Medium::new("MEMORY");
+    }
+
+    impl std::convert::From<std::string::String> for Medium {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3635,6 +3840,10 @@ pub struct NFSVolumeSource {
 }
 
 impl NFSVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [server][crate::model::NFSVolumeSource::server].
     pub fn set_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server = v.into();
@@ -3681,6 +3890,10 @@ pub struct GCSVolumeSource {
 }
 
 impl GCSVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::GCSVolumeSource::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -3743,6 +3956,10 @@ pub struct Probe {
 }
 
 impl Probe {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [initial_delay_seconds][crate::model::Probe::initial_delay_seconds].
     pub fn set_initial_delay_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_delay_seconds = v.into();
@@ -3906,6 +4123,10 @@ pub struct HTTPGetAction {
 }
 
 impl HTTPGetAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::HTTPGetAction::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -3952,6 +4173,10 @@ pub struct HTTPHeader {
 }
 
 impl HTTPHeader {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::HTTPHeader::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3984,6 +4209,10 @@ pub struct TCPSocketAction {
 }
 
 impl TCPSocketAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [port][crate::model::TCPSocketAction::port].
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
@@ -4017,6 +4246,10 @@ pub struct GRPCAction {
 }
 
 impl GRPCAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [port][crate::model::GRPCAction::port].
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
@@ -4050,6 +4283,10 @@ pub struct GetRevisionRequest {
 }
 
 impl GetRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRevisionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4089,6 +4326,10 @@ pub struct ListRevisionsRequest {
 }
 
 impl ListRevisionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRevisionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4137,6 +4378,10 @@ pub struct ListRevisionsResponse {
 }
 
 impl ListRevisionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRevisionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4199,6 +4444,10 @@ pub struct DeleteRevisionRequest {
 }
 
 impl DeleteRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteRevisionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4386,6 +4635,10 @@ pub struct Revision {
 }
 
 impl Revision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Revision::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4764,6 +5017,10 @@ pub struct RevisionTemplate {
 }
 
 impl RevisionTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [revision][crate::model::RevisionTemplate::revision].
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -4966,6 +5223,10 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5025,6 +5286,10 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -5088,6 +5353,10 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5136,6 +5405,10 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5187,6 +5460,10 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5223,6 +5500,10 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5465,6 +5746,10 @@ pub struct Service {
 }
 
 impl Service {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5766,6 +6051,10 @@ pub struct RevisionScalingStatus {
 }
 
 impl RevisionScalingStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [desired_min_instance_count][crate::model::RevisionScalingStatus::desired_min_instance_count].
     pub fn set_desired_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.desired_min_instance_count = v.into();
@@ -5793,6 +6082,10 @@ pub struct GetTaskRequest {
 }
 
 impl GetTaskRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTaskRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5832,6 +6125,10 @@ pub struct ListTasksRequest {
 }
 
 impl ListTasksRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5880,6 +6177,10 @@ pub struct ListTasksResponse {
 }
 
 impl ListTasksResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6081,6 +6382,10 @@ pub struct Task {
 }
 
 impl Task {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Task::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6355,6 +6660,10 @@ pub struct TaskAttemptResult {
 }
 
 impl TaskAttemptResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [status][crate::model::TaskAttemptResult::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -6427,6 +6736,10 @@ pub struct TaskTemplate {
 }
 
 impl TaskTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [timeout][crate::model::TaskTemplate::timeout].
     pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -6570,6 +6883,10 @@ pub struct TrafficTarget {
 }
 
 impl TrafficTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::TrafficTarget::type].
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
@@ -6631,6 +6948,10 @@ pub struct TrafficTargetStatus {
 }
 
 impl TrafficTargetStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::TrafficTargetStatus::type].
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
@@ -6697,6 +7018,10 @@ pub struct VpcAccess {
 }
 
 impl VpcAccess {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connector][crate::model::VpcAccess::connector].
     pub fn set_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector = v.into();
@@ -6763,6 +7088,10 @@ pub mod vpc_access {
     }
 
     impl NetworkInterface {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [network][crate::model::vpc_access::NetworkInterface::network].
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
@@ -6795,13 +7124,12 @@ pub mod vpc_access {
 
     /// Egress options for VPC access.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VpcEgress(std::string::String);
+    pub struct VpcEgress(std::borrow::Cow<'static, str>);
 
     impl VpcEgress {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new VpcEgress instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6812,15 +7140,22 @@ pub mod vpc_access {
 
     /// Useful constants to work with [VpcEgress](VpcEgress)
     pub mod vpc_egress {
+        use super::VpcEgress;
 
         /// Unspecified
-        pub const VPC_EGRESS_UNSPECIFIED: &str = "VPC_EGRESS_UNSPECIFIED";
+        pub const VPC_EGRESS_UNSPECIFIED: VpcEgress = VpcEgress::new("VPC_EGRESS_UNSPECIFIED");
 
         /// All outbound traffic is routed through the VPC connector.
-        pub const ALL_TRAFFIC: &str = "ALL_TRAFFIC";
+        pub const ALL_TRAFFIC: VpcEgress = VpcEgress::new("ALL_TRAFFIC");
 
         /// Only private IP ranges are routed through the VPC connector.
-        pub const PRIVATE_RANGES_ONLY: &str = "PRIVATE_RANGES_ONLY";
+        pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::new("PRIVATE_RANGES_ONLY");
+    }
+
+    impl std::convert::From<std::string::String> for VpcEgress {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6842,6 +7177,10 @@ pub struct BinaryAuthorization {
 }
 
 impl BinaryAuthorization {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [breakglass_justification][crate::model::BinaryAuthorization::breakglass_justification].
     pub fn set_breakglass_justification<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6955,6 +7294,10 @@ pub struct RevisionScaling {
 }
 
 impl RevisionScaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_instance_count][crate::model::RevisionScaling::min_instance_count].
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
@@ -6989,6 +7332,10 @@ pub struct ServiceMesh {
 }
 
 impl ServiceMesh {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mesh][crate::model::ServiceMesh::mesh].
     pub fn set_mesh<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mesh = v.into();
@@ -7025,6 +7372,10 @@ pub struct ServiceScaling {
 }
 
 impl ServiceScaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_instance_count][crate::model::ServiceScaling::min_instance_count].
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
@@ -7064,13 +7415,12 @@ pub mod service_scaling {
     /// The scaling mode for the service. If not provided, it defaults to
     /// AUTOMATIC.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ScalingMode(std::string::String);
+    pub struct ScalingMode(std::borrow::Cow<'static, str>);
 
     impl ScalingMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ScalingMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7081,15 +7431,23 @@ pub mod service_scaling {
 
     /// Useful constants to work with [ScalingMode](ScalingMode)
     pub mod scaling_mode {
+        use super::ScalingMode;
 
         /// Unspecified.
-        pub const SCALING_MODE_UNSPECIFIED: &str = "SCALING_MODE_UNSPECIFIED";
+        pub const SCALING_MODE_UNSPECIFIED: ScalingMode =
+            ScalingMode::new("SCALING_MODE_UNSPECIFIED");
 
         /// Scale based on traffic between min and max instances.
-        pub const AUTOMATIC: &str = "AUTOMATIC";
+        pub const AUTOMATIC: ScalingMode = ScalingMode::new("AUTOMATIC");
 
         /// Scale to exactly min instances and ignore max instances.
-        pub const MANUAL: &str = "MANUAL";
+        pub const MANUAL: ScalingMode = ScalingMode::new("MANUAL");
+    }
+
+    impl std::convert::From<std::string::String> for ScalingMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7105,6 +7463,10 @@ pub struct NodeSelector {
 }
 
 impl NodeSelector {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [accelerator][crate::model::NodeSelector::accelerator].
     pub fn set_accelerator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator = v.into();
@@ -7120,13 +7482,12 @@ impl wkt::message::Message for NodeSelector {
 
 /// The type of instance allocation.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TrafficTargetAllocationType(std::string::String);
+pub struct TrafficTargetAllocationType(std::borrow::Cow<'static, str>);
 
 impl TrafficTargetAllocationType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new TrafficTargetAllocationType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7137,28 +7498,35 @@ impl TrafficTargetAllocationType {
 
 /// Useful constants to work with [TrafficTargetAllocationType](TrafficTargetAllocationType)
 pub mod traffic_target_allocation_type {
+    use super::TrafficTargetAllocationType;
 
     /// Unspecified instance allocation type.
-    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED: &str =
-        "TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED";
+    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED: TrafficTargetAllocationType =
+        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED");
 
     /// Allocates instances to the Service's latest ready Revision.
-    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST: &str = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST";
+    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST: TrafficTargetAllocationType =
+        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST");
 
     /// Allocates instances to a Revision by name.
-    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION: &str =
-        "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION";
+    pub const TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION: TrafficTargetAllocationType =
+        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION");
+}
+
+impl std::convert::From<std::string::String> for TrafficTargetAllocationType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Allowed ingress traffic for the Container.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IngressTraffic(std::string::String);
+pub struct IngressTraffic(std::borrow::Cow<'static, str>);
 
 impl IngressTraffic {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new IngressTraffic instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7169,33 +7537,41 @@ impl IngressTraffic {
 
 /// Useful constants to work with [IngressTraffic](IngressTraffic)
 pub mod ingress_traffic {
+    use super::IngressTraffic;
 
     /// Unspecified
-    pub const INGRESS_TRAFFIC_UNSPECIFIED: &str = "INGRESS_TRAFFIC_UNSPECIFIED";
+    pub const INGRESS_TRAFFIC_UNSPECIFIED: IngressTraffic =
+        IngressTraffic::new("INGRESS_TRAFFIC_UNSPECIFIED");
 
     /// All inbound traffic is allowed.
-    pub const INGRESS_TRAFFIC_ALL: &str = "INGRESS_TRAFFIC_ALL";
+    pub const INGRESS_TRAFFIC_ALL: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_ALL");
 
     /// Only internal traffic is allowed.
-    pub const INGRESS_TRAFFIC_INTERNAL_ONLY: &str = "INGRESS_TRAFFIC_INTERNAL_ONLY";
+    pub const INGRESS_TRAFFIC_INTERNAL_ONLY: IngressTraffic =
+        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_ONLY");
 
     /// Both internal and Google Cloud Load Balancer traffic is allowed.
-    pub const INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER: &str =
-        "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER";
+    pub const INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER: IngressTraffic =
+        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER");
 
     /// No ingress traffic is allowed.
-    pub const INGRESS_TRAFFIC_NONE: &str = "INGRESS_TRAFFIC_NONE";
+    pub const INGRESS_TRAFFIC_NONE: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_NONE");
+}
+
+impl std::convert::From<std::string::String> for IngressTraffic {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Alternatives for execution environments.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExecutionEnvironment(std::string::String);
+pub struct ExecutionEnvironment(std::borrow::Cow<'static, str>);
 
 impl ExecutionEnvironment {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ExecutionEnvironment instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7206,26 +7582,35 @@ impl ExecutionEnvironment {
 
 /// Useful constants to work with [ExecutionEnvironment](ExecutionEnvironment)
 pub mod execution_environment {
+    use super::ExecutionEnvironment;
 
     /// Unspecified
-    pub const EXECUTION_ENVIRONMENT_UNSPECIFIED: &str = "EXECUTION_ENVIRONMENT_UNSPECIFIED";
+    pub const EXECUTION_ENVIRONMENT_UNSPECIFIED: ExecutionEnvironment =
+        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_UNSPECIFIED");
 
     /// Uses the First Generation environment.
-    pub const EXECUTION_ENVIRONMENT_GEN1: &str = "EXECUTION_ENVIRONMENT_GEN1";
+    pub const EXECUTION_ENVIRONMENT_GEN1: ExecutionEnvironment =
+        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN1");
 
     /// Uses Second Generation environment.
-    pub const EXECUTION_ENVIRONMENT_GEN2: &str = "EXECUTION_ENVIRONMENT_GEN2";
+    pub const EXECUTION_ENVIRONMENT_GEN2: ExecutionEnvironment =
+        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN2");
+}
+
+impl std::convert::From<std::string::String> for ExecutionEnvironment {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Specifies behavior if an encryption key used by a resource is revoked.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncryptionKeyRevocationAction(std::string::String);
+pub struct EncryptionKeyRevocationAction(std::borrow::Cow<'static, str>);
 
 impl EncryptionKeyRevocationAction {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new EncryptionKeyRevocationAction instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7236,14 +7621,23 @@ impl EncryptionKeyRevocationAction {
 
 /// Useful constants to work with [EncryptionKeyRevocationAction](EncryptionKeyRevocationAction)
 pub mod encryption_key_revocation_action {
+    use super::EncryptionKeyRevocationAction;
 
     /// Unspecified
-    pub const ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED: &str =
-        "ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED";
+    pub const ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED: EncryptionKeyRevocationAction =
+        EncryptionKeyRevocationAction::new("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED");
 
     /// Prevents the creation of new instances.
-    pub const PREVENT_NEW: &str = "PREVENT_NEW";
+    pub const PREVENT_NEW: EncryptionKeyRevocationAction =
+        EncryptionKeyRevocationAction::new("PREVENT_NEW");
 
     /// Shuts down existing instances, and prevents creation of new ones.
-    pub const SHUTDOWN: &str = "SHUTDOWN";
+    pub const SHUTDOWN: EncryptionKeyRevocationAction =
+        EncryptionKeyRevocationAction::new("SHUTDOWN");
+}
+
+impl std::convert::From<std::string::String> for EncryptionKeyRevocationAction {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

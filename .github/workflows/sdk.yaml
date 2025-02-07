@@ -13,7 +13,12 @@
 # limitations under the License.
 
 name: Rust SDK
-on: [push, pull_request]
+permissions: read-all
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   build:
     strategy:
@@ -37,6 +42,8 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
+      - name: Test gax with features disabled
+        run: cargo build -p gcp-sdk-gax
       - run: cargo test
   coverage:
     runs-on: ubuntu-24.04
@@ -59,12 +66,46 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: cargo tarpaulin --out xml
+      - run: |
+          cargo tarpaulin --out xml \
+            --package gcp-sdk-auth \
+            --package gcp-sdk-gax \
+            --package google-cloud-lro \
+            --package google-cloud-wkt
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+  docs:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['1.84']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ matrix.rust-version }}
+          cargo install mdbook
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: mdbook build guide
+      - run: mdbook test guide
+      - run: cargo doc
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+      - run: cargo doc -p gcp-sdk-gax
+        env:
+          RUSTDOCFLAGS: "-D warnings"
   lint:
     runs-on: ubuntu-24.04
     strategy:
@@ -85,9 +126,6 @@ jobs:
         run: rustc --version
       - run: cargo clippy -- --deny warnings
       - run: cargo fmt
-      - run: cargo doc
-        env:
-          RUSTDOCFLAGS: "-D warnings"
       - run: git diff --exit-code
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the

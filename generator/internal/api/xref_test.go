@@ -51,7 +51,9 @@ func TestCrossReferenceOneOfs(t *testing.T) {
 		OneOfs: []*OneOf{group0, group1},
 	}
 	model := NewTestAPI([]*Message{message}, []*Enum{}, []*Service{})
-	CrossReference(model)
+	if err := CrossReference(model); err != nil {
+		t.Fatal(err)
+	}
 
 	for _, test := range []struct {
 		field *Field
@@ -67,5 +69,61 @@ func TestCrossReferenceOneOfs(t *testing.T) {
 			t.Errorf("mismatched group for %s, got=%v, want=%v", test.field.Name, test.field.Group, test.oneof)
 		}
 
+	}
+}
+
+func TestCrossReferenceMethod(t *testing.T) {
+	request := &Message{
+		Name: "Request",
+		ID:   ".test.Request",
+	}
+	response := &Message{
+		Name: "Response",
+		ID:   ".test.Response",
+	}
+	method := &Method{
+		Name:         "GetResource",
+		ID:           ".test.Service.GetResource",
+		InputTypeID:  ".test.Request",
+		OutputTypeID: ".test.Response",
+	}
+	service := &Service{
+		Name:    "Service",
+		ID:      ".test.Service",
+		Methods: []*Method{method},
+	}
+
+	model := NewTestAPI([]*Message{request, response}, []*Enum{}, []*Service{service})
+	if err := CrossReference(model); err != nil {
+		t.Fatal(err)
+	}
+	if method.InputType != request {
+		t.Errorf("mismatched input type, got=%v, want=%v", method.InputType, request)
+	}
+	if method.OutputType != response {
+		t.Errorf("mismatched output type, got=%v, want=%v", method.OutputType, response)
+	}
+}
+
+func TestCrossReferenceService(t *testing.T) {
+	service := &Service{
+		Name: "Service",
+		ID:   ".test.Service",
+	}
+	mixin := &Service{
+		Name: "Mixin",
+		ID:   ".external.Mixin",
+	}
+
+	model := NewTestAPI([]*Message{}, []*Enum{}, []*Service{service})
+	model.State.ServiceByID[mixin.ID] = mixin
+	if err := CrossReference(model); err != nil {
+		t.Fatal(err)
+	}
+	if service.Model != model {
+		t.Errorf("mismatched model, got=%v, want=%v", service.Model, model)
+	}
+	if mixin.Model != model {
+		t.Errorf("mismatched model, got=%v, want=%v", mixin.Model, model)
 	}
 }

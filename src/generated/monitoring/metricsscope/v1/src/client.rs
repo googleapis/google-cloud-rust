@@ -18,18 +18,24 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::MetricsScopes] to make requests with.
+/// Implements a client for the Cloud Monitoring API.
 ///
-/// `MetricsScopes` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Manages Cloud Monitoring Metrics Scopes, and the monitoring of Google Cloud
+/// projects and AWS accounts.
+///
+/// # Configuration
+///
+/// `MetricsScopes` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `MetricsScopes` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetricsScopes` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Manages Cloud Monitoring Metrics Scopes, and the monitoring of Google Cloud
-/// projects and AWS accounts.
 #[derive(Clone, Debug)]
 pub struct MetricsScopes {
     inner: Arc<dyn crate::stubs::dynamic::MetricsScopes>,
@@ -127,7 +133,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MonitoredProject, model::OperationMetadata>
     /// ) -> Result<model::MonitoredProject> {
@@ -145,7 +151,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MonitoredProject, model::OperationMetadata>
     /// ) -> Result<model::MonitoredProject> {
@@ -225,7 +231,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -243,7 +249,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

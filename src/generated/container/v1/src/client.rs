@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::ClusterManager] to make requests with.
+/// Implements a client for the Kubernetes Engine API.
 ///
-/// `ClusterManager` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Google Kubernetes Engine Cluster Manager v1
+///
+/// # Configuration
+///
+/// `ClusterManager` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `ClusterManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ClusterManager` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Google Kubernetes Engine Cluster Manager v1
 #[derive(Clone, Debug)]
 pub struct ClusterManager {
     inner: Arc<dyn crate::stubs::dynamic::ClusterManager>,

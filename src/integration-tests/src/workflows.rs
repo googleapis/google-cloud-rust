@@ -16,7 +16,7 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::{error::Error, options::RequestOptionsBuilder};
 use lro::Poller;
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, Rng};
 use std::time::Duration;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
@@ -57,7 +57,7 @@ main:
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
     let prefix = "wf-";
-    let workflow_id: String = rand::thread_rng()
+    let workflow_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         // Workflow ids must start with a letter, we use `wf-` as a prefix to
         // this requirement (see below).
@@ -71,16 +71,10 @@ main:
         .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
-            wf::model::Workflow::default()
+            wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(
-                    wf::model::workflow::CallLogLevel::default()
-                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
-                )
-                .set_state(
-                    wf::model::workflow::State::default()
-                        .set_value(wf::model::workflow::state::UNAVAILABLE),
-                )
+                .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
+                .set_state(wf::model::workflow::state::UNAVAILABLE)
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
@@ -139,7 +133,7 @@ main:
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
     let prefix = "wf-";
-    let workflow_id: String = rand::thread_rng()
+    let workflow_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         // Workflow ids must start with a letter, we use `wf-` as a prefix to
         // this requirement (see below).
@@ -153,16 +147,10 @@ main:
         .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
-            wf::model::Workflow::default()
+            wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(
-                    wf::model::workflow::CallLogLevel::default()
-                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
-                )
-                .set_state(
-                    wf::model::workflow::State::default()
-                        .set_value(wf::model::workflow::state::UNAVAILABLE),
-                )
+                .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
+                .set_state(wf::model::workflow::state::UNAVAILABLE)
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )

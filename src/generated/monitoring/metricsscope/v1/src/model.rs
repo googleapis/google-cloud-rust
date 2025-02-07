@@ -63,6 +63,10 @@ pub struct MetricsScope {
 }
 
 impl MetricsScope {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MetricsScope::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -127,6 +131,10 @@ pub struct MonitoredProject {
 }
 
 impl MonitoredProject {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MonitoredProject::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -163,6 +171,10 @@ pub struct GetMetricsScopeRequest {
 }
 
 impl GetMetricsScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -190,6 +202,10 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
 }
 
 impl ListMetricsScopesByMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
     pub fn set_monitored_resource_container<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -219,6 +235,10 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
 }
 
 impl ListMetricsScopesByMonitoredProjectResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metrics_scopes][crate::model::ListMetricsScopesByMonitoredProjectResponse::metrics_scopes].
     pub fn set_metrics_scopes<T, V>(mut self, v: T) -> Self
     where
@@ -259,6 +279,10 @@ pub struct CreateMonitoredProjectRequest {
 }
 
 impl CreateMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -301,6 +325,10 @@ pub struct DeleteMonitoredProjectRequest {
 }
 
 impl DeleteMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -334,6 +362,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::OperationMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
@@ -375,13 +407,12 @@ pub mod operation_metadata {
 
     /// Batch operation states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -392,20 +423,27 @@ pub mod operation_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request has been received.
-        pub const CREATED: &str = "CREATED";
+        pub const CREATED: State = State::new("CREATED");
 
         /// Request is actively being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The batch processing is done.
-        pub const DONE: &str = "DONE";
+        pub const DONE: State = State::new("DONE");
 
         /// The batch processing was cancelled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }

@@ -17,32 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// An interface for managing Identity and Access Management (IAM) policies.
+/// Defines the trait used to implement [crate::client::Policies].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the iam clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Policies`.  In other use-cases, application developers only
+/// use `client::Policies` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Policies: std::fmt::Debug + Send + Sync {
-    /// Retrieves the policies of the specified kind that are attached to a
-    /// resource.
-    ///
-    /// The response lists only policy metadata. In particular, policy rules are
-    /// omitted.
+    /// Implements [crate::client::Policies::list_policies].
     fn list_policies(
         &self,
         _req: crate::model::ListPoliciesRequest,
@@ -54,7 +53,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets a policy.
+    /// Implements [crate::client::Policies::get_policy].
     fn get_policy(
         &self,
         _req: crate::model::GetPolicyRequest,
@@ -65,7 +64,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a policy.
+    /// Implements [crate::client::Policies::create_policy].
     fn create_policy(
         &self,
         _req: crate::model::CreatePolicyRequest,
@@ -77,19 +76,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the specified policy.
-    ///
-    /// You can update only the rules and the display name for the policy.
-    ///
-    /// To update a policy, you should use a read-modify-write loop:
-    ///
-    /// . Use [GetPolicy][google.iam.v2.Policies.GetPolicy] to read the current version of the policy.
-    /// . Modify the policy as needed.
-    /// . Use `UpdatePolicy` to write the updated policy.
-    ///
-    /// This pattern helps prevent conflicts between concurrent updates.
-    ///
-    /// [google.iam.v2.Policies.GetPolicy]: crate::client::Policies::get_policy
+    /// Implements [crate::client::Policies::update_policy].
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
@@ -101,7 +88,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a policy. This action is permanent.
+    /// Implements [crate::client::Policies::delete_policy].
     fn delete_policy(
         &self,
         _req: crate::model::DeletePolicyRequest,
@@ -113,9 +100,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Policies::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -128,14 +113,24 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

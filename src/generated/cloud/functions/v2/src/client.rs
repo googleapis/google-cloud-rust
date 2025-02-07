@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::FunctionService] to make requests with.
+/// Implements a client for the Cloud Functions API.
 ///
-/// `FunctionService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `FunctionService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FunctionService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Google Cloud Functions is used to deploy functions that are executed by
 /// Google in response to various events. Data connected with that event is
@@ -34,6 +28,18 @@ use std::sync::Arc;
 ///
 /// A **function** is a resource which describes a function that should be
 /// executed and how it is triggered.
+///
+/// # Configuration
+///
+/// `FunctionService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `FunctionService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `FunctionService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct FunctionService {
     inner: Arc<dyn crate::stubs::dynamic::FunctionService>,
@@ -130,7 +136,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -148,7 +154,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -228,7 +234,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -246,7 +252,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -328,7 +334,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -346,7 +352,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

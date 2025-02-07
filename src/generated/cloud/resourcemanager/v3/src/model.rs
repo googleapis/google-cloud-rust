@@ -91,6 +91,10 @@ pub struct Folder {
 }
 
 impl Folder {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Folder::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -162,13 +166,12 @@ pub mod folder {
 
     /// Folder lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -179,15 +182,22 @@ pub mod folder {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The folder has been marked for deletion by the user.
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -204,6 +214,10 @@ pub struct GetFolderRequest {
 }
 
 impl GetFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetFolderRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -254,6 +268,10 @@ pub struct ListFoldersRequest {
 }
 
 impl ListFoldersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -303,6 +321,10 @@ pub struct ListFoldersResponse {
 }
 
 impl ListFoldersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -392,6 +414,10 @@ pub struct SearchFoldersRequest {
 }
 
 impl SearchFoldersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [page_size][crate::model::SearchFoldersRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -435,6 +461,10 @@ pub struct SearchFoldersResponse {
 }
 
 impl SearchFoldersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchFoldersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -485,6 +515,10 @@ pub struct CreateFolderRequest {
 }
 
 impl CreateFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
     pub fn set_folder<T: std::convert::Into<std::option::Option<crate::model::Folder>>>(
         mut self,
@@ -518,6 +552,10 @@ pub struct CreateFolderMetadata {
 }
 
 impl CreateFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::CreateFolderMetadata::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -564,6 +602,10 @@ pub struct UpdateFolderRequest {
 }
 
 impl UpdateFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
     pub fn set_folder<T: std::convert::Into<std::option::Option<crate::model::Folder>>>(
         mut self,
@@ -597,7 +639,11 @@ impl wkt::message::Message for UpdateFolderRequest {
 #[non_exhaustive]
 pub struct UpdateFolderMetadata {}
 
-impl UpdateFolderMetadata {}
+impl UpdateFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UpdateFolderMetadata {
     fn typename() -> &'static str {
@@ -624,6 +670,10 @@ pub struct MoveFolderRequest {
 }
 
 impl MoveFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MoveFolderRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -666,6 +716,10 @@ pub struct MoveFolderMetadata {
 }
 
 impl MoveFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::MoveFolderMetadata::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -707,6 +761,10 @@ pub struct DeleteFolderRequest {
 }
 
 impl DeleteFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -728,7 +786,11 @@ impl wkt::message::Message for DeleteFolderRequest {
 #[non_exhaustive]
 pub struct DeleteFolderMetadata {}
 
-impl DeleteFolderMetadata {}
+impl DeleteFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteFolderMetadata {
     fn typename() -> &'static str {
@@ -749,6 +811,10 @@ pub struct UndeleteFolderRequest {
 }
 
 impl UndeleteFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteFolderRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -770,7 +836,11 @@ impl wkt::message::Message for UndeleteFolderRequest {
 #[non_exhaustive]
 pub struct UndeleteFolderMetadata {}
 
-impl UndeleteFolderMetadata {}
+impl UndeleteFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UndeleteFolderMetadata {
     fn typename() -> &'static str {
@@ -830,6 +900,10 @@ pub struct Organization {
 }
 
 impl Organization {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Organization::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -937,13 +1011,12 @@ pub mod organization {
 
     /// Organization lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -954,15 +1027,22 @@ pub mod organization {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.  This is only useful for distinguishing unset values.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The organization has been marked for deletion by the user.
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The owner of this organization. The owner should be specified on
@@ -995,6 +1075,10 @@ pub struct GetOrganizationRequest {
 }
 
 impl GetOrganizationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetOrganizationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1047,6 +1131,10 @@ pub struct SearchOrganizationsRequest {
 }
 
 impl SearchOrganizationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [page_size][crate::model::SearchOrganizationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -1093,6 +1181,10 @@ pub struct SearchOrganizationsResponse {
 }
 
 impl SearchOrganizationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchOrganizationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1138,7 +1230,11 @@ impl gax::paginator::PageableResponse for SearchOrganizationsResponse {
 #[non_exhaustive]
 pub struct DeleteOrganizationMetadata {}
 
-impl DeleteOrganizationMetadata {}
+impl DeleteOrganizationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteOrganizationMetadata {
     fn typename() -> &'static str {
@@ -1154,7 +1250,11 @@ impl wkt::message::Message for DeleteOrganizationMetadata {
 #[non_exhaustive]
 pub struct UndeleteOrganizationMetadata {}
 
-impl UndeleteOrganizationMetadata {}
+impl UndeleteOrganizationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UndeleteOrganizationMetadata {
     fn typename() -> &'static str {
@@ -1240,6 +1340,10 @@ pub struct Project {
 }
 
 impl Project {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Project::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1329,13 +1433,12 @@ pub mod project {
 
     /// Project lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1346,13 +1449,14 @@ pub mod project {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.  This is only used/useful for distinguishing
         /// unset values.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The project has been marked for deletion by the user
         /// (by invoking
@@ -1362,7 +1466,13 @@ pub mod project {
         /// [google.cloud.resourcemanager.v3.Projects.UndeleteProject].
         ///
         /// [google.cloud.resourcemanager.v3.Projects.DeleteProject]: crate::client::Projects::delete_project
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1382,6 +1492,10 @@ pub struct GetProjectRequest {
 }
 
 impl GetProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1431,6 +1545,10 @@ pub struct ListProjectsRequest {
 }
 
 impl ListProjectsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListProjectsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1499,6 +1617,10 @@ pub struct ListProjectsResponse {
 }
 
 impl ListProjectsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProjectsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1594,6 +1716,10 @@ pub struct SearchProjectsRequest {
 }
 
 impl SearchProjectsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [query][crate::model::SearchProjectsRequest::query].
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
@@ -1654,6 +1780,10 @@ pub struct SearchProjectsResponse {
 }
 
 impl SearchProjectsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchProjectsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1715,6 +1845,10 @@ pub struct CreateProjectRequest {
 }
 
 impl CreateProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project][crate::model::CreateProjectRequest::project].
     pub fn set_project<T: std::convert::Into<std::option::Option<crate::model::Project>>>(
         mut self,
@@ -1753,6 +1887,10 @@ pub struct CreateProjectMetadata {
 }
 
 impl CreateProjectMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::CreateProjectMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1806,6 +1944,10 @@ pub struct UpdateProjectRequest {
 }
 
 impl UpdateProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
     pub fn set_project<T: std::convert::Into<std::option::Option<crate::model::Project>>>(
         mut self,
@@ -1839,7 +1981,11 @@ impl wkt::message::Message for UpdateProjectRequest {
 #[non_exhaustive]
 pub struct UpdateProjectMetadata {}
 
-impl UpdateProjectMetadata {}
+impl UpdateProjectMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UpdateProjectMetadata {
     fn typename() -> &'static str {
@@ -1867,6 +2013,10 @@ pub struct MoveProjectRequest {
 }
 
 impl MoveProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MoveProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1897,7 +2047,11 @@ impl wkt::message::Message for MoveProjectRequest {
 #[non_exhaustive]
 pub struct MoveProjectMetadata {}
 
-impl MoveProjectMetadata {}
+impl MoveProjectMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for MoveProjectMetadata {
     fn typename() -> &'static str {
@@ -1920,6 +2074,10 @@ pub struct DeleteProjectRequest {
 }
 
 impl DeleteProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1941,7 +2099,11 @@ impl wkt::message::Message for DeleteProjectRequest {
 #[non_exhaustive]
 pub struct DeleteProjectMetadata {}
 
-impl DeleteProjectMetadata {}
+impl DeleteProjectMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteProjectMetadata {
     fn typename() -> &'static str {
@@ -1965,6 +2127,10 @@ pub struct UndeleteProjectRequest {
 }
 
 impl UndeleteProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1986,7 +2152,11 @@ impl wkt::message::Message for UndeleteProjectRequest {
 #[non_exhaustive]
 pub struct UndeleteProjectMetadata {}
 
-impl UndeleteProjectMetadata {}
+impl UndeleteProjectMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UndeleteProjectMetadata {
     fn typename() -> &'static str {
@@ -2030,6 +2200,10 @@ pub struct TagBinding {
 }
 
 impl TagBinding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagBinding::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2071,7 +2245,11 @@ impl wkt::message::Message for TagBinding {
 #[non_exhaustive]
 pub struct CreateTagBindingMetadata {}
 
-impl CreateTagBindingMetadata {}
+impl CreateTagBindingMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for CreateTagBindingMetadata {
     fn typename() -> &'static str {
@@ -2095,6 +2273,10 @@ pub struct CreateTagBindingRequest {
 }
 
 impl CreateTagBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
     pub fn set_tag_binding<T: std::convert::Into<std::option::Option<crate::model::TagBinding>>>(
         mut self,
@@ -2124,7 +2306,11 @@ impl wkt::message::Message for CreateTagBindingRequest {
 #[non_exhaustive]
 pub struct DeleteTagBindingMetadata {}
 
-impl DeleteTagBindingMetadata {}
+impl DeleteTagBindingMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteTagBindingMetadata {
     fn typename() -> &'static str {
@@ -2146,6 +2332,10 @@ pub struct DeleteTagBindingRequest {
 }
 
 impl DeleteTagBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagBindingRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2183,6 +2373,10 @@ pub struct ListTagBindingsRequest {
 }
 
 impl ListTagBindingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTagBindingsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2234,6 +2428,10 @@ pub struct ListTagBindingsResponse {
 }
 
 impl ListTagBindingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTagBindingsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2295,6 +2493,10 @@ pub struct ListEffectiveTagsRequest {
 }
 
 impl ListEffectiveTagsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListEffectiveTagsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2346,6 +2548,10 @@ pub struct ListEffectiveTagsResponse {
 }
 
 impl ListEffectiveTagsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListEffectiveTagsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2430,6 +2636,10 @@ pub struct EffectiveTag {
 }
 
 impl EffectiveTag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_value][crate::model::EffectiveTag::tag_value].
     pub fn set_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_value = v.into();
@@ -2523,6 +2733,10 @@ pub struct TagHold {
 }
 
 impl TagHold {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagHold::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2584,6 +2798,10 @@ pub struct CreateTagHoldRequest {
 }
 
 impl CreateTagHoldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTagHoldRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2621,7 +2839,11 @@ impl wkt::message::Message for CreateTagHoldRequest {
 #[non_exhaustive]
 pub struct CreateTagHoldMetadata {}
 
-impl CreateTagHoldMetadata {}
+impl CreateTagHoldMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for CreateTagHoldMetadata {
     fn typename() -> &'static str {
@@ -2646,6 +2868,10 @@ pub struct DeleteTagHoldRequest {
 }
 
 impl DeleteTagHoldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagHoldRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2674,7 +2900,11 @@ impl wkt::message::Message for DeleteTagHoldRequest {
 #[non_exhaustive]
 pub struct DeleteTagHoldMetadata {}
 
-impl DeleteTagHoldMetadata {}
+impl DeleteTagHoldMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteTagHoldMetadata {
     fn typename() -> &'static str {
@@ -2719,6 +2949,10 @@ pub struct ListTagHoldsRequest {
 }
 
 impl ListTagHoldsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTagHoldsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2776,6 +3010,10 @@ pub struct ListTagHoldsResponse {
 }
 
 impl ListTagHoldsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTagHoldsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2885,6 +3123,10 @@ pub struct TagKey {
 }
 
 impl TagKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagKey::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2988,6 +3230,10 @@ pub struct ListTagKeysRequest {
 }
 
 impl ListTagKeysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTagKeysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3030,6 +3276,10 @@ pub struct ListTagKeysResponse {
 }
 
 impl ListTagKeysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTagKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3080,6 +3330,10 @@ pub struct GetTagKeyRequest {
 }
 
 impl GetTagKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTagKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3108,6 +3362,10 @@ pub struct GetNamespacedTagKeyRequest {
 }
 
 impl GetNamespacedTagKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetNamespacedTagKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3138,6 +3396,10 @@ pub struct CreateTagKeyRequest {
 }
 
 impl CreateTagKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
     pub fn set_tag_key<T: std::convert::Into<std::option::Option<crate::model::TagKey>>>(
         mut self,
@@ -3167,7 +3429,11 @@ impl wkt::message::Message for CreateTagKeyRequest {
 #[non_exhaustive]
 pub struct CreateTagKeyMetadata {}
 
-impl CreateTagKeyMetadata {}
+impl CreateTagKeyMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for CreateTagKeyMetadata {
     fn typename() -> &'static str {
@@ -3200,6 +3466,10 @@ pub struct UpdateTagKeyRequest {
 }
 
 impl UpdateTagKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
     pub fn set_tag_key<T: std::convert::Into<std::option::Option<crate::model::TagKey>>>(
         mut self,
@@ -3238,7 +3508,11 @@ impl wkt::message::Message for UpdateTagKeyRequest {
 #[non_exhaustive]
 pub struct UpdateTagKeyMetadata {}
 
-impl UpdateTagKeyMetadata {}
+impl UpdateTagKeyMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UpdateTagKeyMetadata {
     fn typename() -> &'static str {
@@ -3269,6 +3543,10 @@ pub struct DeleteTagKeyRequest {
 }
 
 impl DeleteTagKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3301,7 +3579,11 @@ impl wkt::message::Message for DeleteTagKeyRequest {
 #[non_exhaustive]
 pub struct DeleteTagKeyMetadata {}
 
-impl DeleteTagKeyMetadata {}
+impl DeleteTagKeyMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteTagKeyMetadata {
     fn typename() -> &'static str {
@@ -3364,6 +3646,10 @@ pub struct TagValue {
 }
 
 impl TagValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagValue::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3449,6 +3735,10 @@ pub struct ListTagValuesRequest {
 }
 
 impl ListTagValuesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTagValuesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3493,6 +3783,10 @@ pub struct ListTagValuesResponse {
 }
 
 impl ListTagValuesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTagValuesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3543,6 +3837,10 @@ pub struct GetTagValueRequest {
 }
 
 impl GetTagValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTagValueRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3577,6 +3875,10 @@ pub struct GetNamespacedTagValueRequest {
 }
 
 impl GetNamespacedTagValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetNamespacedTagValueRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3607,6 +3909,10 @@ pub struct CreateTagValueRequest {
 }
 
 impl CreateTagValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
     pub fn set_tag_value<T: std::convert::Into<std::option::Option<crate::model::TagValue>>>(
         mut self,
@@ -3636,7 +3942,11 @@ impl wkt::message::Message for CreateTagValueRequest {
 #[non_exhaustive]
 pub struct CreateTagValueMetadata {}
 
-impl CreateTagValueMetadata {}
+impl CreateTagValueMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for CreateTagValueMetadata {
     fn typename() -> &'static str {
@@ -3667,6 +3977,10 @@ pub struct UpdateTagValueRequest {
 }
 
 impl UpdateTagValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
     pub fn set_tag_value<T: std::convert::Into<std::option::Option<crate::model::TagValue>>>(
         mut self,
@@ -3705,7 +4019,11 @@ impl wkt::message::Message for UpdateTagValueRequest {
 #[non_exhaustive]
 pub struct UpdateTagValueMetadata {}
 
-impl UpdateTagValueMetadata {}
+impl UpdateTagValueMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UpdateTagValueMetadata {
     fn typename() -> &'static str {
@@ -3735,6 +4053,10 @@ pub struct DeleteTagValueRequest {
 }
 
 impl DeleteTagValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagValueRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3767,7 +4089,11 @@ impl wkt::message::Message for DeleteTagValueRequest {
 #[non_exhaustive]
 pub struct DeleteTagValueMetadata {}
 
-impl DeleteTagValueMetadata {}
+impl DeleteTagValueMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DeleteTagValueMetadata {
     fn typename() -> &'static str {
@@ -3779,13 +4105,12 @@ impl wkt::message::Message for DeleteTagValueMetadata {
 /// policy engine may have multiple purposes defined, however a TagKey may only
 /// specify a single purpose.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Purpose(std::string::String);
+pub struct Purpose(std::borrow::Cow<'static, str>);
 
 impl Purpose {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new Purpose instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -3796,9 +4121,10 @@ impl Purpose {
 
 /// Useful constants to work with [Purpose](Purpose)
 pub mod purpose {
+    use super::Purpose;
 
     /// Unspecified purpose.
-    pub const PURPOSE_UNSPECIFIED: &str = "PURPOSE_UNSPECIFIED";
+    pub const PURPOSE_UNSPECIFIED: Purpose = Purpose::new("PURPOSE_UNSPECIFIED");
 
     /// Purpose for Compute Engine firewalls.
     /// A corresponding `purpose_data` should be set for the network the tag is
@@ -3816,5 +4142,11 @@ pub mod purpose {
     /// `<https://www.googleapis.com/compute/staging_v1/projects/fail-closed-load-testing/global/networks/6992953698831725600>`
     ///
     /// - `fail-closed-load-testing/load-testing-network`
-    pub const GCE_FIREWALL: &str = "GCE_FIREWALL";
+    pub const GCE_FIREWALL: Purpose = Purpose::new("GCE_FIREWALL");
+}
+
+impl std::convert::From<std::string::String> for Purpose {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

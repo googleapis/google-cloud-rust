@@ -59,6 +59,8 @@ type API struct {
 	Messages []*Message
 	// Enums
 	Enums []*Enum
+	// Language specific annotations
+	Codec any
 
 	// State contains helpful information that can be used when generating
 	// clients.
@@ -92,6 +94,11 @@ type Service struct {
 	DefaultHost string
 	// The Protobuf package this service belongs to.
 	Package string
+	// The model this service belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Model *API
+	// Language specific annotations
+	Codec any
 }
 
 // Method defines a RPC belonging to a Service.
@@ -104,8 +111,10 @@ type Method struct {
 	ID string
 	// InputType is the input to the Method
 	InputTypeID string
+	InputType   *Message
 	// OutputType is the output of the Method
 	OutputTypeID string
+	OutputType   *Message
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 	// IsPageable is true if the method conforms to standard defined by
@@ -117,6 +126,14 @@ type Method struct {
 	ServerSideStreaming bool
 	// For methods returning long-running operations
 	OperationInfo *OperationInfo
+	// The model this method belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Model *API
+	// The service this method belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Service *Service
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized request path information.
@@ -154,6 +171,10 @@ type OperationInfo struct {
 	// The result type. This is the expected type when the long running
 	// operation completes successfully.
 	ResponseTypeID string
+	// The method.
+	Method *Method
+	// Language specific annotations
+	Codec any
 }
 
 // A path segment is either a string literal (such as "projects") or a field
@@ -295,6 +316,17 @@ type Field struct {
 	// containing message. That triggers slightly different code generation for
 	// some languages.
 	Recursive bool
+	// AutoPopulated is true if the field meets the requirements in AIP-4235.
+	// That is:
+	// - It has Typez == STRING_TYPE
+	// - For Protobuf, has the `google.api.field_behavior = REQUIRED` annotation
+	// - For Protobuf, has the `google.api.field_info.format = UUID4` annotation
+	// - For OpenAPI, it is a required field
+	// - For OpenAPI, it has format == "uuid"
+	// - In the service config file, it is listed in the
+	//   `google.api.MethodSettings.auto_populated_fields` entry in
+	//   `google.api.Publishing.method_settings`
+	AutoPopulated bool
 	// For fields that are part of a OneOf, the group of fields that makes the
 	// OneOf.
 	Group *OneOf

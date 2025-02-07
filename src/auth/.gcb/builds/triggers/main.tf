@@ -14,7 +14,101 @@
 
 variable "project" {}
 variable "region" {}
-variable "service_account" {}
+variable "sa_adc_secret" {}
+
+# This is used to retrieve the project number. The project number is embedded in
+# certain P4 (Per-product per-project) service accounts.
+data "google_project" "project" {
+}
+
+resource "google_project_service" "cloudbuild" {
+  project = var.project
+  service = "cloudbuild.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
+
+# Create a bucket used by Cloud Build.
+resource "google_storage_bucket" "cloudbuild" {
+  name                        = "${var.project}_cloudbuild"
+  uniform_bucket_level_access = true
+  force_destroy               = false
+  # This prevents Terraform from deleting the bucket. Any plan to do so is
+  # rejected. If we really need to delete the bucket we must take additional
+  # steps.
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  # The bucket configuration.
+  location      = "US-CENTRAL1"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = false
+  }
+}
+
+# Create a bucket to cache build artifacts.
+resource "google_storage_bucket" "build-cache" {
+  name          = "${var.project}-build-cache"
+  force_destroy = false
+  # This prevents Terraform from deleting the bucket. Any plan to do so is
+  # rejected. If we really need to delete the bucket we must take additional
+  # steps.
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  # The bucket configuration.
+  location                    = "US-CENTRAL1"
+  storage_class               = "STANDARD"
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = false
+  }
+  # Remove objects older than 90d. It is unlikely that any build artifact is
+  # usefull after that long, and we can always rebuild them if needed.
+  lifecycle_rule {
+    condition {
+      age = 90
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
+# This service account is created externally. It is used for all the builds.
+data "google_service_account" "integration-test-runner" {
+  account_id = "integration-test-runner"
+}
+
+# The service account will need to read tarballs uploaded by `gcloud submit`.
+resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
+  bucket = google_storage_bucket.cloudbuild.name
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The service account will need to read and write into the build cache.
+resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
+  bucket = google_storage_bucket.build-cache.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The integration test runner needs access to the ADC JSON secrets
+resource "google_secret_manager_secret_iam_member" "test-adc-json-secret-member" {
+  project   = var.project
+  secret_id = "${var.sa_adc_secret}".id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
 
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
@@ -47,15 +141,10 @@ locals {
   #
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
-  # Add to this list of you want to have more triggers.
+  # Add to this list if you want to have more triggers.
   builds = {
     integration = {}
   }
-}
-
-# This is used to retrieve the project number. The project number is embedded in
-# certain P4 (Per-product per-project) service accounts.
-data "google_project" "project" {
 }
 
 resource "google_cloudbuildv2_connection" "github" {
@@ -86,7 +175,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   filename = "src/auth/.gcb/${each.key}.yaml"
   tags     = ["pull-request", "name:${each.key}"]
 
-  service_account = var.service_account
+  service_account = data.google_service_account.integration-test-runner.id
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
@@ -106,7 +195,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   filename = "src/auth/.gcb/${each.key}.yaml"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
-  service_account = var.service_account
+  service_account = data.google_service_account.integration-test-runner.id
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id

@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `Folders`.
+/// A dyn-compatible, crate-private version of [super::Folders].
 #[async_trait::async_trait]
 pub trait Folders: std::fmt::Debug + Send + Sync {
     async fn get_folder(
@@ -228,7 +228,7 @@ impl<T: crate::stubs::Folders> Folders for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Organizations`.
+/// A dyn-compatible, crate-private version of [super::Organizations].
 #[async_trait::async_trait]
 pub trait Organizations: std::fmt::Debug + Send + Sync {
     async fn get_organization(
@@ -326,7 +326,7 @@ impl<T: crate::stubs::Organizations> Organizations for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Projects`.
+/// A dyn-compatible, crate-private version of [super::Projects].
 #[async_trait::async_trait]
 pub trait Projects: std::fmt::Debug + Send + Sync {
     async fn get_project(
@@ -538,7 +538,7 @@ impl<T: crate::stubs::Projects> Projects for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `TagBindings`.
+/// A dyn-compatible, crate-private version of [super::TagBindings].
 #[async_trait::async_trait]
 pub trait TagBindings: std::fmt::Debug + Send + Sync {
     async fn list_tag_bindings(
@@ -645,7 +645,7 @@ impl<T: crate::stubs::TagBindings> TagBindings for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `TagHolds`.
+/// A dyn-compatible, crate-private version of [super::TagHolds].
 #[async_trait::async_trait]
 pub trait TagHolds: std::fmt::Debug + Send + Sync {
     async fn create_tag_hold(
@@ -737,7 +737,7 @@ impl<T: crate::stubs::TagHolds> TagHolds for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `TagKeys`.
+/// A dyn-compatible, crate-private version of [super::TagKeys].
 #[async_trait::async_trait]
 pub trait TagKeys: std::fmt::Debug + Send + Sync {
     async fn list_tag_keys(
@@ -919,7 +919,7 @@ impl<T: crate::stubs::TagKeys> TagKeys for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `TagValues`.
+/// A dyn-compatible, crate-private version of [super::TagValues].
 #[async_trait::async_trait]
 pub trait TagValues: std::fmt::Debug + Send + Sync {
     async fn list_tag_values(

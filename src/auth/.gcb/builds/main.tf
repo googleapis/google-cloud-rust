@@ -27,30 +27,23 @@ provider "google" {
   zone    = var.zone
 }
 
-# Enable Cloud Build
+# Enable SecretManager
 module "services" {
   source  = "./services"
   project = var.project
 }
 
-# Create the resources we will need to run integration tests on.
-module "resources" {
-  source  = "./resources"
+# Set up for the service account integration test.
+module "service_account_test" {
+  source  = "./service_account_test"
   project = var.project
 }
 
-# Create the service account needed for GCB and grant it the necessary
-# permissions.
-module "grants" {
-  source      = "./grants"
-  project     = var.project
-}
-
-# Create the GCB triggers.
+# Create the GCB resources, connection, triggers, etc.
 module "triggers" {
-  depends_on      = [module.services, module.resources, module.grants]
-  source          = "./triggers"
-  project         = var.project
-  region          = var.region
-  service_account = module.grants.runner
+  depends_on    = [module.service_account_test]
+  source        = "./triggers"
+  project       = var.project
+  region        = var.region
+  sa_adc_secret = module.service_account_test.adc_secret
 }

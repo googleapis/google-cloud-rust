@@ -20,8 +20,10 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language"
+	"github.com/googleapis/google-cloud-rust/generator/internal/dart"
+	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
+	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
 )
 
 func init() {
@@ -66,10 +68,25 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err != nil {
 		return err
 	}
+	api.LabelRecursiveFields(model)
+	if err := api.CrossReference(model); err != nil {
+		return err
+	}
+	if title, ok := config.Source["title-override"]; ok {
+		model.Title = title
+	}
 	if cmdLine.DryRun {
 		return nil
 	}
-	api.LabelRecursiveFields(model)
-	api.CrossReference(model)
-	return language.GenerateClient(model, config.General.Language, output, config.Codec)
+
+	switch config.General.Language {
+	case "rust":
+		return rust.Generate(model, output, config.Codec)
+	case "go":
+		return golang.Generate(model, output, config.Codec)
+	case "dart":
+		return dart.Generate(model, output, config.Codec)
+	default:
+		return fmt.Errorf("unknown language: %s", config.General.Language)
+	}
 }

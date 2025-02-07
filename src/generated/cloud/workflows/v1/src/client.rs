@@ -18,19 +18,25 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Workflows] to make requests with.
+/// Implements a client for the Workflows API.
 ///
-/// `Workflows` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Workflows is used to deploy and execute workflow programs.
+/// Workflows makes sure the program executes reliably, despite hardware and
+/// networking interruptions.
+///
+/// # Configuration
+///
+/// `Workflows` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Workflows` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Workflows` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Workflows is used to deploy and execute workflow programs.
-/// Workflows makes sure the program executes reliably, despite hardware and
-/// networking interruptions.
 #[derive(Clone, Debug)]
 pub struct Workflows {
     inner: Arc<dyn crate::stubs::dynamic::Workflows>,
@@ -126,7 +132,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -144,7 +150,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -226,7 +232,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -244,7 +250,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -327,7 +333,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -345,7 +351,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {

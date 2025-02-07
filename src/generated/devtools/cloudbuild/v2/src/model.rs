@@ -26,7 +26,6 @@ extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
 extern crate reqwest;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -75,6 +74,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -171,6 +174,10 @@ pub struct RunWorkflowCustomOperationMetadata {
 }
 
 impl RunWorkflowCustomOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::RunWorkflowCustomOperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -275,6 +282,10 @@ pub struct Connection {
 }
 
 impl Connection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Connection::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -561,6 +572,10 @@ pub struct InstallationState {
 }
 
 impl InstallationState {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [stage][crate::model::InstallationState::stage].
     pub fn set_stage<T: std::convert::Into<crate::model::installation_state::Stage>>(
         mut self,
@@ -596,13 +611,12 @@ pub mod installation_state {
 
     /// Stage of the installation process.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(std::string::String);
+    pub struct Stage(std::borrow::Cow<'static, str>);
 
     impl Stage {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Stage instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -613,22 +627,29 @@ pub mod installation_state {
 
     /// Useful constants to work with [Stage](Stage)
     pub mod stage {
+        use super::Stage;
 
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: &str = "STAGE_UNSPECIFIED";
+        pub const STAGE_UNSPECIFIED: Stage = Stage::new("STAGE_UNSPECIFIED");
 
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: &str = "PENDING_CREATE_APP";
+        pub const PENDING_CREATE_APP: Stage = Stage::new("PENDING_CREATE_APP");
 
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: &str = "PENDING_USER_OAUTH";
+        pub const PENDING_USER_OAUTH: Stage = Stage::new("PENDING_USER_OAUTH");
 
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: &str = "PENDING_INSTALL_APP";
+        pub const PENDING_INSTALL_APP: Stage = Stage::new("PENDING_INSTALL_APP");
 
         /// Installation process has been completed.
-        pub const COMPLETE: &str = "COMPLETE";
+        pub const COMPLETE: Stage = Stage::new("COMPLETE");
+    }
+
+    impl std::convert::From<std::string::String> for Stage {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -652,6 +673,10 @@ pub struct FetchLinkableRepositoriesRequest {
 }
 
 impl FetchLinkableRepositoriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connection][crate::model::FetchLinkableRepositoriesRequest::connection].
     pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection = v.into();
@@ -693,6 +718,10 @@ pub struct FetchLinkableRepositoriesResponse {
 }
 
 impl FetchLinkableRepositoriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::FetchLinkableRepositoriesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -748,6 +777,10 @@ pub struct GitHubConfig {
 }
 
 impl GitHubConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [authorizer_credential][crate::model::GitHubConfig::authorizer_credential].
     pub fn set_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::OAuthCredential>>,
@@ -826,6 +859,10 @@ pub struct GitHubEnterpriseConfig {
 }
 
 impl GitHubEnterpriseConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [host_uri][crate::model::GitHubEnterpriseConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
@@ -950,6 +987,10 @@ pub struct GitLabConfig {
 }
 
 impl GitLabConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [host_uri][crate::model::GitLabConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
@@ -1061,6 +1102,10 @@ pub struct BitbucketDataCenterConfig {
 }
 
 impl BitbucketDataCenterConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [host_uri][crate::model::BitbucketDataCenterConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
@@ -1159,6 +1204,10 @@ pub struct BitbucketCloudConfig {
 }
 
 impl BitbucketCloudConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [workspace][crate::model::BitbucketCloudConfig::workspace].
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
@@ -1218,6 +1267,10 @@ pub struct ServiceDirectoryConfig {
 }
 
 impl ServiceDirectoryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::ServiceDirectoryConfig::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -1270,6 +1323,10 @@ pub struct Repository {
 }
 
 impl Repository {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Repository::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1349,6 +1406,10 @@ pub struct OAuthCredential {
 }
 
 impl OAuthCredential {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [oauth_token_secret_version][crate::model::OAuthCredential::oauth_token_secret_version].
     pub fn set_oauth_token_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1390,6 +1451,10 @@ pub struct UserCredential {
 }
 
 impl UserCredential {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [user_token_secret_version][crate::model::UserCredential::user_token_secret_version].
     pub fn set_user_token_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1436,6 +1501,10 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1477,6 +1546,10 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1510,6 +1583,10 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1551,6 +1628,10 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1617,6 +1698,10 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
     pub fn set_connection<T: std::convert::Into<std::option::Option<crate::model::Connection>>>(
         mut self,
@@ -1676,6 +1761,10 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1726,6 +1815,10 @@ pub struct CreateRepositoryRequest {
 }
 
 impl CreateRepositoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1773,6 +1866,10 @@ pub struct BatchCreateRepositoriesRequest {
 }
 
 impl BatchCreateRepositoriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1809,6 +1906,10 @@ pub struct BatchCreateRepositoriesResponse {
 }
 
 impl BatchCreateRepositoriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [repositories][crate::model::BatchCreateRepositoriesResponse::repositories].
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
@@ -1840,6 +1941,10 @@ pub struct GetRepositoryRequest {
 }
 
 impl GetRepositoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1880,6 +1985,10 @@ pub struct ListRepositoriesRequest {
 }
 
 impl ListRepositoriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1927,6 +2036,10 @@ pub struct ListRepositoriesResponse {
 }
 
 impl ListRepositoriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1986,6 +2099,10 @@ pub struct DeleteRepositoryRequest {
 }
 
 impl DeleteRepositoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2024,6 +2141,10 @@ pub struct FetchReadWriteTokenRequest {
 }
 
 impl FetchReadWriteTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -2050,6 +2171,10 @@ pub struct FetchReadTokenRequest {
 }
 
 impl FetchReadTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -2079,6 +2204,10 @@ pub struct FetchReadTokenResponse {
 }
 
 impl FetchReadTokenResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [token][crate::model::FetchReadTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
@@ -2117,6 +2246,10 @@ pub struct FetchReadWriteTokenResponse {
 }
 
 impl FetchReadWriteTokenResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [token][crate::model::FetchReadWriteTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
@@ -2161,6 +2294,10 @@ pub struct ProcessWebhookRequest {
 }
 
 impl ProcessWebhookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ProcessWebhookRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2205,6 +2342,10 @@ pub struct FetchGitRefsRequest {
 }
 
 impl FetchGitRefsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
@@ -2234,13 +2375,12 @@ pub mod fetch_git_refs_request {
 
     /// Type of refs
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(std::string::String);
+    pub struct RefType(std::borrow::Cow<'static, str>);
 
     impl RefType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RefType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2251,15 +2391,22 @@ pub mod fetch_git_refs_request {
 
     /// Useful constants to work with [RefType](RefType)
     pub mod ref_type {
+        use super::RefType;
 
         /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: &str = "REF_TYPE_UNSPECIFIED";
+        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new("REF_TYPE_UNSPECIFIED");
 
         /// To fetch tags.
-        pub const TAG: &str = "TAG";
+        pub const TAG: RefType = RefType::new("TAG");
 
         /// To fetch branches.
-        pub const BRANCH: &str = "BRANCH";
+        pub const BRANCH: RefType = RefType::new("BRANCH");
+    }
+
+    impl std::convert::From<std::string::String> for RefType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2275,6 +2422,10 @@ pub struct FetchGitRefsResponse {
 }
 
 impl FetchGitRefsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ref_names][crate::model::FetchGitRefsResponse::ref_names].
     pub fn set_ref_names<T, V>(mut self, v: T) -> Self
     where

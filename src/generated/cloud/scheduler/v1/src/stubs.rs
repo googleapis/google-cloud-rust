@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,18 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// The Cloud Scheduler API allows external entities to reliably
-/// schedule asynchronous jobs.
+/// Defines the trait used to implement [crate::client::CloudScheduler].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudscheduler clients.
+/// Application developers may need to implement this trait to mock
+/// `client::CloudScheduler`.  In other use-cases, application developers only
+/// use `client::CloudScheduler` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
-    /// Lists jobs.
+    /// Implements [crate::client::CloudScheduler::list_jobs].
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
@@ -51,7 +52,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets a job.
+    /// Implements [crate::client::CloudScheduler::get_job].
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
@@ -60,7 +61,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a job.
+    /// Implements [crate::client::CloudScheduler::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
@@ -69,19 +70,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates a job.
-    ///
-    /// If successful, the updated [Job][google.cloud.scheduler.v1.Job] is
-    /// returned. If the job does not exist, `NOT_FOUND` is returned.
-    ///
-    /// If UpdateJob does not successfully return, it is possible for the
-    /// job to be in an
-    /// [Job.State.UPDATE_FAILED][google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]
-    /// state. A job in this state may not be executed. If this happens, retry the
-    /// UpdateJob request until a successful response is received.
-    ///
-    /// [google.cloud.scheduler.v1.Job]: crate::model::Job
-    /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::state::UPDATE_FAILED
+    /// Implements [crate::client::CloudScheduler::update_job].
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
@@ -90,7 +79,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes a job.
+    /// Implements [crate::client::CloudScheduler::delete_job].
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
@@ -99,21 +88,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Pauses a job.
-    ///
-    /// If a job is paused then the system will stop executing the job
-    /// until it is re-enabled via
-    /// [ResumeJob][google.cloud.scheduler.v1.CloudScheduler.ResumeJob]. The state
-    /// of the job is stored in [state][google.cloud.scheduler.v1.Job.state]; if
-    /// paused it will be set to
-    /// [Job.State.PAUSED][google.cloud.scheduler.v1.Job.State.PAUSED]. A job must
-    /// be in [Job.State.ENABLED][google.cloud.scheduler.v1.Job.State.ENABLED] to
-    /// be paused.
-    ///
-    /// [google.cloud.scheduler.v1.CloudScheduler.ResumeJob]: crate::client::CloudScheduler::resume_job
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
-    /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
+    /// Implements [crate::client::CloudScheduler::pause_job].
     fn pause_job(
         &self,
         _req: crate::model::PauseJobRequest,
@@ -122,19 +97,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Resume a job.
-    ///
-    /// This method reenables a job after it has been
-    /// [Job.State.PAUSED][google.cloud.scheduler.v1.Job.State.PAUSED]. The state
-    /// of a job is stored in [Job.state][google.cloud.scheduler.v1.Job.state];
-    /// after calling this method it will be set to
-    /// [Job.State.ENABLED][google.cloud.scheduler.v1.Job.State.ENABLED]. A job
-    /// must be in [Job.State.PAUSED][google.cloud.scheduler.v1.Job.State.PAUSED]
-    /// to be resumed.
-    ///
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
-    /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
+    /// Implements [crate::client::CloudScheduler::resume_job].
     fn resume_job(
         &self,
         _req: crate::model::ResumeJobRequest,
@@ -143,10 +106,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Forces a job to run now.
-    ///
-    /// When this method is called, Cloud Scheduler will dispatch the job, even
-    /// if the job is already running.
+    /// Implements [crate::client::CloudScheduler::run_job].
     fn run_job(
         &self,
         _req: crate::model::RunJobRequest,
@@ -155,7 +115,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::CloudScheduler::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -167,7 +127,7 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::CloudScheduler::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

@@ -17,59 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Provides interfaces for using [Cloud KMS
-/// Autokey](https://cloud.google.com/kms/help/autokey) to provision new
-/// [CryptoKeys][google.cloud.kms.v1.CryptoKey], ready for Customer Managed
-/// Encryption Key (CMEK) use, on-demand. To support certain client tooling, this
-/// feature is modeled around a [KeyHandle][google.cloud.kms.v1.KeyHandle]
-/// resource: creating a [KeyHandle][google.cloud.kms.v1.KeyHandle] in a resource
-/// project and given location triggers Cloud KMS Autokey to provision a
-/// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the configured key project and
-/// the same location.
+/// Defines the trait used to implement [crate::client::Autokey].
 ///
-/// Prior to use in a given resource project,
-/// [UpdateAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]
-/// should have been called on an ancestor folder, setting the key project where
-/// Cloud KMS Autokey should create new
-/// [CryptoKeys][google.cloud.kms.v1.CryptoKey]. See documentation for additional
-/// prerequisites. To check what key project, if any, is currently configured on
-/// a resource project's ancestor folder, see
-/// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
-///
-/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
-/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
-/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-/// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudkms clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Autokey`.  In other use-cases, application developers only
+/// use `client::Autokey` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Autokey: std::fmt::Debug + Send + Sync {
-    /// Creates a new [KeyHandle][google.cloud.kms.v1.KeyHandle], triggering the
-    /// provisioning of a new [CryptoKey][google.cloud.kms.v1.CryptoKey] for CMEK
-    /// use with the given resource type in the configured key project and the same
-    /// location. [GetOperation][google.longrunning.Operations.GetOperation] should
-    /// be used to resolve the resulting long-running operation and get the
-    /// resulting [KeyHandle][google.cloud.kms.v1.KeyHandle] and
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
+    /// Implements [crate::client::Autokey::create_key_handle].
     fn create_key_handle(
         &self,
         _req: crate::model::CreateKeyHandleRequest,
@@ -81,9 +53,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the [KeyHandle][google.cloud.kms.v1.KeyHandle].
-    ///
-    /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
+    /// Implements [crate::client::Autokey::get_key_handle].
     fn get_key_handle(
         &self,
         _req: crate::model::GetKeyHandleRequest,
@@ -94,9 +64,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists [KeyHandles][google.cloud.kms.v1.KeyHandle].
-    ///
-    /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
+    /// Implements [crate::client::Autokey::list_key_handles].
     fn list_key_handles(
         &self,
         _req: crate::model::ListKeyHandlesRequest,
@@ -108,7 +76,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::Autokey::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -120,7 +88,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::Autokey::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -131,11 +99,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::Autokey::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -146,8 +110,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::Autokey::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -158,13 +121,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::Autokey::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -176,9 +133,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Autokey::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -191,48 +146,41 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Provides interfaces for managing [Cloud KMS
-/// Autokey](https://cloud.google.com/kms/help/autokey) folder-level
-/// configurations. A configuration is inherited by all descendent projects. A
-/// configuration at one folder overrides any other configurations in its
-/// ancestry. Setting a configuration on a folder is a prerequisite for Cloud KMS
-/// Autokey, so that users working in a descendant project can request
-/// provisioned [CryptoKeys][google.cloud.kms.v1.CryptoKey], ready for Customer
-/// Managed Encryption Key (CMEK) use, on-demand.
+/// Defines the trait used to implement [crate::client::AutokeyAdmin].
 ///
-/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudkms clients.
+/// Application developers may need to implement this trait to mock
+/// `client::AutokeyAdmin`.  In other use-cases, application developers only
+/// use `client::AutokeyAdmin` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
-    /// Updates the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
-    /// folder. The caller must have both `cloudkms.autokeyConfigs.update`
-    /// permission on the parent folder and `cloudkms.cryptoKeys.setIamPolicy`
-    /// permission on the provided key project. A
-    /// [KeyHandle][google.cloud.kms.v1.KeyHandle] creation in the folder's
-    /// descendant projects will use this configuration to determine where to
-    /// create the resulting [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
+    /// Implements [crate::client::AutokeyAdmin::update_autokey_config].
     fn update_autokey_config(
         &self,
         _req: crate::model::UpdateAutokeyConfigRequest,
@@ -243,10 +191,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
-    /// folder.
-    ///
-    /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
+    /// Implements [crate::client::AutokeyAdmin::get_autokey_config].
     fn get_autokey_config(
         &self,
         _req: crate::model::GetAutokeyConfigRequest,
@@ -257,7 +202,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the effective Cloud KMS Autokey configuration for a given project.
+    /// Implements [crate::client::AutokeyAdmin::show_effective_autokey_config].
     fn show_effective_autokey_config(
         &self,
         _req: crate::model::ShowEffectiveAutokeyConfigRequest,
@@ -270,7 +215,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::AutokeyAdmin::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -282,7 +227,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::AutokeyAdmin::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -293,11 +238,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::AutokeyAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -308,8 +249,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::AutokeyAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -320,13 +260,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::AutokeyAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -338,9 +272,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::AutokeyAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -353,26 +285,19 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Google Cloud Key Management EKM Service
+/// Defines the trait used to implement [crate::client::EkmService].
 ///
-/// Manages external cryptographic keys and operations using those keys.
-/// Implements a REST model with the following objects:
-///
-/// * [EkmConnection][google.cloud.kms.v1.EkmConnection]
-///
-/// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudkms clients.
+/// Application developers may need to implement this trait to mock
+/// `client::EkmService`.  In other use-cases, application developers only
+/// use `client::EkmService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait EkmService: std::fmt::Debug + Send + Sync {
-    /// Lists [EkmConnections][google.cloud.kms.v1.EkmConnection].
-    ///
-    /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// Implements [crate::client::EkmService::list_ekm_connections].
     fn list_ekm_connections(
         &self,
         _req: crate::model::ListEkmConnectionsRequest,
@@ -384,10 +309,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Returns metadata for a given
-    /// [EkmConnection][google.cloud.kms.v1.EkmConnection].
-    ///
-    /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// Implements [crate::client::EkmService::get_ekm_connection].
     fn get_ekm_connection(
         &self,
         _req: crate::model::GetEkmConnectionRequest,
@@ -398,10 +320,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new [EkmConnection][google.cloud.kms.v1.EkmConnection] in a given
-    /// Project and Location.
-    ///
-    /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// Implements [crate::client::EkmService::create_ekm_connection].
     fn create_ekm_connection(
         &self,
         _req: crate::model::CreateEkmConnectionRequest,
@@ -412,9 +331,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates an [EkmConnection][google.cloud.kms.v1.EkmConnection]'s metadata.
-    ///
-    /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// Implements [crate::client::EkmService::update_ekm_connection].
     fn update_ekm_connection(
         &self,
         _req: crate::model::UpdateEkmConnectionRequest,
@@ -425,10 +342,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the [EkmConfig][google.cloud.kms.v1.EkmConfig] singleton resource
-    /// for a given project and location.
-    ///
-    /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
+    /// Implements [crate::client::EkmService::get_ekm_config].
     fn get_ekm_config(
         &self,
         _req: crate::model::GetEkmConfigRequest,
@@ -439,10 +353,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the [EkmConfig][google.cloud.kms.v1.EkmConfig] singleton resource
-    /// for a given project and location.
-    ///
-    /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
+    /// Implements [crate::client::EkmService::update_ekm_config].
     fn update_ekm_config(
         &self,
         _req: crate::model::UpdateEkmConfigRequest,
@@ -453,13 +364,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Verifies that Cloud KMS can successfully connect to the external key
-    /// manager specified by an [EkmConnection][google.cloud.kms.v1.EkmConnection].
-    /// If there is an error connecting to the EKM, this method returns a
-    /// FAILED_PRECONDITION status containing structured information as described
-    /// at <https://cloud.google.com/kms/docs/reference/ekm_errors>.
-    ///
-    /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// Implements [crate::client::EkmService::verify_connectivity].
     fn verify_connectivity(
         &self,
         _req: crate::model::VerifyConnectivityRequest,
@@ -471,7 +376,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::EkmService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -483,7 +388,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::EkmService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -494,11 +399,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::EkmService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -509,8 +410,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::EkmService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -521,13 +421,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::EkmService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -539,9 +433,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::EkmService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -554,35 +446,19 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Google Cloud Key Management Service
+/// Defines the trait used to implement [crate::client::KeyManagementService].
 ///
-/// Manages cryptographic keys and operations using those keys. Implements a REST
-/// model with the following objects:
-///
-/// * [KeyRing][google.cloud.kms.v1.KeyRing]
-/// * [CryptoKey][google.cloud.kms.v1.CryptoKey]
-/// * [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
-/// * [ImportJob][google.cloud.kms.v1.ImportJob]
-///
-/// If you are using manual gRPC libraries, see
-/// [Using gRPC with Cloud KMS](https://cloud.google.com/kms/docs/grpc).
-///
-/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-/// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-/// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-/// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudkms clients.
+/// Application developers may need to implement this trait to mock
+/// `client::KeyManagementService`.  In other use-cases, application developers only
+/// use `client::KeyManagementService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
-    /// Lists [KeyRings][google.cloud.kms.v1.KeyRing].
-    ///
-    /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// Implements [crate::client::KeyManagementService::list_key_rings].
     fn list_key_rings(
         &self,
         _req: crate::model::ListKeyRingsRequest,
@@ -594,9 +470,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists [CryptoKeys][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// Implements [crate::client::KeyManagementService::list_crypto_keys].
     fn list_crypto_keys(
         &self,
         _req: crate::model::ListCryptoKeysRequest,
@@ -608,9 +482,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
-    ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::list_crypto_key_versions].
     fn list_crypto_key_versions(
         &self,
         _req: crate::model::ListCryptoKeyVersionsRequest,
@@ -622,9 +494,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists [ImportJobs][google.cloud.kms.v1.ImportJob].
-    ///
-    /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    /// Implements [crate::client::KeyManagementService::list_import_jobs].
     fn list_import_jobs(
         &self,
         _req: crate::model::ListImportJobsRequest,
@@ -636,9 +506,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Returns metadata for a given [KeyRing][google.cloud.kms.v1.KeyRing].
-    ///
-    /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// Implements [crate::client::KeyManagementService::get_key_ring].
     fn get_key_ring(
         &self,
         _req: crate::model::GetKeyRingRequest,
@@ -649,13 +517,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns metadata for a given [CryptoKey][google.cloud.kms.v1.CryptoKey], as
-    /// well as its [primary][google.cloud.kms.v1.CryptoKey.primary]
-    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.primary]: crate::model::CryptoKey::primary
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::get_crypto_key].
     fn get_crypto_key(
         &self,
         _req: crate::model::GetCryptoKeyRequest,
@@ -666,10 +528,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns metadata for a given
-    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
-    ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::get_crypto_key_version].
     fn get_crypto_key_version(
         &self,
         _req: crate::model::GetCryptoKeyVersionRequest,
@@ -681,17 +540,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the public key for the given
-    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. The
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
-    /// [ASYMMETRIC_SIGN][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]
-    /// or
-    /// [ASYMMETRIC_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_SIGN
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::get_public_key].
     fn get_public_key(
         &self,
         _req: crate::model::GetPublicKeyRequest,
@@ -702,9 +551,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns metadata for a given [ImportJob][google.cloud.kms.v1.ImportJob].
-    ///
-    /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    /// Implements [crate::client::KeyManagementService::get_import_job].
     fn get_import_job(
         &self,
         _req: crate::model::GetImportJobRequest,
@@ -715,10 +562,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Create a new [KeyRing][google.cloud.kms.v1.KeyRing] in a given Project and
-    /// Location.
-    ///
-    /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// Implements [crate::client::KeyManagementService::create_key_ring].
     fn create_key_ring(
         &self,
         _req: crate::model::CreateKeyRingRequest,
@@ -729,17 +573,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Create a new [CryptoKey][google.cloud.kms.v1.CryptoKey] within a
-    /// [KeyRing][google.cloud.kms.v1.KeyRing].
-    ///
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] and
-    /// [CryptoKey.version_template.algorithm][google.cloud.kms.v1.CryptoKeyVersionTemplate.algorithm]
-    /// are required.
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.algorithm]: crate::model::CryptoKeyVersionTemplate::algorithm
-    /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// Implements [crate::client::KeyManagementService::create_crypto_key].
     fn create_crypto_key(
         &self,
         _req: crate::model::CreateCryptoKeyRequest,
@@ -750,17 +584,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Create a new [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in a
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// The server will assign the next sequential id. If unset,
-    /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] will be set to
-    /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
+    /// Implements [crate::client::KeyManagementService::create_crypto_key_version].
     fn create_crypto_key_version(
         &self,
         _req: crate::model::CreateCryptoKeyVersionRequest,
@@ -772,17 +596,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Import wrapped key material into a
-    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
-    ///
-    /// All requests must specify a [CryptoKey][google.cloud.kms.v1.CryptoKey]. If
-    /// a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] is additionally
-    /// specified in the request, key material will be reimported into that
-    /// version. Otherwise, a new version will be created, and will be assigned the
-    /// next sequential id within the [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::import_crypto_key_version].
     fn import_crypto_key_version(
         &self,
         _req: crate::model::ImportCryptoKeyVersionRequest,
@@ -794,15 +608,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Create a new [ImportJob][google.cloud.kms.v1.ImportJob] within a
-    /// [KeyRing][google.cloud.kms.v1.KeyRing].
-    ///
-    /// [ImportJob.import_method][google.cloud.kms.v1.ImportJob.import_method] is
-    /// required.
-    ///
-    /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    /// [google.cloud.kms.v1.ImportJob.import_method]: crate::model::ImportJob::import_method
-    /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// Implements [crate::client::KeyManagementService::create_import_job].
     fn create_import_job(
         &self,
         _req: crate::model::CreateImportJobRequest,
@@ -813,9 +619,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Update a [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// Implements [crate::client::KeyManagementService::update_crypto_key].
     fn update_crypto_key(
         &self,
         _req: crate::model::UpdateCryptoKeyRequest,
@@ -826,25 +630,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Update a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]'s
-    /// metadata.
-    ///
-    /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] may be changed between
-    /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
-    /// and
-    /// [DISABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]
-    /// using this method. See
-    /// [DestroyCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]
-    /// and
-    /// [RestoreCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]
-    /// to move between other states.
-    ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
+    /// Implements [crate::client::KeyManagementService::update_crypto_key_version].
     fn update_crypto_key_version(
         &self,
         _req: crate::model::UpdateCryptoKeyVersionRequest,
@@ -856,16 +642,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Update the version of a [CryptoKey][google.cloud.kms.v1.CryptoKey] that
-    /// will be used in
-    /// [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
-    ///
-    /// Returns an error if called on a key whose purpose is not
-    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
+    /// Implements [crate::client::KeyManagementService::update_crypto_key_primary_version].
     fn update_crypto_key_primary_version(
         &self,
         _req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
@@ -876,35 +653,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Schedule a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] for
-    /// destruction.
-    ///
-    /// Upon calling this method,
-    /// [CryptoKeyVersion.state][google.cloud.kms.v1.CryptoKeyVersion.state] will
-    /// be set to
-    /// [DESTROY_SCHEDULED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED],
-    /// and [destroy_time][google.cloud.kms.v1.CryptoKeyVersion.destroy_time] will
-    /// be set to the time
-    /// [destroy_scheduled_duration][google.cloud.kms.v1.CryptoKey.destroy_scheduled_duration]
-    /// in the future. At that time, the
-    /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] will automatically
-    /// change to
-    /// [DESTROYED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED],
-    /// and the key material will be irrevocably destroyed.
-    ///
-    /// Before the
-    /// [destroy_time][google.cloud.kms.v1.CryptoKeyVersion.destroy_time] is
-    /// reached,
-    /// [RestoreCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]
-    /// may be called to reverse the process.
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.destroy_scheduled_duration]: crate::model::CryptoKey::destroy_scheduled_duration
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROYED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
-    /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
+    /// Implements [crate::client::KeyManagementService::destroy_crypto_key_version].
     fn destroy_crypto_key_version(
         &self,
         _req: crate::model::DestroyCryptoKeyVersionRequest,
@@ -916,21 +665,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Restore a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in the
-    /// [DESTROY_SCHEDULED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]
-    /// state.
-    ///
-    /// Upon restoration of the CryptoKeyVersion,
-    /// [state][google.cloud.kms.v1.CryptoKeyVersion.state] will be set to
-    /// [DISABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED],
-    /// and [destroy_time][google.cloud.kms.v1.CryptoKeyVersion.destroy_time] will
-    /// be cleared.
-    ///
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
-    /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
+    /// Implements [crate::client::KeyManagementService::restore_crypto_key_version].
     fn restore_crypto_key_version(
         &self,
         _req: crate::model::RestoreCryptoKeyVersionRequest,
@@ -942,14 +677,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Encrypts data, so that it can only be recovered by a call to
-    /// [Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt]. The
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
-    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
+    /// Implements [crate::client::KeyManagementService::encrypt].
     fn encrypt(
         &self,
         _req: crate::model::EncryptRequest,
@@ -961,14 +689,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Decrypts data that was protected by
-    /// [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt]. The
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
-    /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
+    /// Implements [crate::client::KeyManagementService::decrypt].
     fn decrypt(
         &self,
         _req: crate::model::DecryptRequest,
@@ -980,17 +701,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Encrypts data using portable cryptographic primitives. Most users should
-    /// choose [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt] and
-    /// [Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt] rather than
-    /// their raw counterparts. The
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
-    /// [RAW_ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
+    /// Implements [crate::client::KeyManagementService::raw_encrypt].
     fn raw_encrypt(
         &self,
         _req: crate::model::RawEncryptRequest,
@@ -1002,13 +713,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Decrypts data that was originally encrypted using a raw cryptographic
-    /// mechanism. The [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
-    /// must be
-    /// [RAW_ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
+    /// Implements [crate::client::KeyManagementService::raw_decrypt].
     fn raw_decrypt(
         &self,
         _req: crate::model::RawDecryptRequest,
@@ -1020,15 +725,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
-    /// with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
-    /// ASYMMETRIC_SIGN, producing a signature that can be verified with the public
-    /// key retrieved from
-    /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
+    /// Implements [crate::client::KeyManagementService::asymmetric_sign].
     fn asymmetric_sign(
         &self,
         _req: crate::model::AsymmetricSignRequest,
@@ -1040,15 +737,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Decrypts data that was encrypted with a public key retrieved from
-    /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey]
-    /// corresponding to a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
-    /// with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
-    /// ASYMMETRIC_DECRYPT.
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
+    /// Implements [crate::client::KeyManagementService::asymmetric_decrypt].
     fn asymmetric_decrypt(
         &self,
         _req: crate::model::AsymmetricDecryptRequest,
@@ -1060,12 +749,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
-    /// with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] MAC,
-    /// producing a tag that can be verified by another source with the same key.
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::mac_sign].
     fn mac_sign(
         &self,
         _req: crate::model::MacSignRequest,
@@ -1077,13 +761,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Verifies MAC tag using a
-    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with
-    /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] MAC, and returns
-    /// a response that indicates whether or not the verification was successful.
-    ///
-    /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// Implements [crate::client::KeyManagementService::mac_verify].
     fn mac_verify(
         &self,
         _req: crate::model::MacVerifyRequest,
@@ -1095,8 +773,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Generate random bytes using the Cloud KMS randomness source in the provided
-    /// location.
+    /// Implements [crate::client::KeyManagementService::generate_random_bytes].
     fn generate_random_bytes(
         &self,
         _req: crate::model::GenerateRandomBytesRequest,
@@ -1108,7 +785,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::KeyManagementService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -1120,7 +797,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::KeyManagementService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -1131,11 +808,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::KeyManagementService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1146,8 +819,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::KeyManagementService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1158,13 +830,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::KeyManagementService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1176,9 +842,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::KeyManagementService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

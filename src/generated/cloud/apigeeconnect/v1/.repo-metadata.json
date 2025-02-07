@@ -1,0 +1,11 @@
+{
+    "api_id": "apigeeconnect.googleapis.com",
+    "api_shortname": "apigeeconnect",
+    "client_documentation": "https://docs.rs/google-cloud-apigeeconnect-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Apigee Connect API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

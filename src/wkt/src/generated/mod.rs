@@ -83,6 +83,10 @@ pub struct Api {
 }
 
 impl Api {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Api::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -183,6 +187,10 @@ pub struct Method {
 }
 
 impl Method {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Method::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -350,6 +358,10 @@ pub struct Mixin {
 }
 
 impl Mixin {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Mixin::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -383,6 +395,10 @@ pub struct SourceContext {
 }
 
 impl SourceContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_name][crate::SourceContext::file_name].
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
@@ -431,6 +447,10 @@ pub struct Type {
 }
 
 impl Type {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Type::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -543,6 +563,10 @@ pub struct Field {
 }
 
 impl Field {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kind][crate::Field::kind].
     pub fn set_kind<T: std::convert::Into<crate::field::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
@@ -625,13 +649,12 @@ pub mod field {
 
     /// Basic field types.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Kind(std::string::String);
+    pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Kind instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -642,74 +665,80 @@ pub mod field {
 
     /// Useful constants to work with [Kind](Kind)
     pub mod kind {
+        use super::Kind;
 
         /// Field type unknown.
-        pub const TYPE_UNKNOWN: &str = "TYPE_UNKNOWN";
+        pub const TYPE_UNKNOWN: Kind = Kind::new("TYPE_UNKNOWN");
 
         /// Field type double.
-        pub const TYPE_DOUBLE: &str = "TYPE_DOUBLE";
+        pub const TYPE_DOUBLE: Kind = Kind::new("TYPE_DOUBLE");
 
         /// Field type float.
-        pub const TYPE_FLOAT: &str = "TYPE_FLOAT";
+        pub const TYPE_FLOAT: Kind = Kind::new("TYPE_FLOAT");
 
         /// Field type int64.
-        pub const TYPE_INT64: &str = "TYPE_INT64";
+        pub const TYPE_INT64: Kind = Kind::new("TYPE_INT64");
 
         /// Field type uint64.
-        pub const TYPE_UINT64: &str = "TYPE_UINT64";
+        pub const TYPE_UINT64: Kind = Kind::new("TYPE_UINT64");
 
         /// Field type int32.
-        pub const TYPE_INT32: &str = "TYPE_INT32";
+        pub const TYPE_INT32: Kind = Kind::new("TYPE_INT32");
 
         /// Field type fixed64.
-        pub const TYPE_FIXED64: &str = "TYPE_FIXED64";
+        pub const TYPE_FIXED64: Kind = Kind::new("TYPE_FIXED64");
 
         /// Field type fixed32.
-        pub const TYPE_FIXED32: &str = "TYPE_FIXED32";
+        pub const TYPE_FIXED32: Kind = Kind::new("TYPE_FIXED32");
 
         /// Field type bool.
-        pub const TYPE_BOOL: &str = "TYPE_BOOL";
+        pub const TYPE_BOOL: Kind = Kind::new("TYPE_BOOL");
 
         /// Field type string.
-        pub const TYPE_STRING: &str = "TYPE_STRING";
+        pub const TYPE_STRING: Kind = Kind::new("TYPE_STRING");
 
         /// Field type group. Proto2 syntax only, and deprecated.
-        pub const TYPE_GROUP: &str = "TYPE_GROUP";
+        pub const TYPE_GROUP: Kind = Kind::new("TYPE_GROUP");
 
         /// Field type message.
-        pub const TYPE_MESSAGE: &str = "TYPE_MESSAGE";
+        pub const TYPE_MESSAGE: Kind = Kind::new("TYPE_MESSAGE");
 
         /// Field type bytes.
-        pub const TYPE_BYTES: &str = "TYPE_BYTES";
+        pub const TYPE_BYTES: Kind = Kind::new("TYPE_BYTES");
 
         /// Field type uint32.
-        pub const TYPE_UINT32: &str = "TYPE_UINT32";
+        pub const TYPE_UINT32: Kind = Kind::new("TYPE_UINT32");
 
         /// Field type enum.
-        pub const TYPE_ENUM: &str = "TYPE_ENUM";
+        pub const TYPE_ENUM: Kind = Kind::new("TYPE_ENUM");
 
         /// Field type sfixed32.
-        pub const TYPE_SFIXED32: &str = "TYPE_SFIXED32";
+        pub const TYPE_SFIXED32: Kind = Kind::new("TYPE_SFIXED32");
 
         /// Field type sfixed64.
-        pub const TYPE_SFIXED64: &str = "TYPE_SFIXED64";
+        pub const TYPE_SFIXED64: Kind = Kind::new("TYPE_SFIXED64");
 
         /// Field type sint32.
-        pub const TYPE_SINT32: &str = "TYPE_SINT32";
+        pub const TYPE_SINT32: Kind = Kind::new("TYPE_SINT32");
 
         /// Field type sint64.
-        pub const TYPE_SINT64: &str = "TYPE_SINT64";
+        pub const TYPE_SINT64: Kind = Kind::new("TYPE_SINT64");
+    }
+
+    impl std::convert::From<std::string::String> for Kind {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Whether a field is optional, required, or repeated.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cardinality(std::string::String);
+    pub struct Cardinality(std::borrow::Cow<'static, str>);
 
     impl Cardinality {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Cardinality instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -720,18 +749,25 @@ pub mod field {
 
     /// Useful constants to work with [Cardinality](Cardinality)
     pub mod cardinality {
+        use super::Cardinality;
 
         /// For fields with unknown cardinality.
-        pub const CARDINALITY_UNKNOWN: &str = "CARDINALITY_UNKNOWN";
+        pub const CARDINALITY_UNKNOWN: Cardinality = Cardinality::new("CARDINALITY_UNKNOWN");
 
         /// For optional fields.
-        pub const CARDINALITY_OPTIONAL: &str = "CARDINALITY_OPTIONAL";
+        pub const CARDINALITY_OPTIONAL: Cardinality = Cardinality::new("CARDINALITY_OPTIONAL");
 
         /// For required fields. Proto2 syntax only.
-        pub const CARDINALITY_REQUIRED: &str = "CARDINALITY_REQUIRED";
+        pub const CARDINALITY_REQUIRED: Cardinality = Cardinality::new("CARDINALITY_REQUIRED");
 
         /// For repeated fields.
-        pub const CARDINALITY_REPEATED: &str = "CARDINALITY_REPEATED";
+        pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new("CARDINALITY_REPEATED");
+    }
+
+    impl std::convert::From<std::string::String> for Cardinality {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -766,6 +802,10 @@ pub struct Enum {
 }
 
 impl Enum {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Enum::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -841,6 +881,10 @@ pub struct EnumValue {
 }
 
 impl EnumValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::EnumValue::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -894,6 +938,10 @@ pub struct Option {
 }
 
 impl Option {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Option::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -918,13 +966,12 @@ impl wkt::message::Message for Option {
 
 /// The syntax in which a protocol buffer element is defined.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Syntax(std::string::String);
+pub struct Syntax(std::borrow::Cow<'static, str>);
 
 impl Syntax {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new Syntax instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -935,13 +982,20 @@ impl Syntax {
 
 /// Useful constants to work with [Syntax](Syntax)
 pub mod syntax {
+    use super::Syntax;
 
     /// Syntax `proto2`.
-    pub const SYNTAX_PROTO2: &str = "SYNTAX_PROTO2";
+    pub const SYNTAX_PROTO2: Syntax = Syntax::new("SYNTAX_PROTO2");
 
     /// Syntax `proto3`.
-    pub const SYNTAX_PROTO3: &str = "SYNTAX_PROTO3";
+    pub const SYNTAX_PROTO3: Syntax = Syntax::new("SYNTAX_PROTO3");
 
     /// Syntax `editions`.
-    pub const SYNTAX_EDITIONS: &str = "SYNTAX_EDITIONS";
+    pub const SYNTAX_EDITIONS: Syntax = Syntax::new("SYNTAX_EDITIONS");
+}
+
+impl std::convert::From<std::string::String> for Syntax {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

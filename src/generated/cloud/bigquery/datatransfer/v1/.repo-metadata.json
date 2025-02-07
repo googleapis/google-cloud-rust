@@ -1,0 +1,11 @@
+{
+    "api_id": "bigquerydatatransfer.googleapis.com",
+    "api_shortname": "bigquerydatatransfer",
+    "client_documentation": "https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "BigQuery Data Transfer API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

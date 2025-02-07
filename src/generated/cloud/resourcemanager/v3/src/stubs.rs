@@ -17,34 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Manages Cloud Platform folder resources.
-/// Folders can be used to organize the resources under an
-/// organization and to control the policies applied to groups of resources.
+/// Defines the trait used to implement [crate::client::Folders].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Folders`.  In other use-cases, application developers only
+/// use `client::Folders` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Folders: std::fmt::Debug + Send + Sync {
-    /// Retrieves a folder identified by the supplied resource name.
-    /// Valid folder resource names have the format `folders/{folder_id}`
-    /// (for example, `folders/1234`).
-    /// The caller must have `resourcemanager.folders.get` permission on the
-    /// identified folder.
+    /// Implements [crate::client::Folders::get_folder].
     fn get_folder(
         &self,
         _req: crate::model::GetFolderRequest,
@@ -55,13 +52,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists the folders that are direct descendants of supplied parent resource.
-    /// `list()` provides a strongly consistent view of the folders underneath
-    /// the specified parent resource.
-    /// `list()` returns folders sorted based upon the (ascending) lexical ordering
-    /// of their display_name.
-    /// The caller must have `resourcemanager.folders.list` permission on the
-    /// identified parent.
+    /// Implements [crate::client::Folders::list_folders].
     fn list_folders(
         &self,
         _req: crate::model::ListFoldersRequest,
@@ -73,12 +64,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Search for folders that match specific filter criteria.
-    /// `search()` provides an eventually consistent view of the folders a user has
-    /// access to which meet the specified filter criteria.
-    ///
-    /// This will only return folders on which the caller has the
-    /// permission `resourcemanager.folders.get`.
+    /// Implements [crate::client::Folders::search_folders].
     fn search_folders(
         &self,
         _req: crate::model::SearchFoldersRequest,
@@ -90,33 +76,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a folder in the resource hierarchy.
-    /// Returns an `Operation` which can be used to track the progress of the
-    /// folder creation workflow.
-    /// Upon success, the `Operation.response` field will be populated with the
-    /// created Folder.
-    ///
-    /// In order to succeed, the addition of this new folder must not violate
-    /// the folder naming, height, or fanout constraints.
-    ///
-    /// + The folder's `display_name` must be distinct from all other folders that
-    ///   share its parent.
-    /// + The addition of the folder must not cause the active folder hierarchy
-    ///   to exceed a height of 10. Note, the full active + deleted folder hierarchy
-    ///   is allowed to reach a height of 20; this provides additional headroom when
-    ///   moving folders that contain deleted folders.
-    /// + The addition of the folder must not cause the total number of folders
-    ///   under its parent to exceed 300.
-    ///
-    /// If the operation fails due to a folder constraint violation, some errors
-    /// may be returned by the `CreateFolder` request, with status code
-    /// `FAILED_PRECONDITION` and an error description. Other folder constraint
-    /// violations will be communicated in the `Operation`, with the specific
-    /// `PreconditionFailure` returned in the details list in the `Operation.error`
-    /// field.
-    ///
-    /// The caller must have `resourcemanager.folders.create` permission on the
-    /// identified parent.
+    /// Implements [crate::client::Folders::create_folder].
     fn create_folder(
         &self,
         _req: crate::model::CreateFolderRequest,
@@ -128,25 +88,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a folder, changing its `display_name`.
-    /// Changes to the folder `display_name` will be rejected if they violate
-    /// either the `display_name` formatting rules or the naming constraints
-    /// described in the
-    /// [CreateFolder][google.cloud.resourcemanager.v3.Folders.CreateFolder]
-    /// documentation.
-    ///
-    /// The folder's `display_name` must start and end with a letter or digit,
-    /// may contain letters, digits, spaces, hyphens and underscores and can be
-    /// between 3 and 30 characters. This is captured by the regular expression:
-    /// `[\p{L}\p{N}][\p{L}\p{N}_- ]{1,28}[\p{L}\p{N}]`.
-    /// The caller must have `resourcemanager.folders.update` permission on the
-    /// identified folder.
-    ///
-    /// If the update fails due to the unique name constraint then a
-    /// `PreconditionFailure` explaining this violation will be returned
-    /// in the Status.details field.
-    ///
-    /// [google.cloud.resourcemanager.v3.Folders.CreateFolder]: crate::client::Folders::create_folder
+    /// Implements [crate::client::Folders::update_folder].
     fn update_folder(
         &self,
         _req: crate::model::UpdateFolderRequest,
@@ -158,25 +100,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Moves a folder under a new resource parent.
-    /// Returns an `Operation` which can be used to track the progress of the
-    /// folder move workflow.
-    /// Upon success, the `Operation.response` field will be populated with the
-    /// moved folder.
-    /// Upon failure, a `FolderOperationError` categorizing the failure cause will
-    /// be returned - if the failure occurs synchronously then the
-    /// `FolderOperationError` will be returned in the `Status.details` field.
-    /// If it occurs asynchronously, then the FolderOperation will be returned
-    /// in the `Operation.error` field.
-    /// In addition, the `Operation.metadata` field will be populated with a
-    /// `FolderOperation` message as an aid to stateless clients.
-    /// Folder moves will be rejected if they violate either the naming, height,
-    /// or fanout constraints described in the
-    /// [CreateFolder][google.cloud.resourcemanager.v3.Folders.CreateFolder]
-    /// documentation. The caller must have `resourcemanager.folders.move`
-    /// permission on the folder's current and proposed new parent.
-    ///
-    /// [google.cloud.resourcemanager.v3.Folders.CreateFolder]: crate::client::Folders::create_folder
+    /// Implements [crate::client::Folders::move_folder].
     fn move_folder(
         &self,
         _req: crate::model::MoveFolderRequest,
@@ -188,20 +112,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Requests deletion of a folder. The folder is moved into the
-    /// [DELETE_REQUESTED][google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]
-    /// state immediately, and is deleted approximately 30 days later. This method
-    /// may only be called on an empty folder, where a folder is empty if it
-    /// doesn't contain any folders or projects in the
-    /// [ACTIVE][google.cloud.resourcemanager.v3.Folder.State.ACTIVE] state. If
-    /// called on a folder in
-    /// [DELETE_REQUESTED][google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]
-    /// state the operation will result in a no-op success.
-    /// The caller must have `resourcemanager.folders.delete` permission on the
-    /// identified folder.
-    ///
-    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::state::ACTIVE
-    /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::state::DELETE_REQUESTED
+    /// Implements [crate::client::Folders::delete_folder].
     fn delete_folder(
         &self,
         _req: crate::model::DeleteFolderRequest,
@@ -213,20 +124,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Cancels the deletion request for a folder. This method may be called on a
-    /// folder in any state. If the folder is in the
-    /// [ACTIVE][google.cloud.resourcemanager.v3.Folder.State.ACTIVE] state the
-    /// result will be a no-op success. In order to succeed, the folder's parent
-    /// must be in the
-    /// [ACTIVE][google.cloud.resourcemanager.v3.Folder.State.ACTIVE] state. In
-    /// addition, reintroducing the folder into the tree must not violate folder
-    /// naming, height, and fanout constraints described in the
-    /// [CreateFolder][google.cloud.resourcemanager.v3.Folders.CreateFolder]
-    /// documentation. The caller must have `resourcemanager.folders.undelete`
-    /// permission on the identified folder.
-    ///
-    /// [google.cloud.resourcemanager.v3.Folder.State.ACTIVE]: crate::model::folder::state::ACTIVE
-    /// [google.cloud.resourcemanager.v3.Folders.CreateFolder]: crate::client::Folders::create_folder
+    /// Implements [crate::client::Folders::undelete_folder].
     fn undelete_folder(
         &self,
         _req: crate::model::UndeleteFolderRequest,
@@ -238,11 +136,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a folder. The returned policy may be
-    /// empty if no such policy or resource exists. The `resource` field should
-    /// be the folder's resource name, for example: "folders/1234".
-    /// The caller must have `resourcemanager.folders.getIamPolicy` permission
-    /// on the identified folder.
+    /// Implements [crate::client::Folders::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -253,11 +147,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on a folder, replacing any existing policy.
-    /// The `resource` field should be the folder's resource name, for example:
-    /// "folders/1234".
-    /// The caller must have `resourcemanager.folders.setIamPolicy` permission
-    /// on the identified folder.
+    /// Implements [crate::client::Folders::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -268,11 +158,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified folder.
-    /// The `resource` field should be the folder's resource name,
-    /// for example: "folders/1234".
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::Folders::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -284,9 +170,7 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Folders::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -299,29 +183,41 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Allows users to manage their organization resources.
+/// Defines the trait used to implement [crate::client::Organizations].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Organizations`.  In other use-cases, application developers only
+/// use `client::Organizations` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Organizations: std::fmt::Debug + Send + Sync {
-    /// Fetches an organization resource identified by the specified resource name.
+    /// Implements [crate::client::Organizations::get_organization].
     fn get_organization(
         &self,
         _req: crate::model::GetOrganizationRequest,
@@ -332,13 +228,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Searches organization resources that are visible to the user and satisfy
-    /// the specified filter. This method returns organizations in an unspecified
-    /// order. New organizations do not necessarily appear at the end of the
-    /// results, and may take a small amount of time to appear.
-    ///
-    /// Search will only return organizations on which the user has the permission
-    /// `resourcemanager.organizations.get`
+    /// Implements [crate::client::Organizations::search_organizations].
     fn search_organizations(
         &self,
         _req: crate::model::SearchOrganizationsRequest,
@@ -350,12 +240,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets the access control policy for an organization resource. The policy may
-    /// be empty if no such policy or resource exists. The `resource` field should
-    /// be the organization's resource name, for example: "organizations/123".
-    ///
-    /// Authorization requires the IAM permission
-    /// `resourcemanager.organizations.getIamPolicy` on the specified organization.
+    /// Implements [crate::client::Organizations::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -366,12 +251,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on an organization resource. Replaces any
-    /// existing policy. The `resource` field should be the organization's resource
-    /// name, for example: "organizations/123".
-    ///
-    /// Authorization requires the IAM permission
-    /// `resourcemanager.organizations.setIamPolicy` on the specified organization.
+    /// Implements [crate::client::Organizations::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -382,11 +262,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the permissions that a caller has on the specified organization.
-    /// The `resource` field should be the organization's resource name,
-    /// for example: "organizations/123".
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::Organizations::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -398,9 +274,7 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Organizations::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -413,21 +287,19 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Manages Google Cloud Projects.
+/// Defines the trait used to implement [crate::client::Projects].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Projects`.  In other use-cases, application developers only
+/// use `client::Projects` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Projects: std::fmt::Debug + Send + Sync {
-    /// Retrieves the project identified by the specified `name` (for example,
-    /// `projects/415104041262`).
-    ///
-    /// The caller must have `resourcemanager.projects.get` permission
-    /// for this project.
+    /// Implements [crate::client::Projects::get_project].
     fn get_project(
         &self,
         _req: crate::model::GetProjectRequest,
@@ -438,12 +310,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists projects that are direct children of the specified folder or
-    /// organization resource. `list()` provides a strongly consistent view of the
-    /// projects underneath the specified parent resource. `list()` returns
-    /// projects sorted based upon the (ascending) lexical ordering of their
-    /// `display_name`. The caller must have `resourcemanager.projects.list`
-    /// permission on the identified parent.
+    /// Implements [crate::client::Projects::list_projects].
     fn list_projects(
         &self,
         _req: crate::model::ListProjectsRequest,
@@ -455,18 +322,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Search for projects that the caller has both `resourcemanager.projects.get`
-    /// permission on, and also satisfy the specified query.
-    ///
-    /// This method returns projects in an unspecified order.
-    ///
-    /// This method is eventually consistent with project mutations; this means
-    /// that a newly created project may not appear in the results or recent
-    /// updates to an existing project may not be reflected in the results. To
-    /// retrieve the latest state of a project, use the
-    /// [GetProject][google.cloud.resourcemanager.v3.Projects.GetProject] method.
-    ///
-    /// [google.cloud.resourcemanager.v3.Projects.GetProject]: crate::client::Projects::get_project
+    /// Implements [crate::client::Projects::search_projects].
     fn search_projects(
         &self,
         _req: crate::model::SearchProjectsRequest,
@@ -478,11 +334,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Request that a new project be created. The result is an `Operation` which
-    /// can be used to track the creation process. This process usually takes a few
-    /// seconds, but can sometimes take much longer. The tracking `Operation` is
-    /// automatically deleted after a few hours, so there is no need to call
-    /// `DeleteOperation`.
+    /// Implements [crate::client::Projects::create_project].
     fn create_project(
         &self,
         _req: crate::model::CreateProjectRequest,
@@ -494,12 +346,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the `display_name` and labels of the project identified by the
-    /// specified `name` (for example, `projects/415104041262`). Deleting all
-    /// labels requires an update mask for labels field.
-    ///
-    /// The caller must have `resourcemanager.projects.update` permission for this
-    /// project.
+    /// Implements [crate::client::Projects::update_project].
     fn update_project(
         &self,
         _req: crate::model::UpdateProjectRequest,
@@ -511,20 +358,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Move a project to another place in your resource hierarchy, under a new
-    /// resource parent.
-    ///
-    /// Returns an operation which can be used to track the process of the project
-    /// move workflow.
-    /// Upon success, the `Operation.response` field will be populated with the
-    /// moved project.
-    ///
-    /// The caller must have `resourcemanager.projects.move` permission on the
-    /// project, on the project's current and proposed new parent.
-    ///
-    /// If project has no current parent, or it currently does not have an
-    /// associated organization resource, you will also need the
-    /// `resourcemanager.projects.setIamPolicy` permission in the project.
+    /// Implements [crate::client::Projects::move_project].
     fn move_project(
         &self,
         _req: crate::model::MoveProjectRequest,
@@ -536,43 +370,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Marks the project identified by the specified
-    /// `name` (for example, `projects/415104041262`) for deletion.
-    ///
-    /// This method will only affect the project if it has a lifecycle state of
-    /// [ACTIVE][google.cloud.resourcemanager.v3.Project.State.ACTIVE].
-    ///
-    /// This method changes the Project's lifecycle state from
-    /// [ACTIVE][google.cloud.resourcemanager.v3.Project.State.ACTIVE]
-    /// to
-    /// [DELETE_REQUESTED][google.cloud.resourcemanager.v3.Project.State.DELETE_REQUESTED].
-    /// The deletion starts at an unspecified time,
-    /// at which point the Project is no longer accessible.
-    ///
-    /// Until the deletion completes, you can check the lifecycle state
-    /// checked by retrieving the project with [GetProject]
-    /// [google.cloud.resourcemanager.v3.Projects.GetProject],
-    /// and the project remains visible to [ListProjects]
-    /// [google.cloud.resourcemanager.v3.Projects.ListProjects].
-    /// However, you cannot update the project.
-    ///
-    /// After the deletion completes, the project is not retrievable by
-    /// the  [GetProject]
-    /// [google.cloud.resourcemanager.v3.Projects.GetProject],
-    /// [ListProjects]
-    /// [google.cloud.resourcemanager.v3.Projects.ListProjects], and
-    /// [SearchProjects][google.cloud.resourcemanager.v3.Projects.SearchProjects]
-    /// methods.
-    ///
-    /// This method behaves idempotently, such that deleting a `DELETE_REQUESTED`
-    /// project will not cause an error, but also won't do anything.
-    ///
-    /// The caller must have `resourcemanager.projects.delete` permissions for this
-    /// project.
-    ///
-    /// [google.cloud.resourcemanager.v3.Project.State.ACTIVE]: crate::model::project::state::ACTIVE
-    /// [google.cloud.resourcemanager.v3.Project.State.DELETE_REQUESTED]: crate::model::project::state::DELETE_REQUESTED
-    /// [google.cloud.resourcemanager.v3.Projects.SearchProjects]: crate::client::Projects::search_projects
+    /// Implements [crate::client::Projects::delete_project].
     fn delete_project(
         &self,
         _req: crate::model::DeleteProjectRequest,
@@ -584,15 +382,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Restores the project identified by the specified
-    /// `name` (for example, `projects/415104041262`).
-    /// You can only use this method for a project that has a lifecycle state of
-    /// [DELETE_REQUESTED]
-    /// [Projects.State.DELETE_REQUESTED].
-    /// After deletion starts, the project cannot be restored.
-    ///
-    /// The caller must have `resourcemanager.projects.undelete` permission for
-    /// this project.
+    /// Implements [crate::client::Projects::undelete_project].
     fn undelete_project(
         &self,
         _req: crate::model::UndeleteProjectRequest,
@@ -604,9 +394,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns the IAM access control policy for the specified project, in the
-    /// format `projects/{ProjectIdOrNumber}` e.g. projects/123.
-    /// Permission is denied if the policy or the resource do not exist.
+    /// Implements [crate::client::Projects::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -617,48 +405,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the IAM access control policy for the specified project, in the
-    /// format `projects/{ProjectIdOrNumber}` e.g. projects/123.
-    ///
-    /// CAUTION: This method will replace the existing policy, and cannot be used
-    /// to append additional IAM settings.
-    ///
-    /// Note: Removing service accounts from policies or changing their roles can
-    /// render services completely inoperable. It is important to understand how
-    /// the service account is being used before removing or updating its roles.
-    ///
-    /// The following constraints apply when using `setIamPolicy()`:
-    ///
-    /// + Project does not support `allUsers` and `allAuthenticatedUsers` as
-    ///   `members` in a `Binding` of a `Policy`.
-    ///
-    /// + The owner role can be granted to a `user`, `serviceAccount`, or a group
-    ///   that is part of an organization. For example,
-    ///   group@myownpersonaldomain.com could be added as an owner to a project in
-    ///   the myownpersonaldomain.com organization, but not the examplepetstore.com
-    ///   organization.
-    ///
-    /// + Service accounts can be made owners of a project directly
-    ///   without any restrictions. However, to be added as an owner, a user must be
-    ///   invited using the Cloud Platform console and must accept the invitation.
-    ///
-    /// + A user cannot be granted the owner role using `setIamPolicy()`. The user
-    ///   must be granted the owner role using the Cloud Platform Console and must
-    ///   explicitly accept the invitation.
-    ///
-    /// + Invitations to grant the owner role cannot be sent using
-    ///   `setIamPolicy()`;
-    ///   they must be sent only using the Cloud Platform Console.
-    ///
-    /// + If the project is not part of an organization, there must be at least
-    ///   one owner who has accepted the Terms of Service (ToS) agreement in the
-    ///   policy. Calling `setIamPolicy()` to remove the last ToS-accepted owner
-    ///   from the policy will fail. This restriction also applies to legacy
-    ///   projects that no longer have owners who have accepted the ToS. Edits to
-    ///   IAM policies will be rejected until the lack of a ToS-accepting owner is
-    ///   rectified. If the project is part of an organization, you can remove all
-    ///   owners, potentially making the organization inaccessible.
-    ///
+    /// Implements [crate::client::Projects::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -669,8 +416,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified project, in the
-    /// format `projects/{ProjectIdOrNumber}` e.g. projects/123..
+    /// Implements [crate::client::Projects::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -682,9 +428,7 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Projects::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -697,34 +441,41 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Allow users to create and manage TagBindings between TagValues and
-/// different Google Cloud resources throughout the GCP resource hierarchy.
+/// Defines the trait used to implement [crate::client::TagBindings].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TagBindings`.  In other use-cases, application developers only
+/// use `client::TagBindings` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TagBindings: std::fmt::Debug + Send + Sync {
-    /// Lists the TagBindings for the given Google Cloud resource, as specified
-    /// with `parent`.
-    ///
-    /// NOTE: The `parent` field is expected to be a full resource name:
-    /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
+    /// Implements [crate::client::TagBindings::list_tag_bindings].
     fn list_tag_bindings(
         &self,
         _req: crate::model::ListTagBindingsRequest,
@@ -736,7 +487,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Creates a TagBinding between a TagValue and a Google Cloud resource.
+    /// Implements [crate::client::TagBindings::create_tag_binding].
     fn create_tag_binding(
         &self,
         _req: crate::model::CreateTagBindingRequest,
@@ -748,7 +499,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a TagBinding.
+    /// Implements [crate::client::TagBindings::delete_tag_binding].
     fn delete_tag_binding(
         &self,
         _req: crate::model::DeleteTagBindingRequest,
@@ -760,8 +511,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Return a list of effective tags for the given Google Cloud resource, as
-    /// specified in `parent`.
+    /// Implements [crate::client::TagBindings::list_effective_tags].
     fn list_effective_tags(
         &self,
         _req: crate::model::ListEffectiveTagsRequest,
@@ -773,9 +523,7 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TagBindings::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -788,34 +536,41 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Allow users to create and manage TagHolds for TagValues. TagHolds represent
-/// the use of a Tag Value that is not captured by TagBindings but
-/// should still block TagValue deletion (such as a reference in a policy
-/// condition). This service provides isolated failure domains by cloud location
-/// so that TagHolds can be managed in the same location as their usage.
+/// Defines the trait used to implement [crate::client::TagHolds].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TagHolds`.  In other use-cases, application developers only
+/// use `client::TagHolds` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TagHolds: std::fmt::Debug + Send + Sync {
-    /// Creates a TagHold. Returns ALREADY_EXISTS if a TagHold with the same
-    /// resource and origin exists under the same TagValue.
+    /// Implements [crate::client::TagHolds::create_tag_hold].
     fn create_tag_hold(
         &self,
         _req: crate::model::CreateTagHoldRequest,
@@ -827,7 +582,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a TagHold.
+    /// Implements [crate::client::TagHolds::delete_tag_hold].
     fn delete_tag_hold(
         &self,
         _req: crate::model::DeleteTagHoldRequest,
@@ -839,7 +594,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists TagHolds under a TagValue.
+    /// Implements [crate::client::TagHolds::list_tag_holds].
     fn list_tag_holds(
         &self,
         _req: crate::model::ListTagHoldsRequest,
@@ -851,9 +606,7 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TagHolds::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -866,29 +619,41 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Allow users to create and manage tag keys.
+/// Defines the trait used to implement [crate::client::TagKeys].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TagKeys`.  In other use-cases, application developers only
+/// use `client::TagKeys` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TagKeys: std::fmt::Debug + Send + Sync {
-    /// Lists all TagKeys for a parent resource.
+    /// Implements [crate::client::TagKeys::list_tag_keys].
     fn list_tag_keys(
         &self,
         _req: crate::model::ListTagKeysRequest,
@@ -900,8 +665,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
-    /// key does not exist or the user does not have permission to view it.
+    /// Implements [crate::client::TagKeys::get_tag_key].
     fn get_tag_key(
         &self,
         _req: crate::model::GetTagKeyRequest,
@@ -912,9 +676,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Retrieves a TagKey by its namespaced name.
-    /// This method will return `PERMISSION_DENIED` if the key does not exist
-    /// or the user does not have permission to view it.
+    /// Implements [crate::client::TagKeys::get_namespaced_tag_key].
     fn get_namespaced_tag_key(
         &self,
         _req: crate::model::GetNamespacedTagKeyRequest,
@@ -925,10 +687,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new TagKey. If another request with the same parameters is
-    /// sent while the original request is in process, the second request
-    /// will receive an error. A maximum of 1000 TagKeys can exist under a parent
-    /// at any given time.
+    /// Implements [crate::client::TagKeys::create_tag_key].
     fn create_tag_key(
         &self,
         _req: crate::model::CreateTagKeyRequest,
@@ -940,7 +699,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the attributes of the TagKey resource.
+    /// Implements [crate::client::TagKeys::update_tag_key].
     fn update_tag_key(
         &self,
         _req: crate::model::UpdateTagKeyRequest,
@@ -952,8 +711,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a TagKey. The TagKey cannot be deleted if it has any child
-    /// TagValues.
+    /// Implements [crate::client::TagKeys::delete_tag_key].
     fn delete_tag_key(
         &self,
         _req: crate::model::DeleteTagKeyRequest,
@@ -965,12 +723,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a TagKey. The returned policy may be
-    /// empty if no such policy or resource exists. The `resource` field should
-    /// be the TagKey's resource name. For example, "tagKeys/1234".
-    /// The caller must have
-    /// `cloudresourcemanager.googleapis.com/tagKeys.getIamPolicy` permission on
-    /// the specified TagKey.
+    /// Implements [crate::client::TagKeys::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -981,11 +734,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on a TagKey, replacing any existing
-    /// policy. The `resource` field should be the TagKey's resource name.
-    /// For example, "tagKeys/1234".
-    /// The caller must have `resourcemanager.tagKeys.setIamPolicy` permission
-    /// on the identified tagValue.
+    /// Implements [crate::client::TagKeys::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -996,11 +745,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified TagKey.
-    /// The `resource` field should be the TagKey's resource name.
-    /// For example, "tagKeys/1234".
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::TagKeys::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1012,9 +757,7 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TagKeys::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1027,29 +770,41 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Allow users to create and manage tag values.
+/// Defines the trait used to implement [crate::client::TagValues].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudresourcemanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TagValues`.  In other use-cases, application developers only
+/// use `client::TagValues` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TagValues: std::fmt::Debug + Send + Sync {
-    /// Lists all TagValues for a specific TagKey.
+    /// Implements [crate::client::TagValues::list_tag_values].
     fn list_tag_values(
         &self,
         _req: crate::model::ListTagValuesRequest,
@@ -1061,8 +816,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Retrieves a TagValue. This method will return `PERMISSION_DENIED` if the
-    /// value does not exist or the user does not have permission to view it.
+    /// Implements [crate::client::TagValues::get_tag_value].
     fn get_tag_value(
         &self,
         _req: crate::model::GetTagValueRequest,
@@ -1073,9 +827,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Retrieves a TagValue by its namespaced name.
-    /// This method will return `PERMISSION_DENIED` if the value does not exist
-    /// or the user does not have permission to view it.
+    /// Implements [crate::client::TagValues::get_namespaced_tag_value].
     fn get_namespaced_tag_value(
         &self,
         _req: crate::model::GetNamespacedTagValueRequest,
@@ -1086,10 +838,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a TagValue as a child of the specified TagKey. If a another
-    /// request with the same parameters is sent while the original request is in
-    /// process the second request will receive an error. A maximum of 1000
-    /// TagValues can exist under a TagKey at any given time.
+    /// Implements [crate::client::TagValues::create_tag_value].
     fn create_tag_value(
         &self,
         _req: crate::model::CreateTagValueRequest,
@@ -1101,7 +850,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the attributes of the TagValue resource.
+    /// Implements [crate::client::TagValues::update_tag_value].
     fn update_tag_value(
         &self,
         _req: crate::model::UpdateTagValueRequest,
@@ -1113,8 +862,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a TagValue. The TagValue cannot have any bindings when it is
-    /// deleted.
+    /// Implements [crate::client::TagValues::delete_tag_value].
     fn delete_tag_value(
         &self,
         _req: crate::model::DeleteTagValueRequest,
@@ -1126,12 +874,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a TagValue. The returned policy may be
-    /// empty if no such policy or resource exists. The `resource` field should
-    /// be the TagValue's resource name. For example: `tagValues/1234`.
-    /// The caller must have the
-    /// `cloudresourcemanager.googleapis.com/tagValues.getIamPolicy` permission on
-    /// the identified TagValue to get the access control policy.
+    /// Implements [crate::client::TagValues::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -1142,11 +885,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on a TagValue, replacing any existing
-    /// policy. The `resource` field should be the TagValue's resource name.
-    /// For example: `tagValues/1234`.
-    /// The caller must have `resourcemanager.tagValues.setIamPolicy` permission
-    /// on the identified tagValue.
+    /// Implements [crate::client::TagValues::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -1157,11 +896,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified TagValue.
-    /// The `resource` field should be the TagValue's resource name. For example:
-    /// `tagValues/1234`.
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::TagValues::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -1173,9 +908,7 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TagValues::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -1188,14 +921,24 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

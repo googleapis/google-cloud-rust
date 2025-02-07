@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Iam] to make requests with.
+/// Implements a client for the Identity and Access Management (IAM) API.
 ///
-/// `Iam` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Iam` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Iam` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Creates and manages Identity and Access Management (IAM) resources.
 ///
@@ -57,6 +51,18 @@ use std::sync::Arc;
 /// In contrast, writing data to the IAM API is sequentially consistent. In other
 /// words, write operations are always processed in the order in which they were
 /// received.
+///
+/// # Configuration
+///
+/// `Iam` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `Iam` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Iam` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct Iam {
     inner: Arc<dyn crate::stubs::dynamic::Iam>,

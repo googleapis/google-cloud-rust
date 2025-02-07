@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `Workflows`.
+/// A dyn-compatible, crate-private version of [super::Workflows].
 #[async_trait::async_trait]
 pub trait Workflows: std::fmt::Debug + Send + Sync {
     async fn list_workflows(

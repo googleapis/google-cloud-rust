@@ -58,6 +58,10 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -107,6 +111,10 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -151,6 +159,10 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -188,6 +200,10 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
@@ -234,6 +250,10 @@ pub struct GetPolicyOptions {
 }
 
 impl GetPolicyOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [requested_policy_version][crate::model::GetPolicyOptions::requested_policy_version].
     pub fn set_requested_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
@@ -386,6 +406,10 @@ pub struct Policy {
 }
 
 impl Policy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::Policy::version].
     pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -499,6 +523,10 @@ pub struct Binding {
 }
 
 impl Binding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [role][crate::model::Binding::role].
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
@@ -602,6 +630,10 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::AuditConfig::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -666,6 +698,10 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
     pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
         mut self,
@@ -701,13 +737,12 @@ pub mod audit_log_config {
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogType(std::string::String);
+    pub struct LogType(std::borrow::Cow<'static, str>);
 
     impl LogType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LogType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -718,18 +753,25 @@ pub mod audit_log_config {
 
     /// Useful constants to work with [LogType](LogType)
     pub mod log_type {
+        use super::LogType;
 
         /// Default case. Should never be this.
-        pub const LOG_TYPE_UNSPECIFIED: &str = "LOG_TYPE_UNSPECIFIED";
+        pub const LOG_TYPE_UNSPECIFIED: LogType = LogType::new("LOG_TYPE_UNSPECIFIED");
 
         /// Admin reads. Example: CloudIAM getIamPolicy
-        pub const ADMIN_READ: &str = "ADMIN_READ";
+        pub const ADMIN_READ: LogType = LogType::new("ADMIN_READ");
 
         /// Data writes. Example: CloudSQL Users create
-        pub const DATA_WRITE: &str = "DATA_WRITE";
+        pub const DATA_WRITE: LogType = LogType::new("DATA_WRITE");
 
         /// Data reads. Example: CloudSQL Users list
-        pub const DATA_READ: &str = "DATA_READ";
+        pub const DATA_READ: LogType = LogType::new("DATA_READ");
+    }
+
+    impl std::convert::From<std::string::String> for LogType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -749,6 +791,10 @@ pub struct PolicyDelta {
 }
 
 impl PolicyDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [binding_deltas][crate::model::PolicyDelta::binding_deltas].
     pub fn set_binding_deltas<T, V>(mut self, v: T) -> Self
     where
@@ -807,6 +853,10 @@ pub struct BindingDelta {
 }
 
 impl BindingDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [action][crate::model::BindingDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(
         mut self,
@@ -851,13 +901,12 @@ pub mod binding_delta {
 
     /// The type of action performed on a Binding in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::string::String);
+    pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Action instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -868,15 +917,22 @@ pub mod binding_delta {
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
+        use super::Action;
 
         /// Unspecified.
-        pub const ACTION_UNSPECIFIED: &str = "ACTION_UNSPECIFIED";
+        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
 
         /// Addition of a Binding.
-        pub const ADD: &str = "ADD";
+        pub const ADD: Action = Action::new("ADD");
 
         /// Removal of a Binding.
-        pub const REMOVE: &str = "REMOVE";
+        pub const REMOVE: Action = Action::new("REMOVE");
+    }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -912,6 +968,10 @@ pub struct AuditConfigDelta {
 }
 
 impl AuditConfigDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [action][crate::model::AuditConfigDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(
         mut self,
@@ -953,13 +1013,12 @@ pub mod audit_config_delta {
 
     /// The type of action performed on an audit configuration in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::string::String);
+    pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Action instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -970,15 +1029,22 @@ pub mod audit_config_delta {
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
+        use super::Action;
 
         /// Unspecified.
-        pub const ACTION_UNSPECIFIED: &str = "ACTION_UNSPECIFIED";
+        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
 
         /// Addition of an audit configuration.
-        pub const ADD: &str = "ADD";
+        pub const ADD: Action = Action::new("ADD");
 
         /// Removal of an audit configuration.
-        pub const REMOVE: &str = "REMOVE";
+        pub const REMOVE: Action = Action::new("REMOVE");
+    }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1011,6 +1077,10 @@ pub struct ResourcePolicyMember {
 }
 
 impl ResourcePolicyMember {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [iam_policy_name_principal][crate::model::ResourcePolicyMember::iam_policy_name_principal].
     pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(
         mut self,

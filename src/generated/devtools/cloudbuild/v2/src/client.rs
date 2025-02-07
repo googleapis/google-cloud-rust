@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::RepositoryManager] to make requests with.
+/// Implements a client for the Cloud Build API.
 ///
-/// `RepositoryManager` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Manages connections to source code repositories.
+///
+/// # Configuration
+///
+/// `RepositoryManager` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `RepositoryManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RepositoryManager` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Manages connections to source code repositories.
 #[derive(Clone, Debug)]
 pub struct RepositoryManager {
     inner: Arc<dyn crate::stubs::dynamic::RepositoryManager>,
@@ -105,7 +111,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connection, model::OperationMetadata>
     /// ) -> Result<model::Connection> {
@@ -123,7 +129,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connection, model::OperationMetadata>
     /// ) -> Result<model::Connection> {
@@ -221,7 +227,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connection, model::OperationMetadata>
     /// ) -> Result<model::Connection> {
@@ -239,7 +245,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connection, model::OperationMetadata>
     /// ) -> Result<model::Connection> {
@@ -319,7 +325,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -337,7 +343,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -417,7 +423,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Repository, model::OperationMetadata>
     /// ) -> Result<model::Repository> {
@@ -435,7 +441,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Repository, model::OperationMetadata>
     /// ) -> Result<model::Repository> {
@@ -515,7 +521,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchCreateRepositoriesResponse, model::OperationMetadata>
     /// ) -> Result<model::BatchCreateRepositoriesResponse> {
@@ -533,7 +539,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchCreateRepositoriesResponse, model::OperationMetadata>
     /// ) -> Result<model::BatchCreateRepositoriesResponse> {
@@ -631,7 +637,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -649,7 +655,7 @@ impl RepositoryManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v2::model;
+    /// # use google_cloud_devtools_cloudbuild_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

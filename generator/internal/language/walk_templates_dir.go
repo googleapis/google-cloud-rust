@@ -32,7 +32,7 @@ import (
 //
 // Even in Rust, we may want to skip some files if the crate does not have
 // any services.
-func walkTemplatesDir(fsys fs.FS, root string) []GeneratedFile {
+func WalkTemplatesDir(fsys fs.FS, root string) []GeneratedFile {
 	var result []GeneratedFile
 	fs.WalkDir(fsys, root, func(path string, d fs.DirEntry, err error) error {
 		if filepath.Ext(path) != ".mustache" {

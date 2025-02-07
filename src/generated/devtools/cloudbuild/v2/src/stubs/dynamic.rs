@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `RepositoryManager`.
+/// A dyn-compatible, crate-private version of [super::RepositoryManager].
 #[async_trait::async_trait]
 pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
     async fn create_connection(

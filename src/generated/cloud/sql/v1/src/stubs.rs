@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,18 +28,20 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Service for managing database backups.
+/// Defines the trait used to implement [crate::client::SqlBackupRunsService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlBackupRunsService`.  In other use-cases, application developers only
+/// use `client::SqlBackupRunsService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
 
-    /// Deletes the backup taken by a backup run.
+    /// Implements [crate::client::SqlBackupRunsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlBackupRunsDeleteRequest,
@@ -48,7 +50,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Retrieves a resource containing information about a backup run.
+    /// Implements [crate::client::SqlBackupRunsService::get].
     fn get(
         &self,
         _req: crate::model::SqlBackupRunsGetRequest,
@@ -57,7 +59,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::BackupRun>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new backup run on demand.
+    /// Implements [crate::client::SqlBackupRunsService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlBackupRunsInsertRequest,
@@ -66,9 +68,7 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists all backup runs associated with the project or a given instance
-    /// and configuration in the reverse chronological order of the backup
-    /// initiation time.
+    /// Implements [crate::client::SqlBackupRunsService::list].
     fn list(
         &self,
         _req: crate::model::SqlBackupRunsListRequest,
@@ -78,18 +78,20 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Cloud SQL connect service.
+/// Defines the trait used to implement [crate::client::SqlConnectService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlConnectService`.  In other use-cases, application developers only
+/// use `client::SqlConnectService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
 
-    /// Retrieves connect settings about a Cloud SQL instance.
+    /// Implements [crate::client::SqlConnectService::get_connect_settings].
     fn get_connect_settings(
         &self,
         _req: crate::model::GetConnectSettingsRequest,
@@ -98,10 +100,7 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ConnectSettings>>(Err(Error::other("unimplemented")))
     }
 
-    /// Generates a short-lived X509 certificate containing the provided public key
-    /// and signed by a private key specific to the target instance. Users may use
-    /// the certificate to authenticate as themselves when connecting to the
-    /// database.
+    /// Implements [crate::client::SqlConnectService::generate_ephemeral_cert].
     fn generate_ephemeral_cert(
         &self,
         _req: crate::model::GenerateEphemeralCertRequest,
@@ -111,18 +110,20 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service to manage databases.
+/// Defines the trait used to implement [crate::client::SqlDatabasesService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlDatabasesService`.  In other use-cases, application developers only
+/// use `client::SqlDatabasesService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
 
-    /// Deletes a database from a Cloud SQL instance.
+    /// Implements [crate::client::SqlDatabasesService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlDatabasesDeleteRequest,
@@ -131,8 +132,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Retrieves a resource containing information about a database inside a Cloud
-    /// SQL instance.
+    /// Implements [crate::client::SqlDatabasesService::get].
     fn get(
         &self,
         _req: crate::model::SqlDatabasesGetRequest,
@@ -141,10 +141,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Database>>(Err(Error::other("unimplemented")))
     }
 
-    /// Inserts a resource containing information about a database inside a Cloud
-    /// SQL instance.
-    ///
-    /// **Note:** You can't modify the default character set and collation.
+    /// Implements [crate::client::SqlDatabasesService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlDatabasesInsertRequest,
@@ -153,7 +150,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists databases in the specified Cloud SQL instance.
+    /// Implements [crate::client::SqlDatabasesService::list].
     fn list(
         &self,
         _req: crate::model::SqlDatabasesListRequest,
@@ -162,8 +159,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::DatabasesListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Partially updates a resource containing information about a database inside
-    /// a Cloud SQL instance. This method supports patch semantics.
+    /// Implements [crate::client::SqlDatabasesService::patch].
     fn patch(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
@@ -172,8 +168,7 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates a resource containing information about a database inside a Cloud
-    /// SQL instance.
+    /// Implements [crate::client::SqlDatabasesService::update].
     fn update(
         &self,
         _req: crate::model::SqlDatabasesUpdateRequest,
@@ -183,18 +178,20 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service to manage database flags for Cloud SQL instances.
+/// Defines the trait used to implement [crate::client::SqlFlagsService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlFlagsService`.  In other use-cases, application developers only
+/// use `client::SqlFlagsService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
 
-    /// Lists all available database flags for Cloud SQL instances.
+    /// Implements [crate::client::SqlFlagsService::list].
     fn list(
         &self,
         _req: crate::model::SqlFlagsListRequest,
@@ -204,24 +201,20 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service to manage Cloud SQL instances.
+/// Defines the trait used to implement [crate::client::SqlInstancesService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlInstancesService`.  In other use-cases, application developers only
+/// use `client::SqlInstancesService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
 
-    /// Adds a new trusted Certificate Authority (CA) version for the specified
-    /// instance. Required to prepare for a certificate rotation. If a CA version
-    /// was previously added but never used in a certificate rotation, this
-    /// operation replaces that version. There cannot be more than one CA version
-    /// waiting to be rotated in. For instances that have enabled Certificate
-    /// Authority Service (CAS) based server CA, please use AddServerCertificate to
-    /// add a new server certificate.
+    /// Implements [crate::client::SqlInstancesService::add_server_ca].
     fn add_server_ca(
         &self,
         _req: crate::model::SqlInstancesAddServerCaRequest,
@@ -230,8 +223,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a Cloud SQL instance as a clone of the source instance. Using this
-    /// operation might cause your instance to restart.
+    /// Implements [crate::client::SqlInstancesService::clone].
     fn clone(
         &self,
         _req: crate::model::SqlInstancesCloneRequest,
@@ -240,7 +232,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes a Cloud SQL instance.
+    /// Implements [crate::client::SqlInstancesService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlInstancesDeleteRequest,
@@ -249,8 +241,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Demotes the stand-alone instance to be a Cloud SQL read replica for an
-    /// external database server.
+    /// Implements [crate::client::SqlInstancesService::demote_master].
     fn demote_master(
         &self,
         _req: crate::model::SqlInstancesDemoteMasterRequest,
@@ -259,8 +250,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Demotes an existing standalone instance to be a Cloud SQL read replica
-    /// for an external database server.
+    /// Implements [crate::client::SqlInstancesService::demote].
     fn demote(
         &self,
         _req: crate::model::SqlInstancesDemoteRequest,
@@ -269,8 +259,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Exports data from a Cloud SQL instance to a Cloud Storage bucket as a SQL
-    /// dump or CSV file.
+    /// Implements [crate::client::SqlInstancesService::export].
     fn export(
         &self,
         _req: crate::model::SqlInstancesExportRequest,
@@ -279,14 +268,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Initiates a manual failover of a high availability (HA) primary instance
-    /// to a standby instance, which becomes the primary instance. Users are
-    /// then rerouted to the new primary. For more information, see the
-    /// [Overview of high
-    /// availability](https://cloud.google.com/sql/docs/mysql/high-availability)
-    /// page in the Cloud SQL documentation.
-    /// If using Legacy HA (MySQL only), this causes the instance to failover to
-    /// its failover replica instance.
+    /// Implements [crate::client::SqlInstancesService::failover].
     fn failover(
         &self,
         _req: crate::model::SqlInstancesFailoverRequest,
@@ -295,7 +277,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Reencrypt CMEK instance with latest key version.
+    /// Implements [crate::client::SqlInstancesService::reencrypt].
     fn reencrypt(
         &self,
         _req: crate::model::SqlInstancesReencryptRequest,
@@ -304,7 +286,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Retrieves a resource containing information about a Cloud SQL instance.
+    /// Implements [crate::client::SqlInstancesService::get].
     fn get(
         &self,
         _req: crate::model::SqlInstancesGetRequest,
@@ -313,8 +295,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::DatabaseInstance>>(Err(Error::other("unimplemented")))
     }
 
-    /// Imports data into a Cloud SQL instance from a SQL dump  or CSV file in
-    /// Cloud Storage.
+    /// Implements [crate::client::SqlInstancesService::import].
     fn import(
         &self,
         _req: crate::model::SqlInstancesImportRequest,
@@ -323,7 +304,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new Cloud SQL instance.
+    /// Implements [crate::client::SqlInstancesService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlInstancesInsertRequest,
@@ -332,7 +313,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists instances under a given project.
+    /// Implements [crate::client::SqlInstancesService::list].
     fn list(
         &self,
         _req: crate::model::SqlInstancesListRequest,
@@ -341,11 +322,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::InstancesListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists all of the trusted Certificate Authorities (CAs) for the specified
-    /// instance. There can be up to three CAs listed: the CA that was used to sign
-    /// the certificate that is currently in use, a CA that has been added but not
-    /// yet used to sign a certificate, and a CA used to sign a certificate that
-    /// has previously rotated out.
+    /// Implements [crate::client::SqlInstancesService::list_server_cas].
     fn list_server_cas(
         &self,
         _req: crate::model::SqlInstancesListServerCasRequest,
@@ -354,8 +331,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::InstancesListServerCasResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Partially updates settings of a Cloud SQL instance by merging the request
-    /// with the current configuration. This method supports patch semantics.
+    /// Implements [crate::client::SqlInstancesService::patch].
     fn patch(
         &self,
         _req: crate::model::SqlInstancesPatchRequest,
@@ -364,9 +340,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Promotes the read replica instance to be an independent Cloud SQL
-    /// primary instance.
-    /// Using this operation might cause your instance to restart.
+    /// Implements [crate::client::SqlInstancesService::promote_replica].
     fn promote_replica(
         &self,
         _req: crate::model::SqlInstancesPromoteReplicaRequest,
@@ -375,8 +349,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Switches over from the primary instance to the designated DR replica
-    /// instance.
+    /// Implements [crate::client::SqlInstancesService::switchover].
     fn switchover(
         &self,
         _req: crate::model::SqlInstancesSwitchoverRequest,
@@ -385,8 +358,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes all client certificates and generates a new server SSL certificate
-    /// for the instance.
+    /// Implements [crate::client::SqlInstancesService::reset_ssl_config].
     fn reset_ssl_config(
         &self,
         _req: crate::model::SqlInstancesResetSslConfigRequest,
@@ -395,7 +367,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Restarts a Cloud SQL instance.
+    /// Implements [crate::client::SqlInstancesService::restart].
     fn restart(
         &self,
         _req: crate::model::SqlInstancesRestartRequest,
@@ -404,8 +376,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Restores a backup of a Cloud SQL instance. Using this operation might cause
-    /// your instance to restart.
+    /// Implements [crate::client::SqlInstancesService::restore_backup].
     fn restore_backup(
         &self,
         _req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -414,10 +385,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Rotates the server certificate to one signed by the Certificate Authority
-    /// (CA) version previously added with the addServerCA method. For instances
-    /// that have enabled Certificate Authority Service (CAS) based server CA,
-    /// please use RotateServerCertificate to rotate the server certificate.
+    /// Implements [crate::client::SqlInstancesService::rotate_server_ca].
     fn rotate_server_ca(
         &self,
         _req: crate::model::SqlInstancesRotateServerCaRequest,
@@ -426,7 +394,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Starts the replication in the read replica instance.
+    /// Implements [crate::client::SqlInstancesService::start_replica].
     fn start_replica(
         &self,
         _req: crate::model::SqlInstancesStartReplicaRequest,
@@ -435,7 +403,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Stops the replication in the read replica instance.
+    /// Implements [crate::client::SqlInstancesService::stop_replica].
     fn stop_replica(
         &self,
         _req: crate::model::SqlInstancesStopReplicaRequest,
@@ -444,8 +412,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Truncate MySQL general and slow query log tables
-    /// MySQL only.
+    /// Implements [crate::client::SqlInstancesService::truncate_log].
     fn truncate_log(
         &self,
         _req: crate::model::SqlInstancesTruncateLogRequest,
@@ -454,8 +421,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates settings of a Cloud SQL instance. Using this operation might cause
-    /// your instance to restart.
+    /// Implements [crate::client::SqlInstancesService::update].
     fn update(
         &self,
         _req: crate::model::SqlInstancesUpdateRequest,
@@ -464,10 +430,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Generates a short-lived X509 certificate containing the provided public key
-    /// and signed by a private key specific to the target instance. Users may use
-    /// the certificate to authenticate as themselves when connecting to the
-    /// database.
+    /// Implements [crate::client::SqlInstancesService::create_ephemeral].
     fn create_ephemeral(
         &self,
         _req: crate::model::SqlInstancesCreateEphemeralCertRequest,
@@ -476,7 +439,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCert>>(Err(Error::other("unimplemented")))
     }
 
-    /// Reschedules the maintenance on the given instance.
+    /// Implements [crate::client::SqlInstancesService::reschedule_maintenance].
     fn reschedule_maintenance(
         &self,
         _req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
@@ -485,7 +448,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Verify External primary instance external sync settings.
+    /// Implements [crate::client::SqlInstancesService::verify_external_sync_settings].
     fn verify_external_sync_settings(
         &self,
         _req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
@@ -494,7 +457,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Start External primary instance migration.
+    /// Implements [crate::client::SqlInstancesService::start_external_sync].
     fn start_external_sync(
         &self,
         _req: crate::model::SqlInstancesStartExternalSyncRequest,
@@ -503,7 +466,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Perform Disk Shrink on primary instance.
+    /// Implements [crate::client::SqlInstancesService::perform_disk_shrink].
     fn perform_disk_shrink(
         &self,
         _req: crate::model::SqlInstancesPerformDiskShrinkRequest,
@@ -512,7 +475,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Get Disk Shrink Config for a given instance.
+    /// Implements [crate::client::SqlInstancesService::get_disk_shrink_config].
     fn get_disk_shrink_config(
         &self,
         _req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
@@ -521,7 +484,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Reset Replica Size to primary instance disk size.
+    /// Implements [crate::client::SqlInstancesService::reset_replica_size].
     fn reset_replica_size(
         &self,
         _req: crate::model::SqlInstancesResetReplicaSizeRequest,
@@ -530,7 +493,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Get Latest Recovery Time for a given instance.
+    /// Implements [crate::client::SqlInstancesService::get_latest_recovery_time].
     fn get_latest_recovery_time(
         &self,
         _req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
@@ -539,7 +502,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
+    /// Implements [crate::client::SqlInstancesService::acquire_ssrs_lease].
     fn acquire_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
@@ -548,7 +511,7 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
+    /// Implements [crate::client::SqlInstancesService::release_ssrs_lease].
     fn release_ssrs_lease(
         &self,
         _req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
@@ -558,18 +521,20 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service to fetch operations for database instances.
+/// Defines the trait used to implement [crate::client::SqlOperationsService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlOperationsService`.  In other use-cases, application developers only
+/// use `client::SqlOperationsService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
 
-    /// Retrieves an instance operation that has been performed on an instance.
+    /// Implements [crate::client::SqlOperationsService::get].
     fn get(
         &self,
         _req: crate::model::SqlOperationsGetRequest,
@@ -578,8 +543,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists all instance operations that have been performed on the given Cloud
-    /// SQL instance in the reverse chronological order of the start time.
+    /// Implements [crate::client::SqlOperationsService::list].
     fn list(
         &self,
         _req: crate::model::SqlOperationsListRequest,
@@ -588,7 +552,7 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::OperationsListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Cancels an instance operation that has been performed on an instance.
+    /// Implements [crate::client::SqlOperationsService::cancel].
     fn cancel(
         &self,
         _req: crate::model::SqlOperationsCancelRequest,
@@ -598,19 +562,20 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service to manage SSL certs for Cloud SQL instances.
+/// Defines the trait used to implement [crate::client::SqlSslCertsService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlSslCertsService`.  In other use-cases, application developers only
+/// use `client::SqlSslCertsService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
 
-    /// Deletes the SSL certificate. For First Generation instances, the
-    /// certificate remains valid until the instance is restarted.
+    /// Implements [crate::client::SqlSslCertsService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlSslCertsDeleteRequest,
@@ -619,9 +584,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Retrieves a particular SSL certificate.  Does not include the private key
-    /// (required for usage).  The private key must be saved from the response to
-    /// initial creation.
+    /// Implements [crate::client::SqlSslCertsService::get].
     fn get(
         &self,
         _req: crate::model::SqlSslCertsGetRequest,
@@ -630,9 +593,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCert>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates an SSL certificate and returns it along with the private key and
-    /// server certificate authority.  The new certificate will not be usable until
-    /// the instance is restarted.
+    /// Implements [crate::client::SqlSslCertsService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlSslCertsInsertRequest,
@@ -641,7 +602,7 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SslCertsInsertResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists all of the current SSL certificates for the instance.
+    /// Implements [crate::client::SqlSslCertsService::list].
     fn list(
         &self,
         _req: crate::model::SqlSslCertsListRequest,
@@ -651,20 +612,20 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Service for providing machine types (tiers) for Cloud SQL instances.
+/// Defines the trait used to implement [crate::client::SqlTiersService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlTiersService`.  In other use-cases, application developers only
+/// use `client::SqlTiersService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
 
-    /// Lists all available machine types (tiers) for Cloud SQL, for example,
-    /// `db-custom-1-3840`. For more information, see
-    /// <https://cloud.google.com/sql/pricing>.
+    /// Implements [crate::client::SqlTiersService::list].
     fn list(
         &self,
         _req: crate::model::SqlTiersListRequest,
@@ -674,18 +635,20 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Cloud SQL users service.
+/// Defines the trait used to implement [crate::client::SqlUsersService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the sqladmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SqlUsersService`.  In other use-cases, application developers only
+/// use `client::SqlUsersService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
 
-    /// Deletes a user from a Cloud SQL instance.
+    /// Implements [crate::client::SqlUsersService::delete].
     fn delete(
         &self,
         _req: crate::model::SqlUsersDeleteRequest,
@@ -694,7 +657,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Retrieves a resource containing information about a user.
+    /// Implements [crate::client::SqlUsersService::get].
     fn get(
         &self,
         _req: crate::model::SqlUsersGetRequest,
@@ -703,7 +666,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new user in a Cloud SQL instance.
+    /// Implements [crate::client::SqlUsersService::insert].
     fn insert(
         &self,
         _req: crate::model::SqlUsersInsertRequest,
@@ -712,7 +675,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists users in the specified Cloud SQL instance.
+    /// Implements [crate::client::SqlUsersService::list].
     fn list(
         &self,
         _req: crate::model::SqlUsersListRequest,
@@ -721,7 +684,7 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::UsersListResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates an existing user in a Cloud SQL instance.
+    /// Implements [crate::client::SqlUsersService::update].
     fn update(
         &self,
         _req: crate::model::SqlUsersUpdateRequest,

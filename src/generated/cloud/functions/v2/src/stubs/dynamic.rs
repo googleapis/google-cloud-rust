@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `FunctionService`.
+/// A dyn-compatible, crate-private version of [super::FunctionService].
 #[async_trait::async_trait]
 pub trait FunctionService: std::fmt::Debug + Send + Sync {
     async fn get_function(

@@ -65,6 +65,10 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -118,6 +122,10 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -148,6 +156,10 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -192,6 +204,10 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -244,6 +260,10 @@ pub struct PartialUpdateInstanceRequest {
 }
 
 impl PartialUpdateInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::option::Option<crate::model::Instance>>>(
         mut self,
@@ -282,6 +302,10 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -319,6 +343,10 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -360,6 +388,10 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -393,6 +425,10 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -436,6 +472,10 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -484,6 +524,10 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -517,6 +561,10 @@ pub struct CreateInstanceMetadata {
 }
 
 impl CreateInstanceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::CreateInstanceMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateInstanceRequest>>,
@@ -573,6 +621,10 @@ pub struct UpdateInstanceMetadata {
 }
 
 impl UpdateInstanceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::UpdateInstanceMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::PartialUpdateInstanceRequest>>,
@@ -643,6 +695,10 @@ pub struct CreateClusterMetadata {
 }
 
 impl CreateClusterMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::CreateClusterMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateClusterRequest>>,
@@ -716,6 +772,10 @@ pub mod create_cluster_metadata {
     }
 
     impl TableProgress {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [estimated_size_bytes][crate::model::create_cluster_metadata::TableProgress::estimated_size_bytes].
         pub fn set_estimated_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.estimated_size_bytes = v.into();
@@ -752,13 +812,12 @@ pub mod create_cluster_metadata {
         use super::*;
 
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::string::String);
+        pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new State instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -769,22 +828,29 @@ pub mod create_cluster_metadata {
 
         /// Useful constants to work with [State](State)
         pub mod state {
+            use super::State;
 
-            pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
             /// The table has not yet begun copying to the new cluster.
-            pub const PENDING: &str = "PENDING";
+            pub const PENDING: State = State::new("PENDING");
 
             /// The table is actively being copied to the new cluster.
-            pub const COPYING: &str = "COPYING";
+            pub const COPYING: State = State::new("COPYING");
 
             /// The table has been fully copied to the new cluster.
-            pub const COMPLETED: &str = "COMPLETED";
+            pub const COMPLETED: State = State::new("COMPLETED");
 
             /// The table was deleted before it finished copying to the new cluster.
             /// Note that tables deleted after completion will stay marked as
             /// COMPLETED, not CANCELLED.
-            pub const CANCELLED: &str = "CANCELLED";
+            pub const CANCELLED: State = State::new("CANCELLED");
+        }
+
+        impl std::convert::From<std::string::String> for State {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -809,6 +875,10 @@ pub struct UpdateClusterMetadata {
 }
 
 impl UpdateClusterMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::UpdateClusterMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::Cluster>>,
@@ -865,6 +935,10 @@ pub struct PartialUpdateClusterMetadata {
 }
 
 impl PartialUpdateClusterMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request_time][crate::model::PartialUpdateClusterMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -918,6 +992,10 @@ pub struct PartialUpdateClusterRequest {
 }
 
 impl PartialUpdateClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
     pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
         mut self,
@@ -970,6 +1048,10 @@ pub struct CreateAppProfileRequest {
 }
 
 impl CreateAppProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1017,6 +1099,10 @@ pub struct GetAppProfileRequest {
 }
 
 impl GetAppProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1061,6 +1147,10 @@ pub struct ListAppProfilesRequest {
 }
 
 impl ListAppProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1111,6 +1201,10 @@ pub struct ListAppProfilesResponse {
 }
 
 impl ListAppProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListAppProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1179,6 +1273,10 @@ pub struct UpdateAppProfileRequest {
 }
 
 impl UpdateAppProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
     pub fn set_app_profile<T: std::convert::Into<std::option::Option<crate::model::AppProfile>>>(
         mut self,
@@ -1227,6 +1325,10 @@ pub struct DeleteAppProfileRequest {
 }
 
 impl DeleteAppProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1253,7 +1355,11 @@ impl wkt::message::Message for DeleteAppProfileRequest {
 #[non_exhaustive]
 pub struct UpdateAppProfileMetadata {}
 
-impl UpdateAppProfileMetadata {}
+impl UpdateAppProfileMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UpdateAppProfileMetadata {
     fn typename() -> &'static str {
@@ -1303,6 +1409,10 @@ pub struct ListHotTabletsRequest {
 }
 
 impl ListHotTabletsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1368,6 +1478,10 @@ pub struct ListHotTabletsResponse {
 }
 
 impl ListHotTabletsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListHotTabletsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1432,6 +1546,10 @@ pub struct RestoreTableRequest {
 }
 
 impl RestoreTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1549,6 +1667,10 @@ pub struct RestoreTableMetadata {
 }
 
 impl RestoreTableMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RestoreTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1669,6 +1791,10 @@ pub struct OptimizeRestoredTableMetadata {
 }
 
 impl OptimizeRestoredTableMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::OptimizeRestoredTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1738,6 +1864,10 @@ pub struct CreateTableRequest {
 }
 
 impl CreateTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1795,6 +1925,10 @@ pub mod create_table_request {
     }
 
     impl Split {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key][crate::model::create_table_request::Split::key].
         pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.key = v.into();
@@ -1842,6 +1976,10 @@ pub struct CreateTableFromSnapshotRequest {
 }
 
 impl CreateTableFromSnapshotRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1888,6 +2026,10 @@ pub struct DropRowRangeRequest {
 }
 
 impl DropRowRangeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2015,6 +2157,10 @@ pub struct ListTablesRequest {
 }
 
 impl ListTablesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2067,6 +2213,10 @@ pub struct ListTablesResponse {
 }
 
 impl ListTablesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTablesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2125,6 +2275,10 @@ pub struct GetTableRequest {
 }
 
 impl GetTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2175,6 +2329,10 @@ pub struct UpdateTableRequest {
 }
 
 impl UpdateTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table][crate::model::UpdateTableRequest::table].
     pub fn set_table<T: std::convert::Into<std::option::Option<crate::model::Table>>>(
         mut self,
@@ -2223,6 +2381,10 @@ pub struct UpdateTableMetadata {
 }
 
 impl UpdateTableMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2271,6 +2433,10 @@ pub struct DeleteTableRequest {
 }
 
 impl DeleteTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2301,6 +2467,10 @@ pub struct UndeleteTableRequest {
 }
 
 impl UndeleteTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2337,6 +2507,10 @@ pub struct UndeleteTableMetadata {
 }
 
 impl UndeleteTableMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2395,6 +2569,10 @@ pub struct ModifyColumnFamiliesRequest {
 }
 
 impl ModifyColumnFamiliesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2453,6 +2631,10 @@ pub mod modify_column_families_request {
     }
 
     impl Modification {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [id][crate::model::modify_column_families_request::Modification::id].
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
@@ -2615,6 +2797,10 @@ pub struct GenerateConsistencyTokenRequest {
 }
 
 impl GenerateConsistencyTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2643,6 +2829,10 @@ pub struct GenerateConsistencyTokenResponse {
 }
 
 impl GenerateConsistencyTokenResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [consistency_token][crate::model::GenerateConsistencyTokenResponse::consistency_token].
     pub fn set_consistency_token<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2685,6 +2875,10 @@ pub struct CheckConsistencyRequest {
 }
 
 impl CheckConsistencyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2812,7 +3006,11 @@ pub mod check_consistency_request {
 #[non_exhaustive]
 pub struct StandardReadRemoteWrites {}
 
-impl StandardReadRemoteWrites {}
+impl StandardReadRemoteWrites {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for StandardReadRemoteWrites {
     fn typename() -> &'static str {
@@ -2828,7 +3026,11 @@ impl wkt::message::Message for StandardReadRemoteWrites {
 #[non_exhaustive]
 pub struct DataBoostReadLocalWrites {}
 
-impl DataBoostReadLocalWrites {}
+impl DataBoostReadLocalWrites {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for DataBoostReadLocalWrites {
     fn typename() -> &'static str {
@@ -2851,6 +3053,10 @@ pub struct CheckConsistencyResponse {
 }
 
 impl CheckConsistencyResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [consistent][crate::model::CheckConsistencyResponse::consistent].
     pub fn set_consistent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.consistent = v.into();
@@ -2910,6 +3116,10 @@ pub struct SnapshotTableRequest {
 }
 
 impl SnapshotTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2972,6 +3182,10 @@ pub struct GetSnapshotRequest {
 }
 
 impl GetSnapshotRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3017,6 +3231,10 @@ pub struct ListSnapshotsRequest {
 }
 
 impl ListSnapshotsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3068,6 +3286,10 @@ pub struct ListSnapshotsResponse {
 }
 
 impl ListSnapshotsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3127,6 +3349,10 @@ pub struct DeleteSnapshotRequest {
 }
 
 impl DeleteSnapshotRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3165,6 +3391,10 @@ pub struct SnapshotTableMetadata {
 }
 
 impl SnapshotTableMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::SnapshotTableMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::SnapshotTableRequest>>,
@@ -3227,6 +3457,10 @@ pub struct CreateTableFromSnapshotMetadata {
 }
 
 impl CreateTableFromSnapshotMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::CreateTableFromSnapshotMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateTableFromSnapshotRequest>>,
@@ -3293,6 +3527,10 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3348,6 +3586,10 @@ pub struct CreateBackupMetadata {
 }
 
 impl CreateBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3412,6 +3654,10 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
@@ -3454,6 +3700,10 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3484,6 +3734,10 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3593,6 +3847,10 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3653,6 +3911,10 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3734,6 +3996,10 @@ pub struct CopyBackupRequest {
 }
 
 impl CopyBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3797,6 +4063,10 @@ pub struct CopyBackupMetadata {
 }
 
 impl CopyBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3860,6 +4130,10 @@ pub struct CreateAuthorizedViewRequest {
 }
 
 impl CreateAuthorizedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3913,6 +4187,10 @@ pub struct CreateAuthorizedViewMetadata {
 }
 
 impl CreateAuthorizedViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::CreateAuthorizedViewMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateAuthorizedViewRequest>>,
@@ -3985,6 +4263,10 @@ pub struct ListAuthorizedViewsRequest {
 }
 
 impl ListAuthorizedViewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4040,6 +4322,10 @@ pub struct ListAuthorizedViewsResponse {
 }
 
 impl ListAuthorizedViewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListAuthorizedViewsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4098,6 +4384,10 @@ pub struct GetAuthorizedViewRequest {
 }
 
 impl GetAuthorizedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4152,6 +4442,10 @@ pub struct UpdateAuthorizedViewRequest {
 }
 
 impl UpdateAuthorizedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::AuthorizedView>>,
@@ -4209,6 +4503,10 @@ pub struct UpdateAuthorizedViewMetadata {
 }
 
 impl UpdateAuthorizedViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [original_request][crate::model::UpdateAuthorizedViewMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::UpdateAuthorizedViewRequest>>,
@@ -4269,6 +4567,10 @@ pub struct DeleteAuthorizedViewRequest {
 }
 
 impl DeleteAuthorizedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4310,6 +4612,10 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
@@ -4398,6 +4704,10 @@ pub struct Instance {
 }
 
 impl Instance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Instance::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4466,13 +4776,12 @@ pub mod instance {
 
     /// Possible states of an instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4483,28 +4792,34 @@ pub mod instance {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The state of the instance could not be determined.
-        pub const STATE_NOT_KNOWN: &str = "STATE_NOT_KNOWN";
+        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
 
         /// The instance has been successfully created and can serve requests
         /// to its tables.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
 
         /// The instance is currently being created, and may be destroyed
         /// if the creation process encounters an error.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The type of the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4515,19 +4830,26 @@ pub mod instance {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// The type of the instance is unspecified. If set when creating an
         /// instance, a `PRODUCTION` instance will be created. If set when updating
         /// an instance, the type will be left unchanged.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// An instance meant for production use. `serve_nodes` must be set
         /// on the cluster.
-        pub const PRODUCTION: &str = "PRODUCTION";
+        pub const PRODUCTION: Type = Type::new("PRODUCTION");
 
         /// DEPRECATED: Prefer PRODUCTION for all use cases, as it no longer enforces
         /// a higher minimum node count than DEVELOPMENT.
-        pub const DEVELOPMENT: &str = "DEVELOPMENT";
+        pub const DEVELOPMENT: Type = Type::new("DEVELOPMENT");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4553,6 +4875,10 @@ pub struct AutoscalingTargets {
 }
 
 impl AutoscalingTargets {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cpu_utilization_percent][crate::model::AutoscalingTargets::cpu_utilization_percent].
     pub fn set_cpu_utilization_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_utilization_percent = v.into();
@@ -4589,6 +4915,10 @@ pub struct AutoscalingLimits {
 }
 
 impl AutoscalingLimits {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_serve_nodes][crate::model::AutoscalingLimits::min_serve_nodes].
     pub fn set_min_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_serve_nodes = v.into();
@@ -4654,6 +4984,10 @@ pub struct Cluster {
 }
 
 impl Cluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Cluster::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4775,6 +5109,10 @@ pub mod cluster {
     }
 
     impl ClusterAutoscalingConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [autoscaling_limits][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_limits].
         pub fn set_autoscaling_limits<
             T: std::convert::Into<std::option::Option<crate::model::AutoscalingLimits>>,
@@ -4817,6 +5155,10 @@ pub mod cluster {
     }
 
     impl ClusterConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
         pub fn set_cluster_autoscaling_config<
             T: std::convert::Into<
@@ -4860,6 +5202,10 @@ pub mod cluster {
     }
 
     impl EncryptionConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [kms_key_name][crate::model::cluster::EncryptionConfig::kms_key_name].
         pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4878,13 +5224,12 @@ pub mod cluster {
 
     /// Possible states of a cluster.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4895,40 +5240,46 @@ pub mod cluster {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The state of the cluster could not be determined.
-        pub const STATE_NOT_KNOWN: &str = "STATE_NOT_KNOWN";
+        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
 
         /// The cluster has been successfully created and is ready to serve requests.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
 
         /// The cluster is currently being created, and may be destroyed
         /// if the creation process encounters an error.
         /// A cluster may not be able to serve requests while being created.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The cluster is currently being resized, and may revert to its previous
         /// node count if the process encounters an error.
         /// A cluster is still capable of serving requests while being resized,
         /// but may exhibit performance as if its number of allocated nodes is
         /// between the starting and requested states.
-        pub const RESIZING: &str = "RESIZING";
+        pub const RESIZING: State = State::new("RESIZING");
 
         /// The cluster has no backing nodes. The data (tables) still
         /// exist, but no operations can be performed on the cluster.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: State = State::new("DISABLED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Possible node scaling factors of the clusters. Node scaling delivers better
     /// latency and more throughput by removing node boundaries.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NodeScalingFactor(std::string::String);
+    pub struct NodeScalingFactor(std::borrow::Cow<'static, str>);
 
     impl NodeScalingFactor {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new NodeScalingFactor instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4939,17 +5290,27 @@ pub mod cluster {
 
     /// Useful constants to work with [NodeScalingFactor](NodeScalingFactor)
     pub mod node_scaling_factor {
+        use super::NodeScalingFactor;
 
         /// No node scaling specified. Defaults to NODE_SCALING_FACTOR_1X.
-        pub const NODE_SCALING_FACTOR_UNSPECIFIED: &str = "NODE_SCALING_FACTOR_UNSPECIFIED";
+        pub const NODE_SCALING_FACTOR_UNSPECIFIED: NodeScalingFactor =
+            NodeScalingFactor::new("NODE_SCALING_FACTOR_UNSPECIFIED");
 
         /// The cluster is running with a scaling factor of 1.
-        pub const NODE_SCALING_FACTOR_1X: &str = "NODE_SCALING_FACTOR_1X";
+        pub const NODE_SCALING_FACTOR_1X: NodeScalingFactor =
+            NodeScalingFactor::new("NODE_SCALING_FACTOR_1X");
 
         /// The cluster is running with a scaling factor of 2.
         /// All node count values must be in increments of 2 with this scaling factor
         /// enabled, otherwise an INVALID_ARGUMENT error will be returned.
-        pub const NODE_SCALING_FACTOR_2X: &str = "NODE_SCALING_FACTOR_2X";
+        pub const NODE_SCALING_FACTOR_2X: NodeScalingFactor =
+            NodeScalingFactor::new("NODE_SCALING_FACTOR_2X");
+    }
+
+    impl std::convert::From<std::string::String> for NodeScalingFactor {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4999,6 +5360,10 @@ pub struct AppProfile {
 }
 
 impl AppProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AppProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5236,6 +5601,10 @@ pub mod app_profile {
     }
 
     impl MultiClusterRoutingUseAny {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [cluster_ids][crate::model::app_profile::MultiClusterRoutingUseAny::cluster_ids].
         pub fn set_cluster_ids<T, V>(mut self, v: T) -> Self
         where
@@ -5329,7 +5698,11 @@ pub mod app_profile {
         #[non_exhaustive]
         pub struct RowAffinity {}
 
-        impl RowAffinity {}
+        impl RowAffinity {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for RowAffinity {
             fn typename() -> &'static str {
@@ -5378,6 +5751,10 @@ pub mod app_profile {
     }
 
     impl SingleClusterRouting {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [cluster_id][crate::model::app_profile::SingleClusterRouting::cluster_id].
         pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_id = v.into();
@@ -5409,6 +5786,10 @@ pub mod app_profile {
     }
 
     impl StandardIsolation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [priority][crate::model::app_profile::StandardIsolation::priority].
         pub fn set_priority<T: std::convert::Into<crate::model::app_profile::Priority>>(
             mut self,
@@ -5450,6 +5831,10 @@ pub mod app_profile {
     }
 
     impl DataBoostIsolationReadOnly {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
         pub fn set_compute_billing_owner<
             T: std::convert::Into<
@@ -5481,13 +5866,12 @@ pub mod app_profile {
         /// Data Boost. Compute Billing Owner also configures which Cloud Project is
         /// charged for relevant quota.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ComputeBillingOwner(std::string::String);
+        pub struct ComputeBillingOwner(std::borrow::Cow<'static, str>);
 
         impl ComputeBillingOwner {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new ComputeBillingOwner instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -5498,13 +5882,21 @@ pub mod app_profile {
 
         /// Useful constants to work with [ComputeBillingOwner](ComputeBillingOwner)
         pub mod compute_billing_owner {
+            use super::ComputeBillingOwner;
 
             /// Unspecified value.
-            pub const COMPUTE_BILLING_OWNER_UNSPECIFIED: &str = "COMPUTE_BILLING_OWNER_UNSPECIFIED";
+            pub const COMPUTE_BILLING_OWNER_UNSPECIFIED: ComputeBillingOwner =
+                ComputeBillingOwner::new("COMPUTE_BILLING_OWNER_UNSPECIFIED");
 
             /// The host Cloud Project containing the targeted Bigtable Instance /
             /// Table pays for compute.
-            pub const HOST_PAYS: &str = "HOST_PAYS";
+            pub const HOST_PAYS: ComputeBillingOwner = ComputeBillingOwner::new("HOST_PAYS");
+        }
+
+        impl std::convert::From<std::string::String> for ComputeBillingOwner {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -5512,13 +5904,12 @@ pub mod app_profile {
     /// can sometimes queue behind lower priority writes to the same tablet, as
     /// writes must be strictly sequenced in the durability log.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::string::String);
+    pub struct Priority(std::borrow::Cow<'static, str>);
 
     impl Priority {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Priority instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5529,15 +5920,22 @@ pub mod app_profile {
 
     /// Useful constants to work with [Priority](Priority)
     pub mod priority {
+        use super::Priority;
 
         /// Default value. Mapped to PRIORITY_HIGH (the legacy behavior) on creation.
-        pub const PRIORITY_UNSPECIFIED: &str = "PRIORITY_UNSPECIFIED";
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
 
-        pub const PRIORITY_LOW: &str = "PRIORITY_LOW";
+        pub const PRIORITY_LOW: Priority = Priority::new("PRIORITY_LOW");
 
-        pub const PRIORITY_MEDIUM: &str = "PRIORITY_MEDIUM";
+        pub const PRIORITY_MEDIUM: Priority = Priority::new("PRIORITY_MEDIUM");
 
-        pub const PRIORITY_HIGH: &str = "PRIORITY_HIGH";
+        pub const PRIORITY_HIGH: Priority = Priority::new("PRIORITY_HIGH");
+    }
+
+    impl std::convert::From<std::string::String> for Priority {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The routing policy for all read/write requests that use this app profile.
@@ -5619,6 +6017,10 @@ pub struct HotTablet {
 }
 
 impl HotTablet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::HotTablet::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5689,6 +6091,10 @@ pub struct RestoreInfo {
 }
 
 impl RestoreInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
@@ -5775,6 +6181,10 @@ pub struct ChangeStreamConfig {
 }
 
 impl ChangeStreamConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [retention_period][crate::model::ChangeStreamConfig::retention_period].
     pub fn set_retention_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -5850,6 +6260,10 @@ pub struct Table {
 }
 
 impl Table {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Table::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5991,6 +6405,10 @@ pub mod table {
     }
 
     impl ClusterState {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [replication_state][crate::model::table::ClusterState::replication_state].
         pub fn set_replication_state<
             T: std::convert::Into<crate::model::table::cluster_state::ReplicationState>,
@@ -6027,13 +6445,12 @@ pub mod table {
 
         /// Table replication states.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ReplicationState(std::string::String);
+        pub struct ReplicationState(std::borrow::Cow<'static, str>);
 
         impl ReplicationState {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new ReplicationState instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -6044,32 +6461,42 @@ pub mod table {
 
         /// Useful constants to work with [ReplicationState](ReplicationState)
         pub mod replication_state {
+            use super::ReplicationState;
 
             /// The replication state of the table is unknown in this cluster.
-            pub const STATE_NOT_KNOWN: &str = "STATE_NOT_KNOWN";
+            pub const STATE_NOT_KNOWN: ReplicationState = ReplicationState::new("STATE_NOT_KNOWN");
 
             /// The cluster was recently created, and the table must finish copying
             /// over pre-existing data from other clusters before it can begin
             /// receiving live replication updates and serving Data API requests.
-            pub const INITIALIZING: &str = "INITIALIZING";
+            pub const INITIALIZING: ReplicationState = ReplicationState::new("INITIALIZING");
 
             /// The table is temporarily unable to serve Data API requests from this
             /// cluster due to planned internal maintenance.
-            pub const PLANNED_MAINTENANCE: &str = "PLANNED_MAINTENANCE";
+            pub const PLANNED_MAINTENANCE: ReplicationState =
+                ReplicationState::new("PLANNED_MAINTENANCE");
 
             /// The table is temporarily unable to serve Data API requests from this
             /// cluster due to unplanned or emergency maintenance.
-            pub const UNPLANNED_MAINTENANCE: &str = "UNPLANNED_MAINTENANCE";
+            pub const UNPLANNED_MAINTENANCE: ReplicationState =
+                ReplicationState::new("UNPLANNED_MAINTENANCE");
 
             /// The table can serve Data API requests from this cluster. Depending on
             /// replication delay, reads may not immediately reflect the state of the
             /// table in other clusters.
-            pub const READY: &str = "READY";
+            pub const READY: ReplicationState = ReplicationState::new("READY");
 
             /// The table is fully created and ready for use after a restore, and is
             /// being optimized for performance. When optimizations are complete, the
             /// table will transition to `READY` state.
-            pub const READY_OPTIMIZING: &str = "READY_OPTIMIZING";
+            pub const READY_OPTIMIZING: ReplicationState =
+                ReplicationState::new("READY_OPTIMIZING");
+        }
+
+        impl std::convert::From<std::string::String> for ReplicationState {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -6091,6 +6518,10 @@ pub mod table {
     }
 
     impl AutomatedBackupPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [retention_period][crate::model::table::AutomatedBackupPolicy::retention_period].
         pub fn set_retention_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -6119,13 +6550,12 @@ pub mod table {
     /// Possible timestamp granularities to use when keeping multiple versions
     /// of data in a table.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TimestampGranularity(std::string::String);
+    pub struct TimestampGranularity(std::borrow::Cow<'static, str>);
 
     impl TimestampGranularity {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new TimestampGranularity instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6136,24 +6566,31 @@ pub mod table {
 
     /// Useful constants to work with [TimestampGranularity](TimestampGranularity)
     pub mod timestamp_granularity {
+        use super::TimestampGranularity;
 
         /// The user did not specify a granularity. Should not be returned.
         /// When specified during table creation, MILLIS will be used.
-        pub const TIMESTAMP_GRANULARITY_UNSPECIFIED: &str = "TIMESTAMP_GRANULARITY_UNSPECIFIED";
+        pub const TIMESTAMP_GRANULARITY_UNSPECIFIED: TimestampGranularity =
+            TimestampGranularity::new("TIMESTAMP_GRANULARITY_UNSPECIFIED");
 
         /// The table keeps data versioned at a granularity of 1ms.
-        pub const MILLIS: &str = "MILLIS";
+        pub const MILLIS: TimestampGranularity = TimestampGranularity::new("MILLIS");
+    }
+
+    impl std::convert::From<std::string::String> for TimestampGranularity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Defines a view over a table's fields.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct View(std::string::String);
+    pub struct View(std::borrow::Cow<'static, str>);
 
     impl View {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new View instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6164,25 +6601,32 @@ pub mod table {
 
     /// Useful constants to work with [View](View)
     pub mod view {
+        use super::View;
 
         /// Uses the default view for each method as documented in its request.
-        pub const VIEW_UNSPECIFIED: &str = "VIEW_UNSPECIFIED";
+        pub const VIEW_UNSPECIFIED: View = View::new("VIEW_UNSPECIFIED");
 
         /// Only populates `name`.
-        pub const NAME_ONLY: &str = "NAME_ONLY";
+        pub const NAME_ONLY: View = View::new("NAME_ONLY");
 
         /// Only populates `name` and fields related to the table's schema.
-        pub const SCHEMA_VIEW: &str = "SCHEMA_VIEW";
+        pub const SCHEMA_VIEW: View = View::new("SCHEMA_VIEW");
 
         /// Only populates `name` and fields related to the table's replication
         /// state.
-        pub const REPLICATION_VIEW: &str = "REPLICATION_VIEW";
+        pub const REPLICATION_VIEW: View = View::new("REPLICATION_VIEW");
 
         /// Only populates `name` and fields related to the table's encryption state.
-        pub const ENCRYPTION_VIEW: &str = "ENCRYPTION_VIEW";
+        pub const ENCRYPTION_VIEW: View = View::new("ENCRYPTION_VIEW");
 
         /// Populates all fields.
-        pub const FULL: &str = "FULL";
+        pub const FULL: View = View::new("FULL");
+    }
+
+    impl std::convert::From<std::string::String> for View {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -6226,6 +6670,10 @@ pub struct AuthorizedView {
 }
 
 impl AuthorizedView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AuthorizedView::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6321,6 +6769,10 @@ pub mod authorized_view {
     }
 
     impl FamilySubsets {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [qualifiers][crate::model::authorized_view::FamilySubsets::qualifiers].
         pub fn set_qualifiers<T, V>(mut self, v: T) -> Self
         where
@@ -6372,6 +6824,10 @@ pub mod authorized_view {
     }
 
     impl SubsetView {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [row_prefixes][crate::model::authorized_view::SubsetView::row_prefixes].
         pub fn set_row_prefixes<T, V>(mut self, v: T) -> Self
         where
@@ -6404,13 +6860,12 @@ pub mod authorized_view {
 
     /// Defines a subset of an AuthorizedView's fields.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseView(std::string::String);
+    pub struct ResponseView(std::borrow::Cow<'static, str>);
 
     impl ResponseView {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ResponseView instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6421,19 +6876,27 @@ pub mod authorized_view {
 
     /// Useful constants to work with [ResponseView](ResponseView)
     pub mod response_view {
+        use super::ResponseView;
 
         /// Uses the default view for each method as documented in the request.
-        pub const RESPONSE_VIEW_UNSPECIFIED: &str = "RESPONSE_VIEW_UNSPECIFIED";
+        pub const RESPONSE_VIEW_UNSPECIFIED: ResponseView =
+            ResponseView::new("RESPONSE_VIEW_UNSPECIFIED");
 
         /// Only populates `name`.
-        pub const NAME_ONLY: &str = "NAME_ONLY";
+        pub const NAME_ONLY: ResponseView = ResponseView::new("NAME_ONLY");
 
         /// Only populates the AuthorizedView's basic metadata. This includes:
         /// name, deletion_protection, etag.
-        pub const BASIC: &str = "BASIC";
+        pub const BASIC: ResponseView = ResponseView::new("BASIC");
 
         /// Populates every fields.
-        pub const FULL: &str = "FULL";
+        pub const FULL: ResponseView = ResponseView::new("FULL");
+    }
+
+    impl std::convert::From<std::string::String> for ResponseView {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The type of this AuthorizedView.
@@ -6476,6 +6939,10 @@ pub struct ColumnFamily {
 }
 
 impl ColumnFamily {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gc_rule][crate::model::ColumnFamily::gc_rule].
     pub fn set_gc_rule<T: std::convert::Into<std::option::Option<crate::model::GcRule>>>(
         mut self,
@@ -6513,6 +6980,10 @@ pub struct GcRule {
 }
 
 impl GcRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `rule`.
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::gc_rule::Rule>>>(
         mut self,
@@ -6644,6 +7115,10 @@ pub mod gc_rule {
     }
 
     impl Intersection {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [rules][crate::model::gc_rule::Intersection::rules].
         pub fn set_rules<T, V>(mut self, v: T) -> Self
         where
@@ -6674,6 +7149,10 @@ pub mod gc_rule {
     }
 
     impl Union {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [rules][crate::model::gc_rule::Union::rules].
         pub fn set_rules<T, V>(mut self, v: T) -> Self
         where
@@ -6735,6 +7214,10 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::encryption_info::EncryptionType>,
@@ -6775,13 +7258,12 @@ pub mod encryption_info {
 
     /// Possible encryption types for a resource.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6792,14 +7274,17 @@ pub mod encryption_info {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Encryption type was not specified, though data at rest remains encrypted.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// The data backing this resource is encrypted at rest with a key that is
         /// fully managed by Google. No key version or status will be populated.
         /// This is the default state.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// The data backing this resource is encrypted at rest with a key that is
         /// managed by the customer.
@@ -6808,7 +7293,14 @@ pub mod encryption_info {
         /// CMEK-protected backups are pinned to the key version that was in use at
         /// the time the backup was taken. This key version is populated but its
         /// status is not tracked and is reported as `UNKNOWN`.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6860,6 +7352,10 @@ pub struct Snapshot {
 }
 
 impl Snapshot {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Snapshot::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6925,13 +7421,12 @@ pub mod snapshot {
 
     /// Possible states of a snapshot.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6942,17 +7437,24 @@ pub mod snapshot {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The state of the snapshot could not be determined.
-        pub const STATE_NOT_KNOWN: &str = "STATE_NOT_KNOWN";
+        pub const STATE_NOT_KNOWN: State = State::new("STATE_NOT_KNOWN");
 
         /// The snapshot has been successfully created and can serve all requests.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
 
         /// The snapshot is currently being created, and may be destroyed if the
         /// creation process encounters an error. A snapshot may not be restored to a
         /// table while it is being created.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7042,6 +7544,10 @@ pub struct Backup {
 }
 
 impl Backup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Backup::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7142,13 +7648,12 @@ pub mod backup {
 
     /// Indicates the current state of the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7159,27 +7664,33 @@ pub mod backup {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The pending backup is still being created. Operations on the
         /// backup may fail with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The backup is complete and ready for use.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The type of the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackupType(std::string::String);
+    pub struct BackupType(std::borrow::Cow<'static, str>);
 
     impl BackupType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new BackupType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7190,20 +7701,27 @@ pub mod backup {
 
     /// Useful constants to work with [BackupType](BackupType)
     pub mod backup_type {
+        use super::BackupType;
 
         /// Not specified.
-        pub const BACKUP_TYPE_UNSPECIFIED: &str = "BACKUP_TYPE_UNSPECIFIED";
+        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new("BACKUP_TYPE_UNSPECIFIED");
 
         /// The default type for Cloud Bigtable managed backups. Supported for
         /// backups created in both HDD and SSD instances. Requires optimization when
         /// restored to a table in an SSD instance.
-        pub const STANDARD: &str = "STANDARD";
+        pub const STANDARD: BackupType = BackupType::new("STANDARD");
 
         /// A backup type with faster restore to SSD performance. Only supported for
         /// backups created in SSD instances. A new SSD table restored from a hot
         /// backup reaches production performance more quickly than a standard
         /// backup.
-        pub const HOT: &str = "HOT";
+        pub const HOT: BackupType = BackupType::new("HOT");
+    }
+
+    impl std::convert::From<std::string::String> for BackupType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7240,6 +7758,10 @@ pub struct BackupInfo {
 }
 
 impl BackupInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::BackupInfo::backup].
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -7318,6 +7840,10 @@ pub struct Type {
 }
 
 impl Type {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `kind`.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::r#type::Kind>>>(
         mut self,
@@ -7670,6 +8196,10 @@ pub mod r#type {
     }
 
     impl Bytes {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [encoding][crate::model::r#type::Bytes::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::bytes::Encoding>>,
@@ -7705,6 +8235,10 @@ pub mod r#type {
         }
 
         impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
@@ -7774,7 +8308,11 @@ pub mod r#type {
             #[non_exhaustive]
             pub struct Raw {}
 
-            impl Raw {}
+            impl Raw {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
 
             impl wkt::message::Message for Raw {
                 fn typename() -> &'static str {
@@ -7806,6 +8344,10 @@ pub mod r#type {
     }
 
     impl String {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [encoding][crate::model::r#type::String::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::string::Encoding>>,
@@ -7841,6 +8383,10 @@ pub mod r#type {
         }
 
         impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
@@ -7945,7 +8491,11 @@ pub mod r#type {
             #[non_exhaustive]
             pub struct Utf8Raw {}
 
-            impl Utf8Raw {}
+            impl Utf8Raw {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
 
             impl wkt::message::Message for Utf8Raw {
                 fn typename() -> &'static str {
@@ -7967,7 +8517,11 @@ pub mod r#type {
             #[non_exhaustive]
             pub struct Utf8Bytes {}
 
-            impl Utf8Bytes {}
+            impl Utf8Bytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
 
             impl wkt::message::Message for Utf8Bytes {
                 fn typename() -> &'static str {
@@ -8001,6 +8555,10 @@ pub mod r#type {
     }
 
     impl Int64 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [encoding][crate::model::r#type::Int64::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::int_64::Encoding>>,
@@ -8036,6 +8594,10 @@ pub mod r#type {
         }
 
         impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `encoding`.
             pub fn set_encoding<
                 T: std::convert::Into<
@@ -8117,6 +8679,10 @@ pub mod r#type {
             }
 
             impl BigEndianBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
                 pub fn set_bytes_type<
                     T: std::convert::Into<std::option::Option<crate::model::r#type::Bytes>>,
@@ -8156,7 +8722,11 @@ pub mod r#type {
     #[non_exhaustive]
     pub struct Bool {}
 
-    impl Bool {}
+    impl Bool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Bool {
         fn typename() -> &'static str {
@@ -8172,7 +8742,11 @@ pub mod r#type {
     #[non_exhaustive]
     pub struct Float32 {}
 
-    impl Float32 {}
+    impl Float32 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Float32 {
         fn typename() -> &'static str {
@@ -8188,7 +8762,11 @@ pub mod r#type {
     #[non_exhaustive]
     pub struct Float64 {}
 
-    impl Float64 {}
+    impl Float64 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Float64 {
         fn typename() -> &'static str {
@@ -8204,7 +8782,11 @@ pub mod r#type {
     #[non_exhaustive]
     pub struct Timestamp {}
 
-    impl Timestamp {}
+    impl Timestamp {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Timestamp {
         fn typename() -> &'static str {
@@ -8220,7 +8802,11 @@ pub mod r#type {
     #[non_exhaustive]
     pub struct Date {}
 
-    impl Date {}
+    impl Date {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Date {
         fn typename() -> &'static str {
@@ -8243,6 +8829,10 @@ pub mod r#type {
     }
 
     impl Struct {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [fields][crate::model::r#type::Struct::fields].
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
@@ -8284,6 +8874,10 @@ pub mod r#type {
         }
 
         impl Field {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [field_name][crate::model::r#type::r#struct::Field::field_name].
             pub fn set_field_name<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -8325,6 +8919,10 @@ pub mod r#type {
     }
 
     impl Array {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [element_type][crate::model::r#type::Array::element_type].
         pub fn set_element_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
@@ -8366,6 +8964,10 @@ pub mod r#type {
     }
 
     impl Map {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key_type][crate::model::r#type::Map::key_type].
         pub fn set_key_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
@@ -8423,6 +9025,10 @@ pub mod r#type {
     }
 
     impl Aggregate {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [input_type][crate::model::r#type::Aggregate::input_type].
         pub fn set_input_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
@@ -8603,7 +9209,11 @@ pub mod r#type {
         #[non_exhaustive]
         pub struct Sum {}
 
-        impl Sum {}
+        impl Sum {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for Sum {
             fn typename() -> &'static str {
@@ -8620,7 +9230,11 @@ pub mod r#type {
         #[non_exhaustive]
         pub struct Max {}
 
-        impl Max {}
+        impl Max {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for Max {
             fn typename() -> &'static str {
@@ -8637,7 +9251,11 @@ pub mod r#type {
         #[non_exhaustive]
         pub struct Min {}
 
-        impl Min {}
+        impl Min {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for Min {
             fn typename() -> &'static str {
@@ -8658,7 +9276,11 @@ pub mod r#type {
         #[non_exhaustive]
         pub struct HyperLogLogPlusPlusUniqueCount {}
 
-        impl HyperLogLogPlusPlusUniqueCount {}
+        impl HyperLogLogPlusPlusUniqueCount {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for HyperLogLogPlusPlusUniqueCount {
             fn typename() -> &'static str {
@@ -8718,13 +9340,12 @@ pub mod r#type {
 
 /// Storage media types for persisting Bigtable data.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct StorageType(std::string::String);
+pub struct StorageType(std::borrow::Cow<'static, str>);
 
 impl StorageType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new StorageType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -8735,26 +9356,32 @@ impl StorageType {
 
 /// Useful constants to work with [StorageType](StorageType)
 pub mod storage_type {
+    use super::StorageType;
 
     /// The user did not specify a storage type.
-    pub const STORAGE_TYPE_UNSPECIFIED: &str = "STORAGE_TYPE_UNSPECIFIED";
+    pub const STORAGE_TYPE_UNSPECIFIED: StorageType = StorageType::new("STORAGE_TYPE_UNSPECIFIED");
 
     /// Flash (SSD) storage should be used.
-    pub const SSD: &str = "SSD";
+    pub const SSD: StorageType = StorageType::new("SSD");
 
     /// Magnetic drive (HDD) storage should be used.
-    pub const HDD: &str = "HDD";
+    pub const HDD: StorageType = StorageType::new("HDD");
+}
+
+impl std::convert::From<std::string::String> for StorageType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Indicates the type of the restore source.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RestoreSourceType(std::string::String);
+pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
 
 impl RestoreSourceType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new RestoreSourceType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -8765,10 +9392,18 @@ impl RestoreSourceType {
 
 /// Useful constants to work with [RestoreSourceType](RestoreSourceType)
 pub mod restore_source_type {
+    use super::RestoreSourceType;
 
     /// No restore associated.
-    pub const RESTORE_SOURCE_TYPE_UNSPECIFIED: &str = "RESTORE_SOURCE_TYPE_UNSPECIFIED";
+    pub const RESTORE_SOURCE_TYPE_UNSPECIFIED: RestoreSourceType =
+        RestoreSourceType::new("RESTORE_SOURCE_TYPE_UNSPECIFIED");
 
     /// A backup was used as the source of the restore.
-    pub const BACKUP: &str = "BACKUP";
+    pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+}
+
+impl std::convert::From<std::string::String> for RestoreSourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

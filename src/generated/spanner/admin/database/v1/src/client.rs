@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::DatabaseAdmin] to make requests with.
+/// Implements a client for the Cloud Spanner API.
 ///
-/// `DatabaseAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `DatabaseAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DatabaseAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Cloud Spanner Database Admin API
 ///
@@ -36,6 +30,18 @@ use std::sync::Arc;
 /// * update the schema of pre-existing databases
 /// * create, delete, copy and list backups for a database
 /// * restore a database from an existing backup
+///
+/// # Configuration
+///
+/// `DatabaseAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `DatabaseAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `DatabaseAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct DatabaseAdmin {
     inner: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>,
@@ -134,7 +140,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::CreateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -152,7 +158,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::CreateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -283,7 +289,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::UpdateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -301,7 +307,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::UpdateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -392,7 +398,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::UpdateDatabaseDdlMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -410,7 +416,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::UpdateDatabaseDdlMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -586,7 +592,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -604,7 +610,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -702,7 +708,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -720,7 +726,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -867,7 +873,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::RestoreDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -885,7 +891,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::RestoreDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -989,6 +995,15 @@ impl DatabaseAdmin {
     ) -> crate::builders::database_admin::ListDatabaseRoles {
         crate::builders::database_admin::ListDatabaseRoles::new(self.inner.clone())
             .set_parent(parent.into())
+    }
+
+    /// Adds split points to specified tables, indexes of a database.
+    pub fn add_split_points(
+        &self,
+        database: impl Into<std::string::String>,
+    ) -> crate::builders::database_admin::AddSplitPoints {
+        crate::builders::database_admin::AddSplitPoints::new(self.inner.clone())
+            .set_database(database.into())
     }
 
     /// Creates a new backup schedule.

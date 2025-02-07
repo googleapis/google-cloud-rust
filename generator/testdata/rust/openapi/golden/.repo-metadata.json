@@ -1,0 +1,11 @@
+{
+    "api_id": "secretmanager.googleapis.com",
+    "api_shortname": "secretmanager",
+    "client_documentation": "https://docs.rs/secretmanager-golden-openapi/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Secret Manager API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

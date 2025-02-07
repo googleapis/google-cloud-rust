@@ -18,21 +18,27 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Locations] to make requests with.
+/// Implements a client for the Cloud Metadata API.
 ///
-/// `Locations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Locations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Locations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// An abstract interface that provides location-related information for
 /// a service. Service-specific metadata is provided through the
 /// [Location.metadata][google.cloud.location.Location.metadata] field.
 ///
 /// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
+///
+/// # Configuration
+///
+/// `Locations` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `Locations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Locations` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct Locations {
     inner: Arc<dyn crate::stubs::dynamic::Locations>,

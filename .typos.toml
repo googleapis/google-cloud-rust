@@ -27,9 +27,19 @@ extend-glob = ["*.mustache"]
 ser = "ser"
 
 [type.rust.extend-words]
+# This is correct, https://en.wikipedia.org/wiki/Comune
+comune = "comune"
+# A common spelling, but typos-cli prefers implementers
+implementors = "implementors"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/appengine/v1 has a typo, it needs to be fixed upstream.
+explictly = "explictly"
+# src/generated/cloud/accessapproval/v1, these are intentional and expected
+# to remain as spelled forever.
+OCE = "OCE"
+NAM = "NAM"
 # src/generated/bigtable/admin/v2, this may be a typo or not, but in any case,
 # it cannot be changed: it is the name of an IAM role.
 encrypter = "encrypter"
@@ -42,12 +52,34 @@ wilcards      = "wilcards"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
+# src/generated/cloud/bigquerydatatransfer/v1 has typos, they need to be fixed
+# upstream.
+desination = "desination"
+# src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
+Underlaying = "Underlaying"
+aplies      = "aplies"
+# src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
+enpdoint = "enpdoint"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 revison     = "revison"
 # src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
 corresponsing = "corresponsing"
+# src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
+coordindate  = "coordindate"
+trignometric = "trignometric"
+# src/generated/cloud/vision/v1 has a false positive.
+pn = "pn"
+# src/generated/datastore/admin/v1 has a typo, needs to be fixed upstream.
+Ths = "Ths"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
 maching = "maching"
+# src/generated/privacy/dlp/v2 has a typo, needs to be fixed upstream.
+similiarly = "similiarly"
+# src/generated/spanner/admin/database/v1 has a typo, needs to be fixed upstream.
+intital = "intital"
 # src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
+# src/generated/storagetransfer has typos, they need to be fixed upstream.
+ovewritten   = "ovewritten"
+combintation = "combintation"

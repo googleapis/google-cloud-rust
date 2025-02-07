@@ -12,29 +12,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod jws;
+
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::util::jws::{
-    JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
-};
-use crate::credentials::Result;
+use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use derive_builder::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+use jws::{JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
+use std::sync::Arc;
 use time::OffsetDateTime;
 
 const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let service_account_info =
+        serde_json::from_value::<ServiceAccountInfo>(js).map_err(CredentialError::non_retryable)?;
+    let token_provider = ServiceAccountTokenProvider {
+        service_account_info,
+    };
+
+    Ok(Credential {
+        inner: Arc::new(ServiceAccountCredential { token_provider }),
+    })
+}
+
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
-#[allow(dead_code)]
 #[derive(serde::Deserialize, Builder)]
 #[builder(setter(into))]
-pub(crate) struct ServiceAccountInfo {
+struct ServiceAccountInfo {
     client_email: String,
     private_key_id: String,
     private_key: String,
@@ -54,18 +66,16 @@ impl std::fmt::Debug for ServiceAccountInfo {
     }
 }
 
-#[allow(dead_code)] // TODO(#679) - implementation in progress
 #[derive(Debug)]
-pub(crate) struct ServiceAccountCredential<T>
+struct ServiceAccountCredential<T>
 where
     T: TokenProvider,
 {
     token_provider: T,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
-pub(crate) struct ServiceAccountTokenProvider {
+struct ServiceAccountTokenProvider {
     service_account_info: ServiceAccountInfo,
 }
 
@@ -115,10 +125,10 @@ impl TokenProvider for ServiceAccountTokenProvider {
 impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
-        let crypto_provider = CryptoProvider::get_default()
-            .ok_or_else(|| CredentialError::non_retryable("unable to get crypto provider"))?;
-
-        let key_provider = crypto_provider.key_provider;
+        let key_provider = CryptoProvider::get_default().map_or_else(
+            || rustls::crypto::aws_lc_rs::default_provider().key_provider,
+            |p| p.key_provider,
+        );
 
         let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
             .map_err(CredentialError::non_retryable)?
@@ -308,7 +318,6 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_pkcs1_key_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         service_account_info.private_key = generate_pkcs1_key();
         let token_provider = ServiceAccountTokenProvider {
@@ -344,14 +353,12 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         service_account_info.private_key = generate_pkcs8_key();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
         let token = token_provider.get_token().await?;
-        println!("DEBUG TOKEN: {}", token.token);
         let re =
             regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
@@ -377,7 +384,6 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
         service_account_info.private_key = pem_data.to_string();
@@ -392,7 +398,6 @@ mod test {
 
     #[test]
     fn signer_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let tp = ServiceAccountTokenProvider {
             service_account_info: get_mock_service_account(),
         };

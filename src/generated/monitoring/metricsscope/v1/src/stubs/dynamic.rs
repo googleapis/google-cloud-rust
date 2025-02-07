@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `MetricsScopes`.
+/// A dyn-compatible, crate-private version of [super::MetricsScopes].
 #[async_trait::async_trait]
 pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
     async fn get_metrics_scope(

@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Autokey] to make requests with.
+/// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
-/// `Autokey` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Autokey` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Autokey` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Provides interfaces for using [Cloud KMS
 /// Autokey](https://cloud.google.com/kms/help/autokey) to provision new
@@ -51,6 +45,18 @@ use std::sync::Arc;
 /// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
+///
+/// # Configuration
+///
+/// `Autokey` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `Autokey` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Autokey` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct Autokey {
     inner: Arc<dyn crate::stubs::dynamic::Autokey>,
@@ -136,7 +142,7 @@ impl Autokey {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_kms_v1::model;
+    /// # use google_cloud_kms_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::KeyHandle, model::CreateKeyHandleMetadata>
     /// ) -> Result<model::KeyHandle> {
@@ -154,7 +160,7 @@ impl Autokey {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_kms_v1::model;
+    /// # use google_cloud_kms_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::KeyHandle, model::CreateKeyHandleMetadata>
     /// ) -> Result<model::KeyHandle> {
@@ -295,15 +301,9 @@ impl Autokey {
     }
 }
 
-/// An implementation of [crate::stubs::AutokeyAdmin] to make requests with.
+/// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
-/// `AutokeyAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `AutokeyAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `AutokeyAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Provides interfaces for managing [Cloud KMS
 /// Autokey](https://cloud.google.com/kms/help/autokey) folder-level
@@ -315,6 +315,18 @@ impl Autokey {
 /// Managed Encryption Key (CMEK) use, on-demand.
 ///
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+///
+/// # Configuration
+///
+/// `AutokeyAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `AutokeyAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `AutokeyAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct AutokeyAdmin {
     inner: Arc<dyn crate::stubs::dynamic::AutokeyAdmin>,
@@ -473,15 +485,9 @@ impl AutokeyAdmin {
     }
 }
 
-/// An implementation of [crate::stubs::EkmService] to make requests with.
+/// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
-/// `EkmService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `EkmService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `EkmService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Google Cloud Key Management EKM Service
 ///
@@ -491,6 +497,18 @@ impl AutokeyAdmin {
 /// * [EkmConnection][google.cloud.kms.v1.EkmConnection]
 ///
 /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+///
+/// # Configuration
+///
+/// `EkmService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `EkmService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `EkmService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct EkmService {
     inner: Arc<dyn crate::stubs::dynamic::EkmService>,
@@ -693,15 +711,9 @@ impl EkmService {
     }
 }
 
-/// An implementation of [crate::stubs::KeyManagementService] to make requests with.
+/// Implements a client for the Cloud Key Management Service (KMS) API.
 ///
-/// `KeyManagementService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `KeyManagementService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `KeyManagementService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Google Cloud Key Management Service
 ///
@@ -720,6 +732,18 @@ impl EkmService {
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
 /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+///
+/// # Configuration
+///
+/// `KeyManagementService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `KeyManagementService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `KeyManagementService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct KeyManagementService {
     inner: Arc<dyn crate::stubs::dynamic::KeyManagementService>,

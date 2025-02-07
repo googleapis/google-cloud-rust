@@ -67,6 +67,10 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -121,6 +125,10 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -174,6 +182,10 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -214,6 +226,10 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -261,6 +277,10 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
@@ -302,6 +322,10 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -331,6 +355,10 @@ pub struct PauseJobRequest {
 }
 
 impl PauseJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::PauseJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -360,6 +388,10 @@ pub struct ResumeJobRequest {
 }
 
 impl ResumeJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ResumeJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -389,6 +421,10 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RunJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -557,6 +593,10 @@ pub struct Job {
 }
 
 impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Job::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -747,13 +787,12 @@ pub mod job {
 
     /// State of the job.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -764,23 +803,24 @@ pub mod job {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The job is executing normally.
-        pub const ENABLED: &str = "ENABLED";
+        pub const ENABLED: State = State::new("ENABLED");
 
         /// The job is paused by the user. It will not execute. A user can
         /// intentionally pause the job using
         /// [PauseJobRequest][google.cloud.scheduler.v1.PauseJobRequest].
         ///
         /// [google.cloud.scheduler.v1.PauseJobRequest]: crate::model::PauseJobRequest
-        pub const PAUSED: &str = "PAUSED";
+        pub const PAUSED: State = State::new("PAUSED");
 
         /// The job is disabled by the system due to error. The user
         /// cannot directly set a job to be disabled.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: State = State::new("DISABLED");
 
         /// The job state resulting from a failed
         /// [CloudScheduler.UpdateJob][google.cloud.scheduler.v1.CloudScheduler.UpdateJob]
@@ -789,7 +829,13 @@ pub mod job {
         /// until a successful response is received.
         ///
         /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
-        pub const UPDATE_FAILED: &str = "UPDATE_FAILED";
+        pub const UPDATE_FAILED: State = State::new("UPDATE_FAILED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Required.
@@ -900,6 +946,10 @@ pub struct RetryConfig {
 }
 
 impl RetryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [retry_count][crate::model::RetryConfig::retry_count].
     pub fn set_retry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retry_count = v.into();
@@ -1036,6 +1086,10 @@ pub struct HttpTarget {
 }
 
 impl HttpTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::HttpTarget::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -1269,6 +1323,10 @@ pub struct AppEngineHttpTarget {
 }
 
 impl AppEngineHttpTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [http_method][crate::model::AppEngineHttpTarget::http_method].
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
@@ -1354,6 +1412,10 @@ pub struct PubsubTarget {
 }
 
 impl PubsubTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [topic_name][crate::model::PubsubTarget::topic_name].
     pub fn set_topic_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic_name = v.into();
@@ -1502,6 +1564,10 @@ pub struct AppEngineRouting {
 }
 
 impl AppEngineRouting {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::AppEngineRouting::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -1557,6 +1623,10 @@ pub struct OAuthToken {
 }
 
 impl OAuthToken {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_email][crate::model::OAuthToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1604,6 +1674,10 @@ pub struct OidcToken {
 }
 
 impl OidcToken {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_email][crate::model::OidcToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1628,13 +1702,12 @@ impl wkt::message::Message for OidcToken {
 
 /// The HTTP method used to execute the job.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpMethod(std::string::String);
+pub struct HttpMethod(std::borrow::Cow<'static, str>);
 
 impl HttpMethod {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new HttpMethod instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1645,28 +1718,35 @@ impl HttpMethod {
 
 /// Useful constants to work with [HttpMethod](HttpMethod)
 pub mod http_method {
+    use super::HttpMethod;
 
     /// HTTP method unspecified. Defaults to POST.
-    pub const HTTP_METHOD_UNSPECIFIED: &str = "HTTP_METHOD_UNSPECIFIED";
+    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new("HTTP_METHOD_UNSPECIFIED");
 
     /// HTTP POST
-    pub const POST: &str = "POST";
+    pub const POST: HttpMethod = HttpMethod::new("POST");
 
     /// HTTP GET
-    pub const GET: &str = "GET";
+    pub const GET: HttpMethod = HttpMethod::new("GET");
 
     /// HTTP HEAD
-    pub const HEAD: &str = "HEAD";
+    pub const HEAD: HttpMethod = HttpMethod::new("HEAD");
 
     /// HTTP PUT
-    pub const PUT: &str = "PUT";
+    pub const PUT: HttpMethod = HttpMethod::new("PUT");
 
     /// HTTP DELETE
-    pub const DELETE: &str = "DELETE";
+    pub const DELETE: HttpMethod = HttpMethod::new("DELETE");
 
     /// HTTP PATCH
-    pub const PATCH: &str = "PATCH";
+    pub const PATCH: HttpMethod = HttpMethod::new("PATCH");
 
     /// HTTP OPTIONS
-    pub const OPTIONS: &str = "OPTIONS";
+    pub const OPTIONS: HttpMethod = HttpMethod::new("OPTIONS");
+}
+
+impl std::convert::From<std::string::String> for HttpMethod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

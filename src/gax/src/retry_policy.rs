@@ -218,7 +218,7 @@ impl RetryPolicy for Aip194Strict {
             if !idempotent {
                 return LoopState::Permanent(error);
             }
-            return if http.status_code() == reqwest::StatusCode::SERVICE_UNAVAILABLE {
+            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)

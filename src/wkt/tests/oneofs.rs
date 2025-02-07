@@ -79,7 +79,7 @@ mod test {
         assert_eq!(got, want);
 
         let input = MessageWithOneOf::default().set_mixed(Mixed::DurationValue(
-            gcp_sdk_wkt::Duration::clamp(123, 456_000_000),
+            google_cloud_wkt::Duration::clamp(123, 456_000_000),
         ));
         let got = serde_json::to_value(&input)?;
         let want = json!({
@@ -159,7 +159,7 @@ mod test {
     pub enum Mixed {
         AnotherMessageValue(Message),
         StringValue(String),
-        DurationValue(gcp_sdk_wkt::Duration),
+        DurationValue(google_cloud_wkt::Duration),
     }
 
     #[serde_with::serde_as]

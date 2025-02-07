@@ -18,18 +18,24 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::WebRiskService] to make requests with.
+/// Implements a client for the Web Risk API.
 ///
-/// `WebRiskService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Web Risk API defines an interface to detect malicious URLs on your
+/// website and in client applications.
+///
+/// # Configuration
+///
+/// `WebRiskService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `WebRiskService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `WebRiskService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Web Risk API defines an interface to detect malicious URLs on your
-/// website and in client applications.
 #[derive(Clone, Debug)]
 pub struct WebRiskService {
     inner: Arc<dyn crate::stubs::dynamic::WebRiskService>,
@@ -160,7 +166,7 @@ impl WebRiskService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_webrisk_v1::model;
+    /// # use google_cloud_webrisk_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Submission, model::SubmitUriMetadata>
     /// ) -> Result<model::Submission> {
@@ -178,7 +184,7 @@ impl WebRiskService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_webrisk_v1::model;
+    /// # use google_cloud_webrisk_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Submission, model::SubmitUriMetadata>
     /// ) -> Result<model::Submission> {

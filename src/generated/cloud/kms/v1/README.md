@@ -14,11 +14,11 @@ service, for direct use by other cloud resources and applications.
 
 The main types to work with this crate are the clients:
 
-* [Autokey](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.Autokey.html)
-* [AutokeyAdmin](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.AutokeyAdmin.html)
-* [EkmService](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.EkmService.html)
-* [KeyManagementService](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.KeyManagementService.html)
+* [Autokey](https://docs.rs/google-cloud-kms-v1/latest/google_cloud_kms_v1/client/struct.Autokey.html)
+* [AutokeyAdmin](https://docs.rs/google-cloud-kms-v1/latest/google_cloud_kms_v1/client/struct.AutokeyAdmin.html)
+* [EkmService](https://docs.rs/google-cloud-kms-v1/latest/google_cloud_kms_v1/client/struct.EkmService.html)
+* [KeyManagementService](https://docs.rs/google-cloud-kms-v1/latest/google_cloud_kms_v1/client/struct.KeyManagementService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-kms-v1/latest/gcp-sdk-kms-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-kms-v1/latest/google-cloud-kms-v1)

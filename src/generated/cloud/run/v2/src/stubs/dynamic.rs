@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `Builds`.
+/// A dyn-compatible, crate-private version of [super::Builds].
 #[async_trait::async_trait]
 pub trait Builds: std::fmt::Debug + Send + Sync {
     async fn submit_build(
@@ -99,7 +99,7 @@ impl<T: crate::stubs::Builds> Builds for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Executions`.
+/// A dyn-compatible, crate-private version of [super::Executions].
 #[async_trait::async_trait]
 pub trait Executions: std::fmt::Debug + Send + Sync {
     async fn get_execution(
@@ -251,7 +251,7 @@ impl<T: crate::stubs::Executions> Executions for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Jobs`.
+/// A dyn-compatible, crate-private version of [super::Jobs].
 #[async_trait::async_trait]
 pub trait Jobs: std::fmt::Debug + Send + Sync {
     async fn create_job(
@@ -478,7 +478,7 @@ impl<T: crate::stubs::Jobs> Jobs for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Revisions`.
+/// A dyn-compatible, crate-private version of [super::Revisions].
 #[async_trait::async_trait]
 pub trait Revisions: std::fmt::Debug + Send + Sync {
     async fn get_revision(
@@ -615,7 +615,7 @@ impl<T: crate::stubs::Revisions> Revisions for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Services`.
+/// A dyn-compatible, crate-private version of [super::Services].
 #[async_trait::async_trait]
 pub trait Services: std::fmt::Debug + Send + Sync {
     async fn create_service(
@@ -827,7 +827,7 @@ impl<T: crate::stubs::Services> Services for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `Tasks`.
+/// A dyn-compatible, crate-private version of [super::Tasks].
 #[async_trait::async_trait]
 pub trait Tasks: std::fmt::Debug + Send + Sync {
     async fn get_task(

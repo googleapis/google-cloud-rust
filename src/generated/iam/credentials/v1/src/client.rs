@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::IAMCredentials] to make requests with.
+/// Implements a client for the IAM Service Account Credentials API.
 ///
-/// `IAMCredentials` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `IAMCredentials` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `IAMCredentials` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// A service account is a special type of Google account that belongs to your
 /// application or a virtual machine (VM), instead of to an individual end user.
@@ -37,6 +31,18 @@ use std::sync::Arc;
 /// of the service account. Supported credential types include OAuth 2.0 access
 /// tokens, OpenID Connect ID tokens, self-signed JSON Web Tokens (JWTs), and
 /// more.
+///
+/// # Configuration
+///
+/// `IAMCredentials` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `IAMCredentials` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `IAMCredentials` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials {
     inner: Arc<dyn crate::stubs::dynamic::IAMCredentials>,

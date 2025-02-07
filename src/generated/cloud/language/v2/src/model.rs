@@ -58,6 +58,10 @@ pub struct Document {
 }
 
 impl Document {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Document::type].
     pub fn set_type<T: std::convert::Into<crate::model::document::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -138,13 +142,12 @@ pub mod document {
 
     /// The document types enum.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -155,15 +158,22 @@ pub mod document {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// The content type is not specified.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// Plain text
-        pub const PLAIN_TEXT: &str = "PLAIN_TEXT";
+        pub const PLAIN_TEXT: Type = Type::new("PLAIN_TEXT");
 
         /// HTML
-        pub const HTML: &str = "HTML";
+        pub const HTML: Type = Type::new("HTML");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The source of the document: a string containing the content or a
@@ -203,6 +213,10 @@ pub struct Sentence {
 }
 
 impl Sentence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::Sentence::text].
     pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
         mut self,
@@ -265,6 +279,10 @@ pub struct Entity {
 }
 
 impl Entity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Entity::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -325,13 +343,12 @@ pub mod entity {
     /// below lists the associated fields for entities that have different
     /// metadata.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -342,30 +359,31 @@ pub mod entity {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Unknown
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: Type = Type::new("UNKNOWN");
 
         /// Person
-        pub const PERSON: &str = "PERSON";
+        pub const PERSON: Type = Type::new("PERSON");
 
         /// Location
-        pub const LOCATION: &str = "LOCATION";
+        pub const LOCATION: Type = Type::new("LOCATION");
 
         /// Organization
-        pub const ORGANIZATION: &str = "ORGANIZATION";
+        pub const ORGANIZATION: Type = Type::new("ORGANIZATION");
 
         /// Event
-        pub const EVENT: &str = "EVENT";
+        pub const EVENT: Type = Type::new("EVENT");
 
         /// Artwork
-        pub const WORK_OF_ART: &str = "WORK_OF_ART";
+        pub const WORK_OF_ART: Type = Type::new("WORK_OF_ART");
 
         /// Consumer product
-        pub const CONSUMER_GOOD: &str = "CONSUMER_GOOD";
+        pub const CONSUMER_GOOD: Type = Type::new("CONSUMER_GOOD");
 
         /// Other types of entities
-        pub const OTHER: &str = "OTHER";
+        pub const OTHER: Type = Type::new("OTHER");
 
         /// Phone number
         ///
@@ -378,7 +396,7 @@ pub mod entity {
         /// * `area_code` - region or area code, if detected
         /// * `extension` - phone extension (to be dialed after connection), if
         ///   detected
-        pub const PHONE_NUMBER: &str = "PHONE_NUMBER";
+        pub const PHONE_NUMBER: Type = Type::new("PHONE_NUMBER");
 
         /// Address
         ///
@@ -395,7 +413,7 @@ pub mod entity {
         ///   detected
         /// * `sublocality` - used in Asian addresses to demark a district within a
         ///   city, if detected
-        pub const ADDRESS: &str = "ADDRESS";
+        pub const ADDRESS: Type = Type::new("ADDRESS");
 
         /// Date
         ///
@@ -404,17 +422,23 @@ pub mod entity {
         /// * `year` - four digit year, if detected
         /// * `month` - two digit month number, if detected
         /// * `day` - two digit day number, if detected
-        pub const DATE: &str = "DATE";
+        pub const DATE: Type = Type::new("DATE");
 
         /// Number
         ///
         /// The metadata is the number itself.
-        pub const NUMBER: &str = "NUMBER";
+        pub const NUMBER: Type = Type::new("NUMBER");
 
         /// Price
         ///
         /// The metadata identifies the `value` and `currency`.
-        pub const PRICE: &str = "PRICE";
+        pub const PRICE: Type = Type::new("PRICE");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -436,6 +460,10 @@ pub struct Sentiment {
 }
 
 impl Sentiment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [magnitude][crate::model::Sentiment::magnitude].
     pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.magnitude = v.into();
@@ -485,6 +513,10 @@ pub struct EntityMention {
 }
 
 impl EntityMention {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::EntityMention::text].
     pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
         mut self,
@@ -532,13 +564,12 @@ pub mod entity_mention {
 
     /// The supported types of mentions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -549,15 +580,22 @@ pub mod entity_mention {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Unknown
-        pub const TYPE_UNKNOWN: &str = "TYPE_UNKNOWN";
+        pub const TYPE_UNKNOWN: Type = Type::new("TYPE_UNKNOWN");
 
         /// Proper name
-        pub const PROPER: &str = "PROPER";
+        pub const PROPER: Type = Type::new("PROPER");
 
         /// Common noun (or noun compound)
-        pub const COMMON: &str = "COMMON";
+        pub const COMMON: Type = Type::new("COMMON");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -581,6 +619,10 @@ pub struct TextSpan {
 }
 
 impl TextSpan {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content][crate::model::TextSpan::content].
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
@@ -621,6 +663,10 @@ pub struct ClassificationCategory {
 }
 
 impl ClassificationCategory {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ClassificationCategory::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -661,6 +707,10 @@ pub struct AnalyzeSentimentRequest {
 }
 
 impl AnalyzeSentimentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -713,6 +763,10 @@ pub struct AnalyzeSentimentResponse {
 }
 
 impl AnalyzeSentimentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
     pub fn set_document_sentiment<
         T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
@@ -769,6 +823,10 @@ pub struct AnalyzeEntitiesRequest {
 }
 
 impl AnalyzeEntitiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -817,6 +875,10 @@ pub struct AnalyzeEntitiesResponse {
 }
 
 impl AnalyzeEntitiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::AnalyzeEntitiesResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -859,6 +921,10 @@ pub struct ClassifyTextRequest {
 }
 
 impl ClassifyTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -898,6 +964,10 @@ pub struct ClassifyTextResponse {
 }
 
 impl ClassifyTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::ClassifyTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -943,6 +1013,10 @@ pub struct ModerateTextRequest {
 }
 
 impl ModerateTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::ModerateTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -977,13 +1051,12 @@ pub mod moderate_text_request {
 
     /// The model version to use for ModerateText.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelVersion(std::string::String);
+    pub struct ModelVersion(std::borrow::Cow<'static, str>);
 
     impl ModelVersion {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ModelVersion instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -994,19 +1067,27 @@ pub mod moderate_text_request {
 
     /// Useful constants to work with [ModelVersion](ModelVersion)
     pub mod model_version {
+        use super::ModelVersion;
 
         /// The default model version.
-        pub const MODEL_VERSION_UNSPECIFIED: &str = "MODEL_VERSION_UNSPECIFIED";
+        pub const MODEL_VERSION_UNSPECIFIED: ModelVersion =
+            ModelVersion::new("MODEL_VERSION_UNSPECIFIED");
 
         /// Use the v1 model, this model is used by default when not provided.
         /// The v1 model only returns probability (confidence) score for each
         /// category.
-        pub const MODEL_VERSION_1: &str = "MODEL_VERSION_1";
+        pub const MODEL_VERSION_1: ModelVersion = ModelVersion::new("MODEL_VERSION_1");
 
         /// Use the v2 model.
         /// The v2 model only returns probability (confidence) score for each
         /// category, and returns severity score for a subset of the categories.
-        pub const MODEL_VERSION_2: &str = "MODEL_VERSION_2";
+        pub const MODEL_VERSION_2: ModelVersion = ModelVersion::new("MODEL_VERSION_2");
+    }
+
+    impl std::convert::From<std::string::String> for ModelVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1033,6 +1114,10 @@ pub struct ModerateTextResponse {
 }
 
 impl ModerateTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::ModerateTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1083,6 +1168,10 @@ pub struct AnnotateTextRequest {
 }
 
 impl AnnotateTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -1145,6 +1234,10 @@ pub mod annotate_text_request {
     }
 
     impl Features {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [extract_entities][crate::model::annotate_text_request::Features::extract_entities].
         pub fn set_extract_entities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.extract_entities = v.into();
@@ -1228,6 +1321,10 @@ pub struct AnnotateTextResponse {
 }
 
 impl AnnotateTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
     pub fn set_document_sentiment<
         T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
@@ -1308,13 +1405,12 @@ impl wkt::message::Message for AnnotateTextResponse {
 /// languages that natively use different text encodings may access offsets
 /// differently.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncodingType(std::string::String);
+pub struct EncodingType(std::borrow::Cow<'static, str>);
 
 impl EncodingType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new EncodingType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1325,23 +1421,30 @@ impl EncodingType {
 
 /// Useful constants to work with [EncodingType](EncodingType)
 pub mod encoding_type {
+    use super::EncodingType;
 
     /// If `EncodingType` is not specified, encoding-dependent information (such as
     /// `begin_offset`) will be set at `-1`.
-    pub const NONE: &str = "NONE";
+    pub const NONE: EncodingType = EncodingType::new("NONE");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-8 encoding of the input. C++ and Go are examples of languages
     /// that use this encoding natively.
-    pub const UTF8: &str = "UTF8";
+    pub const UTF8: EncodingType = EncodingType::new("UTF8");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-16 encoding of the input. Java and JavaScript are examples of
     /// languages that use this encoding natively.
-    pub const UTF16: &str = "UTF16";
+    pub const UTF16: EncodingType = EncodingType::new("UTF16");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-32 encoding of the input. Python is an example of a language
     /// that uses this encoding natively.
-    pub const UTF32: &str = "UTF32";
+    pub const UTF32: EncodingType = EncodingType::new("UTF32");
+}
+
+impl std::convert::From<std::string::String> for EncodingType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

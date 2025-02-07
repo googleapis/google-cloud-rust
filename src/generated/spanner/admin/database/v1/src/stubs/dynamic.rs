@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `DatabaseAdmin`.
+/// A dyn-compatible, crate-private version of [super::DatabaseAdmin].
 #[async_trait::async_trait]
 pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     async fn list_databases(
@@ -138,6 +138,12 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         req: crate::model::ListDatabaseRolesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListDatabaseRolesResponse>;
+
+    async fn add_split_points(
+        &self,
+        req: crate::model::AddSplitPointsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::AddSplitPointsResponse>;
 
     async fn create_backup_schedule(
         &self,
@@ -385,6 +391,15 @@ impl<T: crate::stubs::DatabaseAdmin> DatabaseAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListDatabaseRolesResponse> {
         T::list_database_roles(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_split_points(
+        &self,
+        req: crate::model::AddSplitPointsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::AddSplitPointsResponse> {
+        T::add_split_points(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
