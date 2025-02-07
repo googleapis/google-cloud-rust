@@ -33,7 +33,7 @@ func TestDart_AnnotateModel(t *testing.T) {
 	if diff := cmp.Diff("google_cloud_test", codec.PackageName); diff != "" {
 		t.Errorf("mismatch in Codec.PackageName (-want, +got)\n:%s", diff)
 	}
-	if diff := cmp.Diff("test", codec.NameToSnake); diff != "" {
-		t.Errorf("mismatch in Codec.NameToSnake (-want, +got)\n:%s", diff)
+	if diff := cmp.Diff("test", codec.MainFileName); diff != "" {
+		t.Errorf("mismatch in Codec.MainFileName (-want, +got)\n:%s", diff)
 	}
 }

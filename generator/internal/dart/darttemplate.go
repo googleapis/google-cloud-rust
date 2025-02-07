@@ -28,7 +28,7 @@ type modelAnnotations struct {
 	// The Dart package name (e.g. google_cloud_secretmanager).
 	PackageName string
 	// Name of the API in snake_format (e.g. secretmanager).
-	NameToSnake       string
+	MainFileName      string
 	SourcePackageName string
 	HasServices       bool
 	CopyrightYear     string
@@ -55,9 +55,8 @@ type messageAnnotation struct {
 }
 
 type methodAnnotation struct {
+	// The method name using Dart naming conventions.
 	Name              string
-	NameToPascal      string
-	NameToCamelCase   string
 	DocLines          []string
 	PathParams        []*api.Field
 	QueryParams       []*api.Field
@@ -144,7 +143,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 	}
 	ann := &modelAnnotations{
 		PackageName:   modelPackageName(model, packageNameOverride),
-		NameToSnake:   strcase.ToSnake(model.Name),
+		MainFileName:  strcase.ToSnake(model.Name),
 		HasServices:   len(model.Services) > 0,
 		CopyrightYear: generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
@@ -210,9 +209,7 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	annotation := &methodAnnotation{
 		BodyAccessor:      bodyAccessor(m),
 		DocLines:          formatDocComments(m.Documentation, state),
-		Name:              strcase.ToCamel(m.Name),
-		NameToPascal:      toPascal(m.Name),
-		NameToCamelCase:   strcase.ToLowerCamel(m.Name),
+		Name:              strcase.ToLowerCamel(m.Name),
 		PathParams:        language.PathParams(m, state),
 		QueryParams:       language.QueryParams(m, state),
 		ServiceStructName: s.Name,

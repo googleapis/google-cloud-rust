@@ -42,7 +42,7 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 
 func generatedFiles(model *api.API) []language.GeneratedFile {
 	codec := model.Codec.(*modelAnnotations)
-	snakeName := codec.NameToSnake
+	snakeName := codec.MainFileName
 
 	files := language.WalkTemplatesDir(dartTemplates, "templates")
 
