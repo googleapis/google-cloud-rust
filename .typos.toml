@@ -58,6 +58,8 @@ desination = "desination"
 # src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
 Underlaying = "Underlaying"
 aplies      = "aplies"
+# src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
+enpdoint = "enpdoint"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 revison     = "revison"
