@@ -127,6 +127,12 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 }
 
 func determineInputFiles(source string, options map[string]string) ([]string, error) {
+	if _, ok := options["include-list"]; ok {
+		if _, ok := options["exclude-list"]; ok {
+			return nil, fmt.Errorf("cannot use both `exclude-list` and `include-list` in the source options")
+		}
+	}
+
 	// `config.Source` is relative to the `googleapis-root` (or `extra-protos-root`) if
 	// that is set. It should always be a directory and by default all the
 	// the files in that directory are used.
@@ -185,9 +191,7 @@ func applyIncludeList(files map[string]bool, sourceDirectory string, options map
 		return
 	}
 	// Ignore any discovered paths, only the paths from the include list apply.
-	for k := range files {
-		files[k] = false
-	}
+	clear(files)
 	for _, p := range strings.Split(list, ",") {
 		files[path.Join(sourceDirectory, p)] = true
 	}
@@ -199,7 +203,7 @@ func applyExcludeList(files map[string]bool, sourceDirectory string, options map
 		return
 	}
 	for _, p := range strings.Split(list, ",") {
-		files[path.Join(sourceDirectory, p)] = false
+		delete(files, path.Join(sourceDirectory, p))
 	}
 }
 
