@@ -1,0 +1,11 @@
+{
+    "api_id": "cloudbilling.googleapis.com",
+    "api_shortname": "cloudbilling",
+    "client_documentation": "https://docs.rs/google-cloud-billing-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Billing API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
