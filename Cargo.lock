@@ -712,10 +712,6 @@ name = "gcp-sdk-base"
 version = "0.0.0"
 
 [[package]]
-name = "gcp-sdk-common"
-version = "0.0.0"
-
-[[package]]
 name = "gcp-sdk-gax"
 version = "0.2.0"
 dependencies = [
@@ -1073,6 +1069,16 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tracing",
+]
+
+[[package]]
+name = "google-cloud-common"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
 ]
 
 [[package]]
