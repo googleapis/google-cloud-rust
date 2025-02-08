@@ -77,3 +77,7 @@ pub(crate) mod info {
 }
 
 {{/Codec.HasServices}}
+{{#Codec.HasLROs}}
+pub use lro::Poller;
+pub use lro::PollingResult;
+{{/Codec.HasLROs}}
