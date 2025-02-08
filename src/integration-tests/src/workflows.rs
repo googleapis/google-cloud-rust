@@ -15,9 +15,9 @@
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::{error::Error, options::RequestOptionsBuilder};
-use wf::Poller;
 use rand::{distr::Alphanumeric, Rng};
 use std::time::Duration;
+use wf::Poller;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
