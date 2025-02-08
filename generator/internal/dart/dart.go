@@ -18,6 +18,7 @@ import (
 	"embed"
 	"fmt"
 	"log/slog"
+	"path/filepath"
 	"strings"
 	"unicode"
 
@@ -35,11 +36,27 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 		return err
 	}
 	provider := templatesProvider()
-	return language.GenerateFromRoot(outdir, model, provider, generatedFiles())
+	// TODO(#1034): Walk the generated files; dartfmt Dart ones.
+	return language.GenerateFromRoot(outdir, model, provider, generatedFiles(model))
 }
 
-func generatedFiles() []language.GeneratedFile {
-	return language.WalkTemplatesDir(dartTemplates, "templates")
+func generatedFiles(model *api.API) []language.GeneratedFile {
+	codec := model.Codec.(*modelAnnotations)
+	snakeName := codec.MainFileName
+
+	files := language.WalkTemplatesDir(dartTemplates, "templates")
+
+	// Look for and replace 'main.dart' with '{servicename}.dart'
+	for index, fileInfo := range files {
+		if filepath.Base(fileInfo.TemplatePath) == "main.dart.mustache" {
+			outDir := filepath.Dir(fileInfo.OutputPath)
+			fileInfo.OutputPath = filepath.Join(outDir, snakeName+".dart")
+
+			files[index] = fileInfo
+		}
+	}
+
+	return files
 }
 
 func loadWellKnownTypes(s *api.APIState) {
@@ -200,14 +217,17 @@ func validatePackageName(newPackage, elementName, sourceSpecificationPackageName
 		sourceSpecificationPackageName, newPackage, elementName)
 }
 
-func validateModel(api *api.API, sourceSpecificationPackageName string) error {
+func validateModel(api *api.API) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixes will register those after the
 	// source package.
+	sourceSpecificationPackageName := ""
 	if len(api.Services) > 0 {
 		sourceSpecificationPackageName = api.Services[0].Package
 	} else if len(api.Messages) > 0 {
 		sourceSpecificationPackageName = api.Messages[0].Package
+	} else if len(api.Enums) > 0 {
+		sourceSpecificationPackageName = api.Enums[0].Package
 	}
 	for _, s := range api.Services {
 		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {

@@ -19,12 +19,23 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
 func TestDart_GeneratedFiles(t *testing.T) {
-	files := generatedFiles()
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+	files := generatedFiles(model)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles()")
+	}
+
+	// Validate that main.dart was replaced with {servicename}.dart.
+	for _, fileInfo := range files {
+		if filepath.Base(fileInfo.OutputPath) == "main.dart" {
+			t.Errorf("expected the main.dart template to be generated as {servicename}.dart")
+		}
 	}
 }
 

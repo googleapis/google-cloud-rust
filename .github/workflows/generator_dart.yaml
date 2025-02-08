@@ -50,6 +50,6 @@ jobs:
       - name: "generated: pubspec.yaml"
         run: cat protobuf/golden/secretmanager/pubspec.yaml
         working-directory: generator/testdata/dart
-      - name: "generated: client.dart"
-        run: cat protobuf/golden/secretmanager/client.dart
+      - name: "generated: secretmanager.dart"
+        run: cat protobuf/golden/secretmanager/secretmanager.dart
         working-directory: generator/testdata/dart
