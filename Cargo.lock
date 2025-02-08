@@ -2386,7 +2386,6 @@ dependencies = [
  "gcp-sdk-longrunning",
  "google-cloud-iam-v1",
  "google-cloud-location",
- "google-cloud-lro",
  "google-cloud-secretmanager-v1",
  "google-cloud-wkt",
  "google-cloud-workflows-v1",

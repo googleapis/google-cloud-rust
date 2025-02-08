@@ -31,7 +31,6 @@ gax                = { path = "../../src/gax", package = "gcp-sdk-gax" }
 iam_v1             = { path = "../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
 loc                = { path = "../../src/generated/cloud/location", package = "google-cloud-location" }
 longrunning        = { path = "../../src/generated/longrunning", package = "gcp-sdk-longrunning" }
-lro                = { path = "../../src/lro", package = "google-cloud-lro" }
 rand               = "0.9"
 serde_json         = "1"
 tokio              = { version = "1.42", features = ["full", "macros"] }
