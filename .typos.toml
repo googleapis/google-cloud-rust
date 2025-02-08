@@ -77,6 +77,8 @@ pn = "pn"
 Ths = "Ths"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
 maching = "maching"
+# src/generated/grafeas has (maybe) typos. These are not fixable:
+intoto = "intoto" # should be "in_toto" :shrug:
 # src/generated/privacy/dlp/v2 has a typo, needs to be fixed upstream.
 similiarly = "similiarly"
 # src/generated/spanner/admin/database/v1 has a typo, needs to be fixed upstream.
@@ -86,3 +88,10 @@ requestor = "requestor"
 # src/generated/storagetransfer has typos, they need to be fixed upstream.
 ovewritten   = "ovewritten"
 combintation = "combintation"
+
+# These are not good ideas for "extend-words" because they will catch too many
+# true positives
+[type.rust]
+extend-ignore-re = [
+  "openpgp4fpr", # ignoring `fpr` seems ill-advised  
+]

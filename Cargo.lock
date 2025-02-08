@@ -1315,6 +1315,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-grafeas-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-iam-admin-v1"
 version = "0.2.0"
 dependencies = [
