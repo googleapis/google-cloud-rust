@@ -222,11 +222,19 @@ func newCompilerVersion() *pluginpb.Version {
 
 const (
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#FileDescriptorProto
-	fileDescriptorMessageType = 4
-	fileDescriptorEnumType    = 5
-	fileDescriptorService     = 6
-	fileDescriptorExtension   = 7
-	fileDescriptorOptions     = 8
+	fileDescriptorName             = 1
+	fileDescriptorPackage          = 2
+	fileDescriptorDependency       = 3
+	fileDescriptorMessageType      = 4
+	fileDescriptorEnumType         = 5
+	fileDescriptorService          = 6
+	fileDescriptorExtension        = 7
+	fileDescriptorOptions          = 8
+	fileDescriptorSourceCodeInfo   = 9
+	fileDescriptorPublicDependency = 10
+	fileDescriptorWeakDependency   = 11
+	fileDescriptorSyntax           = 12
+	fileDescriptorEdition          = 14
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
 	serviceDescriptorProtoMethod = 2
@@ -349,11 +357,14 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
 				addServiceDocumentation(state, p[2:], loc.GetLeadingComments(), sFQN)
-			case fileDescriptorExtension, fileDescriptorOptions:
+			case fileDescriptorName, fileDescriptorPackage, fileDescriptorDependency,
+				fileDescriptorExtension, fileDescriptorOptions, fileDescriptorSourceCodeInfo,
+				fileDescriptorPublicDependency, fileDescriptorWeakDependency,
+				fileDescriptorSyntax, fileDescriptorEdition:
 				// We ignore this type of documentation because it produces no
 				// output in the generated code.
 			default:
-				slog.Warn("dropped unknown documentation type", "loc", p, "docs", loc.GetLeadingComments())
+				slog.Warn("dropped unknown documentation type", "loc", p, "docs", loc)
 			}
 		}
 		result.Services = append(result.Services, fileServices...)
