@@ -16,7 +16,6 @@ package dart
 
 import (
 	"embed"
-	"fmt"
 	"log/slog"
 	"path/filepath"
 	"strings"
@@ -198,53 +197,6 @@ func modelPackageName(api *api.API, packageNameOverride string) string {
 		return packageNameOverride
 	}
 	return "google_cloud_" + strcase.ToSnake(api.Name)
-}
-
-func validatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
-	if sourceSpecificationPackageName == newPackage {
-		return nil
-	}
-	// Special exceptions for mixin services
-	if newPackage == "google.cloud.location" ||
-		newPackage == "google.iam.v1" ||
-		newPackage == "google.longrunning" {
-		return nil
-	}
-	if sourceSpecificationPackageName == newPackage {
-		return nil
-	}
-	return fmt.Errorf("dart codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
-		sourceSpecificationPackageName, newPackage, elementName)
-}
-
-func validateModel(api *api.API) error {
-	// Set the source package. We should always take the first service registered
-	// as the source package. Services with mixes will register those after the
-	// source package.
-	sourceSpecificationPackageName := ""
-	if len(api.Services) > 0 {
-		sourceSpecificationPackageName = api.Services[0].Package
-	} else if len(api.Messages) > 0 {
-		sourceSpecificationPackageName = api.Messages[0].Package
-	} else if len(api.Enums) > 0 {
-		sourceSpecificationPackageName = api.Enums[0].Package
-	}
-	for _, s := range api.Services {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	for _, s := range api.Messages {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	for _, s := range api.Enums {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func generateMethod(m *api.Method) bool {

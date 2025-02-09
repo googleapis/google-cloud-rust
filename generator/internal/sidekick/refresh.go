@@ -72,6 +72,10 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err := api.CrossReference(model); err != nil {
 		return err
 	}
+	// Verify all the services, messages and enums are in the same package.
+	if err := api.Validate(model); err != nil {
+		return err
+	}
 	if title, ok := config.Source["title-override"]; ok {
 		model.Title = title
 	}

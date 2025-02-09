@@ -129,7 +129,6 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			// TODO(#1034): Handle updating Dart imports.
 		}
 	}
-	validateModel(model)
 
 	loadWellKnownTypes(model.State)
 	for _, e := range model.State.EnumByID {

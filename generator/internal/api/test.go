@@ -17,6 +17,7 @@ package api
 import "strings"
 
 func NewTestAPI(messages []*Message, enums []*Enum, services []*Service) *API {
+	packageName := ""
 	state := &APIState{
 		MessageByID: make(map[string]*Message),
 		MethodByID:  make(map[string]*Method),
@@ -24,12 +25,15 @@ func NewTestAPI(messages []*Message, enums []*Enum, services []*Service) *API {
 		ServiceByID: make(map[string]*Service),
 	}
 	for _, m := range messages {
+		packageName = m.Package
 		state.MessageByID[m.ID] = m
 	}
 	for _, e := range enums {
+		packageName = e.Package
 		state.EnumByID[e.ID] = e
 	}
 	for _, s := range services {
+		packageName = s.Package
 		state.ServiceByID[s.ID] = s
 		for _, m := range s.Methods {
 			state.MethodByID[m.ID] = m
@@ -55,11 +59,12 @@ func NewTestAPI(messages []*Message, enums []*Enum, services []*Service) *API {
 	}
 
 	return &API{
-		Name:     "Test",
-		Messages: messages,
-		Enums:    enums,
-		Services: services,
-		State:    state,
+		Name:        "Test",
+		PackageName: packageName,
+		Messages:    messages,
+		Enums:       enums,
+		Services:    services,
+		State:       state,
 	}
 }
 
