@@ -27,9 +27,9 @@ type {{Codec.Name}} struct {
     {{Codec.Name}} {{Codec.FieldType}} `json:"{{JSONName}},omitempty"`
     {{/Fields}}
 }
-{{#NestedMessages}}
+{{#Messages}}
 {{> message}}
-{{/NestedMessages}}
+{{/Messages}}
 {{#Enums}}
 {{> enum}}
 {{/Enums}}
