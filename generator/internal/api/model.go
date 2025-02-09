@@ -295,8 +295,8 @@ type Field struct {
 	ID string
 	// Typez is the datatype of the field.
 	Typez Typez
-	// TypezID is the ID is the ID of the type the field refers to. This value
-	// is populated for message-like types only.
+	// TypezID is the ID of the type the field refers to. This value is populated
+	// for message-like types only.
 	TypezID string
 	// JSONName is the name of the field as it appears in JSON. Useful for
 	// serializing to JSON.
