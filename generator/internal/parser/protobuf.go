@@ -379,10 +379,16 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 				mixin := processService(state, mixinProto, sFQN, f.GetPackage())
 				for _, m := range mixinProto.Method {
 					// We want to include the method in the existing service,
-					// and not on the mixing.
+					// and not on the mixin.
 					mFQN := service.ID + "." + m.GetName()
 					originalFQN := sFQN + "." + m.GetName()
 					if !enabledMixinMethods[originalFQN] {
+						continue
+					}
+					if _, ok := state.MethodByID[mFQN]; ok {
+						// The method already exists. This happens when services
+						// require a mixin in the service config yaml *and* also
+						// define the mixin method in the code.
 						continue
 					}
 					if method := processMethod(state, m, mFQN, service.Package); method != nil {
