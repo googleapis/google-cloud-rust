@@ -71,6 +71,7 @@ Putting all this code together into a full program looks as follows:
 {{#include ../samples/tests/initialize_client.rs:all}}
 ```
 
+[application default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 [authenticate for using client libraries]: https://cloud.google.com/docs/authentication/client-libraries
 [create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [secret manager api]: https://cloud.google.com/secret-manager
