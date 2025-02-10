@@ -174,25 +174,25 @@ class SecretVersion {
 /// it can be accessed.
 class SecretVersion$State {
   /// Not specified. This value is unused and invalid.
-  static const SecretVersion$State stateUnspecified = SecretVersion$State(0);
+  static const SecretVersion$State stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
   /// accessed.
-  static const SecretVersion$State enabled = SecretVersion$State(1);
+  static const SecretVersion$State enabled = SecretVersion$State('ENABLED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
   /// be accessed, but the secret data is still available and can be placed
   /// back into the
   /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
   /// state.
-  static const SecretVersion$State disabled = SecretVersion$State(2);
+  static const SecretVersion$State disabled = SecretVersion$State('DISABLED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
   /// destroyed and the secret data is no longer stored. A version may not
   /// leave this state once entered.
-  static const SecretVersion$State destroyed = SecretVersion$State(3);
+  static const SecretVersion$State destroyed = SecretVersion$State('DESTROYED');
 
-  final int value;
+  final String value;
 
   const SecretVersion$State(this.value);
 }

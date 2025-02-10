@@ -22,10 +22,10 @@ class {{Codec.Name}} {
   {{#Codec.DocLines}}
   /// {{{.}}}
   {{/Codec.DocLines}}
-  static const {{Parent.Codec.Name}} {{Codec.Name}} = {{Parent.Codec.Name}}({{Number}});
+  static const {{Parent.Codec.Name}} {{Codec.Name}} = {{Parent.Codec.Name}}('{{Name}}');
 
   {{/Values}}
-  final int value;
+  final String value;
 
   const {{Codec.Name}}(this.value);
 }
