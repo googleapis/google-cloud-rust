@@ -179,3 +179,46 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}
 }
+
+func TestRequiredPackages(t *testing.T) {
+	outdir := "src/generated/newlib"
+	options := map[string]string{
+		"package:async-trait": "package=async-trait,version=0.1.83,force-used=true",
+		"package:gtype":       "package=gcp-sdk-type,path=src/generated/type,source=google.type,source=test-only",
+		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
+		"package:auth":        "ignore=true",
+	}
+	c, err := newCodec(options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := requiredPackages(outdir, c.extraPackages)
+	want := []string{
+		"async-trait = { version = \"0.1.83\" }",
+		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gcp-sdk-gax\" }",
+	}
+	less := func(a, b string) bool { return a < b }
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
+	}
+}
+
+func TestRequiredPackagesLocal(t *testing.T) {
+	// This is not a thing we expect to do in the Rust repository, but the
+	// behavior is consistent.
+	options := map[string]string{
+		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only,force-used=true",
+	}
+	c, err := newCodec(options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := requiredPackages("", c.extraPackages)
+	want := []string{
+		"gtype      = { path = \"src/generated/type\", package = \"types\" }",
+	}
+	less := func(a, b string) bool { return a < b }
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
+	}
+}
