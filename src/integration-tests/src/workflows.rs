@@ -15,9 +15,9 @@
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::{error::Error, options::RequestOptionsBuilder};
-use lro::Poller;
 use rand::{distr::Alphanumeric, Rng};
 use std::time::Duration;
+use wf::Poller;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
@@ -158,13 +158,13 @@ main:
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = create.poll().await {
         match status {
-            lro::PollingResult::PollingError(e) => {
+            wf::PollingResult::PollingError(e) => {
                 println!("    error polling create LRO, continuing {e}");
             }
-            lro::PollingResult::InProgress(m) => {
+            wf::PollingResult::InProgress(m) => {
                 println!("    create LRO still in progress, metadata={m:?}");
             }
-            lro::PollingResult::Completed(r) => match r {
+            wf::PollingResult::Completed(r) => match r {
                 Err(e) => {
                     println!("    create LRO finished with error={e}\n\n");
                     return Err(e);
@@ -187,13 +187,13 @@ main:
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = delete.poll().await {
         match status {
-            lro::PollingResult::PollingError(e) => {
+            wf::PollingResult::PollingError(e) => {
                 println!("    error polling delete LRO, continuing {e:?}");
             }
-            lro::PollingResult::InProgress(m) => {
+            wf::PollingResult::InProgress(m) => {
                 println!("    delete LRO still in progress, metadata={m:?}");
             }
-            lro::PollingResult::Completed(r) => {
+            wf::PollingResult::Completed(r) => {
                 println!("    delete LRO finished, result={r:?}");
                 let _ = r?;
             }
