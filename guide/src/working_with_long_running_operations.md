@@ -240,7 +240,7 @@ service sent.
 All types in Google Cloud may add fields and branches in the future. While this
 is unlikely for a common type such as `Operation`, it happens frequently for
 most service messages. The Google Cloud Client Libraries for Rust mark all
-strucs and enums as `#[non_exhaustive]` to signal that such changes are
+structs and enums as `#[non_exhaustive]` to signal that such changes are
 possible. In this case, you must handle this unexpected case:
 
 ```rust,ignore
