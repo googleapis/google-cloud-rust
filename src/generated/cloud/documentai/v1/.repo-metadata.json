@@ -1,0 +1,11 @@
+{
+    "api_id": "documentai.googleapis.com",
+    "api_shortname": "documentai",
+    "client_documentation": "https://docs.rs/google-cloud-documentai-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Document AI API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
