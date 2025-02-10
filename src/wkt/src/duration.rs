@@ -168,6 +168,12 @@ impl crate::message::Message for Duration {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Duration"
     }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_string(self)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+        crate::message::from_value(map)
+    }
 }
 
 /// Converts a [Duration] to its [String] representation.
