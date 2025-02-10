@@ -1461,6 +1461,14 @@ func findUsedPackages(model *api.API, c *codec) {
 			if m, ok := model.State.MessageByID[method.OutputTypeID]; ok {
 				usePackage(m.Package, model, c)
 			}
+			if method.OperationInfo != nil {
+				if m, ok := model.State.MessageByID[method.OperationInfo.MetadataTypeID]; ok {
+					usePackage(m.Package, model, c)
+				}
+				if m, ok := model.State.MessageByID[method.OperationInfo.ResponseTypeID]; ok {
+					usePackage(m.Package, model, c)
+				}
+			}
 		}
 	}
 }

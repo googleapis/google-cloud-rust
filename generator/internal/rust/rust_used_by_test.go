@@ -222,3 +222,70 @@ func TestRequiredPackagesLocal(t *testing.T) {
 		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
 	}
 }
+
+func TestFindUsedPackages(t *testing.T) {
+	service := &api.Service{
+		Name:    "LroService",
+		ID:      ".test.LroService",
+		Package: "test",
+		Methods: []*api.Method{
+			{
+				Name:         "CreateResource",
+				ID:           ".test.LroService.CreateResource",
+				InputTypeID:  ".test.CreateResourceRequest",
+				OutputTypeID: ".google.longrunning.Operation",
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".google.cloud.common.OperationMetadata",
+					ResponseTypeID: ".test.Resource",
+				},
+			},
+		},
+	}
+	model := api.NewTestAPI([]*api.Message{
+		{Name: "Resource", ID: ".test.Resource"},
+		{Name: "CreateResource", ID: ".test.Resource"},
+	}, []*api.Enum{}, []*api.Service{service})
+
+	model.State.MessageByID[".google.longrunning.Operation"] = &api.Message{
+		Name:    "Operation",
+		ID:      ".google.longrunning.Operation",
+		Package: "google.longrunning",
+	}
+	model.State.MessageByID[".google.cloud.common.OperationMetadata"] = &api.Message{
+		Name:    "OperationMetadata",
+		ID:      ".google.cloud.common.OperationMetadata",
+		Package: "google.cloud.common",
+	}
+
+	c, err := newCodec(map[string]string{
+		"package:common":      "package=google-cloud-common,source=google.cloud.common,path=src/generated/cloud/common,version=0.2",
+		"package:longrunning": "package=google-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	loadWellKnownTypes(model.State)
+	findUsedPackages(model, c)
+	want := []*packagez{
+		{
+			name:            "common",
+			packageName:     "google-cloud-common",
+			path:            "src/generated/cloud/common",
+			version:         "0.2",
+			defaultFeatures: true,
+			used:            true,
+		},
+		{
+			name:            "longrunning",
+			packageName:     "google-longrunning",
+			path:            "src/generated/longrunning",
+			version:         "0.2",
+			defaultFeatures: true,
+			used:            true,
+		},
+	}
+	less := func(a, b *packagez) bool { return a.name < b.name }
+	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+	}
+}
