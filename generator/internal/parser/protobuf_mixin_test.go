@@ -207,3 +207,68 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 		},
 	})
 }
+
+func TestProtobuf_DuplicateMixin(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.LroService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_duplicate_mixin.proto"))
+	for _, service := range test.Services {
+		if service.ID == ".google.longrunning.Operations" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
+	}
+	service, ok := test.State.ServiceByID[".test.LroService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.LroService")
+	}
+	if _, ok := test.State.MethodByID[".test.LroService.GetOperation"]; !ok {
+		t.Fatal("Cannot find .test.LroService.GetOperation")
+	}
+
+	checkMethod(t, service, "GetOperation", &api.Method{
+		Documentation: "Source file docs.",
+		Name:          "GetOperation",
+		ID:            ".test.LroService.GetOperation",
+		InputTypeID:   ".google.longrunning.GetOperationRequest",
+		OutputTypeID:  ".google.longrunning.Operation",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewFieldPathPathSegment("name"),
+			},
+			QueryParameters: map[string]bool{},
+		},
+	})
+}
