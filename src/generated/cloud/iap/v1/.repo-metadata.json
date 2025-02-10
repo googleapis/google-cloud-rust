@@ -1,0 +1,11 @@
+{
+    "api_id": "iap.googleapis.com",
+    "api_shortname": "iap",
+    "client_documentation": "https://docs.rs/google-cloud-iap-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Identity-Aware Proxy API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

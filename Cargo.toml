@@ -43,6 +43,7 @@ members = [
   "src/generated/cloud/essentialcontacts/v1",
   "src/generated/cloud/eventarc/v1",
   "src/generated/cloud/functions/v2",
+  "src/generated/cloud/iap/v1",
   "src/generated/cloud/kms/inventory/v1",
   "src/generated/cloud/kms/v1",
   "src/generated/cloud/language/v2",
