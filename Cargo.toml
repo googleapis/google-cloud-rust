@@ -58,6 +58,7 @@ members = [
   "src/generated/cloud/scheduler/v1",
   "src/generated/cloud/secretmanager/v1",
   "src/generated/cloud/tasks/v2",
+  "src/generated/cloud/tpu/v2",
   "src/generated/cloud/translate/v3",
   "src/generated/cloud/videointelligence/v1",
   "src/generated/cloud/vision/v1",

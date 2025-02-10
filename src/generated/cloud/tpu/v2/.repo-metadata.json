@@ -1,0 +1,11 @@
+{
+    "api_id": "tpu.googleapis.com",
+    "api_shortname": "tpu",
+    "client_documentation": "https://docs.rs/google-cloud-tpu-v2/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud TPU API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
