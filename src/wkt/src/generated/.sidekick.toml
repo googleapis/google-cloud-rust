@@ -16,7 +16,7 @@
 specification-source = 'google/protobuf'
 
 [source]
-extra-protos-root = 'src/wkt/protos'
+include-list = "api.proto,source_context.proto,type.proto"
 
 [codec]
 copyright-year  = '2025'

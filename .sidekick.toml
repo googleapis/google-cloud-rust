@@ -22,6 +22,10 @@ extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/arch
 extra-protos-sha256         = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
 googleapis-root             = 'https://github.com/googleapis/googleapis/archive/4d95834e9db8ee827f0e7846b175a3aeaf92f9ef.tar.gz'
 googleapis-sha256           = '8a26e8ea8ee60bda1e996dc6fe181262abf50c6b8c9a4fd3f6d2b48b9fd231c1'
+protobuf-extracted-name     = 'protobuf-29.3'
+protobuf-root               = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
+protobuf-sha256             = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+protobuf-subdir             = "src"
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's
