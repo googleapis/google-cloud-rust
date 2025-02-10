@@ -4058,9 +4058,9 @@ dependencies = [
 name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
- "google-cloud-devtools-artifactregistry-v1",
- "google-cloud-kms-v1",
+ "gcp-sdk-longrunning",
  "google-cloud-secretmanager-v1",
+ "google-cloud-speech-v2",
  "tokio",
 ]
 
