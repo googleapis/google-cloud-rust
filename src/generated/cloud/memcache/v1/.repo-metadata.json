@@ -1,0 +1,11 @@
+{
+    "api_id": "memcache.googleapis.com",
+    "api_shortname": "memcache",
+    "client_documentation": "https://docs.rs/google-cloud-memcache-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Memorystore for Memcached API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
