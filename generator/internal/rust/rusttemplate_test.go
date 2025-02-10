@@ -25,17 +25,14 @@ import (
 func TestPackageNames(t *testing.T) {
 	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{},
-		[]*api.Service{{Name: "Workflows", Package: "gcp-sdk-workflows-v1"}})
+		[]*api.Service{{Name: "Workflows", Package: "google.cloud.workflows.v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
 	codec, err := newCodec(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := annotateModel(model, codec, "")
-	if err != nil {
-		t.Fatal(err)
-	}
+	got := annotateModel(model, codec, "")
 	want := "google_cloud_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
@@ -96,10 +93,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = annotateModel(model, codec, "")
-	if err != nil {
-		t.Fatal(err)
-	}
+	annotateModel(model, codec, "")
 
 	// Stops the recursion when comparing fields.
 	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
@@ -203,10 +197,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = annotateModel(model, codec, "")
-	if err != nil {
-		t.Fatal(err)
-	}
+	annotateModel(model, codec, "")
 
 	if diff := cmp.Diff(&enumAnnotation{
 		Name:       "TestEnum",
@@ -273,10 +264,7 @@ func Test_JsonNameAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = annotateModel(model, codec, "")
-	if err != nil {
-		t.Fatal(err)
-	}
+	annotateModel(model, codec, "")
 
 	if diff := cmp.Diff(&fieldAnnotations{
 		FieldName:     "parent",

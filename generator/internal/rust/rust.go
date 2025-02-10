@@ -61,9 +61,7 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 	if err != nil {
 		return err
 	}
-	if _, err := annotateModel(model, codec, outdir); err != nil {
-		return err
-	}
+	annotateModel(model, codec, outdir)
 	provider := templatesProvider()
 	hasServices := len(model.State.ServiceByID) > 0
 	generatedFiles := generatedFiles(codec.generateModule, hasServices)
@@ -208,9 +206,6 @@ type codec struct {
 	// A mapping between the specification package names (typically Protobuf),
 	// and the Rust package name that contains these types.
 	packageMapping map[string]*packagez
-	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
-	// generate code for one source package at a time.
-	sourceSpecificationPackageName string
 	// Some packages are not intended for publication. For example, they may be
 	// intended only for testing the generator or the SDK, or the service may
 	// not be GA.
@@ -1418,9 +1413,9 @@ func projectRoot(outdir string) string {
 	return rel
 }
 
-func usePackage(source string, c *codec) {
+func usePackage(source string, model *api.API, c *codec) {
 	mapped, ok := c.packageMapping[source]
-	if ok && source != c.sourceSpecificationPackageName {
+	if ok && source != model.PackageName {
 		mapped.used = true
 	}
 }
@@ -1430,9 +1425,9 @@ func findUsedPackagesMessage(message *api.Message, model *api.API, c *codec, vis
 		return
 	}
 	visited[message.ID] = true
-	usePackage(message.Package, c)
+	usePackage(message.Package, model, c)
 	for _, e := range message.Enums {
-		usePackage(e.Package, c)
+		usePackage(e.Package, model, c)
 	}
 	for _, m := range message.Messages {
 		findUsedPackagesMessage(m, model, c, visited)
@@ -1441,11 +1436,11 @@ func findUsedPackagesMessage(message *api.Message, model *api.API, c *codec, vis
 		switch f.Typez {
 		case api.MESSAGE_TYPE:
 			if fm, ok := model.State.MessageByID[f.TypezID]; ok {
-				usePackage(fm.Package, c)
+				usePackage(fm.Package, model, c)
 			}
 		case api.ENUM_TYPE:
 			if fe, ok := model.State.EnumByID[f.TypezID]; ok {
-				usePackage(fe.Package, c)
+				usePackage(fe.Package, model, c)
 			}
 		}
 	}
@@ -1456,7 +1451,7 @@ func findUsedPackages(model *api.API, c *codec) {
 		findUsedPackagesMessage(message, model, c, map[string]bool{})
 	}
 	for _, enum := range model.Enums {
-		usePackage(enum.Package, c)
+		usePackage(enum.Package, model, c)
 	}
 	for _, s := range model.Services {
 		for _, method := range s.Methods {
@@ -1464,7 +1459,7 @@ func findUsedPackages(model *api.API, c *codec) {
 				findUsedPackagesMessage(m, model, c, map[string]bool{})
 			}
 			if m, ok := model.State.MessageByID[method.OutputTypeID]; ok {
-				usePackage(m.Package, c)
+				usePackage(m.Package, model, c)
 			}
 		}
 	}
@@ -1525,39 +1520,6 @@ func packageName(api *api.API, packageNameOverride string) string {
 		name = api.Name
 	}
 	return "google-cloud-" + name
-}
-
-func validateModel(api *api.API, sourceSpecificationPackageName string) error {
-	validatePkg := func(newPackage, elementName string) error {
-		if sourceSpecificationPackageName == newPackage {
-			return nil
-		}
-		// Special exceptions for mixin services
-		if newPackage == "google.cloud.location" ||
-			newPackage == "google.iam.v1" ||
-			newPackage == "google.longrunning" {
-			return nil
-		}
-		return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%q, got=%q for %q",
-			sourceSpecificationPackageName, newPackage, elementName)
-	}
-
-	for _, s := range api.Services {
-		if err := validatePkg(s.Package, s.ID); err != nil {
-			return err
-		}
-	}
-	for _, m := range api.Messages {
-		if err := validatePkg(m.Package, m.ID); err != nil {
-			return err
-		}
-	}
-	for _, e := range api.Enums {
-		if err := validatePkg(e.Package, e.ID); err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func hasStreamingRPC(model *api.API) bool {

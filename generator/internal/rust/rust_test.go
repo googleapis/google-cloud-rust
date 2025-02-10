@@ -188,45 +188,6 @@ func checkRustPackages(t *testing.T, got *codec, want *codec) {
 	}
 }
 
-func TestRust_Validate(t *testing.T) {
-	model := api.NewTestAPI(
-		[]*api.Message{{Name: "m1", Package: "p1"}},
-		[]*api.Enum{{Name: "e1", Package: "p1"}},
-		[]*api.Service{{Name: "s1", Package: "p1"}})
-	if err := validateModel(model, "p1"); err != nil {
-		t.Errorf("unexpected error in API validation %q", err)
-	}
-}
-
-func TestRust_ValidateMessageMismatch(t *testing.T) {
-	test := api.NewTestAPI(
-		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
-		[]*api.Enum{{Name: "e1", Package: "p1"}},
-		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &codec{}
-	if err := validateModel(test, c.sourceSpecificationPackageName); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
-	}
-
-	test = api.NewTestAPI(
-		[]*api.Message{{Name: "m1", Package: "p1"}},
-		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
-		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c = &codec{}
-	if err := validateModel(test, c.sourceSpecificationPackageName); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
-	}
-
-	test = api.NewTestAPI(
-		[]*api.Message{{Name: "m1", Package: "p1"}},
-		[]*api.Enum{{Name: "e1", Package: "p1"}},
-		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &codec{}
-	if err := validateModel(test, c.sourceSpecificationPackageName); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
-	}
-}
-
 func TestWellKnownTypesExist(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	loadWellKnownTypes(model.State)
@@ -490,7 +451,7 @@ func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	loadWellKnownTypes(model.State)
 
 	want := "wkt::Empty"
-	got := methodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := methodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, model.PackageName, c.packageMapping)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -565,13 +526,13 @@ func TestRust_MethodInOut(t *testing.T) {
 	loadWellKnownTypes(model.State)
 
 	want := "crate::model::Target"
-	got := methodInOutTypeName("..Target", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := methodInOutTypeName("..Target", model.State, c.modulePath, model.PackageName, c.packageMapping)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
 
 	want = "crate::model::target::Nested"
-	got = methodInOutTypeName("..Target.Nested", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got = methodInOutTypeName("..Target.Nested", model.State, c.modulePath, model.PackageName, c.packageMapping)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -1155,7 +1116,7 @@ func TestRust_FieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := fieldType(field, model.State, false, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		got := fieldType(field, model.State, false, c.modulePath, model.PackageName, c.packageMapping)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -1164,7 +1125,7 @@ func TestRust_FieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got = fieldType(field, model.State, true, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		got = fieldType(field, model.State, true, c.modulePath, model.PackageName, c.packageMapping)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -1200,7 +1161,7 @@ func TestRust_OneOfFieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := oneOfFieldType(field, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		got := oneOfFieldType(field, model.State, c.modulePath, model.PackageName, c.packageMapping)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -1271,7 +1232,7 @@ func TestRust_FieldMapTypeValues(t *testing.T) {
 		api.LabelRecursiveFields(model)
 		c := createRustCodec()
 		loadWellKnownTypes(model.State)
-		got := fieldType(field, model.State, false, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		got := fieldType(field, model.State, false, c.modulePath, model.PackageName, c.packageMapping)
 		if got != test.want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, test.want)
 		}
@@ -1332,7 +1293,7 @@ func TestRust_FieldMapTypeKey(t *testing.T) {
 		api.LabelRecursiveFields(model)
 		c := createRustCodec()
 		loadWellKnownTypes(model.State)
-		got := fieldType(field, model.State, false, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		got := fieldType(field, model.State, false, c.modulePath, model.PackageName, c.packageMapping)
 		if got != test.want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, test.want)
 		}
@@ -2199,13 +2160,9 @@ func TestRust_MessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
 	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
-	model.PackageName = "test"
+	model.PackageName = "google.cloud.secretmanager.v1"
 
 	c := createRustCodec()
-	c.sourceSpecificationPackageName = model.Messages[0].Package
-	if err := validateModel(model, c.sourceSpecificationPackageName); err != nil {
-		t.Fatal(err)
-	}
 	for _, test := range []struct {
 		m    *api.Message
 		want string
@@ -2220,7 +2177,7 @@ func TestRust_MessageNames(t *testing.T) {
 		},
 	} {
 		t.Run(test.want, func(t *testing.T) {
-			if got := fullyQualifiedMessageName(test.m, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != test.want {
+			if got := fullyQualifiedMessageName(test.m, c.modulePath, model.PackageName, c.packageMapping); got != test.want {
 				t.Errorf("mismatched message name, got=%q, want=%q", got, test.want)
 			}
 		})
@@ -2257,10 +2214,6 @@ func TestRust_EnumNames(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
 	model.PackageName = "test"
 	c := createRustCodec()
-	c.sourceSpecificationPackageName = model.Messages[0].Package
-	if err := validateModel(model, c.sourceSpecificationPackageName); err != nil {
-		t.Fatal(err)
-	}
 	for _, test := range []struct {
 		enum                 *api.Enum
 		wantEnum, wantFQEnum string
@@ -2271,7 +2224,7 @@ func TestRust_EnumNames(t *testing.T) {
 		if got := enumName(test.enum); got != test.wantEnum {
 			t.Errorf("c.enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)
 		}
-		if got := fullyQualifiedEnumName(test.enum, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != test.wantFQEnum {
+		if got := fullyQualifiedEnumName(test.enum, c.modulePath, model.PackageName, c.packageMapping); got != test.wantFQEnum {
 			t.Errorf("c.fqEnumName(%q) = %q; want = %s", test.enum.Name, got, test.wantFQEnum)
 		}
 	}

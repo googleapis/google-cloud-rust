@@ -1647,7 +1647,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-recommender"
+name = "google-cloud-recommender-logging-v1"
 version = "0.2.0"
 dependencies = [
  "bytes",

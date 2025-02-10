@@ -50,6 +50,7 @@ func TestProtobuf_PartialInfo(t *testing.T) {
 	got := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	want := &api.API{
 		Name:        "secretmanager",
+		PackageName: "test",
 		Title:       "Secret Manager API",
 		Description: "",
 	}

@@ -96,6 +96,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 				break
 			}
 		}
+		result.PackageName = packageName
 	}
 
 	for name, msg := range model.Model.Components.Schemas.FromOldest() {

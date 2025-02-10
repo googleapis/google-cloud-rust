@@ -746,7 +746,6 @@ func TestOpenAPI_MakeApiWithServiceConfig(t *testing.T) {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
 	want := sample.API()
-	want.PackageName = ""
 	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
 		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
 	}
@@ -765,7 +764,6 @@ func TestOpenAPI_MakeApiServiceConfigOverridesDescription(t *testing.T) {
 	serviceConfig := sample.ServiceConfig()
 	serviceConfig.Documentation.Summary = "Test Only - Override Description."
 	want := sample.API()
-	want.PackageName = ""
 	want.Description = serviceConfig.Documentation.Summary
 	got, err := makeAPIForOpenAPI(serviceConfig, model)
 	if err != nil {

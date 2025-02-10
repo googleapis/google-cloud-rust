@@ -184,22 +184,8 @@ type enumValueAnnotation struct {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func annotateModel(model *api.API, c *codec, outdir string) (*modelAnnotations, error) {
+func annotateModel(model *api.API, c *codec, outdir string) *modelAnnotations {
 	c.hasServices = len(model.State.ServiceByID) > 0
-
-	// Set the source package. We should always take the first service registered
-	// as the source package. Services with mixins will register those after the
-	// source package.
-	if len(model.Services) > 0 {
-		c.sourceSpecificationPackageName = model.Services[0].Package
-	} else if len(model.Messages) > 0 {
-		c.sourceSpecificationPackageName = model.Messages[0].Package
-	} else if len(model.Enums) > 0 {
-		c.sourceSpecificationPackageName = model.Enums[0].Package
-	}
-	if err := validateModel(model, c.sourceSpecificationPackageName); err != nil {
-		return nil, err
-	}
 
 	loadWellKnownTypes(model.State)
 	resolveUsedPackages(model, c.extraPackages)
@@ -212,7 +198,7 @@ func annotateModel(model *api.API, c *codec, outdir string) (*modelAnnotations, 
 		annotateEnum(e, model.State, c.modulePath, c.packageMapping)
 	}
 	for _, m := range model.Messages {
-		annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
 	}
 	hasLROs := false
 	for _, s := range model.Services {
@@ -223,12 +209,12 @@ func annotateModel(model *api.API, c *codec, outdir string) (*modelAnnotations, 
 			if !generateMethod(m) {
 				continue
 			}
-			annotateMethod(m, s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
+			annotateMethod(m, s, model.State, c.modulePath, model.PackageName, c.packageMapping, packageNamespace)
 			if m := m.InputType; m != nil {
-				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
 			}
 			if m := m.OutputType; m != nil {
-				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
 			}
 		}
 		annotateService(s, model, c.modulePath, c.packageMapping)
@@ -277,12 +263,12 @@ func annotateModel(model *api.API, c *codec, outdir string) (*modelAnnotations, 
 		Services:          servicesSubset,
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
-		IsWktCrate:        c.sourceSpecificationPackageName == "google.protobuf",
+		IsWktCrate:        model.PackageName == "google.protobuf",
 	}
 
 	addStreamingFeature(ann, model, c.extraPackages)
 	model.Codec = ann
-	return ann, nil
+	return ann
 }
 
 func annotateService(s *api.Service, model *api.API, modulePath string, packageMapping map[string]*packagez) {

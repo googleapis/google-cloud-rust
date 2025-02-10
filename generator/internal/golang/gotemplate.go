@@ -135,7 +135,6 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			}
 		}
 	}
-	validateModel(model, sourceSpecificationPackageName)
 
 	loadWellKnownTypes(model.State)
 	for _, e := range model.State.EnumByID {

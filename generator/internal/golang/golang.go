@@ -210,50 +210,6 @@ func modelPackageName(api *api.API, packageNameOverride string) string {
 	return api.Name
 }
 
-func validatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
-	if sourceSpecificationPackageName == newPackage {
-		return nil
-	}
-	// Special exceptions for mixin services
-	if newPackage == "google.cloud.location" ||
-		newPackage == "google.iam.v1" ||
-		newPackage == "google.longrunning" {
-		return nil
-	}
-	if sourceSpecificationPackageName == newPackage {
-		return nil
-	}
-	return fmt.Errorf("go codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
-		sourceSpecificationPackageName, newPackage, elementName)
-}
-
-func validateModel(api *api.API, sourceSpecificationPackageName string) error {
-	// Set the source package. We should always take the first service registered
-	// as the source package. Services with mixes will register those after the
-	// source package.
-	if len(api.Services) > 0 {
-		sourceSpecificationPackageName = api.Services[0].Package
-	} else if len(api.Messages) > 0 {
-		sourceSpecificationPackageName = api.Messages[0].Package
-	}
-	for _, s := range api.Services {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	for _, s := range api.Messages {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	for _, s := range api.Enums {
-		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
 func imports(importMap map[string]*goImport) []string {
 	var imports []string
 	for _, imp := range importMap {
