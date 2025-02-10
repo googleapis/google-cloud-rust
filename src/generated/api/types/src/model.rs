@@ -1737,6 +1737,12 @@ pub mod python_settings {
         /// enabled by default 1 month after launching the feature in preview
         /// packages.
         pub protobuf_pythonic_types_enabled: bool,
+
+        /// Disables generation of an unversioned Python package for this client
+        /// library. This means that the module names will need to be versioned in
+        /// import statements. For example `import google.cloud.library_v2` instead
+        /// of `import google.cloud.library`.
+        pub unversioned_package_disabled: bool,
     }
 
     impl ExperimentalFeatures {
@@ -1756,6 +1762,15 @@ pub mod python_settings {
             v: T,
         ) -> Self {
             self.protobuf_pythonic_types_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [unversioned_package_disabled][crate::model::python_settings::ExperimentalFeatures::unversioned_package_disabled].
+        pub fn set_unversioned_package_disabled<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.unversioned_package_disabled = v.into();
             self
         }
     }
@@ -3563,9 +3578,9 @@ pub struct Page {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// The Markdown content of the page. You can use \<code\>&#40;== include {path}
-    /// ==&#41;\</code\> to include content from a Markdown file. The content can be
-    /// used to produce the documentation page such as HTML format page.
+    /// The Markdown content of the page. You can use ```(== include {path}
+    /// ==)``` to include content from a Markdown file. The content can be used
+    /// to produce the documentation page such as HTML format page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub content: std::string::String,
 
@@ -6823,7 +6838,7 @@ impl wkt::message::Message for ResourceReference {
 /// The routing header consists of one or multiple key-value pairs. Every key
 /// and value must be percent-encoded, and joined together in the format of
 /// `key1=value1&key2=value2`.
-/// In the examples below I am skipping the percent-encoding for readablity.
+/// The examples below skip the percent-encoding for readability.
 ///
 /// Example 1
 ///

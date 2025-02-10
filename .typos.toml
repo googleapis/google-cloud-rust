@@ -67,7 +67,6 @@ enpdoint = "enpdoint"
 maxmium = "maxmium"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
-revison     = "revison"
 # src/generated/cloud/speech/v2 has a typo, needs to be fixed upstream.
 representes = "representes"
 # src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
