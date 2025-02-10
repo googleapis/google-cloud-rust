@@ -60,6 +60,7 @@ members = [
   "src/generated/cloud/secretmanager/v1",
   "src/generated/cloud/tasks/v2",
   "src/generated/cloud/translate/v3",
+  "src/generated/cloud/video/transcoder/v1",
   "src/generated/cloud/videointelligence/v1",
   "src/generated/cloud/vision/v1",
   "src/generated/cloud/vpcaccess/v1",
