@@ -1,0 +1,11 @@
+{
+    "api_id": "file.googleapis.com",
+    "api_shortname": "file",
+    "client_documentation": "https://docs.rs/google-cloud-filestore-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Filestore API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
