@@ -70,6 +70,7 @@ members = [
   "src/generated/cloud/vision/v1",
   "src/generated/cloud/vpcaccess/v1",
   "src/generated/cloud/webrisk/v1",
+  "src/generated/cloud/websecurityscanner/v1",
   "src/generated/cloud/workflows/v1",
   "src/generated/container/v1",
   "src/generated/datastore/admin/v1",
