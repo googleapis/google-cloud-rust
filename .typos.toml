@@ -63,6 +63,8 @@ Underlaying = "Underlaying"
 aplies      = "aplies"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+# src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
+maxmium = "maxmium"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 revison     = "revison"
