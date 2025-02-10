@@ -169,8 +169,56 @@ class SecretVersion {
   // TODO:
 }
 
+/// The state of a
+/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion], indicating if
+/// it can be accessed.
+class SecretVersion$State {
+  /// Not specified. This value is unused and invalid.
+  static const SecretVersion$State stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
+
+  /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
+  /// accessed.
+  static const SecretVersion$State enabled = SecretVersion$State('ENABLED');
+
+  /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
+  /// be accessed, but the secret data is still available and can be placed
+  /// back into the
+  /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
+  /// state.
+  static const SecretVersion$State disabled = SecretVersion$State('DISABLED');
+
+  /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
+  /// destroyed and the secret data is no longer stored. A version may not
+  /// leave this state once entered.
+  static const SecretVersion$State destroyed = SecretVersion$State('DESTROYED');
+
+  final String value;
+
+  const SecretVersion$State(this.value);
+}
+
 /// A policy that defines the replication and encryption configuration of data.
 class Replication {
+  // TODO:
+}
+
+/// A replication policy that replicates the
+/// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
+/// restrictions.
+class Replication$Automatic {
+  // TODO:
+}
+
+/// A replication policy that replicates the
+/// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
+/// specified in [Secret.replication.user_managed.replicas][]
+class Replication$UserManaged {
+  // TODO:
+}
+
+/// Represents a Replica for this
+/// [Secret][google.cloud.secretmanager.v1.Secret].
+class Replication$UserManaged$Replica {
   // TODO:
 }
 
@@ -183,6 +231,32 @@ class CustomerManagedEncryption {
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 class ReplicationStatus {
+  // TODO:
+}
+
+/// The replication status of a
+/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
+/// automatic replication.
+/// 
+/// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
+/// has an automatic replication policy.
+class ReplicationStatus$AutomaticStatus {
+  // TODO:
+}
+
+/// The replication status of a
+/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
+/// user-managed replication.
+/// 
+/// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
+/// has a user-managed replication policy.
+class ReplicationStatus$UserManagedStatus {
+  // TODO:
+}
+
+/// Describes the status of a user-managed replica for the
+/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+class ReplicationStatus$UserManagedStatus$ReplicaStatus {
   // TODO:
 }
 

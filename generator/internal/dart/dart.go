@@ -135,29 +135,20 @@ func methodInOutTypeName(id string, s *api.APIState) string {
 
 func messageName(m *api.Message) string {
 	if m.Parent != nil {
-		return messageName(m.Parent) + "_" + strcase.ToCamel(m.Name)
+		return messageName(m.Parent) + "$" + strcase.ToCamel(m.Name)
 	}
 	return toPascal(m.Name)
 }
 
 func enumName(e *api.Enum) string {
 	if e.Parent != nil {
-		return messageName(e.Parent) + "_" + strcase.ToCamel(e.Name)
+		return messageName(e.Parent) + "$" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }
 
 func enumValueName(e *api.EnumValue) string {
-	var name string
-	if strings.ToUpper(e.Name) == e.Name {
-		name = e.Name
-	} else {
-		name = strcase.ToScreamingSnake(e.Name)
-	}
-	if e.Parent.Parent != nil {
-		return messageName(e.Parent.Parent) + "_" + name
-	}
-	return name
+	return strcase.ToLowerCamel(e.Name)
 }
 
 func bodyAccessor(m *api.Method) string {

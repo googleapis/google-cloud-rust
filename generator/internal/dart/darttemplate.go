@@ -38,6 +38,8 @@ type modelAnnotations struct {
 }
 
 type serviceAnnotations struct {
+	// The service name using Dart naming conventions.
+	Name        string
 	FieldName   string
 	StructName  string
 	DocLines    []string
@@ -98,7 +100,6 @@ type enumAnnotation struct {
 type enumValueAnnotation struct {
 	DocLines []string
 	Name     string
-	EnumType string
 }
 
 // annotateModel creates a struct used as input for Mustache templates.
@@ -154,7 +155,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			}
 			return ""
 		}(),
-		DocLines: strings.Split(model.Description, "\n"),
+		DocLines: formatDocComments(model.Description, model.State),
 	}
 
 	model.Codec = ann
@@ -170,6 +171,7 @@ func annotateService(s *api.Service, state *api.APIState) {
 		annotateMethod(m, s, state)
 	}
 	ann := &serviceAnnotations{
+		Name:        s.Name,
 		FieldName:   strcase.ToLowerCamel(s.Name),
 		StructName:  s.Name,
 		DocLines:    formatDocComments(s.Documentation, state),
@@ -239,7 +241,7 @@ func annotateField(field *api.Field, state *api.APIState) {
 
 func annotateEnum(e *api.Enum, state *api.APIState) {
 	for _, ev := range e.Values {
-		annotateEnumValue(ev, e, state)
+		annotateEnumValue(ev, state)
 	}
 	e.Codec = &enumAnnotation{
 		Name:     enumName(e),
@@ -247,10 +249,9 @@ func annotateEnum(e *api.Enum, state *api.APIState) {
 	}
 }
 
-func annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
+func annotateEnumValue(ev *api.EnumValue, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
 		DocLines: formatDocComments(ev.Documentation, state),
 		Name:     enumValueName(ev),
-		EnumType: enumName(e),
 	}
 }

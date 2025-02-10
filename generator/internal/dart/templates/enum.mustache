@@ -13,37 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{Codec.CopyrightYear}} Google LLC
-{{#Codec.BoilerPlate}}
-//{{{.}}}
-{{/Codec.BoilerPlate}}
 
-/// The Google Cloud client for the {{Title}}.
-///
-{{#Codec.DocLines}}
-/// {{{.}}}
-{{/Codec.DocLines}}
-library;
-
-{{#Services}}
 {{#Codec.DocLines}}
 /// {{{.}}}
 {{/Codec.DocLines}}
 class {{Codec.Name}} {
-  {{#Methods}}
-
+  {{#Values}}
   {{#Codec.DocLines}}
   /// {{{.}}}
   {{/Codec.DocLines}}
-  void {{Codec.Name}}() {
-    // TODO:
-  }
-  {{/Methods}}
+  static const {{Parent.Codec.Name}} {{Codec.Name}} = {{Parent.Codec.Name}}('{{Name}}');
+
+  {{/Values}}
+  final String value;
+
+  const {{Codec.Name}}(this.value);
 }
-{{/Services}}
-{{#Messages}}
-{{> message}}
-{{/Messages}}
-{{#Enums}}
-{{> enum}}
-{{/Enums}}
