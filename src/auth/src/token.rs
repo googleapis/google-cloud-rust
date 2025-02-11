@@ -31,7 +31,18 @@ pub struct Token {
     /// The instant at which the token expires.
     ///
     /// If `None`, the token does not expire or its expiration is unknown.
-    pub expires_at: Option<time::OffsetDateTime>,
+    ///
+    /// Note that the `Instant` is not valid across processes. It is
+    /// recommended to let the authentication library refresh tokens within a
+    /// process instead of handling expirations yourself. If you do need to
+    /// copy an expiration across processes, consider converting it to a
+    /// `time::OffsetDateTime` first:
+    ///
+    /// ```
+    /// # let expires_at = Some(std::time::Instant::now());
+    /// expires_at.map(|i| time::OffsetDateTime::now_utc() + (i - std::time::Instant::now()));
+    /// ```
+    pub expires_at: Option<std::time::Instant>,
 
     /// Optional metadata associated with the token.
     ///
