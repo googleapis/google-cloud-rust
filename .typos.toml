@@ -65,6 +65,9 @@ aplies      = "aplies"
 enpdoint = "enpdoint"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
+# src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
+# be fixed upstream.
+specifc = "specifc"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 # src/generated/cloud/speech/v2 has a typo, needs to be fixed upstream.
@@ -96,5 +99,8 @@ combintation = "combintation"
 # true positives
 [type.rust]
 extend-ignore-re = [
+  # src/generated/cloud/orchestration/airflow/service/v1, typos splits this as
+  # "I-Dentifier"
+  "IDentifier",
   "openpgp4fpr", # ignoring `fpr` seems ill-advised  
 ]

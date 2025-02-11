@@ -1,0 +1,11 @@
+{
+    "api_id": "composer.googleapis.com",
+    "api_shortname": "composer",
+    "client_documentation": "https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Composer API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
