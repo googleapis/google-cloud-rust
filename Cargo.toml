@@ -70,6 +70,7 @@ members = [
   "src/generated/cloud/video/transcoder/v1",
   "src/generated/cloud/videointelligence/v1",
   "src/generated/cloud/vision/v1",
+  "src/generated/cloud/vmmigration/v1",
   "src/generated/cloud/vpcaccess/v1",
   "src/generated/cloud/webrisk/v1",
   "src/generated/cloud/websecurityscanner/v1",

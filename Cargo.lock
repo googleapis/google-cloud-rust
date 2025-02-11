@@ -2150,6 +2150,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-vmmigration-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "google-cloud-location",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-vpcaccess-v1"
 version = "0.2.0"
 dependencies = [
