@@ -36,7 +36,7 @@ There are two different policies controlling the behavior of the LRO loops:
   are transient, and indicate a temporary problem in the client network or the
   service.
 
-Each one of these policies can be set indepedently, and each one can be set for
+Each one of these policies can be set independently, and each one can be set for
 all the LROs started on a client or changed for just one request.
 
 ## Prerequisites
@@ -66,7 +66,7 @@ If you are planning to use the same polling backoff policy for all (or even
 most) requests with the same client then consider setting this as a client
 option.
 
-To configure the polling frequency you use a type implementating the
+To configure the polling frequency you use a type implementing the
 [PollingBackoffPolicy] trait. The client libraries provide [ExponentialBackoff]:
 
 ```rust,ignore
@@ -92,7 +92,7 @@ example, if you make a call such as:
 ```
 
 The client library will first wait for 500ms, after the first polling attempt,
-then for 1,000ms (or 1s) for the second attempt, and sub-sequent attemps will
+then for 1,000ms (or 1s) for the second attempt, and sub-sequent attempts will
 wait 2s, 4s, 8s and then all attempts will wait 10s.
 
 See [below](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code) for the complete code.
