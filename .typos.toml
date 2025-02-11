@@ -61,6 +61,11 @@ desination = "desination"
 # src/generated/cloud/clouddms/v1 has typos, they need to be fixed upstream.
 availablility = "availablility"
 decendents    = "decendents"
+# src/generated/cloud/contactcenterinsights/v1 has typos, they need to be fixed
+# upstream.
+telphony = "telphony"
+analyis  = "analyis"
+abolute  = "abolute"
 # src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
 Underlaying = "Underlaying"
 aplies      = "aplies"
