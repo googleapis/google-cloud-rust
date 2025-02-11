@@ -292,7 +292,7 @@ pub mod submit_build_request {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub cache_image_uri: std::string::String,
 
-        /// Optional. The base image used to opt into automatic base image updates.
+        /// Optional. The base image to use for the build.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub base_image: std::string::String,
 
@@ -305,6 +305,12 @@ pub mod submit_build_request {
         /// automatic base image updates. When true, the application will be built on
         /// a scratch base image, so the base layers can be appended at run time.
         pub enable_automatic_updates: bool,
+
+        /// Optional. project_descriptor stores the path to the project descriptor
+        /// file. When empty, it means that there is no project descriptor file in
+        /// the source.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub project_descriptor: std::string::String,
     }
 
     impl BuildpacksBuild {
@@ -345,6 +351,15 @@ pub mod submit_build_request {
         /// Sets the value of [enable_automatic_updates][crate::model::submit_build_request::BuildpacksBuild::enable_automatic_updates].
         pub fn set_enable_automatic_updates<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_automatic_updates = v.into();
+            self
+        }
+
+        /// Sets the value of [project_descriptor][crate::model::submit_build_request::BuildpacksBuild::project_descriptor].
+        pub fn set_project_descriptor<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.project_descriptor = v.into();
             self
         }
 
@@ -1264,6 +1279,10 @@ pub struct Execution {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
 
+    /// Output only. Email address of the authenticated creator.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub creator: std::string::String,
+
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
     #[serde_as(as = "serde_with::DisplayFromStr")]
@@ -1321,6 +1340,11 @@ pub struct Execution {
     /// [Google Cloud Platform Launch
     /// Stages](https://cloud.google.com/terms/launch-stages). Cloud Run supports
     /// `ALPHA`, `BETA`, and `GA`.
+    ///
+    /// Note that this value might not be what was used
+    /// as input. For example, if ALPHA was provided as input in the parent
+    /// resource, but only BETA and GA-level features are were, this field will be
+    /// BETA.
     pub launch_stage: api::model::LaunchStage,
 
     /// Output only. The name of the parent Job.
@@ -1403,6 +1427,12 @@ impl Execution {
     /// Sets the value of [uid][crate::model::Execution::uid].
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [creator][crate::model::Execution::creator].
+    pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.creator = v.into();
         self
     }
 
@@ -2316,6 +2346,9 @@ pub struct Job {
     /// Set the launch stage to a preview stage on input to allow use of preview
     /// features in that stage. On read (or output), describes whether the resource
     /// uses preview features.
+    ///
+    /// For example, if ALPHA is provided as input, but only BETA and GA-level
+    /// features are used, this field will be BETA on output.
     pub launch_stage: api::model::LaunchStage,
 
     /// Settings for the Binary Authorization feature.
@@ -2890,6 +2923,15 @@ pub struct Container {
     /// Names of the containers that must start before this container.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub depends_on: std::vec::Vec<std::string::String>,
+
+    /// Base image for this container. Only supported for services. If set, it
+    /// indicates that the service is enrolled into automatic base image update.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub base_image_uri: std::string::String,
+
+    /// Output only. The build info of the container image.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub build_info: std::option::Option<crate::model::BuildInfo>,
 }
 
 impl Container {
@@ -2941,6 +2983,21 @@ impl Container {
         v: T,
     ) -> Self {
         self.startup_probe = v.into();
+        self
+    }
+
+    /// Sets the value of [base_image_uri][crate::model::Container::base_image_uri].
+    pub fn set_base_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.base_image_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [build_info][crate::model::Container::build_info].
+    pub fn set_build_info<T: std::convert::Into<std::option::Option<crate::model::BuildInfo>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.build_info = v.into();
         self
     }
 
@@ -4269,6 +4326,46 @@ impl wkt::message::Message for GRPCAction {
     }
 }
 
+/// Build information of the image.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BuildInfo {
+    /// Output only. Entry point of the function when the image is a Cloud Run
+    /// function.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub function_target: std::string::String,
+
+    /// Output only. Source code location of the image.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_location: std::string::String,
+}
+
+impl BuildInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [function_target][crate::model::BuildInfo::function_target].
+    pub fn set_function_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.function_target = v.into();
+        self
+    }
+
+    /// Sets the value of [source_location][crate::model::BuildInfo::source_location].
+    pub fn set_source_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BuildInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.BuildInfo"
+    }
+}
+
 /// Request message for obtaining a Revision by its full name.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4535,6 +4632,11 @@ pub struct Revision {
     /// [Google Cloud Platform Launch
     /// Stages](https://cloud.google.com/terms/launch-stages). Cloud Run supports
     /// `ALPHA`, `BETA`, and `GA`.
+    ///
+    /// Note that this value might not be what was used
+    /// as input. For example, if ALPHA was provided as input in the parent
+    /// resource, but only BETA and GA-level features are were, this field will be
+    /// BETA.
     pub launch_stage: api::model::LaunchStage,
 
     /// Output only. The name of the parent service.
@@ -5595,7 +5697,7 @@ pub struct Service {
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. For a deleted resource, the time after which it will be
-    /// permamently deleted.
+    /// permanently deleted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
@@ -5627,6 +5729,9 @@ pub struct Service {
     /// Set the launch stage to a preview stage on input to allow use of preview
     /// features in that stage. On read (or output), describes whether the resource
     /// uses preview features.
+    ///
+    /// For example, if ALPHA is provided as input, but only BETA and GA-level
+    /// features are used, this field will be BETA on output.
     pub launch_stage: api::model::LaunchStage,
 
     /// Optional. Settings for the Binary Authorization feature.
@@ -5715,6 +5820,10 @@ pub struct Service {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
 
+    /// Optional. Configuration for building a Cloud Run function.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub build_config: std::option::Option<crate::model::BuildConfig>,
+
     /// Output only. Returns true if the Service is currently being acted upon by
     /// the system to bring it into the desired state.
     ///
@@ -5722,7 +5831,7 @@ pub struct Service {
     /// will asynchronously perform all necessary steps to bring the Service to the
     /// desired serving state. This process is called reconciliation.
     /// While reconciliation is in process, `observed_generation`,
-    /// `latest_ready_revison`, `traffic_statuses`, and `uri` will have transient
+    /// `latest_ready_revision`, `traffic_statuses`, and `uri` will have transient
     /// values that might mismatch the intended state: Once reconciliation is over
     /// (and this field is false), there are two possible outcomes: reconciliation
     /// succeeded and the serving state matches the Service, or there was an error,
@@ -5939,6 +6048,17 @@ impl Service {
     /// Sets the value of [satisfies_pzs][crate::model::Service::satisfies_pzs].
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [build_config][crate::model::Service::build_config].
+    pub fn set_build_config<
+        T: std::convert::Into<std::option::Option<crate::model::BuildConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.build_config = v.into();
         self
     }
 
@@ -7477,6 +7597,133 @@ impl NodeSelector {
 impl wkt::message::Message for NodeSelector {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.NodeSelector"
+    }
+}
+
+/// Describes the Build step of the function that builds a container from the
+/// given source.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BuildConfig {
+    /// Output only. The Cloud Build name of the latest successful deployment of
+    /// the function.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The Cloud Storage bucket URI where the function source code is located.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_location: std::string::String,
+
+    /// Optional. The name of the function (as defined in source code) that will be
+    /// executed. Defaults to the resource name suffix, if not specified. For
+    /// backward compatibility, if function with given name is not found, then the
+    /// system will try to use function named "function".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub function_target: std::string::String,
+
+    /// Optional. Artifact Registry URI to store the built image.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub image_uri: std::string::String,
+
+    /// Optional. The base image used to build the function.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub base_image: std::string::String,
+
+    /// Optional. Sets whether the function will receive automatic base image
+    /// updates.
+    pub enable_automatic_updates: bool,
+
+    /// Optional. Name of the Cloud Build Custom Worker Pool that should be used to
+    /// build the Cloud Run function. The format of this field is
+    /// `projects/{project}/locations/{region}/workerPools/{workerPool}` where
+    /// `{project}` and `{region}` are the project id and region respectively where
+    /// the worker pool is defined and `{workerPool}` is the short name of the
+    /// worker pool.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub worker_pool: std::string::String,
+
+    /// Optional. User-provided build-time environment variables for the function
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub environment_variables: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Service account to be used for building the container. The format
+    /// of this field is
+    /// `projects/{projectId}/serviceAccounts/{serviceAccountEmail}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_account: std::string::String,
+}
+
+impl BuildConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BuildConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [source_location][crate::model::BuildConfig::source_location].
+    pub fn set_source_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_location = v.into();
+        self
+    }
+
+    /// Sets the value of [function_target][crate::model::BuildConfig::function_target].
+    pub fn set_function_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.function_target = v.into();
+        self
+    }
+
+    /// Sets the value of [image_uri][crate::model::BuildConfig::image_uri].
+    pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [base_image][crate::model::BuildConfig::base_image].
+    pub fn set_base_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.base_image = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_automatic_updates][crate::model::BuildConfig::enable_automatic_updates].
+    pub fn set_enable_automatic_updates<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_automatic_updates = v.into();
+        self
+    }
+
+    /// Sets the value of [worker_pool][crate::model::BuildConfig::worker_pool].
+    pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.worker_pool = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::BuildConfig::service_account].
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [environment_variables][crate::model::BuildConfig::environment_variables].
+    pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.environment_variables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BuildConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.BuildConfig"
     }
 }
 
