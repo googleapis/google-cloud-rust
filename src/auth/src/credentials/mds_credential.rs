@@ -23,7 +23,6 @@ use reqwest::Client;
 use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
-use time::OffsetDateTime;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -157,7 +156,7 @@ impl TokenProvider for MDSAccessTokenProvider {
             token_type: response.token_type,
             expires_at: response
                 .expires_in
-                .map(|d| OffsetDateTime::now_utc() + Duration::from_secs(d)),
+                .map(|d| std::time::Instant::now() + Duration::from_secs(d)),
             metadata: None,
         };
         Ok(token)
@@ -371,7 +370,7 @@ mod test {
 
         let tp = MDSAccessTokenProvider { endpoint: endpoint };
         let mdsc = MDSCredential { token_provider: tp };
-        let now = OffsetDateTime::now_utc();
+        let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");

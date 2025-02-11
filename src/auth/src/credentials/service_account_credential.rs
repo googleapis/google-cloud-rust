@@ -84,6 +84,10 @@ impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_info.private_key)?;
 
+        let expires_at = std::time::Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        // The claims encode a unix timestamp. `std::time::Instant` has no
+        // epoch, so we use `time::OffsetDateTime`, which reads system time, in
+        // the implementation.
         let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
         let exp = now + DEFAULT_TOKEN_TIMEOUT;
         let claims = JwsClaims {
@@ -115,7 +119,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let token = Token {
             token,
             token_type: "Bearer".to_string(),
-            expires_at: Some(exp),
+            expires_at: Some(expires_at),
             metadata: None,
         };
         Ok(token)

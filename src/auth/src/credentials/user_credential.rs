@@ -20,7 +20,6 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use reqwest::{Client, Method};
 use std::sync::Arc;
 use std::time::Duration;
-use time::OffsetDateTime;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
@@ -101,7 +100,7 @@ impl TokenProvider for UserTokenProvider {
             token_type: response.token_type,
             expires_at: response
                 .expires_in
-                .map(|d| OffsetDateTime::now_utc() + Duration::from_secs(d)),
+                .map(|d| std::time::Instant::now() + Duration::from_secs(d)),
             metadata: None,
         };
         Ok(token)
@@ -539,7 +538,7 @@ mod test {
             token_provider,
             quota_project_id: None,
         };
-        let now = OffsetDateTime::now_utc();
+        let now = std::time::Instant::now();
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
