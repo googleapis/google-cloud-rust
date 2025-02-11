@@ -1,0 +1,11 @@
+{
+    "api_id": "logging.googleapis.com",
+    "api_shortname": "logging",
+    "client_documentation": "https://docs.rs/google-cloud-logging-v2/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Logging API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
