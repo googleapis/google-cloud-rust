@@ -69,6 +69,7 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return err
 	}
 	api.LabelRecursiveFields(model)
+	api.ApplyNameOverrides(model, config.General.MessageNameOverrides)
 	if err := api.CrossReference(model); err != nil {
 		return err
 	}

@@ -106,10 +106,11 @@ func TestMergeLocalForGeneral(t *testing.T) {
 
 	local := Config{
 		General: GeneralConfig{
-			Language:            "local-language",
-			SpecificationFormat: "local-specification-format",
-			SpecificationSource: "local-specification-source",
-			ServiceConfig:       "local-service-config",
+			Language:             "local-language",
+			SpecificationFormat:  "local-specification-format",
+			SpecificationSource:  "local-specification-source",
+			ServiceConfig:        "local-service-config",
+			MessageNameOverrides: map[string]string{"a": "b"},
 		},
 	}
 
@@ -119,10 +120,11 @@ func TestMergeLocalForGeneral(t *testing.T) {
 	}
 	want := &Config{
 		General: GeneralConfig{
-			Language:            "local-language",
-			SpecificationFormat: "local-specification-format",
-			SpecificationSource: "local-specification-source",
-			ServiceConfig:       "local-service-config",
+			Language:             "local-language",
+			SpecificationFormat:  "local-specification-format",
+			SpecificationSource:  "local-specification-source",
+			ServiceConfig:        "local-service-config",
+			MessageNameOverrides: map[string]string{"a": "b"},
 		},
 		Codec:  map[string]string{},
 		Source: map[string]string{},
@@ -156,10 +158,11 @@ func TestMergeIgnoreRootSourceAndServiceConfig(t *testing.T) {
 	}
 	want := &Config{
 		General: GeneralConfig{
-			Language:            "local-language",
-			SpecificationFormat: "local-specification-format",
-			SpecificationSource: "",
-			ServiceConfig:       "",
+			Language:             "local-language",
+			SpecificationFormat:  "local-specification-format",
+			SpecificationSource:  "",
+			ServiceConfig:        "",
+			MessageNameOverrides: map[string]string{},
 		},
 		Codec:  map[string]string{},
 		Source: map[string]string{},
@@ -207,10 +210,11 @@ func TestMergeCodecAndSource(t *testing.T) {
 	}
 	want := &Config{
 		General: GeneralConfig{
-			Language:            "root-language",
-			SpecificationFormat: "root-specification-format",
-			SpecificationSource: "local-specification-source",
-			ServiceConfig:       "local-service-config",
+			Language:             "root-language",
+			SpecificationFormat:  "root-specification-format",
+			SpecificationSource:  "local-specification-source",
+			ServiceConfig:        "local-service-config",
+			MessageNameOverrides: map[string]string{},
 		},
 		Codec: map[string]string{
 			"codec-a": "root-a-value",

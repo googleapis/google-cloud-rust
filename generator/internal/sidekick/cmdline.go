@@ -16,26 +16,28 @@ package sidekick
 
 // CommandLine Represents the arguments received from the command line.
 type CommandLine struct {
-	Command             []string
-	ProjectRoot         string
-	SpecificationFormat string
-	SpecificationSource string
-	ServiceConfig       string
-	Source              map[string]string
-	Output              string
-	Language            string
-	Codec               map[string]string
-	DryRun              bool
+	Command              []string
+	ProjectRoot          string
+	SpecificationFormat  string
+	SpecificationSource  string
+	ServiceConfig        string
+	Source               map[string]string
+	Output               string
+	Language             string
+	Codec                map[string]string
+	DryRun               bool
+	MessageNameOverrides map[string]string
 }
 
 var (
-	flagProjectRoot string
-	format          string
-	source          string
-	serviceConfig   string
-	sourceOpts      = map[string]string{}
-	output          string
-	flagLanguage    string
-	codecOpts       = map[string]string{}
-	dryrun          bool
+	flagProjectRoot      string
+	format               string
+	source               string
+	serviceConfig        string
+	sourceOpts           = map[string]string{}
+	output               string
+	flagLanguage         string
+	codecOpts            = map[string]string{}
+	dryrun               bool
+	messageNameOverrides = map[string]string{}
 )

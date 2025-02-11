@@ -51,6 +51,14 @@ var cmdSidekick = newCommand(
 		}
 		codecOpts[components[0]] = components[1]
 		return nil
+	}).
+	addFlagFunc("message-name-override", "message name override", func(opt string) error {
+		components := strings.SplitN(opt, "=", 2)
+		if len(components) != 2 {
+			return fmt.Errorf("invalid message override, must be in key=value format (%s)", opt)
+		}
+		messageNameOverrides[components[0]] = components[1]
+		return nil
 	})
 
 // Run is the entry point for the sidekick logic. It expects args to be the command line arguments, minus the program name.
@@ -116,7 +124,7 @@ func runCommand(cmd *command, cmdLine *CommandLine) error {
 			return fmt.Errorf("could not change to project root [%s]: %w", cmdLine.ProjectRoot, err)
 		}
 	}
-	config, err := config.LoadConfig(cmdLine.Language, cmdLine.Source, cmdLine.Codec)
+	config, err := config.LoadConfig(cmdLine.Language, cmdLine.Source, cmdLine.Codec, cmdLine.MessageNameOverrides)
 	if err != nil {
 		return fmt.Errorf("could not load configuration: %w", err)
 	}

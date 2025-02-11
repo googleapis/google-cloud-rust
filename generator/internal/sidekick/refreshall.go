@@ -47,6 +47,7 @@ func overrideSources(rootConfig *config.Config) (*config.Config, error) {
 	override := *rootConfig
 	override.Codec = maps.Clone(rootConfig.Codec)
 	override.Source = maps.Clone(rootConfig.Source)
+	override.General.MessageNameOverrides = maps.Clone(rootConfig.General.MessageNameOverrides)
 	for _, root := range parser.SourceRoots(rootConfig.Source) {
 		configPrefix := strings.TrimSuffix(root, "-root")
 		if _, ok := rootConfig.Source[root]; !ok {

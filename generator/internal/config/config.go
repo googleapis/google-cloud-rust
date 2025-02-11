@@ -47,24 +47,26 @@ type Config struct {
 // Configuration parameters that affect Parsers and Codecs, including the
 // selection of parser and codec.
 type GeneralConfig struct {
-	Language            string `toml:"language,omitempty"`
-	SpecificationFormat string `toml:"specification-format,omitempty"`
-	SpecificationSource string `toml:"specification-source,omitempty"`
-	ServiceConfig       string `toml:"service-config,omitempty"`
+	Language             string            `toml:"language,omitempty"`
+	SpecificationFormat  string            `toml:"specification-format,omitempty"`
+	SpecificationSource  string            `toml:"specification-source,omitempty"`
+	ServiceConfig        string            `toml:"service-config,omitempty"`
+	MessageNameOverrides map[string]string `toml:"message-name-overrides,omitempty"`
 }
 
 // LoadConfig loads the top-level configuration file and validates its contents.
 // If no top-level file is found, falls back to the default configuration.
 // Where applicable, overrides the top level (or default) configuration values with the ones passed in the command line.
 // Returns the merged configuration, or an error if the top level configuration is invalid.
-func LoadConfig(language string, source, codec map[string]string) (*Config, error) {
+func LoadConfig(language string, source, codec map[string]string, msgNameOverrides map[string]string) (*Config, error) {
 	rootConfig, err := LoadRootConfig(".sidekick.toml")
 	if err != nil {
 		return nil, err
 	}
 	argsConfig := &Config{
 		General: GeneralConfig{
-			Language: language,
+			Language:             language,
+			MessageNameOverrides: maps.Clone(msgNameOverrides),
 		},
 		Source: maps.Clone(source),
 		Codec:  maps.Clone(codec),
@@ -107,8 +109,9 @@ func MergeConfigAndFile(rootConfig *Config, filename string) (*Config, error) {
 func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 	merged := Config{
 		General: GeneralConfig{
-			Language:            rootConfig.General.Language,
-			SpecificationFormat: rootConfig.General.SpecificationFormat,
+			Language:             rootConfig.General.Language,
+			SpecificationFormat:  rootConfig.General.SpecificationFormat,
+			MessageNameOverrides: map[string]string{},
 		},
 		Source: map[string]string{},
 		Codec:  map[string]string{},
@@ -135,6 +138,9 @@ func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 	}
 	for k, v := range local.Source {
 		merged.Source[k] = v
+	}
+	for k, v := range local.General.MessageNameOverrides {
+		merged.General.MessageNameOverrides[k] = v
 	}
 	// Ignore errors reading the top-level file.
 	return &merged, nil

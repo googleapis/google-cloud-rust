@@ -23,7 +23,7 @@ import (
 
 func resetArgs() {
 	flagProjectRoot, format, source, serviceConfig, output, flagLanguage = "", "", "", "", "", ""
-	sourceOpts, codecOpts = map[string]string{}, map[string]string{}
+	sourceOpts, codecOpts, messageNameOverrides = map[string]string{}, map[string]string{}, map[string]string{}
 	dryrun = false
 }
 
@@ -42,6 +42,7 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:wkt=package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
+		"-message-name-override", "foo.bar.Baz=NewBaz",
 	}
 	cmd, _, args := cmdSidekick.lookup(args)
 	if cmd.name() != "generate" {
@@ -69,6 +70,9 @@ func TestParseArgs(t *testing.T) {
 			"package:wkt":           "package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
 			"package:gax":           "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		},
+		MessageNameOverrides: map[string]string{
+			"foo.bar.Baz": "NewBaz",
+		},
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
@@ -86,10 +90,11 @@ func TestDefaults(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := &CommandLine{
-		Command:     args,
-		ProjectRoot: root,
-		Source:      map[string]string{},
-		Codec:       map[string]string{},
+		Command:              args,
+		ProjectRoot:          root,
+		Source:               map[string]string{},
+		Codec:                map[string]string{},
+		MessageNameOverrides: map[string]string{},
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)

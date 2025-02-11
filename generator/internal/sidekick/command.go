@@ -137,16 +137,17 @@ func (c *command) parseCmdLine(args []string) (*CommandLine, error) {
 	}
 
 	return &CommandLine{
-		Command:             args,
-		ProjectRoot:         flagProjectRoot,
-		SpecificationFormat: format,
-		SpecificationSource: source,
-		ServiceConfig:       serviceConfig,
-		Source:              sourceOpts,
-		Language:            flagLanguage,
-		Output:              output,
-		Codec:               codecOpts,
-		DryRun:              dryrun,
+		Command:              args,
+		ProjectRoot:          flagProjectRoot,
+		SpecificationFormat:  format,
+		SpecificationSource:  source,
+		ServiceConfig:        serviceConfig,
+		Source:               sourceOpts,
+		Language:             flagLanguage,
+		Output:               output,
+		Codec:                codecOpts,
+		DryRun:               dryrun,
+		MessageNameOverrides: messageNameOverrides,
 	}, nil
 }
 

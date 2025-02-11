@@ -41,10 +41,11 @@ Uses the configuration provided in the command line arguments, and saves it in a
 func generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 	local := config.Config{
 		General: config.GeneralConfig{
-			Language:            cmdLine.Language,
-			SpecificationFormat: cmdLine.SpecificationFormat,
-			SpecificationSource: cmdLine.SpecificationSource,
-			ServiceConfig:       cmdLine.ServiceConfig,
+			Language:             cmdLine.Language,
+			SpecificationFormat:  cmdLine.SpecificationFormat,
+			SpecificationSource:  cmdLine.SpecificationSource,
+			ServiceConfig:        cmdLine.ServiceConfig,
+			MessageNameOverrides: cmdLine.MessageNameOverrides,
 		},
 		Source: maps.Clone(cmdLine.Source),
 		Codec:  maps.Clone(cmdLine.Codec),
