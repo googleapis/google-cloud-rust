@@ -4200,6 +4200,7 @@ dependencies = [
 name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
+ "gcp-sdk-gax",
  "gcp-sdk-longrunning",
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
