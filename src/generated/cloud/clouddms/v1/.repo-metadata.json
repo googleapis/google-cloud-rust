@@ -1,0 +1,11 @@
+{
+    "api_id": "datamigration.googleapis.com",
+    "api_shortname": "datamigration",
+    "client_documentation": "https://docs.rs/google-cloud-clouddms-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Database Migration API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
