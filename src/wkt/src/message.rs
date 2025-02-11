@@ -81,8 +81,7 @@ pub(crate) fn from_value<T>(map: &Map) -> Result<T, Error>
 where
     T: serde::de::DeserializeOwned,
 {
-     map
-        .get("value")
+    map.get("value")
         .map(|v| serde_json::from_value::<T>(v.clone()))
         .ok_or_else(missing_value_field)?
         .map_err(Error::deser)
