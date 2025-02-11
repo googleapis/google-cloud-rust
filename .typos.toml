@@ -77,6 +77,8 @@ permamently = "permamently"
 representes = "representes"
 # src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
 corresponsing = "corresponsing"
+# src/generated/cloud/talent/v4 gives an example of a typo. This is correct.
+enginee = "enginee"
 # src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
 coordindate  = "coordindate"
 trignometric = "trignometric"
