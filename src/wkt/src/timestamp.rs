@@ -169,6 +169,12 @@ impl crate::message::Message for Timestamp {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Timestamp"
     }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_string(self)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+        crate::message::from_value(map)
+    }
 }
 
 use time::format_description::well_known::Rfc3339;

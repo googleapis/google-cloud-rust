@@ -55,3 +55,16 @@ fn roundtrip_duration() -> Result {
     assert_eq!(input, output);
     Ok(())
 }
+
+#[test]
+fn roundtrip_any() -> Result {
+    let input = Duration::new(12, 3456)?;
+    let inner = Any::try_from(&input)?;
+    let any = Any::try_from(&inner)?;
+    let json = serde_json::to_value(any)?;
+    let any = serde_json::from_value::<Any>(json)?;
+    let inner = any.try_into_message::<Any>()?;
+    let output = inner.try_into_message::<Duration>()?;
+    assert_eq!(input, output);
+    Ok(())
+}

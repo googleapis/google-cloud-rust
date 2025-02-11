@@ -90,32 +90,7 @@ impl Any {
     where
         T: serde::ser::Serialize + crate::message::Message,
     {
-        use serde_json::{Map, Value};
-
-        let value = serde_json::to_value(message).map_err(Error::ser)?;
-        let value = match value {
-            Value::Object(mut map) => {
-                map.insert(
-                    "@type".to_string(),
-                    Value::String(T::typename().to_string()),
-                );
-                map
-            }
-            Value::String(s) => {
-                // Only a few well-known messages are serialized into something
-                // other than a object. In all cases, they are serialized using
-                // a small JSON object, with the string in the `value` field.
-                let map: Map<String, serde_json::Value> =
-                    [("@type", T::typename().to_string()), ("value", s)]
-                        .into_iter()
-                        .map(|(k, v)| (k.to_string(), Value::String(v)))
-                        .collect();
-                map
-            }
-            _ => {
-                return Err(Self::unexpected_json_type());
-            }
-        };
+        let value = message.to_map()?;
         Ok(Any(value))
     }
 
@@ -131,25 +106,7 @@ impl Any {
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Error::deser)?;
         Self::check_typename(r#type, T::typename())?;
-        if r#type.starts_with("type.googleapis.com/google.protobuf.")
-            && r#type != "type.googleapis.com/google.protobuf.Empty"
-            && r#type != "type.googleapis.com/google.protobuf.FieldMask"
-        {
-            return map
-                .get("value")
-                .map(|v| serde_json::from_value::<T>(v.clone()))
-                .ok_or_else(Self::missing_value_field)?
-                .map_err(Error::deser);
-        }
-        serde_json::from_value::<T>(serde_json::Value::Object(map.clone())).map_err(Error::deser)
-    }
-
-    fn missing_value_field() -> Error {
-        Error::deser("value field is missing")
-    }
-
-    fn unexpected_json_type() -> Error {
-        Error::ser("unexpected JSON type, only Object and String are supported")
+        T::from_map(map)
     }
 
     fn check_typename(got: &str, want: &str) -> Result<(), Error> {
@@ -157,6 +114,26 @@ impl Any {
             return Ok(());
         }
         Err(Error::deser(format!("mismatched typenames extracting from Any, the any has {got}, the target type is {want}")))
+    }
+}
+
+impl crate::message::Message for Any {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Any"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+        use serde_json::Value;
+        let map = [
+            ("@type", Value::String(Self::typename().into())),
+            ("value", Value::Object(self.0.clone())),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect::<crate::message::Map>();
+        Ok(map)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+        crate::message::from_value(map)
     }
 }
 
@@ -319,7 +296,7 @@ mod test {
         Ok(())
     }
 
-    #[derive(Default, serde::Serialize)]
+    #[derive(Default, serde::Serialize, serde::Deserialize)]
     struct DetectBadMessages(serde_json::Value);
     impl crate::message::Message for DetectBadMessages {
         fn typename() -> &'static str {
