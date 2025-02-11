@@ -1,0 +1,11 @@
+{
+    "api_id": "ids.googleapis.com",
+    "api_shortname": "ids",
+    "client_documentation": "https://docs.rs/google-cloud-ids-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud IDS API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
