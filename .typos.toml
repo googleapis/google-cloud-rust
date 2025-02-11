@@ -71,6 +71,10 @@ maxmium = "maxmium"
 # src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
 # be fixed upstream.
 specifc = "specifc"
+# src/generated/cloud/redis/cluster/v1 has some typos, they need to be fixed
+# upstream.
+enpoints   = "enpoints"
+maitenance = "maitenance"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 # src/generated/cloud/speech/v2 has a typo, needs to be fixed upstream.
