@@ -22,24 +22,30 @@ use crate::AnyError as Error;
 /// Messages sent to and received from Google Cloud services may be wrapped in
 /// [Any][crate::any::Any]. `Any` uses a `@type` field to encoding the type
 /// name and then validates extraction and insertion against this type.
-pub trait Message: serde::ser::Serialize + serde::de::DeserializeOwned {
+pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
 
     /// Store the value into a JSON object.
-    fn to_map(&self) -> Result<Map, Error> {
+    fn to_map(&self) -> Result<Map, Error>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
         to_json_object(self)
     }
 
     /// Extract the value from a JSON object.
-    fn from_map(map: &Map) -> Result<Self, Error> {
+    fn from_map(map: &Map) -> Result<Self, Error>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
         serde_json::from_value::<Self>(serde_json::Value::Object(map.clone())).map_err(Error::deser)
     }
 }
 
 pub(crate) fn to_json_object<T>(message: &T) -> Result<Map, Error>
 where
-    T: Message,
+    T: Message + serde::ser::Serialize,
 {
     use serde_json::Value;
 
@@ -58,7 +64,7 @@ where
 
 pub(crate) fn to_json_string<T>(message: &T) -> Result<Map, Error>
 where
-    T: Message,
+    T: Message + serde::ser::Serialize,
 {
     use serde_json::Value;
     let value = serde_json::to_value(message).map_err(Error::ser)?;
