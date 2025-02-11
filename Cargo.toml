@@ -56,6 +56,7 @@ members = [
   "src/generated/cloud/notebooks/v2",
   "src/generated/cloud/orchestration/airflow/service/v1",
   "src/generated/cloud/orgpolicy/v2",
+  "src/generated/cloud/policytroubleshooter/v1",
   "src/generated/cloud/recaptchaenterprise/v1",
   "src/generated/cloud/recommender/logging/v1",
   "src/generated/cloud/recommender/v1",
