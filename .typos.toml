@@ -69,6 +69,12 @@ abolute  = "abolute"
 # src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
 Underlaying = "Underlaying"
 aplies      = "aplies"
+# src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
+# upstream.
+evalauted     = "evalauted"
+sensitivy     = "sensitivy"
+specifictions = "specifictions"
+verion        = "verion"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 # src/generated/cloud/managedidentities/v1 has typos, they need to be fixed
