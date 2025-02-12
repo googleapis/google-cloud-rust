@@ -61,10 +61,9 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 	if err != nil {
 		return err
 	}
-	annotateModel(model, codec, outdir)
+	annotations := annotateModel(model, codec, outdir)
 	provider := templatesProvider()
-	hasServices := len(model.State.ServiceByID) > 0
-	generatedFiles := generatedFiles(codec.generateModule, hasServices)
+	generatedFiles := generatedFiles(codec.generateModule, annotations.HasServices)
 	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
 }
 
