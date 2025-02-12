@@ -41,7 +41,7 @@ login to configure the [Application Default Credentials] used in this guide.
 
 ## Dependencies
 
-As it is usual with rust, you must declare the dependency in your
+As it is usual with Rust, you must declare the dependency in your
 `Cargo.toml` file. We use:
 
 ```toml

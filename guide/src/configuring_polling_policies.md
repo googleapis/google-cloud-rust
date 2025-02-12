@@ -18,7 +18,7 @@ limitations under the License.
 
 The Google Cloud Client Libraries for Rust provide helper functions to simplify
 waiting and monitoring the progress of
-[LROs (Long-Running Operations)](/working_with_long_running_operations.md).
+[LROs (Long-Running Operations)](working_with_long_running_operations.md).
 These helpers use policies to configure the polling frequency and to determine
 what polling errors are transient and may be ignored until the next polling
 event.
@@ -53,7 +53,7 @@ diagnose.
 
 ## Dependencies
 
-As it is usual with rust, you must declare the dependency in your
+As it is usual with Rust, you must declare the dependency in your
 `Cargo.toml` file. We use:
 
 ```toml
@@ -236,3 +236,5 @@ See [below](#configuring-the-retryable-polling-errors-for-a-specific-request-com
 [per-request setting]: #configuring-the-polling-frequency-for-a-specific-request
 [pollingbackoffpolicy]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/polling_backoff_policy/trait.PollingBackoffPolicy.html
 [pollingpolicy]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/polling_policy/trait.PollingPolicy.html
+[speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
+[transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api
