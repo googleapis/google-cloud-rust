@@ -43,6 +43,7 @@ members = [
   "src/generated/cloud/datacatalog/v1",
   "src/generated/cloud/datafusion/v1",
   "src/generated/cloud/dataproc/v1",
+  "src/generated/cloud/datastream/v1",
   "src/generated/cloud/deploy/v1",
   "src/generated/cloud/dialogflow/cx/v3",
   "src/generated/cloud/documentai/v1",

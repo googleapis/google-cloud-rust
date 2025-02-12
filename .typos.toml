@@ -51,6 +51,8 @@ specififed    = "specififed"
 wilcards      = "wilcards"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
 andd = "andd"
+# src/generated/cloud/datastream/v1, has some typos, they need to be fixed upstream.
+resoource = "resoource"
 # src/generated/cloud/deploy/v1, has some typos, they need to be fixed upstream.
 alloted     = "alloted"
 facilitiate = "facilitiate"
