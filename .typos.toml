@@ -79,6 +79,11 @@ evalauted     = "evalauted"
 sensitivy     = "sensitivy"
 specifictions = "specifictions"
 verion        = "verion"
+# src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
+# seems too broad.
+evalution = "evalution"
+resonably = "resonably"
+tooks     = "tooks"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 # src/generated/cloud/managedidentities/v1 has typos, they need to be fixed
@@ -139,5 +144,8 @@ extend-ignore-re = [
   # src/generated/cloud/orchestration/airflow/service/v1, typos splits this as
   # "I-Dentifier"
   "IDentifier",
-  "openpgp4fpr", # ignoring `fpr` seems ill-advised  
+  "openpgp4fpr", # ignoring `fpr` seems ill-advised
+  # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
+  # seems too broad.
+  " whe ",
 ]
