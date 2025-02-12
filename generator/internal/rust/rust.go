@@ -904,7 +904,7 @@ func toScreamingSnake(symbol string) string {
 //
 // [spec]: https://spec.commonmark.org/0.13/#block-quotes
 func formatDocComments(
-	documentation string, state *api.APIState, modulePath string, scopes []string,
+	documentation, elementID string, state *api.APIState, modulePath string, scopes []string,
 	packageMapping map[string]*packagez) []string {
 	var results []string
 	md := goldmark.New(
@@ -933,7 +933,7 @@ func formatDocComments(
 				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
 					return ast.WalkContinue, nil
 				}
-				formattedOutput := processList(node.(*ast.List), 0, documentationBytes)
+				formattedOutput := processList(node.(*ast.List), 0, documentationBytes, elementID)
 				results = append(results, formattedOutput...)
 				results = append(results, "\n")
 			}
@@ -1157,31 +1157,40 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
 }
 
-func processList(list *ast.List, indentLevel int, documentationBytes []byte) []string {
+func processList(list *ast.List, indentLevel int, documentationBytes []byte, elementID string) []string {
 	var results []string
 	listMarker := string(list.Marker)
 	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
-			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes)
+			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, elementID)
 			results = append(results, listItems...)
 		}
 	}
 	return results
 }
 
-func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte) []string {
+func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, elementID string) []string {
 	var results []string
 	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindList {
-			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes)
+			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, elementID)
 			results = append(results, nestedListItems...)
 			break
 		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
-			firstLine := child.Lines().At(0)
-			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, firstLine, documentationBytes)))
-			for i := 1; i < child.Lines().Len(); i++ {
+			if child.Lines().Len() == 0 {
+				// This indicates a bug in the documentation that should be
+				// fixed upstream. We continue despite the error because missing
+				// a small bit of documentation is better than not generating
+				// the full library.
+				slog.Warn("ignoring empty list item", "element", elementID)
+			}
+			for i := 0; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
-				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
+				if i == 0 {
+					results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, line, documentationBytes)))
+				} else {
+					results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
+				}
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")

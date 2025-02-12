@@ -287,7 +287,7 @@ func annotateService(s *api.Service, model *api.API, modulePath string, packageM
 		Name:       toPascal(s.Name),
 		ModuleName: toSnake(s.Name),
 		DocLines: formatDocComments(
-			s.Documentation, model.State, modulePath, []string{s.ID, s.Package}, packageMapping),
+			s.Documentation, s.ID, model.State, modulePath, []string{s.ID, s.Package}, packageMapping),
 		Methods:     methods,
 		DefaultHost: s.DefaultHost,
 		HasLROs:     hasLROs,
@@ -359,7 +359,7 @@ func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefault
 		ModuleName:         toSnake(m.Name),
 		QualifiedName:      fullyQualifiedMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
-		DocLines:           formatDocComments(m.Documentation, state, modulePath, m.Scopes(), packageMapping),
+		DocLines:           formatDocComments(m.Documentation, m.ID, state, modulePath, m.Scopes(), packageMapping),
 		MessageAttributes:  messageAttributes(deserializeWithDefaults),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
@@ -385,7 +385,7 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePa
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
-		DocLines:            formatDocComments(m.Documentation, state, modulePath, s.Scopes(), packageMapping),
+		DocLines:            formatDocComments(m.Documentation, m.ID, state, modulePath, s.Scopes(), packageMapping),
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
@@ -418,7 +418,7 @@ func annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, 
 		EnumName:       enumName,
 		FQEnumName:     fqEnumName,
 		FieldType:      fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
-		DocLines:       formatDocComments(oneof.Documentation, state, modulePath, message.Scopes(), packageMapping),
+		DocLines:       formatDocComments(oneof.Documentation, oneof.ID, state, modulePath, message.Scopes(), packageMapping),
 		SingularFields: partition.singularFields,
 		RepeatedFields: partition.repeatedFields,
 		MapFields:      partition.mapFields,
@@ -431,7 +431,7 @@ func annotateField(field *api.Field, message *api.Message, state *api.APIState, 
 		SetterName:         toSnakeNoMangling(field.Name),
 		FQMessageName:      fullyQualifiedMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping),
 		BranchName:         toPascal(field.Name),
-		DocLines:           formatDocComments(field.Documentation, state, modulePath, message.Scopes(), packageMapping),
+		DocLines:           formatDocComments(field.Documentation, field.ID, state, modulePath, message.Scopes(), packageMapping),
 		Attributes:         fieldAttributes(field, state),
 		FieldType:          fieldType(field, state, false, modulePath, sourceSpecificationPackageName, packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
@@ -456,13 +456,13 @@ func annotateEnum(e *api.Enum, state *api.APIState, modulePath string, packageMa
 	e.Codec = &enumAnnotation{
 		Name:       enumName(e),
 		ModuleName: toSnake(enumName(e)),
-		DocLines:   formatDocComments(e.Documentation, state, modulePath, e.Scopes(), packageMapping),
+		DocLines:   formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
 	}
 }
 
 func annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath string, packageMapping map[string]*packagez) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: formatDocComments(ev.Documentation, state, modulePath, ev.Scopes(), packageMapping),
+		DocLines: formatDocComments(ev.Documentation, ev.ID, state, modulePath, ev.Scopes(), packageMapping),
 		Name:     enumValueName(ev),
 		EnumType: enumName(e),
 	}
