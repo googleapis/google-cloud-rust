@@ -28,6 +28,7 @@
 //! * [LanguageService](client/struct.LanguageService.html)
 
 /// The messages and enums that are part of this client library.
+#[allow(clippy::module_inception)]
 pub mod model;
 
 pub use gax::error::Error;
