@@ -102,6 +102,7 @@ members = [
   "src/generated/identity/accesscontextmanager/type",
   "src/generated/identity/accesscontextmanager/v1",
   "src/generated/logging/type",
+  "src/generated/logging/v2",
   "src/generated/longrunning",
   "src/generated/monitoring/dashboard/v1",
   "src/generated/monitoring/metricsscope/v1",
