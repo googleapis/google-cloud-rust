@@ -1,0 +1,11 @@
+{
+    "api_id": "oslogin.googleapis.com",
+    "api_shortname": "oslogin",
+    "client_documentation": "https://docs.rs/google-cloud-oslogin-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud OS Login API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
