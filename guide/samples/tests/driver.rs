@@ -31,4 +31,28 @@ mod driver {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::lro::polling(&project_id).await
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn polling_policies_client_backoff() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::polling_policies::client_backoff(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn polling_policies_rpc_backoff() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::polling_policies::rpc_backoff(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn polling_policies_client_errors() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::polling_policies::client_errors(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn polling_policies_rpc_errors() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::polling_policies::rpc_errors(&project_id).await
+    }
 }
