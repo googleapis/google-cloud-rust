@@ -109,6 +109,7 @@ members = [
   "src/generated/monitoring/metricsscope/v1",
   "src/generated/monitoring/v3",
   "src/generated/openapi-validation",
+  "src/generated/oslogin/common",
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
