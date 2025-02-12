@@ -71,6 +71,10 @@ Underlaying = "Underlaying"
 aplies      = "aplies"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+# src/generated/cloud/managedidentities/v1 has typos, they need to be fixed
+# upstream.
+segement  = "segement"
+identites = "identites"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
 # src/generated/cloud/optimization/v1 has a false positive. Both "preemptible"
