@@ -93,7 +93,7 @@ where
         .map_err(Error::deser)
 }
 
-fn missing_value_field() -> Error {
+pub(crate) fn missing_value_field() -> Error {
     Error::deser("value field is missing")
 }
 
