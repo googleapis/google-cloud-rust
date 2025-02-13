@@ -1,0 +1,11 @@
+{
+    "api_id": "advisorynotifications.googleapis.com",
+    "api_shortname": "advisorynotifications",
+    "client_documentation": "https://docs.rs/google-cloud-advisorynotifications-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Advisory Notifications API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
