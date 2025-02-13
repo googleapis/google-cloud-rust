@@ -111,6 +111,9 @@ maxmium = "maxmium"
 # src/generated/cloud/optimization/v1 has a false positive. Both "preemptible"
 # and "preemptable" are common spellings, but `typos` only accepts the former.
 preemptable = "preemptable"
+# src/generated/cloud/orgpolicy/v1 has typos, they need to be fixed upstream.
+settting   = "settting"
+supercedes = "supercedes"
 # src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
 # be fixed upstream.
 specifc = "specifc"
