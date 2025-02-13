@@ -107,6 +107,9 @@ enpoints   = "enpoints"
 maitenance = "maitenance"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
+# src/generated/cloud/securesourcemanager/v1 has some typos, they need to be
+# fixed upstream.
+desginated = "desginated"
 # src/generated/cloud/security/privateca/v1 has a typo, it needs to be fixed
 # upstream.
 relavent = "relavent"
@@ -151,4 +154,13 @@ extend-ignore-re = [
   # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
   # seems too broad.
   " whe ",
+  # src/generated/cloud/securesourcemanager uses `unicode-tou`, ignoring `tou`
+  # seems too risky.
+  "unicode-tou",
+  # src/generated/cloud/securesourcemanager uses `cc-by-nd-*`, ignoring `nd`
+  # seems too risky.
+  "cc-by-nc-nd-[0-9]",
+  "cc-by-nd-[0-9]",
+  "infor-cms",         # Product name
+  "synopsys-vcs",      # Product name
 ]
