@@ -2457,6 +2457,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-support-v2"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-talent-v4"
 version = "0.2.0"
 dependencies = [
