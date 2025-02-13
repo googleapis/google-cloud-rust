@@ -1,0 +1,11 @@
+{
+    "api_id": "workflowexecutions.googleapis.com",
+    "api_shortname": "workflowexecutions",
+    "client_documentation": "https://docs.rs/google-cloud-workflows-executions-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Workflow Executions API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
