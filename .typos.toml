@@ -108,6 +108,11 @@ specifc = "specifc"
 # upstream.
 enpoints   = "enpoints"
 maitenance = "maitenance"
+# src/generated/cloud/retail/v2 has some typos, they need to be fixed upstream.
+wil    = "wil"
+goig   = "goig"
+sesion = "sesion"
+overal = "overal"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 # src/generated/cloud/security/privateca/v1 has a typo, it needs to be fixed

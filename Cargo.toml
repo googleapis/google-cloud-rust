@@ -79,6 +79,7 @@ members = [
   "src/generated/cloud/redis/cluster/v1",
   "src/generated/cloud/redis/v1",
   "src/generated/cloud/resourcemanager/v3",
+  "src/generated/cloud/retail/v2",
   "src/generated/cloud/run/v2",
   "src/generated/cloud/scheduler/v1",
   "src/generated/cloud/secretmanager/v1",
