@@ -172,9 +172,6 @@ extend-ignore-re = [
   # "I-Dentifier"
   "IDentifier",
   "openpgp4fpr", # ignoring `fpr` seems ill-advised
-  # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
-  # seems too broad.
-  " whe ",
   # src/generated/cloud/osconfig/v1, arguably not a typo.
   "ANDed", # ignoring `Ded` see
   # src/generated/cloud/securesourcemanager uses `unicode-tou`, ignoring `tou`
