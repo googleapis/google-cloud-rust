@@ -33,6 +33,8 @@ protobuf-subdir             = "src"
 version = "0.2.0"
 # The default release level for all crates.
 release-level = "preview"
+# Disable a number of warnings.
+disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
 'package:bytes'      = 'force-used=true,package=bytes,version=1,feature=serde'
