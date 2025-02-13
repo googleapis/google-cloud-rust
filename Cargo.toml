@@ -109,6 +109,7 @@ members = [
   "src/generated/cloud/websecurityscanner/v1",
   "src/generated/cloud/workflows/executions/v1",
   "src/generated/cloud/workflows/v1",
+  "src/generated/cloud/workstations/v1",
   "src/generated/container/v1",
   "src/generated/datastore/admin/v1",
   "src/generated/devtools/artifactregistry/v1",

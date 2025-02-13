@@ -145,6 +145,8 @@ pn = "pn"
 # src/generated/cloud/vmmigration/v1 has typos, they need to be fixed upstream.
 clonning    = "clonning"
 informatiom = "informatiom"
+# src/generated/cloud/workstations/v1 has a typo, it needs to be fixed upstream.
+attachemnt = "attachemnt"
 # src/generated/datastore/admin/v1 has a typo, needs to be fixed upstream.
 Ths = "Ths"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
