@@ -87,6 +87,12 @@ verion        = "verion"
 evalution = "evalution"
 resonably = "resonably"
 tooks     = "tooks"
+# src/generated/cloud/discoveryengine/v1 has typos, they need to be fixed
+# upstream.
+asscociated = "asscociated"
+launguage   = "launguage"
+simliar     = "simliar"
+inputed     = "inputed"     # probably mean input-ed
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 # src/generated/cloud/managedidentities/v1 has typos, they need to be fixed
