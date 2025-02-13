@@ -301,7 +301,7 @@ impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
 /// Converts from [jiff::Timestamp] to [Timestamp].
 ///
 /// This conversion may fail if the [jiff::Timestamp] value is out of range.
-#[cfg(feature = "jiff-0_2")]
+#[cfg(feature = "jiff")]
 impl TryFrom<jiff::Timestamp> for Timestamp {
     type Error = TimestampError;
 
@@ -320,7 +320,7 @@ impl TryFrom<jiff::Timestamp> for Timestamp {
 /// Converts from [Timestamp] to [jiff::Timestamp].
 ///
 /// This conversion may fail if the [Timestamp] value is out of range.
-#[cfg(feature = "jiff-0_2")]
+#[cfg(feature = "jiff")]
 impl TryFrom<Timestamp> for jiff::Timestamp {
     type Error = jiff::Error;
 

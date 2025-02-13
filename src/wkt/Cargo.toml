@@ -24,9 +24,9 @@ repository.workspace = true
 version              = "0.1.1"
 
 [features]
-chrono   = ["dep:chrono"]
-jiff-0_2 = ["dep:jiff"]
-time     = []
+chrono = ["dep:chrono"]
+jiff   = ["dep:jiff"]
+time   = []
 
 [dependencies]
 bytes      = { version = "1.10.0", features = ["serde"] }
@@ -41,4 +41,4 @@ time       = { version = "0.3.36", features = ["formatting", "parsing"] }
 [dev-dependencies]
 bytes     = { version = "1.10.0", features = ["serde"] }
 test-case = "3.3.1"
-wkt       = { path = ".", package = "google-cloud-wkt", features = ["chrono", "jiff-0_2", "time"] }
+wkt       = { path = ".", package = "google-cloud-wkt", features = ["chrono", "jiff", "time"] }

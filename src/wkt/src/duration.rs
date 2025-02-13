@@ -305,7 +305,7 @@ impl std::convert::From<Duration> for chrono::Duration {
 /// Converts from [jiff::SignedDuration] to [Duration].
 ///
 /// This conversion may fail if the [jiff::SignedDuration] value is out of range.
-#[cfg(feature = "jiff-0_2")]
+#[cfg(feature = "jiff")]
 impl std::convert::TryFrom<jiff::SignedDuration> for Duration {
     type Error = DurationError;
 
@@ -315,7 +315,7 @@ impl std::convert::TryFrom<jiff::SignedDuration> for Duration {
 }
 
 /// Converts from [Duration] to [jiff::SignedDuration].
-#[cfg(feature = "jiff-0_2")]
+#[cfg(feature = "jiff")]
 impl std::convert::From<Duration> for jiff::SignedDuration {
     fn from(value: Duration) -> Self {
         // Safety: The range of jiff::SignedDuration is larger than Duration,
