@@ -99,6 +99,8 @@ simliar     = "simliar"
 inputed     = "inputed"     # probably mean input-ed
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+# src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.
+everyting = "everyting"
 # src/generated/cloud/managedidentities/v1 has typos, they need to be fixed
 # upstream.
 segement  = "segement"

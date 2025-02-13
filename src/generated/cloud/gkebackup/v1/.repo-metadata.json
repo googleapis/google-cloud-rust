@@ -1,0 +1,11 @@
+{
+    "api_id": "gkebackup.googleapis.com",
+    "api_shortname": "gkebackup",
+    "client_documentation": "https://docs.rs/google-cloud-gkebackup-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Backup for GKE API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
