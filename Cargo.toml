@@ -66,6 +66,7 @@ members = [
   "src/generated/cloud/managedidentities/v1",
   "src/generated/cloud/memcache/v1",
   "src/generated/cloud/metastore/v1",
+  "src/generated/cloud/netapp/v1",
   "src/generated/cloud/networkconnectivity/v1",
   "src/generated/cloud/networkmanagement/v1",
   "src/generated/cloud/networksecurity/v1",
