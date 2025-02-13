@@ -434,6 +434,12 @@ mod test {
     fn from_jiff_time_in_range(value: jiff::Timestamp, want: Timestamp) -> Result {
         let got = Timestamp::try_from(value)?;
         assert_eq!(got, want);
+
+        // Assert that both timestamps represent the same duration since (or before) the Epoch.
+        assert_eq!(
+            ((got.seconds as i128) * Timestamp::NS as i128) + got.nanos as i128,
+            value.as_duration().as_nanos()
+        );
         Ok(())
     }
 
@@ -444,8 +450,14 @@ mod test {
     #[test_case(Timestamp::new(-5, 500_000_000).unwrap(), jiff::Timestamp::new(-4, -500_000_000).unwrap() ; "negative seconds and nanos")]
     #[test_case(Timestamp::new(5, 500_000_000).unwrap(), jiff::Timestamp::new(5, 500_000_000).unwrap() ; "positive seconds and nanos")]
     fn to_jiff_time_in_range(value: Timestamp, want: jiff::Timestamp) -> Result {
-        let got = jiff::Timestamp::try_from(value)?;
+        let got = jiff::Timestamp::try_from(value.clone())?;
         assert_eq!(got, want);
+
+        // Assert that both timestamps represent the same duration since (or before) the Epoch.
+        assert_eq!(
+            ((value.seconds as i128) * Timestamp::NS as i128) + value.nanos as i128,
+            got.as_duration().as_nanos()
+        );
         Ok(())
     }
 
