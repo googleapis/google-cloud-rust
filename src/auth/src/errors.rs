@@ -75,6 +75,13 @@ impl std::error::Error for CredentialError {
     }
 }
 
+impl Clone for CredentialError {
+    fn clone(&self) -> CredentialError {
+        let source = format!("{}", self.source);
+        CredentialError::new(self.is_retryable, source.into())
+    }
+}
+
 const RETRYABLE_MSG: &str = "but future attempts may succeed";
 const NON_RETRYABLE_MSG: &str = "and future attempts will not succeed";
 
@@ -148,5 +155,22 @@ mod test {
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
+    }
+
+    #[test]
+    fn clone() {
+        let orig = CredentialError::retryable("fail");
+        let clone = orig.clone();
+
+        let msg = format!("{orig}");
+        let msg2 = format!("{clone}");
+        assert_eq!(msg, msg2);
+
+        let orig = CredentialError::non_retryable("fail");
+        let clone = orig.clone();
+
+        let msg = format!("{orig}");
+        let msg2 = format!("{clone}");
+        assert_eq!(msg, msg2);
     }
 }
