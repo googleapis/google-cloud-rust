@@ -47,6 +47,7 @@ members = [
   "src/generated/cloud/deploy/v1",
   "src/generated/cloud/dialogflow/cx/v3",
   "src/generated/cloud/dialogflow/v2",
+  "src/generated/cloud/discoveryengine/v1",
   "src/generated/cloud/documentai/v1",
   "src/generated/cloud/essentialcontacts/v1",
   "src/generated/cloud/eventarc/v1",
