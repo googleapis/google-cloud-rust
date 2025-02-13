@@ -58,6 +58,7 @@ members = [
   "src/generated/cloud/eventarc/v1",
   "src/generated/cloud/filestore/v1",
   "src/generated/cloud/functions/v2",
+  "src/generated/cloud/gkebackup/v1",
   "src/generated/cloud/iap/v1",
   "src/generated/cloud/ids/v1",
   "src/generated/cloud/kms/inventory/v1",
