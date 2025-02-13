@@ -108,6 +108,8 @@ identites = "identites"
 flexibile = "flexibile"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
+# src/generated/cloud/netapp/v1 has a typo, it needs to be fixed upstream.
+trasferred = "trasferred"
 # src/generated/cloud/optimization/v1 has a false positive. Both "preemptible"
 # and "preemptable" are common spellings, but `typos` only accepts the former.
 preemptable = "preemptable"
