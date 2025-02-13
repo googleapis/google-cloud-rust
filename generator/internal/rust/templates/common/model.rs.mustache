@@ -18,12 +18,10 @@ limitations under the License.
 //{{{.}}}
 {{/Codec.BoilerPlate}}
 
-{{! Google APIs often use angle brackets for <PLACEHOLDERS>, rustdoc does not like those. }}
-{{! We use explicit links because it is easier to generate the code with them. }}
-#![allow(rustdoc::redundant_explicit_links)]
-{{! TODO(#742) - remove this workaround once the bug is fixed }}
-#![allow(rustdoc::broken_intra_doc_links)]
-{{! We disable the standard prelude to avoid clashes with generated types. }}
+{{! Disable warnings that are known to cause trouble }}
+{{#Codec.DisabledRustdocWarnings}}
+#![allow(rustdoc::{{.}})]
+{{/Codec.DisabledRustdocWarnings}}
 #![no_implicit_prelude]
 extern crate std;
 {{#Codec.ExternPackages}}

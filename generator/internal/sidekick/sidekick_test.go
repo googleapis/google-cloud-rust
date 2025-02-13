@@ -52,11 +52,12 @@ func TestRustFromOpenAPI(t *testing.T) {
 		Language:            "rust",
 		Output:              outDir,
 		Codec: map[string]string{
-			"not-for-publication":   "true",
-			"copyright-year":        "2024",
-			"package-name-override": "secretmanager-golden-openapi",
-			"package:wkt":           "package=google-cloud-wkt,path=../src/wkt,source=google.protobuf",
-			"package:gax":           "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+			"not-for-publication":       "true",
+			"copyright-year":            "2024",
+			"package-name-override":     "secretmanager-golden-openapi",
+			"package:wkt":               "package=google-cloud-wkt,path=../src/wkt,source=google.protobuf",
+			"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+			"disabled-rustdoc-warnings": "redundant_explicit_links",
 		},
 	}
 
@@ -91,7 +92,8 @@ func TestRustFromProtobuf(t *testing.T) {
 			Source: "googleapis/google/iam/v1",
 			Name:   "iam/v1",
 			ExtraOptions: map[string]string{
-				"package:gtype": fmt.Sprintf("package=type-golden-protobuf,path=%s/rust/protobuf/golden/type,source=google.type", testdataDir),
+				"package:gtype":             fmt.Sprintf("package=type-golden-protobuf,path=%s/rust/protobuf/golden/type,source=google.type", testdataDir),
+				"disabled-rustdoc-warnings": "redundant_explicit_links,broken_intra_doc_links",
 			},
 		},
 		{
@@ -99,8 +101,9 @@ func TestRustFromProtobuf(t *testing.T) {
 			ServiceConfig: secretManagerServiceConfig,
 			Name:          "secretmanager",
 			ExtraOptions: map[string]string{
-				"package:iam":      fmt.Sprintf("package=iam-v1-golden-protobuf,path=%s/rust/protobuf/golden/iam/v1,source=google.iam.v1", testdataDir),
-				"package:location": fmt.Sprintf("package=location-golden-protobuf,path=%s/rust/protobuf/golden/location,source=google.cloud.location", testdataDir),
+				"package:iam":               fmt.Sprintf("package=iam-v1-golden-protobuf,path=%s/rust/protobuf/golden/iam/v1,source=google.iam.v1", testdataDir),
+				"package:location":          fmt.Sprintf("package=location-golden-protobuf,path=%s/rust/protobuf/golden/location,source=google.cloud.location", testdataDir),
+				"disabled-rustdoc-warnings": "broken_intra_doc_links",
 			},
 		},
 	}

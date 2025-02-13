@@ -20,6 +20,7 @@ service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanage
 
 [codec]
 copyright-year = '2024'
+disabled-rustdoc-warnings = 'redundant_explicit_links'
 not-for-publication = 'true'
 package-name-override = 'secretmanager-golden-openapi'
 'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'

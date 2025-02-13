@@ -118,6 +118,8 @@ func newCodec(options map[string]string) (*codec, error) {
 			for _, source := range pkgOption.otherNames {
 				codec.packageMapping[source] = pkgOption.pkg
 			}
+		case key == "disabled-rustdoc-warnings":
+			codec.disabledRustdocWarnings = strings.Split(definition, ",")
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -216,6 +218,8 @@ type codec struct {
 	releaseLevel string
 	// True if the API model includes any services
 	hasServices bool
+	// A list of `rustdoc` warnings disabled for specific services.
+	disabledRustdocWarnings []string
 }
 
 type packagez struct {

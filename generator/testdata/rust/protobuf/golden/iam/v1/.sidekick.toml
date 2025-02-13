@@ -22,6 +22,7 @@ googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
+disabled-rustdoc-warnings = 'redundant_explicit_links,broken_intra_doc_links'
 not-for-publication = 'true'
 package-name-override = 'iam-v1-golden-protobuf'
 'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'
