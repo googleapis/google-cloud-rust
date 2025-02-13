@@ -83,6 +83,7 @@ members = [
   "src/generated/cloud/run/v2",
   "src/generated/cloud/scheduler/v1",
   "src/generated/cloud/secretmanager/v1",
+  "src/generated/cloud/securesourcemanager/v1",
   "src/generated/cloud/security/privateca/v1",
   "src/generated/cloud/securitycenter/v2",
   "src/generated/cloud/servicedirectory/v1",
