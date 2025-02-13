@@ -32,6 +32,7 @@ members = [
   "src/generated/cloud/apigateway/v1",
   "src/generated/cloud/apigeeconnect/v1",
   "src/generated/cloud/assuredworkloads/v1",
+  "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datatransfer/v1",
   "src/generated/cloud/bigquery/reservation/v1",
