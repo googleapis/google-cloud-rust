@@ -1,0 +1,11 @@
+{
+    "api_id": "apikeys.googleapis.com",
+    "api_shortname": "apikeys",
+    "client_documentation": "https://docs.rs/google-cloud-api-apikeys-v2/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "API Keys API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
