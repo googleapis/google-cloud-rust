@@ -62,6 +62,10 @@ facilitiate = "facilitiate"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
+# src/generated/cloud/baremetalsolution/v2 has typos, they need to be fixed
+# upstream.
+idenfity   = "idenfity"
+provisiong = "provisiong"
 # src/generated/cloud/bigquerydatatransfer/v1 has typos, they need to be fixed
 # upstream.
 desination = "desination"
