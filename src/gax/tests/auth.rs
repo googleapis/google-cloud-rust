@@ -17,7 +17,7 @@ use auth::errors::CredentialError;
 use auth::token::Token;
 use gax::http_client::ReqwestClient;
 use gax::options::*;
-use gcp_sdk_gax as gax;
+use google_cloud_gax as gax;
 use http::header::{HeaderName, HeaderValue};
 use serde_json::json;
 

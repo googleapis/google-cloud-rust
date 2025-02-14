@@ -13,8 +13,8 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [Operations](https://docs.rs/gcp-sdk-longrunning/latest/gcp_sdk_longrunning/client/struct.Operations.html)
+* [Operations](https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/client/struct.Operations.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-longrunning/latest/gcp-sdk-longrunning)
+* Read the [crate's documentation](https://docs.rs/google-cloud-longrunning/latest/google-cloud-longrunning)

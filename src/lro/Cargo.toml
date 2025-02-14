@@ -25,8 +25,8 @@ version              = "0.1.0"
 
 [dependencies]
 futures     = { version = "0.3.31", optional = true }
-gax         = { version = "0.2", path = "../gax", package = "gcp-sdk-gax" }
-longrunning = { version = "0.2", path = "../generated/longrunning", package = "gcp-sdk-longrunning" }
+gax         = { version = "0.20", path = "../gax", package = "google-cloud-gax" }
+longrunning = { version = "0.2", path = "../generated/longrunning", package = "google-cloud-longrunning" }
 pin-project = { version = "1.1.9", optional = true }
 rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 serde       = "1.0.216"
@@ -37,7 +37,7 @@ wkt         = { version = "0.1.1", path = "../wkt", package = "google-cloud-wkt"
 unstable-stream = ["dep:futures", "dep:pin-project"]
 
 [dev-dependencies]
-auth       = { path = "../auth", package = "gcp-sdk-auth" }
+auth       = { path = "../auth", package = "google-cloud-auth" }
 axum       = "0.8.1"
 lro        = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
 reqwest    = "0.12.11"

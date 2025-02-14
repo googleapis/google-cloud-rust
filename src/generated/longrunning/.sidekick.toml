@@ -19,4 +19,3 @@ service-config = 'google/longrunning/longrunning.yaml'
 [codec]
 copyright-year = '2024'
 'package:longrunning' = 'ignore=true'
-package-name-override = "gcp-sdk-longrunning"

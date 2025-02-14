@@ -30,10 +30,10 @@ name = "getting_started"
 [dependencies]
 tokio = { version = "1.43", features = ["full", "macros"] }
 # ANCHOR: longrunning
-gcp-sdk-longrunning = { version = "0.2.0", path = "../../src/generated/longrunning" }
+google-cloud-longrunning = { version = "0.2.0", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
 # ANCHOR: gax
-gcp-sdk-gax = { version = "0.2.0", path = "../../src/gax" }
+google-cloud-gax = { version = "0.20.0", path = "../../src/gax" }
 # ANCHOR_END: gax
 # ANCHOR: speech
 google-cloud-speech-v2 = { version = "0.2.0", path = "../../src/generated/cloud/speech/v2" }

@@ -16,9 +16,9 @@
 
 #[cfg(test)]
 mod tests {
-    use gcp_sdk_gax::error::Error;
-    use gcp_sdk_gax::loop_state::LoopState;
-    use gcp_sdk_gax::retry_policy::*;
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::loop_state::LoopState;
+    use google_cloud_gax::retry_policy::*;
     use std::time::Duration;
 
     #[derive(Debug)]

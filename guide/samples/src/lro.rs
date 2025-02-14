@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // ANCHOR: use
-use gcp_sdk_longrunning as longrunning;
+use google_cloud_longrunning as longrunning;
 use google_cloud_speech_v2 as speech;
 // ANCHOR_END: use
 

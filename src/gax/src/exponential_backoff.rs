@@ -37,8 +37,8 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::exponential_backoff::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::exponential_backoff::*;
     /// use std::time::Duration;
     ///
     /// fn configure_retry(config: options::ClientConfig) -> Result<options::ClientConfig> {
@@ -53,7 +53,7 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::*;
     /// # use exponential_backoff::*;
     /// use std::time::Duration;
     ///
@@ -96,7 +96,7 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::*;
     /// # use exponential_backoff::*;
     /// # use backoff_policy::BackoffPolicy;
     /// use std::time::Duration;
@@ -140,7 +140,7 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::*;
     /// # use exponential_backoff::*;
     /// use backoff_policy::BackoffPolicy;
     /// use std::time::Duration;

@@ -16,7 +16,7 @@
 
 #[cfg(test)]
 mod tests {
-    use gcp_sdk_gax::retry_throttler::*;
+    use google_cloud_gax::retry_throttler::*;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]

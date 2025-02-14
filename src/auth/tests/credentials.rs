@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_auth::credentials::testing::test_credentials;
-use gcp_sdk_auth::credentials::{create_access_token_credential, Credential, CredentialTrait};
-use gcp_sdk_auth::errors::CredentialError;
-use gcp_sdk_auth::token::Token;
+use google_cloud_auth::credentials::testing::test_credentials;
+use google_cloud_auth::credentials::{create_access_token_credential, Credential, CredentialTrait};
+use google_cloud_auth::errors::CredentialError;
+use google_cloud_auth::token::Token;
 
 type Result<T> = std::result::Result<T, CredentialError>;
 

@@ -43,7 +43,7 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - name: Test gax with features disabled
-        run: cargo build -p gcp-sdk-gax
+        run: cargo build -p google-cloud-gax
       - run: cargo test
   coverage:
     runs-on: ubuntu-24.04
@@ -68,8 +68,8 @@ jobs:
         run: rustc --version
       - run: |
           cargo tarpaulin --out xml \
-            --package gcp-sdk-auth \
-            --package gcp-sdk-gax \
+            --package google-cloud-auth \
+            --package google-cloud-gax \
             --package google-cloud-lro \
             --package google-cloud-wkt
       - name: Upload to codecov.io
@@ -101,7 +101,7 @@ jobs:
       - run: cargo doc
         env:
           RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc -p gcp-sdk-gax
+      - run: cargo doc -p google-cloud-gax
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: mdbook build guide

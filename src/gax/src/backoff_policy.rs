@@ -28,8 +28,8 @@
 //!
 //! # Example
 //! ```
-//! # use gcp_sdk_gax::*;
-//! # use gcp_sdk_gax::backoff_policy::*;
+//! # use google_cloud_gax::*;
+//! # use google_cloud_gax::backoff_policy::*;
 //! use exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!

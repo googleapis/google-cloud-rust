@@ -24,8 +24,8 @@
 //!
 //! # Example:
 //! ```
-//! # use gcp_sdk_gax::polling_policy::*;
-//! # use gcp_sdk_gax::options;
+//! # use google_cloud_gax::polling_policy::*;
+//! # use google_cloud_gax::options;
 //! use std::time::Duration;
 //! fn customize_polling_policy(config: options::ClientConfig) -> options::ClientConfig {
 //!     // Poll for at most 15 minutes or at most 50 attempts: whichever limit
@@ -105,7 +105,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::*;
     /// use polling_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(3);
@@ -131,7 +131,7 @@ pub trait PollingPolicyExt: PollingPolicy + Sized {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::*;
     /// use polling_policy::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
@@ -157,8 +157,8 @@ impl<T: PollingPolicy> PollingPolicyExt for T {}
 ///
 /// # Example
 /// ```
-/// # use gcp_sdk_gax::*;
-/// # use gcp_sdk_gax::polling_policy::*;
+/// # use google_cloud_gax::*;
+/// # use google_cloud_gax::polling_policy::*;
 /// use std::time::Instant;
 /// let policy = Aip194Strict.with_attempt_limit(3);
 /// let attempt_count = 4;
@@ -215,8 +215,8 @@ impl PollingPolicy for Aip194Strict {
 ///
 /// # Example
 /// ```
-/// # use gcp_sdk_gax::*;
-/// # use gcp_sdk_gax::polling_policy::*;
+/// # use google_cloud_gax::*;
+/// # use google_cloud_gax::polling_policy::*;
 /// use std::time::Instant;
 /// let policy = AlwaysContinue;
 /// assert!(policy.on_error(Instant::now(), 1, error::Error::other("err")).is_continue());
@@ -266,8 +266,8 @@ impl LimitedElapsedTime {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::polling_policy::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::polling_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::new(Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
@@ -289,8 +289,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::polling_policy::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::polling_policy::*;
     /// use std::time::{Duration, Instant};
     /// let policy = LimitedElapsedTime::custom(AlwaysContinue, Duration::from_secs(10));
     /// let start = Instant::now() - Duration::from_secs(20);
@@ -374,8 +374,8 @@ impl LimitedAttemptCount {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::polling_policy::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::polling_policy::*;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::new(5);
     /// let attempt_count = 10;
@@ -397,8 +397,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::polling_policy::*;
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::polling_policy::*;
+    /// # use google_cloud_gax::*;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysContinue, 2);
     /// assert!(policy.on_error(Instant::now(), 1, error::Error::other(format!("test"))).is_continue());

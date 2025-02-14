@@ -14,7 +14,7 @@
 
 use gax::http_client::ReqwestClient;
 use gax::options::*;
-use gcp_sdk_gax as gax;
+use google_cloud_gax as gax;
 use serde_json::json;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;

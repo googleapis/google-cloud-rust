@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_gax::error::Error;
+use google_cloud_gax::error::Error;
 
 #[cfg(test)]
 mod test {
