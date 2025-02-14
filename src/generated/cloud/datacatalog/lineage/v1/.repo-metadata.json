@@ -1,0 +1,11 @@
+{
+    "api_id": "datalineage.googleapis.com",
+    "api_shortname": "datalineage",
+    "client_documentation": "https://docs.rs/google-cloud-datacatalog-lineage-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Data Lineage API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
