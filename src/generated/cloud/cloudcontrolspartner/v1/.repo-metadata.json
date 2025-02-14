@@ -1,0 +1,11 @@
+{
+    "api_id": "cloudcontrolspartner.googleapis.com",
+    "api_shortname": "cloudcontrolspartner",
+    "client_documentation": "https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Cloud Controls Partner API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
