@@ -87,6 +87,7 @@ members = [
   "src/generated/cloud/gkehub/multiclusteringress/v1",
   "src/generated/cloud/gkehub/v1",
   "src/generated/cloud/gkemulticloud/v1",
+  "src/generated/cloud/gsuiteaddons/v1",
   "src/generated/cloud/iap/v1",
   "src/generated/cloud/ids/v1",
   "src/generated/cloud/kms/inventory/v1",
