@@ -67,6 +67,9 @@ ceritificate = "ceritificate"
 desitination = "desitination"
 orgnization  = "orgnization"
 partitoned   = "partitoned"
+# src/generated/cloud/confidentialcomputing/v1 has a typo, it needs to be fixed
+# upstream.
+plaform = "plaform"
 # src/generated/cloud/config/v1 has a typo, it needs to be fixed upstream.
 identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
