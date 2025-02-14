@@ -1,0 +1,11 @@
+{
+    "api_id": "publicca.googleapis.com",
+    "api_shortname": "publicca",
+    "client_documentation": "https://docs.rs/google-cloud-security-publicca-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Public Certificate Authority API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
