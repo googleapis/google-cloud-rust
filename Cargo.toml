@@ -28,6 +28,7 @@ members = [
   "src/generated/api/serviceusage/v1",
   "src/generated/api/types",
   "src/generated/appengine/v1",
+  "src/generated/apps/script/calendar",
   "src/generated/apps/script/gmail",
   "src/generated/apps/script/gtype",
   "src/generated/bigtable/admin/v2",
