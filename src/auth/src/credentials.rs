@@ -231,8 +231,8 @@ pub(crate) mod dynamic {
 /// Example usage:
 ///
 /// ```
-/// # use gcp_sdk_auth::credentials::create_access_token_credential;
-/// # use gcp_sdk_auth::errors::CredentialError;
+/// # use google_cloud_auth::credentials::create_access_token_credential;
+/// # use google_cloud_auth::errors::CredentialError;
 /// # tokio_test::block_on(async {
 /// let mut creds = create_access_token_credential().await?;
 /// let token = creds.get_token().await?;
@@ -339,7 +339,7 @@ fn adc_well_known_path() -> Option<String> {
 /// These credentials are a convenient way to avoid errors from loading
 /// Application Default Credentials in tests.
 ///
-/// This module is mainly relevant to other `gcp-sdk-*` crates, but some
+/// This module is mainly relevant to other `google-cloudk-*` crates, but some
 /// external developers (i.e. consumers, not developers of `google-cloud-rust`)
 /// may find it useful.
 pub mod testing {

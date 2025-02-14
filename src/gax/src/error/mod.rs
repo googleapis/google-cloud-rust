@@ -33,7 +33,7 @@ pub use service_error::*;
 ///
 /// ```
 /// # use std::result::Result;
-/// # use gcp_sdk_gax::error;
+/// # use google_cloud_gax::error;
 /// use error::Error;
 /// use error::ServiceError;
 /// use error::rpc::Status;

@@ -48,5 +48,5 @@ pub mod credentials;
 pub mod token;
 
 /// A `Result` alias where the `Err` case is
-/// `gcp-sdk-auth::errors::CredentialError`.
+/// `google_cloud_auth::errors::CredentialError`.
 pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialError>;

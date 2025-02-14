@@ -26,8 +26,8 @@
 //!
 //! # Example:
 //! ```
-//! # use gcp_sdk_gax::retry_policy::*;
-//! # use gcp_sdk_gax::options;
+//! # use google_cloud_gax::retry_policy::*;
+//! # use google_cloud_gax::options;
 //! fn customize_retry_policy(config: options::ClientConfig) -> options::ClientConfig {
 //!     // Retry for at most 10 seconds or at most 5 attempts: whichever limit
 //!     // is reached first stops the retry loop.
@@ -133,7 +133,7 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_policy::*;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = Aip194Strict.with_time_limit(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
@@ -156,8 +156,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::error::*;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::error::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
     /// assert_eq!(policy.remaining_time(Instant::now(), 0), None);
@@ -184,8 +184,8 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 ///
 /// # Example
 /// ```
-/// # use gcp_sdk_gax::retry_policy::*;
-/// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+/// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
 ///     builder.with_retry_policy(Aip194Strict.with_attempt_limit(3))
 /// }
@@ -255,8 +255,8 @@ impl RetryPolicy for Aip194Strict {
 /// # Example
 /// ```
 /// # use std::sync::Arc;
-/// # use gcp_sdk_gax::retry_policy::*;
-/// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+/// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
 ///     builder.with_retry_policy(
 ///         AlwaysRetry.with_attempt_limit(3))
@@ -286,8 +286,8 @@ impl RetryPolicy for AlwaysRetry {
 ///
 /// # Example
 /// ```
-/// # use gcp_sdk_gax::retry_policy::*;
-/// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+/// # use google_cloud_gax::retry_policy::*;
+/// # use google_cloud_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
 ///     builder.with_retry_policy(NeverRetry)
 /// }
@@ -337,8 +337,8 @@ impl LimitedElapsedTime {
     /// # Example
     /// ```
     /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::options::RequestOptionsBuilder;
     /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
     ///     builder.with_retry_policy(LimitedElapsedTime::new(std::time::Duration::from_secs(10)))
     /// }
@@ -346,7 +346,7 @@ impl LimitedElapsedTime {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
+    /// # use google_cloud_gax::retry_policy::*;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = LimitedElapsedTime::new(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
@@ -367,8 +367,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::options::RequestOptionsBuilder;
     /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
     ///     builder.with_retry_policy(LimitedElapsedTime::custom(AlwaysRetry, std::time::Duration::from_secs(10)))
     /// }
@@ -376,8 +376,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::error;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::error;
     /// let d = std::time::Duration::from_secs(10);
     /// let policy = AlwaysRetry.with_time_limit(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
@@ -477,8 +477,8 @@ impl LimitedAttemptCount {
     /// # Example
     /// ```
     /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::*;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::*;
     /// fn customize_retry_policy() -> options::ClientConfig {
     ///     options::ClientConfig::new()
     ///         .set_retry_policy(LimitedAttemptCount::new(5))
@@ -500,8 +500,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::options::RequestOptionsBuilder;
     /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
     ///     builder.with_retry_policy(LimitedAttemptCount::custom(AlwaysRetry, 10))
     /// }
@@ -509,8 +509,8 @@ where
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::error;
+    /// # use google_cloud_gax::retry_policy::*;
+    /// # use google_cloud_gax::error;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
     /// assert!(policy.on_error(Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());

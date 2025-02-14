@@ -7,3 +7,9 @@ for Rust. Please consult the crate documentation for details.
 changes in the upcoming releases. Testing is also incomplete, we do **not**
 recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
+
+> This crate used to contain a different implementation, with a different
+> surface. [@yoshida](https://github.com/yoshida) generously donated the crate
+> name to google. Their crate continues to live as [gcloud-gax].
+
+[gcloud-gax]: https://crates.io/crates/gcloud-gax

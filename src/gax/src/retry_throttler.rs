@@ -25,8 +25,8 @@
 //!
 //! # Example
 //! ```
-//! # use gcp_sdk_gax::*;
-//! # use gcp_sdk_gax::retry_throttler::*;
+//! # use google_cloud_gax::*;
+//! # use google_cloud_gax::retry_throttler::*;
 //! fn configure_throttler() -> http_client::ClientConfig {
 //!     let throttler = AdaptiveThrottler::default();
 //!     http_client::ClientConfig::default()
@@ -136,8 +136,8 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> Result<http_client::ClientConfig> {
     ///     let throttler = AdaptiveThrottler::new(2.0)?;
     ///     Ok(http_client::ClientConfig::default()
@@ -161,8 +161,8 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> options::ClientConfig {
     ///     let throttler = AdaptiveThrottler::clamp(2.0);
     ///     options::ClientConfig::default()
@@ -196,8 +196,8 @@ impl std::default::Default for AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> options::ClientConfig {
     ///     let throttler = AdaptiveThrottler::default();
     ///     options::ClientConfig::default()
@@ -269,8 +269,8 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> Result<http_client::ClientConfig> {
     ///     let throttler = CircuitBreaker::new(1000, 250, 10)?;
     ///     Ok(http_client::ClientConfig::default().set_retry_throttler(throttler))
@@ -303,8 +303,8 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> http_client::ClientConfig {
     ///     let throttler = CircuitBreaker::clamp(1000, 250, 10);
     ///     http_client::ClientConfig::default().set_retry_throttler(throttler)
@@ -325,8 +325,8 @@ impl std::default::Default for CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_throttler::*;
+    /// # use google_cloud_gax::*;
+    /// # use google_cloud_gax::retry_throttler::*;
     /// fn configure_throttler() -> http_client::ClientConfig {
     ///     let throttler = CircuitBreaker::default();
     ///     http_client::ClientConfig::default().set_retry_throttler(throttler)

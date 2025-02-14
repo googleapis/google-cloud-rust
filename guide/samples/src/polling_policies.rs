@@ -21,8 +21,8 @@ use google_cloud_speech_v2 as speech;
 // ANCHOR: client-backoff
 pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-backoff-use
-    use gcp_sdk_gax::exponential_backoff::ExponentialBackoffBuilder;
-    use gcp_sdk_gax::options::ClientConfig;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::options::ClientConfig;
     // ANCHOR_END: client-backoff-use
     use speech::Poller;
     use std::time::Duration;
@@ -77,11 +77,11 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
 // ANCHOR: rpc-backoff
 pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-backoff-use
-    use gcp_sdk_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use std::time::Duration;
     // ANCHOR_END: rpc-backoff-use
     // ANCHOR: rpc-backoff-builder-trait
-    use gcp_sdk_gax::options::RequestOptionsBuilder;
+    use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-backoff-builder-trait
     use speech::Poller;
 
@@ -135,9 +135,9 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
 // ANCHOR: client-errors
 pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-errors-use
-    use gcp_sdk_gax::options::ClientConfig;
-    use gcp_sdk_gax::polling_policy::Aip194Strict;
-    use gcp_sdk_gax::polling_policy::PollingPolicyExt;
+    use google_cloud_gax::options::ClientConfig;
+    use google_cloud_gax::polling_policy::Aip194Strict;
+    use google_cloud_gax::polling_policy::PollingPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
     use speech::Poller;
@@ -191,12 +191,12 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
 // ANCHOR: rpc-errors
 pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-errors-use
-    use gcp_sdk_gax::polling_policy::Aip194Strict;
-    use gcp_sdk_gax::polling_policy::PollingPolicyExt;
+    use google_cloud_gax::polling_policy::Aip194Strict;
+    use google_cloud_gax::polling_policy::PollingPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: rpc-errors-use
     // ANCHOR: rpc-errors-builder-trait
-    use gcp_sdk_gax::options::RequestOptionsBuilder;
+    use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-errors-builder-trait
     use speech::Poller;
 

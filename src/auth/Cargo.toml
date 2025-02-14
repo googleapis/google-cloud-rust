@@ -13,8 +13,8 @@
 # limitations under the License.
 
 [package]
-name                 = "gcp-sdk-auth"
-version              = "0.1.1"
+name                 = "google-cloud-auth"
+version              = "0.18.0"
 description          = "Google Cloud Client Libraries for Rust - Authentication"
 edition.workspace    = true
 authors.workspace    = true

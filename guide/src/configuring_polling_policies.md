@@ -231,10 +231,10 @@ See [below](#configuring-the-retryable-polling-errors-for-a-specific-request-com
 ```
 
 [aip-194]: https://google.aip.dev/194
-[aip194strict]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/polling_policy/struct.Aip194Strict.html
-[exponentialbackoff]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/exponential_backoff/struct.ExponentialBackoff.html
+[aip194strict]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_policy/struct.Aip194Strict.html
+[exponentialbackoff]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/exponential_backoff/struct.ExponentialBackoff.html
 [per-request setting]: #configuring-the-polling-frequency-for-a-specific-request
-[pollingbackoffpolicy]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/polling_backoff_policy/trait.PollingBackoffPolicy.html
-[pollingpolicy]: https://docs.rs/gcp-sdk-gax/latest/gcp_sdk_gax/polling_policy/trait.PollingPolicy.html
+[pollingbackoffpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_backoff_policy/trait.PollingBackoffPolicy.html
+[pollingpolicy]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/polling_policy/trait.PollingPolicy.html
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api
