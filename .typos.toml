@@ -237,4 +237,8 @@ extend-ignore-re = [
   "cc-by-nd-[0-9]",
   "infor-cms",         # Product name
   "synopsys-vcs",      # Product name
+  # src/generated/cloud/video/stitcher/v1 use "GAM" as an acronym.
+  "Gam[A-Z]",
+  "\\WGAM\\W",
+  "gam_[a-z]",
 ]
