@@ -214,6 +214,9 @@ extend-ignore-re = [
   # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
   # seems too broad.
   " whe ",
+  # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
+  "GOST R 34",
+  "GOST3411",
   # src/generated/cloud/orchestration/airflow/service/v1, typos splits this as
   # "I-Dentifier"
   "IDentifier",
