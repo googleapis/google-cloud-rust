@@ -840,9 +840,9 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
  "google-cloud-api",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-lro",
@@ -1048,8 +1048,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-identity-accesscontextmanager-v1",
  "google-cloud-lro",
@@ -1112,8 +1112,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-lro",
@@ -1191,7 +1191,7 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
@@ -1226,8 +1226,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "google-cloud-api",
+ "google-cloud-gax",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
@@ -1369,8 +1369,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-lro",
@@ -2027,8 +2027,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -2298,8 +2298,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-location",
  "google-cloud-lro",
  "google-cloud-type",
@@ -3175,8 +3175,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-location",
  "google-cloud-lro",
  "google-cloud-wkt",
@@ -3387,8 +3387,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
  "gcp-sdk-longrunning",
+ "google-cloud-gax",
  "google-cloud-iam-v1",
  "google-cloud-location",
  "google-cloud-lro",
