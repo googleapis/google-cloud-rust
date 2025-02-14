@@ -1082,6 +1082,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-beyondcorp-appconnectors-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-beyondcorp-clientconnectorservices-v1"
 version = "0.2.0"
 dependencies = [
