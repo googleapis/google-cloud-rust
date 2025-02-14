@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Configuring Polling Policies
+# Configuring polling policies
 
 The Google Cloud Client Libraries for Rust provide helper functions to simplify
 waiting and monitoring the progress of
