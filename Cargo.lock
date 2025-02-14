@@ -1421,6 +1421,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-confidentialcomputing-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-location",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-config-v1"
 version = "0.2.0"
 dependencies = [
