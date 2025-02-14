@@ -1695,6 +1695,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-domains-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-essentialcontacts-v1"
 version = "0.2.0"
 dependencies = [
