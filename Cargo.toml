@@ -63,6 +63,7 @@ members = [
   "src/generated/cloud/discoveryengine/v1",
   "src/generated/cloud/documentai/v1",
   "src/generated/cloud/domains/v1",
+  "src/generated/cloud/edgenetwork/v1",
   "src/generated/cloud/essentialcontacts/v1",
   "src/generated/cloud/eventarc/v1",
   "src/generated/cloud/filestore/v1",

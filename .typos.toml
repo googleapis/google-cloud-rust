@@ -114,6 +114,8 @@ asscociated = "asscociated"
 launguage   = "launguage"
 simliar     = "simliar"
 inputed     = "inputed"     # probably mean input-ed
+# src/generated/cloud/edgenetwork/v1 has a typo, it needs to be fixed upstream.
+diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 # src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.
