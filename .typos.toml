@@ -105,6 +105,10 @@ everyting = "everyting"
 # upstream.
 segement  = "segement"
 identites = "identites"
+# src/generated/cloud/migrationcenter/v1 has typos, they need to be fixed
+# upstream.
+pount    = "pount"
+staticly = "staticly"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
