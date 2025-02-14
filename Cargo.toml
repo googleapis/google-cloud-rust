@@ -96,6 +96,7 @@ members = [
   "src/generated/cloud/policysimulator/v1",
   "src/generated/cloud/policytroubleshooter/iam/v3",
   "src/generated/cloud/policytroubleshooter/v1",
+  "src/generated/cloud/rapidmigrationassessment/v1",
   "src/generated/cloud/recaptchaenterprise/v1",
   "src/generated/cloud/recommender/logging/v1",
   "src/generated/cloud/recommender/v1",
