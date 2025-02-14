@@ -56,6 +56,8 @@ ceritificate = "ceritificate"
 desitination = "desitination"
 orgnization  = "orgnization"
 partitoned   = "partitoned"
+# src/generated/cloud/config/v1 has a typo, it needs to be fixed upstream.
+identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
 andd = "andd"
 # src/generated/cloud/datastream/v1, has some typos, they need to be fixed upstream.
@@ -192,6 +194,8 @@ extend-ignore-re = [
   "VerticaDialect",
   "\\W[Vv]ertica\\W",
   "vertica_dialect",
+  # src/generated/cloud/config/v1 has false positives on a product name.
+  "HashiCorp",
   # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
   # seems too broad.
   " whe ",
