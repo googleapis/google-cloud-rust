@@ -52,6 +52,10 @@ wilcards      = "wilcards"
 # src/generated/cloud/alloydb/v1, has some typos, they need to be fixed upstream.
 ephemereal   = "ephemereal"
 ceritificate = "ceritificate"
+# src/generated/cloud/asset/v1, has some typos, they need to be fixed upstream.
+desitination = "desitination"
+orgnization  = "orgnization"
+partitoned   = "partitoned"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
 andd = "andd"
 # src/generated/cloud/datastream/v1, has some typos, they need to be fixed upstream.
