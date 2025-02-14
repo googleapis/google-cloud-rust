@@ -1895,6 +1895,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-gkehub-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "google-cloud-gkehub-configmanagement-v1",
+ "google-cloud-gkehub-multiclusteringress-v1",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-grafeas-v1"
 version = "0.2.0"
 dependencies = [
