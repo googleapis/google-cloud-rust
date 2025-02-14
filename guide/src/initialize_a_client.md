@@ -63,7 +63,7 @@ Once successfully initialized, you can use this client to make RPCs:
 
 ______________________________________________________________________
 
-## Full Program
+## Full program
 
 Putting all this code together into a full program looks as follows:
 

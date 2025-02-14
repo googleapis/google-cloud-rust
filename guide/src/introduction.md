@@ -36,7 +36,7 @@ any Google Service or client library before (in Rust or other language).
 However, the guides will refer you to service specific tutorials to
 initialize their projects and services.
 
-## Service Specific Documentation
+## Service specific documentation
 
 These guides are not intended as tutorials for each services or as extended guides
 on how to design Rust applications to work on Google Cloud. They are starting
@@ -47,7 +47,7 @@ learn more each service. If you need guidance on how to design your application
 for Google Cloud the [Cloud Architecture Center] may have what you are looking
 for.
 
-## Reporting Bugs
+## Reporting bugs
 
 We welcome bugs about the client libraries or their documentation. Please use
 [GitHub Issues](https://github.com/googleapis/google-cloud-rust/issues).
