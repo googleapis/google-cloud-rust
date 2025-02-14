@@ -49,6 +49,17 @@ attahced      = "attahced"
 documnetation = "documnetation"
 specififed    = "specififed"
 wilcards      = "wilcards"
+# src/generated/cloud/aiplatform/v1 has some typos, they need to be fixed
+# upstream.
+assiociated = "assiociated"
+creatation  = "creatation"
+geneated    = "geneated"
+inifinity   = "inifinity"
+mathching   = "mathching"
+overrided   = "overrided"
+predifined  = "predifined"
+simpy       = "simpy"
+specifing   = "specifing"
 # src/generated/cloud/alloydb/v1, has some typos, they need to be fixed upstream.
 ephemereal   = "ephemereal"
 ceritificate = "ceritificate"
@@ -185,6 +196,10 @@ combintation = "combintation"
 # true positives
 [type.rust]
 extend-ignore-re = [
+  # src/generated/cloud/aiplatform has a typo in the code. Won't be fixed.
+  # Seems too risky to ignore the word, a RE seems cleaner
+  "CheckTrialEarlyStoppingStateMetatdata",
+  "FIELDs",
   # src/generated/cloud/bigquery/migration/v2 uses product names that look like
   # typos. They should stay as they are.
   "Tha task is paused", # accepting "Tha" seems too broad
