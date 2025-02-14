@@ -1291,7 +1291,7 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
+ "google-cloud-gax",
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
@@ -1400,8 +1400,8 @@ version = "0.2.0"
 dependencies = [
  "async-trait",
  "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-longrunning",
+ "google-cloud-gax",
+ "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
