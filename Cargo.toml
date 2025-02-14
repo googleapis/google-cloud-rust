@@ -138,6 +138,7 @@ members = [
   "src/generated/devtools/cloudprofiler/v2",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/gkehub/configmanagement/v1",
+  "src/generated/gkehub/multiclusteringress/v1",
   "src/generated/grafeas/v1",
   "src/generated/iam/admin/v1",
   "src/generated/iam/credentials/v1",
