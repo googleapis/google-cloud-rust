@@ -36,6 +36,7 @@ members = [
   "src/generated/cloud/apigeeconnect/v1",
   "src/generated/cloud/assuredworkloads/v1",
   "src/generated/cloud/baremetalsolution/v2",
+  "src/generated/cloud/beyondcorp/appconnections/v1",
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datatransfer/v1",
