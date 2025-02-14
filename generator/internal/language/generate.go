@@ -59,7 +59,6 @@ func GenerateFromRoot(outdir string, root any, provider TemplateProvider, genera
 			impl:    provider,
 			dirname: filepath.Dir(gen.TemplatePath),
 		}
-		mustache.AllowMissingVariables = false
 		s, err := mustache.RenderPartials(templateContents, &nestedProvider, root)
 		if err != nil {
 			errs = append(errs, err)
