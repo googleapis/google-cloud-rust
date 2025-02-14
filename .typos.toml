@@ -144,6 +144,9 @@ representes = "representes"
 corresponsing = "corresponsing"
 # src/generated/cloud/talent/v4 gives an example of a typo. This is correct.
 enginee = "enginee"
+# src/generated/cloud/telcoautomation/v1 has a typo, it needs to be fixed
+# upstream.
+initate = "initate"
 # src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
 coordindate  = "coordindate"
 trignometric = "trignometric"
