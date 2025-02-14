@@ -1019,6 +1019,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-apps-script-type-sheets"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "google-cloud-asset-v1"
 version = "0.2.0"
 dependencies = [
