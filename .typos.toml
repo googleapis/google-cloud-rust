@@ -235,11 +235,7 @@ extend-ignore-re = [
   "infor-cms",         # Product name
   "synopsys-vcs",      # Product name
   # src/generated/cloud/video/stitcher/v1 use "GAM" as an acronym.
-  "GamSettings",
-  "GamSlate",
-  "GamVodConfig",
+  "Gam[A-Z]",
   "\\WGAM\\W",
-  "gam_settings",
-  "gam_slate",
-  "gam_vod_config",
+  "gam_[a-z]",
 ]
