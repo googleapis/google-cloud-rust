@@ -60,6 +60,9 @@ overrided   = "overrided"
 predifined  = "predifined"
 simpy       = "simpy"
 specifing   = "specifing"
+# src/generated/cloud/alloydb/connectors/v1, has a typo, it needs to be fixed
+# upstream.
+authentiation = "authentiation"
 # src/generated/cloud/alloydb/v1, has some typos, they need to be fixed upstream.
 ephemereal   = "ephemereal"
 ceritificate = "ceritificate"
