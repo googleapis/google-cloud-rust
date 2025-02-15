@@ -94,6 +94,7 @@ members = [
   "src/generated/cloud/networkconnectivity/v1",
   "src/generated/cloud/networkmanagement/v1",
   "src/generated/cloud/networksecurity/v1",
+  "src/generated/cloud/networkservices/v1",
   "src/generated/cloud/notebooks/v2",
   "src/generated/cloud/optimization/v1",
   "src/generated/cloud/orchestration/airflow/service/v1",
