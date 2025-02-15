@@ -179,6 +179,9 @@ enginee = "enginee"
 # src/generated/cloud/telcoautomation/v1 has a typo, it needs to be fixed
 # upstream.
 initate = "initate"
+# src/generated/cloud/timeseriesinsights/v1 has a typo, it is fixed at the
+# source, but it has not propagated yet.
+anormaly = "anormaly"
 # src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
 coordindate  = "coordindate"
 trignometric = "trignometric"

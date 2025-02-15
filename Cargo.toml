@@ -128,6 +128,7 @@ members = [
   "src/generated/cloud/tasks/v2",
   "src/generated/cloud/telcoautomation/v1",
   "src/generated/cloud/texttospeech/v1",
+  "src/generated/cloud/timeseriesinsights/v1",
   "src/generated/cloud/tpu/v2",
   "src/generated/cloud/translate/v3",
   "src/generated/cloud/video/livestream/v1",
