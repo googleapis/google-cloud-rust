@@ -13,17 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-# Copyright {{Codec.CopyrightYear}} Google LLC
-{{#Codec.BoilerPlate}}
-#{{{.}}}
-{{/Codec.BoilerPlate}}
 
-name: {{Codec.PackageName}}
-description: The Google Cloud client library for the {{Title}}.
-version: 0.1.0-wip
-
-environment: 
-  sdk: ^3.6.0
-
-dependencies:
-  http: ^1.3.0
+{{#Codec.DocLines}}
+/// {{{.}}}
+{{/Codec.DocLines}}
+final {{{Codec.Type}}}? {{Codec.Name}};
