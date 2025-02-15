@@ -24,7 +24,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
-func TestDart_GeneratedFiles(t *testing.T) {
+func TestGeneratedFiles(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
 	files := generatedFiles(model)
@@ -40,7 +40,7 @@ func TestDart_GeneratedFiles(t *testing.T) {
 	}
 }
 
-func TestDart_TemplatesAvailable(t *testing.T) {
+func TestTemplatesAvailable(t *testing.T) {
 	var count = 0
 	fs.WalkDir(dartTemplates, "templates", func(path string, d fs.DirEntry, err error) error {
 		if filepath.Ext(path) != ".mustache" {
@@ -59,7 +59,7 @@ func TestDart_TemplatesAvailable(t *testing.T) {
 	}
 }
 
-func TestDart_MessageNames(t *testing.T) {
+func TestMessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
 	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
@@ -81,7 +81,7 @@ func TestDart_MessageNames(t *testing.T) {
 	}
 }
 
-func TestDart_EnumNames(t *testing.T) {
+func TestEnumNames(t *testing.T) {
 	parent := &api.Message{
 		Name:    "SecretVersion",
 		ID:      ".test.SecretVersion",
@@ -125,7 +125,7 @@ func TestDart_EnumNames(t *testing.T) {
 	}
 }
 
-func TestDart_EnumValues(t *testing.T) {
+func TestEnumValues(t *testing.T) {
 	enumValueSimple := &api.EnumValue{
 		Name: "NAME",
 		ID:   ".test.v1.SomeMessage.SomeEnum.NAME",

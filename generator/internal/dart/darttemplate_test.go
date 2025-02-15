@@ -21,7 +21,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func TestDart_AnnotateModel(t *testing.T) {
+func TestAnnotateModel(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	_, err := annotateModel(model, map[string]string{})
 	if err != nil {
