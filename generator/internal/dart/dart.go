@@ -201,17 +201,3 @@ func generateMethod(m *api.Method) bool {
 	//     find them and fix them that way.
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
 }
-
-// The list of Dart keywords and reserved words can be found at
-// https://dart.dev/language/keywords.
-func escapeKeyword(symbol string) string {
-	// TODO(#1034): Populate these once we need this function.
-	keywords := map[string]bool{
-		//
-	}
-	_, ok := keywords[symbol]
-	if !ok {
-		return symbol
-	}
-	return "$" + symbol
-}
