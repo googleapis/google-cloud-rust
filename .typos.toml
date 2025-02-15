@@ -134,6 +134,8 @@ identites = "identites"
 # upstream.
 pount    = "pount"
 staticly = "staticly"
+# src/generated/modelarmor/v1 has a typo, it needs to be fixed upstream.
+Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"

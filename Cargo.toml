@@ -90,6 +90,7 @@ members = [
   "src/generated/cloud/memcache/v1",
   "src/generated/cloud/metastore/v1",
   "src/generated/cloud/migrationcenter/v1",
+  "src/generated/cloud/modelarmor/v1",
   "src/generated/cloud/netapp/v1",
   "src/generated/cloud/networkconnectivity/v1",
   "src/generated/cloud/networkmanagement/v1",
