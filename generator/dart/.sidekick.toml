@@ -1,0 +1,25 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[general]
+language             = 'dart'
+specification-format = 'protobuf'
+
+[source]
+googleapis-root         = 'https://github.com/googleapis/googleapis/archive/d383e2fe6661b29ea0def03c3900080ba953dd26.tar.gz'
+googleapis-sha256       = 'f2e50a0fa277735eb048edb9520e8dcb2a6d026b2dcca3f4d9d6efabf9029782'
+protobuf-extracted-name = 'protobuf-29.3'
+protobuf-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
+protobuf-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+protobuf-subdir         = "src"
