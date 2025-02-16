@@ -85,6 +85,7 @@ members = [
   "src/generated/cloud/filestore/v1",
   "src/generated/cloud/functions/v2",
   "src/generated/cloud/gkebackup/v1",
+  "src/generated/cloud/gkeconnect/gateway/v1",
   "src/generated/cloud/gkehub/configmanagement/v1",
   "src/generated/cloud/gkehub/multiclusteringress/v1",
   "src/generated/cloud/gkehub/v1",
