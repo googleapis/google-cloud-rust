@@ -113,8 +113,8 @@ func findAllDirectories() ([]string, error) {
 		}
 		dir := filepath.Dir(path)
 		ignored := []string{
-			"target/package/",     // The output from `cargo package`
-			"generator/testdata/", // Testing
+			"target/package/", // The output from `cargo package`
+			"generator/",      // Testing
 		}
 		for _, candidate := range ignored {
 			if strings.Contains(dir, candidate) {
