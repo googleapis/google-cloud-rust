@@ -36,7 +36,7 @@ func TestParseArgs(t *testing.T) {
 		"-specification-source", specificationSource,
 		"-service-config", secretManagerServiceConfig,
 		"-source-option", fmt.Sprintf("googleapis-root=%s", googleapisRoot),
-		"-language", "rust",
+		"-language", "not-rust",
 		"-output", outputDir,
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
@@ -61,7 +61,7 @@ func TestParseArgs(t *testing.T) {
 		Source: map[string]string{
 			"googleapis-root": googleapisRoot,
 		},
-		Language: "rust",
+		Language: "not-rust",
 		Output:   outputDir,
 		Codec: map[string]string{
 			"copyright-year":        "2024",
