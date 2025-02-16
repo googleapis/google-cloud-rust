@@ -39,7 +39,7 @@ func TestAnnotateModel(t *testing.T) {
 	}
 }
 
-func TestDart_AnnotateMethod(t *testing.T) {
+func TestAnnotateMethod(t *testing.T) {
 	method := sample.MethodListSecretVersions()
 	service := &api.Service{
 		Name:          sample.ServiceName,

@@ -158,7 +158,7 @@ func TestEnumValues(t *testing.T) {
 	}
 }
 
-func TestDart_methodInOutTypeName(t *testing.T) {
+func TestMethodInOutTypeName(t *testing.T) {
 	message := sample.CreateRequest()
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
@@ -177,7 +177,7 @@ func TestDart_methodInOutTypeName(t *testing.T) {
 	}
 }
 
-func TestDart_fieldType(t *testing.T) {
+func TestFieldType(t *testing.T) {
 	// Test simple fields.
 	for _, test := range []struct {
 		typez api.Typez
@@ -253,7 +253,7 @@ func TestDart_fieldType(t *testing.T) {
 	}
 }
 
-func TestDart_fieldType_Repeated(t *testing.T) {
+func TestFieldType_Repeated(t *testing.T) {
 	// Test repeated simple fields.
 	for _, test := range []struct {
 		typez api.Typez
@@ -331,7 +331,7 @@ func TestDart_fieldType_Repeated(t *testing.T) {
 	}
 }
 
-func TestDart_WKT(t *testing.T) {
+func TestWKT(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
 
