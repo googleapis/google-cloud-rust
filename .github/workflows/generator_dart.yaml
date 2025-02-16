@@ -40,16 +40,11 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
       - name: Generate a Dart secretmanager / protobuf client
-        run: go run cmd/sidekick/main.go generate -project-root=.. -specification-format=protobuf -specification-source=generator/testdata/googleapis/google/cloud/secretmanager/v1 -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml -language=dart -output=generator/testdata/dart/protobuf/golden/secretmanager -source-option=googleapis-root=generator/testdata/googleapis
+        run: go test ./...
+        working-directory: generator
       - name: Analyze the generated client
         run: dart analyze --fatal-infos
         working-directory: generator/testdata/dart/protobuf/golden/secretmanager
       - name: Detect changed goldens
         run: git diff --exit-code
-        working-directory: generator/testdata/dart
-      - name: "generated: pubspec.yaml"
-        run: cat protobuf/golden/secretmanager/pubspec.yaml
-        working-directory: generator/testdata/dart
-      - name: "generated: secretmanager.dart"
-        run: cat protobuf/golden/secretmanager/secretmanager.dart
         working-directory: generator/testdata/dart

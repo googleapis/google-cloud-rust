@@ -15,11 +15,12 @@
 [general]
 language = 'dart'
 specification-format = 'protobuf'
-specification-source = 'generator/testdata/googleapis/google/cloud/secretmanager/v1'
-service-config = 'generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+specification-source = 'testdata/googleapis/google/cloud/secretmanager/v1'
+service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
 [source]
-googleapis-root = 'generator/testdata/googleapis'
+googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2025'
+not-for-publication = 'true'
