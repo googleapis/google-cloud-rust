@@ -80,11 +80,11 @@ func refreshAll(rootConfig *config.Config, cmdLine *CommandLine) error {
 	}
 	results := make(chan result)
 	var wg sync.WaitGroup
+	fmt.Printf("refreshing %d directories\n", len(directories))
 	for _, dir := range directories {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			fmt.Printf("refreshing directory %s\n", dir)
 			err := refreshDir(override, cmdLine, dir)
 			results <- result{dir: dir, err: err}
 		}()
@@ -113,8 +113,8 @@ func findAllDirectories() ([]string, error) {
 		}
 		dir := filepath.Dir(path)
 		ignored := []string{
-			"target/package/",     // The output from `cargo package`
-			"generator/testdata/", // Testing
+			"target/package/", // The output from `cargo package`
+			"generator/",      // Testing
 		}
 		for _, candidate := range ignored {
 			if strings.Contains(dir, candidate) {

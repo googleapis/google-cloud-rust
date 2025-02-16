@@ -89,8 +89,8 @@ func (c *command) addFlagBool(p *bool, name string, value bool, usage string) *c
 	return c
 }
 
-func (c *command) addFlagString(p *string, name string, value string, usage string) *command {
-	c.flags.StringVar(p, name, value, usage)
+func (c *command) addFlagString(p *string, name string, usage string) *command {
+	c.flags.StringVar(p, name, "", usage)
 	return c
 }
 

@@ -155,92 +155,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::CreateInstance::send
-    /// [poller()]: crate::builders::cloud_redis::CreateInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
@@ -257,92 +178,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::UpdateInstance::send
-    /// [poller()]: crate::builders::cloud_redis::UpdateInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
@@ -356,92 +198,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::UpgradeInstance::send
-    /// [poller()]: crate::builders::cloud_redis::UpgradeInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn upgrade_instance(
         &self,
         name: impl Into<std::string::String>,
@@ -460,92 +223,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::ImportInstance::send
-    /// [poller()]: crate::builders::cloud_redis::ImportInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn import_instance(
         &self,
         name: impl Into<std::string::String>,
@@ -562,92 +246,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::ExportInstance::send
-    /// [poller()]: crate::builders::cloud_redis::ExportInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn export_instance(
         &self,
         name: impl Into<std::string::String>,
@@ -660,92 +265,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::FailoverInstance::send
-    /// [poller()]: crate::builders::cloud_redis::FailoverInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn failover_instance(
         &self,
         name: impl Into<std::string::String>,
@@ -759,92 +285,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [wkt::Empty] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::DeleteInstance::send
-    /// [poller()]: crate::builders::cloud_redis::DeleteInstance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_instance(
         &self,
         name: impl Into<std::string::String>,
@@ -857,92 +304,13 @@ impl CloudRedis {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_redis_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::Instance, model::OperationMetadata>
-    /// ) -> Result<model::Instance> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::Instance] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::cloud_redis::RescheduleMaintenance::send
-    /// [poller()]: crate::builders::cloud_redis::RescheduleMaintenance::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn reschedule_maintenance(
         &self,
         name: impl Into<std::string::String>,

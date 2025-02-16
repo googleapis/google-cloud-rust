@@ -27,14 +27,14 @@ type goCaseConvertTest struct {
 	Expected string
 }
 
-func TestGo_GeneratedFiles(t *testing.T) {
+func TestGeneratedFiles(t *testing.T) {
 	files := generatedFiles()
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles()")
 	}
 }
 
-func TestGo_ToPascal(t *testing.T) {
+func TestToPascal(t *testing.T) {
 	var pascalConvertTests = []goCaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -48,7 +48,7 @@ func TestGo_ToPascal(t *testing.T) {
 	}
 }
 
-func TestGo_MessageNames(t *testing.T) {
+func TestMessageNames(t *testing.T) {
 	replication := sample.Replication()
 	automatic := sample.Automatic()
 	for _, test := range []struct {
@@ -66,7 +66,7 @@ func TestGo_MessageNames(t *testing.T) {
 	}
 }
 
-func TestGo_EnumNames(t *testing.T) {
+func TestEnumNames(t *testing.T) {
 	message := &api.Message{
 		Name: "SecretVersion",
 		ID:   "..SecretVersion",
@@ -91,7 +91,7 @@ func TestGo_EnumNames(t *testing.T) {
 	}
 }
 
-func TestGo_FormatDocComments(t *testing.T) {
+func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
 The next line has some extra trailing whitespace:

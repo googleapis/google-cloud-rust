@@ -1,0 +1,11 @@
+{
+    "api_id": "servicehealth.googleapis.com",
+    "api_shortname": "servicehealth",
+    "client_documentation": "https://docs.rs/google-cloud-servicehealth-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Service Health API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

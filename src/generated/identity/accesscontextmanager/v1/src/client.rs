@@ -125,92 +125,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessPolicy, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessPolicy> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessPolicy, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessPolicy> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::AccessPolicy] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::CreateAccessPolicy::send
-    /// [poller()]: crate::builders::access_context_manager::CreateAccessPolicy::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_access_policy(
         &self,
     ) -> crate::builders::access_context_manager::CreateAccessPolicy {
@@ -226,92 +147,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessPolicy, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessPolicy> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessPolicy, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessPolicy> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::AccessPolicy] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::UpdateAccessPolicy::send
-    /// [poller()]: crate::builders::access_context_manager::UpdateAccessPolicy::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_access_policy(
         &self,
         policy: impl Into<crate::model::AccessPolicy>,
@@ -328,92 +170,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [wkt::Empty] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::DeleteAccessPolicy::send
-    /// [poller()]: crate::builders::access_context_manager::DeleteAccessPolicy::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_access_policy(
         &self,
         name: impl Into<std::string::String>,
@@ -454,92 +217,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessLevel, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessLevel> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessLevel, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessLevel> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::AccessLevel] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::CreateAccessLevel::send
-    /// [poller()]: crate::builders::access_context_manager::CreateAccessLevel::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_access_level(
         &self,
         parent: impl Into<std::string::String>,
@@ -559,92 +243,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessLevel, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessLevel> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::AccessLevel, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::AccessLevel> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::AccessLevel] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::UpdateAccessLevel::send
-    /// [poller()]: crate::builders::access_context_manager::UpdateAccessLevel::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_access_level(
         &self,
         access_level: impl Into<crate::model::AccessLevel>,
@@ -662,92 +267,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [wkt::Empty] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::DeleteAccessLevel::send
-    /// [poller()]: crate::builders::access_context_manager::DeleteAccessLevel::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_access_level(
         &self,
         name: impl Into<std::string::String>,
@@ -776,92 +302,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ReplaceAccessLevelsResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ReplaceAccessLevelsResponse> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ReplaceAccessLevelsResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ReplaceAccessLevelsResponse> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::ReplaceAccessLevelsResponse] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::ReplaceAccessLevels::send
-    /// [poller()]: crate::builders::access_context_manager::ReplaceAccessLevels::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn replace_access_levels(
         &self,
         parent: impl Into<std::string::String>,
@@ -903,92 +350,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ServicePerimeter, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ServicePerimeter> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ServicePerimeter, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ServicePerimeter> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::ServicePerimeter] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::CreateServicePerimeter::send
-    /// [poller()]: crate::builders::access_context_manager::CreateServicePerimeter::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_service_perimeter(
         &self,
         parent: impl Into<std::string::String>,
@@ -1008,92 +376,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ServicePerimeter, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ServicePerimeter> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ServicePerimeter, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ServicePerimeter> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::ServicePerimeter] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::UpdateServicePerimeter::send
-    /// [poller()]: crate::builders::access_context_manager::UpdateServicePerimeter::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_service_perimeter(
         &self,
         service_perimeter: impl Into<crate::model::ServicePerimeter>,
@@ -1111,92 +400,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [wkt::Empty] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::DeleteServicePerimeter::send
-    /// [poller()]: crate::builders::access_context_manager::DeleteServicePerimeter::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_service_perimeter(
         &self,
         name: impl Into<std::string::String>,
@@ -1221,92 +431,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ReplaceServicePerimetersResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ReplaceServicePerimetersResponse> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::ReplaceServicePerimetersResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::ReplaceServicePerimetersResponse> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::ReplaceServicePerimetersResponse] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::ReplaceServicePerimeters::send
-    /// [poller()]: crate::builders::access_context_manager::ReplaceServicePerimeters::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn replace_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
@@ -1335,92 +466,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::CommitServicePerimetersResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::CommitServicePerimetersResponse> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::CommitServicePerimetersResponse, model::AccessContextManagerOperationMetadata>
-    /// ) -> Result<model::CommitServicePerimetersResponse> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::CommitServicePerimetersResponse] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::AccessContextManagerOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::CommitServicePerimeters::send
-    /// [poller()]: crate::builders::access_context_manager::CommitServicePerimeters::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn commit_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
@@ -1464,92 +516,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::GcpUserAccessBinding, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<model::GcpUserAccessBinding> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::GcpUserAccessBinding, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<model::GcpUserAccessBinding> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::GcpUserAccessBinding] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::GcpUserAccessBindingOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::CreateGcpUserAccessBinding::send
-    /// [poller()]: crate::builders::access_context_manager::CreateGcpUserAccessBinding::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_gcp_user_access_binding(
         &self,
         parent: impl Into<std::string::String>,
@@ -1566,92 +539,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::GcpUserAccessBinding, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<model::GcpUserAccessBinding> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<model::GcpUserAccessBinding, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<model::GcpUserAccessBinding> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [crate::model::GcpUserAccessBinding] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::GcpUserAccessBindingOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::UpdateGcpUserAccessBinding::send
-    /// [poller()]: crate::builders::access_context_manager::UpdateGcpUserAccessBinding::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_gcp_user_access_binding(
         &self,
         gcp_user_access_binding: impl Into<crate::model::GcpUserAccessBinding>,
@@ -1668,92 +562,13 @@ impl AccessContextManager {
     ///
     /// # Long running operations
     ///
-    /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
-    /// `Poller` at least once to start the LRO. You may periodically poll this
-    /// object to find the status of the operation. The poller automatically
-    /// extract the final response value and any intermediate metadata values.
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
     ///
-    /// Calling [send()] on the resulting builder starts a LRO (long-Running
-    /// Operation). LROs run in the background, and the application may poll
-    /// them periodically to find out if they have succeeded, or failed. See
-    /// below for instructions on how to manually use the resulting [Operation].
-    /// We recommend `poller()` in favor of `send()`.
-    ///
-    /// ## Polling until completion
-    ///
-    /// Applications that do not care about intermediate results in a
-    /// long-running operation may use the [until_done()] function:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     poller.until_done().await
-    /// }
-    /// ```
-    ///
-    /// This will wait until the LRO completes (successfully or with an error).
-    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
-    /// control for how long the function runs.
-    ///
-    /// ## Polling with detailed metadata updates
-    ///
-    /// Using the result of [poller()] follows a common pattern:
-    ///
-    /// ```
-    /// # use gax::Result;
-    /// # use google_cloud_identity_accesscontextmanager_v1::model;
-    /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, model::GcpUserAccessBindingOperationMetadata>
-    /// ) -> Result<wkt::Empty> {
-    ///     while let Some(p) = poller.poll().await {
-    ///         match p {
-    ///             lro::PollingResult::Completed(r) => { return r; },
-    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
-    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
-    ///         }
-    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    ///     }
-    ///     Err(gax::error::Error::other("LRO never completed"))
-    /// }
-    /// ```
-    ///
-    /// ## Manually polling long-running operations
-    ///
-    /// If you call [send()], you need to examine the contents of the resulting
-    /// [Operation][longrunning::model::Operation] to determine the result of
-    /// the operation.
-    ///
-    /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [wkt::Empty] (as
-    /// an [Any]), or the error (as a `Status`).
-    ///
-    /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [crate::model::GcpUserAccessBindingOperationMetadata] value in the `metadata`
-    /// field. This value would also be encoded as an [Any]. The metadata may
-    /// include information about how much progress the LRO has made.
-    ///
-    /// To find out if the operation has completed, use the [get_operation]
-    /// method and repeat the steps outlined above.
-    ///
-    /// Note that most errors on [get_operation] do not indicate that the
-    /// long-running operation failed. Long-running operation failures return
-    /// the error status in the [result] field.
-    ///
-    /// [send()]: crate::builders::access_context_manager::DeleteGcpUserAccessBinding::send
-    /// [poller()]: crate::builders::access_context_manager::DeleteGcpUserAccessBinding::poller
-    /// [until_done()]: lro::Poller::until_done
-    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
-    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
-    /// [get_operation]: Self::get_operation
-    /// [metadata]: longrunning::model::Operation::result
-    /// [name]: longrunning::model::Operation::name
-    /// [Operation]: longrunning::model::Operation
-    /// [result]: longrunning::model::Operation::result
-    /// [Any]: wkt::Any
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_gcp_user_access_binding(
         &self,
         name: impl Into<std::string::String>,

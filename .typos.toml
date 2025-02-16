@@ -60,6 +60,9 @@ overrided   = "overrided"
 predifined  = "predifined"
 simpy       = "simpy"
 specifing   = "specifing"
+# src/generated/cloud/alloydb/connectors/v1, has a typo, it needs to be fixed
+# upstream.
+authentiation = "authentiation"
 # src/generated/cloud/alloydb/v1, has some typos, they need to be fixed upstream.
 ephemereal   = "ephemereal"
 ceritificate = "ceritificate"
@@ -92,6 +95,9 @@ desination = "desination"
 # src/generated/cloud/clouddms/v1 has typos, they need to be fixed upstream.
 availablility = "availablility"
 decendents    = "decendents"
+# src/generated/cloud/connectors/v1 has typos, they need to be fixed upstream.
+prinicpal = "prinicpal"
+vaiable   = "vaiable"
 # src/generated/cloud/contactcenterinsights/v1 has typos, they need to be fixed
 # upstream.
 telphony = "telphony"
@@ -134,6 +140,8 @@ identites = "identites"
 # upstream.
 pount    = "pount"
 staticly = "staticly"
+# src/generated/modelarmor/v1 has a typo, it needs to be fixed upstream.
+Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
@@ -179,6 +187,9 @@ enginee = "enginee"
 # src/generated/cloud/telcoautomation/v1 has a typo, it needs to be fixed
 # upstream.
 initate = "initate"
+# src/generated/cloud/timeseriesinsights/v1 has a typo, it is fixed at the
+# source, but it has not propagated yet.
+anormaly = "anormaly"
 # src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
 coordindate  = "coordindate"
 trignometric = "trignometric"

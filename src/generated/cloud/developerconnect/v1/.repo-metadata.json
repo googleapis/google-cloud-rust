@@ -1,0 +1,11 @@
+{
+    "api_id": "developerconnect.googleapis.com",
+    "api_shortname": "developerconnect",
+    "client_documentation": "https://docs.rs/google-cloud-developerconnect-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Developer Connect API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

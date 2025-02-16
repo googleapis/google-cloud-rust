@@ -1,0 +1,11 @@
+{
+    "api_id": "privilegedaccessmanager.googleapis.com",
+    "api_shortname": "privilegedaccessmanager",
+    "client_documentation": "https://docs.rs/google-cloud-privilegedaccessmanager-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Privileged Access Manager API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
