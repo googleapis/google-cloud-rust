@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/oracledatabase/v1'
 service-config = 'google/cloud/oracledatabase/v1/oracledatabase_v1.yaml'
 

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/container/v1'
 service-config = 'google/container/v1/container_v1.yaml'
 

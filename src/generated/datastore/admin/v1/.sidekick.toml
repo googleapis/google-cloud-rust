@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/datastore/admin/v1'
 service-config = 'google/datastore/admin/v1/datastore_v1.yaml'
 

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'schema/google/showcase/v1beta1'
 service-config = 'schema/google/showcase/v1beta1/showcase_v1beta1.yaml'
 

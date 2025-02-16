@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/servicedirectory/v1'
 service-config = 'google/cloud/servicedirectory/v1/servicedirectory_v1.yaml'
 

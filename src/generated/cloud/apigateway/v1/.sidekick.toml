@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/apigateway/v1'
 service-config = 'google/cloud/apigateway/v1/apigateway_v1.yaml'
 

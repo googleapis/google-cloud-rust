@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/accessapproval/v1'
 service-config = 'google/cloud/accessapproval/v1/accessapproval_v1.yaml'
 

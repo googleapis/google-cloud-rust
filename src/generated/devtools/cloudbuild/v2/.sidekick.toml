@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/devtools/cloudbuild/v2'
 service-config = 'google/devtools/cloudbuild/v2/cloudbuild_v2.yaml'
 

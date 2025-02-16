@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/domains/v1'
 service-config = 'google/cloud/domains/v1/domains_v1.yaml'
 

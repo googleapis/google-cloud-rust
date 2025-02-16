@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/certificatemanager/v1'
 service-config = 'google/cloud/certificatemanager/v1/certificatemanager_v1.yaml'
 

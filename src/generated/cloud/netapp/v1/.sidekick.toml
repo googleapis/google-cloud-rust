@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/netapp/v1'
 service-config = 'google/cloud/netapp/v1/netapp_v1.yaml'
 

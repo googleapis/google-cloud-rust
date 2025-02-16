@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/redis/cluster/v1'
 service-config = 'google/cloud/redis/cluster/v1/redis_v1.yaml'
 

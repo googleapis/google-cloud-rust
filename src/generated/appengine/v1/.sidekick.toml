@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/appengine/v1'
 service-config = 'google/appengine/v1/appengine_v1.yaml'
 
