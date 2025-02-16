@@ -40,7 +40,7 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
       - name: Generate a Dart secretmanager / protobuf client
-        run: go test ./...
+        run: go test -run TestDart github.com/googleapis/google-cloud-rust/generator/internal/sidekick
         working-directory: generator
       - name: Analyze the generated client
         run: dart analyze --fatal-infos
