@@ -781,6 +781,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-alloydb-connectors-v1"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "google-cloud-alloydb-v1"
 version = "0.2.0"
 dependencies = [
