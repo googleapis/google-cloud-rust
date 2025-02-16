@@ -29,12 +29,12 @@ var cmdSidekick = newCommand(
 	``,
 	nil, // nil parent is only allowed for the root command
 	nil).
-	addFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
-	addFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
-	addFlagString(&source, "specification-source", "", "the path to the input data").
-	addFlagString(&serviceConfig, "service-config", "", "path to service config").
-	addFlagString(&output, "output", "", "the path within project-root to put generated files").
-	addFlagString(&flagLanguage, "language", "rust", "the generated language").
+	addFlagString(&flagProjectRoot, "project-root", "the root of the output project").
+	addFlagString(&format, "specification-format", "the specification format. Protobuf or OpenAPI v3.").
+	addFlagString(&source, "specification-source", "the path to the input data").
+	addFlagString(&serviceConfig, "service-config", "path to service config").
+	addFlagString(&output, "output", "the path within project-root to put generated files").
+	addFlagString(&flagLanguage, "language", "the generated language").
 	addFlagBool(&dryrun, "dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.").
 	addFlagFunc("source-option", "source options", func(opt string) error {
 		components := strings.SplitN(opt, "=", 2)
