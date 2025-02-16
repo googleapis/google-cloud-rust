@@ -43,7 +43,7 @@ func createRustCodec() *codec {
 	}
 }
 
-func TestRust_ParseOptions(t *testing.T) {
+func TestParseOptions(t *testing.T) {
 	options := map[string]string{
 		"version":               "1.2.3",
 		"package-name-override": "test-only",
@@ -108,7 +108,7 @@ func TestRust_ParseOptions(t *testing.T) {
 	checkRustPackages(t, got, want)
 }
 
-func TestRust_PackageName(t *testing.T) {
+func TestPackageName(t *testing.T) {
 	rustPackageNameImpl(t, "test-only-overridden", map[string]string{
 		"package-name-override": "test-only-overridden",
 	}, &api.API{
@@ -155,7 +155,7 @@ func TestWellKnownTypesExist(t *testing.T) {
 	}
 }
 
-func TestRust_NoStreamingFeature(t *testing.T) {
+func TestNoStreamingFeature(t *testing.T) {
 	c := &codec{
 		extraPackages: []*packagez{},
 	}
@@ -170,7 +170,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 	}
 }
 
-func TestRust_StreamingFeature(t *testing.T) {
+func TestStreamingFeature(t *testing.T) {
 	location := &packagez{
 		name:        "location",
 		packageName: "gcp-sdk-location",
@@ -244,7 +244,7 @@ func checkRustContext(t *testing.T, codec *codec, wantFeatures string) {
 	}
 }
 
-func TestRust_WellKnownTypesAsMethod(t *testing.T) {
+func TestWellKnownTypesAsMethod(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	loadWellKnownTypes(model.State)
@@ -256,7 +256,7 @@ func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	}
 }
 
-func TestRust_GeneratedFiles(t *testing.T) {
+func TestGeneratedFiles(t *testing.T) {
 	generateModule := true
 	files := generatedFiles(generateModule, false)
 	if len(files) == 0 {
@@ -310,7 +310,7 @@ func unexpectedGeneratedFile(t *testing.T, name string, files []language.Generat
 	}
 }
 
-func TestRust_MethodInOut(t *testing.T) {
+func TestMethodInOut(t *testing.T) {
 	message := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
@@ -337,7 +337,7 @@ func TestRust_MethodInOut(t *testing.T) {
 	}
 }
 
-func TestRust_FieldAttributes(t *testing.T) {
+func TestFieldAttributes(t *testing.T) {
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -437,7 +437,7 @@ func TestRust_FieldAttributes(t *testing.T) {
 	}
 }
 
-func TestRust_MapFieldAttributes(t *testing.T) {
+func TestMapFieldAttributes(t *testing.T) {
 	target := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
@@ -564,7 +564,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 	}
 }
 
-func TestRust_WktFieldAttributes(t *testing.T) {
+func TestWktFieldAttributes(t *testing.T) {
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -668,7 +668,7 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 	}
 }
 
-func TestRust_FieldLossyName(t *testing.T) {
+func TestFieldLossyName(t *testing.T) {
 	message := &api.Message{
 		Name:          "SecretPayload",
 		ID:            "..SecretPayload",
@@ -713,7 +713,7 @@ func TestRust_FieldLossyName(t *testing.T) {
 	}
 }
 
-func TestRust_SyntheticField(t *testing.T) {
+func TestSyntheticField(t *testing.T) {
 	message := &api.Message{
 		Name: "Unused",
 		ID:   "..Unused",
@@ -872,7 +872,7 @@ func rustFieldTypesCases() *api.API {
 
 }
 
-func TestRust_FieldType(t *testing.T) {
+func TestFieldType(t *testing.T) {
 	model := rustFieldTypesCases()
 	message, ok := model.State.MessageByID["..Message"]
 	if !ok {
@@ -931,7 +931,7 @@ func TestRust_FieldType(t *testing.T) {
 	}
 }
 
-func TestRust_OneOfFieldType(t *testing.T) {
+func TestOneOfFieldType(t *testing.T) {
 	model := rustFieldTypesCases()
 	message, ok := model.State.MessageByID["..Message"]
 	if !ok {
@@ -968,7 +968,7 @@ func TestRust_OneOfFieldType(t *testing.T) {
 }
 
 // Verify rustBaseFieldType works for map types with different value fields.
-func TestRust_FieldMapTypeValues(t *testing.T) {
+func TestFieldMapTypeValues(t *testing.T) {
 	for _, test := range []struct {
 		want  string
 		value *api.Field
@@ -1039,7 +1039,7 @@ func TestRust_FieldMapTypeValues(t *testing.T) {
 }
 
 // Verify rustBaseFieldType works for map types with different key fields.
-func TestRust_FieldMapTypeKey(t *testing.T) {
+func TestFieldMapTypeKey(t *testing.T) {
 	for _, test := range []struct {
 		want string
 		key  *api.Field
@@ -1099,7 +1099,7 @@ func TestRust_FieldMapTypeKey(t *testing.T) {
 	}
 }
 
-func TestRust_AsQueryParameter(t *testing.T) {
+func TestAsQueryParameter(t *testing.T) {
 	options := &api.Message{
 		Name:   "Options",
 		ID:     "..Options",
@@ -1198,7 +1198,7 @@ func TestRust_AsQueryParameter(t *testing.T) {
 	}
 }
 
-func TestRust_OneOfAsQueryParameter(t *testing.T) {
+func TestOneOfAsQueryParameter(t *testing.T) {
 	options := &api.Message{
 		Name:   "Options",
 		ID:     "..Options",
@@ -1302,7 +1302,7 @@ type rustCaseConvertTest struct {
 	Expected string
 }
 
-func TestRust_ToSnake(t *testing.T) {
+func TestToSnake(t *testing.T) {
 	var snakeConvertTests = []rustCaseConvertTest{
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
@@ -1321,7 +1321,7 @@ func TestRust_ToSnake(t *testing.T) {
 	}
 }
 
-func TestRust_ToScreamingSnake(t *testing.T) {
+func TestToScreamingSnake(t *testing.T) {
 	var snakeConvertTests = []rustCaseConvertTest{
 		{"FooBar", "FOO_BAR"},
 		{"FOO_BAR", "FOO_BAR"},
@@ -1335,7 +1335,7 @@ func TestRust_ToScreamingSnake(t *testing.T) {
 	}
 }
 
-func TestRust_ToPascal(t *testing.T) {
+func TestToPascal(t *testing.T) {
 	var pascalConvertTests = []rustCaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -1354,7 +1354,7 @@ func TestRust_ToPascal(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocComments(t *testing.T) {
+func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
 The next line has some extra trailing whitespace:` + "   " + `
@@ -1403,7 +1403,7 @@ Maybe they wanted to show some JSON:
 	}
 }
 
-func TestRust_FormatDocCommentsBullets(t *testing.T) {
+func TestFormatDocCommentsBullets(t *testing.T) {
 	input := `In this example, in proto field could take one of the following values:
 
 * full_name for a violation in the full_name value
@@ -1429,7 +1429,7 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocCommentsImplicitBlockQuote(t *testing.T) {
+func TestFormatDocCommentsImplicitBlockQuote(t *testing.T) {
 	input := `
 Blockquotes come in many forms. They can start with a leading '> ', as in:
 
@@ -1505,7 +1505,7 @@ block:
 	}
 }
 
-func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
+func TestFormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 	input := `Blockquotes can appear at the end of the comment:
 
     they should have a closing element.`
@@ -1526,7 +1526,7 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
+func TestFormatDocCommentsLinkDefinitions(t *testing.T) {
 	input := `Link definitions should be added when collapsed links are used.
 For example, [google][].
 Second [example][].
@@ -1553,7 +1553,7 @@ Second [example][].
 	}
 }
 
-func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
+func TestFormatDocCommentsCrossLinks(t *testing.T) {
 	input := `
 [Any][google.protobuf.Any]
 [Message][test.v1.SomeMessage]
@@ -1638,7 +1638,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
+func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	input := `
 [relative link to service][SomeService]
 [relative link to method][SomeService.CreateFoo]
@@ -1700,7 +1700,7 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocCommentsImpliedCrossLinks(t *testing.T) {
+func TestFormatDocCommentsImpliedCrossLinks(t *testing.T) {
 	input := `
 implied service reference [SomeService][]
 implied method reference [SomeService.CreateFoo][]
@@ -1762,7 +1762,7 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	}
 }
 
-func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
+func TestFormatDocCommentsHTMLTags(t *testing.T) {
 	input := `Placeholders placed between angled brackets should be escaped.
 	For example, example:<ip address> and another example:<second
 	placeholder>.
@@ -1891,7 +1891,7 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	return a
 }
 
-func TestRust_FormatDocCommentsUrls(t *testing.T) {
+func TestFormatDocCommentsUrls(t *testing.T) {
 	input := `
 blah blah https://cloud.google.com foo bar
 [link](https://example1.com)
@@ -1955,7 +1955,7 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	}
 }
 
-func TestRust_MessageNames(t *testing.T) {
+func TestMessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
 	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
@@ -1983,7 +1983,7 @@ func TestRust_MessageNames(t *testing.T) {
 	}
 }
 
-func TestRust_EnumNames(t *testing.T) {
+func TestEnumNames(t *testing.T) {
 	parent := &api.Message{
 		Name:    "SecretVersion",
 		ID:      ".test.SecretVersion",
