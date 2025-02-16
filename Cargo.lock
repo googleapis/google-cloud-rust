@@ -965,6 +965,82 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-apps-script-type"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-calendar"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-docs"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-drive"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-gmail"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-sheets"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
+name = "google-cloud-apps-script-type-slides"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "google-cloud-asset-v1"
 version = "0.2.0"
 dependencies = [
@@ -2084,6 +2160,29 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-gsuiteaddons-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-apps-script-type",
+ "google-cloud-apps-script-type-calendar",
+ "google-cloud-apps-script-type-docs",
+ "google-cloud-apps-script-type-drive",
+ "google-cloud-apps-script-type-gmail",
+ "google-cloud-apps-script-type-sheets",
+ "google-cloud-apps-script-type-slides",
+ "google-cloud-gax",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
