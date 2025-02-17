@@ -34,6 +34,8 @@ version = "0.2.0"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.
+# TODO(#1285) - remove `redundant_explicit_links` workaround when no longer needed
+# TODO(#742) - remove `broken_intro_doc_links` workaround when no longer needed
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
