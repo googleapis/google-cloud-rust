@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/bigquery/datapolicies/v1'
 service-config = 'google/cloud/bigquery/datapolicies/v1/bigquerydatapolicy_v1.yaml'
 

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/monitoring/dashboard/v1'
 service-config = 'google/monitoring/dashboard/v1/monitoring.yaml'
 

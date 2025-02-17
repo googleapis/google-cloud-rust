@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/orchestration/airflow/service/v1'
 service-config = 'google/cloud/orchestration/airflow/service/v1/composer_v1.yaml'
 

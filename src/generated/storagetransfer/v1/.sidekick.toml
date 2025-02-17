@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/storagetransfer/v1'
 service-config = 'google/storagetransfer/v1/storagetransfer_v1.yaml'
 

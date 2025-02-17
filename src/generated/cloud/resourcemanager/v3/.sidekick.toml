@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/resourcemanager/v3'
 service-config = 'google/cloud/resourcemanager/v3/cloudresourcemanager_v3.yaml'
 

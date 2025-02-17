@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/securitycenter/v2'
 service-config = 'google/cloud/securitycenter/v2/securitycenter_v2.yaml'
 

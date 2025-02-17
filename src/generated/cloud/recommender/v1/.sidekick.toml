@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/recommender/v1'
 service-config = 'google/cloud/recommender/v1/recommender_v1.yaml'
 

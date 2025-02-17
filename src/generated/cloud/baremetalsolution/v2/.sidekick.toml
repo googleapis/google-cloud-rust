@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/baremetalsolution/v2'
 service-config = 'google/cloud/baremetalsolution/v2/baremetalsolution_v2.yaml'
 

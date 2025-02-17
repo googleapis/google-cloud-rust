@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/spanner/admin/instance/v1'
 service-config = 'google/spanner/admin/instance/v1/spanner.yaml'
 

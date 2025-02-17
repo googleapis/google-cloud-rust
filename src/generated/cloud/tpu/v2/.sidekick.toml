@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/tpu/v2'
 service-config = 'google/cloud/tpu/v2/tpu_v2.yaml'
 

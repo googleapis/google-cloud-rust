@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/api/apikeys/v2'
 service-config = 'google/api/apikeys/v2/apikeys_v2.yaml'
 

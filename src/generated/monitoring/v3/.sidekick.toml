@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/monitoring/v3'
 service-config = 'google/monitoring/v3/monitoring.yaml'
 

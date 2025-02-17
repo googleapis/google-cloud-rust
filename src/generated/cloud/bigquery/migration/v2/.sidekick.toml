@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/bigquery/migration/v2'
 service-config = 'google/cloud/bigquery/migration/v2/bigquerymigration_v2.yaml'
 

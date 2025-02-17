@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/bigquery/reservation/v1'
 service-config = 'google/cloud/bigquery/reservation/v1/bigqueryreservation_v1.yaml'
 

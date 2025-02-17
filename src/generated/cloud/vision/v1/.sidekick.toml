@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/vision/v1'
 service-config = 'google/cloud/vision/v1/vision_v1.yaml'
 

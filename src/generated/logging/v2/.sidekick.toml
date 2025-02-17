@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/logging/v2'
 service-config = 'google/logging/v2/logging_v2.yaml'
 

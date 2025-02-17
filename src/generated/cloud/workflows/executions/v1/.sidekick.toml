@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/workflows/executions/v1'
 service-config = 'google/cloud/workflows/executions/v1/workflowexecutions_v1.yaml'
 
