@@ -14,8 +14,8 @@ on Google infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [ArtifactRegistry](https://docs.rs/google-cloud-devtools-artifactregistry-v1/latest/google_cloud_devtools_artifactregistry_v1/client/struct.ArtifactRegistry.html)
+* [ArtifactRegistry](https://docs.rs/google-cloud-artifactregistry-v1/latest/google_cloud_artifactregistry_v1/client/struct.ArtifactRegistry.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-devtools-artifactregistry-v1/latest/google-cloud-devtools-artifactregistry-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-artifactregistry-v1/latest/google-cloud-artifactregistry-v1)

@@ -1,7 +1,7 @@
 {
     "api_id": "cloudbuild.googleapis.com",
     "api_shortname": "cloudbuild",
-    "client_documentation": "https://docs.rs/google-cloud-devtools-cloudbuild-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-build-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
