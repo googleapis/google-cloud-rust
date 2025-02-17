@@ -133,6 +133,19 @@ func MethodListSecretVersions() *api.Method {
 		Documentation: "Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This call does not return secret data.",
 		InputTypeID:   ListSecretVersionsRequest().ID,
 		OutputTypeID:  ListSecretVersionsResponse().ID,
+		PathInfo: &api.PathInfo{
+			Verb:          http.MethodPost,
+			BodyFieldPath: "*",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewLiteralPathSegment("projects"),
+				api.NewFieldPathPathSegment("project"),
+				api.NewLiteralPathSegment("secrets"),
+				api.NewFieldPathPathSegment("secret"),
+				api.NewVerbPathSegment("listSecretVersions"),
+			},
+			QueryParameters: map[string]bool{},
+		},
 	}
 }
 
@@ -200,8 +213,8 @@ func ListSecretVersionsRequest() *api.Message {
 
 func ListSecretVersionsResponse() *api.Message {
 	return &api.Message{
-		Name:    "ListSecretVersionRequest",
-		ID:      "..ListSecretVersionsRequest",
+		Name:    "ListSecretVersionsResponse",
+		ID:      "..ListSecretVersionsResponse",
 		Package: Package,
 		Fields: []*api.Field{
 			{

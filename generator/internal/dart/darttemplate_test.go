@@ -19,6 +19,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 func TestAnnotateModel(t *testing.T) {
@@ -35,5 +36,47 @@ func TestAnnotateModel(t *testing.T) {
 	}
 	if diff := cmp.Diff("test", codec.MainFileName); diff != "" {
 		t.Errorf("mismatch in Codec.MainFileName (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestAnnotateMethod(t *testing.T) {
+	method := sample.MethodListSecretVersions()
+	service := &api.Service{
+		Name:          sample.ServiceName,
+		Documentation: sample.APIDescription,
+		DefaultHost:   sample.DefaultHost,
+		Methods:       []*api.Method{method},
+		Package:       sample.Package,
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse()},
+		[]*api.Enum{},
+		[]*api.Service{service},
+	)
+	api.Validate(model)
+	_, err := annotateModel(model, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	annotateMethod(method, model.State)
+	codec := method.Codec.(*methodAnnotation)
+
+	got := codec.Name
+	want := "listSecretVersions"
+	if got != want {
+		t.Errorf("mismatched name, got=%q, want=%q", got, want)
+	}
+
+	got = codec.RequestType
+	want = "ListSecretVersionRequest"
+	if got != want {
+		t.Errorf("mismatched type, got=%q, want=%q", got, want)
+	}
+
+	got = codec.ResponseType
+	want = "ListSecretVersionsResponse"
+	if got != want {
+		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
 }

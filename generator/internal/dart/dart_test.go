@@ -72,6 +72,7 @@ func TestMessageNames(t *testing.T) {
 	}{
 		{message: r, want: "Replication"},
 		{message: a, want: "Replication$Automatic"},
+		{message: sample.SecretPayload(), want: "SecretPayload"},
 	} {
 		t.Run(test.want, func(t *testing.T) {
 			if got := messageName(test.message); got != test.want {
@@ -153,6 +154,197 @@ func TestEnumValues(t *testing.T) {
 	} {
 		if got := enumValueName(test.value); got != test.wantName {
 			t.Errorf("c.enumName(%q) = %q; want = %s", test.value.Name, got, test.wantName)
+		}
+	}
+}
+
+func TestMethodInOutTypeName(t *testing.T) {
+	message := sample.CreateRequest()
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+
+	for _, test := range []struct {
+		typeId string
+		want   string
+	}{
+		{".google.protobuf.Empty", "void"},
+		{message.ID, "CreateSecretRequest"},
+	} {
+		got := methodInOutTypeName(test.typeId, model.State)
+		if got != test.want {
+			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+}
+
+func TestFieldType(t *testing.T) {
+	// Test simple fields.
+	for _, test := range []struct {
+		typez api.Typez
+		want  string
+	}{
+		{api.STRING_TYPE, "String"},
+		{api.INT32_TYPE, "int"},
+		{api.INT64_TYPE, "int"},
+		{api.BOOL_TYPE, "bool"},
+		{api.BYTES_TYPE, "Uint8List"},
+	} {
+		field := &api.Field{
+			Name:     "parent",
+			JSONName: "parent",
+			Typez:    test.typez,
+		}
+		message := &api.Message{
+			Name:          "UpdateSecretRequest",
+			ID:            "..UpdateRequest",
+			Documentation: "Request message for SecretManagerService.UpdateSecret",
+			Package:       sample.Package,
+			Fields:        []*api.Field{field},
+		}
+		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+		annotateModel(model, map[string]string{})
+
+		got := fieldType(field, model.State)
+		if got != test.want {
+			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+
+	// Test message and enum fields.
+	sampleMessage := sample.CreateRequest()
+	sampleEnum := sample.EnumState()
+
+	field1 := &api.Field{
+		Name:     "parent",
+		JSONName: "parent",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  sampleMessage.ID,
+	}
+	field2 := &api.Field{
+		Name:     "parent",
+		JSONName: "parent",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  sampleEnum.ID,
+	}
+	message := &api.Message{
+		Name:          "UpdateSecretRequest",
+		ID:            "..UpdateRequest",
+		Documentation: "Request message for SecretManagerService.UpdateSecret",
+		Package:       sample.Package,
+		Fields:        []*api.Field{field1, field2},
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{message, sampleMessage},
+		[]*api.Enum{sampleEnum},
+		[]*api.Service{},
+	)
+	annotateModel(model, map[string]string{})
+
+	got := fieldType(field1, model.State)
+	want := "CreateSecretRequest"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+
+	got = fieldType(field2, model.State)
+	want = "State"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFieldType_Repeated(t *testing.T) {
+	// Test repeated simple fields.
+	for _, test := range []struct {
+		typez api.Typez
+		want  string
+	}{
+		{api.STRING_TYPE, "List<String>"},
+		{api.INT32_TYPE, "List<int>"},
+		{api.INT64_TYPE, "List<int>"},
+		{api.BOOL_TYPE, "List<bool>"},
+	} {
+		field := &api.Field{
+			Name:     "parent",
+			JSONName: "parent",
+			Typez:    test.typez,
+			Repeated: true,
+		}
+		message := &api.Message{
+			Name:          "UpdateSecretRequest",
+			ID:            "..UpdateRequest",
+			Documentation: "Request message for SecretManagerService.UpdateSecret",
+			Package:       sample.Package,
+			Fields:        []*api.Field{field},
+		}
+		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+		annotateModel(model, map[string]string{})
+
+		got := fieldType(field, model.State)
+		if got != test.want {
+			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+
+	// Test repeated message and enum fields.
+	sampleMessage := sample.CreateRequest()
+	sampleEnum := sample.EnumState()
+
+	field1 := &api.Field{
+		Name:     "parent",
+		JSONName: "parent",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  sampleMessage.ID,
+		Repeated: true,
+	}
+	field2 := &api.Field{
+		Name:     "parent",
+		JSONName: "parent",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  sampleEnum.ID,
+		Repeated: true,
+	}
+	message := &api.Message{
+		Name:          "UpdateSecretRequest",
+		ID:            "..UpdateRequest",
+		Documentation: "Request message for SecretManagerService.UpdateSecret",
+		Package:       sample.Package,
+		Fields:        []*api.Field{field1, field2},
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{message, sampleMessage},
+		[]*api.Enum{sampleEnum},
+		[]*api.Service{},
+	)
+	annotateModel(model, map[string]string{})
+
+	got := fieldType(field1, model.State)
+	want := "List<CreateSecretRequest>"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+
+	got = fieldType(field2, model.State)
+	want = "List<State>"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestWKT(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+
+	for _, test := range []struct {
+		wktID string
+	}{
+		{".google.protobuf.Duration"},
+		{".google.protobuf.Timestamp"},
+	} {
+		resolvedType := model.State.MessageByID[test.wktID]
+
+		if resolvedType == nil {
+			t.Errorf("no mapping for WKT: %s", test.wktID)
 		}
 	}
 }

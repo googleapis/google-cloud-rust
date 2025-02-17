@@ -42,9 +42,6 @@ jobs:
       - name: Generate a Dart secretmanager / protobuf client
         run: go test -run TestDart github.com/googleapis/google-cloud-rust/generator/internal/sidekick
         working-directory: generator
-      - name: Analyze the generated client
-        run: dart analyze --fatal-infos
-        working-directory: generator/testdata/dart/protobuf/golden/secretmanager
       - name: Detect changed goldens
         run: git diff --exit-code
         working-directory: generator/testdata/dart

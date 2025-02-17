@@ -41,7 +41,7 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 
 func generatedFiles(model *api.API) []language.GeneratedFile {
 	codec := model.Codec.(*modelAnnotations)
-	snakeName := codec.MainFileName
+	mainFileName := codec.MainFileName
 
 	files := language.WalkTemplatesDir(dartTemplates, "templates")
 
@@ -49,7 +49,7 @@ func generatedFiles(model *api.API) []language.GeneratedFile {
 	for index, fileInfo := range files {
 		if filepath.Base(fileInfo.TemplatePath) == "main.dart.mustache" {
 			outDir := filepath.Dir(fileInfo.OutputPath)
-			fileInfo.OutputPath = filepath.Join(outDir, snakeName+".dart")
+			fileInfo.OutputPath = filepath.Join(outDir, mainFileName+".dart")
 
 			files[index] = fileInfo
 		}
@@ -59,15 +59,17 @@ func generatedFiles(model *api.API) []language.GeneratedFile {
 }
 
 func loadWellKnownTypes(s *api.APIState) {
+	// TODO(#1034): Create a WKT for google.protobuf.Timestamp.
 	timestamp := &api.Message{
 		ID:      ".google.protobuf.Timestamp",
-		Name:    "Time",
-		Package: "time",
+		Name:    "DateTime",
+		Package: "google.protobuf",
 	}
+	// TODO(#1034): Create a WKT for google.protobuf.Duration.
 	duration := &api.Message{
 		ID:      ".google.protobuf.Duration",
 		Name:    "Duration",
-		Package: "time",
+		Package: "google.protobuf",
 	}
 	s.MessageByID[timestamp.ID] = timestamp
 	s.MessageByID[duration.ID] = duration
@@ -77,11 +79,11 @@ func fieldType(f *api.Field, state *api.APIState) string {
 	var out string
 	switch f.Typez {
 	case api.STRING_TYPE:
-		out = "string"
+		out = "String"
 	case api.INT64_TYPE:
-		out = "int64"
+		out = "int"
 	case api.INT32_TYPE:
-		out = "int32"
+		out = "int"
 	case api.BOOL_TYPE:
 		out = "bool"
 	case api.BYTES_TYPE:
@@ -95,9 +97,9 @@ func fieldType(f *api.Field, state *api.APIState) string {
 		}
 		if m.IsMap {
 			out = "Map"
-			break
+		} else {
+			out = messageName(m)
 		}
-		out = "*" + messageName(m)
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
@@ -107,6 +109,9 @@ func fieldType(f *api.Field, state *api.APIState) string {
 		out = enumName(e)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
+	}
+	if f.Repeated {
+		out = "List<" + out + ">"
 	}
 	return out
 }
@@ -125,6 +130,9 @@ func methodInOutTypeName(id string, s *api.APIState) string {
 	if id == "" {
 		return ""
 	}
+	if id == ".google.protobuf.Empty" {
+		return "void"
+	}
 	m, ok := s.MessageByID[id]
 	if !ok {
 		slog.Error("unable to lookup type", "id", id)
@@ -137,7 +145,7 @@ func messageName(m *api.Message) string {
 	if m.Parent != nil {
 		return messageName(m.Parent) + "$" + strcase.ToCamel(m.Name)
 	}
-	return toPascal(m.Name)
+	return strcase.ToCamel(m.Name)
 }
 
 func enumName(e *api.Enum) string {
@@ -171,10 +179,6 @@ func httpPathArgs(_ *api.PathInfo) []string {
 	return args
 }
 
-func toPascal(symbol string) string {
-	return escapeKeyword(strcase.ToCamel(symbol))
-}
-
 func formatDocComments(documentation string, _ *api.APIState) []string {
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
@@ -196,18 +200,4 @@ func generateMethod(m *api.Method) bool {
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
 	//     find them and fix them that way.
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
-}
-
-// The list of Dart keywords and reserved words can be found at
-// https://dart.dev/language/keywords.
-func escapeKeyword(symbol string) string {
-	// TODO(#1034): Populate these once we need this function.
-	keywords := map[string]bool{
-		//
-	}
-	_, ok := keywords[symbol]
-	if !ok {
-		return symbol
-	}
-	return symbol + "_"
 }

@@ -46,7 +46,7 @@ func TestDartFromProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for _, expected := range []string{"pubspec.yaml", "secretmanager.dart"} {
+	for _, expected := range []string{"pubspec.yaml", "lib/secretmanager.dart", "README.md"} {
 		filename := path.Join(projectRoot, outDir, expected)
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)

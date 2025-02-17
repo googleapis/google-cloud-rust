@@ -13,18 +13,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-{{^IsMap}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
+//{{{.}}}
+{{/Codec.BoilerPlate}}
 
+/// The Google Cloud client for the {{Title}}.
+///
 {{#Codec.DocLines}}
 /// {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} {
-  // TODO:
-}
+library;
+
+import 'dart:typed_data';
+
+import 'package:http/http.dart' as http;
+{{#Services}}
+{{> service}}
+{{/Services}}
 {{#Messages}}
 {{> message}}
 {{/Messages}}
 {{#Enums}}
 {{> enum}}
 {{/Enums}}
-{{/IsMap}}

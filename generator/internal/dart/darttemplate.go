@@ -40,17 +40,17 @@ type modelAnnotations struct {
 type serviceAnnotations struct {
 	// The service name using Dart naming conventions.
 	Name        string
+	DocLines    []string
 	FieldName   string
 	StructName  string
-	DocLines    []string
 	DefaultHost string
 }
 
 type messageAnnotation struct {
 	Name           string
+	DocLines       []string
 	QualifiedName  string
 	HasNestedTypes bool
-	DocLines       []string
 	// The FQN is the source specification
 	SourceFQN   string
 	BasicFields []*api.Field
@@ -58,13 +58,13 @@ type messageAnnotation struct {
 
 type methodAnnotation struct {
 	// The method name using Dart naming conventions.
-	Name              string
-	DocLines          []string
-	PathParams        []*api.Field
-	QueryParams       []*api.Field
-	BodyAccessor      string
-	ServiceStructName string
-	OperationInfo     *operationInfo
+	Name         string
+	RequestType  string
+	ResponseType string
+	DocLines     []string
+	PathParams   []*api.Field
+	QueryParams  []*api.Field
+	BodyAccessor string
 }
 
 type pathInfoAnnotation struct {
@@ -75,11 +75,6 @@ type pathInfoAnnotation struct {
 	HasBody     bool
 }
 
-type operationInfo struct {
-	MetadataType string
-	ResponseType string
-}
-
 type oneOfAnnotation struct {
 	Name     string
 	DocLines []string
@@ -87,8 +82,8 @@ type oneOfAnnotation struct {
 
 type fieldAnnotation struct {
 	Name             string
+	Type             string
 	DocLines         []string
-	FieldType        string
 	AsQueryParameter string
 }
 
@@ -98,8 +93,8 @@ type enumAnnotation struct {
 }
 
 type enumValueAnnotation struct {
-	DocLines []string
 	Name     string
+	DocLines []string
 }
 
 // annotateModel creates a struct used as input for Mustache templates.
@@ -168,13 +163,13 @@ func annotateService(s *api.Service, state *api.APIState) {
 		return generateMethod(m)
 	})
 	for _, m := range methods {
-		annotateMethod(m, s, state)
+		annotateMethod(m, state)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
+		DocLines:    formatDocComments(s.Documentation, state),
 		FieldName:   strcase.ToLowerCamel(s.Name),
 		StructName:  s.Name,
-		DocLines:    formatDocComments(s.Documentation, state),
 		DefaultHost: s.DefaultHost,
 	}
 	s.Codec = ann
@@ -189,9 +184,9 @@ func annotateMessage(m *api.Message, state *api.APIState) {
 	}
 	m.Codec = &messageAnnotation{
 		Name:           messageName(m),
+		DocLines:       formatDocComments(m.Documentation, state),
 		QualifiedName:  messageName(m),
 		HasNestedTypes: language.HasNestedTypes(m),
-		DocLines:       formatDocComments(m.Documentation, state),
 		SourceFQN:      strings.TrimPrefix(m.ID, "."),
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
@@ -199,7 +194,7 @@ func annotateMessage(m *api.Message, state *api.APIState) {
 	}
 }
 
-func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
+func annotateMethod(m *api.Method, state *api.APIState) {
 	pathInfoAnnotation := &pathInfoAnnotation{
 		Method:   m.PathInfo.Verb,
 		PathFmt:  httpPathFmt(m.PathInfo),
@@ -208,34 +203,29 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	}
 	m.PathInfo.Codec = pathInfoAnnotation
 	annotation := &methodAnnotation{
-		BodyAccessor:      bodyAccessor(m),
-		DocLines:          formatDocComments(m.Documentation, state),
-		Name:              strcase.ToLowerCamel(m.Name),
-		PathParams:        language.PathParams(m, state),
-		QueryParams:       language.QueryParams(m, state),
-		ServiceStructName: s.Name,
-	}
-	if m.OperationInfo != nil {
-		annotation.OperationInfo = &operationInfo{
-			MetadataType: methodInOutTypeName(m.OperationInfo.MetadataTypeID, state),
-			ResponseType: methodInOutTypeName(m.OperationInfo.ResponseTypeID, state),
-		}
+		Name:         strcase.ToLowerCamel(m.Name),
+		RequestType:  methodInOutTypeName(m.InputTypeID, state),
+		ResponseType: methodInOutTypeName(m.OutputTypeID, state),
+		DocLines:     formatDocComments(m.Documentation, state),
+		BodyAccessor: bodyAccessor(m),
+		PathParams:   language.PathParams(m, state),
+		QueryParams:  language.QueryParams(m, state),
 	}
 	m.Codec = annotation
 }
 
 func annotateOneOf(field *api.OneOf, state *api.APIState) {
 	field.Codec = &oneOfAnnotation{
-		Name:     toPascal(field.Name),
+		Name:     strcase.ToLowerCamel(field.Name),
 		DocLines: formatDocComments(field.Documentation, state),
 	}
 }
 
 func annotateField(field *api.Field, state *api.APIState) {
 	field.Codec = &fieldAnnotation{
-		Name:      toPascal(field.Name),
-		DocLines:  formatDocComments(field.Documentation, state),
-		FieldType: fieldType(field, state),
+		Name:     strcase.ToLowerCamel(field.Name),
+		Type:     fieldType(field, state),
+		DocLines: formatDocComments(field.Documentation, state),
 	}
 }
 
@@ -251,7 +241,7 @@ func annotateEnum(e *api.Enum, state *api.APIState) {
 
 func annotateEnumValue(ev *api.EnumValue, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: formatDocComments(ev.Documentation, state),
 		Name:     enumValueName(ev),
+		DocLines: formatDocComments(ev.Documentation, state),
 	}
 }
