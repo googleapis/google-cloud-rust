@@ -18,3 +18,4 @@ service-config = 'google/api/apikeys/v2/apikeys_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = 'google-cloud-apikeys-v2'
