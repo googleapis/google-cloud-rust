@@ -3104,6 +3104,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",

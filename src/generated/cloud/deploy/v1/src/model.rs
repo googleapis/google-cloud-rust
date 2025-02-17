@@ -198,7 +198,7 @@ impl wkt::message::Message for AutomationRunEvent {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeliveryPipeline {
-    /// Optional. Name of the `DeliveryPipeline`. Format is
+    /// Identifier. Name of the `DeliveryPipeline`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}`.
     /// The `deliveryPipeline` component must match
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -209,12 +209,13 @@ pub struct DeliveryPipeline {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
 
-    /// Description of the `DeliveryPipeline`. Max length is 255 characters.
+    /// Optional. Description of the `DeliveryPipeline`. Max length is 255
+    /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// User annotations. These attributes can only be set and used by the
-    /// user, and not by Cloud Deploy.
+    /// Optional. User annotations. These attributes can only be set and used by
+    /// the user, and not by Cloud Deploy.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -250,7 +251,7 @@ pub struct DeliveryPipeline {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    /// When suspended, no new releases or rollouts can be created,
+    /// Optional. When suspended, no new releases or rollouts can be created,
     /// but in-progress ones will complete.
     pub suspended: bool,
 
@@ -407,7 +408,7 @@ pub mod delivery_pipeline {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Pipeline {
-        /// SerialPipeline defines a sequential set of stages for a
+        /// Optional. SerialPipeline defines a sequential set of stages for a
         /// `DeliveryPipeline`.
         SerialPipeline(std::boxed::Box<crate::model::SerialPipeline>),
     }
@@ -419,7 +420,7 @@ pub mod delivery_pipeline {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SerialPipeline {
-    /// Each stage specifies configuration for a `Target`. The ordering
+    /// Optional. Each stage specifies configuration for a `Target`. The ordering
     /// of this list defines the promotion flow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub stages: std::vec::Vec<crate::model::Stage>,
@@ -454,17 +455,17 @@ impl wkt::message::Message for SerialPipeline {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Stage {
-    /// The target_id to which this stage points. This field refers exclusively to
-    /// the last segment of a target name. For example, this field would just be
-    /// `my-target` (rather than
+    /// Optional. The target_id to which this stage points. This field refers
+    /// exclusively to the last segment of a target name. For example, this field
+    /// would just be `my-target` (rather than
     /// `projects/project/locations/location/targets/my-target`). The location of
     /// the `Target` is inferred to be the same as the location of the
     /// `DeliveryPipeline` that contains this `Stage`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target_id: std::string::String,
 
-    /// Skaffold profiles to use when rendering the manifest for this stage's
-    /// `Target`.
+    /// Optional. Skaffold profiles to use when rendering the manifest for this
+    /// stage's `Target`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub profiles: std::vec::Vec<std::string::String>,
 
@@ -674,11 +675,11 @@ pub mod strategy {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum DeploymentStrategy {
-        /// Standard deployment strategy executes a single deploy and allows
-        /// verifying the deployment.
+        /// Optional. Standard deployment strategy executes a single deploy and
+        /// allows verifying the deployment.
         Standard(std::boxed::Box<crate::model::Standard>),
-        /// Canary deployment strategy provides progressive percentage based
-        /// deployments to a Target.
+        /// Optional. Canary deployment strategy provides progressive percentage
+        /// based deployments to a Target.
         Canary(std::boxed::Box<crate::model::Canary>),
     }
 }
@@ -759,7 +760,7 @@ impl wkt::message::Message for Postdeploy {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Standard {
-    /// Whether to verify a deployment.
+    /// Optional. Whether to verify a deployment.
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job. If this is not configured,
@@ -926,11 +927,11 @@ pub mod canary {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Mode {
-        /// Configures the progressive based deployment for a Target.
+        /// Optional. Configures the progressive based deployment for a Target.
         CanaryDeployment(std::boxed::Box<crate::model::CanaryDeployment>),
-        /// Configures the progressive based deployment for a Target, but allows
-        /// customizing at the phase level where a phase represents each of the
-        /// percentage deployments.
+        /// Optional. Configures the progressive based deployment for a Target, but
+        /// allows customizing at the phase level where a phase represents each of
+        /// the percentage deployments.
         CustomCanaryDeployment(std::boxed::Box<crate::model::CustomCanaryDeployment>),
     }
 }
@@ -949,7 +950,7 @@ pub struct CanaryDeployment {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub percentages: std::vec::Vec<i32>,
 
-    /// Whether to run verify tests after each percentage deployment.
+    /// Optional. Whether to run verify tests after each percentage deployment.
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job of the first phase. If this
@@ -1069,13 +1070,13 @@ pub mod custom_canary_deployment {
         /// Required. Percentage deployment for the phase.
         pub percentage: i32,
 
-        /// Skaffold profiles to use when rendering the manifest for this phase.
-        /// These are in addition to the profiles list specified in the
+        /// Optional. Skaffold profiles to use when rendering the manifest for this
+        /// phase. These are in addition to the profiles list specified in the
         /// `DeliveryPipeline` stage.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub profiles: std::vec::Vec<std::string::String>,
 
-        /// Whether to run verify tests after the deployment.
+        /// Optional. Whether to run verify tests after the deployment.
         pub verify: bool,
 
         /// Optional. Configuration for the predeploy job of this phase. If this is
@@ -1512,9 +1513,9 @@ pub mod kubernetes_config {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ServiceDefinition {
-        /// Kubernetes Gateway API service mesh configuration.
+        /// Optional. Kubernetes Gateway API service mesh configuration.
         GatewayServiceMesh(std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>),
-        /// Kubernetes Service networking configuration.
+        /// Optional. Kubernetes Service networking configuration.
         ServiceNetworking(std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>),
     }
 }
@@ -1525,8 +1526,8 @@ pub mod kubernetes_config {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CloudRunConfig {
-    /// Whether Cloud Deploy should update the traffic stanza in a Cloud Run
-    /// Service on the user's behalf to facilitate traffic splitting. This is
+    /// Optional. Whether Cloud Deploy should update the traffic stanza in a Cloud
+    /// Run Service on the user's behalf to facilitate traffic splitting. This is
     /// required to be true for CanaryDeployments, but optional for
     /// CustomCanaryDeployments.
     pub automatic_traffic_control: bool,
@@ -1705,9 +1706,9 @@ pub mod runtime_config {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum RuntimeConfig {
-        /// Kubernetes runtime configuration.
+        /// Optional. Kubernetes runtime configuration.
         Kubernetes(std::boxed::Box<crate::model::KubernetesConfig>),
-        /// Cloud Run runtime configuration.
+        /// Optional. Cloud Run runtime configuration.
         CloudRun(std::boxed::Box<crate::model::CloudRunConfig>),
     }
 }
@@ -2586,7 +2587,7 @@ impl wkt::message::Message for RollbackTargetResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Target {
-    /// Optional. Name of the `Target`. Format is
+    /// Identifier. Name of the `Target`. Format is
     /// `projects/{project}/locations/{location}/targets/{target}`.
     /// The `target` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2654,7 +2655,7 @@ pub struct Target {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    /// Configurations for all execution that relates to this `Target`.
+    /// Optional. Configurations for all execution that relates to this `Target`.
     /// Each `ExecutionEnvironmentUsage` value may only be used in a single
     /// configuration; using the same value multiple times is an error.
     /// When one or more configurations are specified, they must include the
@@ -3349,7 +3350,7 @@ pub struct GkeCluster {
     pub proxy_url: std::string::String,
 
     /// Optional. If set, the cluster will be accessed using the DNS endpoint. Note
-    /// that `dns_endpoint` and `internal_ip` cannot both be set to true.
+    /// that both `dns_endpoint` and `internal_ip` cannot be set to true.
     pub dns_endpoint: bool,
 }
 
@@ -4018,7 +4019,7 @@ impl wkt::message::Message for DeleteTargetRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomTargetType {
-    /// Optional. Name of the `CustomTargetType`. Format is
+    /// Identifier. Name of the `CustomTargetType`. Format is
     /// `projects/{project}/locations/{location}/customTargetTypes/{customTargetType}`.
     /// The `customTargetType` component must match
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
@@ -4218,8 +4219,8 @@ pub mod custom_target_type {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Definition {
-        /// Configures render and deploy for the `CustomTargetType` using Skaffold
-        /// custom actions.
+        /// Optional. Configures render and deploy for the `CustomTargetType` using
+        /// Skaffold custom actions.
         CustomActions(std::boxed::Box<crate::model::CustomTargetSkaffoldActions>),
     }
 }
@@ -4581,11 +4582,12 @@ pub mod skaffold_modules {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Source {
-        /// Remote git repository containing the Skaffold Config modules.
+        /// Optional. Remote git repository containing the Skaffold Config modules.
         Git(std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>),
-        /// Cloud Storage bucket containing the Skaffold Config modules.
+        /// Optional. Cloud Storage bucket containing the Skaffold Config modules.
         GoogleCloudStorage(std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>),
-        /// Cloud Build V2 repository containing the Skaffold Config modules.
+        /// Optional. Cloud Build V2 repository containing the Skaffold Config
+        /// modules.
         GoogleCloudBuildRepo(
             std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>,
         ),
@@ -5059,12 +5061,12 @@ pub struct DeployPolicy {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
 
-    /// Description of the `DeployPolicy`. Max length is 255 characters.
+    /// Optional. Description of the `DeployPolicy`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// User annotations. These attributes can only be set and used by the
-    /// user, and not by Cloud Deploy. Annotations must meet the following
+    /// Optional. User annotations. These attributes can only be set and used by
+    /// the user, and not by Cloud Deploy. Annotations must meet the following
     /// constraints:
     ///
     /// * Annotations are key/value pairs.
@@ -5105,8 +5107,8 @@ pub struct DeployPolicy {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// When suspended, the policy will not prevent actions from occurring, even
-    /// if the action violates the policy.
+    /// Optional. When suspended, the policy will not prevent actions from
+    /// occurring, even if the action violates the policy.
     pub suspended: bool,
 
     /// Required. Selected resources to which the policy will be applied. At least
@@ -5335,8 +5337,8 @@ impl wkt::message::Message for DeployPolicyResourceSelector {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeliveryPipelineAttribute {
-    /// ID of the `DeliveryPipeline`. The value of this field could be one of the
-    /// following:
+    /// Optional. ID of the `DeliveryPipeline`. The value of this field could be
+    /// one of the following:
     ///
     /// * The last segment of a pipeline name
     /// * "*", all delivery pipelines in a location
@@ -5385,7 +5387,7 @@ impl wkt::message::Message for DeliveryPipelineAttribute {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TargetAttribute {
-    /// ID of the `Target`. The value of this field could be one of the
+    /// Optional. ID of the `Target`. The value of this field could be one of the
     /// following:
     ///
     /// * The last segment of a target name
@@ -5498,7 +5500,7 @@ pub mod policy_rule {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Rule {
-        /// Rollout restrictions.
+        /// Optional. Rollout restrictions.
         RolloutRestriction(std::boxed::Box<crate::model::RolloutRestriction>),
     }
 }
@@ -5938,7 +5940,7 @@ impl wkt::message::Message for PolicyViolationDetails {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Release {
-    /// Optional. Name of the `Release`. Format is
+    /// Identifier. Name of the `Release`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     /// The `release` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5948,13 +5950,14 @@ pub struct Release {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
 
-    /// Description of the `Release`. Max length is 255 characters.
+    /// Optional. Description of the `Release`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// User annotations. These attributes can only be set and used by the
-    /// user, and not by Cloud Deploy. See <https://google.aip.dev/128#annotations>
-    /// for more details such as format and size limitations.
+    /// Optional. User annotations. These attributes can only be set and used by
+    /// the user, and not by Cloud Deploy. See
+    /// <https://google.aip.dev/128#annotations> for more details such as format and
+    /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -5987,15 +5990,16 @@ pub struct Release {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub render_end_time: std::option::Option<wkt::Timestamp>,
 
-    /// Cloud Storage URI of tar.gz archive containing Skaffold configuration.
+    /// Optional. Cloud Storage URI of tar.gz archive containing Skaffold
+    /// configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub skaffold_config_uri: std::string::String,
 
-    /// Filepath of the Skaffold config inside of the config URI.
+    /// Optional. Filepath of the Skaffold config inside of the config URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub skaffold_config_path: std::string::String,
 
-    /// List of artifacts to pass through to Skaffold command.
+    /// Optional. List of artifacts to pass through to Skaffold command.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub build_artifacts: std::vec::Vec<crate::model::BuildArtifact>,
 
@@ -7137,12 +7141,12 @@ impl wkt::message::Message for GetDeployPolicyRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BuildArtifact {
-    /// Image name in Skaffold configuration.
+    /// Optional. Image name in Skaffold configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub image: std::string::String,
 
-    /// Image tag to use. This will generally be the full path to an image, such
-    /// as "gcr.io/my-project/busybox:1.2.3" or
+    /// Optional. Image tag to use. This will generally be the full path to an
+    /// image, such as "gcr.io/my-project/busybox:1.2.3" or
     /// "gcr.io/my-project/busybox@sha256:abc123".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tag: std::string::String,
@@ -7761,7 +7765,7 @@ impl wkt::message::Message for CreateReleaseRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rollout {
-    /// Optional. Name of the `Rollout`. Format is
+    /// Identifier. Name of the `Rollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     /// The `rollout` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7771,14 +7775,15 @@ pub struct Rollout {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
 
-    /// Description of the `Rollout` for user purposes. Max length is 255
+    /// Optional. Description of the `Rollout` for user purposes. Max length is 255
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// User annotations. These attributes can only be set and used by the
-    /// user, and not by Cloud Deploy. See <https://google.aip.dev/128#annotations>
-    /// for more details such as format and size limitations.
+    /// Optional. User annotations. These attributes can only be set and used by
+    /// the user, and not by Cloud Deploy. See
+    /// <https://google.aip.dev/128#annotations> for more details such as format and
+    /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -8773,6 +8778,10 @@ pub mod phase {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeploymentJobs {
+    /// Output only. The predeploy Job, which is the first job on the phase.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub predeploy_job: std::option::Option<crate::model::Job>,
+
     /// Output only. The deploy Job. This is the deploy job in the phase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deploy_job: std::option::Option<crate::model::Job>,
@@ -8780,10 +8789,6 @@ pub struct DeploymentJobs {
     /// Output only. The verify Job. Runs after a deploy if the deploy succeeds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub verify_job: std::option::Option<crate::model::Job>,
-
-    /// Output only. The predeploy Job, which is the first job on the phase.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    pub predeploy_job: std::option::Option<crate::model::Job>,
 
     /// Output only. The postdeploy Job, which is the last job on the phase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -8793,6 +8798,15 @@ pub struct DeploymentJobs {
 impl DeploymentJobs {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [predeploy_job][crate::model::DeploymentJobs::predeploy_job].
+    pub fn set_predeploy_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.predeploy_job = v.into();
+        self
     }
 
     /// Sets the value of [deploy_job][crate::model::DeploymentJobs::deploy_job].
@@ -8810,15 +8824,6 @@ impl DeploymentJobs {
         v: T,
     ) -> Self {
         self.verify_job = v.into();
-        self
-    }
-
-    /// Sets the value of [predeploy_job][crate::model::DeploymentJobs::predeploy_job].
-    pub fn set_predeploy_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.predeploy_job = v.into();
         self
     }
 
@@ -10184,7 +10189,7 @@ impl wkt::message::Message for AbandonReleaseResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct JobRun {
-    /// Optional. Name of the `JobRun`. Format is
+    /// Output only. Name of the `JobRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{releases}/rollouts/{rollouts}/jobRuns/{uuid}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
@@ -11773,7 +11778,7 @@ impl wkt::message::Message for Automation {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AutomationResourceSelector {
-    /// Contains attributes about a target.
+    /// Optional. Contains attributes about a target.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub targets: std::vec::Vec<crate::model::TargetAttribute>,
 }

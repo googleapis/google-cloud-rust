@@ -1381,8 +1381,9 @@ pub struct Results {
     /// corresponding to build step indices.
     ///
     /// [Cloud Builders](https://cloud.google.com/cloud-build/docs/cloud-builders)
-    /// can produce this output by writing to `$BUILDER_OUTPUT/output`.
-    /// Only the first 4KB of data is stored.
+    /// can produce this output by writing to `$BUILDER_OUTPUT/output`. Only the
+    /// first 50KB of data is stored. Note that the `$BUILDER_OUTPUT` variable is
+    /// read-only and can't be substituted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
     pub build_step_outputs: std::vec::Vec<bytes::Bytes>,
@@ -1753,9 +1754,18 @@ pub struct Build {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub warnings: std::vec::Vec<crate::model::build::Warning>,
 
+    /// Optional. Configuration for git operations.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub git_config: std::option::Option<crate::model::GitConfig>,
+
     /// Output only. Contains information about the build when status=FAILURE.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub failure_info: std::option::Option<crate::model::build::FailureInfo>,
+
+    /// Optional. Dependencies that the Cloud Build worker will fetch before
+    /// executing user steps.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dependencies: std::vec::Vec<crate::model::Dependency>,
 }
 
 impl Build {
@@ -1932,6 +1942,15 @@ impl Build {
         self
     }
 
+    /// Sets the value of [git_config][crate::model::Build::git_config].
+    pub fn set_git_config<T: std::convert::Into<std::option::Option<crate::model::GitConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.git_config = v.into();
+        self
+    }
+
     /// Sets the value of [failure_info][crate::model::Build::failure_info].
     pub fn set_failure_info<
         T: std::convert::Into<std::option::Option<crate::model::build::FailureInfo>>,
@@ -1995,6 +2014,17 @@ impl Build {
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dependencies][crate::model::Build::dependencies].
+    pub fn set_dependencies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Dependency>,
+    {
+        use std::iter::Iterator;
+        self.dependencies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -2273,6 +2303,367 @@ pub mod build {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+}
+
+/// A dependency that the Cloud Build worker will fetch before executing user
+/// steps.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Dependency {
+    /// The type of dependency to fetch.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub dep: std::option::Option<crate::model::dependency::Dep>,
+}
+
+impl Dependency {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of `dep`.
+    pub fn set_dep<T: std::convert::Into<std::option::Option<crate::model::dependency::Dep>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dep = v.into();
+        self
+    }
+
+    /// The value of [dep][crate::model::Dependency::dep]
+    /// if it holds a `Empty`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_empty(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.dep.as_ref().and_then(|v| match v {
+            crate::model::dependency::Dep::Empty(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [dep][crate::model::Dependency::dep]
+    /// if it holds a `GitSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_git_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dependency::GitSourceDependency>> {
+        #[allow(unreachable_patterns)]
+        self.dep.as_ref().and_then(|v| match v {
+            crate::model::dependency::Dep::GitSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [dep][crate::model::Dependency::dep]
+    /// to hold a `Empty`.
+    ///
+    /// Note that all the setters affecting `dep` are
+    /// mutually exclusive.
+    pub fn set_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dep = std::option::Option::Some(crate::model::dependency::Dep::Empty(v.into()));
+        self
+    }
+
+    /// Sets the value of [dep][crate::model::Dependency::dep]
+    /// to hold a `GitSource`.
+    ///
+    /// Note that all the setters affecting `dep` are
+    /// mutually exclusive.
+    pub fn set_git_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::dependency::GitSourceDependency>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dep = std::option::Option::Some(crate::model::dependency::Dep::GitSource(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Dependency {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.cloudbuild.v1.Dependency"
+    }
+}
+
+/// Defines additional types related to Dependency
+pub mod dependency {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a git repository as a build dependency.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GitSourceDependency {
+        /// Required. The kind of repo (url or dev connect).
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub repository: std::option::Option<crate::model::dependency::GitSourceRepository>,
+
+        /// Required. The revision that we will fetch the repo at.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub revision: std::string::String,
+
+        /// Optional. True if submodules should be fetched too (default false).
+        pub recurse_submodules: bool,
+
+        /// Optional. How much history should be fetched for the build (default 1, -1
+        /// for all history).
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub depth: i64,
+
+        /// Required. Where should the files be placed on the worker.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub dest_path: std::string::String,
+    }
+
+    impl GitSourceDependency {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [repository][crate::model::dependency::GitSourceDependency::repository].
+        pub fn set_repository<
+            T: std::convert::Into<std::option::Option<crate::model::dependency::GitSourceRepository>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.repository = v.into();
+            self
+        }
+
+        /// Sets the value of [revision][crate::model::dependency::GitSourceDependency::revision].
+        pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.revision = v.into();
+            self
+        }
+
+        /// Sets the value of [recurse_submodules][crate::model::dependency::GitSourceDependency::recurse_submodules].
+        pub fn set_recurse_submodules<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.recurse_submodules = v.into();
+            self
+        }
+
+        /// Sets the value of [depth][crate::model::dependency::GitSourceDependency::depth].
+        pub fn set_depth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.depth = v.into();
+            self
+        }
+
+        /// Sets the value of [dest_path][crate::model::dependency::GitSourceDependency::dest_path].
+        pub fn set_dest_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.dest_path = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GitSourceDependency {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devtools.cloudbuild.v1.Dependency.GitSourceDependency"
+        }
+    }
+
+    /// A repository for a git source.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GitSourceRepository {
+        /// The type of git source repo (url or dev connect).
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub repotype:
+            std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
+    }
+
+    impl GitSourceRepository {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of `repotype`.
+        pub fn set_repotype<
+            T: std::convert::Into<
+                std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.repotype = v.into();
+            self
+        }
+
+        /// The value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
+        /// if it holds a `Url`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_url(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.repotype.as_ref().and_then(|v| match v {
+                crate::model::dependency::git_source_repository::Repotype::Url(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
+        /// if it holds a `DeveloperConnect`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_developer_connect(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.repotype.as_ref().and_then(|v| match v {
+                crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
+        /// to hold a `Url`.
+        ///
+        /// Note that all the setters affecting `repotype` are
+        /// mutually exclusive.
+        pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.repotype = std::option::Option::Some(
+                crate::model::dependency::git_source_repository::Repotype::Url(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
+        /// to hold a `DeveloperConnect`.
+        ///
+        /// Note that all the setters affecting `repotype` are
+        /// mutually exclusive.
+        pub fn set_developer_connect<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.repotype = std::option::Option::Some(
+                crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for GitSourceRepository {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devtools.cloudbuild.v1.Dependency.GitSourceRepository"
+        }
+    }
+
+    /// Defines additional types related to GitSourceRepository
+    pub mod git_source_repository {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The type of git source repo (url or dev connect).
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Repotype {
+            /// Location of the Git repository.
+            Url(std::string::String),
+            /// The Developer Connect Git repository link or the url that matches a
+            /// repository link in the current project, formatted as
+            /// `projects/*/locations/*/connections/*/gitRepositoryLink/*`
+            DeveloperConnect(std::string::String),
+        }
+    }
+
+    /// The type of dependency to fetch.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Dep {
+        /// If set to true disable all dependency fetching (ignoring the default
+        /// source as well).
+        Empty(bool),
+        /// Represents a git repository as a build dependency.
+        GitSource(std::boxed::Box<crate::model::dependency::GitSourceDependency>),
+    }
+}
+
+/// GitConfig is a configuration for git operations.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GitConfig {
+    /// Configuration for HTTP related git operations.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub http: std::option::Option<crate::model::git_config::HttpConfig>,
+}
+
+impl GitConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [http][crate::model::GitConfig::http].
+    pub fn set_http<
+        T: std::convert::Into<std::option::Option<crate::model::git_config::HttpConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.http = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GitConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.cloudbuild.v1.GitConfig"
+    }
+}
+
+/// Defines additional types related to GitConfig
+pub mod git_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// HttpConfig is a configuration for HTTP related git operations.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct HttpConfig {
+        /// SecretVersion resource of the HTTP proxy URL. The Service Account used in
+        /// the build (either the default Service Account or
+        /// user-specified Service Account) should have
+        /// `secretmanager.versions.access` permissions on this secret. The proxy URL
+        /// should be in format `[protocol://][user[:password]@]proxyhost[:port]`.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub proxy_secret_version_name: std::string::String,
+    }
+
+    impl HttpConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [proxy_secret_version_name][crate::model::git_config::HttpConfig::proxy_secret_version_name].
+        pub fn set_proxy_secret_version_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.proxy_secret_version_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for HttpConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devtools.cloudbuild.v1.GitConfig.HttpConfig"
         }
     }
 }
@@ -4371,8 +4762,9 @@ pub struct BuildTrigger {
 
     /// The service account used for all user-controlled operations including
     /// UpdateBuildTrigger, RunBuildTrigger, CreateBuild, and CancelBuild.
-    /// If no service account is set, then the standard Cloud Build service account
-    /// ([PROJECT_NUM]@system.gserviceaccount.com) will be used instead.
+    /// If no service account is set and the legacy Cloud Build service account
+    /// (`[PROJECT_NUM]@cloudbuild.gserviceaccount.com`) is the default for the
+    /// project then it will be used instead.
     /// Format: `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account: std::string::String,
@@ -5273,8 +5665,14 @@ pub mod webhook_config {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PullRequestFilter {
-    /// Configure builds to run whether a repository owner or collaborator need to
-    /// comment `/gcbrun`.
+    /// If CommentControl is enabled, depending on the setting, builds may not
+    /// fire until a repository writer comments `/gcbrun` on a pull
+    /// request or `/gcbrun` is in the pull request description.
+    /// Only PR comments that contain `/gcbrun` will trigger builds.
+    ///
+    /// If CommentControl is set to disabled, comments with `/gcbrun` from a user
+    /// with repository write permission or above will
+    /// still trigger builds to run.
     pub comment_control: crate::model::pull_request_filter::CommentControl,
 
     /// If true, branches that do NOT match the git_ref will trigger a build.
@@ -5353,7 +5751,15 @@ pub mod pull_request_filter {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Controls behavior of Pull Request comments.
+    /// Controls whether or not a `/gcbrun` comment is required from a user with
+    /// repository write permission or above in order to
+    /// trigger Build runs for pull requests. Pull Request update events differ
+    /// between repo types.
+    /// Check repo specific guides
+    /// ([GitHub](https://cloud.google.com/build/docs/automating-builds/github/build-repos-from-github-enterprise#creating_a_github_enterprise_trigger),
+    /// [Bitbucket](https://cloud.google.com/build/docs/automating-builds/bitbucket/build-repos-from-bitbucket-server#creating_a_bitbucket_server_trigger),
+    /// [GitLab](https://cloud.google.com/build/docs/automating-builds/gitlab/build-repos-from-gitlab#creating_a_gitlab_trigger)
+    /// for details.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CommentControl(std::borrow::Cow<'static, str>);
 
@@ -5373,15 +5779,25 @@ pub mod pull_request_filter {
     pub mod comment_control {
         use super::CommentControl;
 
-        /// Do not require comments on Pull Requests before builds are triggered.
+        /// Do not require `/gcbrun` comments from a user with repository write
+        /// permission or above on pull requests before builds are triggered.
+        /// Comments that contain `/gcbrun` will still fire builds so this should
+        /// be thought of as comments not required.
         pub const COMMENTS_DISABLED: CommentControl = CommentControl::new("COMMENTS_DISABLED");
 
-        /// Enforce that repository owners or collaborators must comment on Pull
-        /// Requests before builds are triggered.
+        /// Builds will only fire in response to pull requests if:
+        ///
+        /// . The pull request author has repository write permission or above and
+        ///   `/gcbrun` is in the PR description.
+        /// . A user with repository writer permissions or above comments `/gcbrun`
+        ///   on a pull request authored by any user.
         pub const COMMENTS_ENABLED: CommentControl = CommentControl::new("COMMENTS_ENABLED");
 
-        /// Enforce that repository owners or collaborators must comment on external
-        /// contributors' Pull Requests before builds are triggered.
+        /// Builds will only fire in response to pull requests if:
+        ///
+        /// . The pull request author is a repository writer or above.
+        /// . If the author does not have write permissions, a user with write
+        ///   permissions or above must comment `/gcbrun` in order to fire a build.
         pub const COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY: CommentControl =
             CommentControl::new("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY");
     }
@@ -5874,7 +6290,7 @@ pub struct BuildOptions {
     /// "disk free"; some of the space will be used by the operating system and
     /// build utilities. Also note that this is the minimum disk size that will be
     /// allocated for the build -- the build may run with a larger disk than
-    /// requested. At present, the maximum disk size is 2000GB; builds that request
+    /// requested. At present, the maximum disk size is 4000GB; builds that request
     /// more than the maximum are rejected with an error.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_gb: i64,
@@ -6499,6 +6915,8 @@ impl wkt::message::Message for ReceiveTriggerWebhookResponse {
     }
 }
 
+/// GitHubEnterpriseConfig represents a configuration for a GitHub Enterprise
+/// server.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

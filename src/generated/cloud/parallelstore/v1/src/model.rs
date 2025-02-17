@@ -25,6 +25,7 @@ extern crate location;
 extern crate longrunning;
 extern crate lro;
 extern crate reqwest;
+extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -71,6 +72,7 @@ pub struct Instance {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
+    /// Deprecated 'daos_version' field.
     /// Output only. The version of DAOS software running in the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub daos_version: std::string::String,
@@ -98,7 +100,7 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub effective_reserved_ip_range: std::string::String,
 
-    /// Optional. Stripe level for files. Allowed values are:
+    /// Optional. Immutable. Stripe level for files. Allowed values are:
     ///
     /// * `FILE_STRIPE_LEVEL_MIN`: offers the best performance for small size
     ///   files.
@@ -107,7 +109,7 @@ pub struct Instance {
     /// * `FILE_STRIPE_LEVEL_MAX`: higher throughput performance for larger files.
     pub file_stripe_level: crate::model::FileStripeLevel,
 
-    /// Optional. Stripe level for directories. Allowed values are:
+    /// Optional. Immutable. Stripe level for directories. Allowed values are:
     ///
     /// * `DIRECTORY_STRIPE_LEVEL_MIN`: recommended when directories contain a
     ///   small number of files.
@@ -116,6 +118,13 @@ pub struct Instance {
     /// * `DIRECTORY_STRIPE_LEVEL_MAX`: recommended for directories with a large
     ///   number of files.
     pub directory_stripe_level: crate::model::DirectoryStripeLevel,
+
+    /// Optional. Immutable. The deployment type of the instance. Allowed values
+    /// are:
+    ///
+    /// * `SCRATCH`: the instance is a scratch instance.
+    /// * `PERSISTENT`: the instance is a persistent instance.
+    pub deployment_type: crate::model::DeploymentType,
 }
 
 impl Instance {
@@ -213,6 +222,15 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [deployment_type][crate::model::Instance::deployment_type].
+    pub fn set_deployment_type<T: std::convert::Into<crate::model::DeploymentType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_type = v.into();
+        self
+    }
+
     /// Sets the value of [access_points][crate::model::Instance::access_points].
     pub fn set_access_points<T, V>(mut self, v: T) -> Self
     where
@@ -285,6 +303,10 @@ pub mod instance {
 
         /// The instance is being upgraded.
         pub const UPGRADING: State = State::new("UPGRADING");
+
+        /// The instance is being repaired. This should only be used by instances
+        /// using the `PERSISTENT` deployment type.
+        pub const REPAIRING: State = State::new("REPAIRING");
     }
 
     impl std::convert::From<std::string::String> for State {
@@ -1294,6 +1316,105 @@ impl wkt::message::Message for ImportDataResponse {
     }
 }
 
+/// An entry describing an error that has occurred.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct TransferErrorLogEntry {
+    /// A URL that refers to the target (a data source, a data sink,
+    /// or an object) with which the error is associated.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uri: std::string::String,
+
+    /// A list of messages that carry the error details.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub error_details: std::vec::Vec<std::string::String>,
+}
+
+impl TransferErrorLogEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri][crate::model::TransferErrorLogEntry::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [error_details][crate::model::TransferErrorLogEntry::error_details].
+    pub fn set_error_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.error_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TransferErrorLogEntry {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parallelstore.v1.TransferErrorLogEntry"
+    }
+}
+
+/// A summary of errors by error code, plus a count and sample error log
+/// entries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct TransferErrorSummary {
+    /// One of the error codes that caused the transfer failure.
+    pub error_code: rpc::model::Code,
+
+    /// Count of this type of error.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub error_count: i64,
+
+    /// A list of messages that carry the error details.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub error_log_entries: std::vec::Vec<crate::model::TransferErrorLogEntry>,
+}
+
+impl TransferErrorSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error_code][crate::model::TransferErrorSummary::error_code].
+    pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+        self.error_code = v.into();
+        self
+    }
+
+    /// Sets the value of [error_count][crate::model::TransferErrorSummary::error_count].
+    pub fn set_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.error_count = v.into();
+        self
+    }
+
+    /// Sets the value of [error_log_entries][crate::model::TransferErrorSummary::error_log_entries].
+    pub fn set_error_log_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TransferErrorLogEntry>,
+    {
+        use std::iter::Iterator;
+        self.error_log_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TransferErrorSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parallelstore.v1.TransferErrorSummary"
+    }
+}
+
 /// Metadata related to the data import operation.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1558,6 +1679,11 @@ pub struct TransferOperationMetadata {
     /// Output only. The type of transfer occurring.
     pub transfer_type: crate::model::TransferType,
 
+    /// Output only. List of files that failed to be transferred. This list will
+    /// have a maximum size of 5 elements.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub error_summary: std::vec::Vec<crate::model::TransferErrorSummary>,
+
     /// The source of transfer operation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::transfer_operation_metadata::Source>,
@@ -1589,6 +1715,17 @@ impl TransferOperationMetadata {
         v: T,
     ) -> Self {
         self.transfer_type = v.into();
+        self
+    }
+
+    /// Sets the value of [error_summary][crate::model::TransferOperationMetadata::error_summary].
+    pub fn set_error_summary<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TransferErrorSummary>,
+    {
+        use std::iter::Iterator;
+        self.error_summary = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1816,6 +1953,14 @@ pub struct TransferCounters {
     /// Bytes that are copied to the data destination.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_copied: i64,
+
+    /// Objects that failed to write to the data destination.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub objects_failed: i64,
+
+    /// Number of Bytes that failed to be written to the data destination.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub bytes_failed: i64,
 }
 
 impl TransferCounters {
@@ -1856,6 +2001,18 @@ impl TransferCounters {
     /// Sets the value of [bytes_copied][crate::model::TransferCounters::bytes_copied].
     pub fn set_bytes_copied<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_copied = v.into();
+        self
+    }
+
+    /// Sets the value of [objects_failed][crate::model::TransferCounters::objects_failed].
+    pub fn set_objects_failed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.objects_failed = v.into();
+        self
+    }
+
+    /// Sets the value of [bytes_failed][crate::model::TransferCounters::bytes_failed].
+    pub fn set_bytes_failed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.bytes_failed = v.into();
         self
     }
 }
@@ -1984,6 +2141,44 @@ pub mod directory_stripe_level {
 }
 
 impl std::convert::From<std::string::String> for DirectoryStripeLevel {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+/// Represents the deployment type for the instance.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DeploymentType(std::borrow::Cow<'static, str>);
+
+impl DeploymentType {
+    /// Creates a new DeploymentType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Useful constants to work with [DeploymentType](DeploymentType)
+pub mod deployment_type {
+    use super::DeploymentType;
+
+    /// Default Deployment Type
+    /// It is equivalent to SCRATCH
+    pub const DEPLOYMENT_TYPE_UNSPECIFIED: DeploymentType =
+        DeploymentType::new("DEPLOYMENT_TYPE_UNSPECIFIED");
+
+    /// Scratch
+    pub const SCRATCH: DeploymentType = DeploymentType::new("SCRATCH");
+
+    /// Persistent
+    pub const PERSISTENT: DeploymentType = DeploymentType::new("PERSISTENT");
+}
+
+impl std::convert::From<std::string::String> for DeploymentType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
     }

@@ -198,6 +198,13 @@ pub struct Backup {
     /// retained by the backup system.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub oldest_version_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The instance partition(s) storing the backup.
+    ///
+    /// This is the same as the list of the instance partition(s) that the database
+    /// had footprint in at the backup's `version_time`.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub instance_partitions: std::vec::Vec<crate::model::BackupInstancePartition>,
 }
 
 impl Backup {
@@ -356,6 +363,17 @@ impl Backup {
     {
         use std::iter::Iterator;
         self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [instance_partitions][crate::model::Backup::instance_partitions].
+    pub fn set_instance_partitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupInstancePartition>,
+    {
+        use std::iter::Iterator;
+        self.instance_partitions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1680,6 +1698,39 @@ impl IncrementalBackupSpec {
 impl wkt::message::Message for IncrementalBackupSpec {
     fn typename() -> &'static str {
         "type.googleapis.com/google.spanner.admin.database.v1.IncrementalBackupSpec"
+    }
+}
+
+/// Instance partition information for the backup.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BackupInstancePartition {
+    /// A unique identifier for the instance partition. Values are of the form
+    /// `projects/<project>/instances/<instance>/instancePartitions/<instance_partition_id>`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub instance_partition: std::string::String,
+}
+
+impl BackupInstancePartition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance_partition][crate::model::BackupInstancePartition::instance_partition].
+    pub fn set_instance_partition<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.instance_partition = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupInstancePartition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.BackupInstancePartition"
     }
 }
 

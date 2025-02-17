@@ -1451,19 +1451,47 @@ impl wkt::message::Message for AdaptiveProtection {
 #[non_exhaustive]
 pub struct Attack {
     /// Total PPS (packets per second) volume of attack.
-    pub volume_pps: i32,
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub volume_pps_long: i64,
 
     /// Total BPS (bytes per second) volume of attack.
-    pub volume_bps: i32,
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub volume_bps_long: i64,
 
     /// Type of attack, for example, 'SYN-flood', 'NTP-udp', or 'CHARGEN-udp'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub classification: std::string::String,
+
+    /// Total PPS (packets per second) volume of attack. Deprecated - refer to
+    /// volume_pps_long instead.
+    pub volume_pps: i32,
+
+    /// Total BPS (bytes per second) volume of attack. Deprecated - refer to
+    /// volume_bps_long instead.
+    pub volume_bps: i32,
 }
 
 impl Attack {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [volume_pps_long][crate::model::Attack::volume_pps_long].
+    pub fn set_volume_pps_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.volume_pps_long = v.into();
+        self
+    }
+
+    /// Sets the value of [volume_bps_long][crate::model::Attack::volume_bps_long].
+    pub fn set_volume_bps_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.volume_bps_long = v.into();
+        self
+    }
+
+    /// Sets the value of [classification][crate::model::Attack::classification].
+    pub fn set_classification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.classification = v.into();
+        self
     }
 
     /// Sets the value of [volume_pps][crate::model::Attack::volume_pps].
@@ -1475,12 +1503,6 @@ impl Attack {
     /// Sets the value of [volume_bps][crate::model::Attack::volume_bps].
     pub fn set_volume_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_bps = v.into();
-        self
-    }
-
-    /// Sets the value of [classification][crate::model::Attack::classification].
-    pub fn set_classification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.classification = v.into();
         self
     }
 }
@@ -1962,6 +1984,367 @@ impl wkt::message::Message for Container {
     }
 }
 
+/// Details about a data access attempt made by a principal not authorized under
+/// applicable data security policy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataAccessEvent {
+    /// Unique identifier for data access event.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub event_id: std::string::String,
+
+    /// The email address of the principal that accessed the data. The principal
+    /// could be a user account, service account, Google group, or other.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub principal_email: std::string::String,
+
+    /// The operation performed by the principal to access the data.
+    pub operation: crate::model::data_access_event::Operation,
+
+    /// Timestamp of data access event.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub event_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl DataAccessEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [event_id][crate::model::DataAccessEvent::event_id].
+    pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.event_id = v.into();
+        self
+    }
+
+    /// Sets the value of [principal_email][crate::model::DataAccessEvent::principal_email].
+    pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal_email = v.into();
+        self
+    }
+
+    /// Sets the value of [operation][crate::model::DataAccessEvent::operation].
+    pub fn set_operation<T: std::convert::Into<crate::model::data_access_event::Operation>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = v.into();
+        self
+    }
+
+    /// Sets the value of [event_time][crate::model::DataAccessEvent::event_time].
+    pub fn set_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataAccessEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.DataAccessEvent"
+    }
+}
+
+/// Defines additional types related to DataAccessEvent
+pub mod data_access_event {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The operation of a data access event.
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Operation(std::borrow::Cow<'static, str>);
+
+    impl Operation {
+        /// Creates a new Operation instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [Operation](Operation)
+    pub mod operation {
+        use super::Operation;
+
+        /// The operation is unspecified.
+        pub const OPERATION_UNSPECIFIED: Operation = Operation::new("OPERATION_UNSPECIFIED");
+
+        /// Represents a read operation.
+        pub const READ: Operation = Operation::new("READ");
+
+        /// Represents a move operation.
+        pub const MOVE: Operation = Operation::new("MOVE");
+
+        /// Represents a copy operation.
+        pub const COPY: Operation = Operation::new("COPY");
+    }
+
+    impl std::convert::From<std::string::String> for Operation {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+}
+
+/// Details about a data flow event, in which either the data is moved to or is
+/// accessed from a non-compliant geo-location, as defined in the applicable data
+/// security policy.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataFlowEvent {
+    /// Unique identifier for data flow event.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub event_id: std::string::String,
+
+    /// The email address of the principal that initiated the data flow event. The
+    /// principal could be a user account, service account, Google group, or other.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub principal_email: std::string::String,
+
+    /// The operation performed by the principal for the data flow event.
+    pub operation: crate::model::data_flow_event::Operation,
+
+    /// Non-compliant location of the principal or the data destination.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub violated_location: std::string::String,
+
+    /// Timestamp of data flow event.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub event_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl DataFlowEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [event_id][crate::model::DataFlowEvent::event_id].
+    pub fn set_event_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.event_id = v.into();
+        self
+    }
+
+    /// Sets the value of [principal_email][crate::model::DataFlowEvent::principal_email].
+    pub fn set_principal_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal_email = v.into();
+        self
+    }
+
+    /// Sets the value of [operation][crate::model::DataFlowEvent::operation].
+    pub fn set_operation<T: std::convert::Into<crate::model::data_flow_event::Operation>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = v.into();
+        self
+    }
+
+    /// Sets the value of [violated_location][crate::model::DataFlowEvent::violated_location].
+    pub fn set_violated_location<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.violated_location = v.into();
+        self
+    }
+
+    /// Sets the value of [event_time][crate::model::DataFlowEvent::event_time].
+    pub fn set_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataFlowEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.DataFlowEvent"
+    }
+}
+
+/// Defines additional types related to DataFlowEvent
+pub mod data_flow_event {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The operation of a data flow event.
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Operation(std::borrow::Cow<'static, str>);
+
+    impl Operation {
+        /// Creates a new Operation instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [Operation](Operation)
+    pub mod operation {
+        use super::Operation;
+
+        /// The operation is unspecified.
+        pub const OPERATION_UNSPECIFIED: Operation = Operation::new("OPERATION_UNSPECIFIED");
+
+        /// Represents a read operation.
+        pub const READ: Operation = Operation::new("READ");
+
+        /// Represents a move operation.
+        pub const MOVE: Operation = Operation::new("MOVE");
+
+        /// Represents a copy operation.
+        pub const COPY: Operation = Operation::new("COPY");
+    }
+
+    impl std::convert::From<std::string::String> for Operation {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+}
+
+/// Details about data retention deletion violations, in which the data is
+/// non-compliant based on their retention or deletion time, as defined in the
+/// applicable data security policy. The Data Retention Deletion (DRD) control is
+/// a control of the DSPM (Data Security Posture Management) suite that enables
+/// organizations to manage data retention and deletion policies in compliance
+/// with regulations, such as GDPR and CRPA. DRD supports two primary policy
+/// types: maximum storage length (max TTL) and minimum storage length (min TTL).
+/// Both are aimed at helping organizations meet regulatory and data management
+/// commitments.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DataRetentionDeletionEvent {
+    /// Timestamp indicating when the event was detected.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub event_detection_time: std::option::Option<wkt::Timestamp>,
+
+    /// Number of objects that violated the policy for this resource. If the number
+    /// is less than 1,000, then the value of this field is the exact number. If
+    /// the number of objects that violated the policy is greater than or equal to
+    /// 1,000, then the value of this field is 1000.
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub data_object_count: i64,
+
+    /// Maximum duration of retention allowed from the DRD control. This comes
+    /// from the DRD control where users set a max TTL for their data. For example,
+    /// suppose that a user sets the max TTL for a Cloud Storage bucket to 90 days.
+    /// However, an object in that bucket is 100 days old. In this case, a
+    /// DataRetentionDeletionEvent will be generated for that Cloud Storage bucket,
+    /// and the max_retention_allowed is 90 days.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_retention_allowed: std::option::Option<wkt::Duration>,
+
+    /// Type of the DRD event.
+    pub event_type: crate::model::data_retention_deletion_event::EventType,
+}
+
+impl DataRetentionDeletionEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [event_detection_time][crate::model::DataRetentionDeletionEvent::event_detection_time].
+    pub fn set_event_detection_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_detection_time = v.into();
+        self
+    }
+
+    /// Sets the value of [data_object_count][crate::model::DataRetentionDeletionEvent::data_object_count].
+    pub fn set_data_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.data_object_count = v.into();
+        self
+    }
+
+    /// Sets the value of [max_retention_allowed][crate::model::DataRetentionDeletionEvent::max_retention_allowed].
+    pub fn set_max_retention_allowed<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.max_retention_allowed = v.into();
+        self
+    }
+
+    /// Sets the value of [event_type][crate::model::DataRetentionDeletionEvent::event_type].
+    pub fn set_event_type<
+        T: std::convert::Into<crate::model::data_retention_deletion_event::EventType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataRetentionDeletionEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.DataRetentionDeletionEvent"
+    }
+}
+
+/// Defines additional types related to DataRetentionDeletionEvent
+pub mod data_retention_deletion_event {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of the DRD event.
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct EventType(std::borrow::Cow<'static, str>);
+
+    impl EventType {
+        /// Creates a new EventType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [EventType](EventType)
+    pub mod event_type {
+        use super::EventType;
+
+        /// Unspecified event type.
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
+
+        /// The maximum retention time has been exceeded.
+        pub const EVENT_TYPE_MAX_TTL_EXCEEDED: EventType =
+            EventType::new("EVENT_TYPE_MAX_TTL_EXCEEDED");
+    }
+
+    impl std::convert::From<std::string::String> for EventType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+}
+
 /// Represents database access information, such as queries. A database may be a
 /// sub-resource of an instance (as in the case of Cloud SQL instances or Cloud
 /// Spanner instances), or the database instance itself. Some database resources
@@ -2060,6 +2443,36 @@ impl Database {
 impl wkt::message::Message for Database {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.securitycenter.v2.Database"
+    }
+}
+
+/// Contains information about the disk associated with the finding.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Disk {
+    /// The name of the disk, for example,
+    /// `<https://www.googleapis.com/compute/v1/projects/{project-id}/zones/{zone-id}/disks/{disk-id}>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+}
+
+impl Disk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Disk::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Disk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securitycenter.v2.Disk"
     }
 }
 
@@ -2905,6 +3318,22 @@ pub struct Finding {
     /// This field cannot be updated. Its value is ignored in all update requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub group_memberships: std::vec::Vec<crate::model::GroupMembership>,
+
+    /// Disk associated with the finding.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub disk: std::option::Option<crate::model::Disk>,
+
+    /// Data access events associated with the finding.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub data_access_events: std::vec::Vec<crate::model::DataAccessEvent>,
+
+    /// Data flow events associated with the finding.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub data_flow_events: std::vec::Vec<crate::model::DataFlowEvent>,
+
+    /// Data retention deletion events associated with the finding.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub data_retention_deletion_events: std::vec::Vec<crate::model::DataRetentionDeletionEvent>,
 }
 
 impl Finding {
@@ -3235,6 +3664,15 @@ impl Finding {
         self
     }
 
+    /// Sets the value of [disk][crate::model::Finding::disk].
+    pub fn set_disk<T: std::convert::Into<std::option::Option<crate::model::Disk>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disk = v.into();
+        self
+    }
+
     /// Sets the value of [connections][crate::model::Finding::connections].
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
@@ -3342,6 +3780,39 @@ impl Finding {
     {
         use std::iter::Iterator;
         self.group_memberships = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_access_events][crate::model::Finding::data_access_events].
+    pub fn set_data_access_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataAccessEvent>,
+    {
+        use std::iter::Iterator;
+        self.data_access_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_flow_events][crate::model::Finding::data_flow_events].
+    pub fn set_data_flow_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataFlowEvent>,
+    {
+        use std::iter::Iterator;
+        self.data_flow_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_retention_deletion_events][crate::model::Finding::data_retention_deletion_events].
+    pub fn set_data_retention_deletion_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataRetentionDeletionEvent>,
+    {
+        use std::iter::Iterator;
+        self.data_retention_deletion_events = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3754,6 +4225,10 @@ pub mod finding {
         /// Describes a combination of security issues that represent a more severe
         /// security problem when taken together.
         pub const TOXIC_COMBINATION: FindingClass = FindingClass::new("TOXIC_COMBINATION");
+
+        /// Describes a potential security risk to data assets that contain sensitive
+        /// data.
+        pub const SENSITIVE_DATA_RISK: FindingClass = FindingClass::new("SENSITIVE_DATA_RISK");
     }
 
     impl std::convert::From<std::string::String> for FindingClass {
@@ -5618,7 +6093,6 @@ pub mod mitre_attack {
 
     /// MITRE ATT&CK techniques that can be referenced by SCC findings.
     /// See: <https://attack.mitre.org/techniques/enterprise/>
-    /// Next ID: 65
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Technique(std::borrow::Cow<'static, str>);
 
@@ -5794,6 +6268,10 @@ pub mod mitre_attack {
         pub const CREATE_OR_MODIFY_SYSTEM_PROCESS: Technique =
             Technique::new("CREATE_OR_MODIFY_SYSTEM_PROCESS");
 
+        /// T1546
+        pub const EVENT_TRIGGERED_EXECUTION: Technique =
+            Technique::new("EVENT_TRIGGERED_EXECUTION");
+
         /// T1548
         pub const ABUSE_ELEVATION_CONTROL_MECHANISM: Technique =
             Technique::new("ABUSE_ELEVATION_CONTROL_MECHANISM");
@@ -5848,6 +6326,9 @@ pub mod mitre_attack {
         /// T1609
         pub const CONTAINER_ADMINISTRATION_COMMAND: Technique =
             Technique::new("CONTAINER_ADMINISTRATION_COMMAND");
+
+        /// T1610
+        pub const DEPLOY_CONTAINER: Technique = Technique::new("DEPLOY_CONTAINER");
 
         /// T1611
         pub const ESCAPE_TO_HOST: Technique = Technique::new("ESCAPE_TO_HOST");
@@ -6427,7 +6908,7 @@ pub mod notification_message {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct OrgPolicy {
-    /// The resource name of the org policy.
+    /// Identifier. The resource name of the org policy.
     /// Example:
     /// "organizations/{organization_id}/policies/{constraint_name}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7179,6 +7660,10 @@ pub struct AzureMetadata {
     /// The Azure resource group associated with the resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource_group: std::option::Option<crate::model::azure_metadata::AzureResourceGroup>,
+
+    /// The Azure Entra tenant associated with the resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub tenant: std::option::Option<crate::model::azure_metadata::AzureTenant>,
 }
 
 impl AzureMetadata {
@@ -7205,6 +7690,17 @@ impl AzureMetadata {
         v: T,
     ) -> Self {
         self.resource_group = v.into();
+        self
+    }
+
+    /// Sets the value of [tenant][crate::model::AzureMetadata::tenant].
+    pub fn set_tenant<
+        T: std::convert::Into<std::option::Option<crate::model::azure_metadata::AzureTenant>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tenant = v.into();
         self
     }
 
@@ -7323,6 +7819,10 @@ pub mod azure_metadata {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AzureResourceGroup {
+        /// The ID of the Azure resource group.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub id: std::string::String,
+
         /// The name of the Azure resource group. This is not a UUID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub name: std::string::String,
@@ -7331,6 +7831,12 @@ pub mod azure_metadata {
     impl AzureResourceGroup {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [id][crate::model::azure_metadata::AzureResourceGroup::id].
+        pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.id = v.into();
+            self
         }
 
         /// Sets the value of [name][crate::model::azure_metadata::AzureResourceGroup::name].
@@ -7343,6 +7849,49 @@ pub mod azure_metadata {
     impl wkt::message::Message for AzureResourceGroup {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.securitycenter.v2.AzureMetadata.AzureResourceGroup"
+        }
+    }
+
+    /// Represents a Microsoft Entra tenant.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AzureTenant {
+        /// The ID of the Microsoft Entra tenant, for example,
+        /// "a11aaa11-aa11-1aa1-11aa-1aaa11a".
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub id: std::string::String,
+
+        /// The display name of the Azure tenant.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub display_name: std::string::String,
+    }
+
+    impl AzureTenant {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [id][crate::model::azure_metadata::AzureTenant::id].
+        pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.id = v.into();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::azure_metadata::AzureTenant::display_name].
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AzureTenant {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.securitycenter.v2.AzureMetadata.AzureTenant"
         }
     }
 }
@@ -7527,8 +8076,9 @@ pub struct ResourceValueConfig {
     pub resource_value: crate::model::ResourceValue,
 
     /// Tag values combined with `AND` to check against.
-    /// Values in the form "tagValues/123"
-    /// Example: `[ "tagValues/123", "tagValues/456", "tagValues/789" ]`
+    /// For Google Cloud resources, they are tag value IDs in the form of
+    /// "tagValues/123". Example: `[ "tagValues/123", "tagValues/456",
+    /// "tagValues/789" ]`
     /// <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub tag_values: std::vec::Vec<std::string::String>,
@@ -11666,6 +12216,10 @@ pub struct Cve {
     /// Date the first publicly available exploit or PoC was released.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub exploit_release_date: std::option::Option<wkt::Timestamp>,
+
+    /// Date of the earliest known exploitation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub first_exploitation_date: std::option::Option<wkt::Timestamp>,
 }
 
 impl Cve {
@@ -11732,6 +12286,17 @@ impl Cve {
         v: T,
     ) -> Self {
         self.exploit_release_date = v.into();
+        self
+    }
+
+    /// Sets the value of [first_exploitation_date][crate::model::Cve::first_exploitation_date].
+    pub fn set_first_exploitation_date<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.first_exploitation_date = v.into();
         self
     }
 
