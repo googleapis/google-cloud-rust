@@ -2623,7 +2623,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-longrunning"
-version = "0.2.0"
+version = "0.22.0"
 dependencies = [
  "async-trait",
  "bytes",

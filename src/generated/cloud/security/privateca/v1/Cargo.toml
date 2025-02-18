@@ -33,7 +33,7 @@ gtype      = { version = "0.2", path = "../../../../../../src/generated/type", p
 iam_v1     = { version = "0.2", path = "../../../../../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
 lazy_static = { version = "1" }
 location   = { version = "0.2", path = "../../../../../../src/generated/cloud/location", package = "google-cloud-location" }
-longrunning = { version = "0.2", path = "../../../../../../src/generated/longrunning", package = "google-cloud-longrunning" }
+longrunning = { version = "0.22", path = "../../../../../../src/generated/longrunning", package = "google-cloud-longrunning" }
 lro        = { version = "0.1", path = "../../../../../../src/lro", package = "google-cloud-lro" }
 reqwest    = { version = "0.12", features = ["json"] }
 serde      = { version = "1", features = ["serde_derive"] }
