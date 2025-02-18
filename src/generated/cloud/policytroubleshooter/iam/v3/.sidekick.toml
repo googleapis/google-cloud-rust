@@ -18,4 +18,4 @@ service-config = 'google/cloud/policytroubleshooter/iam/v3/policytroubleshooter_
 
 [codec]
 copyright-year = '2025'
-'package:iam_v2' = 'package=google-cloud-iam-v2,source=google.iam.v2,path=src/generated/iam/v2,version=0.2'
+'package:iam_v2' = 'package=google-cloud-iam-v2,source=google.iam.v2,path=src/generated/iam/v2,version=0.1'

@@ -18,4 +18,4 @@ service-config = 'google/cloud/recommender/logging/v1/recommender.yaml'
 
 [codec]
 copyright-year = '2025'
-'package:recommender' = 'package=google-cloud-recommender-v1,source=google.cloud.recommender.v1,path=src/generated/cloud/recommender/v1,version=0.2'
+'package:recommender' = 'package=google-cloud-recommender-v1,source=google.cloud.recommender.v1,path=src/generated/cloud/recommender/v1,version=0.1'
