@@ -47,14 +47,14 @@ pub struct JwsClaims {
 impl JwsClaims {
     pub fn encode(&self) -> Result<String> {
         if self.exp < self.iat {
-            return Err(CredentialError::non_retryable(format!(
+            return Err(CredentialError::non_retryable_from_str(format!(
                 "expiration time {:?}, must be later than issued time {:?}",
                 self.exp, self.iat
             )));
         }
 
         if self.aud.is_some() && self.scope.is_some() {
-            return Err(CredentialError::non_retryable(format!(
+            return Err(CredentialError::non_retryable_from_str(format!(
                 "Found {:?} for audience and {:?} for scope, however expecting only 1 of them to be set.",
                 self.aud, self.scope
             )));

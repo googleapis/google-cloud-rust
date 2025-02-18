@@ -137,7 +137,9 @@ impl ServiceAccountTokenProvider {
         let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
             .map_err(CredentialError::non_retryable)?
             .ok_or_else(|| {
-                CredentialError::non_retryable("missing PEM section in service account key")
+                CredentialError::non_retryable_from_str(
+                    "missing PEM section in service account key",
+                )
             })?;
         let pk = match private_key {
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
@@ -148,11 +150,11 @@ impl ServiceAccountTokenProvider {
         let sk = pk.map_err(CredentialError::non_retryable)?;
         //TODO(#679) add support for ECDSA
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| CredentialError::non_retryable("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
+            .ok_or_else(|| CredentialError::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 
     fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
-        CredentialError::non_retryable(format!(
+        CredentialError::non_retryable_from_str(format!(
             "expected key to be in form of PKCS8, found {:?}",
             private_key_format
         ))
@@ -234,7 +236,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
@@ -291,7 +293,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,

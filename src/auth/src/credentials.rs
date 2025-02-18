@@ -256,14 +256,14 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         serde_json::from_str(&contents).map_err(CredentialError::non_retryable)?;
     let cred_type = js
         .get("type")
-        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
+        .ok_or_else(|| CredentialError::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
         .as_str()
-        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
+        .ok_or_else(|| CredentialError::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
         "service_account" => service_account_credential::creds_from(js),
-        _ => Err(CredentialError::non_retryable(format!(
+        _ => Err(CredentialError::non_retryable_from_str(format!(
             "Unimplemented credential type: {cred_type}"
         ))),
     }
@@ -282,7 +282,7 @@ enum AdcContents {
 }
 
 fn path_not_found(path: String) -> CredentialError {
-    CredentialError::non_retryable(
+    CredentialError::non_retryable_from_str(
         format!(
             "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
         ))
