@@ -201,6 +201,41 @@ pub(crate) mod dynamic {
     }
 }
 
+/// Represents the type of credential as specified in the credentials file.
+#[derive(Debug, PartialEq)]
+pub enum CredentialType {
+    /// User account credentials, typically from gcloud auth
+    AuthorizedUser,
+    /// Service account key file credentials
+    ServiceAccount,
+    /// External account credentials (e.g., Workload Identity Federation)
+    ExternalAccount,
+}
+
+impl CredentialType {
+    fn from_str(type_str: &str) -> Result<Self> {
+        match type_str {
+            "authorized_user" => Ok(Self::AuthorizedUser),
+            "service_account" => Ok(Self::ServiceAccount),
+            "external_account" => Ok(Self::ExternalAccount),
+            _ => Err(CredentialError::non_retryable(format!(
+                "Unimplemented credential type: {type_str}"
+            ))),
+        }
+    }
+}
+
+impl std::fmt::Display for CredentialType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            Self::AuthorizedUser => "authorized_user",
+            Self::ServiceAccount => "service_account",
+            Self::ExternalAccount => "external_account",
+        };
+        write!(f, "{}", s)
+    }
+}
+
 /// Create access token credentials.
 ///
 /// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
@@ -258,11 +293,11 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         .get("type")
         .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
         .as_str()
-        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
-        )?;
+        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). `type` field is not a string."))?;
+    let cred_type = CredentialType::from_str(cred_type)?;
     match cred_type {
-        "authorized_user" => user_credential::creds_from(js),
-        "service_account" => service_account_credential::creds_from(js),
+        CredentialType::AuthorizedUser => user_credential::creds_from(js),
+        CredentialType::ServiceAccount => service_account_credential::creds_from(js),
         _ => Err(CredentialError::non_retryable(format!(
             "Unimplemented credential type: {cred_type}"
         ))),
@@ -503,6 +538,38 @@ mod test {
         assert_eq!(
             load_adc().unwrap(),
             AdcContents::Contents("contents".to_string())
+        );
+    }
+
+    #[test]
+    fn test_credential_type_conversion() {
+        // from_str tests
+        assert_eq!(
+            CredentialType::from_str("authorized_user").unwrap(),
+            CredentialType::AuthorizedUser
+        );
+        assert_eq!(
+            CredentialType::from_str("service_account").unwrap(),
+            CredentialType::ServiceAccount
+        );
+        assert_eq!(
+            CredentialType::from_str("external_account").unwrap(),
+            CredentialType::ExternalAccount
+        );
+        assert!(CredentialType::from_str("unknown_type").is_err());
+
+        // Display tests
+        assert_eq!(
+            CredentialType::AuthorizedUser.to_string(),
+            "authorized_user"
+        );
+        assert_eq!(
+            CredentialType::ServiceAccount.to_string(),
+            "service_account"
+        );
+        assert_eq!(
+            CredentialType::ExternalAccount.to_string(),
+            "external_account"
         );
     }
 }
