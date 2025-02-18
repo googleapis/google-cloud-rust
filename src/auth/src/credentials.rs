@@ -339,7 +339,7 @@ fn adc_well_known_path() -> Option<String> {
 /// These credentials are a convenient way to avoid errors from loading
 /// Application Default Credentials in tests.
 ///
-/// This module is mainly relevant to other `google-cloudk-*` crates, but some
+/// This module is mainly relevant to other `google-cloud-*` crates, but some
 /// external developers (i.e. consumers, not developers of `google-cloud-rust`)
 /// may find it useful.
 pub mod testing {

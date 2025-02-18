@@ -86,7 +86,7 @@ impl TokenProvider for UserTokenProvider {
                 .text()
                 .await
                 .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::new_from_str(
+            return Err(CredentialError::from_str(
                 is_retryable(status),
                 format!("Failed to fetch token. {body}"),
             ));

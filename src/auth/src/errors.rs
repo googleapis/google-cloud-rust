@@ -36,7 +36,13 @@ pub struct CredentialError {
     /// The underlying source of the error.
     ///
     /// This provides more specific information about the cause of the failure.
-    source: Arc<dyn Error + Send + Sync>,
+    source: CredentialErrorImpl,
+}
+
+#[derive(Clone, Debug)]
+enum CredentialErrorImpl {
+    SimpleMessage(String),
+    Source(Arc<dyn Error + Send + Sync>),
 }
 
 impl CredentialError {
@@ -45,10 +51,10 @@ impl CredentialError {
     /// # Arguments
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `source` - The underlying error that caused the auth failure.
-    pub fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
+    pub(crate) fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
         CredentialError {
             is_retryable,
-            source: Arc::new(source),
+            source: CredentialErrorImpl::Source(Arc::new(source)),
         }
     }
 
@@ -57,8 +63,11 @@ impl CredentialError {
     /// # Arguments
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `message` - The underlying error that caused the auth failure.
-    pub(crate) fn new_from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
-        CredentialError::new(is_retryable, StringError(message.into()))
+    pub(crate) fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
+        CredentialError::new(
+            is_retryable,
+            CredentialErrorImpl::SimpleMessage(message.into()),
+        )
     }
 
     /// Returns `true` if the error is retryable; otherwise returns `false`.
@@ -68,27 +77,45 @@ impl CredentialError {
 
     /// A helper to create a retryable error.
     pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
-        CredentialError::new(true, Arc::new(source))
+        CredentialError::new(true, source)
     }
 
     #[allow(dead_code)]
     pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> Self {
-        CredentialError::new(true, Arc::new(StringError(message.into())))
+        CredentialError::from_str(true, message)
     }
 
     /// A helper to create a non-retryable error.
     pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> Self {
-        CredentialError::new(false, Arc::new(source))
+        CredentialError::new(false, source)
     }
 
     pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> Self {
-        CredentialError::new(false, Arc::new(StringError(message.into())))
+        CredentialError::from_str(false, message)
+    }
+}
+
+impl std::error::Error for CredentialErrorImpl {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match &self {
+            CredentialErrorImpl::SimpleMessage(_) => None,
+            CredentialErrorImpl::Source(source) => Some(source),
+        }
+    }
+}
+
+impl Display for CredentialErrorImpl {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        match &self {
+            CredentialErrorImpl::SimpleMessage(message) => write!(f, "{}", message),
+            CredentialErrorImpl::Source(source) => write!(f, "{}", source),
+        }
     }
 }
 
 impl std::error::Error for CredentialError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        Some(&*self.source)
+        self.source.source()
     }
 }
 
@@ -132,29 +159,6 @@ pub(crate) fn is_retryable(c: StatusCode) -> bool {
     }
 }
 
-// It is convenient to have error messages that are just strings. `String` does
-// not implement `std::error::Error`, however, so we use roll our own type that
-// does.
-//
-// We take inspiration from Box's string conversion:
-// https://doc.rust-lang.org/1.84.1/src/alloc/boxed/convert.rs.html#611
-struct StringError(String);
-
-impl Error for StringError {}
-
-impl Display for StringError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        Display::fmt(&self.0, f)
-    }
-}
-
-// Purposefully skip printing "StringError(..)"
-impl Debug for StringError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        Debug::fmt(&self.0, f)
-    }
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
@@ -179,12 +183,12 @@ mod test {
 
     #[test]
     fn fmt() {
-        let e = CredentialError::new(true, StringError("test-only-err-123".to_string()));
+        let e = CredentialError::from_str(true, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(RETRYABLE_MSG), "{got}");
 
-        let e = CredentialError::new(false, StringError("test-only-err-123".to_string()));
+        let e = CredentialError::from_str(false, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
