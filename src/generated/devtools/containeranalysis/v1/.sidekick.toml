@@ -18,3 +18,4 @@ service-config = 'google/devtools/containeranalysis/v1/containeranalysis_v1.yaml
 
 [codec]
 copyright-year = '2025'
+package-name-override = 'google-cloud-containeranalysis-v1'

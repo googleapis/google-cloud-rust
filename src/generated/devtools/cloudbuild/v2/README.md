@@ -13,8 +13,8 @@ Creates and manages builds on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [RepositoryManager](https://docs.rs/google-cloud-devtools-cloudbuild-v2/latest/google_cloud_devtools_cloudbuild_v2/client/struct.RepositoryManager.html)
+* [RepositoryManager](https://docs.rs/google-cloud-build-v2/latest/google_cloud_build_v2/client/struct.RepositoryManager.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-devtools-cloudbuild-v2/latest/google-cloud-devtools-cloudbuild-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-build-v2/latest/google-cloud-build-v2)

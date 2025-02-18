@@ -18,3 +18,4 @@ service-config = 'google/devtools/cloudprofiler/v2/cloudprofiler_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = 'google-cloud-profiler-v2'
