@@ -8,7 +8,7 @@ recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
 
 The Public Certificate Authority API may be used to create and manage ACME
-external account binding keys associated with Google Trust Services&#39;
+external account binding keys associated with Google Trust Services'
 publicly trusted certificate authority.
 
 ## Quickstart

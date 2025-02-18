@@ -8,9 +8,9 @@ recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
 
 This API converts video files into formats suitable for consumer
-distribution. For more information, see the &lt;a
-href=&#34;https://cloud.google.com/transcoder/docs/concepts/overview&#34;&gt;Transcoder
-API overview&lt;/a&gt;.
+distribution. For more information, see the <a
+href="https://cloud.google.com/transcoder/docs/concepts/overview">Transcoder
+API overview</a>.
 
 ## Quickstart
 
