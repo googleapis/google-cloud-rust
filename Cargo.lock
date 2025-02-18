@@ -726,7 +726,7 @@ checksum = "a8d1add55171497b4705a648c6b583acafb01d58050a51727785f0b2c8e0a2b2"
 
 [[package]]
 name = "google-cloud-accessapproval-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -742,7 +742,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-advisorynotifications-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -758,7 +758,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-aiplatform-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -782,7 +782,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-alloydb-connectors-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -792,7 +792,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-alloydb-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -814,7 +814,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -824,7 +824,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicecontrol-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -843,7 +843,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicecontrol-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -861,7 +861,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicemanagement-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -882,7 +882,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-serviceusage-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -902,7 +902,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apigateway-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -921,7 +921,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apigeeconnect-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -938,7 +938,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apihub-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -958,7 +958,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apikeys-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -977,7 +977,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-appengine-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -996,7 +996,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apphub-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1017,7 +1017,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -1027,7 +1027,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-calendar"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1038,7 +1038,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-docs"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1049,7 +1049,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-drive"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1060,7 +1060,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-gmail"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1071,7 +1071,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-sheets"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1082,7 +1082,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apps-script-type-slides"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-apps-script-type",
@@ -1093,7 +1093,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-artifactregistry-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1116,7 +1116,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-asset-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1141,7 +1141,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-assuredworkloads-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1188,7 +1188,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-backupdr-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1211,7 +1211,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-baremetalsolution-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1235,7 +1235,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-beyondcorp-appconnections-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1256,7 +1256,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-appconnectors-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1277,7 +1277,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-appgateways-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1298,7 +1298,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-clientconnectorservices-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1319,7 +1319,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-clientgateways-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1340,7 +1340,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-analyticshub-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1360,7 +1360,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-connection-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1377,7 +1377,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-datapolicies-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1394,7 +1394,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-datatransfer-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1412,7 +1412,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-migration-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1430,7 +1430,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-reservation-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1447,7 +1447,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigtable-admin-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1468,7 +1468,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-billing-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1486,7 +1486,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-binaryauthorization-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1503,7 +1503,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-build-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1523,7 +1523,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-build-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1544,7 +1544,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-certificatemanager-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1564,7 +1564,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-cloudcontrolspartner-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1581,7 +1581,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-clouddms-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1603,7 +1603,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-commerce-consumer-procurement-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1622,7 +1622,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-common"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -1632,7 +1632,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-confidentialcomputing-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1650,7 +1650,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-config-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1672,7 +1672,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-connectors-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1693,7 +1693,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-contactcenterinsights-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1714,7 +1714,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-container-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1731,7 +1731,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-containeranalysis-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1749,7 +1749,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datacatalog-lineage-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1768,7 +1768,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datacatalog-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1789,7 +1789,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datafusion-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1808,7 +1808,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dataproc-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1829,7 +1829,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datastore-admin-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1848,7 +1848,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datastream-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1868,7 +1868,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-deploy-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1890,7 +1890,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-developerconnect-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1910,7 +1910,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dialogflow-cx-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1932,7 +1932,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dialogflow-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1954,7 +1954,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-discoveryengine-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1976,7 +1976,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-documentai-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1999,7 +1999,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-domains-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2019,7 +2019,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-edgecontainer-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2040,7 +2040,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-edgenetwork-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2060,7 +2060,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-essentialcontacts-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2076,7 +2076,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-eventarc-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2098,7 +2098,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-filestore-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2119,7 +2119,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-firestore-admin-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2139,7 +2139,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-functions-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2190,7 +2190,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkebackup-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2212,7 +2212,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkeconnect-gateway-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2228,7 +2228,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkehub-configmanagement-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -2238,7 +2238,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkehub-multiclusteringress-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -2248,7 +2248,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkehub-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2269,7 +2269,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkemulticloud-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2289,7 +2289,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-grafeas-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2306,7 +2306,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gsuiteaddons-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2329,7 +2329,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-admin-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2347,7 +2347,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-credentials-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2363,7 +2363,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2380,7 +2380,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2400,7 +2400,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2420,7 +2420,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iap-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2437,7 +2437,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-identity-accesscontextmanager-type"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -2447,7 +2447,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-identity-accesscontextmanager-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2469,7 +2469,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-ids-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2488,7 +2488,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-kms-inventory-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2505,7 +2505,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-kms-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2526,7 +2526,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-language-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2542,7 +2542,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-location"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2558,7 +2558,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-logging-type"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -2568,7 +2568,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-logging-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2626,7 +2626,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-managedidentities-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2645,7 +2645,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-memcache-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2666,7 +2666,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-memorystore-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2686,7 +2686,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-metastore-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2708,7 +2708,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-migrationcenter-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2729,7 +2729,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-modelarmor-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2746,7 +2746,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-monitoring-dashboard-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2764,7 +2764,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-monitoring-metricsscope-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2783,7 +2783,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-monitoring-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2802,7 +2802,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-netapp-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2822,7 +2822,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-networkconnectivity-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2843,7 +2843,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-networkmanagement-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2865,7 +2865,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-networksecurity-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2886,7 +2886,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-networkservices-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2907,7 +2907,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-notebooks-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2928,7 +2928,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-optimization-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2948,7 +2948,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-oracledatabase-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2969,7 +2969,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-orchestration-airflow-service-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2989,7 +2989,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-orgpolicy-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -2999,7 +2999,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-orgpolicy-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3016,7 +3016,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-osconfig-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3036,7 +3036,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-oslogin-common"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -3046,7 +3046,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-oslogin-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3063,7 +3063,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-parallelstore-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3084,7 +3084,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policysimulator-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3106,7 +3106,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policytroubleshooter-iam-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3126,7 +3126,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policytroubleshooter-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3145,7 +3145,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-privacy-dlp-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3163,7 +3163,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-privilegedaccessmanager-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3184,7 +3184,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-profiler-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3200,7 +3200,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-rapidmigrationassessment-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3220,7 +3220,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recaptchaenterprise-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3237,7 +3237,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recommender-logging-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-recommender-v1",
@@ -3248,7 +3248,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recommender-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3265,7 +3265,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-redis-cluster-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3286,7 +3286,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-redis-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3307,7 +3307,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-resourcemanager-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3327,7 +3327,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-retail-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3349,7 +3349,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-rpc"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -3359,7 +3359,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-rpc-context"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -3369,7 +3369,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-run-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3391,7 +3391,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-scheduler-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3409,7 +3409,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-secretmanager-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3427,7 +3427,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securesourcemanager-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3448,7 +3448,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-security-privateca-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3470,7 +3470,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-security-publicca-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3486,7 +3486,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securitycenter-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3506,7 +3506,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securityposture-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3527,7 +3527,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-servicedirectory-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3545,7 +3545,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-servicehealth-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3562,7 +3562,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-shell-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3581,7 +3581,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-spanner-admin-database-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3602,7 +3602,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-spanner-admin-instance-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3622,7 +3622,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-speech-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3643,7 +3643,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storageinsights-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3663,7 +3663,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storagetransfer-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3684,7 +3684,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-support-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3700,7 +3700,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-talent-v4"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3721,7 +3721,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-tasks-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3740,7 +3740,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-telcoautomation-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3760,7 +3760,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-texttospeech-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3779,7 +3779,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-timeseriesinsights-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3796,7 +3796,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-tpu-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3818,7 +3818,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-trace-v2"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3835,7 +3835,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-translation-v3"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3856,7 +3856,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-type"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "google-cloud-wkt",
@@ -3866,7 +3866,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-livestream-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3888,7 +3888,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-stitcher-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3907,7 +3907,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-transcoder-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3924,7 +3924,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-videointelligence-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3944,7 +3944,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vision-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3965,7 +3965,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vmmigration-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3986,7 +3986,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vmwareengine-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4007,7 +4007,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vpcaccess-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4027,7 +4027,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-webrisk-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4046,7 +4046,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-websecurityscanner-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4062,7 +4062,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-wkt"
-version = "0.1.1"
+version = "0.1.0"
 dependencies = [
  "bytes",
  "chrono",
@@ -4077,7 +4077,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-workflows-executions-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4093,7 +4093,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-workflows-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4113,7 +4113,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-workstations-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5319,7 +5319,7 @@ checksum = "b07779b9b918cc05650cb30f404d4d7835d26df37c235eded8a6832e2fb82cca"
 
 [[package]]
 name = "secretmanager-openapi-v1"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "async-trait",
  "bytes",

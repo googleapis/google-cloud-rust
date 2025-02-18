@@ -16,7 +16,7 @@
 
 [package]
 name                 = "google-cloud-datastore-admin-v1"
-version              = "0.2.0"
+version              = "0.1.0"
 description          = "Google Cloud Client Libraries for Rust - Cloud Datastore API"
 edition.workspace    = true
 authors.workspace    = true
@@ -37,7 +37,7 @@ serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.1.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
+wkt        = { version = "0.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream", "longrunning/unstable-stream"]

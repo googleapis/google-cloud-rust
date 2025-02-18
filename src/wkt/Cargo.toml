@@ -13,15 +13,16 @@
 # limitations under the License.
 
 [package]
+description = "Google Cloud Client Libraries for Rust - Well Known Types"
+name        = "google-cloud-wkt"
+version     = "0.1.0"
+# Inherit other attributes from the workspace.
 authors.workspace    = true
 categories.workspace = true
-description          = "Google Cloud Client Libraries for Rust - Well Known Types"
 edition.workspace    = true
 keywords.workspace   = true
 license.workspace    = true
-name                 = "google-cloud-wkt"
 repository.workspace = true
-version              = "0.1.1"
 
 [features]
 chrono = ["dep:chrono"]

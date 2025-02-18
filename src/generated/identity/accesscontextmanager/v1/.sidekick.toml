@@ -18,4 +18,4 @@ service-config = 'google/identity/accesscontextmanager/v1/accesscontextmanager_v
 
 [codec]
 copyright-year = '2025'
-'package:accesscontextmanager_type' = 'package=google-cloud-identity-accesscontextmanager-type,source=google.identity.accesscontextmanager.type,path=src/generated/identity/accesscontextmanager/type,version=0.2'
+'package:accesscontextmanager_type' = 'package=google-cloud-identity-accesscontextmanager-type,source=google.identity.accesscontextmanager.type,path=src/generated/identity/accesscontextmanager/type,version=0.1'

@@ -36,10 +36,10 @@ google-cloud-longrunning = { version = "0.22.0", path = "../../src/generated/lon
 google-cloud-gax = { version = "0.20.0", path = "../../src/gax" }
 # ANCHOR_END: gax
 # ANCHOR: speech
-google-cloud-speech-v2 = { version = "0.2.0", path = "../../src/generated/cloud/speech/v2" }
+google-cloud-speech-v2 = { version = "0.1.0", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
 # ANCHOR: secretmanager
-google-cloud-secretmanager-v1 = { version = "0.2.0", features = [
+google-cloud-secretmanager-v1 = { version = "0.1.0", features = [
   "unstable-stream",
 ], path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
