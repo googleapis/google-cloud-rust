@@ -10,6 +10,6 @@ APIs, documentation, missing features, bugs, etc.
 
 > This crate used to contain a different implementation, with a different
 > surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate
-> name to google. Their crate continues to live as [gcloud-auth].
+> name to Google. Their crate continues to live as [gcloud-auth].
 
 [gcloud-auth]: https://crates.io/crates/gcloud-auth

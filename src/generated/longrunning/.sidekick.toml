@@ -17,5 +17,6 @@ specification-source = 'google/longrunning'
 service-config = 'google/longrunning/longrunning.yaml'
 
 [codec]
+version = "0.22.0" # Match existing version
 copyright-year = '2024'
 'package:longrunning' = 'ignore=true'
