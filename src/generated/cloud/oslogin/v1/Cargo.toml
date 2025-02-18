@@ -16,7 +16,7 @@
 
 [package]
 name                 = "google-cloud-oslogin-v1"
-version              = "0.2.0"
+version              = "0.1.0"
 description          = "Google Cloud Client Libraries for Rust - Cloud OS Login API"
 edition.workspace    = true
 authors.workspace    = true
@@ -30,10 +30,10 @@ async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.20", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
 lazy_static = { version = "1" }
-oslogin_common = { version = "0.2", path = "../../../../../src/generated/oslogin/common", package = "google-cloud-oslogin-common" }
+oslogin_common = { version = "0.1", path = "../../../../../src/generated/oslogin/common", package = "google-cloud-oslogin-common" }
 reqwest    = { version = "0.12", features = ["json"] }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.1.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
+wkt        = { version = "0.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }

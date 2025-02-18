@@ -16,7 +16,7 @@
 
 [package]
 name                 = "google-cloud-networkconnectivity-v1"
-version              = "0.2.0"
+version              = "0.1.0"
 description          = "Google Cloud Client Libraries for Rust - Network Connectivity API"
 edition.workspace    = true
 authors.workspace    = true
@@ -29,9 +29,9 @@ categories.workspace = true
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.20", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
-iam_v1     = { version = "0.2", path = "../../../../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
+iam_v1     = { version = "0.1", path = "../../../../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
 lazy_static = { version = "1" }
-location   = { version = "0.2", path = "../../../../../src/generated/cloud/location", package = "google-cloud-location" }
+location   = { version = "0.1", path = "../../../../../src/generated/cloud/location", package = "google-cloud-location" }
 longrunning = { version = "0.22", path = "../../../../../src/generated/longrunning", package = "google-cloud-longrunning" }
 lro        = { version = "0.1", path = "../../../../../src/lro", package = "google-cloud-lro" }
 reqwest    = { version = "0.12", features = ["json"] }
@@ -39,7 +39,7 @@ serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.1.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
+wkt        = { version = "0.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream", "location/unstable-stream", "longrunning/unstable-stream"]
