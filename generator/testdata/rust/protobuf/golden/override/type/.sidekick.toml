@@ -18,6 +18,7 @@ specification-format = 'protobuf'
 specification-source = 'google/type'
 
 [source]
+description-override = "Replace or Provide Custom Description\nIncluding multiple lines."
 googleapis-root = 'testdata/googleapis'
 title-override = 'Replace or Provide Custom Title'
 
