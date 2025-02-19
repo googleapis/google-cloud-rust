@@ -54,7 +54,7 @@ func TestHeaders(t *testing.T) {
 }
 
 func TestStaticCheck(t *testing.T) {
-	rungo(t, "run", "honnef.co/go/tools/cmd/staticcheck@v0.5.1", "./...")
+	rungo(t, "run", "honnef.co/go/tools/cmd/staticcheck@v0.6.0", "./...")
 }
 
 func TestUnparam(t *testing.T) {
