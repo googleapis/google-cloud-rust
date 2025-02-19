@@ -183,10 +183,14 @@ func TestFieldType(t *testing.T) {
 		typez api.Typez
 		want  string
 	}{
-		{api.STRING_TYPE, "String"},
+		{api.BOOL_TYPE, "bool"},
 		{api.INT32_TYPE, "int"},
 		{api.INT64_TYPE, "int"},
-		{api.BOOL_TYPE, "bool"},
+		{api.UINT32_TYPE, "int"},
+		{api.UINT64_TYPE, "int"},
+		{api.FLOAT_TYPE, "double"},
+		{api.DOUBLE_TYPE, "double"},
+		{api.STRING_TYPE, "String"},
 		{api.BYTES_TYPE, "Uint8List"},
 	} {
 		field := &api.Field{
@@ -204,7 +208,7 @@ func TestFieldType(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State)
+		got := fieldType(field, model.State, map[string]*dartImport{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -240,16 +244,84 @@ func TestFieldType(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State)
+	got := fieldType(field1, model.State, map[string]*dartImport{})
 	want := "CreateSecretRequest"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State)
+	got = fieldType(field2, model.State, map[string]*dartImport{})
 	want = "State"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFieldType_Maps(t *testing.T) {
+	map1 := &api.Message{
+		Name:  "$map<string, string>",
+		ID:    "$map<string, string>",
+		IsMap: true,
+		Fields: []*api.Field{
+			{
+				Name:  "key",
+				Typez: api.STRING_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: api.INT32_TYPE,
+			},
+		},
+	}
+	field := &api.Field{
+		Name:     "map",
+		JSONName: "map",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  map1.ID,
+	}
+	model := api.NewTestAPI([]*api.Message{map1}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+
+	got := fieldType(field, model.State, map[string]*dartImport{})
+	want := "Map<String, int>"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFieldType_Bytes(t *testing.T) {
+	field := &api.Field{
+		Name:     "test",
+		JSONName: "test",
+		Typez:    api.BYTES_TYPE,
+	}
+	message := &api.Message{
+		Name:   "$test",
+		ID:     "$test",
+		IsMap:  true,
+		Fields: []*api.Field{field},
+	}
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+	imports := map[string]*dartImport{}
+
+	got := fieldType(field, model.State, imports)
+	want := "Uint8List"
+	if got != want {
+		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+
+	// verify the typed_data import
+	if !(len(imports) > 0) {
+		t.Errorf("unexpected: no typed_data import added")
+	}
+
+	for _, imp := range imports {
+		got := imp.DartImport
+		want := "dart:typed_data"
+		if got != want {
+			t.Errorf("unexpected import, got: %s want: %s", got, want)
+		}
 	}
 }
 
@@ -259,10 +331,14 @@ func TestFieldType_Repeated(t *testing.T) {
 		typez api.Typez
 		want  string
 	}{
-		{api.STRING_TYPE, "List<String>"},
+		{api.BOOL_TYPE, "List<bool>"},
 		{api.INT32_TYPE, "List<int>"},
 		{api.INT64_TYPE, "List<int>"},
-		{api.BOOL_TYPE, "List<bool>"},
+		{api.UINT32_TYPE, "List<int>"},
+		{api.UINT64_TYPE, "List<int>"},
+		{api.FLOAT_TYPE, "List<double>"},
+		{api.DOUBLE_TYPE, "List<double>"},
+		{api.STRING_TYPE, "List<String>"},
 	} {
 		field := &api.Field{
 			Name:     "parent",
@@ -280,7 +356,7 @@ func TestFieldType_Repeated(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State)
+		got := fieldType(field, model.State, map[string]*dartImport{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -318,13 +394,13 @@ func TestFieldType_Repeated(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State)
+	got := fieldType(field1, model.State, map[string]*dartImport{})
 	want := "List<CreateSecretRequest>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State)
+	got = fieldType(field2, model.State, map[string]*dartImport{})
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)

@@ -21,8 +21,6 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:http/http.dart' as http;
-
 /// Describes the cause of the error with structured details.
 /// 
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
@@ -73,7 +71,7 @@ class ErrorInfo {
   /// `{"instanceLimit": "100/request"}`, should be returned as,
   /// `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
   /// instances that can be created in a single (batch) request.
-  final Map? metadata;
+  final Map<String, String>? metadata;
 
   ErrorInfo({
     this.reason,

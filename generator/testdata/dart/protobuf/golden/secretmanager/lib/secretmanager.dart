@@ -22,7 +22,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 /// Secret Manager Service
 /// 
@@ -193,7 +193,7 @@ class Secret {
   /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
   /// 
   /// No more than 64 labels can be assigned to a given resource.
-  final Map? labels;
+  final Map<String, String>? labels;
 
   /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
   /// when control plane operations are called on the secret or its versions.
@@ -228,7 +228,7 @@ class Secret {
   /// Version-Alias pairs will be viewable via GetSecret and modifiable via
   /// UpdateSecret. Access by alias is only be supported on
   /// GetSecretVersion and AccessSecretVersion.
-  final Map? versionAliases;
+  final Map<String, int>? versionAliases;
 
   /// Optional. Custom metadata about the secret.
   /// 
@@ -242,7 +242,7 @@ class Secret {
   /// alphanumerics in between these symbols.
   /// 
   /// The total size of annotation keys and values must be less than 16KiB.
-  final Map? annotations;
+  final Map<String, String>? annotations;
 
   /// Optional. Secret Version TTL after destruction request
   /// 

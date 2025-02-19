@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: pkg_workspace
-publish_to: none
+[general]
+specification-source = 'google/type'
+service-config = 'google/type/type.yaml'
 
-environment:
-  sdk: ^3.6.0
+[source]
+include-list = "expr.proto"
 
-workspace:
-  - packages/generated/google_cloud_protobuf
-  - packages/generated/google_cloud_rpc
-  - packages/generated/google_cloud_type
+[codec]
+copyright-year = '2025'
+package-name-override = "google_cloud_type"

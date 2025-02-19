@@ -24,3 +24,4 @@ googleapis-root = 'testdata/googleapis'
 [codec]
 copyright-year = '2025'
 not-for-publication = 'true'
+version = '0.1.0'

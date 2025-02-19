@@ -76,8 +76,14 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err := api.Validate(model); err != nil {
 		return err
 	}
+	if name, ok := config.Source["name-override"]; ok {
+		model.Name = name
+	}
 	if title, ok := config.Source["title-override"]; ok {
 		model.Title = title
+	}
+	if description, ok := config.Source["description-override"]; ok {
+		model.Description = description
 	}
 	if cmdLine.DryRun {
 		return nil

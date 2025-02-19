@@ -37,8 +37,9 @@ func TestDartFromProtobuf(t *testing.T) {
 		Language:      "dart",
 		Output:        outDir,
 		Codec: map[string]string{
-			"not-for-publication": "true",
 			"copyright-year":      "2025",
+			"not-for-publication": "true",
+			"version":             "0.1.0",
 		},
 	}
 	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
