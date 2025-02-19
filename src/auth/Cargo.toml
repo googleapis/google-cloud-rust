@@ -13,9 +13,10 @@
 # limitations under the License.
 
 [package]
-name                 = "google-cloud-auth"
-version              = "0.18.0"
-description          = "Google Cloud Client Libraries for Rust - Authentication"
+name        = "google-cloud-auth"
+version     = "0.18.0"
+description = "Google Cloud Client Libraries for Rust - Authentication"
+# Inherit other attributes from the workspace.
 edition.workspace    = true
 authors.workspace    = true
 license.workspace    = true
@@ -31,7 +32,7 @@ serde          = { version = "1.0.216", features = ["derive"] }
 serde_json     = "1"
 thiserror      = "2"
 time           = { version = "0.3.37", features = ["serde"] }
-rustls         = "0.23.22"
+rustls         = "0.23.23"
 rustls-pemfile = "2.2"
 tokio          = { version = "1.42", features = ["fs"] }
 base64         = "0.22"
@@ -46,7 +47,7 @@ regex       = "1.11.1"
 rsa         = { version = "0.9.7", features = ["pem"] }
 scoped-env  = "2.1.0"
 serial_test = "3.2.0"
-tempfile    = "3.16.0"
+tempfile    = "3.17.0"
 test-case   = "3.3.1"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test  = "0.4.4"

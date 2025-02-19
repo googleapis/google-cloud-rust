@@ -13,9 +13,9 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/devtools/artifactregistry/v1'
 service-config = 'google/devtools/artifactregistry/v1/artifactregistry_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = 'google-cloud-artifactregistry-v1'

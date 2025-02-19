@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/eventarc/v1'
 service-config = 'google/cloud/eventarc/v1/eventarc_v1.yaml'
 

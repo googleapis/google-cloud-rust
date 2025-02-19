@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/apps/script/type/gmail'
 
 [source]
@@ -21,4 +20,4 @@ title-override = 'Google Apps Script Types'
 
 [codec]
 copyright-year = '2025'
-'package:apps_script_type' = 'package=google-cloud-apps-script-type,source=google.apps.script.type,path=src/generated/apps/script/gtype,version=0.2'
+'package:apps_script_type' = 'package=google-cloud-apps-script-type,source=google.apps.script.type,path=src/generated/apps/script/gtype,version=0.1'

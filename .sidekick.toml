@@ -20,8 +20,8 @@ specification-format = 'protobuf'
 extra-protos-extracted-name = 'gapic-showcase-0.35.5'
 extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.35.5.tar.gz'
 extra-protos-sha256         = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/d383e2fe6661b29ea0def03c3900080ba953dd26.tar.gz'
-googleapis-sha256           = 'f2e50a0fa277735eb048edb9520e8dcb2a6d026b2dcca3f4d9d6efabf9029782'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/58be301346758c9a342de5632c3f9284d05c4b95.tar.gz'
+googleapis-sha256           = 'd8e40350e68c3b0572d17aaed497105703e8b79ab7048df6d45f71b3b4b8008d'
 protobuf-extracted-name     = 'protobuf-29.3'
 protobuf-root               = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-sha256             = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
@@ -30,7 +30,7 @@ protobuf-subdir             = "src"
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.2.0"
+version = "0.1.0"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.
@@ -53,16 +53,16 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:lro' = 'used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
 # OTOH, the only case where this is not used is a crate without any messages, i.e., just enums.
-'package:wkt' = 'force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.1.1'
+'package:wkt' = 'force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.1'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
-# from the list of depedencies.
-'package:api'          = 'package=google-cloud-api,source=google.api,path=src/generated/api/types,version=0.2'
-'package:cloud_common' = 'package=google-cloud-common,source=google.cloud.common,path=src/generated/cloud/common,version=0.2'
-'package:gtype'        = 'package=google-cloud-type,source=google.type,path=src/generated/type,version=0.2'
-'package:grafeas'      = 'package=google-cloud-grafeas-v1,source=grafeas.v1,path=src/generated/grafeas/v1,version=0.2'
-'package:iam_v1'       = 'package=google-cloud-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
-'package:location'     = 'package=google-cloud-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
-'package:logging_type' = 'package=google-cloud-logging-type,source=google.logging.type,path=src/generated/logging/type,version=0.2'
-'package:longrunning'  = 'package=google-cloud-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2'
-'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'
-'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context,path=src/generated/rpc/context,version=0.2'
+# from the list of dependencies.
+'package:api'          = 'package=google-cloud-api,source=google.api,path=src/generated/api/types,version=0.1'
+'package:cloud_common' = 'package=google-cloud-common,source=google.cloud.common,path=src/generated/cloud/common,version=0.1'
+'package:gtype'        = 'package=google-cloud-type,source=google.type,path=src/generated/type,version=0.1'
+'package:grafeas'      = 'package=google-cloud-grafeas-v1,source=grafeas.v1,path=src/generated/grafeas/v1,version=0.1'
+'package:iam_v1'       = 'package=google-cloud-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.1'
+'package:location'     = 'package=google-cloud-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1'
+'package:logging_type' = 'package=google-cloud-logging-type,source=google.logging.type,path=src/generated/logging/type,version=0.1'
+'package:longrunning'  = 'package=google-cloud-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.22'
+'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.1'
+'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context,path=src/generated/rpc/context,version=0.1'

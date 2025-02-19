@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/essentialcontacts/v1'
 service-config = 'google/cloud/essentialcontacts/v1/essentialcontacts_v1.yaml'
 

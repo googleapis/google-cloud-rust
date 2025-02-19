@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/iam/v3'
 service-config = 'google/iam/v3/iam_v3.yaml'
 

@@ -13,10 +13,9 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/oslogin/v1'
 service-config = 'google/cloud/oslogin/v1/oslogin_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-'package:oslogin_common' = 'package=google-cloud-oslogin-common,source=google.cloud.oslogin.common,path=src/generated/oslogin/common,version=0.2'
+'package:oslogin_common' = 'package=google-cloud-oslogin-common,source=google.cloud.oslogin.common,path=src/generated/oslogin/common,version=0.1'

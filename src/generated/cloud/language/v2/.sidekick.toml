@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/language/v2'
 service-config = 'google/cloud/language/v2/language_v2.yaml'
 

@@ -85,15 +85,15 @@ impl TokenProvider for UserTokenProvider {
             let body = resp
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e.into()))?;
-            return Err(CredentialError::new(
+                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
+            return Err(CredentialError::from_str(
                 is_retryable(status),
-                Box::from(format!("Failed to fetch token. {body}")),
+                format!("Failed to fetch token. {body}"),
             ));
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialError::new(retryable, e.into())
+            CredentialError::new(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,
@@ -300,7 +300,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable("fail")));
+            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
@@ -360,7 +360,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::non_retryable("fail")));
+            .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let uc = UserCredential {
             token_provider: mock,

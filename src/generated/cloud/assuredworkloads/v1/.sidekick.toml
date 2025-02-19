@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 service-config = 'google/cloud/assuredworkloads/v1/assuredworkloads_v1.yaml'
 specification-source = 'google/cloud/assuredworkloads/v1'
 

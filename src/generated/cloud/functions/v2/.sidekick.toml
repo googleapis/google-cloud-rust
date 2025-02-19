@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/functions/v2'
 service-config = 'google/cloud/functions/v2/cloudfunctions_v2.yaml'
 

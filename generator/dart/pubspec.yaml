@@ -14,8 +14,10 @@
 
 name: pkg_workspace
 publish_to: none
+
 environment:
   sdk: ^3.6.0
+
 workspace:
   - packages/generated/google_cloud_protobuf
   - packages/generated/google_cloud_rpc

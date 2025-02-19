@@ -41,7 +41,11 @@ Reruns the generator for a single client library, using the configuration parame
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
 func refresh(rootConfig *config.Config, cmdLine *CommandLine) error {
-	return refreshDir(rootConfig, cmdLine, cmdLine.Output)
+	override, err := overrideSources(rootConfig)
+	if err != nil {
+		return err
+	}
+	return refreshDir(override, cmdLine, cmdLine.Output)
 }
 
 func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) error {

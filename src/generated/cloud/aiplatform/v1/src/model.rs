@@ -64613,6 +64613,15 @@ pub struct GenerateContentResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model_version: std::string::String,
 
+    /// Output only. Timestamp when the request is made to the server.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. response_id is used to identify each response. It is the
+    /// encoding of the event_id.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub response_id: std::string::String,
+
     /// Output only. Content filter results for a prompt sent in the request.
     /// Note: Sent only in the first stream chunk.
     /// Only happens when no candidates were generated due to content violations.
@@ -64633,6 +64642,21 @@ impl GenerateContentResponse {
     /// Sets the value of [model_version][crate::model::GenerateContentResponse::model_version].
     pub fn set_model_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_version = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GenerateContentResponse::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [response_id][crate::model::GenerateContentResponse::response_id].
+    pub fn set_response_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.response_id = v.into();
         self
     }
 

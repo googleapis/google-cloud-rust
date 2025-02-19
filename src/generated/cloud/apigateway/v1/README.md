@@ -7,8 +7,6 @@ changes in the upcoming releases. Testing is also incomplete, we do **not**
 recommend that you use this crate in production. We welcome feedback about the
 APIs, documentation, missing features, bugs, etc.
 
-
-
 ## Quickstart
 
 The main types to work with this crate are the clients:

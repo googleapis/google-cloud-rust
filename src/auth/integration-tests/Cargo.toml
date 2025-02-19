@@ -30,5 +30,5 @@ gax           = { path = "../../../src/gax", package = "google-cloud-gax" }
 scoped-env    = "2.1.0"
 secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
 serial_test   = "3.2.0"
-tempfile      = "3.16.0"
+tempfile      = "3.17.0"
 tokio         = { version = "1.42", features = ["full", "macros"] }

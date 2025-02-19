@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/gkeconnect/gateway/v1'
 service-config = 'google/cloud/gkeconnect/gateway/v1/connectgateway_v1.yaml'
 

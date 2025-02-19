@@ -251,7 +251,7 @@ func TestRustBootstrapWkt(t *testing.T) {
 	}
 }
 
-func TestRustOverrideTitle(t *testing.T) {
+func TestRustOverrideTitleAndDescription(t *testing.T) {
 	cmdLine := &CommandLine{
 		Command:             []string{},
 		ProjectRoot:         projectRoot,
@@ -259,8 +259,9 @@ func TestRustOverrideTitle(t *testing.T) {
 		SpecificationSource: "google/type",
 		Language:            "rust",
 		Source: map[string]string{
-			"googleapis-root": googleapisRoot,
-			"title-override":  "Replace or Provide Custom Title",
+			"googleapis-root":      googleapisRoot,
+			"title-override":       "Replace or Provide Custom Title",
+			"description-override": "Replace or Provide Custom Description\nIncluding multiple lines.",
 		},
 		Output: path.Join(testdataDir, "rust/protobuf/golden/override/type"),
 		Codec: map[string]string{

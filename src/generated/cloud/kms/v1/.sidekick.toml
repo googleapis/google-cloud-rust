@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/kms/v1'
 service-config = 'google/cloud/kms/v1/cloudkms_v1.yaml'
 

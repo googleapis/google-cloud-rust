@@ -13,9 +13,9 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/api/apikeys/v2'
 service-config = 'google/api/apikeys/v2/apikeys_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = 'google-cloud-apikeys-v2'

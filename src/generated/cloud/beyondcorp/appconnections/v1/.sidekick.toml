@@ -13,7 +13,6 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
 specification-source = 'google/cloud/beyondcorp/appconnections/v1'
 service-config = 'google/cloud/beyondcorp/appconnections/v1/beyondcorp_v1.yaml'
 
