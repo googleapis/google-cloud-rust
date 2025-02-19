@@ -12,11 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: pkg_workspace
-publish_to: none
+# See https://github.com/google/yamlfmt/blob/main/docs/config-file.md for
+# configuration options.
 
-environment:
-  sdk: ^3.6.0
-
-workspace:
-  - packages/generated/rpc/types
+formatter:
+  type: basic
+  retain_line_breaks_single: true
