@@ -14,7 +14,7 @@
 
 use crate::token::{Token, TokenProvider};
 use crate::Result;
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use tokio::sync::{Mutex, Notify};
 // Using tokio's wrapper makes the cache testable without relying on clock times.
 use tokio::time::Instant;
@@ -27,7 +27,7 @@ where
     T: TokenProvider,
 {
     // The cached token, or the last seen error.
-    token: Arc<Mutex<Result<Token>>>,
+    token: Arc<RwLock<Result<Token>>>,
 
     // Tracks if a refresh is ongoing. If the lock is held, there is a refresh.
     refresh_in_progress: Arc<Mutex<()>>,
@@ -39,7 +39,7 @@ where
 }
 
 // Returns true if we are holding an error, or a token that has expired.
-fn invalid(token: &Result<Token>) -> bool {
+fn is_invalid(token: &Result<Token>) -> bool {
     match token {
         Ok(t) => t.expires_at.is_some_and(|e| e <= Instant::now().into_std()),
         Err(_) => true,
@@ -64,7 +64,7 @@ impl<T: TokenProvider> TokenCache<T> {
     #[allow(dead_code)]
     pub fn new(inner: T) -> TokenCache<T> {
         TokenCache {
-            token: Arc::new(Mutex::new(Err(crate::errors::CredentialError::retryable_from_str("No token in the cache. This should never happen. Something has gone wrong. Open an issue at https://github.com/googleapis/google-cloud-rust/issues/new?template=bug_report.md.")))),
+            token: Arc::new(RwLock::new(Err(crate::errors::CredentialError::retryable_from_str("No token in the cache. This should never happen. Something has gone wrong. Open an issue at https://github.com/googleapis/google-cloud-rust/issues/new?template=bug_report.md.")))),
             refresh_in_progress: Arc::new(Mutex::new(())),
             refresh_notify: Arc::new(Notify::new()),
             inner: Arc::new(inner),
@@ -73,7 +73,7 @@ impl<T: TokenProvider> TokenCache<T> {
 
     // Clones the current token, in a thread-safe manner. Releases the lock on return.
     async fn current_token(&self) -> Result<Token> {
-        self.token.lock().await.clone()
+        self.token.read().unwrap().clone()
     }
 }
 
@@ -82,7 +82,7 @@ impl<T: TokenProvider + 'static> TokenProvider for TokenCache<T> {
     async fn get_token(&self) -> Result<Token> {
         let token = self.current_token().await;
 
-        if !invalid(&token) {
+        if !is_invalid(&token) {
             return token;
         }
 
@@ -93,7 +93,7 @@ impl<T: TokenProvider + 'static> TokenProvider for TokenCache<T> {
                 let token = self.inner.get_token().await;
 
                 // Store the token, or an updated error.
-                *self.token.lock().await = token.clone();
+                *self.token.write().unwrap() = token.clone();
 
                 // The refresh is complete. Release the refresh guard.
                 drop(guard);
@@ -243,6 +243,44 @@ mod test {
         assert!(cache.get_token().await.is_err());
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn token_cache_lock_contention() {
+        let now = Instant::now();
+
+        let token = Token {
+            token: "initial-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
+            metadata: None,
+        };
+        let token_clone = token.clone();
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Ok(token_clone));
+
+        // fetch an initial token
+        let cache = TokenCache::new(mock);
+        let actual = cache.get_token().await.unwrap();
+        assert_eq!(actual, token);
+
+        // Spawn N tasks, all asking for a token at once.
+        let tasks = (0..1000)
+            .map(|_| {
+                let cache_clone = cache.clone();
+                tokio::spawn(async move { cache_clone.get_token().await })
+            })
+            .collect::<Vec<_>>();
+
+        // Wait for the N token requests to complete, verifying the returned token.
+        for task in tasks {
+            let actual = task.await.unwrap();
+            assert!(actual.is_ok(), "{}", actual.err().unwrap());
+            assert_eq!(actual.unwrap(), token);
+        }
+    }
+
     #[derive(Clone, Debug)]
     struct FakeTokenProvider {
         result: Result<Token>,
@@ -278,7 +316,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
-    async fn initial_token_thundering_herd_success() {
+    async fn invalid_token_thundering_herd_success() {
         let token = Token {
             token: "initial-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -316,7 +354,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
-    async fn initial_token_thundering_herd_failure_shares_error() {
+    async fn invalid_token_thundering_herd_failure_shares_error() {
         let err = Err(CredentialError::non_retryable_from_str("epic fail"));
 
         let tp = FakeTokenProvider::new(err);
