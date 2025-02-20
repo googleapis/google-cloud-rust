@@ -20,6 +20,7 @@ service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanage
 
 [source]
 googleapis-root = 'testdata/googleapis'
+name-override = 'secretmanager'
 
 [codec]
 copyright-year = '2025'

@@ -31,14 +31,16 @@ type modelAnnotations struct {
 	// The version of the generated package.
 	PackageVersion string
 	// Name of the API in snake_format (e.g. secretmanager).
-	MainFileName        string
-	SourcePackageName   string
-	HasServices         bool
-	CopyrightYear       string
-	BoilerPlate         []string
-	DefaultHost         string
-	DocLines            []string
-	HasDependencies     bool
+	MainFileName      string
+	SourcePackageName string
+	HasServices       bool
+	CopyrightYear     string
+	BoilerPlate       []string
+	DefaultHost       string
+	DocLines          []string
+	HasDependencies   bool
+	// A reference to a hand-written part file.
+	PartFileReference   string
 	PackageDependencies []packageDependency
 	Imports             []string
 }
@@ -55,7 +57,6 @@ type serviceAnnotations struct {
 type messageAnnotation struct {
 	Name           string
 	DocLines       []string
-	QualifiedName  string
 	HasNestedTypes bool
 	// The FQN is the source specification
 	SourceFQN   string
@@ -118,6 +119,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		generationYear      string
 		packageVersion      string
 		importMap           = map[string]*dartImport{}
+		partFileReference   string
 	)
 
 	for key, definition := range options {
@@ -128,6 +130,8 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			generationYear = definition
 		case key == "version":
 			packageVersion = definition
+		case key == "part-file":
+			partFileReference = definition
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
@@ -171,6 +175,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		}(),
 		DocLines:            formatDocComments(model.Description, model.State),
 		HasDependencies:     len(deps) > 0,
+		PartFileReference:   partFileReference,
 		PackageDependencies: deps,
 		Imports:             calculateImports(importMap),
 	}
@@ -254,7 +259,6 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 	m.Codec = &messageAnnotation{
 		Name:           messageName(m),
 		DocLines:       formatDocComments(m.Documentation, state),
-		QualifiedName:  messageName(m),
 		HasNestedTypes: language.HasNestedTypes(m),
 		SourceFQN:      strings.TrimPrefix(m.ID, "."),
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {

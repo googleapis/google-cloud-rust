@@ -113,6 +113,8 @@ func fieldType(f *api.Field, state *api.APIState, importMap map[string]*dartImpo
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
+		// TODO(#1034): We should instead reference a custom type (ProtoBuffer or
+		// similar), encode/decode to it, and add Uint8List related utility methods.
 		importMap[typedDataImport.Package] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:

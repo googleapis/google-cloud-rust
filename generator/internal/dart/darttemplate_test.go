@@ -15,7 +15,6 @@
 package dart
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -37,6 +36,26 @@ func TestAnnotateModel(t *testing.T) {
 	}
 	if diff := cmp.Diff("test", codec.MainFileName); diff != "" {
 		t.Errorf("mismatch in Codec.MainFileName (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestAnnotateModel_Options(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	_, err := annotateModel(model, map[string]string{
+		"version":   "1.0.0",
+		"part-file": "src/test.p.dart",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	codec := model.Codec.(*modelAnnotations)
+
+	if diff := cmp.Diff("1.0.0", codec.PackageVersion); diff != "" {
+		t.Errorf("mismatch in Codec.PackageVersion (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff("src/test.p.dart", codec.PartFileReference); diff != "" {
+		t.Errorf("mismatch in Codec.PartFileReference (-want, +got)\n:%s", diff)
 	}
 }
 
@@ -112,8 +131,8 @@ func TestCalculateDependencies(t *testing.T) {
 				got = append(got, dep.Name)
 			}
 
-			if !reflect.DeepEqual(got, test.want) {
-				t.Errorf("unexpected deps, got=%q, want=%q", got, test.want)
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("mismatch in calculateDependencies (-want, +got)\n:%s", diff)
 			}
 		})
 	}
@@ -154,8 +173,8 @@ func TestCalculateImports(t *testing.T) {
 			}
 			got := calculateImports(deps)
 
-			if !reflect.DeepEqual(got, test.want) {
-				t.Errorf("unexpected deps, got=%q, want=%q", got, test.want)
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("mismatch in calculateImports (-want, +got)\n:%s", diff)
 			}
 		})
 	}

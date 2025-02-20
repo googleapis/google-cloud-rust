@@ -19,8 +19,9 @@ specification-source = 'google/protobuf'
 name-override = 'protobuf'
 title-override = 'Core Protobuf Types'
 description-override = 'Core Protobuf types used by most services.'
-include-list = "any.proto,api.proto,field_mask.proto,source_context.proto,type.proto"
+include-list = "field_mask.proto"
 
 [codec]
 copyright-year = '2025'
 package-name-override = "google_cloud_protobuf"
+part-file = "src/protobuf.p.dart"

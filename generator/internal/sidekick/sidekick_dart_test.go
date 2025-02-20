@@ -32,6 +32,7 @@ func TestDartFromProtobuf(t *testing.T) {
 		SpecificationSource: specificationSource,
 		Source: map[string]string{
 			"googleapis-root": googleapisRoot,
+			"name-override":   "secretmanager",
 		},
 		ServiceConfig: svcConfig,
 		Language:      "dart",
