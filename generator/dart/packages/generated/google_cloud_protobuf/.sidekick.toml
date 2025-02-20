@@ -25,3 +25,4 @@ include-list = "field_mask.proto"
 copyright-year = '2025'
 package-name-override = "google_cloud_protobuf"
 part-file = "src/protobuf.p.dart"
+dev-dependencies = "test"

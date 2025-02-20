@@ -43,6 +43,9 @@ type modelAnnotations struct {
 	PartFileReference   string
 	PackageDependencies []packageDependency
 	Imports             []string
+	// Whether the generated package specified any dev_dependencies.
+	HasDevDependencies bool
+	DevDependencies    []string
 }
 
 type serviceAnnotations struct {
@@ -120,6 +123,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		packageVersion      string
 		importMap           = map[string]*dartImport{}
 		partFileReference   string
+		devDependencies     = []string{}
 	)
 
 	for key, definition := range options {
@@ -132,6 +136,8 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			packageVersion = definition
 		case key == "part-file":
 			partFileReference = definition
+		case key == "dev-dependencies":
+			devDependencies = strings.Split(definition, ",")
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
@@ -178,6 +184,8 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		PartFileReference:   partFileReference,
 		PackageDependencies: deps,
 		Imports:             calculateImports(importMap),
+		HasDevDependencies:  len(devDependencies) > 0,
+		DevDependencies:     devDependencies,
 	}
 
 	model.Codec = ann

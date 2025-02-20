@@ -33,3 +33,10 @@ dependencies:
   {{Name}}: {{Constraint}}
 {{/Codec.PackageDependencies}}
 {{/Codec.HasDependencies}}
+{{#Codec.HasDevDependencies}}
+
+dev_dependencies:
+{{#Codec.DevDependencies}}
+  {{{.}}}: any
+{{/Codec.DevDependencies}}
+{{/Codec.HasDevDependencies}}
