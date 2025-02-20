@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: pkg_workspace
-publish_to: none
+[general]
+specification-source = 'google/protobuf'
 
-environment:
-  sdk: ^3.6.0
+[source]
+name-override = 'protobuf'
+title-override = 'Core Protobuf Types'
+description-override = 'Core Protobuf types used by most services.'
+include-list = "field_mask.proto"
 
-workspace:
-  - packages/generated/google_cloud_protobuf
-  - packages/generated/google_cloud_rpc
-  - packages/generated/google_cloud_type
+[codec]
+copyright-year = '2025'
+package-name-override = "google_cloud_protobuf"
+part-file = "src/protobuf.p.dart"
+dev-dependencies = "test"

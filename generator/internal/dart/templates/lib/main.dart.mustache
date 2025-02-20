@@ -25,9 +25,12 @@ limitations under the License.
 {{/Codec.DocLines}}
 library;
 
-import 'dart:typed_data';
-
-import 'package:http/http.dart' as http;
+{{#Codec.PartFileReference}}
+part '{{Codec.PartFileReference}}';
+{{/Codec.PartFileReference}}
+{{#Codec.Imports}}
+{{{.}}}
+{{/Codec.Imports}}
 {{#Services}}
 {{> service}}
 {{/Services}}

@@ -29,6 +29,23 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
+type dartImport struct {
+	// The Protobuf package this message belongs to.
+	Package string
+	// The import url to use, i.e., 'package:foo/foo.dart' or 'dart:typed_data'.
+	DartImport string
+}
+
+var typedDataImport = &dartImport{
+	Package:    "typed_data",
+	DartImport: "dart:typed_data",
+}
+
+var httpImport = &dartImport{
+	Package:    "http",
+	DartImport: "package:http/http.dart",
+}
+
 func Generate(model *api.API, outdir string, options map[string]string) error {
 	_, err := annotateModel(model, options)
 	if err != nil {
@@ -65,38 +82,51 @@ func loadWellKnownTypes(s *api.APIState) {
 		Name:    "DateTime",
 		Package: "google.protobuf",
 	}
+	s.MessageByID[timestamp.ID] = timestamp
+
 	// TODO(#1034): Create a WKT for google.protobuf.Duration.
 	duration := &api.Message{
 		ID:      ".google.protobuf.Duration",
 		Name:    "Duration",
 		Package: "google.protobuf",
 	}
-	s.MessageByID[timestamp.ID] = timestamp
 	s.MessageByID[duration.ID] = duration
 }
 
-func fieldType(f *api.Field, state *api.APIState) string {
+func fieldType(f *api.Field, state *api.APIState, importMap map[string]*dartImport) string {
 	var out string
 	switch f.Typez {
-	case api.STRING_TYPE:
-		out = "String"
-	case api.INT64_TYPE:
-		out = "int"
-	case api.INT32_TYPE:
-		out = "int"
 	case api.BOOL_TYPE:
 		out = "bool"
+	case api.INT32_TYPE:
+		out = "int"
+	case api.INT64_TYPE:
+		out = "int"
+	case api.UINT32_TYPE:
+		out = "int"
+	case api.UINT64_TYPE:
+		out = "int"
+	case api.FLOAT_TYPE:
+		out = "double"
+	case api.DOUBLE_TYPE:
+		out = "double"
+	case api.STRING_TYPE:
+		out = "String"
 	case api.BYTES_TYPE:
+		// TODO(#1034): We should instead reference a custom type (ProtoBuffer or
+		// similar), encode/decode to it, and add Uint8List related utility methods.
+		importMap[typedDataImport.Package] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
-		// TODO(#1034): Handle MESSAGE_TYPE conversion.
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
 		if m.IsMap {
-			out = "Map"
+			key := fieldType(m.Fields[0], state, importMap)
+			val := fieldType(m.Fields[1], state, importMap)
+			out = "Map<" + key + ", " + val + ">"
 		} else {
 			out = messageName(m)
 		}

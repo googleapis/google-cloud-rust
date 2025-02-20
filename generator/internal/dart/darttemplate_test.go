@@ -39,6 +39,26 @@ func TestAnnotateModel(t *testing.T) {
 	}
 }
 
+func TestAnnotateModel_Options(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	_, err := annotateModel(model, map[string]string{
+		"version":   "1.0.0",
+		"part-file": "src/test.p.dart",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	codec := model.Codec.(*modelAnnotations)
+
+	if diff := cmp.Diff("1.0.0", codec.PackageVersion); diff != "" {
+		t.Errorf("mismatch in Codec.PackageVersion (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff("src/test.p.dart", codec.PartFileReference); diff != "" {
+		t.Errorf("mismatch in Codec.PartFileReference (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestAnnotateMethod(t *testing.T) {
 	method := sample.MethodListSecretVersions()
 	service := &api.Service{
@@ -78,5 +98,84 @@ func TestAnnotateMethod(t *testing.T) {
 	want = "ListSecretVersionsResponse"
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
+	}
+}
+
+func TestCalculateDependencies(t *testing.T) {
+	for _, test := range []struct {
+		name    string
+		imports []*dartImport
+		want    []string
+	}{
+		{name: "empty", imports: []*dartImport{}, want: []string{}},
+		{name: "dart import", imports: []*dartImport{typedDataImport}, want: []string{}},
+		{name: "package import", imports: []*dartImport{httpImport}, want: []string{"http"}},
+		{name: "dart and package imports", imports: []*dartImport{typedDataImport, httpImport}, want: []string{"http"}},
+		{name: "package imports", imports: []*dartImport{
+			httpImport,
+			{
+				Package:    "google_cloud_foo",
+				DartImport: "package:google_cloud_foo/foo.dart",
+			},
+		}, want: []string{"google_cloud_foo", "http"}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			deps := map[string]*dartImport{}
+			for _, imp := range test.imports {
+				deps[imp.Package] = imp
+			}
+			gotFull := calculateDependencies(deps)
+
+			got := []string{}
+			for _, dep := range gotFull {
+				got = append(got, dep.Name)
+			}
+
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("mismatch in calculateDependencies (-want, +got)\n:%s", diff)
+			}
+		})
+	}
+}
+
+func TestCalculateImports(t *testing.T) {
+	for _, test := range []struct {
+		name    string
+		imports []*dartImport
+		want    []string
+	}{
+		{name: "dart import", imports: []*dartImport{typedDataImport}, want: []string{
+			"import 'dart:typed_data';",
+		}},
+		{name: "package import", imports: []*dartImport{httpImport}, want: []string{
+			"import 'package:http/http.dart';",
+		}},
+		{name: "dart and package imports", imports: []*dartImport{typedDataImport, httpImport}, want: []string{
+			"import 'dart:typed_data';",
+			"",
+			"import 'package:http/http.dart';",
+		}},
+		{name: "package imports", imports: []*dartImport{
+			httpImport,
+			{
+				Package:    "google_cloud_foo",
+				DartImport: "package:google_cloud_foo/foo.dart",
+			},
+		}, want: []string{
+			"import 'package:google_cloud_foo/foo.dart';",
+			"import 'package:http/http.dart';",
+		}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			deps := map[string]*dartImport{}
+			for _, imp := range test.imports {
+				deps[imp.Package] = imp
+			}
+			got := calculateImports(deps)
+
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("mismatch in calculateImports (-want, +got)\n:%s", diff)
+			}
+		})
 	}
 }
