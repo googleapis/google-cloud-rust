@@ -16,7 +16,7 @@ use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use crate::Result;
 use std::sync::{Arc, RwLock};
-use tokio::sync::{Mutex, Notify};
+use tokio::sync::Mutex;
 // Using tokio's wrapper makes the cache testable without relying on clock times.
 use tokio::time::Instant;
 
@@ -32,8 +32,6 @@ where
 
     // Tracks if a refresh is ongoing. If the lock is held, there is a refresh.
     refresh_in_progress: Arc<Mutex<()>>,
-    // Allows us to await the result of a refresh in multiple threads.
-    refresh_notify: Arc<Notify>,
 
     // The token provider. This thing does the refreshing.
     inner: Arc<T>,
@@ -46,7 +44,6 @@ impl<T: TokenProvider> Clone for TokenCache<T> {
         TokenCache {
             token: self.token.clone(),
             refresh_in_progress: self.refresh_in_progress.clone(),
-            refresh_notify: self.refresh_notify.clone(),
             inner: self.inner.clone(),
         }
     }
@@ -63,7 +60,6 @@ impl<T: TokenProvider> TokenCache<T> {
         TokenCache {
             token: Arc::new(RwLock::new(initial_token())),
             refresh_in_progress: Arc::new(Mutex::new(())),
-            refresh_notify: Arc::new(Notify::new()),
             inner: Arc::new(inner),
         }
     }
@@ -111,25 +107,22 @@ impl<T: TokenProvider + 'static> TokenProvider for TokenCache<T> {
             TokenState::Invalid(refresh_guard) => {
                 match refresh_guard {
                     // Check if there are any outstanding refreshes...
-                    Ok(guard) => {
+                    Ok(_guard) => {
                         // No refreshes. We should start one.
                         let token = self.inner.get_token().await;
 
                         // Store the token, or an updated error.
                         *self.token.write().unwrap() = token.clone();
 
-                        // The refresh is complete. Release the refresh guard.
-                        drop(guard);
-
-                        // Notify any and all waiters.
-                        self.refresh_notify.notify_waiters();
-
                         // Return here without asking for the token lock again.
                         token
                     }
                     Err(_) => {
-                        // There is already a refresh. We will await its result.
-                        self.refresh_notify.notified().await;
+                        // There is already a refresh. When the lock becomes
+                        // available, we know the refresh has completed. Once
+                        // we acquire the lock, we can release it immediately.
+                        #[allow(unused_must_use)]
+                        self.refresh_in_progress.lock().await;
 
                         // The refresh operation has completed. We should have a new
                         // error/token. Return it.
@@ -148,6 +141,7 @@ mod test {
     use crate::token::test::MockTokenProvider;
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
+    use tokio::sync::Notify;
 
     static TOKEN_VALID_DURATION: Duration = Duration::from_secs(3600);
 
@@ -268,8 +262,8 @@ mod test {
         assert!(cache.get_token().await.is_err());
     }
 
-    #[tokio::test(start_paused = true)]
-    async fn token_cache_lock_contention() {
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
+    async fn token_cache_with_token_lock_contention() {
         let now = Instant::now();
 
         let token = Token {
@@ -297,6 +291,72 @@ mod test {
                 tokio::spawn(async move { cache_clone.get_token().await })
             })
             .collect::<Vec<_>>();
+
+        // Wait for the N token requests to complete, verifying the returned token.
+        for task in tasks {
+            let actual = task.await.unwrap();
+            assert!(actual.is_ok(), "{}", actual.err().unwrap());
+            assert_eq!(actual.unwrap(), token);
+        }
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
+    async fn token_cache_without_token_lock_contention() {
+        let now = Instant::now();
+
+        let token = Token {
+            token: "initial-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some((now + TOKEN_VALID_DURATION).into_std()),
+            metadata: None,
+        };
+
+        let release_the_token = Arc::new(Notify::new());
+
+        // A token provider that can release a token on command.
+        #[derive(Clone, Debug)]
+        struct FakeTokenProvider {
+            token: Token,
+            release_the_token: Arc<Notify>,
+        }
+
+        #[async_trait::async_trait]
+        impl TokenProvider for FakeTokenProvider {
+            async fn get_token(&self) -> Result<Token> {
+                self.release_the_token.notified().await;
+                Ok(self.token.clone())
+            }
+        }
+
+        let tp = FakeTokenProvider {
+            token: token.clone(),
+            release_the_token: release_the_token.clone(),
+        };
+        let cache = TokenCache::new(tp);
+
+        // Spawn N/2 tasks, all asking for a token at once.
+        let mut tasks = (0..500)
+            .map(|_| {
+                let cache_clone = cache.clone();
+                tokio::spawn(async move { cache_clone.get_token().await })
+            })
+            .collect::<Vec<_>>();
+
+        // We have a critical mass of waiters. Release the token.
+        release_the_token.notify_one();
+
+        // Spawn N/2 more tasks. If the token cache has a race between
+        // notifying current waiters and accepting new waiters, this test might
+        // catch it.
+        let more_tasks = (0..500)
+            .map(|_| {
+                let cache_clone = cache.clone();
+                tokio::spawn(async move { cache_clone.get_token().await })
+            })
+            .collect::<Vec<_>>();
+
+        // Consolidate the tasks
+        tasks.extend(more_tasks);
 
         // Wait for the N token requests to complete, verifying the returned token.
         for task in tasks {
