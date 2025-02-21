@@ -1912,7 +1912,7 @@ pub mod s_3_compatible_metadata {
     use super::*;
 
     /// The authentication and authorization method used by the storage service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AuthMethod(std::borrow::Cow<'static, str>);
 
     impl AuthMethod {
@@ -1949,8 +1949,14 @@ pub mod s_3_compatible_metadata {
         }
     }
 
+    impl std::default::Default for AuthMethod {
+        fn default() -> Self {
+            auth_method::AUTH_METHOD_UNSPECIFIED
+        }
+    }
+
     /// The request model of the API.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RequestModel(std::borrow::Cow<'static, str>);
 
     impl RequestModel {
@@ -1990,8 +1996,14 @@ pub mod s_3_compatible_metadata {
         }
     }
 
+    impl std::default::Default for RequestModel {
+        fn default() -> Self {
+            request_model::REQUEST_MODEL_UNSPECIFIED
+        }
+    }
+
     /// The agent network protocol to access the storage service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NetworkProtocol(std::borrow::Cow<'static, str>);
 
     impl NetworkProtocol {
@@ -2031,8 +2043,14 @@ pub mod s_3_compatible_metadata {
         }
     }
 
+    impl std::default::Default for NetworkProtocol {
+        fn default() -> Self {
+            network_protocol::NETWORK_PROTOCOL_UNSPECIFIED
+        }
+    }
+
     /// The Listing API to use for discovering objects.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ListApi(std::borrow::Cow<'static, str>);
 
     impl ListApi {
@@ -2064,6 +2082,12 @@ pub mod s_3_compatible_metadata {
     impl std::convert::From<std::string::String> for ListApi {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ListApi {
+        fn default() -> Self {
+            list_api::LIST_API_UNSPECIFIED
         }
     }
 }
@@ -2173,7 +2197,7 @@ pub mod agent_pool {
     }
 
     /// The state of an AgentPool.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2211,6 +2235,12 @@ pub mod agent_pool {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2323,7 +2353,7 @@ pub mod transfer_options {
 
     /// Specifies when to overwrite an object in the sink when an object with
     /// matching name is found in the source.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OverwriteWhen(std::borrow::Cow<'static, str>);
 
     impl OverwriteWhen {
@@ -2362,6 +2392,12 @@ pub mod transfer_options {
     impl std::convert::From<std::string::String> for OverwriteWhen {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OverwriteWhen {
+        fn default() -> Self {
+            overwrite_when::OVERWRITE_WHEN_UNSPECIFIED
         }
     }
 }
@@ -3214,7 +3250,7 @@ pub mod metadata_options {
     use super::*;
 
     /// Whether symlinks should be skipped or preserved during a transfer job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Symlink(std::borrow::Cow<'static, str>);
 
     impl Symlink {
@@ -3249,8 +3285,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for Symlink {
+        fn default() -> Self {
+            symlink::SYMLINK_UNSPECIFIED
+        }
+    }
+
     /// Options for handling file mode attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -3285,8 +3327,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
+        }
+    }
+
     /// Options for handling file GID attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Gid(std::borrow::Cow<'static, str>);
 
     impl Gid {
@@ -3321,8 +3369,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for Gid {
+        fn default() -> Self {
+            gid::GID_UNSPECIFIED
+        }
+    }
+
     /// Options for handling file UID attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Uid(std::borrow::Cow<'static, str>);
 
     impl Uid {
@@ -3357,8 +3411,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for Uid {
+        fn default() -> Self {
+            uid::UID_UNSPECIFIED
+        }
+    }
+
     /// Options for handling Cloud Storage object ACLs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Acl(std::borrow::Cow<'static, str>);
 
     impl Acl {
@@ -3397,8 +3457,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for Acl {
+        fn default() -> Self {
+            acl::ACL_UNSPECIFIED
+        }
+    }
+
     /// Options for handling Google Cloud Storage object storage class.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageClass(std::borrow::Cow<'static, str>);
 
     impl StorageClass {
@@ -3454,8 +3520,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for StorageClass {
+        fn default() -> Self {
+            storage_class::STORAGE_CLASS_UNSPECIFIED
+        }
+    }
+
     /// Options for handling temporary holds for Google Cloud Storage objects.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TemporaryHold(std::borrow::Cow<'static, str>);
 
     impl TemporaryHold {
@@ -3492,8 +3564,14 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for TemporaryHold {
+        fn default() -> Self {
+            temporary_hold::TEMPORARY_HOLD_UNSPECIFIED
+        }
+    }
+
     /// Options for handling the KmsKey setting for Google Cloud Storage objects.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KmsKey(std::borrow::Cow<'static, str>);
 
     impl KmsKey {
@@ -3531,9 +3609,15 @@ pub mod metadata_options {
         }
     }
 
+    impl std::default::Default for KmsKey {
+        fn default() -> Self {
+            kms_key::KMS_KEY_UNSPECIFIED
+        }
+    }
+
     /// Options for handling `timeCreated` metadata for Google Cloud Storage
     /// objects.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TimeCreated(std::borrow::Cow<'static, str>);
 
     impl TimeCreated {
@@ -3570,6 +3654,12 @@ pub mod metadata_options {
     impl std::convert::From<std::string::String> for TimeCreated {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TimeCreated {
+        fn default() -> Self {
+            time_created::TIME_CREATED_UNSPECIFIED
         }
     }
 }
@@ -4087,7 +4177,7 @@ pub mod transfer_job {
     use super::*;
 
     /// The status of the transfer job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -4125,6 +4215,12 @@ pub mod transfer_job {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }
@@ -4604,7 +4700,7 @@ pub mod notification_config {
     /// Additional event types may be added in the future. Clients should either
     /// safely ignore unrecognized event types or explicitly specify which event
     /// types they are prepared to accept.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventType(std::borrow::Cow<'static, str>);
 
     impl EventType {
@@ -4654,8 +4750,14 @@ pub mod notification_config {
         }
     }
 
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            event_type::EVENT_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Enum for specifying the format of a notification message's payload.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PayloadFormat(std::borrow::Cow<'static, str>);
 
     impl PayloadFormat {
@@ -4690,6 +4792,12 @@ pub mod notification_config {
     impl std::convert::From<std::string::String> for PayloadFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PayloadFormat {
+        fn default() -> Self {
+            payload_format::PAYLOAD_FORMAT_UNSPECIFIED
         }
     }
 }
@@ -4772,7 +4880,7 @@ pub mod logging_config {
     use super::*;
 
     /// Loggable actions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LoggableAction(std::borrow::Cow<'static, str>);
 
     impl LoggableAction {
@@ -4811,8 +4919,14 @@ pub mod logging_config {
         }
     }
 
+    impl std::default::Default for LoggableAction {
+        fn default() -> Self {
+            loggable_action::LOGGABLE_ACTION_UNSPECIFIED
+        }
+    }
+
     /// Loggable action states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LoggableActionState(std::borrow::Cow<'static, str>);
 
     impl LoggableActionState {
@@ -4847,6 +4961,12 @@ pub mod logging_config {
     impl std::convert::From<std::string::String> for LoggableActionState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LoggableActionState {
+        fn default() -> Self {
+            loggable_action_state::LOGGABLE_ACTION_STATE_UNSPECIFIED
         }
     }
 }
@@ -5022,7 +5142,7 @@ pub mod transfer_operation {
     use super::*;
 
     /// The status of a TransferOperation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -5069,6 +5189,12 @@ pub mod transfer_operation {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }

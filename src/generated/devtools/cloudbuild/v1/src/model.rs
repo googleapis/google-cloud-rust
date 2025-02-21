@@ -221,7 +221,7 @@ pub mod storage_source {
     use super::*;
 
     /// Specifies the tool to fetch the source file for the build.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SourceFetcher(std::borrow::Cow<'static, str>);
 
     impl SourceFetcher {
@@ -254,6 +254,12 @@ pub mod storage_source {
     impl std::convert::From<std::string::String> for SourceFetcher {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SourceFetcher {
+        fn default() -> Self {
+            source_fetcher::SOURCE_FETCHER_UNSPECIFIED
         }
     }
 }
@@ -2111,7 +2117,7 @@ pub mod build {
         use super::*;
 
         /// The relative importance of this warning.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Priority(std::borrow::Cow<'static, str>);
 
         impl Priority {
@@ -2146,6 +2152,12 @@ pub mod build {
         impl std::convert::From<std::string::String> for Priority {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Priority {
+            fn default() -> Self {
+                priority::PRIORITY_UNSPECIFIED
             }
         }
     }
@@ -2199,7 +2211,7 @@ pub mod build {
 
         /// The name of a fatal problem encountered during the execution of the
         /// build.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct FailureType(std::borrow::Cow<'static, str>);
 
         impl FailureType {
@@ -2246,10 +2258,16 @@ pub mod build {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for FailureType {
+            fn default() -> Self {
+                failure_type::FAILURE_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Possible status of a build or build step.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -2303,6 +2321,12 @@ pub mod build {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNKNOWN
         }
     }
 }
@@ -3425,7 +3449,7 @@ pub mod hash {
     use super::*;
 
     /// Specifies the hash algorithm, if any.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HashType(std::borrow::Cow<'static, str>);
 
     impl HashType {
@@ -3463,6 +3487,12 @@ pub mod hash {
     impl std::convert::From<std::string::String> for HashType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for HashType {
+        fn default() -> Self {
+            hash_type::NONE
         }
     }
 }
@@ -4064,7 +4094,7 @@ pub mod build_approval {
     use super::*;
 
     /// Specifies the current state of a build's approval.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4102,6 +4132,12 @@ pub mod build_approval {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4225,7 +4261,7 @@ pub mod approval_result {
 
     /// Specifies whether or not this manual approval result is to approve
     /// or reject a build.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Decision(std::borrow::Cow<'static, str>);
 
     impl Decision {
@@ -4257,6 +4293,12 @@ pub mod approval_result {
     impl std::convert::From<std::string::String> for Decision {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Decision {
+        fn default() -> Self {
+            decision::DECISION_UNSPECIFIED
         }
     }
 }
@@ -4582,7 +4624,7 @@ pub mod git_file_source {
 
     /// The type of the repo, since it may not be explicit from the `repo` field
     /// (e.g from a URL).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RepoType(std::borrow::Cow<'static, str>);
 
     impl RepoType {
@@ -4622,6 +4664,12 @@ pub mod git_file_source {
     impl std::convert::From<std::string::String> for RepoType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RepoType {
+        fn default() -> Self {
+            repo_type::UNKNOWN
         }
     }
 
@@ -5224,7 +5272,7 @@ pub mod repository_event_config {
     use super::*;
 
     /// All possible SCM repo types from Repo API.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RepositoryType(std::borrow::Cow<'static, str>);
 
     impl RepositoryType {
@@ -5260,6 +5308,12 @@ pub mod repository_event_config {
     impl std::convert::From<std::string::String> for RepositoryType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RepositoryType {
+        fn default() -> Self {
+            repository_type::REPOSITORY_TYPE_UNSPECIFIED
         }
     }
 
@@ -5494,7 +5548,7 @@ pub mod pubsub_config {
 
     /// Enumerates potential issues with the underlying Pub/Sub subscription
     /// configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5532,6 +5586,12 @@ pub mod pubsub_config {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -5613,7 +5673,7 @@ pub mod webhook_config {
 
     /// Enumerates potential issues with the Secret Manager secret provided by the
     /// user.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5645,6 +5705,12 @@ pub mod webhook_config {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -5760,7 +5826,7 @@ pub mod pull_request_filter {
     /// [Bitbucket](https://cloud.google.com/build/docs/automating-builds/bitbucket/build-repos-from-bitbucket-server#creating_a_bitbucket_server_trigger),
     /// [GitLab](https://cloud.google.com/build/docs/automating-builds/gitlab/build-repos-from-gitlab#creating_a_gitlab_trigger)
     /// for details.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CommentControl(std::borrow::Cow<'static, str>);
 
     impl CommentControl {
@@ -5805,6 +5871,12 @@ pub mod pull_request_filter {
     impl std::convert::From<std::string::String> for CommentControl {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CommentControl {
+        fn default() -> Self {
+            comment_control::COMMENTS_DISABLED
         }
     }
 
@@ -6581,7 +6653,7 @@ pub mod build_options {
     ///
     /// For more information, see [Viewing Build
     /// Provenance](https://cloud.google.com/build/docs/securing-builds/view-build-provenance).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VerifyOption(std::borrow::Cow<'static, str>);
 
     impl VerifyOption {
@@ -6613,10 +6685,16 @@ pub mod build_options {
         }
     }
 
+    impl std::default::Default for VerifyOption {
+        fn default() -> Self {
+            verify_option::NOT_VERIFIED
+        }
+    }
+
     /// Supported Compute Engine machine types.
     /// For more information, see [Machine
     /// types](https://cloud.google.com/compute/docs/machine-types).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MachineType(std::borrow::Cow<'static, str>);
 
     impl MachineType {
@@ -6660,8 +6738,14 @@ pub mod build_options {
         }
     }
 
+    impl std::default::Default for MachineType {
+        fn default() -> Self {
+            machine_type::UNSPECIFIED
+        }
+    }
+
     /// Specifies the behavior when there is an error in the substitution checks.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SubstitutionOption(std::borrow::Cow<'static, str>);
 
     impl SubstitutionOption {
@@ -6694,8 +6778,14 @@ pub mod build_options {
         }
     }
 
+    impl std::default::Default for SubstitutionOption {
+        fn default() -> Self {
+            substitution_option::MUST_MATCH
+        }
+    }
+
     /// Specifies the behavior when writing build logs to Cloud Storage.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogStreamingOption(std::borrow::Cow<'static, str>);
 
     impl LogStreamingOption {
@@ -6731,8 +6821,14 @@ pub mod build_options {
         }
     }
 
+    impl std::default::Default for LogStreamingOption {
+        fn default() -> Self {
+            log_streaming_option::STREAM_DEFAULT
+        }
+    }
+
     /// Specifies the logging mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LoggingMode(std::borrow::Cow<'static, str>);
 
     impl LoggingMode {
@@ -6779,8 +6875,14 @@ pub mod build_options {
         }
     }
 
+    impl std::default::Default for LoggingMode {
+        fn default() -> Self {
+            logging_mode::LOGGING_UNSPECIFIED
+        }
+    }
+
     /// Default Cloud Storage log bucket behavior options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DefaultLogsBucketBehavior(std::borrow::Cow<'static, str>);
 
     impl DefaultLogsBucketBehavior {
@@ -6817,6 +6919,12 @@ pub mod build_options {
     impl std::convert::From<std::string::String> for DefaultLogsBucketBehavior {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DefaultLogsBucketBehavior {
+        fn default() -> Self {
+            default_logs_bucket_behavior::DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED
         }
     }
 }
@@ -7321,7 +7429,7 @@ pub mod worker_pool {
     use super::*;
 
     /// State of the `WorkerPool`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7362,6 +7470,12 @@ pub mod worker_pool {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -7580,7 +7694,7 @@ pub mod private_pool_v_1_config {
         use super::*;
 
         /// Defines the egress option for the pool.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct EgressOption(std::borrow::Cow<'static, str>);
 
         impl EgressOption {
@@ -7615,6 +7729,12 @@ pub mod private_pool_v_1_config {
         impl std::convert::From<std::string::String> for EgressOption {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for EgressOption {
+            fn default() -> Self {
+                egress_option::EGRESS_OPTION_UNSPECIFIED
             }
         }
     }

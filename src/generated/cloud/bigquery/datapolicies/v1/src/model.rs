@@ -502,7 +502,7 @@ pub mod data_policy {
     use super::*;
 
     /// A list of supported data policy types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataPolicyType(std::borrow::Cow<'static, str>);
 
     impl DataPolicyType {
@@ -537,6 +537,12 @@ pub mod data_policy {
     impl std::convert::From<std::string::String> for DataPolicyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataPolicyType {
+        fn default() -> Self {
+            data_policy_type::DATA_POLICY_TYPE_UNSPECIFIED
         }
     }
 
@@ -661,7 +667,7 @@ pub mod data_masking_policy {
 
     /// The available masking rules. Learn more here:
     /// <https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PredefinedExpression(std::borrow::Cow<'static, str>);
 
     impl PredefinedExpression {
@@ -761,6 +767,12 @@ pub mod data_masking_policy {
     impl std::convert::From<std::string::String> for PredefinedExpression {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PredefinedExpression {
+        fn default() -> Self {
+            predefined_expression::PREDEFINED_EXPRESSION_UNSPECIFIED
         }
     }
 

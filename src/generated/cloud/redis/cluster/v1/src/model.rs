@@ -1622,7 +1622,7 @@ pub mod cluster {
     }
 
     /// Represents the different states of a Redis cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1660,6 +1660,12 @@ pub mod cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1820,7 +1826,7 @@ pub mod automated_backup_config {
     }
 
     /// The automated backup mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AutomatedBackupMode(std::borrow::Cow<'static, str>);
 
     impl AutomatedBackupMode {
@@ -1853,6 +1859,12 @@ pub mod automated_backup_config {
     impl std::convert::From<std::string::String> for AutomatedBackupMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AutomatedBackupMode {
+        fn default() -> Self {
+            automated_backup_mode::AUTOMATED_BACKUP_MODE_UNSPECIFIED
         }
     }
 
@@ -2132,7 +2144,7 @@ pub mod backup {
     use super::*;
 
     /// Type of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BackupType(std::borrow::Cow<'static, str>);
 
     impl BackupType {
@@ -2167,8 +2179,14 @@ pub mod backup {
         }
     }
 
+    impl std::default::Default for BackupType {
+        fn default() -> Self {
+            backup_type::BACKUP_TYPE_UNSPECIFIED
+        }
+    }
+
     /// State of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2207,6 +2225,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2523,7 +2547,7 @@ pub mod cross_cluster_replication_config {
     }
 
     /// The role of the cluster in cross cluster replication.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ClusterRole(std::borrow::Cow<'static, str>);
 
     impl ClusterRole {
@@ -2563,6 +2587,12 @@ pub mod cross_cluster_replication_config {
     impl std::convert::From<std::string::String> for ClusterRole {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ClusterRole {
+        fn default() -> Self {
+            cluster_role::CLUSTER_ROLE_UNSPECIFIED
         }
     }
 }
@@ -3608,7 +3638,7 @@ pub mod cluster_persistence_config {
         use super::*;
 
         /// Available snapshot periods.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SnapshotPeriod(std::borrow::Cow<'static, str>);
 
         impl SnapshotPeriod {
@@ -3647,6 +3677,12 @@ pub mod cluster_persistence_config {
         impl std::convert::From<std::string::String> for SnapshotPeriod {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SnapshotPeriod {
+            fn default() -> Self {
+                snapshot_period::SNAPSHOT_PERIOD_UNSPECIFIED
             }
         }
     }
@@ -3690,7 +3726,7 @@ pub mod cluster_persistence_config {
         use super::*;
 
         /// Available fsync modes.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct AppendFsync(std::borrow::Cow<'static, str>);
 
         impl AppendFsync {
@@ -3731,10 +3767,16 @@ pub mod cluster_persistence_config {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for AppendFsync {
+            fn default() -> Self {
+                append_fsync::APPEND_FSYNC_UNSPECIFIED
+            }
+        }
     }
 
     /// Available persistence modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PersistenceMode(std::borrow::Cow<'static, str>);
 
     impl PersistenceMode {
@@ -3770,6 +3812,12 @@ pub mod cluster_persistence_config {
     impl std::convert::From<std::string::String> for PersistenceMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PersistenceMode {
+        fn default() -> Self {
+            persistence_mode::PERSISTENCE_MODE_UNSPECIFIED
         }
     }
 }
@@ -3826,7 +3874,7 @@ pub mod zone_distribution_config {
     use super::*;
 
     /// Defines various modes of zone distribution.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ZoneDistributionMode(std::borrow::Cow<'static, str>);
 
     impl ZoneDistributionMode {
@@ -3861,6 +3909,12 @@ pub mod zone_distribution_config {
     impl std::convert::From<std::string::String> for ZoneDistributionMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ZoneDistributionMode {
+        fn default() -> Self {
+            zone_distribution_mode::ZONE_DISTRIBUTION_MODE_UNSPECIFIED
         }
     }
 }
@@ -3932,7 +3986,7 @@ pub mod reschedule_cluster_maintenance_request {
     use super::*;
 
     /// Reschedule options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RescheduleType(std::borrow::Cow<'static, str>);
 
     impl RescheduleType {
@@ -3965,6 +4019,12 @@ pub mod reschedule_cluster_maintenance_request {
     impl std::convert::From<std::string::String> for RescheduleType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4050,7 +4110,7 @@ pub mod encryption_info {
     use super::*;
 
     /// Possible encryption types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -4087,9 +4147,15 @@ pub mod encryption_info {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// The state of the KMS key perceived by the system. Refer to the public
     /// documentation for the impact of each state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KmsKeyState(std::borrow::Cow<'static, str>);
 
     impl KmsKeyState {
@@ -4143,10 +4209,16 @@ pub mod encryption_info {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for KmsKeyState {
+        fn default() -> Self {
+            kms_key_state::KMS_KEY_STATE_UNSPECIFIED
+        }
+    }
 }
 
 /// Status of the PSC connection.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PscConnectionStatus(std::borrow::Cow<'static, str>);
 
 impl PscConnectionStatus {
@@ -4184,8 +4256,14 @@ impl std::convert::From<std::string::String> for PscConnectionStatus {
     }
 }
 
+impl std::default::Default for PscConnectionStatus {
+    fn default() -> Self {
+        psc_connection_status::PSC_CONNECTION_STATUS_UNSPECIFIED
+    }
+}
+
 /// Available authorization mode of a Redis cluster.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AuthorizationMode(std::borrow::Cow<'static, str>);
 
 impl AuthorizationMode {
@@ -4221,8 +4299,14 @@ impl std::convert::From<std::string::String> for AuthorizationMode {
     }
 }
 
+impl std::default::Default for AuthorizationMode {
+    fn default() -> Self {
+        authorization_mode::AUTH_MODE_UNSPECIFIED
+    }
+}
+
 /// NodeType of a redis cluster node,
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NodeType(std::borrow::Cow<'static, str>);
 
 impl NodeType {
@@ -4263,8 +4347,14 @@ impl std::convert::From<std::string::String> for NodeType {
     }
 }
 
+impl std::default::Default for NodeType {
+    fn default() -> Self {
+        node_type::NODE_TYPE_UNSPECIFIED
+    }
+}
+
 /// Available mode of in-transit encryption.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TransitEncryptionMode(std::borrow::Cow<'static, str>);
 
 impl TransitEncryptionMode {
@@ -4302,8 +4392,14 @@ impl std::convert::From<std::string::String> for TransitEncryptionMode {
     }
 }
 
+impl std::default::Default for TransitEncryptionMode {
+    fn default() -> Self {
+        transit_encryption_mode::TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
+    }
+}
+
 /// Type of a PSC connection, for cluster access purpose.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConnectionType(std::borrow::Cow<'static, str>);
 
 impl ConnectionType {
@@ -4342,5 +4438,11 @@ pub mod connection_type {
 impl std::convert::From<std::string::String> for ConnectionType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ConnectionType {
+    fn default() -> Self {
+        connection_type::CONNECTION_TYPE_UNSPECIFIED
     }
 }

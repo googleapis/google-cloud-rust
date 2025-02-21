@@ -283,7 +283,7 @@ pub mod constraint {
     /// constraint. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
     ///
     /// Immutable after creation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConstraintDefault(std::borrow::Cow<'static, str>);
 
     impl ConstraintDefault {
@@ -319,6 +319,12 @@ pub mod constraint {
     impl std::convert::From<std::string::String> for ConstraintDefault {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConstraintDefault {
+        fn default() -> Self {
+            constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
         }
     }
 
@@ -486,7 +492,7 @@ pub mod custom_constraint {
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MethodType(std::borrow::Cow<'static, str>);
 
     impl MethodType {
@@ -531,8 +537,14 @@ pub mod custom_constraint {
         }
     }
 
+    impl std::default::Default for MethodType {
+        fn default() -> Self {
+            method_type::METHOD_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Allow or deny type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ActionType(std::borrow::Cow<'static, str>);
 
     impl ActionType {
@@ -564,6 +576,12 @@ pub mod custom_constraint {
     impl std::convert::From<std::string::String> for ActionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ActionType {
+        fn default() -> Self {
+            action_type::ACTION_TYPE_UNSPECIFIED
         }
     }
 }

@@ -647,7 +647,7 @@ pub mod workload {
         use super::*;
 
         /// The type of resource.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ResourceType(std::borrow::Cow<'static, str>);
 
         impl ResourceType {
@@ -691,6 +691,12 @@ pub mod workload {
         impl std::convert::From<std::string::String> for ResourceType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ResourceType {
+            fn default() -> Self {
+                resource_type::RESOURCE_TYPE_UNSPECIFIED
             }
         }
     }
@@ -871,7 +877,7 @@ pub mod workload {
         use super::*;
 
         /// Setup state of SAA enrollment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SetupState(std::borrow::Cow<'static, str>);
 
         impl SetupState {
@@ -907,8 +913,14 @@ pub mod workload {
             }
         }
 
+        impl std::default::Default for SetupState {
+            fn default() -> Self {
+                setup_state::SETUP_STATE_UNSPECIFIED
+            }
+        }
+
         /// Setup error of SAA enrollment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SetupError(std::borrow::Cow<'static, str>);
 
         impl SetupError {
@@ -956,10 +968,16 @@ pub mod workload {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for SetupError {
+            fn default() -> Self {
+                setup_error::SETUP_ERROR_UNSPECIFIED
+            }
+        }
     }
 
     /// Supported Compliance Regimes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ComplianceRegime(std::borrow::Cow<'static, str>);
 
     impl ComplianceRegime {
@@ -1032,8 +1050,14 @@ pub mod workload {
         }
     }
 
+    impl std::default::Default for ComplianceRegime {
+        fn default() -> Self {
+            compliance_regime::COMPLIANCE_REGIME_UNSPECIFIED
+        }
+    }
+
     /// Key Access Justifications(KAJ) Enrollment State.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KajEnrollmentState(std::borrow::Cow<'static, str>);
 
     impl KajEnrollmentState {
@@ -1071,8 +1095,14 @@ pub mod workload {
         }
     }
 
+    impl std::default::Default for KajEnrollmentState {
+        fn default() -> Self {
+            kaj_enrollment_state::KAJ_ENROLLMENT_STATE_UNSPECIFIED
+        }
+    }
+
     /// Supported Assured Workloads Partners.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Partner(std::borrow::Cow<'static, str>);
 
     impl Partner {
@@ -1101,6 +1131,12 @@ pub mod workload {
     impl std::convert::From<std::string::String> for Partner {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Partner {
+        fn default() -> Self {
+            partner::PARTNER_UNSPECIFIED
         }
     }
 }
@@ -1225,7 +1261,7 @@ pub mod restrict_allowed_resources_request {
     use super::*;
 
     /// The type of restriction.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RestrictionType(std::borrow::Cow<'static, str>);
 
     impl RestrictionType {
@@ -1264,6 +1300,12 @@ pub mod restrict_allowed_resources_request {
     impl std::convert::From<std::string::String> for RestrictionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RestrictionType {
+        fn default() -> Self {
+            restriction_type::RESTRICTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2049,7 +2091,7 @@ pub mod violation {
         /// violation. For example, violations caused due to changes in boolean org
         /// policy requires different remediation instructions compared to violation
         /// caused due to changes in allowed values of list org policy.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct RemediationType(std::borrow::Cow<'static, str>);
 
         impl RemediationType {
@@ -2098,10 +2140,16 @@ pub mod violation {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for RemediationType {
+            fn default() -> Self {
+                remediation_type::REMEDIATION_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Violation State Values
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2136,6 +2184,12 @@ pub mod violation {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

@@ -519,7 +519,7 @@ pub mod binding_explanation {
     }
 
     /// Whether a role includes a specific permission.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolePermission(std::borrow::Cow<'static, str>);
 
     impl RolePermission {
@@ -561,8 +561,14 @@ pub mod binding_explanation {
         }
     }
 
+    impl std::default::Default for RolePermission {
+        fn default() -> Self {
+            role_permission::ROLE_PERMISSION_UNSPECIFIED
+        }
+    }
+
     /// Whether the binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Membership(std::borrow::Cow<'static, str>);
 
     impl Membership {
@@ -611,10 +617,16 @@ pub mod binding_explanation {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Membership {
+        fn default() -> Self {
+            membership::MEMBERSHIP_UNSPECIFIED
+        }
+    }
 }
 
 /// Whether a principal has a permission for a resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AccessState(std::borrow::Cow<'static, str>);
 
 impl AccessState {
@@ -657,10 +669,16 @@ impl std::convert::From<std::string::String> for AccessState {
     }
 }
 
+impl std::default::Default for AccessState {
+    fn default() -> Self {
+        access_state::ACCESS_STATE_UNSPECIFIED
+    }
+}
+
 /// The extent to which a single data point, such as the existence of a binding
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
 
 impl HeuristicRelevance {
@@ -695,5 +713,11 @@ pub mod heuristic_relevance {
 impl std::convert::From<std::string::String> for HeuristicRelevance {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HeuristicRelevance {
+    fn default() -> Self {
+        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
     }
 }

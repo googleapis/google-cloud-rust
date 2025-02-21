@@ -949,7 +949,7 @@ pub mod app_connection {
         use super::*;
 
         /// Enum listing possible gateway hosting options.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -980,11 +980,17 @@ pub mod app_connection {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Enum containing list of all possible network connectivity options
     /// supported by BeyondCorp AppConnection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1017,8 +1023,14 @@ pub mod app_connection {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Represents the different states of a AppConnection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1060,6 +1072,12 @@ pub mod app_connection {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

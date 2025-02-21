@@ -570,7 +570,7 @@ pub mod certificate_authority {
     /// indicating its issuing chain.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -609,12 +609,18 @@ pub mod certificate_authority {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// The state of a
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority],
     /// indicating if it can be used.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -694,6 +700,12 @@ pub mod certificate_authority {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The algorithm of a Cloud KMS CryptoKeyVersion of a
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey] with the
     /// [CryptoKeyPurpose][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose] value
@@ -703,7 +715,7 @@ pub mod certificate_authority {
     /// use PKCS1 algorithms if required for compatibility. For further
     /// recommendations, see
     /// <https://cloud.google.com/kms/docs/algorithms#algorithm_recommendations>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SignHashAlgorithm(std::borrow::Cow<'static, str>);
 
     impl SignHashAlgorithm {
@@ -760,6 +772,12 @@ pub mod certificate_authority {
     impl std::convert::From<std::string::String> for SignHashAlgorithm {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SignHashAlgorithm {
+        fn default() -> Self {
+            sign_hash_algorithm::SIGN_HASH_ALGORITHM_UNSPECIFIED
         }
     }
 }
@@ -981,7 +999,7 @@ pub mod ca_pool {
         use super::*;
 
         /// Supported encoding formats for publishing.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct EncodingFormat(std::borrow::Cow<'static, str>);
 
         impl EncodingFormat {
@@ -1022,6 +1040,12 @@ pub mod ca_pool {
         impl std::convert::From<std::string::String> for EncodingFormat {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for EncodingFormat {
+            fn default() -> Self {
+                encoding_format::ENCODING_FORMAT_UNSPECIFIED
             }
         }
     }
@@ -1438,9 +1462,7 @@ pub mod ca_pool {
                 ///
                 /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
                 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
-                #[derive(
-                    Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
-                )]
+                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 pub struct EcSignatureAlgorithm(std::borrow::Cow<'static, str>);
 
                 impl EcSignatureAlgorithm {
@@ -1482,6 +1504,12 @@ pub mod ca_pool {
                 impl std::convert::From<std::string::String> for EcSignatureAlgorithm {
                     fn from(value: std::string::String) -> Self {
                         Self(std::borrow::Cow::Owned(value))
+                    }
+                }
+
+                impl std::default::Default for EcSignatureAlgorithm {
+                    fn default() -> Self {
+                        ec_signature_algorithm::EC_SIGNATURE_ALGORITHM_UNSPECIFIED
                     }
                 }
             }
@@ -1570,7 +1598,7 @@ pub mod ca_pool {
     /// indicating its supported functionality and/or billing SKU.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -1602,6 +1630,12 @@ pub mod ca_pool {
     impl std::convert::From<std::string::String> for Tier {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
         }
     }
 }
@@ -1852,7 +1886,7 @@ pub mod certificate_revocation_list {
     /// indicating if it is current.
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1892,6 +1926,12 @@ pub mod certificate_revocation_list {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3041,7 +3081,7 @@ pub mod public_key {
 
     /// Types of public keys formats that are supported. Currently, only `PEM`
     /// format is supported.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KeyFormat(std::borrow::Cow<'static, str>);
 
     impl KeyFormat {
@@ -3082,6 +3122,12 @@ pub mod public_key {
     impl std::convert::From<std::string::String> for KeyFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for KeyFormat {
+        fn default() -> Self {
+            key_format::KEY_FORMAT_UNSPECIFIED
         }
     }
 }
@@ -4319,7 +4365,7 @@ pub mod certificate_extension_constraints {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KnownCertificateExtension(std::borrow::Cow<'static, str>);
 
     impl KnownCertificateExtension {
@@ -4407,6 +4453,12 @@ pub mod certificate_extension_constraints {
     impl std::convert::From<std::string::String> for KnownCertificateExtension {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for KnownCertificateExtension {
+        fn default() -> Self {
+            known_certificate_extension::KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED
         }
     }
 }
@@ -7124,7 +7176,7 @@ impl wkt::message::Message for OperationMetadata {
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.RevocationReason]: crate::model::RevocationReason
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RevocationReason(std::borrow::Cow<'static, str>);
 
 impl RevocationReason {
@@ -7210,6 +7262,12 @@ impl std::convert::From<std::string::String> for RevocationReason {
     }
 }
 
+impl std::default::Default for RevocationReason {
+    fn default() -> Self {
+        revocation_reason::REVOCATION_REASON_UNSPECIFIED
+    }
+}
+
 /// Describes the way in which a
 /// [Certificate][google.cloud.security.privateca.v1.Certificate]'s
 /// [Subject][google.cloud.security.privateca.v1.Subject] and/or
@@ -7219,7 +7277,7 @@ impl std::convert::From<std::string::String> for RevocationReason {
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SubjectRequestMode(std::borrow::Cow<'static, str>);
 
 impl SubjectRequestMode {
@@ -7270,5 +7328,11 @@ pub mod subject_request_mode {
 impl std::convert::From<std::string::String> for SubjectRequestMode {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for SubjectRequestMode {
+    fn default() -> Self {
+        subject_request_mode::SUBJECT_REQUEST_MODE_UNSPECIFIED
     }
 }

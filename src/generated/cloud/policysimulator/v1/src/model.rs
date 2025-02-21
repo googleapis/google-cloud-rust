@@ -424,7 +424,7 @@ pub mod binding_explanation {
     }
 
     /// Whether a role includes a specific permission.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolePermission(std::borrow::Cow<'static, str>);
 
     impl RolePermission {
@@ -470,8 +470,14 @@ pub mod binding_explanation {
         }
     }
 
+    impl std::default::Default for RolePermission {
+        fn default() -> Self {
+            role_permission::ROLE_PERMISSION_UNSPECIFIED
+        }
+    }
+
     /// Whether the binding includes the principal.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Membership(std::borrow::Cow<'static, str>);
 
     impl Membership {
@@ -522,6 +528,12 @@ pub mod binding_explanation {
     impl std::convert::From<std::string::String> for Membership {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Membership {
+        fn default() -> Self {
+            membership::MEMBERSHIP_UNSPECIFIED
         }
     }
 }
@@ -691,7 +703,7 @@ pub mod replay {
     /// The current state of the [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -729,6 +741,12 @@ pub mod replay {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1249,7 +1267,7 @@ pub mod replay_config {
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogSource(std::borrow::Cow<'static, str>);
 
     impl LogSource {
@@ -1284,6 +1302,12 @@ pub mod replay_config {
     impl std::convert::From<std::string::String> for LogSource {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LogSource {
+        fn default() -> Self {
+            log_source::LOG_SOURCE_UNSPECIFIED
         }
     }
 }
@@ -1414,7 +1438,7 @@ pub mod access_state_diff {
 
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AccessChangeType(std::borrow::Cow<'static, str>);
 
     impl AccessChangeType {
@@ -1483,6 +1507,12 @@ pub mod access_state_diff {
     impl std::convert::From<std::string::String> for AccessChangeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AccessChangeType {
+        fn default() -> Self {
+            access_change_type::ACCESS_CHANGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1569,7 +1599,7 @@ impl wkt::message::Message for ExplainedAccess {
 }
 
 /// Whether a principal has a permission for a resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AccessState(std::borrow::Cow<'static, str>);
 
 impl AccessState {
@@ -1615,10 +1645,16 @@ impl std::convert::From<std::string::String> for AccessState {
     }
 }
 
+impl std::default::Default for AccessState {
+    fn default() -> Self {
+        access_state::ACCESS_STATE_UNSPECIFIED
+    }
+}
+
 /// The extent to which a single data point, such as the existence of a binding
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
 
 impl HeuristicRelevance {
@@ -1653,5 +1689,11 @@ pub mod heuristic_relevance {
 impl std::convert::From<std::string::String> for HeuristicRelevance {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HeuristicRelevance {
+    fn default() -> Self {
+        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
     }
 }

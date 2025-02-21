@@ -124,7 +124,7 @@ pub mod common_metadata {
     use super::*;
 
     /// The various possible states for an ongoing Operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -173,6 +173,12 @@ pub mod common_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1202,7 +1208,7 @@ pub mod index {
 
     /// For an ordered index, specifies whether each of the entity's ancestors
     /// will be included.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AncestorMode(std::borrow::Cow<'static, str>);
 
     impl AncestorMode {
@@ -1238,8 +1244,14 @@ pub mod index {
         }
     }
 
+    impl std::default::Default for AncestorMode {
+        fn default() -> Self {
+            ancestor_mode::ANCESTOR_MODE_UNSPECIFIED
+        }
+    }
+
     /// The direction determines how a property is indexed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
@@ -1276,8 +1288,14 @@ pub mod index {
         }
     }
 
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            direction::DIRECTION_UNSPECIFIED
+        }
+    }
+
     /// The possible set of states of an index.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1328,6 +1346,12 @@ pub mod index {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1559,7 +1583,7 @@ pub mod migration_progress_event {
     }
 
     /// Concurrency modes for transactions in Cloud Firestore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConcurrencyMode(std::borrow::Cow<'static, str>);
 
     impl ConcurrencyMode {
@@ -1599,6 +1623,12 @@ pub mod migration_progress_event {
         }
     }
 
+    impl std::default::Default for ConcurrencyMode {
+        fn default() -> Self {
+            concurrency_mode::CONCURRENCY_MODE_UNSPECIFIED
+        }
+    }
+
     /// Details about this step.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -1616,7 +1646,7 @@ pub mod migration_progress_event {
 }
 
 /// Operation types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperationType(std::borrow::Cow<'static, str>);
 
 impl OperationType {
@@ -1658,8 +1688,14 @@ impl std::convert::From<std::string::String> for OperationType {
     }
 }
 
+impl std::default::Default for OperationType {
+    fn default() -> Self {
+        operation_type::OPERATION_TYPE_UNSPECIFIED
+    }
+}
+
 /// States for a migration.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MigrationState(std::borrow::Cow<'static, str>);
 
 impl MigrationState {
@@ -1698,8 +1734,14 @@ impl std::convert::From<std::string::String> for MigrationState {
     }
 }
 
+impl std::default::Default for MigrationState {
+    fn default() -> Self {
+        migration_state::MIGRATION_STATE_UNSPECIFIED
+    }
+}
+
 /// Steps in a migration.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MigrationStep(std::borrow::Cow<'static, str>);
 
 impl MigrationStep {
@@ -1751,5 +1793,11 @@ pub mod migration_step {
 impl std::convert::From<std::string::String> for MigrationStep {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for MigrationStep {
+    fn default() -> Self {
+        migration_step::MIGRATION_STEP_UNSPECIFIED
     }
 }

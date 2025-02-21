@@ -237,7 +237,7 @@ pub mod membership_spec {
     use super::*;
 
     /// Whether to automatically manage the Feature.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Management(std::borrow::Cow<'static, str>);
 
     impl Management {
@@ -269,6 +269,12 @@ pub mod membership_spec {
     impl std::convert::From<std::string::String> for Management {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Management {
+        fn default() -> Self {
+            management::MANAGEMENT_UNSPECIFIED
         }
     }
 }
@@ -1031,7 +1037,7 @@ pub mod config_sync_state {
     use super::*;
 
     /// CRDState representing the state of a CRD
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CRDState(std::borrow::Cow<'static, str>);
 
     impl CRDState {
@@ -1072,7 +1078,13 @@ pub mod config_sync_state {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for CRDState {
+        fn default() -> Self {
+            crd_state::CRD_STATE_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1110,6 +1122,12 @@ pub mod config_sync_state {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1450,7 +1468,7 @@ pub mod sync_state {
     use super::*;
 
     /// An enum representing Config Sync's status of syncing configs to a cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SyncCode(std::borrow::Cow<'static, str>);
 
     impl SyncCode {
@@ -1497,6 +1515,12 @@ pub mod sync_state {
     impl std::convert::From<std::string::String> for SyncCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SyncCode {
+        fn default() -> Self {
+            sync_code::SYNC_CODE_UNSPECIFIED
         }
     }
 }
@@ -1796,7 +1820,7 @@ impl wkt::message::Message for GatekeeperDeploymentState {
 }
 
 /// Enum representing the state of an ACM's deployment on a cluster
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeploymentState(std::borrow::Cow<'static, str>);
 
 impl DeploymentState {
@@ -1835,5 +1859,11 @@ pub mod deployment_state {
 impl std::convert::From<std::string::String> for DeploymentState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DeploymentState {
+    fn default() -> Self {
+        deployment_state::DEPLOYMENT_STATE_UNSPECIFIED
     }
 }

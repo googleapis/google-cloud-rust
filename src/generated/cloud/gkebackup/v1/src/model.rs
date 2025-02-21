@@ -669,7 +669,7 @@ pub mod backup {
     }
 
     /// State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -713,6 +713,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1377,7 +1383,7 @@ pub mod backup_plan {
     }
 
     /// State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1421,6 +1427,12 @@ pub mod backup_plan {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1862,7 +1874,7 @@ pub mod volume_type_enum {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VolumeType(std::borrow::Cow<'static, str>);
 
     impl VolumeType {
@@ -1891,6 +1903,12 @@ pub mod volume_type_enum {
     impl std::convert::From<std::string::String> for VolumeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VolumeType {
+        fn default() -> Self {
+            volume_type::VOLUME_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4160,7 +4178,7 @@ pub mod restore {
     }
 
     /// Possible values for state of the Restore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4204,6 +4222,12 @@ pub mod restore {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4887,7 +4911,7 @@ pub mod restore_config {
         use super::*;
 
         /// Possible values for operations of a transformation rule action.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Op(std::borrow::Cow<'static, str>);
 
         impl Op {
@@ -4944,6 +4968,12 @@ pub mod restore_config {
         impl std::convert::From<std::string::String> for Op {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Op {
+            fn default() -> Self {
+                op::OP_UNSPECIFIED
             }
         }
     }
@@ -5286,7 +5316,7 @@ pub mod restore_config {
     }
 
     /// Defines how volume data should be restored.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VolumeDataRestorePolicy(std::borrow::Cow<'static, str>);
 
     impl VolumeDataRestorePolicy {
@@ -5334,9 +5364,15 @@ pub mod restore_config {
         }
     }
 
+    impl std::default::Default for VolumeDataRestorePolicy {
+        fn default() -> Self {
+            volume_data_restore_policy::VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED
+        }
+    }
+
     /// Defines the behavior for handling the situation where cluster-scoped
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ClusterResourceConflictPolicy(std::borrow::Cow<'static, str>);
 
     impl ClusterResourceConflictPolicy {
@@ -5378,9 +5414,15 @@ pub mod restore_config {
         }
     }
 
+    impl std::default::Default for ClusterResourceConflictPolicy {
+        fn default() -> Self {
+            cluster_resource_conflict_policy::CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED
+        }
+    }
+
     /// Defines the behavior for handling the situation where sets of namespaced
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NamespacedResourceRestoreMode(std::borrow::Cow<'static, str>);
 
     impl NamespacedResourceRestoreMode {
@@ -5462,6 +5504,12 @@ pub mod restore_config {
     impl std::convert::From<std::string::String> for NamespacedResourceRestoreMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NamespacedResourceRestoreMode {
+        fn default() -> Self {
+            namespaced_resource_restore_mode::NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED
         }
     }
 
@@ -5871,7 +5919,7 @@ pub mod restore_plan {
     use super::*;
 
     /// State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5909,6 +5957,12 @@ pub mod restore_plan {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6108,7 +6162,7 @@ pub mod volume_backup {
     use super::*;
 
     /// Identifies the format used for the volume backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VolumeBackupFormat(std::borrow::Cow<'static, str>);
 
     impl VolumeBackupFormat {
@@ -6142,8 +6196,14 @@ pub mod volume_backup {
         }
     }
 
+    impl std::default::Default for VolumeBackupFormat {
+        fn default() -> Self {
+            volume_backup_format::VOLUME_BACKUP_FORMAT_UNSPECIFIED
+        }
+    }
+
     /// The current state of a VolumeBackup
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6193,6 +6253,12 @@ pub mod volume_backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6373,7 +6439,7 @@ pub mod volume_restore {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VolumeType(std::borrow::Cow<'static, str>);
 
     impl VolumeType {
@@ -6405,8 +6471,14 @@ pub mod volume_restore {
         }
     }
 
+    impl std::default::Default for VolumeType {
+        fn default() -> Self {
+            volume_type::VOLUME_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The current state of a VolumeRestore
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6448,6 +6520,12 @@ pub mod volume_restore {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

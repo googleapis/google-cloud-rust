@@ -24,7 +24,7 @@ extern crate std;
 extern crate wkt;
 
 /// The encryption state of the device.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeviceEncryptionStatus(std::borrow::Cow<'static, str>);
 
 impl DeviceEncryptionStatus {
@@ -64,9 +64,15 @@ impl std::convert::From<std::string::String> for DeviceEncryptionStatus {
     }
 }
 
+impl std::default::Default for DeviceEncryptionStatus {
+    fn default() -> Self {
+        device_encryption_status::ENCRYPTION_UNSPECIFIED
+    }
+}
+
 /// The operating system type of the device.
 /// Next id: 7
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OsType(std::borrow::Cow<'static, str>);
 
 impl OsType {
@@ -113,8 +119,14 @@ impl std::convert::From<std::string::String> for OsType {
     }
 }
 
+impl std::default::Default for OsType {
+    fn default() -> Self {
+        os_type::OS_UNSPECIFIED
+    }
+}
+
 /// The degree to which the device is managed by the Cloud organization.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeviceManagementLevel(std::borrow::Cow<'static, str>);
 
 impl DeviceManagementLevel {
@@ -153,5 +165,11 @@ pub mod device_management_level {
 impl std::convert::From<std::string::String> for DeviceManagementLevel {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DeviceManagementLevel {
+    fn default() -> Self {
+        device_management_level::MANAGEMENT_UNSPECIFIED
     }
 }

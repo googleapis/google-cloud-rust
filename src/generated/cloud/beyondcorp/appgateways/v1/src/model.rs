@@ -569,7 +569,7 @@ pub mod app_gateway {
 
     /// Enum containing list of all possible network connectivity options
     /// supported by BeyondCorp AppGateway.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -601,8 +601,14 @@ pub mod app_gateway {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Represents the different states of an AppGateway.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -647,9 +653,15 @@ pub mod app_gateway {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Enum containing list of all possible host types supported by BeyondCorp
     /// Connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HostType(std::borrow::Cow<'static, str>);
 
     impl HostType {
@@ -678,6 +690,12 @@ pub mod app_gateway {
     impl std::convert::From<std::string::String> for HostType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for HostType {
+        fn default() -> Self {
+            host_type::HOST_TYPE_UNSPECIFIED
         }
     }
 }

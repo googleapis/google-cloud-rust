@@ -166,7 +166,7 @@ pub mod error_handler {
     use super::*;
 
     /// Error codes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ErrorCode(std::borrow::Cow<'static, str>);
 
     impl ErrorCode {
@@ -206,6 +206,12 @@ pub mod error_handler {
     impl std::convert::From<std::string::String> for ErrorCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ErrorCode {
+        fn default() -> Self {
+            error_code::ERROR_CODE_UNSPECIFIED
         }
     }
 }
@@ -401,7 +407,7 @@ pub mod url_map {
     use super::*;
 
     /// Redirect codes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RedirectHttpResponseCode(std::borrow::Cow<'static, str>);
 
     impl RedirectHttpResponseCode {
@@ -444,6 +450,12 @@ pub mod url_map {
     impl std::convert::From<std::string::String> for RedirectHttpResponseCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RedirectHttpResponseCode {
+        fn default() -> Self {
+            redirect_http_response_code::REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED
         }
     }
 
@@ -3259,7 +3271,7 @@ pub mod application {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ServingStatus(std::borrow::Cow<'static, str>);
 
     impl ServingStatus {
@@ -3297,7 +3309,13 @@ pub mod application {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for ServingStatus {
+        fn default() -> Self {
+            serving_status::UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
     impl DatabaseType {
@@ -3334,6 +3352,12 @@ pub mod application {
     impl std::convert::From<std::string::String> for DatabaseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            database_type::DATABASE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4315,7 +4339,7 @@ pub mod ssl_settings {
     use super::*;
 
     /// The SSL management type for this domain.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SslManagementType(std::borrow::Cow<'static, str>);
 
     impl SslManagementType {
@@ -4351,6 +4375,12 @@ pub mod ssl_settings {
     impl std::convert::From<std::string::String> for SslManagementType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SslManagementType {
+        fn default() -> Self {
+            ssl_management_type::SSL_MANAGEMENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4415,7 +4445,7 @@ pub mod resource_record {
     use super::*;
 
     /// A resource record type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RecordType(std::borrow::Cow<'static, str>);
 
     impl RecordType {
@@ -4450,6 +4480,12 @@ pub mod resource_record {
     impl std::convert::From<std::string::String> for RecordType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RecordType {
+        fn default() -> Self {
+            record_type::RECORD_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4531,7 +4567,7 @@ pub mod firewall_rule {
     use super::*;
 
     /// Available actions to take on matching requests.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -4562,6 +4598,12 @@ pub mod firewall_rule {
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::UNSPECIFIED_ACTION
         }
     }
 }
@@ -4804,7 +4846,7 @@ pub mod instance {
         use super::*;
 
         /// Liveness health check status for Flex instances.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct LivenessState(std::borrow::Cow<'static, str>);
 
         impl LivenessState {
@@ -4856,10 +4898,16 @@ pub mod instance {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for LivenessState {
+            fn default() -> Self {
+                liveness_state::LIVENESS_STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// Availability of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Availability(std::borrow::Cow<'static, str>);
 
     impl Availability {
@@ -4888,6 +4936,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for Availability {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Availability {
+        fn default() -> Self {
+            availability::UNSPECIFIED
         }
     }
 }
@@ -4983,7 +5037,7 @@ pub mod network_settings {
     use super::*;
 
     /// If unspecified, INGRESS_TRAFFIC_ALLOWED_ALL will be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IngressTrafficAllowed(std::borrow::Cow<'static, str>);
 
     impl IngressTrafficAllowed {
@@ -5022,6 +5076,12 @@ pub mod network_settings {
     impl std::convert::From<std::string::String> for IngressTrafficAllowed {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for IngressTrafficAllowed {
+        fn default() -> Self {
+            ingress_traffic_allowed::INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED
         }
     }
 }
@@ -5408,7 +5468,7 @@ pub mod traffic_split {
     use super::*;
 
     /// Available sharding mechanisms.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ShardBy(std::borrow::Cow<'static, str>);
 
     impl ShardBy {
@@ -5447,6 +5507,12 @@ pub mod traffic_split {
     impl std::convert::From<std::string::String> for ShardBy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ShardBy {
+        fn default() -> Self {
+            shard_by::UNSPECIFIED
         }
     }
 }
@@ -6234,7 +6300,7 @@ pub mod endpoints_api_service {
     use super::*;
 
     /// Available rollout strategies.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolloutStrategy(std::borrow::Cow<'static, str>);
 
     impl RolloutStrategy {
@@ -6268,6 +6334,12 @@ pub mod endpoints_api_service {
     impl std::convert::From<std::string::String> for RolloutStrategy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RolloutStrategy {
+        fn default() -> Self {
+            rollout_strategy::UNSPECIFIED_ROLLOUT_STRATEGY
         }
     }
 }
@@ -7075,7 +7147,7 @@ pub mod vpc_access_connector {
     ///
     /// This controls what traffic is diverted through the VPC Access Connector
     /// resource. By default PRIVATE_IP_RANGES will be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EgressSetting(std::borrow::Cow<'static, str>);
 
     impl EgressSetting {
@@ -7107,6 +7179,12 @@ pub mod vpc_access_connector {
     impl std::convert::From<std::string::String> for EgressSetting {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EgressSetting {
+        fn default() -> Self {
+            egress_setting::EGRESS_SETTING_UNSPECIFIED
         }
     }
 }
@@ -7183,7 +7261,7 @@ pub mod entrypoint {
 }
 
 /// Actions to take when the user is not logged in.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AuthFailAction(std::borrow::Cow<'static, str>);
 
 impl AuthFailAction {
@@ -7223,8 +7301,14 @@ impl std::convert::From<std::string::String> for AuthFailAction {
     }
 }
 
+impl std::default::Default for AuthFailAction {
+    fn default() -> Self {
+        auth_fail_action::AUTH_FAIL_ACTION_UNSPECIFIED
+    }
+}
+
 /// Methods to restrict access to a URL based on login status.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LoginRequirement(std::borrow::Cow<'static, str>);
 
 impl LoginRequirement {
@@ -7267,8 +7351,14 @@ impl std::convert::From<std::string::String> for LoginRequirement {
     }
 }
 
+impl std::default::Default for LoginRequirement {
+    fn default() -> Self {
+        login_requirement::LOGIN_UNSPECIFIED
+    }
+}
+
 /// Methods to enforce security (HTTPS) on a URL.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SecurityLevel(std::borrow::Cow<'static, str>);
 
 impl SecurityLevel {
@@ -7316,11 +7406,17 @@ impl std::convert::From<std::string::String> for SecurityLevel {
     }
 }
 
+impl std::default::Default for SecurityLevel {
+    fn default() -> Self {
+        security_level::SECURE_UNSPECIFIED
+    }
+}
+
 /// Fields that should be returned when [Version][google.appengine.v1.Version] resources
 /// are retrieved.
 ///
 /// [google.appengine.v1.Version]: crate::model::Version
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct VersionView(std::borrow::Cow<'static, str>);
 
 impl VersionView {
@@ -7355,9 +7451,15 @@ impl std::convert::From<std::string::String> for VersionView {
     }
 }
 
+impl std::default::Default for VersionView {
+    fn default() -> Self {
+        version_view::BASIC
+    }
+}
+
 /// Fields that should be returned when an AuthorizedCertificate resource is
 /// retrieved.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AuthorizedCertificateView(std::borrow::Cow<'static, str>);
 
 impl AuthorizedCertificateView {
@@ -7393,8 +7495,14 @@ impl std::convert::From<std::string::String> for AuthorizedCertificateView {
     }
 }
 
+impl std::default::Default for AuthorizedCertificateView {
+    fn default() -> Self {
+        authorized_certificate_view::BASIC_CERTIFICATE
+    }
+}
+
 /// Override strategy for mutating an existing mapping.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DomainOverrideStrategy(std::borrow::Cow<'static, str>);
 
 impl DomainOverrideStrategy {
@@ -7435,9 +7543,15 @@ impl std::convert::From<std::string::String> for DomainOverrideStrategy {
     }
 }
 
+impl std::default::Default for DomainOverrideStrategy {
+    fn default() -> Self {
+        domain_override_strategy::UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY
+    }
+}
+
 /// State of certificate management. Refers to the most recent certificate
 /// acquisition or renewal attempt.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ManagementStatus(std::borrow::Cow<'static, str>);
 
 impl ManagementStatus {
@@ -7500,8 +7614,14 @@ impl std::convert::From<std::string::String> for ManagementStatus {
     }
 }
 
+impl std::default::Default for ManagementStatus {
+    fn default() -> Self {
+        management_status::MANAGEMENT_STATUS_UNSPECIFIED
+    }
+}
+
 /// Available inbound services.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct InboundServiceType(std::borrow::Cow<'static, str>);
 
 impl InboundServiceType {
@@ -7564,8 +7684,14 @@ impl std::convert::From<std::string::String> for InboundServiceType {
     }
 }
 
+impl std::default::Default for InboundServiceType {
+    fn default() -> Self {
+        inbound_service_type::INBOUND_SERVICE_UNSPECIFIED
+    }
+}
+
 /// Run states of a version.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServingStatus(std::borrow::Cow<'static, str>);
 
 impl ServingStatus {
@@ -7601,5 +7727,11 @@ pub mod serving_status {
 impl std::convert::From<std::string::String> for ServingStatus {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ServingStatus {
+    fn default() -> Self {
+        serving_status::SERVING_STATUS_UNSPECIFIED
     }
 }

@@ -7067,7 +7067,7 @@ pub mod private_cloud {
     }
 
     /// Enum State defines possible states of private clouds.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7116,8 +7116,14 @@ pub mod private_cloud {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Enum Type defines private cloud type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -7153,6 +7159,12 @@ pub mod private_cloud {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::STANDARD
         }
     }
 }
@@ -7301,7 +7313,7 @@ pub mod cluster {
     use super::*;
 
     /// Enum State defines possible states of private cloud clusters.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7344,6 +7356,12 @@ pub mod cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -7449,7 +7467,7 @@ pub mod node {
     use super::*;
 
     /// Enum State defines possible states of a node in a cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7487,6 +7505,12 @@ pub mod node {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -7609,7 +7633,7 @@ pub mod external_address {
     use super::*;
 
     /// Enum State defines possible states of external addresses.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7647,6 +7671,12 @@ pub mod external_address {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -7742,7 +7772,7 @@ pub mod subnet {
     use super::*;
 
     /// Defines possible states of subnets.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7787,6 +7817,12 @@ pub mod subnet {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8147,7 +8183,7 @@ pub mod external_access_rule {
 
     /// Action determines whether the external access rule permits or blocks
     /// traffic, subject to the other components of the rule matching the traffic.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -8182,8 +8218,14 @@ pub mod external_access_rule {
         }
     }
 
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
+        }
+    }
+
     /// Defines possible states of external access firewall rules.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8221,6 +8263,12 @@ pub mod external_access_rule {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8346,7 +8394,7 @@ pub mod logging_server {
 
     /// Defines possible protocols used to send logs to
     /// a logging server.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Protocol(std::borrow::Cow<'static, str>);
 
     impl Protocol {
@@ -8390,8 +8438,14 @@ pub mod logging_server {
         }
     }
 
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            protocol::PROTOCOL_UNSPECIFIED
+        }
+    }
+
     /// Defines possible types of component that produces logs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SourceType(std::borrow::Cow<'static, str>);
 
     impl SourceType {
@@ -8423,6 +8477,12 @@ pub mod logging_server {
     impl std::convert::From<std::string::String> for SourceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SourceType {
+        fn default() -> Self {
+            source_type::SOURCE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -8580,7 +8640,7 @@ pub mod node_type {
     use super::*;
 
     /// Enum Kind defines possible types of a NodeType.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
@@ -8615,8 +8675,14 @@ pub mod node_type {
         }
     }
 
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            kind::KIND_UNSPECIFIED
+        }
+    }
+
     /// Capability of a node type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Capability(std::borrow::Cow<'static, str>);
 
     impl Capability {
@@ -8646,6 +8712,12 @@ pub mod node_type {
     impl std::convert::From<std::string::String> for Capability {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Capability {
+        fn default() -> Self {
+            capability::CAPABILITY_UNSPECIFIED
         }
     }
 }
@@ -8783,7 +8855,7 @@ pub mod hcx_activation_key {
     use super::*;
 
     /// State of HCX activation key
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8818,6 +8890,12 @@ pub mod hcx_activation_key {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8886,7 +8964,7 @@ pub mod hcx {
     use super::*;
 
     /// State of the appliance
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8921,6 +8999,12 @@ pub mod hcx {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8989,7 +9073,7 @@ pub mod nsx {
     use super::*;
 
     /// State of the appliance
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -9021,6 +9105,12 @@ pub mod nsx {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -9089,7 +9179,7 @@ pub mod vcenter {
     use super::*;
 
     /// State of the appliance
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -9121,6 +9211,12 @@ pub mod vcenter {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -9748,7 +9844,7 @@ pub mod network_peering {
     use super::*;
 
     /// Possible states of a network peering.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -9789,8 +9885,14 @@ pub mod network_peering {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type or purpose of the network peering connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PeerNetworkType(std::borrow::Cow<'static, str>);
 
     impl PeerNetworkType {
@@ -9848,6 +9950,12 @@ pub mod network_peering {
     impl std::convert::From<std::string::String> for PeerNetworkType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PeerNetworkType {
+        fn default() -> Self {
+            peer_network_type::PEER_NETWORK_TYPE_UNSPECIFIED
         }
     }
 }
@@ -9951,7 +10059,7 @@ pub mod peering_route {
     use super::*;
 
     /// The type of the peering route.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -9990,8 +10098,14 @@ pub mod peering_route {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// The direction of the exchanged routes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
@@ -10023,6 +10137,12 @@ pub mod peering_route {
     impl std::convert::From<std::string::String> for Direction {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            direction::DIRECTION_UNSPECIFIED
         }
     }
 }
@@ -10248,7 +10368,7 @@ pub mod network_policy {
 
         /// Enum State defines possible states of a network policy controlled
         /// service.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -10283,6 +10403,12 @@ pub mod network_policy {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
             }
         }
     }
@@ -10462,7 +10588,7 @@ pub mod management_dns_zone_binding {
 
     /// Enum State defines possible states of binding between the consumer VPC
     /// network and the management DNS zone.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -10503,6 +10629,12 @@ pub mod management_dns_zone_binding {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -10721,7 +10853,7 @@ pub mod vmware_engine_network {
 
         /// Enum Type defines possible types of a VMware Engine network controlled
         /// service.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -10762,10 +10894,16 @@ pub mod vmware_engine_network {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Enum State defines possible states of VMware Engine network.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -10806,8 +10944,14 @@ pub mod vmware_engine_network {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Enum Type defines possible types of VMware Engine network.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -10841,6 +10985,12 @@ pub mod vmware_engine_network {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -11053,7 +11203,7 @@ pub mod private_connection {
     use super::*;
 
     /// Enum State defines possible states of private connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -11101,8 +11251,14 @@ pub mod private_connection {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Enum Type defines possible types of private connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -11144,8 +11300,14 @@ pub mod private_connection {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Possible types for RoutingMode
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RoutingMode(std::borrow::Cow<'static, str>);
 
     impl RoutingMode {
@@ -11181,9 +11343,15 @@ pub mod private_connection {
         }
     }
 
+    impl std::default::Default for RoutingMode {
+        fn default() -> Self {
+            routing_mode::ROUTING_MODE_UNSPECIFIED
+        }
+    }
+
     /// Enum PeeringState defines the possible states of peering between service
     /// network and the vpc network peered to service network
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PeeringState(std::borrow::Cow<'static, str>);
 
     impl PeeringState {
@@ -11217,6 +11385,12 @@ pub mod private_connection {
     impl std::convert::From<std::string::String> for PeeringState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PeeringState {
+        fn default() -> Self {
+            peering_state::PEERING_STATE_UNSPECIFIED
         }
     }
 }
@@ -11265,7 +11439,7 @@ pub mod location_metadata {
     use super::*;
 
     /// Capability of a location.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Capability(std::borrow::Cow<'static, str>);
 
     impl Capability {
@@ -11295,6 +11469,12 @@ pub mod location_metadata {
     impl std::convert::From<std::string::String> for Capability {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Capability {
+        fn default() -> Self {
+            capability::CAPABILITY_UNSPECIFIED
         }
     }
 }

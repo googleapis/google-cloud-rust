@@ -208,7 +208,7 @@ pub mod channel {
     use super::*;
 
     /// State lists all the possible states of a Channel
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -256,6 +256,12 @@ pub mod channel {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -3883,7 +3889,7 @@ pub mod logging_config {
     /// resources.
     /// This enum is an exhaustive list of log severities and is FROZEN. Do not
     /// expect new values to be added.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogSeverity(std::borrow::Cow<'static, str>);
 
     impl LogSeverity {
@@ -3941,6 +3947,12 @@ pub mod logging_config {
     impl std::convert::From<std::string::String> for LogSeverity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LogSeverity {
+        fn default() -> Self {
+            log_severity::LOG_SEVERITY_UNSPECIFIED
         }
     }
 }

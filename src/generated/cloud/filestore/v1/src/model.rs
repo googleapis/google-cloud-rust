@@ -147,7 +147,7 @@ pub mod network_config {
     use super::*;
 
     /// Internet protocol versions supported by Filestore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AddressMode(std::borrow::Cow<'static, str>);
 
     impl AddressMode {
@@ -180,8 +180,14 @@ pub mod network_config {
         }
     }
 
+    impl std::default::Default for AddressMode {
+        fn default() -> Self {
+            address_mode::ADDRESS_MODE_UNSPECIFIED
+        }
+    }
+
     /// Available connection modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectMode(std::borrow::Cow<'static, str>);
 
     impl ConnectMode {
@@ -216,6 +222,12 @@ pub mod network_config {
     impl std::convert::From<std::string::String> for ConnectMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConnectMode {
+        fn default() -> Self {
+            connect_mode::CONNECT_MODE_UNSPECIFIED
         }
     }
 }
@@ -439,7 +451,7 @@ pub mod nfs_export_options {
     use super::*;
 
     /// The access mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AccessMode(std::borrow::Cow<'static, str>);
 
     impl AccessMode {
@@ -474,8 +486,14 @@ pub mod nfs_export_options {
         }
     }
 
+    impl std::default::Default for AccessMode {
+        fn default() -> Self {
+            access_mode::ACCESS_MODE_UNSPECIFIED
+        }
+    }
+
     /// The squash mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SquashMode(std::borrow::Cow<'static, str>);
 
     impl SquashMode {
@@ -507,6 +525,12 @@ pub mod nfs_export_options {
     impl std::convert::From<std::string::String> for SquashMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SquashMode {
+        fn default() -> Self {
+            squash_mode::SQUASH_MODE_UNSPECIFIED
         }
     }
 }
@@ -705,7 +729,7 @@ pub mod instance {
     use super::*;
 
     /// The instance state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -769,8 +793,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Available service tiers.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -831,8 +861,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
+        }
+    }
+
     /// SuspensionReason contains the possible reasons for a suspension.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SuspensionReason(std::borrow::Cow<'static, str>);
 
     impl SuspensionReason {
@@ -862,6 +898,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for SuspensionReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SuspensionReason {
+        fn default() -> Self {
+            suspension_reason::SUSPENSION_REASON_UNSPECIFIED
         }
     }
 }
@@ -1435,7 +1477,7 @@ pub mod snapshot {
     use super::*;
 
     /// The snapshot state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1470,6 +1512,12 @@ pub mod snapshot {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1955,7 +2003,7 @@ pub mod backup {
     use super::*;
 
     /// The backup state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1998,6 +2046,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

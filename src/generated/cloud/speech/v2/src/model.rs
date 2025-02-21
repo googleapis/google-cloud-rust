@@ -1388,7 +1388,7 @@ pub mod recognizer {
     use super::*;
 
     /// Set of states that define the lifecycle of a Recognizer.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1420,6 +1420,12 @@ pub mod recognizer {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1535,7 +1541,7 @@ pub mod explicit_decoding_config {
     use super::*;
 
     /// Supported audio data encodings.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AudioEncoding(std::borrow::Cow<'static, str>);
 
     impl AudioEncoding {
@@ -1598,6 +1604,12 @@ pub mod explicit_decoding_config {
     impl std::convert::From<std::string::String> for AudioEncoding {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AudioEncoding {
+        fn default() -> Self {
+            audio_encoding::AUDIO_ENCODING_UNSPECIFIED
         }
     }
 }
@@ -1790,7 +1802,7 @@ pub mod recognition_features {
     use super::*;
 
     /// Options for how to recognize multi-channel audio.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MultiChannelMode(std::borrow::Cow<'static, str>);
 
     impl MultiChannelMode {
@@ -1827,6 +1839,12 @@ pub mod recognition_features {
     impl std::convert::From<std::string::String> for MultiChannelMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MultiChannelMode {
+        fn default() -> Self {
+            multi_channel_mode::MULTI_CHANNEL_MODE_UNSPECIFIED
         }
     }
 }
@@ -3366,7 +3384,7 @@ pub mod batch_recognize_request {
     use super::*;
 
     /// Possible processing strategies for batch requests.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProcessingStrategy(std::borrow::Cow<'static, str>);
 
     impl ProcessingStrategy {
@@ -3399,6 +3417,12 @@ pub mod batch_recognize_request {
     impl std::convert::From<std::string::String> for ProcessingStrategy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ProcessingStrategy {
+        fn default() -> Self {
+            processing_strategy::PROCESSING_STRATEGY_UNSPECIFIED
         }
     }
 }
@@ -4573,7 +4597,7 @@ pub mod streaming_recognize_response {
     use super::*;
 
     /// Indicates the type of speech event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SpeechEventType(std::borrow::Cow<'static, str>);
 
     impl SpeechEventType {
@@ -4625,6 +4649,12 @@ pub mod streaming_recognize_response {
     impl std::convert::From<std::string::String> for SpeechEventType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SpeechEventType {
+        fn default() -> Self {
+            speech_event_type::SPEECH_EVENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -5012,7 +5042,7 @@ pub mod custom_class {
     }
 
     /// Set of states that define the lifecycle of a CustomClass.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5045,6 +5075,12 @@ pub mod custom_class {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -5324,7 +5360,7 @@ pub mod phrase_set {
     }
 
     /// Set of states that define the lifecycle of a PhraseSet.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5357,6 +5393,12 @@ pub mod phrase_set {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6400,7 +6442,7 @@ pub mod access_metadata {
 
     /// Describes the different types of constraints that can be applied on a
     /// region.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConstraintType(std::borrow::Cow<'static, str>);
 
     impl ConstraintType {
@@ -6431,6 +6473,12 @@ pub mod access_metadata {
     impl std::convert::From<std::string::String> for ConstraintType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConstraintType {
+        fn default() -> Self {
+            constraint_type::CONSTRAINT_TYPE_UNSPECIFIED
         }
     }
 }

@@ -242,7 +242,7 @@ pub mod event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventCategory(std::borrow::Cow<'static, str>);
 
     impl EventCategory {
@@ -275,9 +275,15 @@ pub mod event {
         }
     }
 
+    impl std::default::Default for EventCategory {
+        fn default() -> Self {
+            event_category::EVENT_CATEGORY_UNSPECIFIED
+        }
+    }
+
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DetailedCategory(std::borrow::Cow<'static, str>);
 
     impl DetailedCategory {
@@ -316,8 +322,14 @@ pub mod event {
         }
     }
 
+    impl std::default::Default for DetailedCategory {
+        fn default() -> Self {
+            detailed_category::DETAILED_CATEGORY_UNSPECIFIED
+        }
+    }
+
     /// The state of the event. This enum lists all possible states of event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -354,9 +366,15 @@ pub mod event {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DetailedState(std::borrow::Cow<'static, str>);
 
     impl DetailedState {
@@ -417,9 +435,15 @@ pub mod event {
         }
     }
 
+    impl std::default::Default for DetailedState {
+        fn default() -> Self {
+            detailed_state::DETAILED_STATE_UNSPECIFIED
+        }
+    }
+
     /// Communicates why a given incident is deemed relevant in the context of a
     /// given project. This enum lists all possible detailed states of relevance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Relevance(std::borrow::Cow<'static, str>);
 
     impl Relevance {
@@ -464,6 +488,12 @@ pub mod event {
     impl std::convert::From<std::string::String> for Relevance {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Relevance {
+        fn default() -> Self {
+            relevance::RELEVANCE_UNSPECIFIED
         }
     }
 }
@@ -682,7 +712,7 @@ pub mod organization_event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventCategory(std::borrow::Cow<'static, str>);
 
     impl EventCategory {
@@ -715,9 +745,15 @@ pub mod organization_event {
         }
     }
 
+    impl std::default::Default for EventCategory {
+        fn default() -> Self {
+            event_category::EVENT_CATEGORY_UNSPECIFIED
+        }
+    }
+
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DetailedCategory(std::borrow::Cow<'static, str>);
 
     impl DetailedCategory {
@@ -756,9 +792,15 @@ pub mod organization_event {
         }
     }
 
+    impl std::default::Default for DetailedCategory {
+        fn default() -> Self {
+            detailed_category::DETAILED_CATEGORY_UNSPECIFIED
+        }
+    }
+
     /// The state of the organization event. This enum lists all possible states of
     /// event.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -795,9 +837,15 @@ pub mod organization_event {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DetailedState(std::borrow::Cow<'static, str>);
 
     impl DetailedState {
@@ -855,6 +903,12 @@ pub mod organization_event {
     impl std::convert::From<std::string::String> for DetailedState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DetailedState {
+        fn default() -> Self {
+            detailed_state::DETAILED_STATE_UNSPECIFIED
         }
     }
 }
@@ -1801,7 +1855,7 @@ impl wkt::message::Message for GetOrganizationImpactRequest {
 
 /// The event fields to include in ListEvents API response. This enum lists all
 /// possible event views.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EventView(std::borrow::Cow<'static, str>);
 
 impl EventView {
@@ -1837,9 +1891,15 @@ impl std::convert::From<std::string::String> for EventView {
     }
 }
 
+impl std::default::Default for EventView {
+    fn default() -> Self {
+        event_view::EVENT_VIEW_UNSPECIFIED
+    }
+}
+
 /// The organization event fields to include in ListOrganizationEvents API
 /// response. This enum lists all possible organization event views.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OrganizationEventView(std::borrow::Cow<'static, str>);
 
 impl OrganizationEventView {
@@ -1875,5 +1935,11 @@ pub mod organization_event_view {
 impl std::convert::From<std::string::String> for OrganizationEventView {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for OrganizationEventView {
+    fn default() -> Self {
+        organization_event_view::ORGANIZATION_EVENT_VIEW_UNSPECIFIED
     }
 }

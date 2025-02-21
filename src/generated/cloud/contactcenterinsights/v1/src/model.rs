@@ -1216,7 +1216,7 @@ pub mod ingest_conversations_request {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct BucketObjectType(std::borrow::Cow<'static, str>);
 
         impl BucketObjectType {
@@ -1249,6 +1249,12 @@ pub mod ingest_conversations_request {
         impl std::convert::From<std::string::String> for BucketObjectType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for BucketObjectType {
+            fn default() -> Self {
+                bucket_object_type::BUCKET_OBJECT_TYPE_UNSPECIFIED
             }
         }
     }
@@ -2304,7 +2310,7 @@ pub mod export_insights_data_request {
     }
 
     /// Specifies the action that occurs if the destination table already exists.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WriteDisposition(std::borrow::Cow<'static, str>);
 
     impl WriteDisposition {
@@ -2338,6 +2344,12 @@ pub mod export_insights_data_request {
     impl std::convert::From<std::string::String> for WriteDisposition {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WriteDisposition {
+        fn default() -> Self {
+            write_disposition::WRITE_DISPOSITION_UNSPECIFIED
         }
     }
 
@@ -5094,7 +5106,7 @@ pub mod dimension {
     }
 
     /// The key of the dimension.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DimensionKey(std::borrow::Cow<'static, str>);
 
     impl DimensionKey {
@@ -5148,6 +5160,12 @@ pub mod dimension {
     impl std::convert::From<std::string::String> for DimensionKey {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DimensionKey {
+        fn default() -> Self {
+            dimension_key::DIMENSION_KEY_UNSPECIFIED
         }
     }
 
@@ -5275,7 +5293,7 @@ pub mod query_metrics_request {
     /// A time granularity divides the time line into discrete time periods.
     /// This is useful for defining buckets over which filtering and aggregation
     /// should be performed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TimeGranularity(std::borrow::Cow<'static, str>);
 
     impl TimeGranularity {
@@ -5326,6 +5344,12 @@ pub mod query_metrics_request {
     impl std::convert::From<std::string::String> for TimeGranularity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TimeGranularity {
+        fn default() -> Self {
+            time_granularity::TIME_GRANULARITY_UNSPECIFIED
         }
     }
 }
@@ -7668,7 +7692,7 @@ pub mod bulk_upload_feedback_labels_request {
         use super::*;
 
         /// All permissible file formats.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Format(std::borrow::Cow<'static, str>);
 
         impl Format {
@@ -7700,6 +7724,12 @@ pub mod bulk_upload_feedback_labels_request {
         impl std::convert::From<std::string::String> for Format {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Format {
+            fn default() -> Self {
+                format::FORMAT_UNSPECIFIED
             }
         }
     }
@@ -8140,7 +8170,7 @@ pub mod bulk_download_feedback_labels_request {
         /// All permissible file formats.
         /// See `records_per_file_count` to override the default number of records
         /// per file.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Format(std::borrow::Cow<'static, str>);
 
         impl Format {
@@ -8176,10 +8206,16 @@ pub mod bulk_download_feedback_labels_request {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Format {
+            fn default() -> Self {
+                format::FORMAT_UNSPECIFIED
+            }
+        }
     }
 
     /// Possible feedback label types that will be downloaded.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FeedbackLabelType(std::borrow::Cow<'static, str>);
 
     impl FeedbackLabelType {
@@ -8213,6 +8249,12 @@ pub mod bulk_download_feedback_labels_request {
     impl std::convert::From<std::string::String> for FeedbackLabelType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FeedbackLabelType {
+        fn default() -> Self {
+            feedback_label_type::FEEDBACK_LABEL_TYPE_UNSPECIFIED
         }
     }
 
@@ -9291,7 +9333,7 @@ pub mod conversation {
     }
 
     /// Possible media for the conversation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Medium(std::borrow::Cow<'static, str>);
 
     impl Medium {
@@ -9323,6 +9365,12 @@ pub mod conversation {
     impl std::convert::From<std::string::String> for Medium {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Medium {
+        fn default() -> Self {
+            medium::MEDIUM_UNSPECIFIED
         }
     }
 
@@ -10736,7 +10784,7 @@ pub mod entity {
     /// Wikipedia URL (`wikipedia_url`) and Knowledge Graph MID (`mid`). The table
     /// below lists the associated fields for entities that have different
     /// metadata.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -10832,6 +10880,12 @@ pub mod entity {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -11071,7 +11125,7 @@ pub mod entity_mention_data {
     use super::*;
 
     /// The supported types of mentions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MentionType(std::borrow::Cow<'static, str>);
 
     impl MentionType {
@@ -11104,6 +11158,12 @@ pub mod entity_mention_data {
     impl std::convert::From<std::string::String> for MentionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MentionType {
+        fn default() -> Self {
+            mention_type::MENTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -11421,7 +11481,7 @@ pub mod issue_model {
     }
 
     /// State of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -11466,8 +11526,14 @@ pub mod issue_model {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ModelType(std::borrow::Cow<'static, str>);
 
     impl ModelType {
@@ -11499,6 +11565,12 @@ pub mod issue_model {
     impl std::convert::From<std::string::String> for ModelType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ModelType {
+        fn default() -> Self {
+            model_type::MODEL_TYPE_UNSPECIFIED
         }
     }
 }
@@ -11887,7 +11959,7 @@ pub mod phrase_matcher {
 
     /// Specifies how to combine each phrase match rule group to determine whether
     /// there is a match.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PhraseMatcherType(std::borrow::Cow<'static, str>);
 
     impl PhraseMatcherType {
@@ -11920,6 +11992,12 @@ pub mod phrase_matcher {
     impl std::convert::From<std::string::String> for PhraseMatcherType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PhraseMatcherType {
+        fn default() -> Self {
+            phrase_matcher_type::PHRASE_MATCHER_TYPE_UNSPECIFIED
         }
     }
 }
@@ -11980,7 +12058,7 @@ pub mod phrase_match_rule_group {
 
     /// Specifies how to combine each phrase match rule for whether there is a
     /// match.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PhraseMatchRuleGroupType(std::borrow::Cow<'static, str>);
 
     impl PhraseMatchRuleGroupType {
@@ -12013,6 +12091,12 @@ pub mod phrase_match_rule_group {
     impl std::convert::From<std::string::String> for PhraseMatchRuleGroupType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PhraseMatchRuleGroupType {
+        fn default() -> Self {
+            phrase_match_rule_group_type::PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED
         }
     }
 }
@@ -13063,7 +13147,7 @@ pub mod runtime_annotation {
         use super::*;
 
         /// The source of the query.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct QuerySource(std::borrow::Cow<'static, str>);
 
         impl QuerySource {
@@ -13097,6 +13181,12 @@ pub mod runtime_annotation {
         impl std::convert::From<std::string::String> for QuerySource {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for QuerySource {
+            fn default() -> Self {
+                query_source::QUERY_SOURCE_UNSPECIFIED
             }
         }
     }
@@ -13182,7 +13272,7 @@ pub mod answer_feedback {
     use super::*;
 
     /// The correctness level of an answer.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CorrectnessLevel(std::borrow::Cow<'static, str>);
 
     impl CorrectnessLevel {
@@ -13218,6 +13308,12 @@ pub mod answer_feedback {
     impl std::convert::From<std::string::String> for CorrectnessLevel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CorrectnessLevel {
+        fn default() -> Self {
+            correctness_level::CORRECTNESS_LEVEL_UNSPECIFIED
         }
     }
 }
@@ -13821,7 +13917,7 @@ pub mod conversation_participant {
     use super::*;
 
     /// The role of the participant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Role(std::borrow::Cow<'static, str>);
 
     impl Role {
@@ -13859,6 +13955,12 @@ pub mod conversation_participant {
     impl std::convert::From<std::string::String> for Role {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            role::ROLE_UNSPECIFIED
         }
     }
 
@@ -14239,7 +14341,7 @@ pub mod annotator_selector {
         use super::*;
 
         /// Summarization model to use, if `conversation_profile` is not used.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SummarizationModel(std::borrow::Cow<'static, str>);
 
         impl SummarizationModel {
@@ -14274,6 +14376,12 @@ pub mod annotator_selector {
         impl std::convert::From<std::string::String> for SummarizationModel {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SummarizationModel {
+            fn default() -> Self {
+                summarization_model::SUMMARIZATION_MODEL_UNSPECIFIED
             }
         }
 
@@ -15039,7 +15147,7 @@ pub mod qa_scorecard_revision {
     use super::*;
 
     /// Enum representing the set of states a scorecard revision may be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -15083,6 +15191,12 @@ pub mod qa_scorecard_revision {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -15453,7 +15567,7 @@ pub mod qa_answer {
         use super::*;
 
         /// What created the answer.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SourceType(std::borrow::Cow<'static, str>);
 
         impl SourceType {
@@ -15486,6 +15600,12 @@ pub mod qa_answer {
         impl std::convert::From<std::string::String> for SourceType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SourceType {
+            fn default() -> Self {
+                source_type::SOURCE_TYPE_UNSPECIFIED
             }
         }
     }
@@ -15816,7 +15936,7 @@ pub mod qa_scorecard_result {
         use super::*;
 
         /// What created the score.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SourceType(std::borrow::Cow<'static, str>);
 
         impl SourceType {
@@ -15852,11 +15972,17 @@ pub mod qa_scorecard_result {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for SourceType {
+            fn default() -> Self {
+                source_type::SOURCE_TYPE_UNSPECIFIED
+            }
+        }
     }
 }
 
 /// Represents the options for viewing a conversation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConversationView(std::borrow::Cow<'static, str>);
 
 impl ConversationView {
@@ -15895,10 +16021,16 @@ impl std::convert::From<std::string::String> for ConversationView {
     }
 }
 
+impl std::default::Default for ConversationView {
+    fn default() -> Self {
+        conversation_view::CONVERSATION_VIEW_UNSPECIFIED
+    }
+}
+
 /// Enum for the different types of issues a tuning dataset can have.
 /// These warnings are currentlyraised when trying to validate a dataset for
 /// tuning a scorecard.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatasetValidationWarning(std::borrow::Cow<'static, str>);
 
 impl DatasetValidationWarning {
@@ -15943,5 +16075,11 @@ pub mod dataset_validation_warning {
 impl std::convert::From<std::string::String> for DatasetValidationWarning {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DatasetValidationWarning {
+    fn default() -> Self {
+        dataset_validation_warning::DATASET_VALIDATION_WARNING_UNSPECIFIED
     }
 }

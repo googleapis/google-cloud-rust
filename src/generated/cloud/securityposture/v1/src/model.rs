@@ -420,7 +420,7 @@ pub mod custom_constraint {
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MethodType(std::borrow::Cow<'static, str>);
 
     impl MethodType {
@@ -459,8 +459,14 @@ pub mod custom_constraint {
         }
     }
 
+    impl std::default::Default for MethodType {
+        fn default() -> Self {
+            method_type::METHOD_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Allow or deny type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ActionType(std::borrow::Cow<'static, str>);
 
     impl ActionType {
@@ -492,6 +498,12 @@ pub mod custom_constraint {
     impl std::convert::From<std::string::String> for ActionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ActionType {
+        fn default() -> Self {
+            action_type::ACTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -860,7 +872,7 @@ pub mod posture {
     use super::*;
 
     /// State of a Posture.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -895,6 +907,12 @@ pub mod posture {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1937,7 +1955,7 @@ pub mod posture_deployment {
     use super::*;
 
     /// State of a PostureDeployment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1984,6 +2002,12 @@ pub mod posture_deployment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2383,7 +2407,7 @@ pub mod posture_template {
     use super::*;
 
     /// State of a PostureTemplate
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2416,6 +2440,12 @@ pub mod posture_template {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2923,7 +2953,7 @@ pub mod custom_config {
     }
 
     /// Defines the valid value options for the severity of a finding.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -2963,10 +2993,16 @@ pub mod custom_config {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
+        }
+    }
 }
 
 /// Possible enablement states of a service or module.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnablementState(std::borrow::Cow<'static, str>);
 
 impl EnablementState {
@@ -2999,5 +3035,11 @@ pub mod enablement_state {
 impl std::convert::From<std::string::String> for EnablementState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for EnablementState {
+    fn default() -> Self {
+        enablement_state::ENABLEMENT_STATE_UNSPECIFIED
     }
 }

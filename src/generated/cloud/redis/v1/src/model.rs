@@ -611,7 +611,7 @@ pub mod instance {
     use super::*;
 
     /// Represents the different states of a Redis instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -666,8 +666,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Available service tiers to choose from
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -702,8 +708,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
+        }
+    }
+
     /// Available connection modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectMode(std::borrow::Cow<'static, str>);
 
     impl ConnectMode {
@@ -741,8 +753,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for ConnectMode {
+        fn default() -> Self {
+            connect_mode::CONNECT_MODE_UNSPECIFIED
+        }
+    }
+
     /// Available TLS modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TransitEncryptionMode(std::borrow::Cow<'static, str>);
 
     impl TransitEncryptionMode {
@@ -779,8 +797,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for TransitEncryptionMode {
+        fn default() -> Self {
+            transit_encryption_mode::TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Read replicas mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReadReplicasMode(std::borrow::Cow<'static, str>);
 
     impl ReadReplicasMode {
@@ -821,8 +845,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for ReadReplicasMode {
+        fn default() -> Self {
+            read_replicas_mode::READ_REPLICAS_MODE_UNSPECIFIED
+        }
+    }
+
     /// Possible reasons for the instance to be in a "SUSPENDED" state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SuspensionReason(std::borrow::Cow<'static, str>);
 
     impl SuspensionReason {
@@ -853,6 +883,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for SuspensionReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SuspensionReason {
+        fn default() -> Self {
+            suspension_reason::SUSPENSION_REASON_UNSPECIFIED
         }
     }
 }
@@ -948,7 +984,7 @@ pub mod persistence_config {
     use super::*;
 
     /// Available Persistence modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PersistenceMode(std::borrow::Cow<'static, str>);
 
     impl PersistenceMode {
@@ -985,8 +1021,14 @@ pub mod persistence_config {
         }
     }
 
+    impl std::default::Default for PersistenceMode {
+        fn default() -> Self {
+            persistence_mode::PERSISTENCE_MODE_UNSPECIFIED
+        }
+    }
+
     /// Available snapshot periods for scheduling.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SnapshotPeriod(std::borrow::Cow<'static, str>);
 
     impl SnapshotPeriod {
@@ -1025,6 +1067,12 @@ pub mod persistence_config {
     impl std::convert::From<std::string::String> for SnapshotPeriod {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SnapshotPeriod {
+        fn default() -> Self {
+            snapshot_period::SNAPSHOT_PERIOD_UNSPECIFIED
         }
     }
 }
@@ -1099,7 +1147,7 @@ pub mod reschedule_maintenance_request {
     use super::*;
 
     /// Reschedule options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RescheduleType(std::borrow::Cow<'static, str>);
 
     impl RescheduleType {
@@ -1137,6 +1185,12 @@ pub mod reschedule_maintenance_request {
     impl std::convert::From<std::string::String> for RescheduleType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2153,7 +2207,7 @@ pub mod failover_instance_request {
     use super::*;
 
     /// Specifies different modes of operation in relation to the data retention.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataProtectionMode(std::borrow::Cow<'static, str>);
 
     impl DataProtectionMode {
@@ -2191,6 +2245,12 @@ pub mod failover_instance_request {
     impl std::convert::From<std::string::String> for DataProtectionMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataProtectionMode {
+        fn default() -> Self {
+            data_protection_mode::DATA_PROTECTION_MODE_UNSPECIFIED
         }
     }
 }

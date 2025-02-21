@@ -216,7 +216,7 @@ impl wkt::message::Message for SshPublicKey {
 }
 
 /// The operating system options for account entries.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperatingSystemType(std::borrow::Cow<'static, str>);
 
 impl OperatingSystemType {
@@ -250,5 +250,11 @@ pub mod operating_system_type {
 impl std::convert::From<std::string::String> for OperatingSystemType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for OperatingSystemType {
+    fn default() -> Self {
+        operating_system_type::OPERATING_SYSTEM_TYPE_UNSPECIFIED
     }
 }

@@ -453,7 +453,7 @@ pub mod instance {
         use super::*;
 
         /// Different states of a Memcached node.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -491,6 +491,12 @@ pub mod instance {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
             }
         }
     }
@@ -540,7 +546,7 @@ pub mod instance {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Code(std::borrow::Cow<'static, str>);
 
         impl Code {
@@ -572,10 +578,16 @@ pub mod instance {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                code::CODE_UNSPECIFIED
+            }
+        }
     }
 
     /// Different states of a Memcached instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -617,6 +629,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -877,7 +895,7 @@ pub mod reschedule_maintenance_request {
     use super::*;
 
     /// Reschedule options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RescheduleType(std::borrow::Cow<'static, str>);
 
     impl RescheduleType {
@@ -915,6 +933,12 @@ pub mod reschedule_maintenance_request {
     impl std::convert::From<std::string::String> for RescheduleType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1583,7 +1607,7 @@ impl wkt::message::Message for ZoneMetadata {
 }
 
 /// Memcached versions supported by our service.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MemcacheVersion(std::borrow::Cow<'static, str>);
 
 impl MemcacheVersion {
@@ -1612,5 +1636,11 @@ pub mod memcache_version {
 impl std::convert::From<std::string::String> for MemcacheVersion {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for MemcacheVersion {
+    fn default() -> Self {
+        memcache_version::MEMCACHE_VERSION_UNSPECIFIED
     }
 }

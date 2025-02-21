@@ -169,7 +169,7 @@ pub mod environment {
     use super::*;
 
     /// Possible execution states for an environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -211,6 +211,12 @@ pub mod environment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -506,7 +512,7 @@ pub mod start_environment_metadata {
     /// show a progress message to the user. An environment won't necessarily go
     /// through all of these states when starting. More states are likely to be
     /// added in the future.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -552,6 +558,12 @@ pub mod start_environment_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -823,7 +835,7 @@ pub mod cloud_shell_error_details {
     use super::*;
 
     /// Set of possible errors returned from API calls.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CloudShellErrorCode(std::borrow::Cow<'static, str>);
 
     impl CloudShellErrorCode {
@@ -873,6 +885,12 @@ pub mod cloud_shell_error_details {
     impl std::convert::From<std::string::String> for CloudShellErrorCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CloudShellErrorCode {
+        fn default() -> Self {
+            cloud_shell_error_code::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED
         }
     }
 }

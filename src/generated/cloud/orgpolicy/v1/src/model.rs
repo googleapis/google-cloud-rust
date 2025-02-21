@@ -444,7 +444,7 @@ pub mod policy {
         /// set to either `ALLOW` or `DENY,  `allowed_values` and `denied_values`
         /// must be unset. Setting this to `ALL_VALUES_UNSPECIFIED` allows for
         /// setting `allowed_values` and `denied_values`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct AllValues(std::borrow::Cow<'static, str>);
 
         impl AllValues {
@@ -476,6 +476,12 @@ pub mod policy {
         impl std::convert::From<std::string::String> for AllValues {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for AllValues {
+            fn default() -> Self {
+                all_values::ALL_VALUES_UNSPECIFIED
             }
         }
     }

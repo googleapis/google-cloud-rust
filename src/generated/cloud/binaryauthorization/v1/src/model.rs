@@ -223,7 +223,7 @@ pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct GlobalPolicyEvaluationMode(std::borrow::Cow<'static, str>);
 
     impl GlobalPolicyEvaluationMode {
@@ -256,6 +256,12 @@ pub mod policy {
     impl std::convert::From<std::string::String> for GlobalPolicyEvaluationMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for GlobalPolicyEvaluationMode {
+        fn default() -> Self {
+            global_policy_evaluation_mode::GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED
         }
     }
 }
@@ -380,7 +386,7 @@ pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EvaluationMode(std::borrow::Cow<'static, str>);
 
     impl EvaluationMode {
@@ -421,9 +427,15 @@ pub mod admission_rule {
         }
     }
 
+    impl std::default::Default for EvaluationMode {
+        fn default() -> Self {
+            evaluation_mode::EVALUATION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Defines the possible actions when a pod creation is denied by an admission
     /// rule.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EnforcementMode(std::borrow::Cow<'static, str>);
 
     impl EnforcementMode {
@@ -459,6 +471,12 @@ pub mod admission_rule {
     impl std::convert::From<std::string::String> for EnforcementMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EnforcementMode {
+        fn default() -> Self {
+            enforcement_mode::ENFORCEMENT_MODE_UNSPECIFIED
         }
     }
 }
@@ -726,7 +744,7 @@ pub mod pkix_public_key {
     /// PemKeyType, which is in turn based on KMS's supported signing algorithms.
     /// See <https://cloud.google.com/kms/docs/algorithms>. In the future, BinAuthz
     /// might support additional public key types independently of Tink and/or KMS.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SignatureAlgorithm(std::borrow::Cow<'static, str>);
 
     impl SignatureAlgorithm {
@@ -809,6 +827,12 @@ pub mod pkix_public_key {
     impl std::convert::From<std::string::String> for SignatureAlgorithm {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SignatureAlgorithm {
+        fn default() -> Self {
+            signature_algorithm::SIGNATURE_ALGORITHM_UNSPECIFIED
         }
     }
 }
@@ -1476,7 +1500,7 @@ pub mod validate_attestation_occurrence_response {
     use super::*;
 
     /// The enum returned in the "result" field.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Result(std::borrow::Cow<'static, str>);
 
     impl Result {
@@ -1508,6 +1532,12 @@ pub mod validate_attestation_occurrence_response {
     impl std::convert::From<std::string::String> for Result {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Result {
+        fn default() -> Self {
+            result::RESULT_UNSPECIFIED
         }
     }
 }

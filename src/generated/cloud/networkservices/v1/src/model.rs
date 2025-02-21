@@ -378,7 +378,7 @@ pub mod endpoint_matcher {
         }
 
         /// Possible criteria values that define logic of how matching is made.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct MetadataLabelMatchCriteria(std::borrow::Cow<'static, str>);
 
         impl MetadataLabelMatchCriteria {
@@ -415,6 +415,12 @@ pub mod endpoint_matcher {
         impl std::convert::From<std::string::String> for MetadataLabelMatchCriteria {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for MetadataLabelMatchCriteria {
+            fn default() -> Self {
+                metadata_label_match_criteria::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED
             }
         }
     }
@@ -1958,7 +1964,7 @@ pub mod endpoint_policy {
     use super::*;
 
     /// The type of endpoint policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EndpointPolicyType(std::borrow::Cow<'static, str>);
 
     impl EndpointPolicyType {
@@ -1991,6 +1997,12 @@ pub mod endpoint_policy {
     impl std::convert::From<std::string::String> for EndpointPolicyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EndpointPolicyType {
+        fn default() -> Self {
+            endpoint_policy_type::ENDPOINT_POLICY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2441,7 +2453,7 @@ pub mod gateway {
     ///
     /// * OPEN_MESH
     /// * SECURE_WEB_GATEWAY
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -2474,6 +2486,12 @@ pub mod gateway {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -3032,7 +3050,7 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of the match.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -3065,6 +3083,12 @@ pub mod grpc_route {
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
             }
         }
     }
@@ -3128,7 +3152,7 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of match.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -3161,6 +3185,12 @@ pub mod grpc_route {
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
             }
         }
     }
@@ -4963,7 +4993,7 @@ pub mod http_route {
         use super::*;
 
         /// Supported HTTP response code.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ResponseCode(std::borrow::Cow<'static, str>);
 
         impl ResponseCode {
@@ -5006,6 +5036,12 @@ pub mod http_route {
         impl std::convert::From<std::string::String> for ResponseCode {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ResponseCode {
+            fn default() -> Self {
+                response_code::RESPONSE_CODE_UNSPECIFIED
             }
         }
     }
@@ -7991,7 +8027,7 @@ impl wkt::message::Message for DeleteTlsRouteRequest {
 }
 
 /// The part of the request or response for which the extension is called.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EventType(std::borrow::Cow<'static, str>);
 
 impl EventType {
@@ -8044,11 +8080,17 @@ impl std::convert::From<std::string::String> for EventType {
     }
 }
 
+impl std::default::Default for EventType {
+    fn default() -> Self {
+        event_type::EVENT_TYPE_UNSPECIFIED
+    }
+}
+
 /// Load balancing schemes supported by the `LbTrafficExtension` resource and
 /// `LbRouteExtension` resource.
 /// For more information, refer to [Choosing a load
 /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LoadBalancingScheme(std::borrow::Cow<'static, str>);
 
 impl LoadBalancingScheme {
@@ -8082,5 +8124,11 @@ pub mod load_balancing_scheme {
 impl std::convert::From<std::string::String> for LoadBalancingScheme {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for LoadBalancingScheme {
+    fn default() -> Self {
+        load_balancing_scheme::LOAD_BALANCING_SCHEME_UNSPECIFIED
     }
 }

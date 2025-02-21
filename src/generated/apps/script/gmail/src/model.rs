@@ -301,7 +301,7 @@ pub mod compose_trigger {
     use super::*;
 
     /// An enum defining the level of data access this compose trigger requires.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DraftAccess(std::borrow::Cow<'static, str>);
 
     impl DraftAccess {
@@ -336,6 +336,12 @@ pub mod compose_trigger {
     impl std::convert::From<std::string::String> for DraftAccess {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DraftAccess {
+        fn default() -> Self {
+            draft_access::UNSPECIFIED
         }
     }
 }

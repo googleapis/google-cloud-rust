@@ -548,7 +548,7 @@ pub mod autokey_config {
     use super::*;
 
     /// The states AutokeyConfig can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -585,6 +585,12 @@ pub mod autokey_config {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1450,7 +1456,7 @@ pub mod ekm_connection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KeyManagementMode(std::borrow::Cow<'static, str>);
 
     impl KeyManagementMode {
@@ -1519,6 +1525,12 @@ pub mod ekm_connection {
     impl std::convert::From<std::string::String> for KeyManagementMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for KeyManagementMode {
+        fn default() -> Self {
+            key_management_mode::KEY_MANAGEMENT_MODE_UNSPECIFIED
         }
     }
 }
@@ -2015,7 +2027,7 @@ pub mod crypto_key {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CryptoKeyPurpose(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyPurpose {
@@ -2093,6 +2105,12 @@ pub mod crypto_key {
     impl std::convert::From<std::string::String> for CryptoKeyPurpose {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CryptoKeyPurpose {
+        fn default() -> Self {
+            crypto_key_purpose::CRYPTO_KEY_PURPOSE_UNSPECIFIED
         }
     }
 
@@ -2334,7 +2352,7 @@ pub mod key_operation_attestation {
     }
 
     /// Attestation formats provided by the HSM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttestationFormat(std::borrow::Cow<'static, str>);
 
     impl AttestationFormat {
@@ -2374,6 +2392,12 @@ pub mod key_operation_attestation {
     impl std::convert::From<std::string::String> for AttestationFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AttestationFormat {
+        fn default() -> Self {
+            attestation_format::ATTESTATION_FORMAT_UNSPECIFIED
         }
     }
 }
@@ -2758,7 +2782,7 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.GOOGLE_SYMMETRIC_ENCRYPTION]: crate::model::crypto_key_version::crypto_key_version_algorithm::GOOGLE_SYMMETRIC_ENCRYPTION
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256]: crate::model::crypto_key_version::crypto_key_version_algorithm::RSA_SIGN_PSS_2048_SHA256
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CryptoKeyVersionAlgorithm(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionAlgorithm {
@@ -2935,11 +2959,17 @@ pub mod crypto_key_version {
         }
     }
 
+    impl std::default::Default for CryptoKeyVersionAlgorithm {
+        fn default() -> Self {
+            crypto_key_version_algorithm::CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED
+        }
+    }
+
     /// The state of a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion],
     /// indicating if it can be used.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CryptoKeyVersionState(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionState {
@@ -3058,6 +3088,12 @@ pub mod crypto_key_version {
         }
     }
 
+    impl std::default::Default for CryptoKeyVersionState {
+        fn default() -> Self {
+            crypto_key_version_state::CRYPTO_KEY_VERSION_STATE_UNSPECIFIED
+        }
+    }
+
     /// A view for [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]s.
     /// Controls the level of detail returned for
     /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] in
@@ -3068,7 +3104,7 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CryptoKeyVersionView(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionView {
@@ -3109,6 +3145,12 @@ pub mod crypto_key_version {
     impl std::convert::From<std::string::String> for CryptoKeyVersionView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CryptoKeyVersionView {
+        fn default() -> Self {
+            crypto_key_version_view::CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED
         }
     }
 }
@@ -3515,7 +3557,7 @@ pub mod import_job {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ImportMethod(std::borrow::Cow<'static, str>);
 
     impl ImportMethod {
@@ -3593,11 +3635,17 @@ pub mod import_job {
         }
     }
 
+    impl std::default::Default for ImportMethod {
+        fn default() -> Self {
+            import_method::IMPORT_METHOD_UNSPECIFIED
+        }
+    }
+
     /// The state of the [ImportJob][google.cloud.kms.v1.ImportJob], indicating if
     /// it can be used.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ImportJobState(std::borrow::Cow<'static, str>);
 
     impl ImportJobState {
@@ -3645,6 +3693,12 @@ pub mod import_job {
     impl std::convert::From<std::string::String> for ImportJobState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ImportJobState {
+        fn default() -> Self {
+            import_job_state::IMPORT_JOB_STATE_UNSPECIFIED
         }
     }
 }
@@ -8004,7 +8058,7 @@ impl wkt::message::Message for LocationMetadata {
 /// levels] (<https://cloud.google.com/kms/docs/algorithms#protection_levels>).
 ///
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ProtectionLevel(std::borrow::Cow<'static, str>);
 
 impl ProtectionLevel {
@@ -8046,10 +8100,16 @@ impl std::convert::From<std::string::String> for ProtectionLevel {
     }
 }
 
+impl std::default::Default for ProtectionLevel {
+    fn default() -> Self {
+        protection_level::PROTECTION_LEVEL_UNSPECIFIED
+    }
+}
+
 /// Describes the reason for a data access. Please refer to
 /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
 /// for the detailed semantic meaning of justification reason codes.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AccessReason(std::borrow::Cow<'static, str>);
 
 impl AccessReason {
@@ -8143,5 +8203,11 @@ pub mod access_reason {
 impl std::convert::From<std::string::String> for AccessReason {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for AccessReason {
+    fn default() -> Self {
+        access_reason::REASON_UNSPECIFIED
     }
 }

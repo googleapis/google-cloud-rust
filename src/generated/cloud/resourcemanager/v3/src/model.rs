@@ -165,7 +165,7 @@ pub mod folder {
     use super::*;
 
     /// Folder lifecycle states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -197,6 +197,12 @@ pub mod folder {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1010,7 +1016,7 @@ pub mod organization {
     use super::*;
 
     /// Organization lifecycle states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1042,6 +1048,12 @@ pub mod organization {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1432,7 +1444,7 @@ pub mod project {
     use super::*;
 
     /// Project lifecycle states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1472,6 +1484,12 @@ pub mod project {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4104,7 +4122,7 @@ impl wkt::message::Message for DeleteTagValueMetadata {
 /// A purpose for each policy engine requiring such an integration. A single
 /// policy engine may have multiple purposes defined, however a TagKey may only
 /// specify a single purpose.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Purpose(std::borrow::Cow<'static, str>);
 
 impl Purpose {
@@ -4148,5 +4166,11 @@ pub mod purpose {
 impl std::convert::From<std::string::String> for Purpose {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Purpose {
+    fn default() -> Self {
+        purpose::PURPOSE_UNSPECIFIED
     }
 }

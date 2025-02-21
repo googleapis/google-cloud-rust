@@ -264,7 +264,7 @@ pub mod feature_resource_state {
     use super::*;
 
     /// State describes the lifecycle status of a Feature.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -308,6 +308,12 @@ pub mod feature_resource_state {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -374,7 +380,7 @@ pub mod feature_state {
     use super::*;
 
     /// Code represents a machine-readable, high-level status of the Feature.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -415,6 +421,12 @@ pub mod feature_state {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
         }
     }
 }
@@ -1495,7 +1507,7 @@ pub mod membership_state {
     use super::*;
 
     /// Code describes the state of a Membership resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -1536,6 +1548,12 @@ pub mod membership_state {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
         }
     }
 }

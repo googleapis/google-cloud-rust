@@ -917,7 +917,7 @@ pub mod pi_and_jailbreak_filter_settings {
 
     /// Option to specify the state of Prompt Injection and Jailbreak filter
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PiAndJailbreakFilterEnforcement(std::borrow::Cow<'static, str>);
 
     impl PiAndJailbreakFilterEnforcement {
@@ -952,6 +952,12 @@ pub mod pi_and_jailbreak_filter_settings {
     impl std::convert::From<std::string::String> for PiAndJailbreakFilterEnforcement {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PiAndJailbreakFilterEnforcement {
+        fn default() -> Self {
+            pi_and_jailbreak_filter_enforcement::PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED
         }
     }
 }
@@ -998,7 +1004,7 @@ pub mod malicious_uri_filter_settings {
     use super::*;
 
     /// Option to specify the state of Malicious URI filter (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MaliciousUriFilterEnforcement(std::borrow::Cow<'static, str>);
 
     impl MaliciousUriFilterEnforcement {
@@ -1033,6 +1039,12 @@ pub mod malicious_uri_filter_settings {
     impl std::convert::From<std::string::String> for MaliciousUriFilterEnforcement {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MaliciousUriFilterEnforcement {
+        fn default() -> Self {
+            malicious_uri_filter_enforcement::MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED
         }
     }
 }
@@ -1290,7 +1302,7 @@ pub mod sdp_basic_config {
 
     /// Option to specify the state of Sensitive Data Protection basic config
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SdpBasicConfigEnforcement(std::borrow::Cow<'static, str>);
 
     impl SdpBasicConfigEnforcement {
@@ -1323,6 +1335,12 @@ pub mod sdp_basic_config {
     impl std::convert::From<std::string::String> for SdpBasicConfigEnforcement {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SdpBasicConfigEnforcement {
+        fn default() -> Self {
+            sdp_basic_config_enforcement::SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED
         }
     }
 }
@@ -2457,7 +2475,7 @@ pub mod byte_data_item {
     use super::*;
 
     /// Option to specify the type of byte data.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ByteItemType(std::borrow::Cow<'static, str>);
 
     impl ByteItemType {
@@ -2490,6 +2508,12 @@ pub mod byte_data_item {
     impl std::convert::From<std::string::String> for ByteItemType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ByteItemType {
+        fn default() -> Self {
+            byte_item_type::BYTE_ITEM_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3014,7 +3038,7 @@ pub mod virus_scan_filter_result {
     use super::*;
 
     /// Type of content scanned.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ScannedContentType(std::borrow::Cow<'static, str>);
 
     impl ScannedContentType {
@@ -3051,6 +3075,12 @@ pub mod virus_scan_filter_result {
     impl std::convert::From<std::string::String> for ScannedContentType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ScannedContentType {
+        fn default() -> Self {
+            scanned_content_type::SCANNED_CONTENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3117,7 +3147,7 @@ pub mod virus_detail {
     use super::*;
 
     /// Defines all the threat types of a virus
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ThreatType(std::borrow::Cow<'static, str>);
 
     impl ThreatType {
@@ -3160,6 +3190,12 @@ pub mod virus_detail {
     impl std::convert::From<std::string::String> for ThreatType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ThreatType {
+        fn default() -> Self {
+            threat_type::THREAT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3273,7 +3309,7 @@ pub mod message_item {
     use super::*;
 
     /// Option to specify the type of message.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MessageType(std::borrow::Cow<'static, str>);
 
     impl MessageType {
@@ -3309,6 +3345,12 @@ pub mod message_item {
     impl std::convert::From<std::string::String> for MessageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MessageType {
+        fn default() -> Self {
+            message_type::MESSAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3357,7 +3399,7 @@ impl wkt::message::Message for RangeInfo {
 }
 
 /// Option to specify filter match state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FilterMatchState(std::borrow::Cow<'static, str>);
 
 impl FilterMatchState {
@@ -3393,8 +3435,14 @@ impl std::convert::From<std::string::String> for FilterMatchState {
     }
 }
 
+impl std::default::Default for FilterMatchState {
+    fn default() -> Self {
+        filter_match_state::FILTER_MATCH_STATE_UNSPECIFIED
+    }
+}
+
 /// Enum which reports whether a specific filter executed successfully or not.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FilterExecutionState(std::borrow::Cow<'static, str>);
 
 impl FilterExecutionState {
@@ -3433,8 +3481,14 @@ impl std::convert::From<std::string::String> for FilterExecutionState {
     }
 }
 
+impl std::default::Default for FilterExecutionState {
+    fn default() -> Self {
+        filter_execution_state::FILTER_EXECUTION_STATE_UNSPECIFIED
+    }
+}
+
 /// Options for responsible AI Filter Types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RaiFilterType(std::borrow::Cow<'static, str>);
 
 impl RaiFilterType {
@@ -3476,10 +3530,16 @@ impl std::convert::From<std::string::String> for RaiFilterType {
     }
 }
 
+impl std::default::Default for RaiFilterType {
+    fn default() -> Self {
+        rai_filter_type::RAI_FILTER_TYPE_UNSPECIFIED
+    }
+}
+
 /// Confidence levels for detectors.
 /// Higher value maps to a greater confidence level. To enforce stricter level a
 /// lower value should be used.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DetectionConfidenceLevel(std::borrow::Cow<'static, str>);
 
 impl DetectionConfidenceLevel {
@@ -3520,9 +3580,15 @@ impl std::convert::From<std::string::String> for DetectionConfidenceLevel {
     }
 }
 
+impl std::default::Default for DetectionConfidenceLevel {
+    fn default() -> Self {
+        detection_confidence_level::DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED
+    }
+}
+
 /// For more information about each Sensitive Data Protection likelihood level,
 /// see <https://cloud.google.com/sensitive-data-protection/docs/likelihood>.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SdpFindingLikelihood(std::borrow::Cow<'static, str>);
 
 impl SdpFindingLikelihood {
@@ -3567,9 +3633,15 @@ impl std::convert::From<std::string::String> for SdpFindingLikelihood {
     }
 }
 
+impl std::default::Default for SdpFindingLikelihood {
+    fn default() -> Self {
+        sdp_finding_likelihood::SDP_FINDING_LIKELIHOOD_UNSPECIFIED
+    }
+}
+
 /// A field indicating the outcome of the invocation, irrespective of match
 /// status.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct InvocationResult(std::borrow::Cow<'static, str>);
 
 impl InvocationResult {
@@ -3605,5 +3677,11 @@ pub mod invocation_result {
 impl std::convert::From<std::string::String> for InvocationResult {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for InvocationResult {
+    fn default() -> Self {
+        invocation_result::INVOCATION_RESULT_UNSPECIFIED
     }
 }

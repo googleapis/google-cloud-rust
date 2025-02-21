@@ -197,7 +197,7 @@ pub mod operation_metadata {
     }
 
     /// Code describes the status of the operation (or one of its steps).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -239,6 +239,12 @@ pub mod operation_metadata {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }
@@ -297,7 +303,7 @@ pub mod diagnostic {
     use super::*;
 
     /// The kind of diagnostic information possible.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
@@ -326,6 +332,12 @@ pub mod diagnostic {
     impl std::convert::From<std::string::String> for Kind {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            kind::WARNING
         }
     }
 }
@@ -435,7 +447,7 @@ pub mod config_file {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FileType(std::borrow::Cow<'static, str>);
 
     impl FileType {
@@ -486,6 +498,12 @@ pub mod config_file {
     impl std::convert::From<std::string::String> for FileType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FileType {
+        fn default() -> Self {
+            file_type::FILE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -824,7 +842,7 @@ pub mod rollout {
     }
 
     /// Status of a Rollout.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolloutStatus(std::borrow::Cow<'static, str>);
 
     impl RolloutStatus {
@@ -871,6 +889,12 @@ pub mod rollout {
     impl std::convert::From<std::string::String> for RolloutStatus {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RolloutStatus {
+        fn default() -> Self {
+            rollout_status::ROLLOUT_STATUS_UNSPECIFIED
         }
     }
 
@@ -1233,7 +1257,7 @@ pub mod get_service_config_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConfigView(std::borrow::Cow<'static, str>);
 
     impl ConfigView {
@@ -1265,6 +1289,12 @@ pub mod get_service_config_request {
     impl std::convert::From<std::string::String> for ConfigView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConfigView {
+        fn default() -> Self {
+            config_view::BASIC
         }
     }
 }

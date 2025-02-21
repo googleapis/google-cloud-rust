@@ -688,7 +688,7 @@ pub mod entitlement {
     }
 
     /// Different states an entitlement can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -729,6 +729,12 @@ pub mod entitlement {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1394,7 +1400,7 @@ pub mod search_entitlements_request {
     use super::*;
 
     /// Different types of access a user can have on the entitlement resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CallerAccessType(std::borrow::Cow<'static, str>);
 
     impl CallerAccessType {
@@ -1428,6 +1434,12 @@ pub mod search_entitlements_request {
     impl std::convert::From<std::string::String> for CallerAccessType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CallerAccessType {
+        fn default() -> Self {
+            caller_access_type::CALLER_ACCESS_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2757,7 +2769,7 @@ pub mod grant {
     }
 
     /// Different states a grant can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2819,6 +2831,12 @@ pub mod grant {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3120,7 +3138,7 @@ pub mod search_grants_request {
     use super::*;
 
     /// Different types of relationships a user can have with a grant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CallerRelationshipType(std::borrow::Cow<'static, str>);
 
     impl CallerRelationshipType {
@@ -3158,6 +3176,12 @@ pub mod search_grants_request {
     impl std::convert::From<std::string::String> for CallerRelationshipType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CallerRelationshipType {
+        fn default() -> Self {
+            caller_relationship_type::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED
         }
     }
 }

@@ -412,7 +412,7 @@ pub mod attached_cluster {
     use super::*;
 
     /// The lifecycle state of the cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -460,6 +460,12 @@ pub mod attached_cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2010,7 +2016,7 @@ pub mod aws_cluster {
     use super::*;
 
     /// The lifecycle state of the cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2058,6 +2064,12 @@ pub mod aws_cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2596,7 +2608,7 @@ pub mod aws_volume_template {
     /// volumes.
     /// See <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html>
     /// for more information.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VolumeType(std::borrow::Cow<'static, str>);
 
     impl VolumeType {
@@ -2628,6 +2640,12 @@ pub mod aws_volume_template {
     impl std::convert::From<std::string::String> for VolumeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VolumeType {
+        fn default() -> Self {
+            volume_type::VOLUME_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2985,7 +3003,7 @@ pub mod aws_node_pool {
     use super::*;
 
     /// The lifecycle state of the node pool.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3032,6 +3050,12 @@ pub mod aws_node_pool {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3886,7 +3910,7 @@ pub mod aws_instance_placement {
     use super::*;
 
     /// Tenancy defines how EC2 instances are distributed across physical hardware.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tenancy(std::borrow::Cow<'static, str>);
 
     impl Tenancy {
@@ -3921,6 +3945,12 @@ pub mod aws_instance_placement {
     impl std::convert::From<std::string::String> for Tenancy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Tenancy {
+        fn default() -> Self {
+            tenancy::TENANCY_UNSPECIFIED
         }
     }
 }
@@ -5733,7 +5763,7 @@ pub mod azure_cluster {
     use super::*;
 
     /// The lifecycle state of the cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5781,6 +5811,12 @@ pub mod azure_cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6874,7 +6910,7 @@ pub mod azure_node_pool {
     use super::*;
 
     /// The lifecycle state of the node pool.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6921,6 +6957,12 @@ pub mod azure_node_pool {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -9489,7 +9531,7 @@ pub mod node_taint {
     use super::*;
 
     /// The taint effect.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Effect(std::borrow::Cow<'static, str>);
 
     impl Effect {
@@ -9530,6 +9572,12 @@ pub mod node_taint {
     impl std::convert::From<std::string::String> for Effect {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            effect::EFFECT_UNSPECIFIED
         }
     }
 }
@@ -9782,7 +9830,7 @@ pub mod logging_component_config {
     use super::*;
 
     /// The components of the logging configuration;
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Component(std::borrow::Cow<'static, str>);
 
     impl Component {
@@ -9814,6 +9862,12 @@ pub mod logging_component_config {
     impl std::convert::From<std::string::String> for Component {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Component {
+        fn default() -> Self {
+            component::COMPONENT_UNSPECIFIED
         }
     }
 }
@@ -9969,7 +10023,7 @@ pub mod binary_authorization {
     use super::*;
 
     /// Binary Authorization mode of operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EvaluationMode(std::borrow::Cow<'static, str>);
 
     impl EvaluationMode {
@@ -10004,6 +10058,12 @@ pub mod binary_authorization {
     impl std::convert::From<std::string::String> for EvaluationMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EvaluationMode {
+        fn default() -> Self {
+            evaluation_mode::EVALUATION_MODE_UNSPECIFIED
         }
     }
 }
@@ -10048,7 +10108,7 @@ pub mod security_posture_config {
     use super::*;
 
     /// VulnerabilityMode defines enablement mode for vulnerability scanning.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VulnerabilityMode(std::borrow::Cow<'static, str>);
 
     impl VulnerabilityMode {
@@ -10084,6 +10144,12 @@ pub mod security_posture_config {
     impl std::convert::From<std::string::String> for VulnerabilityMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VulnerabilityMode {
+        fn default() -> Self {
+            vulnerability_mode::VULNERABILITY_MODE_UNSPECIFIED
         }
     }
 }

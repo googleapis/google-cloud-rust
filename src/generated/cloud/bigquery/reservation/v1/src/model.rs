@@ -465,7 +465,7 @@ pub mod capacity_commitment {
 
     /// Commitment plan defines the current committed period. Capacity commitment
     /// cannot be deleted during it's committed period.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CommitmentPlan(std::borrow::Cow<'static, str>);
 
     impl CommitmentPlan {
@@ -542,9 +542,15 @@ pub mod capacity_commitment {
         }
     }
 
+    impl std::default::Default for CommitmentPlan {
+        fn default() -> Self {
+            commitment_plan::COMMITMENT_PLAN_UNSPECIFIED
+        }
+    }
+
     /// Capacity commitment can either become ACTIVE right away or transition
     /// from PENDING to ACTIVE or FAILED.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -581,6 +587,12 @@ pub mod capacity_commitment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1443,7 +1455,7 @@ pub mod assignment {
     use super::*;
 
     /// Types of job, which could be specified when using the reservation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct JobType(std::borrow::Cow<'static, str>);
 
     impl JobType {
@@ -1486,10 +1498,16 @@ pub mod assignment {
         }
     }
 
+    impl std::default::Default for JobType {
+        fn default() -> Self {
+            job_type::JOB_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Assignment will remain in PENDING state if no active capacity commitment is
     /// present. It will become ACTIVE when some capacity commitment becomes
     /// active.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1522,6 +1540,12 @@ pub mod assignment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2317,7 +2341,7 @@ impl wkt::message::Message for UpdateBiReservationRequest {
 /// The type of editions.
 /// Different features and behaviors are provided to different editions
 /// Capacity commitments and reservations are linked to editions.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Edition(std::borrow::Cow<'static, str>);
 
 impl Edition {
@@ -2352,5 +2376,11 @@ pub mod edition {
 impl std::convert::From<std::string::String> for Edition {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Edition {
+    fn default() -> Self {
+        edition::EDITION_UNSPECIFIED
     }
 }

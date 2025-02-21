@@ -137,7 +137,7 @@ pub mod migration_workflow {
     use super::*;
 
     /// Possible migration workflow states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -179,6 +179,12 @@ pub mod migration_workflow {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -447,7 +453,7 @@ pub mod migration_task {
     use super::*;
 
     /// Possible states of a migration task.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -492,6 +498,12 @@ pub mod migration_task {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -669,7 +681,7 @@ pub mod migration_subtask {
     use super::*;
 
     /// Possible states of a migration subtask.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -715,6 +727,12 @@ pub mod migration_subtask {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2751,7 +2769,7 @@ pub mod teradata_dialect {
     use super::*;
 
     /// The sub-dialect options for Teradata.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -2783,6 +2801,12 @@ pub mod teradata_dialect {
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
         }
     }
 }
@@ -3199,7 +3223,7 @@ pub mod name_mapping_key {
     use super::*;
 
     /// The type of the object that is being mapped.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -3246,6 +3270,12 @@ pub mod name_mapping_key {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -3910,7 +3940,7 @@ pub mod translation_report_record {
     use super::*;
 
     /// The severity type of the record.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -3946,6 +3976,12 @@ pub mod translation_report_record {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }

@@ -1307,7 +1307,7 @@ pub mod aggregation_info {
     /// The level at which usage is aggregated to compute cost.
     /// Example: "ACCOUNT" aggregation level indicates that usage for tiered
     /// pricing is aggregated across all projects in a single account.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AggregationLevel(std::borrow::Cow<'static, str>);
 
     impl AggregationLevel {
@@ -1340,10 +1340,16 @@ pub mod aggregation_info {
         }
     }
 
+    impl std::default::Default for AggregationLevel {
+        fn default() -> Self {
+            aggregation_level::AGGREGATION_LEVEL_UNSPECIFIED
+        }
+    }
+
     /// The interval at which usage is aggregated to compute cost.
     /// Example: "MONTHLY" aggregation interval indicates that usage for tiered
     /// pricing is aggregated every month.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AggregationInterval(std::borrow::Cow<'static, str>);
 
     impl AggregationInterval {
@@ -1373,6 +1379,12 @@ pub mod aggregation_info {
     impl std::convert::From<std::string::String> for AggregationInterval {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AggregationInterval {
+        fn default() -> Self {
+            aggregation_interval::AGGREGATION_INTERVAL_UNSPECIFIED
         }
     }
 }
@@ -1431,7 +1443,7 @@ pub mod geo_taxonomy {
     use super::*;
 
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1468,6 +1480,12 @@ pub mod geo_taxonomy {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }

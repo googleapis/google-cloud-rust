@@ -241,7 +241,7 @@ pub mod data_source_parameter {
     use super::*;
 
     /// Parameter type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -289,6 +289,12 @@ pub mod data_source_parameter {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -538,7 +544,7 @@ pub mod data_source {
     use super::*;
 
     /// The type of authorization needed for this data source.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AuthorizationType(std::borrow::Cow<'static, str>);
 
     impl AuthorizationType {
@@ -582,8 +588,14 @@ pub mod data_source {
         }
     }
 
+    impl std::default::Default for AuthorizationType {
+        fn default() -> Self {
+            authorization_type::AUTHORIZATION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Represents how the data source supports data auto refresh.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataRefreshType(std::borrow::Cow<'static, str>);
 
     impl DataRefreshType {
@@ -621,6 +633,12 @@ pub mod data_source {
     impl std::convert::From<std::string::String> for DataRefreshType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataRefreshType {
+        fn default() -> Self {
+            data_refresh_type::DATA_REFRESH_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1369,7 +1387,7 @@ pub mod list_transfer_runs_request {
     use super::*;
 
     /// Represents which runs should be pulled.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RunAttempt(std::borrow::Cow<'static, str>);
 
     impl RunAttempt {
@@ -1398,6 +1416,12 @@ pub mod list_transfer_runs_request {
     impl std::convert::From<std::string::String> for RunAttempt {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RunAttempt {
+        fn default() -> Self {
+            run_attempt::RUN_ATTEMPT_UNSPECIFIED
         }
     }
 }
@@ -3183,7 +3207,7 @@ pub mod transfer_message {
     use super::*;
 
     /// Represents data transfer user facing message severity.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MessageSeverity(std::borrow::Cow<'static, str>);
 
     impl MessageSeverity {
@@ -3221,10 +3245,16 @@ pub mod transfer_message {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for MessageSeverity {
+        fn default() -> Self {
+            message_severity::MESSAGE_SEVERITY_UNSPECIFIED
+        }
+    }
 }
 
 /// DEPRECATED. Represents data transfer type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TransferType(std::borrow::Cow<'static, str>);
 
 impl TransferType {
@@ -3261,8 +3291,14 @@ impl std::convert::From<std::string::String> for TransferType {
     }
 }
 
+impl std::default::Default for TransferType {
+    fn default() -> Self {
+        transfer_type::TRANSFER_TYPE_UNSPECIFIED
+    }
+}
+
 /// Represents data transfer run state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TransferState(std::borrow::Cow<'static, str>);
 
 impl TransferState {
@@ -3305,5 +3341,11 @@ pub mod transfer_state {
 impl std::convert::From<std::string::String> for TransferState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for TransferState {
+    fn default() -> Self {
+        transfer_state::TRANSFER_STATE_UNSPECIFIED
     }
 }

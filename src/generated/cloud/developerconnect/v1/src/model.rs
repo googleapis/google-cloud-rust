@@ -461,7 +461,7 @@ pub mod installation_state {
     use super::*;
 
     /// Stage of the installation process.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Stage(std::borrow::Cow<'static, str>);
 
     impl Stage {
@@ -500,6 +500,12 @@ pub mod installation_state {
     impl std::convert::From<std::string::String> for Stage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Stage {
+        fn default() -> Self {
+            stage::STAGE_UNSPECIFIED
         }
     }
 }
@@ -584,7 +590,7 @@ pub mod git_hub_config {
 
     /// Represents the various GitHub Applications that can be installed to a
     /// GitHub user or organization and used with Developer Connect.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct GitHubApp(std::borrow::Cow<'static, str>);
 
     impl GitHubApp {
@@ -616,6 +622,12 @@ pub mod git_hub_config {
     impl std::convert::From<std::string::String> for GitHubApp {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for GitHubApp {
+        fn default() -> Self {
+            git_hub_app::GIT_HUB_APP_UNSPECIFIED
         }
     }
 }
@@ -2589,7 +2601,7 @@ pub mod fetch_git_refs_request {
     use super::*;
 
     /// Type of refs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RefType(std::borrow::Cow<'static, str>);
 
     impl RefType {
@@ -2621,6 +2633,12 @@ pub mod fetch_git_refs_request {
     impl std::convert::From<std::string::String> for RefType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RefType {
+        fn default() -> Self {
+            ref_type::REF_TYPE_UNSPECIFIED
         }
     }
 }

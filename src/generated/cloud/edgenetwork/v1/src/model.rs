@@ -371,7 +371,7 @@ pub mod subnet {
     use super::*;
 
     /// Bonding type in the subnet.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BondingType(std::borrow::Cow<'static, str>);
 
     impl BondingType {
@@ -408,6 +408,12 @@ pub mod subnet {
     impl std::convert::From<std::string::String> for BondingType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BondingType {
+        fn default() -> Self {
+            bonding_type::BONDING_TYPE_UNSPECIFIED
         }
     }
 }
@@ -554,7 +560,7 @@ pub mod interconnect {
     use super::*;
 
     /// Type of interconnect.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InterconnectType(std::borrow::Cow<'static, str>);
 
     impl InterconnectType {
@@ -584,6 +590,12 @@ pub mod interconnect {
     impl std::convert::From<std::string::String> for InterconnectType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InterconnectType {
+        fn default() -> Self {
+            interconnect_type::INTERCONNECT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1555,7 +1567,7 @@ pub mod interconnect_diagnostics {
         use super::*;
 
         /// State enum for LACP link.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -1588,6 +1600,12 @@ pub mod interconnect_diagnostics {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::UNKNOWN
             }
         }
     }
@@ -1862,7 +1880,7 @@ pub mod router_status {
         use super::*;
 
         /// Status of the BGP peer: {UP, DOWN}
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct BgpStatus(std::borrow::Cow<'static, str>);
 
         impl BgpStatus {
@@ -1894,6 +1912,12 @@ pub mod router_status {
         impl std::convert::From<std::string::String> for BgpStatus {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for BgpStatus {
+            fn default() -> Self {
+                bgp_status::UNKNOWN
             }
         }
     }
@@ -3897,7 +3921,7 @@ pub mod diagnose_network_response {
         use super::*;
 
         /// Denotes the status of MACsec sessions for the links of a zone.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct MacsecStatus(std::borrow::Cow<'static, str>);
 
         impl MacsecStatus {
@@ -3930,6 +3954,12 @@ pub mod diagnose_network_response {
         impl std::convert::From<std::string::String> for MacsecStatus {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for MacsecStatus {
+            fn default() -> Self {
+                macsec_status::MACSEC_STATUS_UNSPECIFIED
             }
         }
     }
@@ -4140,7 +4170,7 @@ impl wkt::message::Message for InitializeZoneResponse {
 /// PROVISIONING -> RUNNING. A normal lifecycle of an existing resource being
 /// deleted would be: RUNNING -> DELETING. Any failures during processing will
 /// result the resource to be in a SUSPENDED state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ResourceState(std::borrow::Cow<'static, str>);
 
 impl ResourceState {
@@ -4181,5 +4211,11 @@ pub mod resource_state {
 impl std::convert::From<std::string::String> for ResourceState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ResourceState {
+    fn default() -> Self {
+        resource_state::STATE_UNKNOWN
     }
 }

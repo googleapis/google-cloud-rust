@@ -2892,7 +2892,7 @@ impl wkt::message::Message for LogoRecognitionAnnotation {
 }
 
 /// Video annotation feature.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Feature(std::borrow::Cow<'static, str>);
 
 impl Feature {
@@ -2948,8 +2948,14 @@ impl std::convert::From<std::string::String> for Feature {
     }
 }
 
+impl std::default::Default for Feature {
+    fn default() -> Self {
+        feature::FEATURE_UNSPECIFIED
+    }
+}
+
 /// Label detection mode.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LabelDetectionMode(std::borrow::Cow<'static, str>);
 
 impl LabelDetectionMode {
@@ -2989,8 +2995,14 @@ impl std::convert::From<std::string::String> for LabelDetectionMode {
     }
 }
 
+impl std::default::Default for LabelDetectionMode {
+    fn default() -> Self {
+        label_detection_mode::LABEL_DETECTION_MODE_UNSPECIFIED
+    }
+}
+
 /// Bucketized representation of likelihood.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Likelihood(std::borrow::Cow<'static, str>);
 
 impl Likelihood {
@@ -3031,5 +3043,11 @@ pub mod likelihood {
 impl std::convert::From<std::string::String> for Likelihood {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Likelihood {
+    fn default() -> Self {
+        likelihood::LIKELIHOOD_UNSPECIFIED
     }
 }

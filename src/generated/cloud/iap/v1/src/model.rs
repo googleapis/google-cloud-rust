@@ -824,7 +824,7 @@ pub mod reauth_settings {
     use super::*;
 
     /// Types of reauthentication methods supported by IAP.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
@@ -864,8 +864,14 @@ pub mod reauth_settings {
         }
     }
 
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            method::METHOD_UNSPECIFIED
+        }
+    }
+
     /// Type of policy in the case of hierarchial policies.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyType(std::borrow::Cow<'static, str>);
 
     impl PolicyType {
@@ -898,6 +904,12 @@ pub mod reauth_settings {
     impl std::convert::From<std::string::String> for PolicyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PolicyType {
+        fn default() -> Self {
+            policy_type::POLICY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1230,7 +1242,7 @@ pub mod attribute_propagation_settings {
     /// Supported output credentials for attribute propagation. Each output
     /// credential maps to a "field" in the response. For example, selecting JWT
     /// will propagate all attributes in the IAP JWT, header in the headers, etc.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OutputCredentials(std::borrow::Cow<'static, str>);
 
     impl OutputCredentials {
@@ -1268,6 +1280,12 @@ pub mod attribute_propagation_settings {
     impl std::convert::From<std::string::String> for OutputCredentials {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OutputCredentials {
+        fn default() -> Self {
+            output_credentials::OUTPUT_CREDENTIALS_UNSPECIFIED
         }
     }
 }

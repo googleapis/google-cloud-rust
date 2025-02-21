@@ -390,7 +390,7 @@ pub mod backup {
     use super::*;
 
     /// Indicates the current state of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -423,6 +423,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1466,7 +1472,7 @@ pub mod create_backup_encryption_config {
     use super::*;
 
     /// Encryption types for the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
@@ -1513,6 +1519,12 @@ pub mod create_backup_encryption_config {
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EncryptionType {
+        fn default() -> Self {
+            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1603,7 +1615,7 @@ pub mod copy_backup_encryption_config {
     use super::*;
 
     /// Encryption types for the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
@@ -1652,6 +1664,12 @@ pub mod copy_backup_encryption_config {
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EncryptionType {
+        fn default() -> Self {
+            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2579,7 +2597,7 @@ pub mod encryption_info {
     use super::*;
 
     /// Possible encryption types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -2615,6 +2633,12 @@ pub mod encryption_info {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -2912,7 +2936,7 @@ pub mod database {
     use super::*;
 
     /// Indicates the current state of the database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2955,6 +2979,12 @@ pub mod database {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4218,7 +4248,7 @@ pub mod restore_database_encryption_config {
     use super::*;
 
     /// Encryption types for the database to be restored.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
@@ -4262,6 +4292,12 @@ pub mod restore_database_encryption_config {
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EncryptionType {
+        fn default() -> Self {
+            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4848,7 +4884,7 @@ pub mod split_points {
 }
 
 /// Indicates the dialect type of a database.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseDialect(std::borrow::Cow<'static, str>);
 
 impl DatabaseDialect {
@@ -4885,8 +4921,14 @@ impl std::convert::From<std::string::String> for DatabaseDialect {
     }
 }
 
+impl std::default::Default for DatabaseDialect {
+    fn default() -> Self {
+        database_dialect::DATABASE_DIALECT_UNSPECIFIED
+    }
+}
+
 /// Indicates the type of the restore source.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
 
 impl RestoreSourceType {
@@ -4915,5 +4957,11 @@ pub mod restore_source_type {
 impl std::convert::From<std::string::String> for RestoreSourceType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for RestoreSourceType {
+    fn default() -> Self {
+        restore_source_type::TYPE_UNSPECIFIED
     }
 }

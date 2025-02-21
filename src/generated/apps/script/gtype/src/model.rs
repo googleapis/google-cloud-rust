@@ -63,7 +63,7 @@ pub mod add_on_widget_set {
     use super::*;
 
     /// The Widget type. DEFAULT is the basic widget set.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WidgetType(std::borrow::Cow<'static, str>);
 
     impl WidgetType {
@@ -111,6 +111,12 @@ pub mod add_on_widget_set {
     impl std::convert::From<std::string::String> for WidgetType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WidgetType {
+        fn default() -> Self {
+            widget_type::WIDGET_TYPE_UNSPECIFIED
         }
     }
 }
@@ -549,7 +555,7 @@ impl wkt::message::Message for HttpOptions {
 }
 
 /// Authorization header sent in add-on HTTP requests
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HttpAuthorizationHeader(std::borrow::Cow<'static, str>);
 
 impl HttpAuthorizationHeader {
@@ -588,5 +594,11 @@ pub mod http_authorization_header {
 impl std::convert::From<std::string::String> for HttpAuthorizationHeader {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HttpAuthorizationHeader {
+    fn default() -> Self {
+        http_authorization_header::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED
     }
 }

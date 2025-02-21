@@ -695,7 +695,7 @@ pub mod spoke {
         use super::*;
 
         /// The Code enum represents the various reasons a state can be `INACTIVE`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Code(std::borrow::Cow<'static, str>);
 
         impl Code {
@@ -734,6 +734,12 @@ pub mod spoke {
         impl std::convert::From<std::string::String> for Code {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                code::CODE_UNSPECIFIED
             }
         }
     }
@@ -1752,7 +1758,7 @@ pub mod list_hub_spokes_request {
     use super::*;
 
     /// Enum that controls which spoke fields are included in the response.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SpokeView(std::borrow::Cow<'static, str>);
 
     impl SpokeView {
@@ -1788,6 +1794,12 @@ pub mod list_hub_spokes_request {
     impl std::convert::From<std::string::String> for SpokeView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SpokeView {
+        fn default() -> Self {
+            spoke_view::SPOKE_VIEW_UNSPECIFIED
         }
     }
 }
@@ -2201,7 +2213,7 @@ pub mod psc_propagation_status {
 
     /// The Code enum represents the state of the Private Service Connect
     /// propagation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -2257,6 +2269,12 @@ pub mod psc_propagation_status {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
         }
     }
 }
@@ -4807,7 +4825,7 @@ pub mod policy_based_route {
         use super::*;
 
         /// The internet protocol version.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ProtocolVersion(std::borrow::Cow<'static, str>);
 
         impl ProtocolVersion {
@@ -4837,6 +4855,12 @@ pub mod policy_based_route {
         impl std::convert::From<std::string::String> for ProtocolVersion {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ProtocolVersion {
+            fn default() -> Self {
+                protocol_version::PROTOCOL_VERSION_UNSPECIFIED
             }
         }
     }
@@ -4913,7 +4937,7 @@ pub mod policy_based_route {
 
         /// Warning code for Policy Based Routing. Expect to add values in the
         /// future.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Code(std::borrow::Cow<'static, str>);
 
         impl Code {
@@ -4950,10 +4974,16 @@ pub mod policy_based_route {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                code::WARNING_UNSPECIFIED
+            }
+        }
     }
 
     /// The other routing cases.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OtherRoutes(std::borrow::Cow<'static, str>);
 
     impl OtherRoutes {
@@ -4986,6 +5016,12 @@ pub mod policy_based_route {
     impl std::convert::From<std::string::String> for OtherRoutes {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OtherRoutes {
+        fn default() -> Self {
+            other_routes::OTHER_ROUTES_UNSPECIFIED
         }
     }
 
@@ -5319,7 +5355,7 @@ impl wkt::message::Message for DeletePolicyBasedRouteRequest {
 }
 
 /// Supported features for a location
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LocationFeature(std::borrow::Cow<'static, str>);
 
 impl LocationFeature {
@@ -5355,8 +5391,14 @@ impl std::convert::From<std::string::String> for LocationFeature {
     }
 }
 
+impl std::default::Default for LocationFeature {
+    fn default() -> Self {
+        location_feature::LOCATION_FEATURE_UNSPECIFIED
+    }
+}
+
 /// The route's type
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RouteType(std::borrow::Cow<'static, str>);
 
 impl RouteType {
@@ -5398,9 +5440,15 @@ impl std::convert::From<std::string::String> for RouteType {
     }
 }
 
+impl std::default::Default for RouteType {
+    fn default() -> Self {
+        route_type::ROUTE_TYPE_UNSPECIFIED
+    }
+}
+
 /// The State enum represents the lifecycle stage of a Network Connectivity
 /// Center resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct State(std::borrow::Cow<'static, str>);
 
 impl State {
@@ -5454,9 +5502,15 @@ impl std::convert::From<std::string::String> for State {
     }
 }
 
+impl std::default::Default for State {
+    fn default() -> Self {
+        state::STATE_UNSPECIFIED
+    }
+}
+
 /// The SpokeType enum represents the type of spoke. The type
 /// reflects the kind of resource that a spoke is associated with.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SpokeType(std::borrow::Cow<'static, str>);
 
 impl SpokeType {
@@ -5500,8 +5554,14 @@ impl std::convert::From<std::string::String> for SpokeType {
     }
 }
 
+impl std::default::Default for SpokeType {
+    fn default() -> Self {
+        spoke_type::SPOKE_TYPE_UNSPECIFIED
+    }
+}
+
 /// This enum controls the policy mode used in a hub.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PolicyMode(std::borrow::Cow<'static, str>);
 
 impl PolicyMode {
@@ -5534,8 +5594,14 @@ impl std::convert::From<std::string::String> for PolicyMode {
     }
 }
 
+impl std::default::Default for PolicyMode {
+    fn default() -> Self {
+        policy_mode::POLICY_MODE_UNSPECIFIED
+    }
+}
+
 /// The list of available preset topologies.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PresetTopology(std::borrow::Cow<'static, str>);
 
 impl PresetTopology {
@@ -5572,5 +5638,11 @@ pub mod preset_topology {
 impl std::convert::From<std::string::String> for PresetTopology {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for PresetTopology {
+    fn default() -> Self {
+        preset_topology::PRESET_TOPOLOGY_UNSPECIFIED
     }
 }

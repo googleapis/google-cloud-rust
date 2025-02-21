@@ -903,7 +903,7 @@ pub mod domain {
     use super::*;
 
     /// Represents the different states of a managed domain.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -951,6 +951,12 @@ pub mod domain {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1124,7 +1130,7 @@ pub mod trust {
     use super::*;
 
     /// Represents the different states of a domain trust.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1168,8 +1174,14 @@ pub mod trust {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Represents the different inter-forest trust types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TrustType(std::borrow::Cow<'static, str>);
 
     impl TrustType {
@@ -1204,11 +1216,17 @@ pub mod trust {
         }
     }
 
+    impl std::default::Default for TrustType {
+        fn default() -> Self {
+            trust_type::TRUST_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Represents the direction of trust.
     /// See
     /// [System.DirectoryServices.ActiveDirectory.TrustDirection](https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectory.trustdirection?view=netframework-4.7.2)
     /// for more information.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TrustDirection(std::borrow::Cow<'static, str>);
 
     impl TrustDirection {
@@ -1244,6 +1262,12 @@ pub mod trust {
     impl std::convert::From<std::string::String> for TrustDirection {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TrustDirection {
+        fn default() -> Self {
+            trust_direction::TRUST_DIRECTION_UNSPECIFIED
         }
     }
 }

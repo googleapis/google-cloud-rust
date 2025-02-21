@@ -1736,7 +1736,7 @@ pub mod list_workloads_response {
     }
 
     /// Supported workload types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ComposerWorkloadType(std::borrow::Cow<'static, str>);
 
     impl ComposerWorkloadType {
@@ -1792,8 +1792,14 @@ pub mod list_workloads_response {
         }
     }
 
+    impl std::default::Default for ComposerWorkloadType {
+        fn default() -> Self {
+            composer_workload_type::COMPOSER_WORKLOAD_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Workload states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ComposerWorkloadState(std::borrow::Cow<'static, str>);
 
     impl ComposerWorkloadState {
@@ -1838,6 +1844,12 @@ pub mod list_workloads_response {
     impl std::convert::From<std::string::String> for ComposerWorkloadState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ComposerWorkloadState {
+        fn default() -> Self {
+            composer_workload_state::COMPOSER_WORKLOAD_STATE_UNSPECIFIED
         }
     }
 }
@@ -2530,7 +2542,7 @@ pub mod environment_config {
     use super::*;
 
     /// The size of the Cloud Composer environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EnvironmentSize(std::borrow::Cow<'static, str>);
 
     impl EnvironmentSize {
@@ -2572,8 +2584,14 @@ pub mod environment_config {
         }
     }
 
+    impl std::default::Default for EnvironmentSize {
+        fn default() -> Self {
+            environment_size::ENVIRONMENT_SIZE_UNSPECIFIED
+        }
+    }
+
     /// Resilience mode of the Cloud Composer Environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResilienceMode(std::borrow::Cow<'static, str>);
 
     impl ResilienceMode {
@@ -2603,6 +2621,12 @@ pub mod environment_config {
     impl std::convert::From<std::string::String> for ResilienceMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResilienceMode {
+        fn default() -> Self {
+            resilience_mode::RESILIENCE_MODE_UNSPECIFIED
         }
     }
 }
@@ -3097,7 +3121,7 @@ pub mod software_config {
     use super::*;
 
     /// Web server plugins mode of the Cloud Composer environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WebServerPluginsMode(std::borrow::Cow<'static, str>);
 
     impl WebServerPluginsMode {
@@ -3132,6 +3156,12 @@ pub mod software_config {
     impl std::convert::From<std::string::String> for WebServerPluginsMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WebServerPluginsMode {
+        fn default() -> Self {
+            web_server_plugins_mode::WEB_SERVER_PLUGINS_MODE_UNSPECIFIED
         }
     }
 }
@@ -3746,7 +3776,7 @@ pub mod networking_config {
     /// Represents connection type between Composer environment in Customer
     /// Project and the corresponding Tenant project, from a predefined list
     /// of available connection modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectionType(std::borrow::Cow<'static, str>);
 
     impl ConnectionType {
@@ -3783,6 +3813,12 @@ pub mod networking_config {
     impl std::convert::From<std::string::String> for ConnectionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConnectionType {
+        fn default() -> Self {
+            connection_type::CONNECTION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4757,7 +4793,7 @@ pub mod environment {
     use super::*;
 
     /// State of the environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4799,6 +4835,12 @@ pub mod environment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4958,7 +5000,7 @@ pub mod check_upgrade_response {
     use super::*;
 
     /// Whether there were python modules conflict during image build.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConflictResult(std::borrow::Cow<'static, str>);
 
     impl ConflictResult {
@@ -4991,6 +5033,12 @@ pub mod check_upgrade_response {
     impl std::convert::From<std::string::String> for ConflictResult {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConflictResult {
+        fn default() -> Self {
+            conflict_result::CONFLICT_RESULT_UNSPECIFIED
         }
     }
 }
@@ -5084,7 +5132,7 @@ pub mod task_logs_retention_config {
     use super::*;
 
     /// The definition of task_logs_storage_mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TaskLogsStorageMode(std::borrow::Cow<'static, str>);
 
     impl TaskLogsStorageMode {
@@ -5120,6 +5168,12 @@ pub mod task_logs_retention_config {
     impl std::convert::From<std::string::String> for TaskLogsStorageMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TaskLogsStorageMode {
+        fn default() -> Self {
+            task_logs_storage_mode::TASK_LOGS_STORAGE_MODE_UNSPECIFIED
         }
     }
 }
@@ -5172,7 +5226,7 @@ pub mod airflow_metadata_retention_policy_config {
     use super::*;
 
     /// Describes retention policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RetentionMode(std::borrow::Cow<'static, str>);
 
     impl RetentionMode {
@@ -5207,6 +5261,12 @@ pub mod airflow_metadata_retention_policy_config {
     impl std::convert::From<std::string::String> for RetentionMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RetentionMode {
+        fn default() -> Self {
+            retention_mode::RETENTION_MODE_UNSPECIFIED
         }
     }
 }
@@ -5513,7 +5573,7 @@ pub mod operation_metadata {
     use super::*;
 
     /// An enum describing the overall state of an operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5556,8 +5616,14 @@ pub mod operation_metadata {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type of longrunning operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -5605,6 +5671,12 @@ pub mod operation_metadata {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }

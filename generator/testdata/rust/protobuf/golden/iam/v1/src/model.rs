@@ -720,7 +720,7 @@ pub mod audit_log_config {
 
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogType(std::borrow::Cow<'static, str>);
 
     impl LogType {
@@ -757,6 +757,12 @@ pub mod audit_log_config {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for LogType {
+        fn default() -> Self {
+            log_type::LOG_TYPE_UNSPECIFIED
+        }
     }
 }
 
@@ -882,7 +888,7 @@ pub mod binding_delta {
 
 
     /// The type of action performed on a Binding in a policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -916,6 +922,12 @@ pub mod binding_delta {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
+        }
     }
 }
 
@@ -994,7 +1006,7 @@ pub mod audit_config_delta {
 
 
     /// The type of action performed on an audit configuration in a policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -1028,5 +1040,11 @@ pub mod audit_config_delta {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
+        }
     }
 }

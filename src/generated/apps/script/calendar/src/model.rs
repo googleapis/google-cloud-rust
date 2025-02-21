@@ -142,7 +142,7 @@ pub mod calendar_add_on_manifest {
     use super::*;
 
     /// An enum defining the level of data access event triggers require.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventAccess(std::borrow::Cow<'static, str>);
 
     impl EventAccess {
@@ -186,6 +186,12 @@ pub mod calendar_add_on_manifest {
     impl std::convert::From<std::string::String> for EventAccess {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EventAccess {
+        fn default() -> Self {
+            event_access::UNSPECIFIED
         }
     }
 }

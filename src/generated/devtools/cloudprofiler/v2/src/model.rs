@@ -500,7 +500,7 @@ impl gax::paginator::PageableResponse for ListProfilesResponse {
 /// ProfileType is type of profiling data.
 /// NOTE: the enumeration member names are used (in lowercase) as unique string
 /// identifiers of profile types, so they must not be renamed.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ProfileType(std::borrow::Cow<'static, str>);
 
 impl ProfileType {
@@ -553,5 +553,11 @@ pub mod profile_type {
 impl std::convert::From<std::string::String> for ProfileType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ProfileType {
+    fn default() -> Self {
+        profile_type::PROFILE_TYPE_UNSPECIFIED
     }
 }

@@ -1821,7 +1821,7 @@ pub mod cancel_order_request {
     use super::*;
 
     /// Indicates the cancellation policy the customer uses to cancel the order.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CancellationPolicy(std::borrow::Cow<'static, str>);
 
     impl CancellationPolicy {
@@ -1864,6 +1864,12 @@ pub mod cancel_order_request {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for CancellationPolicy {
+        fn default() -> Self {
+            cancellation_policy::CANCELLATION_POLICY_UNSPECIFIED
+        }
+    }
 }
 
 /// Message stored in the metadata field of the Operation returned by
@@ -1889,7 +1895,7 @@ impl wkt::message::Message for CancelOrderMetadata {
 }
 
 /// Type of a line item change.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LineItemChangeType(std::borrow::Cow<'static, str>);
 
 impl LineItemChangeType {
@@ -1935,8 +1941,14 @@ impl std::convert::From<std::string::String> for LineItemChangeType {
     }
 }
 
+impl std::default::Default for LineItemChangeType {
+    fn default() -> Self {
+        line_item_change_type::LINE_ITEM_CHANGE_TYPE_UNSPECIFIED
+    }
+}
+
 /// State of a change.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LineItemChangeState(std::borrow::Cow<'static, str>);
 
 impl LineItemChangeState {
@@ -2000,8 +2012,14 @@ impl std::convert::From<std::string::String> for LineItemChangeState {
     }
 }
 
+impl std::default::Default for LineItemChangeState {
+    fn default() -> Self {
+        line_item_change_state::LINE_ITEM_CHANGE_STATE_UNSPECIFIED
+    }
+}
+
 /// Predefined types for line item change state reason.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LineItemChangeStateReasonType(std::borrow::Cow<'static, str>);
 
 impl LineItemChangeStateReasonType {
@@ -2044,8 +2062,14 @@ impl std::convert::From<std::string::String> for LineItemChangeStateReasonType {
     }
 }
 
+impl std::default::Default for LineItemChangeStateReasonType {
+    fn default() -> Self {
+        line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED
+    }
+}
+
 /// Indicates the auto renewal behavior customer specifies on subscription.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AutoRenewalBehavior(std::borrow::Cow<'static, str>);
 
 impl AutoRenewalBehavior {
@@ -2080,5 +2104,11 @@ pub mod auto_renewal_behavior {
 impl std::convert::From<std::string::String> for AutoRenewalBehavior {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for AutoRenewalBehavior {
+    fn default() -> Self {
+        auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED
     }
 }

@@ -1100,7 +1100,7 @@ pub mod listing {
     }
 
     /// State of the listing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1133,8 +1133,14 @@ pub mod listing {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Listing categories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Category(std::borrow::Cow<'static, str>);
 
     impl Category {
@@ -1203,6 +1209,12 @@ pub mod listing {
     impl std::convert::From<std::string::String> for Category {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            category::CATEGORY_UNSPECIFIED
         }
     }
 
@@ -1490,7 +1502,7 @@ pub mod subscription {
     }
 
     /// State of the subscription.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1527,6 +1539,12 @@ pub mod subscription {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -2955,7 +2973,7 @@ impl wkt::message::Message for OperationMetadata {
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DiscoveryType(std::borrow::Cow<'static, str>);
 
 impl DiscoveryType {
@@ -2990,5 +3008,11 @@ pub mod discovery_type {
 impl std::convert::From<std::string::String> for DiscoveryType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DiscoveryType {
+    fn default() -> Self {
+        discovery_type::DISCOVERY_TYPE_UNSPECIFIED
     }
 }

@@ -170,7 +170,7 @@ pub mod location {
     use super::*;
 
     /// An enum which represents the type of a location.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LocationType(std::borrow::Cow<'static, str>);
 
     impl LocationType {
@@ -232,6 +232,12 @@ pub mod location {
     impl std::convert::From<std::string::String> for LocationType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LocationType {
+        fn default() -> Self {
+            location_type::LOCATION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -450,7 +456,7 @@ pub mod device_info {
     use super::*;
 
     /// An enumeration describing an API access portal and exposure mechanism.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DeviceType(std::borrow::Cow<'static, str>);
 
     impl DeviceType {
@@ -497,6 +503,12 @@ pub mod device_info {
     impl std::convert::From<std::string::String> for DeviceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DeviceType {
+        fn default() -> Self {
+            device_type::DEVICE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1074,7 +1086,7 @@ pub mod compensation_info {
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.description]: crate::model::compensation_info::CompensationEntry::description
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.range]: crate::model::compensation_info::CompensationEntry::compensation_amount
     /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED]: crate::model::compensation_info::compensation_unit::COMPENSATION_UNIT_UNSPECIFIED
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CompensationType(std::borrow::Cow<'static, str>);
 
     impl CompensationType {
@@ -1132,8 +1144,14 @@ pub mod compensation_info {
         }
     }
 
+    impl std::default::Default for CompensationType {
+        fn default() -> Self {
+            compensation_type::COMPENSATION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Pay frequency.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CompensationUnit(std::borrow::Cow<'static, str>);
 
     impl CompensationUnit {
@@ -1182,6 +1200,12 @@ pub mod compensation_info {
     impl std::convert::From<std::string::String> for CompensationUnit {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CompensationUnit {
+        fn default() -> Self {
+            compensation_unit::COMPENSATION_UNIT_UNSPECIFIED
         }
     }
 }
@@ -1313,7 +1337,7 @@ pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1363,6 +1387,12 @@ pub mod batch_operation_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2054,7 +2084,7 @@ pub mod complete_query_request {
     use super::*;
 
     /// Enum to specify the scope of completion.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CompletionScope(std::borrow::Cow<'static, str>);
 
     impl CompletionScope {
@@ -2091,8 +2121,14 @@ pub mod complete_query_request {
         }
     }
 
+    impl std::default::Default for CompletionScope {
+        fn default() -> Self {
+            completion_scope::COMPLETION_SCOPE_UNSPECIFIED
+        }
+    }
+
     /// Enum to specify auto-completion topics.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CompletionType(std::borrow::Cow<'static, str>);
 
     impl CompletionType {
@@ -2157,6 +2193,12 @@ pub mod complete_query_request {
     impl std::convert::From<std::string::String> for CompletionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CompletionType {
+        fn default() -> Self {
+            completion_type::COMPLETION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2478,7 +2520,7 @@ pub mod job_event {
 
     /// An enumeration of an event attributed to the behavior of the end user,
     /// such as a job seeker.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct JobEventType(std::borrow::Cow<'static, str>);
 
     impl JobEventType {
@@ -2610,6 +2652,12 @@ pub mod job_event {
     impl std::convert::From<std::string::String> for JobEventType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for JobEventType {
+        fn default() -> Self {
+            job_event_type::JOB_EVENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3151,7 +3199,7 @@ pub mod location_filter {
     use super::*;
 
     /// Specify whether to include telecommute jobs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TelecommutePreference(std::borrow::Cow<'static, str>);
 
     impl TelecommutePreference {
@@ -3191,6 +3239,12 @@ pub mod location_filter {
     impl std::convert::From<std::string::String> for TelecommutePreference {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TelecommutePreference {
+        fn default() -> Self {
+            telecommute_preference::TELECOMMUTE_PREFERENCE_UNSPECIFIED
         }
     }
 }
@@ -3279,7 +3333,7 @@ pub mod compensation_filter {
     use super::*;
 
     /// Specify the type of filtering.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FilterType(std::borrow::Cow<'static, str>);
 
     impl FilterType {
@@ -3358,6 +3412,12 @@ pub mod compensation_filter {
     impl std::convert::From<std::string::String> for FilterType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FilterType {
+        fn default() -> Self {
+            filter_type::FILTER_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3517,7 +3577,7 @@ pub mod commute_filter {
     use super::*;
 
     /// The traffic density to use when calculating commute time.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RoadTraffic(std::borrow::Cow<'static, str>);
 
     impl RoadTraffic {
@@ -3550,6 +3610,12 @@ pub mod commute_filter {
     impl std::convert::From<std::string::String> for RoadTraffic {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RoadTraffic {
+        fn default() -> Self {
+            road_traffic::ROAD_TRAFFIC_UNSPECIFIED
         }
     }
 
@@ -5433,7 +5499,7 @@ pub mod search_jobs_request {
         /// [CustomRankingInfo.ranking_expression][google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression].
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ImportanceLevel(std::borrow::Cow<'static, str>);
 
         impl ImportanceLevel {
@@ -5492,11 +5558,17 @@ pub mod search_jobs_request {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for ImportanceLevel {
+            fn default() -> Self {
+                importance_level::IMPORTANCE_LEVEL_UNSPECIFIED
+            }
+        }
     }
 
     /// A string-represented enumeration of the job search mode. The service
     /// operate differently for different modes of service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SearchMode(std::borrow::Cow<'static, str>);
 
     impl SearchMode {
@@ -5537,6 +5609,12 @@ pub mod search_jobs_request {
         }
     }
 
+    impl std::default::Default for SearchMode {
+        fn default() -> Self {
+            search_mode::SEARCH_MODE_UNSPECIFIED
+        }
+    }
+
     /// Controls whether highly similar jobs are returned next to each other in
     /// the search results. Jobs are identified as highly similar based on
     /// their titles, job categories, and locations. Highly similar results are
@@ -5548,7 +5626,7 @@ pub mod search_jobs_request {
     /// latency might be lower but we can't guarantee that all results are
     /// returned. If you are using page offset, latency might be higher but all
     /// results are returned.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiversificationLevel(std::borrow::Cow<'static, str>);
 
     impl DiversificationLevel {
@@ -5612,6 +5690,12 @@ pub mod search_jobs_request {
         }
     }
 
+    impl std::default::Default for DiversificationLevel {
+        fn default() -> Self {
+            diversification_level::DIVERSIFICATION_LEVEL_UNSPECIFIED
+        }
+    }
+
     /// Controls what keyword matching behavior the search has. When keyword
     /// matching is enabled, a keyword match returns jobs that may not match given
     /// category filters when there are matching keywords. For example, for the
@@ -5631,7 +5715,7 @@ pub mod search_jobs_request {
     /// requests.
     ///
     /// [google.cloud.talent.v4.Company.keyword_searchable_job_custom_attributes]: crate::model::Company::keyword_searchable_job_custom_attributes
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KeywordMatchMode(std::borrow::Cow<'static, str>);
 
     impl KeywordMatchMode {
@@ -5694,10 +5778,16 @@ pub mod search_jobs_request {
         }
     }
 
+    impl std::default::Default for KeywordMatchMode {
+        fn default() -> Self {
+            keyword_match_mode::KEYWORD_MATCH_MODE_UNSPECIFIED
+        }
+    }
+
     /// The relevance threshold of the search results. The higher relevance
     /// threshold is, the higher relevant results are shown and the less number of
     /// results are returned.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RelevanceThreshold(std::borrow::Cow<'static, str>);
 
     impl RelevanceThreshold {
@@ -5737,6 +5827,12 @@ pub mod search_jobs_request {
     impl std::convert::From<std::string::String> for RelevanceThreshold {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RelevanceThreshold {
+        fn default() -> Self {
+            relevance_threshold::RELEVANCE_THRESHOLD_UNSPECIFIED
         }
     }
 }
@@ -6758,7 +6854,7 @@ impl gax::paginator::PageableResponse for ListTenantsResponse {
 }
 
 /// An enum that represents the size of the company.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompanySize(std::borrow::Cow<'static, str>);
 
 impl CompanySize {
@@ -6808,8 +6904,14 @@ impl std::convert::From<std::string::String> for CompanySize {
     }
 }
 
+impl std::default::Default for CompanySize {
+    fn default() -> Self {
+        company_size::COMPANY_SIZE_UNSPECIFIED
+    }
+}
+
 /// An enum that represents employee benefits included with the job.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct JobBenefit(std::borrow::Cow<'static, str>);
 
 impl JobBenefit {
@@ -6877,9 +6979,15 @@ impl std::convert::From<std::string::String> for JobBenefit {
     }
 }
 
+impl std::default::Default for JobBenefit {
+    fn default() -> Self {
+        job_benefit::JOB_BENEFIT_UNSPECIFIED
+    }
+}
+
 /// Educational degree level defined in International Standard Classification
 /// of Education (ISCED).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DegreeType(std::borrow::Cow<'static, str>);
 
 impl DegreeType {
@@ -6956,8 +7064,14 @@ impl std::convert::From<std::string::String> for DegreeType {
     }
 }
 
+impl std::default::Default for DegreeType {
+    fn default() -> Self {
+        degree_type::DEGREE_TYPE_UNSPECIFIED
+    }
+}
+
 /// An enum that represents the employment type of a job.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EmploymentType(std::borrow::Cow<'static, str>);
 
 impl EmploymentType {
@@ -7033,8 +7147,14 @@ impl std::convert::From<std::string::String> for EmploymentType {
     }
 }
 
+impl std::default::Default for EmploymentType {
+    fn default() -> Self {
+        employment_type::EMPLOYMENT_TYPE_UNSPECIFIED
+    }
+}
+
 /// An enum that represents the required experience level required for the job.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct JobLevel(std::borrow::Cow<'static, str>);
 
 impl JobLevel {
@@ -7080,10 +7200,16 @@ impl std::convert::From<std::string::String> for JobLevel {
     }
 }
 
+impl std::default::Default for JobLevel {
+    fn default() -> Self {
+        job_level::JOB_LEVEL_UNSPECIFIED
+    }
+}
+
 /// An enum that represents the categorization or primary focus of specific
 /// role. This value is different than the "industry" associated with a role,
 /// which is related to the categorization of the company listing the job.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct JobCategory(std::borrow::Cow<'static, str>);
 
 impl JobCategory {
@@ -7213,10 +7339,16 @@ impl std::convert::From<std::string::String> for JobCategory {
     }
 }
 
+impl std::default::Default for JobCategory {
+    fn default() -> Self {
+        job_category::JOB_CATEGORY_UNSPECIFIED
+    }
+}
+
 /// An enum that represents the job posting region. In most cases, job postings
 /// don't need to specify a region. If a region is given, jobs are
 /// eligible for searches in the specified region.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PostingRegion(std::borrow::Cow<'static, str>);
 
 impl PostingRegion {
@@ -7278,10 +7410,16 @@ impl std::convert::From<std::string::String> for PostingRegion {
     }
 }
 
+impl std::default::Default for PostingRegion {
+    fn default() -> Self {
+        posting_region::POSTING_REGION_UNSPECIFIED
+    }
+}
+
 /// Deprecated. All resources are only visible to the owner.
 ///
 /// An enum that represents who has view access to the resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Visibility(std::borrow::Cow<'static, str>);
 
 impl Visibility {
@@ -7321,10 +7459,16 @@ impl std::convert::From<std::string::String> for Visibility {
     }
 }
 
+impl std::default::Default for Visibility {
+    fn default() -> Self {
+        visibility::VISIBILITY_UNSPECIFIED
+    }
+}
+
 /// Option for HTML content sanitization on user input fields, for example, job
 /// description. By setting this option, user can determine whether and how
 /// sanitization is performed on these fields.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HtmlSanitization(std::borrow::Cow<'static, str>);
 
 impl HtmlSanitization {
@@ -7363,9 +7507,15 @@ impl std::convert::From<std::string::String> for HtmlSanitization {
     }
 }
 
+impl std::default::Default for HtmlSanitization {
+    fn default() -> Self {
+        html_sanitization::HTML_SANITIZATION_UNSPECIFIED
+    }
+}
+
 /// Method for commute. Walking, biking and wheelchair accessible transit is
 /// still in the Preview stage.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CommuteMethod(std::borrow::Cow<'static, str>);
 
 impl CommuteMethod {
@@ -7412,6 +7562,12 @@ impl std::convert::From<std::string::String> for CommuteMethod {
     }
 }
 
+impl std::default::Default for CommuteMethod {
+    fn default() -> Self {
+        commute_method::COMMUTE_METHOD_UNSPECIFIED
+    }
+}
+
 /// An enum that specifies the job attributes that are returned in the
 /// [MatchingJob.job][google.cloud.talent.v4.SearchJobsResponse.MatchingJob.job]
 /// or [ListJobsResponse.jobs][google.cloud.talent.v4.ListJobsResponse.jobs]
@@ -7419,7 +7575,7 @@ impl std::convert::From<std::string::String> for CommuteMethod {
 ///
 /// [google.cloud.talent.v4.ListJobsResponse.jobs]: crate::model::ListJobsResponse::jobs
 /// [google.cloud.talent.v4.SearchJobsResponse.MatchingJob.job]: crate::model::search_jobs_response::MatchingJob::job
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct JobView(std::borrow::Cow<'static, str>);
 
 impl JobView {
@@ -7494,5 +7650,11 @@ pub mod job_view {
 impl std::convert::From<std::string::String> for JobView {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for JobView {
+    fn default() -> Self {
+        job_view::JOB_VIEW_UNSPECIFIED
     }
 }

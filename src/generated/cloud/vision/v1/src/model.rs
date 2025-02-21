@@ -267,7 +267,7 @@ pub mod feature {
     use super::*;
 
     /// Type of Google Cloud Vision API feature to be extracted.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -334,6 +334,12 @@ pub mod feature {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -717,7 +723,7 @@ pub mod face_annotation {
         /// Left and right are defined from the vantage of the viewer of the image
         /// without considering mirror projections typical of photos. So, `LEFT_EYE`,
         /// typically, is the person's right eye.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -852,6 +858,12 @@ pub mod face_annotation {
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::UNKNOWN_LANDMARK
             }
         }
     }
@@ -3048,7 +3060,7 @@ pub mod operation_metadata {
     use super::*;
 
     /// Batch operation states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3086,6 +3098,12 @@ pub mod operation_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -5102,7 +5120,7 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Enumerates the possible states that the batch request can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5143,6 +5161,12 @@ pub mod batch_operation_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -5459,7 +5483,7 @@ pub mod text_annotation {
         use super::*;
 
         /// Enum to denote the type of break found. New line, space etc.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct BreakType(std::borrow::Cow<'static, str>);
 
         impl BreakType {
@@ -5501,6 +5525,12 @@ pub mod text_annotation {
         impl std::convert::From<std::string::String> for BreakType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for BreakType {
+            fn default() -> Self {
+                break_type::UNKNOWN
             }
         }
     }
@@ -5748,7 +5778,7 @@ pub mod block {
     use super::*;
 
     /// Type of a block (text, image etc) as identified by OCR.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BlockType(std::borrow::Cow<'static, str>);
 
     impl BlockType {
@@ -5789,6 +5819,12 @@ pub mod block {
     impl std::convert::From<std::string::String> for BlockType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BlockType {
+        fn default() -> Self {
+            block_type::UNKNOWN
         }
     }
 }
@@ -6387,7 +6423,7 @@ pub mod web_detection {
 
 /// A bucketized representation of likelihood, which is intended to give clients
 /// highly stable results across model upgrades.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Likelihood(std::borrow::Cow<'static, str>);
 
 impl Likelihood {
@@ -6428,5 +6464,11 @@ pub mod likelihood {
 impl std::convert::From<std::string::String> for Likelihood {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Likelihood {
+    fn default() -> Self {
+        likelihood::UNKNOWN
     }
 }

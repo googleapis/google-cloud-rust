@@ -267,7 +267,7 @@ pub mod instance {
     use super::*;
 
     /// The possible states of a Parallelstore instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -312,6 +312,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2024,7 +2030,7 @@ impl wkt::message::Message for TransferCounters {
 }
 
 /// Type of transfer that occurred.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TransferType(std::borrow::Cow<'static, str>);
 
 impl TransferType {
@@ -2060,8 +2066,14 @@ impl std::convert::From<std::string::String> for TransferType {
     }
 }
 
+impl std::default::Default for TransferType {
+    fn default() -> Self {
+        transfer_type::TRANSFER_TYPE_UNSPECIFIED
+    }
+}
+
 /// Represents the striping options for files.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FileStripeLevel(std::borrow::Cow<'static, str>);
 
 impl FileStripeLevel {
@@ -2103,8 +2115,14 @@ impl std::convert::From<std::string::String> for FileStripeLevel {
     }
 }
 
+impl std::default::Default for FileStripeLevel {
+    fn default() -> Self {
+        file_stripe_level::FILE_STRIPE_LEVEL_UNSPECIFIED
+    }
+}
+
 /// Represents the striping options for directories.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DirectoryStripeLevel(std::borrow::Cow<'static, str>);
 
 impl DirectoryStripeLevel {
@@ -2146,8 +2164,14 @@ impl std::convert::From<std::string::String> for DirectoryStripeLevel {
     }
 }
 
+impl std::default::Default for DirectoryStripeLevel {
+    fn default() -> Self {
+        directory_stripe_level::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED
+    }
+}
+
 /// Represents the deployment type for the instance.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeploymentType(std::borrow::Cow<'static, str>);
 
 impl DeploymentType {
@@ -2181,5 +2205,11 @@ pub mod deployment_type {
 impl std::convert::From<std::string::String> for DeploymentType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DeploymentType {
+    fn default() -> Self {
+        deployment_type::DEPLOYMENT_TYPE_UNSPECIFIED
     }
 }

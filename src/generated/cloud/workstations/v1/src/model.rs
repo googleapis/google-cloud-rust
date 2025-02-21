@@ -1330,7 +1330,7 @@ pub mod workstation_config {
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct ReclaimPolicy(std::borrow::Cow<'static, str>);
 
             impl ReclaimPolicy {
@@ -1364,6 +1364,12 @@ pub mod workstation_config {
             impl std::convert::From<std::string::String> for ReclaimPolicy {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for ReclaimPolicy {
+                fn default() -> Self {
+                    reclaim_policy::RECLAIM_POLICY_UNSPECIFIED
                 }
             }
         }
@@ -1770,7 +1776,7 @@ pub mod workstation {
     use super::*;
 
     /// Whether a workstation is running and ready to receive user requests.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1810,6 +1816,12 @@ pub mod workstation {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

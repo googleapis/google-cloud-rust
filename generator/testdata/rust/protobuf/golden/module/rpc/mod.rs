@@ -847,7 +847,7 @@ impl wkt::message::Message for Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Code(std::borrow::Cow<'static, str>);
 
 impl Code {
@@ -1026,4 +1026,10 @@ impl std::convert::From<std::string::String> for Code {
   fn from(value: std::string::String) -> Self {
     Self(std::borrow::Cow::Owned(value))
   }
+}
+
+impl std::default::Default for Code {
+    fn default() -> Self {
+        code::OK
+    }
 }

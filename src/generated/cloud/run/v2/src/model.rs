@@ -700,7 +700,7 @@ pub mod condition {
     use super::*;
 
     /// Represents the possible Condition states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -741,8 +741,14 @@ pub mod condition {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Represents the severity of the condition failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -780,8 +786,14 @@ pub mod condition {
         }
     }
 
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
+        }
+    }
+
     /// Reasons common to all types of conditions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CommonReason(std::borrow::Cow<'static, str>);
 
     impl CommonReason {
@@ -860,8 +872,14 @@ pub mod condition {
         }
     }
 
+    impl std::default::Default for CommonReason {
+        fn default() -> Self {
+            common_reason::COMMON_REASON_UNDEFINED
+        }
+    }
+
     /// Reasons specific to Revision resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RevisionReason(std::borrow::Cow<'static, str>);
 
     impl RevisionReason {
@@ -940,8 +958,14 @@ pub mod condition {
         }
     }
 
+    impl std::default::Default for RevisionReason {
+        fn default() -> Self {
+            revision_reason::REVISION_REASON_UNDEFINED
+        }
+    }
+
     /// Reasons specific to Execution resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExecutionReason(std::borrow::Cow<'static, str>);
 
     impl ExecutionReason {
@@ -985,6 +1009,12 @@ pub mod condition {
     impl std::convert::From<std::string::String> for ExecutionReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ExecutionReason {
+        fn default() -> Self {
+            execution_reason::EXECUTION_REASON_UNDEFINED
         }
     }
 
@@ -2803,7 +2833,7 @@ pub mod execution_reference {
     use super::*;
 
     /// Possible execution completion status.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CompletionStatus(std::borrow::Cow<'static, str>);
 
     impl CompletionStatus {
@@ -2847,6 +2877,12 @@ pub mod execution_reference {
     impl std::convert::From<std::string::String> for CompletionStatus {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CompletionStatus {
+        fn default() -> Self {
+            completion_status::COMPLETION_STATUS_UNSPECIFIED
         }
     }
 }
@@ -3844,7 +3880,7 @@ pub mod empty_dir_volume_source {
     use super::*;
 
     /// The different types of medium supported for EmptyDir.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Medium(std::borrow::Cow<'static, str>);
 
     impl Medium {
@@ -3874,6 +3910,12 @@ pub mod empty_dir_volume_source {
     impl std::convert::From<std::string::String> for Medium {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Medium {
+        fn default() -> Self {
+            medium::MEDIUM_UNSPECIFIED
         }
     }
 }
@@ -7243,7 +7285,7 @@ pub mod vpc_access {
     }
 
     /// Egress options for VPC access.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VpcEgress(std::borrow::Cow<'static, str>);
 
     impl VpcEgress {
@@ -7275,6 +7317,12 @@ pub mod vpc_access {
     impl std::convert::From<std::string::String> for VpcEgress {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VpcEgress {
+        fn default() -> Self {
+            vpc_egress::VPC_EGRESS_UNSPECIFIED
         }
     }
 }
@@ -7534,7 +7582,7 @@ pub mod service_scaling {
 
     /// The scaling mode for the service. If not provided, it defaults to
     /// AUTOMATIC.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ScalingMode(std::borrow::Cow<'static, str>);
 
     impl ScalingMode {
@@ -7567,6 +7615,12 @@ pub mod service_scaling {
     impl std::convert::From<std::string::String> for ScalingMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ScalingMode {
+        fn default() -> Self {
+            scaling_mode::SCALING_MODE_UNSPECIFIED
         }
     }
 }
@@ -7728,7 +7782,7 @@ impl wkt::message::Message for BuildConfig {
 }
 
 /// The type of instance allocation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TrafficTargetAllocationType(std::borrow::Cow<'static, str>);
 
 impl TrafficTargetAllocationType {
@@ -7766,8 +7820,14 @@ impl std::convert::From<std::string::String> for TrafficTargetAllocationType {
     }
 }
 
+impl std::default::Default for TrafficTargetAllocationType {
+    fn default() -> Self {
+        traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED
+    }
+}
+
 /// Allowed ingress traffic for the Container.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IngressTraffic(std::borrow::Cow<'static, str>);
 
 impl IngressTraffic {
@@ -7811,8 +7871,14 @@ impl std::convert::From<std::string::String> for IngressTraffic {
     }
 }
 
+impl std::default::Default for IngressTraffic {
+    fn default() -> Self {
+        ingress_traffic::INGRESS_TRAFFIC_UNSPECIFIED
+    }
+}
+
 /// Alternatives for execution environments.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExecutionEnvironment(std::borrow::Cow<'static, str>);
 
 impl ExecutionEnvironment {
@@ -7850,8 +7916,14 @@ impl std::convert::From<std::string::String> for ExecutionEnvironment {
     }
 }
 
+impl std::default::Default for ExecutionEnvironment {
+    fn default() -> Self {
+        execution_environment::EXECUTION_ENVIRONMENT_UNSPECIFIED
+    }
+}
+
 /// Specifies behavior if an encryption key used by a resource is revoked.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EncryptionKeyRevocationAction(std::borrow::Cow<'static, str>);
 
 impl EncryptionKeyRevocationAction {
@@ -7886,5 +7958,11 @@ pub mod encryption_key_revocation_action {
 impl std::convert::From<std::string::String> for EncryptionKeyRevocationAction {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for EncryptionKeyRevocationAction {
+    fn default() -> Self {
+        encryption_key_revocation_action::ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED
     }
 }

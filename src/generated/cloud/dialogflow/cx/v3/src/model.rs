@@ -1512,7 +1512,7 @@ pub mod export_agent_request {
     }
 
     /// Data format of the exported agent.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataFormat(std::borrow::Cow<'static, str>);
 
     impl DataFormat {
@@ -1544,6 +1544,12 @@ pub mod export_agent_request {
     impl std::convert::From<std::string::String> for DataFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataFormat {
+        fn default() -> Self {
+            data_format::DATA_FORMAT_UNSPECIFIED
         }
     }
 }
@@ -1869,7 +1875,7 @@ pub mod restore_agent_request {
     }
 
     /// Restore option.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RestoreOption(std::borrow::Cow<'static, str>);
 
     impl RestoreOption {
@@ -1905,6 +1911,12 @@ pub mod restore_agent_request {
     impl std::convert::From<std::string::String> for RestoreOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RestoreOption {
+        fn default() -> Self {
+            restore_option::RESTORE_OPTION_UNSPECIFIED
         }
     }
 
@@ -3538,7 +3550,7 @@ pub mod data_store_connection_signals {
         use super::*;
 
         /// Represents the decision of the grounding check.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct GroundingDecision(std::borrow::Cow<'static, str>);
 
         impl GroundingDecision {
@@ -3576,8 +3588,14 @@ pub mod data_store_connection_signals {
             }
         }
 
+        impl std::default::Default for GroundingDecision {
+            fn default() -> Self {
+                grounding_decision::GROUNDING_DECISION_UNSPECIFIED
+            }
+        }
+
         /// Grounding score buckets.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct GroundingScoreBucket(std::borrow::Cow<'static, str>);
 
         impl GroundingScoreBucket {
@@ -3619,6 +3637,12 @@ pub mod data_store_connection_signals {
         impl std::convert::From<std::string::String> for GroundingScoreBucket {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for GroundingScoreBucket {
+            fn default() -> Self {
+                grounding_score_bucket::GROUNDING_SCORE_BUCKET_UNSPECIFIED
             }
         }
     }
@@ -3696,7 +3720,7 @@ pub mod data_store_connection_signals {
         /// Safety decision.
         /// All kinds of check are incorporated into this final decision, including
         /// banned phrases check.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SafetyDecision(std::borrow::Cow<'static, str>);
 
         impl SafetyDecision {
@@ -3734,8 +3758,14 @@ pub mod data_store_connection_signals {
             }
         }
 
+        impl std::default::Default for SafetyDecision {
+            fn default() -> Self {
+                safety_decision::SAFETY_DECISION_UNSPECIFIED
+            }
+        }
+
         /// Specifies banned phrase match subject.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct BannedPhraseMatch(std::borrow::Cow<'static, str>);
 
         impl BannedPhraseMatch {
@@ -3774,6 +3804,12 @@ pub mod data_store_connection_signals {
         impl std::convert::From<std::string::String> for BannedPhraseMatch {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for BannedPhraseMatch {
+            fn default() -> Self {
+                banned_phrase_match::BANNED_PHRASE_MATCH_UNSPECIFIED
             }
         }
     }
@@ -3932,7 +3968,7 @@ pub mod deployment {
     }
 
     /// The state of the deployment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3967,6 +4003,12 @@ pub mod deployment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4380,7 +4422,7 @@ pub mod entity_type {
     }
 
     /// Represents kinds of entities.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
@@ -4422,10 +4464,16 @@ pub mod entity_type {
         }
     }
 
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            kind::KIND_UNSPECIFIED
+        }
+    }
+
     /// Represents different entity type expansion modes. Automated expansion
     /// allows an agent to recognize values that have not been explicitly listed in
     /// the entity (for example, new kinds of shopping list items).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AutoExpansionMode(std::borrow::Cow<'static, str>);
 
     impl AutoExpansionMode {
@@ -4457,6 +4505,12 @@ pub mod entity_type {
     impl std::convert::From<std::string::String> for AutoExpansionMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AutoExpansionMode {
+        fn default() -> Self {
+            auto_expansion_mode::AUTO_EXPANSION_MODE_UNSPECIFIED
         }
     }
 }
@@ -4625,7 +4679,7 @@ pub mod export_entity_types_request {
     use super::*;
 
     /// Data format of the exported entity types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataFormat(std::borrow::Cow<'static, str>);
 
     impl DataFormat {
@@ -4657,6 +4711,12 @@ pub mod export_entity_types_request {
     impl std::convert::From<std::string::String> for DataFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataFormat {
+        fn default() -> Self {
+            data_format::DATA_FORMAT_UNSPECIFIED
         }
     }
 
@@ -4986,7 +5046,7 @@ pub mod import_entity_types_request {
     use super::*;
 
     /// Merge option when display name conflicts exist during import.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MergeOption(std::borrow::Cow<'static, str>);
 
     impl MergeOption {
@@ -5033,6 +5093,12 @@ pub mod import_entity_types_request {
     impl std::convert::From<std::string::String> for MergeOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MergeOption {
+        fn default() -> Self {
+            merge_option::MERGE_OPTION_UNSPECIFIED
         }
     }
 
@@ -6334,7 +6400,7 @@ pub mod continuous_test_result {
     use super::*;
 
     /// The overall result for a continuous test run in an agent environment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AggregatedTestResult(std::borrow::Cow<'static, str>);
 
     impl AggregatedTestResult {
@@ -6367,6 +6433,12 @@ pub mod continuous_test_result {
     impl std::convert::From<std::string::String> for AggregatedTestResult {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AggregatedTestResult {
+        fn default() -> Self {
+            aggregated_test_result::AGGREGATED_TEST_RESULT_UNSPECIFIED
         }
     }
 }
@@ -7376,7 +7448,7 @@ pub mod experiment {
         }
 
         /// Types of ratio-based metric for Dialogflow experiment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct MetricType(std::borrow::Cow<'static, str>);
 
         impl MetricType {
@@ -7424,8 +7496,14 @@ pub mod experiment {
             }
         }
 
+        impl std::default::Default for MetricType {
+            fn default() -> Self {
+                metric_type::METRIC_UNSPECIFIED
+            }
+        }
+
         /// Types of count-based metric for Dialogflow experiment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct CountType(std::borrow::Cow<'static, str>);
 
         impl CountType {
@@ -7462,10 +7540,16 @@ pub mod experiment {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for CountType {
+            fn default() -> Self {
+                count_type::COUNT_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// The state of the experiment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7503,6 +7587,12 @@ pub mod experiment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8299,7 +8389,7 @@ pub mod nlu_settings {
     use super::*;
 
     /// NLU model type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ModelType(std::borrow::Cow<'static, str>);
 
     impl ModelType {
@@ -8334,8 +8424,14 @@ pub mod nlu_settings {
         }
     }
 
+    impl std::default::Default for ModelType {
+        fn default() -> Self {
+            model_type::MODEL_TYPE_UNSPECIFIED
+        }
+    }
+
     /// NLU model training mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ModelTrainingMode(std::borrow::Cow<'static, str>);
 
     impl ModelTrainingMode {
@@ -8372,6 +8468,12 @@ pub mod nlu_settings {
     impl std::convert::From<std::string::String> for ModelTrainingMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ModelTrainingMode {
+        fn default() -> Self {
+            model_training_mode::MODEL_TRAINING_MODE_UNSPECIFIED
         }
     }
 }
@@ -9367,7 +9469,7 @@ pub mod import_flow_request {
     use super::*;
 
     /// Import option.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ImportOption(std::borrow::Cow<'static, str>);
 
     impl ImportOption {
@@ -9404,6 +9506,12 @@ pub mod import_flow_request {
     impl std::convert::From<std::string::String> for ImportOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ImportOption {
+        fn default() -> Self {
+            import_option::IMPORT_OPTION_UNSPECIFIED
         }
     }
 
@@ -11937,7 +12045,7 @@ pub mod import_intents_request {
     use super::*;
 
     /// Merge option when display name conflicts exist during import.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MergeOption(std::borrow::Cow<'static, str>);
 
     impl MergeOption {
@@ -11990,6 +12098,12 @@ pub mod import_intents_request {
     impl std::convert::From<std::string::String> for MergeOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MergeOption {
+        fn default() -> Self {
+            merge_option::MERGE_OPTION_UNSPECIFIED
         }
     }
 
@@ -12288,7 +12402,7 @@ pub mod export_intents_request {
     use super::*;
 
     /// Data format of the exported intents.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataFormat(std::borrow::Cow<'static, str>);
 
     impl DataFormat {
@@ -12323,6 +12437,12 @@ pub mod export_intents_request {
     impl std::convert::From<std::string::String> for DataFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataFormat {
+        fn default() -> Self {
+            data_format::DATA_FORMAT_UNSPECIFIED
         }
     }
 
@@ -14950,7 +15070,7 @@ pub mod response_message {
     }
 
     /// Represents different response types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResponseType(std::borrow::Cow<'static, str>);
 
     impl ResponseType {
@@ -14999,6 +15119,12 @@ pub mod response_message {
     impl std::convert::From<std::string::String> for ResponseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResponseType {
+        fn default() -> Self {
+            response_type::RESPONSE_TYPE_UNSPECIFIED
         }
     }
 
@@ -15795,7 +15921,7 @@ pub mod security_settings {
 
         /// File format for exported audio file. Currently only in telephony
         /// recordings.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct AudioFormat(std::borrow::Cow<'static, str>);
 
         impl AudioFormat {
@@ -15833,6 +15959,12 @@ pub mod security_settings {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for AudioFormat {
+            fn default() -> Self {
+                audio_format::AUDIO_FORMAT_UNSPECIFIED
+            }
+        }
     }
 
     /// Settings for exporting conversations to
@@ -15866,7 +15998,7 @@ pub mod security_settings {
     }
 
     /// Defines how we redact data.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RedactionStrategy(std::borrow::Cow<'static, str>);
 
     impl RedactionStrategy {
@@ -15900,8 +16032,14 @@ pub mod security_settings {
         }
     }
 
+    impl std::default::Default for RedactionStrategy {
+        fn default() -> Self {
+            redaction_strategy::REDACTION_STRATEGY_UNSPECIFIED
+        }
+    }
+
     /// Defines what types of data to redact.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RedactionScope(std::borrow::Cow<'static, str>);
 
     impl RedactionScope {
@@ -15936,8 +16074,14 @@ pub mod security_settings {
         }
     }
 
+    impl std::default::Default for RedactionScope {
+        fn default() -> Self {
+            redaction_scope::REDACTION_SCOPE_UNSPECIFIED
+        }
+    }
+
     /// Defines how long we retain persisted data that contains sensitive info.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RetentionStrategy(std::borrow::Cow<'static, str>);
 
     impl RetentionStrategy {
@@ -15973,8 +16117,14 @@ pub mod security_settings {
         }
     }
 
+    impl std::default::Default for RetentionStrategy {
+        fn default() -> Self {
+            retention_strategy::RETENTION_STRATEGY_UNSPECIFIED
+        }
+    }
+
     /// Type of data we purge after retention settings triggers purge.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PurgeDataType(std::borrow::Cow<'static, str>);
 
     impl PurgeDataType {
@@ -16005,6 +16155,12 @@ pub mod security_settings {
     impl std::convert::From<std::string::String> for PurgeDataType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PurgeDataType {
+        fn default() -> Self {
+            purge_data_type::PURGE_DATA_TYPE_UNSPECIFIED
         }
     }
 
@@ -16144,7 +16300,7 @@ pub mod answer_feedback {
     }
 
     /// Represents thumbs up/down rating provided by user about a response.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Rating(std::borrow::Cow<'static, str>);
 
     impl Rating {
@@ -16176,6 +16332,12 @@ pub mod answer_feedback {
     impl std::convert::From<std::string::String> for Rating {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Rating {
+        fn default() -> Self {
+            rating::RATING_UNSPECIFIED
         }
     }
 }
@@ -16451,7 +16613,7 @@ pub mod detect_intent_response {
     use super::*;
 
     /// Represents different DetectIntentResponse types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResponseType(std::borrow::Cow<'static, str>);
 
     impl ResponseType {
@@ -16486,6 +16648,12 @@ pub mod detect_intent_response {
     impl std::convert::From<std::string::String> for ResponseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResponseType {
+        fn default() -> Self {
+            response_type::RESPONSE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -17233,7 +17401,7 @@ pub mod streaming_recognition_result {
     use super::*;
 
     /// Type of the response message.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MessageType(std::borrow::Cow<'static, str>);
 
     impl MessageType {
@@ -17276,6 +17444,12 @@ pub mod streaming_recognition_result {
     impl std::convert::From<std::string::String> for MessageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MessageType {
+        fn default() -> Self {
+            message_type::MESSAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -17907,7 +18081,7 @@ pub mod boost_spec {
 
             /// The attribute(or function) for which the custom ranking is to be
             /// applied.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct AttributeType(std::borrow::Cow<'static, str>);
 
             impl AttributeType {
@@ -17951,9 +18125,15 @@ pub mod boost_spec {
                 }
             }
 
+            impl std::default::Default for AttributeType {
+                fn default() -> Self {
+                    attribute_type::ATTRIBUTE_TYPE_UNSPECIFIED
+                }
+            }
+
             /// The interpolation type to be applied. Default will be linear
             /// (Piecewise Linear).
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct InterpolationType(std::borrow::Cow<'static, str>);
 
             impl InterpolationType {
@@ -17984,6 +18164,12 @@ pub mod boost_spec {
             impl std::convert::From<std::string::String> for InterpolationType {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for InterpolationType {
+                fn default() -> Self {
+                    interpolation_type::INTERPOLATION_TYPE_UNSPECIFIED
                 }
             }
         }
@@ -19127,7 +19313,7 @@ pub mod r#match {
     use super::*;
 
     /// Type of a Match.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MatchType(std::borrow::Cow<'static, str>);
 
     impl MatchType {
@@ -19177,6 +19363,12 @@ pub mod r#match {
     impl std::convert::From<std::string::String> for MatchType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MatchType {
+        fn default() -> Self {
+            match_type::MATCH_TYPE_UNSPECIFIED
         }
     }
 }
@@ -19732,7 +19924,7 @@ pub mod session_entity_type {
     use super::*;
 
     /// The types of modifications for the session entity type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EntityOverrideMode(std::borrow::Cow<'static, str>);
 
     impl EntityOverrideMode {
@@ -19779,6 +19971,12 @@ pub mod session_entity_type {
     impl std::convert::From<std::string::String> for EntityOverrideMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EntityOverrideMode {
+        fn default() -> Self {
+            entity_override_mode::ENTITY_OVERRIDE_MODE_UNSPECIFIED
         }
     }
 }
@@ -20680,7 +20878,7 @@ pub mod test_run_difference {
     use super::*;
 
     /// What part of the message replay differs from the test case.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiffType(std::borrow::Cow<'static, str>);
 
     impl DiffType {
@@ -20721,6 +20919,12 @@ pub mod test_run_difference {
     impl std::convert::From<std::string::String> for DiffType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DiffType {
+        fn default() -> Self {
+            diff_type::DIFF_TYPE_UNSPECIFIED
         }
     }
 }
@@ -21368,7 +21572,7 @@ pub mod calculate_coverage_request {
     use super::*;
 
     /// The type of coverage score requested.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CoverageType(std::borrow::Cow<'static, str>);
 
     impl CoverageType {
@@ -21405,6 +21609,12 @@ pub mod calculate_coverage_request {
     impl std::convert::From<std::string::String> for CoverageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CoverageType {
+        fn default() -> Self {
+            coverage_type::COVERAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -21646,7 +21856,7 @@ pub mod list_test_cases_request {
     use super::*;
 
     /// Specifies how much test case information to include in the response.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TestCaseView(std::borrow::Cow<'static, str>);
 
     impl TestCaseView {
@@ -21681,6 +21891,12 @@ pub mod list_test_cases_request {
     impl std::convert::From<std::string::String> for TestCaseView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TestCaseView {
+        fn default() -> Self {
+            test_case_view::TEST_CASE_VIEW_UNSPECIFIED
         }
     }
 }
@@ -22588,7 +22804,7 @@ pub mod export_test_cases_request {
     use super::*;
 
     /// Data format of the exported test cases.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataFormat(std::borrow::Cow<'static, str>);
 
     impl DataFormat {
@@ -22620,6 +22836,12 @@ pub mod export_test_cases_request {
     impl std::convert::From<std::string::String> for DataFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataFormat {
+        fn default() -> Self {
+            data_format::DATA_FORMAT_UNSPECIFIED
         }
     }
 
@@ -23518,7 +23740,7 @@ pub mod validation_message {
     use super::*;
 
     /// Resource types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResourceType(std::borrow::Cow<'static, str>);
 
     impl ResourceType {
@@ -23594,8 +23816,14 @@ pub mod validation_message {
         }
     }
 
+    impl std::default::Default for ResourceType {
+        fn default() -> Self {
+            resource_type::RESOURCE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Severity level.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -23630,6 +23858,12 @@ pub mod validation_message {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -23804,7 +24038,7 @@ pub mod version {
     use super::*;
 
     /// The state of the version.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -23839,6 +24073,12 @@ pub mod version {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -24737,7 +24977,7 @@ pub mod webhook {
 
         /// Indicate the auth token type generated from the [Diglogflow service
         /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ServiceAgentAuth(std::borrow::Cow<'static, str>);
 
         impl ServiceAgentAuth {
@@ -24784,8 +25024,14 @@ pub mod webhook {
             }
         }
 
+        impl std::default::Default for ServiceAgentAuth {
+            fn default() -> Self {
+                service_agent_auth::SERVICE_AGENT_AUTH_UNSPECIFIED
+            }
+        }
+
         /// Represents the type of webhook configuration.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct WebhookType(std::borrow::Cow<'static, str>);
 
         impl WebhookType {
@@ -24821,8 +25067,14 @@ pub mod webhook {
             }
         }
 
+        impl std::default::Default for WebhookType {
+            fn default() -> Self {
+                webhook_type::WEBHOOK_TYPE_UNSPECIFIED
+            }
+        }
+
         /// HTTP method to use when calling webhooks.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct HttpMethod(std::borrow::Cow<'static, str>);
 
         impl HttpMethod {
@@ -24870,6 +25122,12 @@ pub mod webhook {
         impl std::convert::From<std::string::String> for HttpMethod {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for HttpMethod {
+            fn default() -> Self {
+                http_method::HTTP_METHOD_UNSPECIFIED
             }
         }
     }
@@ -26007,7 +26265,7 @@ pub mod webhook_response {
         use super::*;
 
         /// Defines merge behavior for `messages`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct MergeBehavior(std::borrow::Cow<'static, str>);
 
         impl MergeBehavior {
@@ -26042,6 +26300,12 @@ pub mod webhook_response {
         impl std::convert::From<std::string::String> for MergeBehavior {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for MergeBehavior {
+            fn default() -> Self {
+                merge_behavior::MERGE_BEHAVIOR_UNSPECIFIED
             }
         }
     }
@@ -26314,7 +26578,7 @@ pub mod page_info {
             use super::*;
 
             /// Represents the state of a parameter.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct ParameterState(std::borrow::Cow<'static, str>);
 
             impl ParameterState {
@@ -26352,6 +26616,12 @@ pub mod page_info {
             impl std::convert::From<std::string::String> for ParameterState {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for ParameterState {
+                fn default() -> Self {
+                    parameter_state::PARAMETER_STATE_UNSPECIFIED
                 }
             }
         }
@@ -26490,7 +26760,7 @@ impl wkt::message::Message for LanguageInfo {
 /// [Cloud Speech API
 /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for more
 /// details.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AudioEncoding(std::borrow::Cow<'static, str>);
 
 impl AudioEncoding {
@@ -26565,6 +26835,12 @@ impl std::convert::From<std::string::String> for AudioEncoding {
     }
 }
 
+impl std::default::Default for AudioEncoding {
+    fn default() -> Self {
+        audio_encoding::AUDIO_ENCODING_UNSPECIFIED
+    }
+}
+
 /// Variant of the specified [Speech
 /// model][google.cloud.dialogflow.cx.v3.InputAudioConfig.model] to use.
 ///
@@ -26575,7 +26851,7 @@ impl std::convert::From<std::string::String> for AudioEncoding {
 /// you will generally receive higher quality results than for a standard model.
 ///
 /// [google.cloud.dialogflow.cx.v3.InputAudioConfig.model]: crate::model::InputAudioConfig::model
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SpeechModelVariant(std::borrow::Cow<'static, str>);
 
 impl SpeechModelVariant {
@@ -26633,9 +26909,15 @@ impl std::convert::From<std::string::String> for SpeechModelVariant {
     }
 }
 
+impl std::default::Default for SpeechModelVariant {
+    fn default() -> Self {
+        speech_model_variant::SPEECH_MODEL_VARIANT_UNSPECIFIED
+    }
+}
+
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SsmlVoiceGender(std::borrow::Cow<'static, str>);
 
 impl SsmlVoiceGender {
@@ -26678,8 +26960,14 @@ impl std::convert::From<std::string::String> for SsmlVoiceGender {
     }
 }
 
+impl std::default::Default for SsmlVoiceGender {
+    fn default() -> Self {
+        ssml_voice_gender::SSML_VOICE_GENDER_UNSPECIFIED
+    }
+}
+
 /// Audio encoding of the output audio format in Text-To-Speech.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OutputAudioEncoding(std::borrow::Cow<'static, str>);
 
 impl OutputAudioEncoding {
@@ -26737,9 +27025,15 @@ impl std::convert::From<std::string::String> for OutputAudioEncoding {
     }
 }
 
+impl std::default::Default for OutputAudioEncoding {
+    fn default() -> Self {
+        output_audio_encoding::OUTPUT_AUDIO_ENCODING_UNSPECIFIED
+    }
+}
+
 /// Type of a data store.
 /// Determines how search is performed in the data store.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DataStoreType(std::borrow::Cow<'static, str>);
 
 impl DataStoreType {
@@ -26779,10 +27073,16 @@ impl std::convert::From<std::string::String> for DataStoreType {
     }
 }
 
+impl std::default::Default for DataStoreType {
+    fn default() -> Self {
+        data_store_type::DATA_STORE_TYPE_UNSPECIFIED
+    }
+}
+
 /// Import strategies for the conflict resolution of resources (i.e. intents,
 /// entities, and webhooks) with identical display names during import
 /// operations.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ImportStrategy(std::borrow::Cow<'static, str>);
 
 impl ImportStrategy {
@@ -26833,10 +27133,16 @@ impl std::convert::From<std::string::String> for ImportStrategy {
     }
 }
 
+impl std::default::Default for ImportStrategy {
+    fn default() -> Self {
+        import_strategy::IMPORT_STRATEGY_UNSPECIFIED
+    }
+}
+
 /// Represents the options for views of an intent.
 /// An intent can be a sizable object. Therefore, we provide a resource view that
 /// does not return training phrases in the response.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntentView(std::borrow::Cow<'static, str>);
 
 impl IntentView {
@@ -26871,8 +27177,14 @@ impl std::convert::From<std::string::String> for IntentView {
     }
 }
 
+impl std::default::Default for IntentView {
+    fn default() -> Self {
+        intent_view::INTENT_VIEW_UNSPECIFIED
+    }
+}
+
 /// The test result for a test case and an agent environment.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TestResult(std::borrow::Cow<'static, str>);
 
 impl TestResult {
@@ -26904,5 +27216,11 @@ pub mod test_result {
 impl std::convert::From<std::string::String> for TestResult {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for TestResult {
+    fn default() -> Self {
+        test_result::TEST_RESULT_UNSPECIFIED
     }
 }

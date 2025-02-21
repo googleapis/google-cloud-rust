@@ -692,7 +692,7 @@ pub mod connect_settings {
 
 
     /// Various Certificate Authority (CA) modes for certificate signing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CaMode(std::borrow::Cow<'static, str>);
 
     impl CaMode {
@@ -727,6 +727,12 @@ pub mod connect_settings {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for CaMode {
+        fn default() -> Self {
+            ca_mode::CA_MODE_UNSPECIFIED
+        }
     }
 }
 
@@ -2667,7 +2673,7 @@ pub mod backup_reencryption_config {
 
 
     /// Backup type for re-encryption
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BackupType(std::borrow::Cow<'static, str>);
 
     impl BackupType {
@@ -2701,6 +2707,12 @@ pub mod backup_reencryption_config {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for BackupType {
+        fn default() -> Self {
+            backup_type::BACKUP_TYPE_UNSPECIFIED
+        }
     }
 }
 
@@ -2873,7 +2885,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
     use super::*;
 
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExternalSyncMode(std::borrow::Cow<'static, str>);
 
     impl ExternalSyncMode {
@@ -2911,9 +2923,15 @@ pub mod sql_instances_verify_external_sync_settings_request {
       }
     }
 
+    impl std::default::Default for ExternalSyncMode {
+        fn default() -> Self {
+            external_sync_mode::EXTERNAL_SYNC_MODE_UNSPECIFIED
+        }
+    }
+
     /// MigrationType determines whether the migration is a physical file-based
     /// migration or a logical dump file-based migration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MigrationType(std::borrow::Cow<'static, str>);
 
     impl MigrationType {
@@ -2947,6 +2965,12 @@ pub mod sql_instances_verify_external_sync_settings_request {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for MigrationType {
+        fn default() -> Self {
+            migration_type::MIGRATION_TYPE_UNSPECIFIED
+        }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4713,7 +4737,7 @@ pub mod database_instance {
 
 
         /// This enum lists all possible states regarding out-of-disk issues.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SqlOutOfDiskState(std::borrow::Cow<'static, str>);
 
         impl SqlOutOfDiskState {
@@ -4749,10 +4773,16 @@ pub mod database_instance {
             Self(std::borrow::Cow::Owned(value))
           }
         }
+
+        impl std::default::Default for SqlOutOfDiskState {
+            fn default() -> Self {
+                sql_out_of_disk_state::SQL_OUT_OF_DISK_STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// The current serving state of the database instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlInstanceState(std::borrow::Cow<'static, str>);
 
     impl SqlInstanceState {
@@ -4804,8 +4834,14 @@ pub mod database_instance {
       }
     }
 
+    impl std::default::Default for SqlInstanceState {
+        fn default() -> Self {
+            sql_instance_state::SQL_INSTANCE_STATE_UNSPECIFIED
+        }
+    }
+
     /// The SQL network architecture for the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlNetworkArchitecture(std::borrow::Cow<'static, str>);
 
     impl SqlNetworkArchitecture {
@@ -4838,6 +4874,12 @@ pub mod database_instance {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for SqlNetworkArchitecture {
+        fn default() -> Self {
+            sql_network_architecture::SQL_NETWORK_ARCHITECTURE_UNSPECIFIED
+        }
     }
 }
 
@@ -5113,7 +5155,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RescheduleType(std::borrow::Cow<'static, str>);
 
     impl RescheduleType {
@@ -5150,6 +5192,12 @@ pub mod sql_instances_reschedule_maintenance_request_body {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
+        }
     }
 }
 
@@ -5513,7 +5561,7 @@ pub mod sql_external_sync_setting_error {
     use super::*;
 
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlExternalSyncSettingErrorType(std::borrow::Cow<'static, str>);
 
     impl SqlExternalSyncSettingErrorType {
@@ -5704,6 +5752,12 @@ pub mod sql_external_sync_setting_error {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for SqlExternalSyncSettingErrorType {
+        fn default() -> Self {
+            sql_external_sync_setting_error_type::SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED
+        }
     }
 }
 
@@ -6359,7 +6413,7 @@ pub mod api_warning {
     use super::*;
 
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlApiWarningCode(std::borrow::Cow<'static, str>);
 
     impl SqlApiWarningCode {
@@ -6403,6 +6457,12 @@ pub mod api_warning {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for SqlApiWarningCode {
+        fn default() -> Self {
+            sql_api_warning_code::SQL_API_WARNING_CODE_UNSPECIFIED
+        }
     }
 }
 
@@ -6455,7 +6515,7 @@ pub mod backup_retention_settings {
 
 
     /// The units that retained_backups specifies, we only support COUNT.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RetentionUnit(std::borrow::Cow<'static, str>);
 
     impl RetentionUnit {
@@ -6486,6 +6546,12 @@ pub mod backup_retention_settings {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for RetentionUnit {
+        fn default() -> Self {
+            retention_unit::RETENTION_UNIT_UNSPECIFIED
+        }
     }
 }
 
@@ -6621,7 +6687,7 @@ pub mod backup_configuration {
 
     /// This value contains the storage location of the transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TransactionalLogStorageState(std::borrow::Cow<'static, str>);
 
     impl TransactionalLogStorageState {
@@ -6667,6 +6733,12 @@ pub mod backup_configuration {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for TransactionalLogStorageState {
+        fn default() -> Self {
+            transactional_log_storage_state::TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED
+        }
     }
 }
 
@@ -8292,7 +8364,7 @@ pub mod ip_configuration {
 
 
     /// The SSL options for database connections.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SslMode(std::borrow::Cow<'static, str>);
 
     impl SslMode {
@@ -8354,8 +8426,14 @@ pub mod ip_configuration {
       }
     }
 
+    impl std::default::Default for SslMode {
+        fn default() -> Self {
+            ssl_mode::SSL_MODE_UNSPECIFIED
+        }
+    }
+
     /// Various Certificate Authority (CA) modes for certificate signing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CaMode(std::borrow::Cow<'static, str>);
 
     impl CaMode {
@@ -8390,6 +8468,12 @@ pub mod ip_configuration {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for CaMode {
+        fn default() -> Self {
+            ca_mode::CA_MODE_UNSPECIFIED
+        }
     }
 }
 
@@ -9207,7 +9291,7 @@ pub mod operation {
 
 
     /// The type of Cloud SQL operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlOperationType(std::borrow::Cow<'static, str>);
 
     impl SqlOperationType {
@@ -9386,8 +9470,14 @@ pub mod operation {
       }
     }
 
+    impl std::default::Default for SqlOperationType {
+        fn default() -> Self {
+            sql_operation_type::SQL_OPERATION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The status of an operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlOperationStatus(std::borrow::Cow<'static, str>);
 
     impl SqlOperationStatus {
@@ -9424,6 +9514,12 @@ pub mod operation {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for SqlOperationStatus {
+        fn default() -> Self {
+            sql_operation_status::SQL_OPERATION_STATUS_UNSPECIFIED
+        }
     }
 }
 
@@ -9620,7 +9716,7 @@ pub mod password_validation_policy {
 
 
     /// The complexity choices of the password.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Complexity(std::borrow::Cow<'static, str>);
 
     impl Complexity {
@@ -9652,6 +9748,12 @@ pub mod password_validation_policy {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for Complexity {
+        fn default() -> Self {
+            complexity::COMPLEXITY_UNSPECIFIED
+        }
     }
 }
 
@@ -10119,7 +10221,7 @@ pub mod settings {
 
 
     /// Specifies when the instance is activated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlActivationPolicy(std::borrow::Cow<'static, str>);
 
     impl SqlActivationPolicy {
@@ -10158,8 +10260,14 @@ pub mod settings {
       }
     }
 
+    impl std::default::Default for SqlActivationPolicy {
+        fn default() -> Self {
+            sql_activation_policy::SQL_ACTIVATION_POLICY_UNSPECIFIED
+        }
+    }
+
     /// The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Edition(std::borrow::Cow<'static, str>);
 
     impl Edition {
@@ -10195,8 +10303,14 @@ pub mod settings {
       }
     }
 
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            edition::EDITION_UNSPECIFIED
+        }
+    }
+
     /// The options for enforcing Cloud SQL connectors in the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectorEnforcement(std::borrow::Cow<'static, str>);
 
     impl ConnectorEnforcement {
@@ -10232,6 +10346,12 @@ pub mod settings {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for ConnectorEnforcement {
+        fn default() -> Self {
+            connector_enforcement::CONNECTOR_ENFORCEMENT_UNSPECIFIED
+        }
     }
 }
 
@@ -11612,7 +11732,7 @@ pub mod user {
 
 
     /// The user type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlUserType(std::borrow::Cow<'static, str>);
 
     impl SqlUserType {
@@ -11657,8 +11777,14 @@ pub mod user {
       }
     }
 
+    impl std::default::Default for SqlUserType {
+        fn default() -> Self {
+            sql_user_type::BUILT_IN
+        }
+    }
+
     /// The type of retained password.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DualPasswordType(std::borrow::Cow<'static, str>);
 
     impl DualPasswordType {
@@ -11695,6 +11821,12 @@ pub mod user {
       fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
       }
+    }
+
+    impl std::default::Default for DualPasswordType {
+        fn default() -> Self {
+            dual_password_type::DUAL_PASSWORD_TYPE_UNSPECIFIED
+        }
     }
 
     /// User details for specific database type
@@ -11806,7 +11938,7 @@ impl wkt::message::Message for UsersListResponse {
 }
 
 /// The status of a backup run.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackupRunStatus(std::borrow::Cow<'static, str>);
 
 impl SqlBackupRunStatus {
@@ -11866,8 +11998,14 @@ impl std::convert::From<std::string::String> for SqlBackupRunStatus {
   }
 }
 
+impl std::default::Default for SqlBackupRunStatus {
+    fn default() -> Self {
+        sql_backup_run_status::SQL_BACKUP_RUN_STATUS_UNSPECIFIED
+    }
+}
+
 /// Defines the supported backup kinds.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackupKind(std::borrow::Cow<'static, str>);
 
 impl SqlBackupKind {
@@ -11903,8 +12041,14 @@ impl std::convert::From<std::string::String> for SqlBackupKind {
   }
 }
 
+impl std::default::Default for SqlBackupKind {
+    fn default() -> Self {
+        sql_backup_kind::SQL_BACKUP_KIND_UNSPECIFIED
+    }
+}
+
 /// Type of backup (i.e. automated, on demand, etc).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackupRunType(std::borrow::Cow<'static, str>);
 
 impl SqlBackupRunType {
@@ -11940,7 +12084,13 @@ impl std::convert::From<std::string::String> for SqlBackupRunType {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlBackupRunType {
+    fn default() -> Self {
+        sql_backup_run_type::SQL_BACKUP_RUN_TYPE_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlFlagType(std::borrow::Cow<'static, str>);
 
 impl SqlFlagType {
@@ -11992,8 +12142,14 @@ impl std::convert::From<std::string::String> for SqlFlagType {
   }
 }
 
+impl std::default::Default for SqlFlagType {
+    fn default() -> Self {
+        sql_flag_type::SQL_FLAG_TYPE_UNSPECIFIED
+    }
+}
+
 /// External Sync parallel level.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalSyncParallelLevel(std::borrow::Cow<'static, str>);
 
 impl ExternalSyncParallelLevel {
@@ -12032,7 +12188,13 @@ impl std::convert::From<std::string::String> for ExternalSyncParallelLevel {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for ExternalSyncParallelLevel {
+    fn default() -> Self {
+        external_sync_parallel_level::EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlInstanceType(std::borrow::Cow<'static, str>);
 
 impl SqlInstanceType {
@@ -12073,8 +12235,14 @@ impl std::convert::From<std::string::String> for SqlInstanceType {
   }
 }
 
+impl std::default::Default for SqlInstanceType {
+    fn default() -> Self {
+        sql_instance_type::SQL_INSTANCE_TYPE_UNSPECIFIED
+    }
+}
+
 /// The suspension reason of the database instance if the state is SUSPENDED.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlSuspensionReason(std::borrow::Cow<'static, str>);
 
 impl SqlSuspensionReason {
@@ -12119,7 +12287,13 @@ impl std::convert::From<std::string::String> for SqlSuspensionReason {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlSuspensionReason {
+    fn default() -> Self {
+        sql_suspension_reason::SQL_SUSPENSION_REASON_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlFileType(std::borrow::Cow<'static, str>);
 
 impl SqlFileType {
@@ -12157,7 +12331,13 @@ impl std::convert::From<std::string::String> for SqlFileType {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlFileType {
+    fn default() -> Self {
+        sql_file_type::SQL_FILE_TYPE_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BakType(std::borrow::Cow<'static, str>);
 
 impl BakType {
@@ -12196,7 +12376,13 @@ impl std::convert::From<std::string::String> for BakType {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for BakType {
+    fn default() -> Self {
+        bak_type::BAK_TYPE_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackendType(std::borrow::Cow<'static, str>);
 
 impl SqlBackendType {
@@ -12235,7 +12421,13 @@ impl std::convert::From<std::string::String> for SqlBackendType {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlBackendType {
+    fn default() -> Self {
+        sql_backend_type::SQL_BACKEND_TYPE_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlIpAddressType(std::borrow::Cow<'static, str>);
 
 impl SqlIpAddressType {
@@ -12283,8 +12475,14 @@ impl std::convert::From<std::string::String> for SqlIpAddressType {
   }
 }
 
+impl std::default::Default for SqlIpAddressType {
+    fn default() -> Self {
+        sql_ip_address_type::SQL_IP_ADDRESS_TYPE_UNSPECIFIED
+    }
+}
+
 /// The database engine type and version.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlDatabaseVersion(std::borrow::Cow<'static, str>);
 
 impl SqlDatabaseVersion {
@@ -12443,8 +12641,14 @@ impl std::convert::From<std::string::String> for SqlDatabaseVersion {
   }
 }
 
+impl std::default::Default for SqlDatabaseVersion {
+    fn default() -> Self {
+        sql_database_version::SQL_DATABASE_VERSION_UNSPECIFIED
+    }
+}
+
 /// The pricing plan for this instance.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlPricingPlan(std::borrow::Cow<'static, str>);
 
 impl SqlPricingPlan {
@@ -12480,7 +12684,13 @@ impl std::convert::From<std::string::String> for SqlPricingPlan {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlPricingPlan {
+    fn default() -> Self {
+        sql_pricing_plan::SQL_PRICING_PLAN_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlReplicationType(std::borrow::Cow<'static, str>);
 
 impl SqlReplicationType {
@@ -12520,8 +12730,14 @@ impl std::convert::From<std::string::String> for SqlReplicationType {
   }
 }
 
+impl std::default::Default for SqlReplicationType {
+    fn default() -> Self {
+        sql_replication_type::SQL_REPLICATION_TYPE_UNSPECIFIED
+    }
+}
+
 /// The type of disk that is used for a v2 instance to use.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlDataDiskType(std::borrow::Cow<'static, str>);
 
 impl SqlDataDiskType {
@@ -12561,8 +12777,14 @@ impl std::convert::From<std::string::String> for SqlDataDiskType {
   }
 }
 
+impl std::default::Default for SqlDataDiskType {
+    fn default() -> Self {
+        sql_data_disk_type::SQL_DATA_DISK_TYPE_UNSPECIFIED
+    }
+}
+
 /// The availability type of the given Cloud SQL instance.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlAvailabilityType(std::borrow::Cow<'static, str>);
 
 impl SqlAvailabilityType {
@@ -12598,7 +12820,13 @@ impl std::convert::From<std::string::String> for SqlAvailabilityType {
   }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for SqlAvailabilityType {
+    fn default() -> Self {
+        sql_availability_type::SQL_AVAILABILITY_TYPE_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlUpdateTrack(std::borrow::Cow<'static, str>);
 
 impl SqlUpdateTrack {
@@ -12643,4 +12871,10 @@ impl std::convert::From<std::string::String> for SqlUpdateTrack {
   fn from(value: std::string::String) -> Self {
     Self(std::borrow::Cow::Owned(value))
   }
+}
+
+impl std::default::Default for SqlUpdateTrack {
+    fn default() -> Self {
+        sql_update_track::SQL_UPDATE_TRACK_UNSPECIFIED
+    }
 }

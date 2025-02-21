@@ -490,7 +490,7 @@ pub mod case {
     use super::*;
 
     /// The status of a support case.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -534,8 +534,14 @@ pub mod case {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The case Priority. P0 is most urgent and P4 the least.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Priority(std::borrow::Cow<'static, str>);
 
     impl Priority {
@@ -579,6 +585,12 @@ pub mod case {
     impl std::convert::From<std::string::String> for Priority {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Priority {
+        fn default() -> Self {
+            priority::PRIORITY_UNSPECIFIED
         }
     }
 }
@@ -1496,7 +1508,7 @@ pub mod escalation {
     use super::*;
 
     /// An enum detailing the possible reasons a case may be escalated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Reason(std::borrow::Cow<'static, str>);
 
     impl Reason {
@@ -1532,6 +1544,12 @@ pub mod escalation {
     impl std::convert::From<std::string::String> for Reason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            reason::REASON_UNSPECIFIED
         }
     }
 }

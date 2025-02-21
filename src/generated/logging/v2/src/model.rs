@@ -1479,7 +1479,7 @@ pub mod tail_log_entries_response {
         use super::*;
 
         /// An indicator of why entries were omitted.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Reason(std::borrow::Cow<'static, str>);
 
         impl Reason {
@@ -1515,6 +1515,12 @@ pub mod tail_log_entries_response {
         impl std::convert::From<std::string::String> for Reason {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Reason {
+            fn default() -> Self {
+                reason::REASON_UNSPECIFIED
             }
         }
     }
@@ -2121,7 +2127,7 @@ pub mod log_sink {
     use super::*;
 
     /// Deprecated. This is unused.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VersionFormat(std::borrow::Cow<'static, str>);
 
     impl VersionFormat {
@@ -2154,6 +2160,12 @@ pub mod log_sink {
     impl std::convert::From<std::string::String> for VersionFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VersionFormat {
+        fn default() -> Self {
+            version_format::VERSION_FORMAT_UNSPECIFIED
         }
     }
 
@@ -5424,7 +5436,7 @@ pub mod log_metric {
     use super::*;
 
     /// Logging API version.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ApiVersion(std::borrow::Cow<'static, str>);
 
     impl ApiVersion {
@@ -5453,6 +5465,12 @@ pub mod log_metric {
     impl std::convert::From<std::string::String> for ApiVersion {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ApiVersion {
+        fn default() -> Self {
+            api_version::V2
         }
     }
 }
@@ -5743,7 +5761,7 @@ impl wkt::message::Message for DeleteLogMetricRequest {
 /// current state to the user. Once a long running operation is created,
 /// the current state of the operation can be queried even before the
 /// operation is finished and the final result is available.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperationState(std::borrow::Cow<'static, str>);
 
 impl OperationState {
@@ -5797,8 +5815,14 @@ impl std::convert::From<std::string::String> for OperationState {
     }
 }
 
+impl std::default::Default for OperationState {
+    fn default() -> Self {
+        operation_state::OPERATION_STATE_UNSPECIFIED
+    }
+}
+
 /// LogBucket lifecycle states.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LifecycleState(std::borrow::Cow<'static, str>);
 
 impl LifecycleState {
@@ -5847,9 +5871,15 @@ impl std::convert::From<std::string::String> for LifecycleState {
     }
 }
 
+impl std::default::Default for LifecycleState {
+    fn default() -> Self {
+        lifecycle_state::LIFECYCLE_STATE_UNSPECIFIED
+    }
+}
+
 /// IndexType is used for custom indexing. It describes the type of an indexed
 /// field.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IndexType(std::borrow::Cow<'static, str>);
 
 impl IndexType {
@@ -5881,5 +5911,11 @@ pub mod index_type {
 impl std::convert::From<std::string::String> for IndexType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for IndexType {
+    fn default() -> Self {
+        index_type::INDEX_TYPE_UNSPECIFIED
     }
 }

@@ -121,7 +121,7 @@ pub mod generate_credentials_request {
     use super::*;
 
     /// Operating systems requiring specialized kubeconfigs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OperatingSystem(std::borrow::Cow<'static, str>);
 
     impl OperatingSystem {
@@ -154,6 +154,12 @@ pub mod generate_credentials_request {
     impl std::convert::From<std::string::String> for OperatingSystem {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OperatingSystem {
+        fn default() -> Self {
+            operating_system::OPERATING_SYSTEM_UNSPECIFIED
         }
     }
 }

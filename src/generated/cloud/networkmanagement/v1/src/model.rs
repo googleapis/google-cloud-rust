@@ -649,7 +649,7 @@ pub mod endpoint {
 
     /// The type definition of an endpoint's network. Use one of the
     /// following choices:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NetworkType(std::borrow::Cow<'static, str>);
 
     impl NetworkType {
@@ -689,8 +689,14 @@ pub mod endpoint {
         }
     }
 
+    impl std::default::Default for NetworkType {
+        fn default() -> Self {
+            network_type::NETWORK_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Type of the target of a forwarding rule.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ForwardingRuleTarget(std::borrow::Cow<'static, str>);
 
     impl ForwardingRuleTarget {
@@ -730,6 +736,12 @@ pub mod endpoint {
     impl std::convert::From<std::string::String> for ForwardingRuleTarget {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ForwardingRuleTarget {
+        fn default() -> Self {
+            forwarding_rule_target::FORWARDING_RULE_TARGET_UNSPECIFIED
         }
     }
 }
@@ -814,7 +826,7 @@ pub mod reachability_details {
     use super::*;
 
     /// The overall result of the test's configuration analysis.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Result(std::borrow::Cow<'static, str>);
 
     impl Result {
@@ -870,6 +882,12 @@ pub mod reachability_details {
     impl std::convert::From<std::string::String> for Result {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Result {
+        fn default() -> Self {
+            result::RESULT_UNSPECIFIED
         }
     }
 }
@@ -1129,7 +1147,7 @@ pub mod probing_details {
     }
 
     /// Overall probing result of the test.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProbingResult(std::borrow::Cow<'static, str>);
 
     impl ProbingResult {
@@ -1177,8 +1195,14 @@ pub mod probing_details {
         }
     }
 
+    impl std::default::Default for ProbingResult {
+        fn default() -> Self {
+            probing_result::PROBING_RESULT_UNSPECIFIED
+        }
+    }
+
     /// Abort cause types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProbingAbortCause(std::borrow::Cow<'static, str>);
 
     impl ProbingAbortCause {
@@ -1214,6 +1238,12 @@ pub mod probing_details {
     impl std::convert::From<std::string::String> for ProbingAbortCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ProbingAbortCause {
+        fn default() -> Self {
+            probing_abort_cause::PROBING_ABORT_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -2577,7 +2607,7 @@ pub mod step {
 
     /// Type of states that are defined in the network state machine.
     /// Each step in the packet trace is in a specific state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2731,6 +2761,12 @@ pub mod step {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -3155,7 +3191,7 @@ pub mod firewall_info {
     use super::*;
 
     /// The firewall rule's type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FirewallRuleType(std::borrow::Cow<'static, str>);
 
     impl FirewallRuleType {
@@ -3231,6 +3267,12 @@ pub mod firewall_info {
     impl std::convert::From<std::string::String> for FirewallRuleType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FirewallRuleType {
+        fn default() -> Self {
+            firewall_rule_type::FIREWALL_RULE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3495,7 +3537,7 @@ pub mod route_info {
     use super::*;
 
     /// Type of route:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RouteType(std::borrow::Cow<'static, str>);
 
     impl RouteType {
@@ -3550,8 +3592,14 @@ pub mod route_info {
         }
     }
 
+    impl std::default::Default for RouteType {
+        fn default() -> Self {
+            route_type::ROUTE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Type of next hop:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NextHopType(std::borrow::Cow<'static, str>);
 
     impl NextHopType {
@@ -3625,8 +3673,14 @@ pub mod route_info {
         }
     }
 
+    impl std::default::Default for NextHopType {
+        fn default() -> Self {
+            next_hop_type::NEXT_HOP_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Indicates where routes are applicable.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RouteScope(std::borrow::Cow<'static, str>);
 
     impl RouteScope {
@@ -3658,6 +3712,12 @@ pub mod route_info {
     impl std::convert::From<std::string::String> for RouteScope {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RouteScope {
+        fn default() -> Self {
+            route_scope::ROUTE_SCOPE_UNSPECIFIED
         }
     }
 }
@@ -3715,7 +3775,7 @@ pub mod google_service_info {
     use super::*;
 
     /// Recognized type of a Google Service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct GoogleServiceType(std::borrow::Cow<'static, str>);
 
     impl GoogleServiceType {
@@ -3772,6 +3832,12 @@ pub mod google_service_info {
     impl std::convert::From<std::string::String> for GoogleServiceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for GoogleServiceType {
+        fn default() -> Self {
+            google_service_type::GOOGLE_SERVICE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4015,7 +4081,7 @@ pub mod load_balancer_info {
     use super::*;
 
     /// The type definition for a load balancer:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
 
     impl LoadBalancerType {
@@ -4060,8 +4126,14 @@ pub mod load_balancer_info {
         }
     }
 
+    impl std::default::Default for LoadBalancerType {
+        fn default() -> Self {
+            load_balancer_type::LOAD_BALANCER_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The type definition for a load balancer backend configuration:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BackendType(std::borrow::Cow<'static, str>);
 
     impl BackendType {
@@ -4097,6 +4169,12 @@ pub mod load_balancer_info {
     impl std::convert::From<std::string::String> for BackendType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BackendType {
+        fn default() -> Self {
+            backend_type::BACKEND_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4190,7 +4268,7 @@ pub mod load_balancer_backend {
     use super::*;
 
     /// State of a health check firewall configuration:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HealthCheckFirewallState(std::borrow::Cow<'static, str>);
 
     impl HealthCheckFirewallState {
@@ -4230,6 +4308,12 @@ pub mod load_balancer_backend {
     impl std::convert::From<std::string::String> for HealthCheckFirewallState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for HealthCheckFirewallState {
+        fn default() -> Self {
+            health_check_firewall_state::HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED
         }
     }
 }
@@ -4439,7 +4523,7 @@ pub mod vpn_tunnel_info {
 
     /// Types of VPN routing policy. For details, refer to [Networks and Tunnel
     /// routing](https://cloud.google.com/network-connectivity/docs/vpn/concepts/choosing-networks-routing/).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RoutingType(std::borrow::Cow<'static, str>);
 
     impl RoutingType {
@@ -4475,6 +4559,12 @@ pub mod vpn_tunnel_info {
     impl std::convert::From<std::string::String> for RoutingType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RoutingType {
+        fn default() -> Self {
+            routing_type::ROUTING_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4668,7 +4758,7 @@ pub mod deliver_info {
     use super::*;
 
     /// Deliver target types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Target(std::borrow::Cow<'static, str>);
 
     impl Target {
@@ -4750,6 +4840,12 @@ pub mod deliver_info {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Target {
+        fn default() -> Self {
+            target::TARGET_UNSPECIFIED
+        }
+    }
 }
 
 /// Details of the final state "forward" and associated resource.
@@ -4809,7 +4905,7 @@ pub mod forward_info {
     use super::*;
 
     /// Forward target types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Target(std::borrow::Cow<'static, str>);
 
     impl Target {
@@ -4863,6 +4959,12 @@ pub mod forward_info {
     impl std::convert::From<std::string::String> for Target {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Target {
+        fn default() -> Self {
+            target::TARGET_UNSPECIFIED
         }
     }
 }
@@ -4940,7 +5042,7 @@ pub mod abort_info {
     use super::*;
 
     /// Abort cause types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Cause(std::borrow::Cow<'static, str>);
 
     impl Cause {
@@ -5121,6 +5223,12 @@ pub mod abort_info {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Cause {
+        fn default() -> Self {
+            cause::CAUSE_UNSPECIFIED
+        }
+    }
 }
 
 /// Details of the final state "drop" and associated resource.
@@ -5200,7 +5308,7 @@ pub mod drop_info {
     use super::*;
 
     /// Drop cause types:
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Cause(std::borrow::Cow<'static, str>);
 
     impl Cause {
@@ -5609,6 +5717,12 @@ pub mod drop_info {
     impl std::convert::From<std::string::String> for Cause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Cause {
+        fn default() -> Self {
+            cause::CAUSE_UNSPECIFIED
         }
     }
 }
@@ -6327,7 +6441,7 @@ pub mod nat_info {
     use super::*;
 
     /// Types of NAT.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -6365,6 +6479,12 @@ pub mod nat_info {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -6665,7 +6785,7 @@ pub mod load_balancer_backend_info {
     use super::*;
 
     /// Health check firewalls configuration state enum.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HealthCheckFirewallsConfigState(std::borrow::Cow<'static, str>);
 
     impl HealthCheckFirewallsConfigState {
@@ -6716,6 +6836,12 @@ pub mod load_balancer_backend_info {
     impl std::convert::From<std::string::String> for HealthCheckFirewallsConfigState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for HealthCheckFirewallsConfigState {
+        fn default() -> Self {
+            health_check_firewalls_config_state::HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED
         }
     }
 }
@@ -7369,7 +7495,7 @@ pub mod vpc_flow_logs_config {
 
     /// Determines whether this configuration will be generating logs.
     /// Setting state=DISABLED will pause the log generation for this config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7404,8 +7530,14 @@ pub mod vpc_flow_logs_config {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Toggles the aggregation interval for collecting flow logs by 5-tuple.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AggregationInterval(std::borrow::Cow<'static, str>);
 
     impl AggregationInterval {
@@ -7456,8 +7588,14 @@ pub mod vpc_flow_logs_config {
         }
     }
 
+    impl std::default::Default for AggregationInterval {
+        fn default() -> Self {
+            aggregation_interval::AGGREGATION_INTERVAL_UNSPECIFIED
+        }
+    }
+
     /// Configures which log fields would be included.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Metadata(std::borrow::Cow<'static, str>);
 
     impl Metadata {
@@ -7495,9 +7633,15 @@ pub mod vpc_flow_logs_config {
         }
     }
 
+    impl std::default::Default for Metadata {
+        fn default() -> Self {
+            metadata::METADATA_UNSPECIFIED
+        }
+    }
+
     /// Optional states of the target resource that are used as part of the
     /// diagnostic bit.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TargetResourceState(std::borrow::Cow<'static, str>);
 
     impl TargetResourceState {
@@ -7535,6 +7679,12 @@ pub mod vpc_flow_logs_config {
         }
     }
 
+    impl std::default::Default for TargetResourceState {
+        fn default() -> Self {
+            target_resource_state::TARGET_RESOURCE_STATE_UNSPECIFIED
+        }
+    }
+
     /// Reference to the resource of the config scope. That is, the scope from
     /// which traffic is logged. The target resource must belong to the same
     /// project as the configuration.
@@ -7555,7 +7705,7 @@ pub mod vpc_flow_logs_config {
 /// Type of a load balancer. For more information, see [Summary of Google Cloud
 /// load
 /// balancers](https://cloud.google.com/load-balancing/docs/load-balancing-overview#summary-of-google-cloud-load-balancers).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
 
 impl LoadBalancerType {
@@ -7622,5 +7772,11 @@ pub mod load_balancer_type {
 impl std::convert::From<std::string::String> for LoadBalancerType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for LoadBalancerType {
+    fn default() -> Self {
+        load_balancer_type::LOAD_BALANCER_TYPE_UNSPECIFIED
     }
 }

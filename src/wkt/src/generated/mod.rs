@@ -648,7 +648,7 @@ pub mod field {
     use super::*;
 
     /// Basic field types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
@@ -731,8 +731,14 @@ pub mod field {
         }
     }
 
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            kind::TYPE_UNKNOWN
+        }
+    }
+
     /// Whether a field is optional, required, or repeated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Cardinality(std::borrow::Cow<'static, str>);
 
     impl Cardinality {
@@ -767,6 +773,12 @@ pub mod field {
     impl std::convert::From<std::string::String> for Cardinality {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Cardinality {
+        fn default() -> Self {
+            cardinality::CARDINALITY_UNKNOWN
         }
     }
 }
@@ -965,7 +977,7 @@ impl wkt::message::Message for Option {
 }
 
 /// The syntax in which a protocol buffer element is defined.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Syntax(std::borrow::Cow<'static, str>);
 
 impl Syntax {
@@ -997,5 +1009,11 @@ pub mod syntax {
 impl std::convert::From<std::string::String> for Syntax {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Syntax {
+    fn default() -> Self {
+        syntax::SYNTAX_PROTO2
     }
 }

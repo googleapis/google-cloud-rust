@@ -1684,7 +1684,7 @@ pub mod basic_level {
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConditionCombiningFunction(std::borrow::Cow<'static, str>);
 
     impl ConditionCombiningFunction {
@@ -1713,6 +1713,12 @@ pub mod basic_level {
     impl std::convert::From<std::string::String> for ConditionCombiningFunction {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConditionCombiningFunction {
+        fn default() -> Self {
+            condition_combining_function::AND
         }
     }
 }
@@ -2408,7 +2414,7 @@ pub mod service_perimeter {
     /// Perimeter Bridges are typically useful when building more complex toplogies
     /// with many independent perimeters that need to share some data with a common
     /// perimeter, but should not be able to share data among themselves.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PerimeterType(std::borrow::Cow<'static, str>);
 
     impl PerimeterType {
@@ -2439,6 +2445,12 @@ pub mod service_perimeter {
     impl std::convert::From<std::string::String> for PerimeterType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PerimeterType {
+        fn default() -> Self {
+            perimeter_type::PERIMETER_TYPE_REGULAR
         }
     }
 }
@@ -3411,7 +3423,7 @@ pub mod service_perimeter_config {
     /// or [EgressFrom]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// rules.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IdentityType(std::borrow::Cow<'static, str>);
 
     impl IdentityType {
@@ -3449,10 +3461,16 @@ pub mod service_perimeter_config {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for IdentityType {
+        fn default() -> Self {
+            identity_type::IDENTITY_TYPE_UNSPECIFIED
+        }
+    }
 }
 
 /// The format used in an `AccessLevel`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LevelFormat(std::borrow::Cow<'static, str>);
 
 impl LevelFormat {
@@ -3486,5 +3504,11 @@ pub mod level_format {
 impl std::convert::From<std::string::String> for LevelFormat {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for LevelFormat {
+    fn default() -> Self {
+        level_format::LEVEL_FORMAT_UNSPECIFIED
     }
 }

@@ -618,7 +618,7 @@ pub mod cluster {
 
         /// Represents the policy configuration about how user applications are
         /// deployed.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SharedDeploymentPolicy(std::borrow::Cow<'static, str>);
 
         impl SharedDeploymentPolicy {
@@ -654,6 +654,12 @@ pub mod cluster {
         impl std::convert::From<std::string::String> for SharedDeploymentPolicy {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SharedDeploymentPolicy {
+            fn default() -> Self {
+                shared_deployment_policy::SHARED_DEPLOYMENT_POLICY_UNSPECIFIED
             }
         }
 
@@ -1051,7 +1057,7 @@ pub mod cluster {
         use super::*;
 
         /// Indicates the maintenance event type.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -1086,8 +1092,14 @@ pub mod cluster {
             }
         }
 
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
+            }
+        }
+
         /// Indicates when the maintenance event should be performed.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Schedule(std::borrow::Cow<'static, str>);
 
         impl Schedule {
@@ -1119,8 +1131,14 @@ pub mod cluster {
             }
         }
 
+        impl std::default::Default for Schedule {
+            fn default() -> Self {
+                schedule::SCHEDULE_UNSPECIFIED
+            }
+        }
+
         /// Indicates the maintenance event state.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -1155,6 +1173,12 @@ pub mod cluster {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
             }
         }
     }
@@ -1245,7 +1269,7 @@ pub mod cluster {
         use super::*;
 
         /// The connection state.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -1283,10 +1307,16 @@ pub mod cluster {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// Indicates the status of the cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -1331,8 +1361,14 @@ pub mod cluster {
         }
     }
 
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
+        }
+    }
+
     /// The release channel a cluster is subscribed to.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReleaseChannel(std::borrow::Cow<'static, str>);
 
     impl ReleaseChannel {
@@ -1365,6 +1401,12 @@ pub mod cluster {
     impl std::convert::From<std::string::String> for ReleaseChannel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ReleaseChannel {
+        fn default() -> Self {
+            release_channel::RELEASE_CHANNEL_UNSPECIFIED
         }
     }
 }
@@ -2303,7 +2345,7 @@ pub mod vpn_connection {
         }
 
         /// The current connection state.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -2340,10 +2382,16 @@ pub mod vpn_connection {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// Routing mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BgpRoutingMode(std::borrow::Cow<'static, str>);
 
     impl BgpRoutingMode {
@@ -2376,6 +2424,12 @@ pub mod vpn_connection {
     impl std::convert::From<std::string::String> for BgpRoutingMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BgpRoutingMode {
+        fn default() -> Self {
+            bgp_routing_mode::BGP_ROUTING_MODE_UNSPECIFIED
         }
     }
 }
@@ -2489,7 +2543,7 @@ pub mod zone_metadata {
     use super::*;
 
     /// Type of the rack.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RackType(std::borrow::Cow<'static, str>);
 
     impl RackType {
@@ -2523,6 +2577,12 @@ pub mod zone_metadata {
     impl std::convert::From<std::string::String> for RackType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RackType {
+        fn default() -> Self {
+            rack_type::RACK_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3094,7 +3154,7 @@ pub mod operation_metadata {
     use super::*;
 
     /// Indicates the reason for the status of the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StatusReason(std::borrow::Cow<'static, str>);
 
     impl StatusReason {
@@ -3124,6 +3184,12 @@ pub mod operation_metadata {
     impl std::convert::From<std::string::String> for StatusReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StatusReason {
+        fn default() -> Self {
+            status_reason::STATUS_REASON_UNSPECIFIED
         }
     }
 }
@@ -3492,7 +3558,7 @@ pub mod upgrade_cluster_request {
     use super::*;
 
     /// Represents the schedule about when the cluster is going to be upgraded.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Schedule(std::borrow::Cow<'static, str>);
 
     impl Schedule {
@@ -3523,6 +3589,12 @@ pub mod upgrade_cluster_request {
     impl std::convert::From<std::string::String> for Schedule {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Schedule {
+        fn default() -> Self {
+            schedule::SCHEDULE_UNSPECIFIED
         }
     }
 }
@@ -4549,7 +4621,7 @@ impl wkt::message::Message for GetServerConfigRequest {
 
 /// Represents the accessibility state of a customer-managed KMS key used for
 /// CMEK integration.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KmsKeyState(std::borrow::Cow<'static, str>);
 
 impl KmsKeyState {
@@ -4588,8 +4660,14 @@ impl std::convert::From<std::string::String> for KmsKeyState {
     }
 }
 
+impl std::default::Default for KmsKeyState {
+    fn default() -> Self {
+        kms_key_state::KMS_KEY_STATE_UNSPECIFIED
+    }
+}
+
 /// Represents if the resource is in lock down state or pending.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ResourceState(std::borrow::Cow<'static, str>);
 
 impl ResourceState {
@@ -4624,5 +4702,11 @@ pub mod resource_state {
 impl std::convert::From<std::string::String> for ResourceState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ResourceState {
+    fn default() -> Self {
+        resource_state::RESOURCE_STATE_UNSPECIFIED
     }
 }

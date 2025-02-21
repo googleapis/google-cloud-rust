@@ -630,7 +630,7 @@ pub mod instance {
     }
 
     /// Possible states of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -671,8 +671,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Possible authorization modes of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AuthorizationMode(std::borrow::Cow<'static, str>);
 
     impl AuthorizationMode {
@@ -708,8 +714,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for AuthorizationMode {
+        fn default() -> Self {
+            authorization_mode::AUTHORIZATION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Possible in-transit encryption modes of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TransitEncryptionMode(std::borrow::Cow<'static, str>);
 
     impl TransitEncryptionMode {
@@ -747,10 +759,16 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for TransitEncryptionMode {
+        fn default() -> Self {
+            transit_encryption_mode::TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Possible node types of the instance. See
     /// <https://cloud.google.com/memorystore/docs/valkey/instance-node-specification>
     /// for more information.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NodeType(std::borrow::Cow<'static, str>);
 
     impl NodeType {
@@ -791,8 +809,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for NodeType {
+        fn default() -> Self {
+            node_type::NODE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The mode config, which is used to enable/disable cluster mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -827,6 +851,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
         }
     }
 }
@@ -1296,7 +1326,7 @@ pub mod persistence_config {
         use super::*;
 
         /// Possible snapshot periods.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SnapshotPeriod(std::borrow::Cow<'static, str>);
 
         impl SnapshotPeriod {
@@ -1335,6 +1365,12 @@ pub mod persistence_config {
         impl std::convert::From<std::string::String> for SnapshotPeriod {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SnapshotPeriod {
+            fn default() -> Self {
+                snapshot_period::SNAPSHOT_PERIOD_UNSPECIFIED
             }
         }
     }
@@ -1378,7 +1414,7 @@ pub mod persistence_config {
         use super::*;
 
         /// Possible fsync modes.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct AppendFsync(std::borrow::Cow<'static, str>);
 
         impl AppendFsync {
@@ -1419,10 +1455,16 @@ pub mod persistence_config {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for AppendFsync {
+            fn default() -> Self {
+                append_fsync::APPEND_FSYNC_UNSPECIFIED
+            }
+        }
     }
 
     /// Possible persistence modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PersistenceMode(std::borrow::Cow<'static, str>);
 
     impl PersistenceMode {
@@ -1458,6 +1500,12 @@ pub mod persistence_config {
     impl std::convert::From<std::string::String> for PersistenceMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PersistenceMode {
+        fn default() -> Self {
+            persistence_mode::PERSISTENCE_MODE_UNSPECIFIED
         }
     }
 }
@@ -1540,7 +1588,7 @@ pub mod zone_distribution_config {
     use super::*;
 
     /// Possible zone distribution modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ZoneDistributionMode(std::borrow::Cow<'static, str>);
 
     impl ZoneDistributionMode {
@@ -1574,6 +1622,12 @@ pub mod zone_distribution_config {
     impl std::convert::From<std::string::String> for ZoneDistributionMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ZoneDistributionMode {
+        fn default() -> Self {
+            zone_distribution_mode::ZONE_DISTRIBUTION_MODE_UNSPECIFIED
         }
     }
 }
@@ -2267,7 +2321,7 @@ impl wkt::message::Message for OperationMetadata {
 }
 
 /// Status of the PSC connection.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PscConnectionStatus(std::borrow::Cow<'static, str>);
 
 impl PscConnectionStatus {
@@ -2303,8 +2357,14 @@ impl std::convert::From<std::string::String> for PscConnectionStatus {
     }
 }
 
+impl std::default::Default for PscConnectionStatus {
+    fn default() -> Self {
+        psc_connection_status::PSC_CONNECTION_STATUS_UNSPECIFIED
+    }
+}
+
 /// Type of a PSC connection
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConnectionType(std::borrow::Cow<'static, str>);
 
 impl ConnectionType {
@@ -2343,5 +2403,11 @@ pub mod connection_type {
 impl std::convert::From<std::string::String> for ConnectionType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ConnectionType {
+    fn default() -> Self {
+        connection_type::CONNECTION_TYPE_UNSPECIFIED
     }
 }

@@ -333,7 +333,7 @@ pub mod finding {
     use super::*;
 
     /// The severity level of a vulnerability.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -371,6 +371,12 @@ pub mod finding {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -716,7 +722,7 @@ pub mod xss {
     use super::*;
 
     /// Types of XSS attack vector.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttackVector(std::borrow::Cow<'static, str>);
 
     impl AttackVector {
@@ -791,6 +797,12 @@ pub mod xss {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for AttackVector {
+        fn default() -> Self {
+            attack_vector::ATTACK_VECTOR_UNSPECIFIED
+        }
+    }
 }
 
 /// Information reported for an XXE.
@@ -841,7 +853,7 @@ pub mod xxe {
     use super::*;
 
     /// Locations within a request where XML was substituted.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Location(std::borrow::Cow<'static, str>);
 
     impl Location {
@@ -870,6 +882,12 @@ pub mod xxe {
     impl std::convert::From<std::string::String> for Location {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Location {
+        fn default() -> Self {
+            location::LOCATION_UNSPECIFIED
         }
     }
 }
@@ -1538,7 +1556,7 @@ pub mod scan_config {
     }
 
     /// Type of user agents used for scanning.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UserAgent(std::borrow::Cow<'static, str>);
 
     impl UserAgent {
@@ -1576,10 +1594,16 @@ pub mod scan_config {
         }
     }
 
+    impl std::default::Default for UserAgent {
+        fn default() -> Self {
+            user_agent::USER_AGENT_UNSPECIFIED
+        }
+    }
+
     /// Scan risk levels supported by Web Security Scanner. LOW impact
     /// scanning will minimize requests with the potential to modify data. To
     /// achieve the maximum scan coverage, NORMAL risk level is recommended.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RiskLevel(std::borrow::Cow<'static, str>);
 
     impl RiskLevel {
@@ -1614,9 +1638,15 @@ pub mod scan_config {
         }
     }
 
+    impl std::default::Default for RiskLevel {
+        fn default() -> Self {
+            risk_level::RISK_LEVEL_UNSPECIFIED
+        }
+    }
+
     /// Controls export of scan configurations and results to Security
     /// Command Center.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExportToSecurityCommandCenter(std::borrow::Cow<'static, str>);
 
     impl ExportToSecurityCommandCenter {
@@ -1651,6 +1681,12 @@ pub mod scan_config {
     impl std::convert::From<std::string::String> for ExportToSecurityCommandCenter {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ExportToSecurityCommandCenter {
+        fn default() -> Self {
+            export_to_security_command_center::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED
         }
     }
 }
@@ -1710,7 +1746,7 @@ pub mod scan_config_error {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 44
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -1893,6 +1929,12 @@ pub mod scan_config_error {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
+        }
+    }
 }
 
 /// A ScanRun is a output-only resource representing an actual run of the scan.
@@ -2061,7 +2103,7 @@ pub mod scan_run {
     use super::*;
 
     /// Types of ScanRun execution state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExecutionState(std::borrow::Cow<'static, str>);
 
     impl ExecutionState {
@@ -2101,8 +2143,14 @@ pub mod scan_run {
         }
     }
 
+    impl std::default::Default for ExecutionState {
+        fn default() -> Self {
+            execution_state::EXECUTION_STATE_UNSPECIFIED
+        }
+    }
+
     /// Types of ScanRun result state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResultState(std::borrow::Cow<'static, str>);
 
     impl ResultState {
@@ -2139,6 +2187,12 @@ pub mod scan_run {
     impl std::convert::From<std::string::String> for ResultState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResultState {
+        fn default() -> Self {
+            result_state::RESULT_STATE_UNSPECIFIED
         }
     }
 }
@@ -2211,7 +2265,7 @@ pub mod scan_run_error_trace {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 8
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -2260,6 +2314,12 @@ pub mod scan_run_error_trace {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
         }
     }
 }
@@ -2412,7 +2472,7 @@ pub mod scan_run_warning_trace {
     /// Output only.
     /// Defines a warning message code.
     /// Next id: 6
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -2459,6 +2519,12 @@ pub mod scan_run_warning_trace {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::CODE_UNSPECIFIED
         }
     }
 }

@@ -3999,7 +3999,7 @@ pub mod spec {
     /// - `STRICT`: Parsing errors in the specification content result in failure
     ///   of the API call.
     ///   If not specified, defaults to `RELAXED`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ParsingMode(std::borrow::Cow<'static, str>);
 
     impl ParsingMode {
@@ -4034,6 +4034,12 @@ pub mod spec {
     impl std::convert::From<std::string::String> for ParsingMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ParsingMode {
+        fn default() -> Self {
+            parsing_mode::PARSING_MODE_UNSPECIFIED
         }
     }
 }
@@ -4520,7 +4526,7 @@ pub mod definition {
     use super::*;
 
     /// Enumeration of definition types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -4549,6 +4555,12 @@ pub mod definition {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 
@@ -4799,7 +4811,7 @@ pub mod attribute {
     }
 
     /// Enumeration of attribute definition types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DefinitionType(std::borrow::Cow<'static, str>);
 
     impl DefinitionType {
@@ -4836,9 +4848,15 @@ pub mod attribute {
         }
     }
 
+    impl std::default::Default for DefinitionType {
+        fn default() -> Self {
+            definition_type::DEFINITION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Enumeration for the scope of the attribute representing the resource in the
     /// API Hub to which the attribute can be linked.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
@@ -4894,8 +4912,14 @@ pub mod attribute {
         }
     }
 
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            scope::SCOPE_UNSPECIFIED
+        }
+    }
+
     /// Enumeration of attribute's data type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataType(std::borrow::Cow<'static, str>);
 
     impl DataType {
@@ -4930,6 +4954,12 @@ pub mod attribute {
     impl std::convert::From<std::string::String> for DataType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataType {
+        fn default() -> Self {
+            data_type::DATA_TYPE_UNSPECIFIED
         }
     }
 }
@@ -5137,7 +5167,7 @@ pub mod open_api_spec_details {
     use super::*;
 
     /// Enumeration of spec formats.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
@@ -5172,6 +5202,12 @@ pub mod open_api_spec_details {
     impl std::convert::From<std::string::String> for Format {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            format::FORMAT_UNSPECIFIED
         }
     }
 }
@@ -5343,7 +5379,7 @@ pub mod http_operation {
     use super::*;
 
     /// Enumeration of Method types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
@@ -5393,6 +5429,12 @@ pub mod http_operation {
     impl std::convert::From<std::string::String> for Method {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            method::METHOD_UNSPECIFIED
         }
     }
 }
@@ -5945,7 +5987,7 @@ pub mod dependency {
     use super::*;
 
     /// Possible states for a dependency.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5982,8 +6024,14 @@ pub mod dependency {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Possible modes of discovering the dependency.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiscoveryMode(std::borrow::Cow<'static, str>);
 
     impl DiscoveryMode {
@@ -6013,6 +6061,12 @@ pub mod dependency {
     impl std::convert::From<std::string::String> for DiscoveryMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DiscoveryMode {
+        fn default() -> Self {
+            discovery_mode::DISCOVERY_MODE_UNSPECIFIED
         }
     }
 }
@@ -6194,7 +6248,7 @@ pub mod dependency_error_detail {
     use super::*;
 
     /// Possible values representing an error in the dependency.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Error(std::borrow::Cow<'static, str>);
 
     impl Error {
@@ -6226,6 +6280,12 @@ pub mod dependency_error_detail {
     impl std::convert::From<std::string::String> for Error {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Error {
+        fn default() -> Self {
+            error::ERROR_UNSPECIFIED
         }
     }
 }
@@ -6786,7 +6846,7 @@ pub mod api_hub_instance {
     }
 
     /// State of the ApiHub Instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6830,6 +6890,12 @@ pub mod api_hub_instance {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -7622,7 +7688,7 @@ pub mod plugin {
     /// Possible states a plugin can have. Note that this enum may receive new
     /// values in the future. Consumers are advised to always code against the
     /// enum values expecting new states can be added later on.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7654,6 +7720,12 @@ pub mod plugin {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8360,7 +8432,7 @@ impl wkt::message::Message for RuntimeProjectAttachment {
 }
 
 /// Lint state represents success or failure for linting.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LintState(std::borrow::Cow<'static, str>);
 
 impl LintState {
@@ -8395,8 +8467,14 @@ impl std::convert::From<std::string::String> for LintState {
     }
 }
 
+impl std::default::Default for LintState {
+    fn default() -> Self {
+        lint_state::LINT_STATE_UNSPECIFIED
+    }
+}
+
 /// Enumeration of linter types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Linter(std::borrow::Cow<'static, str>);
 
 impl Linter {
@@ -8431,8 +8509,14 @@ impl std::convert::From<std::string::String> for Linter {
     }
 }
 
+impl std::default::Default for Linter {
+    fn default() -> Self {
+        linter::LINTER_UNSPECIFIED
+    }
+}
+
 /// Severity of the issue.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Severity(std::borrow::Cow<'static, str>);
 
 impl Severity {
@@ -8470,5 +8554,11 @@ pub mod severity {
 impl std::convert::From<std::string::String> for Severity {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Severity {
+    fn default() -> Self {
+        severity::SEVERITY_UNSPECIFIED
     }
 }

@@ -241,7 +241,7 @@ pub mod function {
     use super::*;
 
     /// Describes the current state of the function.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -283,6 +283,12 @@ pub mod function {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -345,7 +351,7 @@ pub mod state_message {
     use super::*;
 
     /// Severity of the state message.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -380,6 +386,12 @@ pub mod state_message {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -1086,7 +1098,7 @@ pub mod build_config {
     use super::*;
 
     /// Docker Registry to use for storing function Docker images.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DockerRegistry(std::borrow::Cow<'static, str>);
 
     impl DockerRegistry {
@@ -1124,6 +1136,12 @@ pub mod build_config {
     impl std::convert::From<std::string::String> for DockerRegistry {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DockerRegistry {
+        fn default() -> Self {
+            docker_registry::DOCKER_REGISTRY_UNSPECIFIED
         }
     }
 
@@ -1436,7 +1454,7 @@ pub mod service_config {
     ///
     /// This controls what traffic is diverted through the VPC Access Connector
     /// resource. By default PRIVATE_RANGES_ONLY will be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VpcConnectorEgressSettings(std::borrow::Cow<'static, str>);
 
     impl VpcConnectorEgressSettings {
@@ -1475,12 +1493,18 @@ pub mod service_config {
         }
     }
 
+    impl std::default::Default for VpcConnectorEgressSettings {
+        fn default() -> Self {
+            vpc_connector_egress_settings::VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED
+        }
+    }
+
     /// Available ingress settings.
     ///
     /// This controls what traffic can reach the function.
     ///
     /// If unspecified, ALLOW_ALL will be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IngressSettings(std::borrow::Cow<'static, str>);
 
     impl IngressSettings {
@@ -1521,13 +1545,19 @@ pub mod service_config {
         }
     }
 
+    impl std::default::Default for IngressSettings {
+        fn default() -> Self {
+            ingress_settings::INGRESS_SETTINGS_UNSPECIFIED
+        }
+    }
+
     /// Available security level settings.
     ///
     /// This enforces security protocol on function URL.
     ///
     /// Security level is only configurable for 1st Gen functions, If unspecified,
     /// SECURE_OPTIONAL will be used. 2nd Gen functions are SECURE_ALWAYS ONLY.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SecurityLevel(std::borrow::Cow<'static, str>);
 
     impl SecurityLevel {
@@ -1564,6 +1594,12 @@ pub mod service_config {
     impl std::convert::From<std::string::String> for SecurityLevel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SecurityLevel {
+        fn default() -> Self {
+            security_level::SECURITY_LEVEL_UNSPECIFIED
         }
     }
 }
@@ -1911,7 +1947,7 @@ pub mod event_trigger {
 
     /// Describes the retry policy in case of function's execution failure.
     /// Retried execution is charged as any other execution.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RetryPolicy(std::borrow::Cow<'static, str>);
 
     impl RetryPolicy {
@@ -1946,6 +1982,12 @@ pub mod event_trigger {
     impl std::convert::From<std::string::String> for RetryPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RetryPolicy {
+        fn default() -> Self {
+            retry_policy::RETRY_POLICY_UNSPECIFIED
         }
     }
 }
@@ -2711,7 +2753,7 @@ pub mod list_runtimes_response {
     }
 
     /// The various stages that a runtime can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RuntimeStage(std::borrow::Cow<'static, str>);
 
     impl RuntimeStage {
@@ -2756,6 +2798,12 @@ pub mod list_runtimes_response {
     impl std::convert::From<std::string::String> for RuntimeStage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RuntimeStage {
+        fn default() -> Self {
+            runtime_stage::RUNTIME_STAGE_UNSPECIFIED
         }
     }
 }
@@ -3095,7 +3143,7 @@ pub mod stage {
     use super::*;
 
     /// Possible names for a Stage
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Name(std::borrow::Cow<'static, str>);
 
     impl Name {
@@ -3142,8 +3190,14 @@ pub mod stage {
         }
     }
 
+    impl std::default::Default for Name {
+        fn default() -> Self {
+            name::NAME_UNSPECIFIED
+        }
+    }
+
     /// Possible states for a Stage
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3180,10 +3234,16 @@ pub mod stage {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
 }
 
 /// The type of the long running operation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperationType(std::borrow::Cow<'static, str>);
 
 impl OperationType {
@@ -3222,8 +3282,14 @@ impl std::convert::From<std::string::String> for OperationType {
     }
 }
 
+impl std::default::Default for OperationType {
+    fn default() -> Self {
+        operation_type::OPERATIONTYPE_UNSPECIFIED
+    }
+}
+
 /// The environment the function is hosted on.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Environment(std::borrow::Cow<'static, str>);
 
 impl Environment {
@@ -3255,5 +3321,11 @@ pub mod environment {
 impl std::convert::From<std::string::String> for Environment {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Environment {
+    fn default() -> Self {
+        environment::ENVIRONMENT_UNSPECIFIED
     }
 }

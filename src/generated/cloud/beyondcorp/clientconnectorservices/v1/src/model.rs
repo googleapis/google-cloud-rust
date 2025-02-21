@@ -339,7 +339,7 @@ pub mod client_connector_service {
             }
 
             /// The protocol used to connect to the server.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct TransportProtocol(std::borrow::Cow<'static, str>);
 
             impl TransportProtocol {
@@ -369,6 +369,12 @@ pub mod client_connector_service {
             impl std::convert::From<std::string::String> for TransportProtocol {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for TransportProtocol {
+                fn default() -> Self {
+                    transport_protocol::TRANSPORT_PROTOCOL_UNSPECIFIED
                 }
             }
         }
@@ -505,7 +511,7 @@ pub mod client_connector_service {
     }
 
     /// Represents the different states of a ClientConnectorService.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -551,6 +557,12 @@ pub mod client_connector_service {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

@@ -179,7 +179,7 @@ pub mod replica_info {
     /// Indicates the type of replica.  See the [replica types
     /// documentation](https://cloud.google.com/spanner/docs/replication#replica_types)
     /// for more details.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReplicaType(std::borrow::Cow<'static, str>);
 
     impl ReplicaType {
@@ -231,6 +231,12 @@ pub mod replica_info {
     impl std::convert::From<std::string::String> for ReplicaType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ReplicaType {
+        fn default() -> Self {
+            replica_type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -484,7 +490,7 @@ pub mod instance_config {
     use super::*;
 
     /// The type of this configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -519,8 +525,14 @@ pub mod instance_config {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Indicates the current state of the instance configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -556,9 +568,15 @@ pub mod instance_config {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Describes the availability for free instances to be created in an instance
     /// configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FreeInstanceAvailability(std::borrow::Cow<'static, str>);
 
     impl FreeInstanceAvailability {
@@ -607,8 +625,14 @@ pub mod instance_config {
         }
     }
 
+    impl std::default::Default for FreeInstanceAvailability {
+        fn default() -> Self {
+            free_instance_availability::FREE_INSTANCE_AVAILABILITY_UNSPECIFIED
+        }
+    }
+
     /// Indicates the quorum type of this instance configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct QuorumType(std::borrow::Cow<'static, str>);
 
     impl QuorumType {
@@ -651,6 +675,12 @@ pub mod instance_config {
     impl std::convert::From<std::string::String> for QuorumType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for QuorumType {
+        fn default() -> Self {
+            quorum_type::QUORUM_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1530,7 +1560,7 @@ pub mod instance {
     use super::*;
 
     /// Indicates the current state of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1568,11 +1598,17 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The type of this instance. The type can be used to distinguish product
     /// variants, that can affect aspects like: usage restrictions, quotas and
     /// billing. Currently this is used to distinguish FREE_INSTANCE vs PROVISIONED
     /// instances.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceType(std::borrow::Cow<'static, str>);
 
     impl InstanceType {
@@ -1611,9 +1647,15 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for InstanceType {
+        fn default() -> Self {
+            instance_type::INSTANCE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The edition selected for this instance. Different editions provide
     /// different capabilities at different price points.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Edition(std::borrow::Cow<'static, str>);
 
     impl Edition {
@@ -1651,11 +1693,17 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            edition::EDITION_UNSPECIFIED
+        }
+    }
+
     /// Indicates the
     /// [default backup
     /// schedule](https://cloud.google.com/spanner/docs/backup#default-backup-schedules)
     /// behavior for new databases within the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DefaultBackupScheduleType(std::borrow::Cow<'static, str>);
 
     impl DefaultBackupScheduleType {
@@ -1693,6 +1741,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for DefaultBackupScheduleType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DefaultBackupScheduleType {
+        fn default() -> Self {
+            default_backup_schedule_type::DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2903,7 +2957,7 @@ pub mod free_instance_metadata {
     use super::*;
 
     /// Allows users to change behavior when a free instance expires.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExpireBehavior(std::borrow::Cow<'static, str>);
 
     impl ExpireBehavior {
@@ -2939,6 +2993,12 @@ pub mod free_instance_metadata {
     impl std::convert::From<std::string::String> for ExpireBehavior {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ExpireBehavior {
+        fn default() -> Self {
+            expire_behavior::EXPIRE_BEHAVIOR_UNSPECIFIED
         }
     }
 }
@@ -3314,7 +3374,7 @@ pub mod instance_partition {
     use super::*;
 
     /// Indicates the current state of the instance partition.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3349,6 +3409,12 @@ pub mod instance_partition {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -4281,7 +4347,7 @@ impl wkt::message::Message for MoveInstanceMetadata {
 }
 
 /// Indicates the expected fulfillment period of an operation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FulfillmentPeriod(std::borrow::Cow<'static, str>);
 
 impl FulfillmentPeriod {
@@ -4318,5 +4384,11 @@ pub mod fulfillment_period {
 impl std::convert::From<std::string::String> for FulfillmentPeriod {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for FulfillmentPeriod {
+    fn default() -> Self {
+        fulfillment_period::FULFILLMENT_PERIOD_UNSPECIFIED
     }
 }

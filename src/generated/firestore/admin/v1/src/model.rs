@@ -197,7 +197,7 @@ pub mod backup {
     }
 
     /// Indicate the current state of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -233,6 +233,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -983,7 +989,7 @@ pub mod database {
     /// information about how to choose.
     ///
     /// Mode changes are only allowed if the database is empty.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
     impl DatabaseType {
@@ -1019,8 +1025,14 @@ pub mod database {
         }
     }
 
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            database_type::DATABASE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The type of concurrency control mode for transactions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConcurrencyMode(std::borrow::Cow<'static, str>);
 
     impl ConcurrencyMode {
@@ -1069,8 +1081,14 @@ pub mod database {
         }
     }
 
+    impl std::default::Default for ConcurrencyMode {
+        fn default() -> Self {
+            concurrency_mode::CONCURRENCY_MODE_UNSPECIFIED
+        }
+    }
+
     /// Point In Time Recovery feature enablement.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PointInTimeRecoveryEnablement(std::borrow::Cow<'static, str>);
 
     impl PointInTimeRecoveryEnablement {
@@ -1116,8 +1134,14 @@ pub mod database {
         }
     }
 
+    impl std::default::Default for PointInTimeRecoveryEnablement {
+        fn default() -> Self {
+            point_in_time_recovery_enablement::POINT_IN_TIME_RECOVERY_ENABLEMENT_UNSPECIFIED
+        }
+    }
+
     /// The type of App Engine integration mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AppEngineIntegrationMode(std::borrow::Cow<'static, str>);
 
     impl AppEngineIntegrationMode {
@@ -1159,8 +1183,14 @@ pub mod database {
         }
     }
 
+    impl std::default::Default for AppEngineIntegrationMode {
+        fn default() -> Self {
+            app_engine_integration_mode::APP_ENGINE_INTEGRATION_MODE_UNSPECIFIED
+        }
+    }
+
     /// The delete protection state of the database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DeleteProtectionState(std::borrow::Cow<'static, str>);
 
     impl DeleteProtectionState {
@@ -1195,6 +1225,12 @@ pub mod database {
     impl std::convert::From<std::string::String> for DeleteProtectionState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DeleteProtectionState {
+        fn default() -> Self {
+            delete_protection_state::DELETE_PROTECTION_STATE_UNSPECIFIED
         }
     }
 }
@@ -1412,7 +1448,7 @@ pub mod field {
         use super::*;
 
         /// The state of applying the TTL configuration to all documents.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -1454,6 +1490,12 @@ pub mod field {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
             }
         }
     }
@@ -3439,7 +3481,7 @@ pub mod index {
         }
 
         /// The supported orderings.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Order(std::borrow::Cow<'static, str>);
 
         impl Order {
@@ -3474,8 +3516,14 @@ pub mod index {
             }
         }
 
+        impl std::default::Default for Order {
+            fn default() -> Self {
+                order::ORDER_UNSPECIFIED
+            }
+        }
+
         /// The supported array value configurations.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ArrayConfig(std::borrow::Cow<'static, str>);
 
         impl ArrayConfig {
@@ -3508,6 +3556,12 @@ pub mod index {
             }
         }
 
+        impl std::default::Default for ArrayConfig {
+            fn default() -> Self {
+                array_config::ARRAY_CONFIG_UNSPECIFIED
+            }
+        }
+
         /// How the field value is indexed.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -3526,7 +3580,7 @@ pub mod index {
 
     /// Query Scope defines the scope at which a query is run. This is specified on
     /// a StructuredQuery's `from` field.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct QueryScope(std::borrow::Cow<'static, str>);
 
     impl QueryScope {
@@ -3569,9 +3623,15 @@ pub mod index {
         }
     }
 
+    impl std::default::Default for QueryScope {
+        fn default() -> Self {
+            query_scope::QUERY_SCOPE_UNSPECIFIED
+        }
+    }
+
     /// API Scope defines the APIs (Firestore Native, or Firestore in
     /// Datastore Mode) that are supported for queries.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ApiScope(std::borrow::Cow<'static, str>);
 
     impl ApiScope {
@@ -3604,11 +3664,17 @@ pub mod index {
         }
     }
 
+    impl std::default::Default for ApiScope {
+        fn default() -> Self {
+            api_scope::ANY_API
+        }
+    }
+
     /// The state of an index. During index creation, an index will be in the
     /// `CREATING` state. If the index is created successfully, it will transition
     /// to the `READY` state. If the index creation encounters a problem, the index
     /// will transition to the `NEEDS_REPAIR` state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3655,6 +3721,12 @@ pub mod index {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3980,7 +4052,7 @@ pub mod field_operation_metadata {
         use super::*;
 
         /// Specifies how the index is changing.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ChangeType(std::borrow::Cow<'static, str>);
 
         impl ChangeType {
@@ -4013,6 +4085,12 @@ pub mod field_operation_metadata {
         impl std::convert::From<std::string::String> for ChangeType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ChangeType {
+            fn default() -> Self {
+                change_type::CHANGE_TYPE_UNSPECIFIED
             }
         }
     }
@@ -4058,7 +4136,7 @@ pub mod field_operation_metadata {
         use super::*;
 
         /// Specifies how the TTL config is changing.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ChangeType(std::borrow::Cow<'static, str>);
 
         impl ChangeType {
@@ -4091,6 +4169,12 @@ pub mod field_operation_metadata {
         impl std::convert::From<std::string::String> for ChangeType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ChangeType {
+            fn default() -> Self {
+                change_type::CHANGE_TYPE_UNSPECIFIED
             }
         }
     }
@@ -4932,7 +5016,7 @@ impl wkt::message::Message for WeeklyRecurrence {
 }
 
 /// Describes the state of the operation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperationState(std::borrow::Cow<'static, str>);
 
 impl OperationState {
@@ -4982,5 +5066,11 @@ pub mod operation_state {
 impl std::convert::From<std::string::String> for OperationState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for OperationState {
+    fn default() -> Self {
+        operation_state::OPERATION_STATE_UNSPECIFIED
     }
 }

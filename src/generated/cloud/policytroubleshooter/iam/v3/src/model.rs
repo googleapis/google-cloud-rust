@@ -163,7 +163,7 @@ pub mod troubleshoot_iam_policy_response {
     use super::*;
 
     /// Whether the principal has the permission on the resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OverallAccessState(std::borrow::Cow<'static, str>);
 
     impl OverallAccessState {
@@ -206,6 +206,12 @@ pub mod troubleshoot_iam_policy_response {
     impl std::convert::From<std::string::String> for OverallAccessState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OverallAccessState {
+        fn default() -> Self {
+            overall_access_state::OVERALL_ACCESS_STATE_UNSPECIFIED
         }
     }
 }
@@ -1846,7 +1852,7 @@ pub mod condition_explanation {
 }
 
 /// Whether IAM allow policies gives the principal the permission.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AllowAccessState(std::borrow::Cow<'static, str>);
 
 impl AllowAccessState {
@@ -1896,8 +1902,14 @@ impl std::convert::From<std::string::String> for AllowAccessState {
     }
 }
 
+impl std::default::Default for AllowAccessState {
+    fn default() -> Self {
+        allow_access_state::ALLOW_ACCESS_STATE_UNSPECIFIED
+    }
+}
+
 /// Whether IAM deny policies deny the principal the permission.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DenyAccessState(std::borrow::Cow<'static, str>);
 
 impl DenyAccessState {
@@ -1947,8 +1959,14 @@ impl std::convert::From<std::string::String> for DenyAccessState {
     }
 }
 
+impl std::default::Default for DenyAccessState {
+    fn default() -> Self {
+        deny_access_state::DENY_ACCESS_STATE_UNSPECIFIED
+    }
+}
+
 /// Whether a role includes a specific permission.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RolePermissionInclusionState(std::borrow::Cow<'static, str>);
 
 impl RolePermissionInclusionState {
@@ -1990,8 +2008,14 @@ impl std::convert::From<std::string::String> for RolePermissionInclusionState {
     }
 }
 
+impl std::default::Default for RolePermissionInclusionState {
+    fn default() -> Self {
+        role_permission_inclusion_state::ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED
+    }
+}
+
 /// Whether the permission in the request matches the permission in the policy.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PermissionPatternMatchingState(std::borrow::Cow<'static, str>);
 
 impl PermissionPatternMatchingState {
@@ -2029,8 +2053,14 @@ impl std::convert::From<std::string::String> for PermissionPatternMatchingState 
     }
 }
 
+impl std::default::Default for PermissionPatternMatchingState {
+    fn default() -> Self {
+        permission_pattern_matching_state::PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED
+    }
+}
+
 /// Whether the principal in the request matches the principal in the policy.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MembershipMatchingState(std::borrow::Cow<'static, str>);
 
 impl MembershipMatchingState {
@@ -2085,9 +2115,15 @@ impl std::convert::From<std::string::String> for MembershipMatchingState {
     }
 }
 
+impl std::default::Default for MembershipMatchingState {
+    fn default() -> Self {
+        membership_matching_state::MEMBERSHIP_MATCHING_STATE_UNSPECIFIED
+    }
+}
+
 /// The extent to which a single data point contributes to an overall
 /// determination.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
 
 impl HeuristicRelevance {
@@ -2124,5 +2160,11 @@ pub mod heuristic_relevance {
 impl std::convert::From<std::string::String> for HeuristicRelevance {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HeuristicRelevance {
+    fn default() -> Self {
+        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
     }
 }
