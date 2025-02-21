@@ -79,7 +79,7 @@ func TestAnnotateMethod(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	annotateMethod(method, model.State)
+	annotateMethod(method, model.State, map[string]*dartImport{})
 	codec := method.Codec.(*methodAnnotation)
 
 	got := codec.Name

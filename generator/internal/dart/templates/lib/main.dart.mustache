@@ -25,12 +25,13 @@ limitations under the License.
 {{/Codec.DocLines}}
 library;
 
-{{#Codec.PartFileReference}}
-part '{{Codec.PartFileReference}}';
-{{/Codec.PartFileReference}}
 {{#Codec.Imports}}
 {{{.}}}
 {{/Codec.Imports}}
+{{#Codec.PartFileReference}}
+
+part '{{Codec.PartFileReference}}';
+{{/Codec.PartFileReference}}
 {{#Services}}
 {{> service}}
 {{/Services}}
