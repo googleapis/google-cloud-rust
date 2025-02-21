@@ -21,4 +21,3 @@ include-list = "expr.proto"
 
 [codec]
 copyright-year = '2025'
-package-name-override = "google_cloud_type"

@@ -20,7 +20,12 @@ limitations under the License.
 
 name: {{Codec.PackageName}}
 description: The Google Cloud client library for the {{Title}}.
+{{^Codec.DoNotPublish}}
 version: {{Codec.PackageVersion}}
+{{/Codec.DoNotPublish}}
+{{#Codec.DoNotPublish}}
+publish_to: none
+{{/Codec.DoNotPublish}}
 
 environment: 
   sdk: ^3.6.0
