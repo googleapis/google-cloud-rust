@@ -173,16 +173,19 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		Name:          "week5",
 		ID:            ".test.v1.TestEnum.week5",
 		Documentation: "week5 is also documented.",
+		Number:        2,
 	}
 	v1 := &api.EnumValue{
 		Name:          "MULTI_WORD_VALUE",
 		ID:            ".test.v1.TestEnum.MULTI_WORD_VALUES",
 		Documentation: "MULTI_WORD_VALUE is also documented.",
+		Number:        1,
 	}
 	v2 := &api.EnumValue{
 		Name:          "VALUE",
 		ID:            ".test.v1.TestEnum.VALUE",
 		Documentation: "VALUE is also documented.",
+		Number:        0,
 	}
 	enum := &api.Enum{
 		Name:          "TestEnum",
@@ -200,9 +203,10 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	annotateModel(model, codec, "")
 
 	if diff := cmp.Diff(&enumAnnotation{
-		Name:       "TestEnum",
-		ModuleName: "test_enum",
-		DocLines:   []string{"/// The enum is documented."},
+		Name:             "TestEnum",
+		ModuleName:       "test_enum",
+		DocLines:         []string{"/// The enum is documented."},
+		DefaultValueName: "VALUE",
 	}, enum.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}

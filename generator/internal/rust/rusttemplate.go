@@ -172,9 +172,10 @@ type fieldAnnotations struct {
 }
 
 type enumAnnotation struct {
-	Name       string
-	ModuleName string
-	DocLines   []string
+	Name             string
+	ModuleName       string
+	DocLines         []string
+	DefaultValueName string
 }
 
 type enumValueAnnotation struct {
@@ -457,10 +458,18 @@ func annotateEnum(e *api.Enum, state *api.APIState, modulePath string, packageMa
 	for _, ev := range e.Values {
 		annotateEnumValue(ev, e, state, modulePath, packageMapping)
 	}
+	defaultValueName := ""
+	for _, ev := range e.Values {
+		if ev.Number == 0 {
+			defaultValueName = enumValueName(ev)
+			break
+		}
+	}
 	e.Codec = &enumAnnotation{
-		Name:       enumName(e),
-		ModuleName: toSnake(enumName(e)),
-		DocLines:   formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
+		Name:             enumName(e),
+		ModuleName:       toSnake(enumName(e)),
+		DocLines:         formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
+		DefaultValueName: defaultValueName,
 	}
 }
 
