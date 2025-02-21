@@ -88,7 +88,7 @@ pub mod metadata_exchange_request {
     use super::*;
 
     /// AuthType contains all supported authentication types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AuthType(std::borrow::Cow<'static, str>);
 
     impl AuthType {
@@ -120,6 +120,12 @@ pub mod metadata_exchange_request {
     impl std::convert::From<std::string::String> for AuthType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AuthType {
+        fn default() -> Self {
+            auth_type::AUTH_TYPE_UNSPECIFIED
         }
     }
 }
@@ -175,7 +181,7 @@ pub mod metadata_exchange_response {
     use super::*;
 
     /// Response code.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResponseCode(std::borrow::Cow<'static, str>);
 
     impl ResponseCode {
@@ -208,6 +214,12 @@ pub mod metadata_exchange_response {
     impl std::convert::From<std::string::String> for ResponseCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResponseCode {
+        fn default() -> Self {
+            response_code::RESPONSE_CODE_UNSPECIFIED
         }
     }
 }

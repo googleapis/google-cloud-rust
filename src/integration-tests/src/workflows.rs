@@ -73,8 +73,6 @@ main:
         .set_workflow(
             wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
-                .set_state(wf::model::workflow::state::UNAVAILABLE)
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
@@ -149,8 +147,6 @@ main:
         .set_workflow(
             wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
-                .set_state(wf::model::workflow::state::UNAVAILABLE)
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )

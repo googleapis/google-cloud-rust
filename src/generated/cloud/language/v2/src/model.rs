@@ -141,7 +141,7 @@ pub mod document {
     use super::*;
 
     /// The document types enum.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -173,6 +173,12 @@ pub mod document {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 
@@ -342,7 +348,7 @@ pub mod entity {
     /// The type of the entity. The table
     /// below lists the associated fields for entities that have different
     /// metadata.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -438,6 +444,12 @@ pub mod entity {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::UNKNOWN
         }
     }
 }
@@ -563,7 +575,7 @@ pub mod entity_mention {
     use super::*;
 
     /// The supported types of mentions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -595,6 +607,12 @@ pub mod entity_mention {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNKNOWN
         }
     }
 }
@@ -1050,7 +1068,7 @@ pub mod moderate_text_request {
     use super::*;
 
     /// The model version to use for ModerateText.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ModelVersion(std::borrow::Cow<'static, str>);
 
     impl ModelVersion {
@@ -1087,6 +1105,12 @@ pub mod moderate_text_request {
     impl std::convert::From<std::string::String> for ModelVersion {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ModelVersion {
+        fn default() -> Self {
+            model_version::MODEL_VERSION_UNSPECIFIED
         }
     }
 }
@@ -1404,7 +1428,7 @@ impl wkt::message::Message for AnnotateTextResponse {
 /// beginning offsets for various outputs, such as tokens and mentions, and
 /// languages that natively use different text encodings may access offsets
 /// differently.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EncodingType(std::borrow::Cow<'static, str>);
 
 impl EncodingType {
@@ -1446,5 +1470,11 @@ pub mod encoding_type {
 impl std::convert::From<std::string::String> for EncodingType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for EncodingType {
+    fn default() -> Self {
+        encoding_type::NONE
     }
 }

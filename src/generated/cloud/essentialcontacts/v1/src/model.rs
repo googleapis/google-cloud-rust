@@ -603,7 +603,7 @@ impl wkt::message::Message for SendTestMessageRequest {
 /// Each notification will be categorized by the sender into one of the following
 /// categories. All contacts that are subscribed to that category will receive
 /// the notification.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NotificationCategory(std::borrow::Cow<'static, str>);
 
 impl NotificationCategory {
@@ -665,9 +665,15 @@ impl std::convert::From<std::string::String> for NotificationCategory {
     }
 }
 
+impl std::default::Default for NotificationCategory {
+    fn default() -> Self {
+        notification_category::NOTIFICATION_CATEGORY_UNSPECIFIED
+    }
+}
+
 /// A contact's validation state indicates whether or not it is the correct
 /// contact to be receiving notifications for a particular resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ValidationState(std::borrow::Cow<'static, str>);
 
 impl ValidationState {
@@ -702,5 +708,11 @@ pub mod validation_state {
 impl std::convert::From<std::string::String> for ValidationState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ValidationState {
+    fn default() -> Self {
+        validation_state::VALIDATION_STATE_UNSPECIFIED
     }
 }

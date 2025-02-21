@@ -131,7 +131,7 @@ pub mod big_query_connection_spec {
     use super::*;
 
     /// The type of the BigQuery connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectionType(std::borrow::Cow<'static, str>);
 
     impl ConnectionType {
@@ -161,6 +161,12 @@ pub mod big_query_connection_spec {
     impl std::convert::From<std::string::String> for ConnectionType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConnectionType {
+        fn default() -> Self {
+            connection_type::CONNECTION_TYPE_UNSPECIFIED
         }
     }
 
@@ -233,7 +239,7 @@ pub mod cloud_sql_big_query_connection_spec {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
     impl DatabaseType {
@@ -266,6 +272,12 @@ pub mod cloud_sql_big_query_connection_spec {
     impl std::convert::From<std::string::String> for DatabaseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            database_type::DATABASE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -450,7 +462,7 @@ pub mod data_source {
     use super::*;
 
     /// Name of a service that stores the data.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Service(std::borrow::Cow<'static, str>);
 
     impl Service {
@@ -482,6 +494,12 @@ pub mod data_source {
     impl std::convert::From<std::string::String> for Service {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Service {
+        fn default() -> Self {
+            service::SERVICE_UNSPECIFIED
         }
     }
 
@@ -2728,7 +2746,7 @@ pub mod database_table_spec {
         use super::*;
 
         /// Concrete type of the view.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ViewType(std::borrow::Cow<'static, str>);
 
         impl ViewType {
@@ -2763,6 +2781,12 @@ pub mod database_table_spec {
             }
         }
 
+        impl std::default::Default for ViewType {
+            fn default() -> Self {
+                view_type::VIEW_TYPE_UNSPECIFIED
+            }
+        }
+
         /// Definition of the view.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -2776,7 +2800,7 @@ pub mod database_table_spec {
     }
 
     /// Type of the table.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TableType(std::borrow::Cow<'static, str>);
 
     impl TableType {
@@ -2808,6 +2832,12 @@ pub mod database_table_spec {
     impl std::convert::From<std::string::String> for TableType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TableType {
+        fn default() -> Self {
+            table_type::TABLE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3079,7 +3109,7 @@ pub mod routine_spec {
         use super::*;
 
         /// The input or output mode of the argument.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Mode(std::borrow::Cow<'static, str>);
 
         impl Mode {
@@ -3116,10 +3146,16 @@ pub mod routine_spec {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                mode::MODE_UNSPECIFIED
+            }
+        }
     }
 
     /// The fine-grained type of the routine.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RoutineType(std::borrow::Cow<'static, str>);
 
     impl RoutineType {
@@ -3152,6 +3188,12 @@ pub mod routine_spec {
     impl std::convert::From<std::string::String> for RoutineType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RoutineType {
+        fn default() -> Self {
+            routine_type::ROUTINE_TYPE_UNSPECIFIED
         }
     }
 
@@ -3689,7 +3731,7 @@ pub mod vertex_model_source_info {
     use super::*;
 
     /// Source of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ModelSourceType(std::borrow::Cow<'static, str>);
 
     impl ModelSourceType {
@@ -3738,6 +3780,12 @@ pub mod vertex_model_source_info {
     impl std::convert::From<std::string::String> for ModelSourceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ModelSourceType {
+        fn default() -> Self {
+            model_source_type::MODEL_SOURCE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3877,7 +3925,7 @@ pub mod vertex_dataset_spec {
     use super::*;
 
     /// Type of data stored in the dataset.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataType(std::borrow::Cow<'static, str>);
 
     impl DataType {
@@ -3944,6 +3992,12 @@ pub mod vertex_dataset_spec {
     impl std::convert::From<std::string::String> for DataType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataType {
+        fn default() -> Self {
+            data_type::DATA_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4070,7 +4124,7 @@ pub mod feature_online_store_spec {
     use super::*;
 
     /// Type of underlaying storage type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(std::borrow::Cow<'static, str>);
 
     impl StorageType {
@@ -4103,6 +4157,12 @@ pub mod feature_online_store_spec {
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StorageType {
+        fn default() -> Self {
+            storage_type::STORAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -5278,7 +5338,7 @@ pub mod reconcile_tags_metadata {
     use super::*;
 
     /// Enum holding possible states of the reconciliation operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReconciliationState(std::borrow::Cow<'static, str>);
 
     impl ReconciliationState {
@@ -5317,6 +5377,12 @@ pub mod reconcile_tags_metadata {
     impl std::convert::From<std::string::String> for ReconciliationState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ReconciliationState {
+        fn default() -> Self {
+            reconciliation_state::RECONCILIATION_STATE_UNSPECIFIED
         }
     }
 }
@@ -5776,7 +5842,7 @@ pub mod import_entries_metadata {
     use super::*;
 
     /// Enum holding possible states of the import operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ImportState(std::borrow::Cow<'static, str>);
 
     impl ImportState {
@@ -5815,6 +5881,12 @@ pub mod import_entries_metadata {
     impl std::convert::From<std::string::String> for ImportState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ImportState {
+        fn default() -> Self {
+            import_state::IMPORT_STATE_UNSPECIFIED
         }
     }
 }
@@ -7308,7 +7380,7 @@ pub mod taxonomy {
     }
 
     /// Defines policy types where the policy tags can be used for.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyType(std::borrow::Cow<'static, str>);
 
     impl PolicyType {
@@ -7339,6 +7411,12 @@ pub mod taxonomy {
     impl std::convert::From<std::string::String> for PolicyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PolicyType {
+        fn default() -> Self {
+            policy_type::POLICY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -8863,7 +8941,7 @@ pub mod column_schema {
         use super::*;
 
         /// Column type in Looker.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct LookerColumnType(std::borrow::Cow<'static, str>);
 
         impl LookerColumnType {
@@ -8907,6 +8985,12 @@ pub mod column_schema {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for LookerColumnType {
+            fn default() -> Self {
+                looker_column_type::LOOKER_COLUMN_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Represents the type of a field element.
@@ -8943,7 +9027,7 @@ pub mod column_schema {
     }
 
     /// Specifies inclusion of the column in an index
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IndexingType(std::borrow::Cow<'static, str>);
 
     impl IndexingType {
@@ -8984,6 +9068,12 @@ pub mod column_schema {
     impl std::convert::From<std::string::String> for IndexingType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for IndexingType {
+        fn default() -> Self {
+            indexing_type::INDEXING_TYPE_UNSPECIFIED
         }
     }
 
@@ -10042,7 +10132,7 @@ pub mod tag_template {
     use super::*;
 
     /// This enum describes TagTemplate transfer status to Dataplex service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataplexTransferStatus(std::borrow::Cow<'static, str>);
 
     impl DataplexTransferStatus {
@@ -10080,6 +10170,12 @@ pub mod tag_template {
     impl std::convert::From<std::string::String> for DataplexTransferStatus {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DataplexTransferStatus {
+        fn default() -> Self {
+            dataplex_transfer_status::DATAPLEX_TRANSFER_STATUS_UNSPECIFIED
         }
     }
 }
@@ -10361,7 +10457,7 @@ pub mod field_type {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PrimitiveType(std::borrow::Cow<'static, str>);
 
     impl PrimitiveType {
@@ -10403,6 +10499,12 @@ pub mod field_type {
     impl std::convert::From<std::string::String> for PrimitiveType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PrimitiveType {
+        fn default() -> Self {
+            primitive_type::PRIMITIVE_TYPE_UNSPECIFIED
         }
     }
 
@@ -10673,7 +10775,7 @@ impl wkt::message::Message for UsageSignal {
 }
 
 /// This enum lists all the systems that Data Catalog integrates with.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IntegratedSystem(std::borrow::Cow<'static, str>);
 
 impl IntegratedSystem {
@@ -10730,9 +10832,15 @@ impl std::convert::From<std::string::String> for IntegratedSystem {
     }
 }
 
+impl std::default::Default for IntegratedSystem {
+    fn default() -> Self {
+        integrated_system::INTEGRATED_SYSTEM_UNSPECIFIED
+    }
+}
+
 /// This enum describes all the systems that manage
 /// Taxonomy and PolicyTag resources in DataCatalog.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ManagingSystem(std::borrow::Cow<'static, str>);
 
 impl ManagingSystem {
@@ -10769,6 +10877,12 @@ impl std::convert::From<std::string::String> for ManagingSystem {
     }
 }
 
+impl std::default::Default for ManagingSystem {
+    fn default() -> Self {
+        managing_system::MANAGING_SYSTEM_UNSPECIFIED
+    }
+}
+
 /// Metadata automatically ingested from Google Cloud resources like BigQuery
 /// tables or Pub/Sub topics always uses enum values from `EntryType` as the type
 /// of entry.
@@ -10781,7 +10895,7 @@ impl std::convert::From<std::string::String> for ManagingSystem {
 /// [Surface files from Cloud Storage with fileset
 /// entries](/data-catalog/docs/how-to/filesets) or [Create custom entries for
 /// your data sources](/data-catalog/docs/how-to/custom-entries).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntryType(std::borrow::Cow<'static, str>);
 
 impl EntryType {
@@ -10876,9 +10990,15 @@ impl std::convert::From<std::string::String> for EntryType {
     }
 }
 
+impl std::default::Default for EntryType {
+    fn default() -> Self {
+        entry_type::ENTRY_TYPE_UNSPECIFIED
+    }
+}
+
 /// Configuration related to the opt-in status for the migration of TagTemplates
 /// to Dataplex.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TagTemplateMigration(std::borrow::Cow<'static, str>);
 
 impl TagTemplateMigration {
@@ -10917,8 +11037,14 @@ impl std::convert::From<std::string::String> for TagTemplateMigration {
     }
 }
 
+impl std::default::Default for TagTemplateMigration {
+    fn default() -> Self {
+        tag_template_migration::TAG_TEMPLATE_MIGRATION_UNSPECIFIED
+    }
+}
+
 /// Configuration related to the opt-in status for the UI switch to Dataplex.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CatalogUIExperience(std::borrow::Cow<'static, str>);
 
 impl CatalogUIExperience {
@@ -10956,8 +11082,14 @@ impl std::convert::From<std::string::String> for CatalogUIExperience {
     }
 }
 
+impl std::default::Default for CatalogUIExperience {
+    fn default() -> Self {
+        catalog_ui_experience::CATALOG_UI_EXPERIENCE_UNSPECIFIED
+    }
+}
+
 /// The resource types that can be returned in search results.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SearchResultType(std::borrow::Cow<'static, str>);
 
 impl SearchResultType {
@@ -11002,8 +11134,14 @@ impl std::convert::From<std::string::String> for SearchResultType {
     }
 }
 
+impl std::default::Default for SearchResultType {
+    fn default() -> Self {
+        search_result_type::SEARCH_RESULT_TYPE_UNSPECIFIED
+    }
+}
+
 /// Table source type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TableSourceType(std::borrow::Cow<'static, str>);
 
 impl TableSourceType {
@@ -11040,5 +11178,11 @@ pub mod table_source_type {
 impl std::convert::From<std::string::String> for TableSourceType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for TableSourceType {
+    fn default() -> Self {
+        table_source_type::TABLE_SOURCE_TYPE_UNSPECIFIED
     }
 }

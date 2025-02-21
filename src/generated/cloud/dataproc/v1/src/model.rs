@@ -1434,7 +1434,7 @@ pub mod batch {
     }
 
     /// The batch state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1478,6 +1478,12 @@ pub mod batch {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -2984,7 +2990,7 @@ pub mod gce_cluster_config {
     /// These values are directly mapped to corresponding values in the
     /// [Compute Engine Instance
     /// fields](https://cloud.google.com/compute/docs/reference/rest/v1/instances).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PrivateIpv6GoogleAccess(std::borrow::Cow<'static, str>);
 
     impl PrivateIpv6GoogleAccess {
@@ -3030,6 +3036,12 @@ pub mod gce_cluster_config {
     impl std::convert::From<std::string::String> for PrivateIpv6GoogleAccess {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PrivateIpv6GoogleAccess {
+        fn default() -> Self {
+            private_ipv_6_google_access::PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED
         }
     }
 }
@@ -3433,7 +3445,7 @@ pub mod instance_group_config {
     use super::*;
 
     /// Controls the use of preemptible instances within the group.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Preemptibility(std::borrow::Cow<'static, str>);
 
     impl Preemptibility {
@@ -3485,6 +3497,12 @@ pub mod instance_group_config {
     impl std::convert::From<std::string::String> for Preemptibility {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Preemptibility {
+        fn default() -> Self {
+            preemptibility::PREEMPTIBILITY_UNSPECIFIED
         }
     }
 }
@@ -4186,7 +4204,7 @@ pub mod node_group {
     use super::*;
 
     /// Node pool roles.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Role(std::borrow::Cow<'static, str>);
 
     impl Role {
@@ -4215,6 +4233,12 @@ pub mod node_group {
     impl std::convert::From<std::string::String> for Role {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            role::ROLE_UNSPECIFIED
         }
     }
 }
@@ -4342,7 +4366,7 @@ pub mod cluster_status {
     use super::*;
 
     /// The cluster state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4406,8 +4430,14 @@ pub mod cluster_status {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::UNKNOWN
+        }
+    }
+
     /// The cluster substate.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Substate(std::borrow::Cow<'static, str>);
 
     impl Substate {
@@ -4446,6 +4476,12 @@ pub mod cluster_status {
     impl std::convert::From<std::string::String> for Substate {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Substate {
+        fn default() -> Self {
+            substate::UNSPECIFIED
         }
     }
 }
@@ -5189,7 +5225,7 @@ pub mod dataproc_metric_config {
     /// A source for the collection of Dataproc custom metrics (see [Custom
     /// metrics]
     /// (<https://cloud.google.com//dataproc/docs/guides/dataproc-metrics#custom_metrics>)).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MetricSource(std::borrow::Cow<'static, str>);
 
     impl MetricSource {
@@ -5244,6 +5280,12 @@ pub mod dataproc_metric_config {
     impl std::convert::From<std::string::String> for MetricSource {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MetricSource {
+        fn default() -> Self {
+            metric_source::METRIC_SOURCE_UNSPECIFIED
         }
     }
 }
@@ -6070,7 +6112,7 @@ pub mod diagnose_cluster_request {
     use super::*;
 
     /// Defines who has access to the diagnostic tarball
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TarballAccess(std::borrow::Cow<'static, str>);
 
     impl TarballAccess {
@@ -6106,6 +6148,12 @@ pub mod diagnose_cluster_request {
     impl std::convert::From<std::string::String> for TarballAccess {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TarballAccess {
+        fn default() -> Self {
+            tarball_access::TARBALL_ACCESS_UNSPECIFIED
         }
     }
 }
@@ -6205,7 +6253,7 @@ pub mod reservation_affinity {
     use super::*;
 
     /// Indicates whether to consume capacity from an reservation or not.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -6240,6 +6288,12 @@ pub mod reservation_affinity {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -6294,7 +6348,7 @@ pub mod logging_config {
     /// The Log4j level for job execution. When running an
     /// [Apache Hive](https://hive.apache.org/) job, Cloud
     /// Dataproc configures the Hive client to an equivalent verbosity level.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Level(std::borrow::Cow<'static, str>);
 
     impl Level {
@@ -6344,6 +6398,12 @@ pub mod logging_config {
     impl std::convert::From<std::string::String> for Level {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Level {
+        fn default() -> Self {
+            level::LEVEL_UNSPECIFIED
         }
     }
 }
@@ -8282,7 +8342,7 @@ pub mod job_status {
     use super::*;
 
     /// The job state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8343,8 +8403,14 @@ pub mod job_status {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The job substate.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Substate(std::borrow::Cow<'static, str>);
 
     impl Substate {
@@ -8389,6 +8455,12 @@ pub mod job_status {
     impl std::convert::From<std::string::String> for Substate {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Substate {
+        fn default() -> Self {
+            substate::UNSPECIFIED
         }
     }
 }
@@ -8512,7 +8584,7 @@ pub mod yarn_application {
 
     /// The application state, corresponding to
     /// \<code\>YarnProtos.YarnApplicationStateProto\</code\>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8562,6 +8634,12 @@ pub mod yarn_application {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -9463,7 +9541,7 @@ pub mod list_jobs_request {
     use super::*;
 
     /// A matcher that specifies categories of job states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct JobStateMatcher(std::borrow::Cow<'static, str>);
 
     impl JobStateMatcher {
@@ -9496,6 +9574,12 @@ pub mod list_jobs_request {
     impl std::convert::From<std::string::String> for JobStateMatcher {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for JobStateMatcher {
+        fn default() -> Self {
+            job_state_matcher::ALL
         }
     }
 }
@@ -10088,7 +10172,7 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Operation type for Batch resources
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BatchOperationType(std::borrow::Cow<'static, str>);
 
     impl BatchOperationType {
@@ -10118,6 +10202,12 @@ pub mod batch_operation_metadata {
     impl std::convert::From<std::string::String> for BatchOperationType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BatchOperationType {
+        fn default() -> Self {
+            batch_operation_type::BATCH_OPERATION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -10248,7 +10338,7 @@ pub mod session_operation_metadata {
     use super::*;
 
     /// Operation type for Session resources
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SessionOperationType(std::borrow::Cow<'static, str>);
 
     impl SessionOperationType {
@@ -10284,6 +10374,12 @@ pub mod session_operation_metadata {
     impl std::convert::From<std::string::String> for SessionOperationType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SessionOperationType {
+        fn default() -> Self {
+            session_operation_type::SESSION_OPERATION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -10358,7 +10454,7 @@ pub mod cluster_operation_status {
     use super::*;
 
     /// The operation state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -10393,6 +10489,12 @@ pub mod cluster_operation_status {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::UNKNOWN
         }
     }
 }
@@ -10662,7 +10764,7 @@ pub mod node_group_operation_metadata {
     use super::*;
 
     /// Operation type for node group resources.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NodeGroupOperationType(std::borrow::Cow<'static, str>);
 
     impl NodeGroupOperationType {
@@ -10701,6 +10803,12 @@ pub mod node_group_operation_metadata {
     impl std::convert::From<std::string::String> for NodeGroupOperationType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NodeGroupOperationType {
+        fn default() -> Self {
+            node_group_operation_type::NODE_GROUP_OPERATION_TYPE_UNSPECIFIED
         }
     }
 }
@@ -11885,7 +11993,7 @@ pub mod session {
     }
 
     /// The session state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -11926,6 +12034,12 @@ pub mod session {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -11988,7 +12102,7 @@ pub mod jupyter_config {
     use super::*;
 
     /// Jupyter kernel types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kernel(std::borrow::Cow<'static, str>);
 
     impl Kernel {
@@ -12020,6 +12134,12 @@ pub mod jupyter_config {
     impl std::convert::From<std::string::String> for Kernel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Kernel {
+        fn default() -> Self {
+            kernel::KERNEL_UNSPECIFIED
         }
     }
 }
@@ -13064,7 +13184,7 @@ pub mod gke_node_pool_target {
     /// workloads that are not associated with a node pool.
     ///
     /// [google.cloud.dataproc.v1.GkeNodePoolTarget]: crate::model::GkeNodePoolTarget
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Role(std::borrow::Cow<'static, str>);
 
     impl Role {
@@ -13107,6 +13227,12 @@ pub mod gke_node_pool_target {
     impl std::convert::From<std::string::String> for Role {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            role::ROLE_UNSPECIFIED
         }
     }
 }
@@ -13472,7 +13598,7 @@ pub mod autotuning_config {
 
     /// Scenario represents a specific goal that autotuning will attempt to achieve
     /// by modifying workloads.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scenario(std::borrow::Cow<'static, str>);
 
     impl Scenario {
@@ -13507,6 +13633,12 @@ pub mod autotuning_config {
     impl std::convert::From<std::string::String> for Scenario {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Scenario {
+        fn default() -> Self {
+            scenario::SCENARIO_UNSPECIFIED
         }
     }
 }
@@ -15019,7 +15151,7 @@ pub mod workflow_metadata {
     use super::*;
 
     /// The operation state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -15054,6 +15186,12 @@ pub mod workflow_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::UNKNOWN
         }
     }
 }
@@ -15222,7 +15360,7 @@ pub mod workflow_node {
     use super::*;
 
     /// The workflow node state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NodeState(std::borrow::Cow<'static, str>);
 
     impl NodeState {
@@ -15264,6 +15402,12 @@ pub mod workflow_node {
     impl std::convert::From<std::string::String> for NodeState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NodeState {
+        fn default() -> Self {
+            node_state::NODE_STATE_UNSPECIFIED
         }
     }
 }
@@ -15757,7 +15901,7 @@ impl wkt::message::Message for DeleteWorkflowTemplateRequest {
 }
 
 /// Cluster components that can be activated.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Component(std::borrow::Cow<'static, str>);
 
 impl Component {
@@ -15832,8 +15976,14 @@ impl std::convert::From<std::string::String> for Component {
     }
 }
 
+impl std::default::Default for Component {
+    fn default() -> Self {
+        component::COMPONENT_UNSPECIFIED
+    }
+}
+
 /// Actions in response to failure of a resource associated with a cluster.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FailureAction(std::borrow::Cow<'static, str>);
 
 impl FailureAction {
@@ -15867,5 +16017,11 @@ pub mod failure_action {
 impl std::convert::From<std::string::String> for FailureAction {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for FailureAction {
+    fn default() -> Self {
+        failure_action::FAILURE_ACTION_UNSPECIFIED
     }
 }

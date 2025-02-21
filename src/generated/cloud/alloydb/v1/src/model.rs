@@ -308,7 +308,7 @@ pub mod migration_source {
     use super::*;
 
     /// Denote the type of migration source that created this cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MigrationSourceType(std::borrow::Cow<'static, str>);
 
     impl MigrationSourceType {
@@ -338,6 +338,12 @@ pub mod migration_source {
     impl std::convert::From<std::string::String> for MigrationSourceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MigrationSourceType {
+        fn default() -> Self {
+            migration_source_type::MIGRATION_SOURCE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -427,7 +433,7 @@ pub mod encryption_info {
     use super::*;
 
     /// Possible encryption types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -461,6 +467,12 @@ pub mod encryption_info {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -515,7 +527,7 @@ pub mod ssl_config {
     use super::*;
 
     /// SSL mode options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SslMode(std::borrow::Cow<'static, str>);
 
     impl SslMode {
@@ -564,8 +576,14 @@ pub mod ssl_config {
         }
     }
 
+    impl std::default::Default for SslMode {
+        fn default() -> Self {
+            ssl_mode::SSL_MODE_UNSPECIFIED
+        }
+    }
+
     /// Certificate Authority (CA) source for SSL/TLS certificates.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CaSource(std::borrow::Cow<'static, str>);
 
     impl CaSource {
@@ -595,6 +613,12 @@ pub mod ssl_config {
     impl std::convert::From<std::string::String> for CaSource {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CaSource {
+        fn default() -> Self {
+            ca_source::CA_SOURCE_UNSPECIFIED
         }
     }
 }
@@ -2135,7 +2159,7 @@ pub mod cluster {
     }
 
     /// Cluster State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2199,8 +2223,14 @@ pub mod cluster {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type of Cluster
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ClusterType(std::borrow::Cow<'static, str>);
 
     impl ClusterType {
@@ -2234,6 +2264,12 @@ pub mod cluster {
     impl std::convert::From<std::string::String> for ClusterType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ClusterType {
+        fn default() -> Self {
+            cluster_type::CLUSTER_TYPE_UNSPECIFIED
         }
     }
 
@@ -3071,7 +3107,7 @@ pub mod instance {
     }
 
     /// Instance State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3130,8 +3166,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type of an Instance
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceType(std::borrow::Cow<'static, str>);
 
     impl InstanceType {
@@ -3176,13 +3218,19 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for InstanceType {
+        fn default() -> Self {
+            instance_type::INSTANCE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The Availability type of an instance. Potential values:
     ///
     /// - ZONAL: The instance serves data from only one zone. Outages in that
     ///   zone affect instance availability.
     /// - REGIONAL: The instance can serve data from more than one zone in a
     ///   region (it is highly available).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AvailabilityType(std::borrow::Cow<'static, str>);
 
     impl AvailabilityType {
@@ -3215,6 +3263,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for AvailabilityType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AvailabilityType {
+        fn default() -> Self {
+            availability_type::AVAILABILITY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3670,7 +3724,7 @@ pub mod backup {
     }
 
     /// Backup State
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3711,8 +3765,14 @@ pub mod backup {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Backup Type
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -3750,6 +3810,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -4030,7 +4096,7 @@ pub mod supported_database_flag {
     /// ValueType describes the semantic type of the value that the flag accepts.
     /// Regardless of the ValueType, the Instance.database_flags field accepts the
     /// stringified version of the value, i.e. "20" or "3.14".
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
@@ -4068,6 +4134,12 @@ pub mod supported_database_flag {
     impl std::convert::From<std::string::String> for ValueType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ValueType {
+        fn default() -> Self {
+            value_type::VALUE_TYPE_UNSPECIFIED
         }
     }
 
@@ -4171,7 +4243,7 @@ pub mod user {
     use super::*;
 
     /// Enum that details the user type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UserType(std::borrow::Cow<'static, str>);
 
     impl UserType {
@@ -4204,6 +4276,12 @@ pub mod user {
     impl std::convert::From<std::string::String> for UserType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for UserType {
+        fn default() -> Self {
+            user_type::USER_TYPE_UNSPECIFIED
         }
     }
 }
@@ -5768,7 +5846,7 @@ pub mod batch_create_instance_status {
     /// State contains all valid instance states for the BatchCreateInstances
     /// operation. This is mainly used for status reporting through the LRO
     /// metadata.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -5815,6 +5893,12 @@ pub mod batch_create_instance_status {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6131,7 +6215,7 @@ pub mod inject_fault_request {
 
     /// FaultType contains all valid types of faults that can be injected to an
     /// instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FaultType(std::borrow::Cow<'static, str>);
 
     impl FaultType {
@@ -6160,6 +6244,12 @@ pub mod inject_fault_request {
     impl std::convert::From<std::string::String> for FaultType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FaultType {
+        fn default() -> Self {
+            fault_type::FAULT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -6489,7 +6579,7 @@ pub mod execute_sql_metadata {
     use super::*;
 
     /// Status contains all valid Status a SQL execution can end up in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -6532,6 +6622,12 @@ pub mod execute_sql_metadata {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }
@@ -7952,7 +8048,7 @@ impl gax::paginator::PageableResponse for ListDatabasesResponse {
 
 /// View on Instance. Pass this enum to rpcs that returns an Instance message to
 /// control which subsets of fields to get.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct InstanceView(std::borrow::Cow<'static, str>);
 
 impl InstanceView {
@@ -7991,9 +8087,15 @@ impl std::convert::From<std::string::String> for InstanceView {
     }
 }
 
+impl std::default::Default for InstanceView {
+    fn default() -> Self {
+        instance_view::INSTANCE_VIEW_UNSPECIFIED
+    }
+}
+
 /// View on Cluster. Pass this enum to rpcs that returns a cluster message to
 /// control which subsets of fields to get.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClusterView(std::borrow::Cow<'static, str>);
 
 impl ClusterView {
@@ -8033,8 +8135,14 @@ impl std::convert::From<std::string::String> for ClusterView {
     }
 }
 
+impl std::default::Default for ClusterView {
+    fn default() -> Self {
+        cluster_view::CLUSTER_VIEW_UNSPECIFIED
+    }
+}
+
 /// The supported database engine versions.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseVersion(std::borrow::Cow<'static, str>);
 
 impl DatabaseVersion {
@@ -8076,10 +8184,16 @@ impl std::convert::From<std::string::String> for DatabaseVersion {
     }
 }
 
+impl std::default::Default for DatabaseVersion {
+    fn default() -> Self {
+        database_version::DATABASE_VERSION_UNSPECIFIED
+    }
+}
+
 /// Subscription_type added to distinguish between Standard and Trial
 /// subscriptions. By default, a subscription type is considered STANDARD unless
 /// explicitly specified.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SubscriptionType(std::borrow::Cow<'static, str>);
 
 impl SubscriptionType {
@@ -8113,5 +8227,11 @@ pub mod subscription_type {
 impl std::convert::From<std::string::String> for SubscriptionType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for SubscriptionType {
+    fn default() -> Self {
+        subscription_type::SUBSCRIPTION_TYPE_UNSPECIFIED
     }
 }

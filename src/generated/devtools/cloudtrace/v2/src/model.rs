@@ -570,7 +570,7 @@ pub mod span {
             use super::*;
 
             /// Indicates whether the message was sent or received.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct Type(std::borrow::Cow<'static, str>);
 
             impl Type {
@@ -602,6 +602,12 @@ pub mod span {
             impl std::convert::From<std::string::String> for Type {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for Type {
+                fn default() -> Self {
+                    r#type::TYPE_UNSPECIFIED
                 }
             }
         }
@@ -756,7 +762,7 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -788,6 +794,12 @@ pub mod span {
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
             }
         }
     }
@@ -839,7 +851,7 @@ pub mod span {
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SpanKind(std::borrow::Cow<'static, str>);
 
     impl SpanKind {
@@ -889,6 +901,12 @@ pub mod span {
     impl std::convert::From<std::string::String> for SpanKind {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SpanKind {
+        fn default() -> Self {
+            span_kind::SPAN_KIND_UNSPECIFIED
         }
     }
 }

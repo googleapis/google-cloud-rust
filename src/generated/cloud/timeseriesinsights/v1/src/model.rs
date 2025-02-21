@@ -258,7 +258,7 @@ pub mod data_set {
     use super::*;
 
     /// DataSet state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -306,6 +306,12 @@ pub mod data_set {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1057,7 +1063,7 @@ pub mod forecast_params {
     use super::*;
 
     /// A time period of a fixed interval.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Period(std::borrow::Cow<'static, str>);
 
     impl Period {
@@ -1098,6 +1104,12 @@ pub mod forecast_params {
     impl std::convert::From<std::string::String> for Period {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Period {
+        fn default() -> Self {
+            period::PERIOD_UNSPECIFIED
         }
     }
 }
@@ -1691,7 +1703,7 @@ pub mod timeseries_params {
     /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric].
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AggregationMethod(std::borrow::Cow<'static, str>);
 
     impl AggregationMethod {
@@ -1730,6 +1742,12 @@ pub mod timeseries_params {
     impl std::convert::From<std::string::String> for AggregationMethod {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AggregationMethod {
+        fn default() -> Self {
+            aggregation_method::AGGREGATION_METHOD_UNSPECIFIED
         }
     }
 }

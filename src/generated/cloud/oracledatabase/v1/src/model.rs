@@ -938,7 +938,7 @@ pub mod autonomous_database_properties {
     use super::*;
 
     /// The editions available for the Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseEdition(std::borrow::Cow<'static, str>);
 
     impl DatabaseEdition {
@@ -974,8 +974,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for DatabaseEdition {
+        fn default() -> Self {
+            database_edition::DATABASE_EDITION_UNSPECIFIED
+        }
+    }
+
     /// The license types available for the Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LicenseType(std::borrow::Cow<'static, str>);
 
     impl LicenseType {
@@ -1011,8 +1017,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for LicenseType {
+        fn default() -> Self {
+            license_type::LICENSE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The available maintenance schedules for the Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MaintenanceScheduleType(std::borrow::Cow<'static, str>);
 
     impl MaintenanceScheduleType {
@@ -1049,8 +1061,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for MaintenanceScheduleType {
+        fn default() -> Self {
+            maintenance_schedule_type::MAINTENANCE_SCHEDULE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The types of local disaster recovery available for an Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LocalDisasterRecoveryType(std::borrow::Cow<'static, str>);
 
     impl LocalDisasterRecoveryType {
@@ -1087,8 +1105,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for LocalDisasterRecoveryType {
+        fn default() -> Self {
+            local_disaster_recovery_type::LOCAL_DISASTER_RECOVERY_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Varies states of the Data Safe registration for the Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataSafeState(std::borrow::Cow<'static, str>);
 
     impl DataSafeState {
@@ -1133,8 +1157,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for DataSafeState {
+        fn default() -> Self {
+            data_safe_state::DATA_SAFE_STATE_UNSPECIFIED
+        }
+    }
+
     /// The different states of database management for an Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseManagementState(std::borrow::Cow<'static, str>);
 
     impl DatabaseManagementState {
@@ -1185,8 +1215,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for DatabaseManagementState {
+        fn default() -> Self {
+            database_management_state::DATABASE_MANAGEMENT_STATE_UNSPECIFIED
+        }
+    }
+
     /// This field indicates the modes of an Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OpenMode(std::borrow::Cow<'static, str>);
 
     impl OpenMode {
@@ -1221,8 +1257,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for OpenMode {
+        fn default() -> Self {
+            open_mode::OPEN_MODE_UNSPECIFIED
+        }
+    }
+
     /// The types of permission levels for an Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PermissionLevel(std::borrow::Cow<'static, str>);
 
     impl PermissionLevel {
@@ -1258,8 +1300,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for PermissionLevel {
+        fn default() -> Self {
+            permission_level::PERMISSION_LEVEL_UNSPECIFIED
+        }
+    }
+
     /// The refresh mode of the cloned Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RefreshableMode(std::borrow::Cow<'static, str>);
 
     impl RefreshableMode {
@@ -1297,8 +1345,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for RefreshableMode {
+        fn default() -> Self {
+            refreshable_mode::REFRESHABLE_MODE_UNSPECIFIED
+        }
+    }
+
     /// The refresh state of the cloned Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RefreshableState(std::borrow::Cow<'static, str>);
 
     impl RefreshableState {
@@ -1334,8 +1388,14 @@ pub mod autonomous_database_properties {
         }
     }
 
+    impl std::default::Default for RefreshableState {
+        fn default() -> Self {
+            refreshable_state::REFRESHABLE_STATE_UNSPECIFIED
+        }
+    }
+
     /// The Data Guard role of the Autonomous Database.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Role(std::borrow::Cow<'static, str>);
 
     impl Role {
@@ -1376,6 +1436,12 @@ pub mod autonomous_database_properties {
     impl std::convert::From<std::string::String> for Role {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            role::ROLE_UNSPECIFIED
         }
     }
 }
@@ -1659,7 +1725,7 @@ pub mod database_connection_string_profile {
     use super::*;
 
     /// The various consumer groups available in the connection string profile.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConsumerGroup(std::borrow::Cow<'static, str>);
 
     impl ConsumerGroup {
@@ -1704,8 +1770,14 @@ pub mod database_connection_string_profile {
         }
     }
 
+    impl std::default::Default for ConsumerGroup {
+        fn default() -> Self {
+            consumer_group::CONSUMER_GROUP_UNSPECIFIED
+        }
+    }
+
     /// The host name format being used in the connection string.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HostFormat(std::borrow::Cow<'static, str>);
 
     impl HostFormat {
@@ -1740,8 +1812,14 @@ pub mod database_connection_string_profile {
         }
     }
 
+    impl std::default::Default for HostFormat {
+        fn default() -> Self {
+            host_format::HOST_FORMAT_UNSPECIFIED
+        }
+    }
+
     /// The protocol being used by the connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Protocol(std::borrow::Cow<'static, str>);
 
     impl Protocol {
@@ -1776,8 +1854,14 @@ pub mod database_connection_string_profile {
         }
     }
 
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            protocol::PROTOCOL_UNSPECIFIED
+        }
+    }
+
     /// The session mode of the connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SessionMode(std::borrow::Cow<'static, str>);
 
     impl SessionMode {
@@ -1813,8 +1897,14 @@ pub mod database_connection_string_profile {
         }
     }
 
+    impl std::default::Default for SessionMode {
+        fn default() -> Self {
+            session_mode::SESSION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Specifies syntax of the connection string.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SyntaxFormat(std::borrow::Cow<'static, str>);
 
     impl SyntaxFormat {
@@ -1853,8 +1943,14 @@ pub mod database_connection_string_profile {
         }
     }
 
+    impl std::default::Default for SyntaxFormat {
+        fn default() -> Self {
+            syntax_format::SYNTAX_FORMAT_UNSPECIFIED
+        }
+    }
+
     /// This field indicates the TLS authentication type of the connection.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TLSAuthentication(std::borrow::Cow<'static, str>);
 
     impl TLSAuthentication {
@@ -1887,6 +1983,12 @@ pub mod database_connection_string_profile {
     impl std::convert::From<std::string::String> for TLSAuthentication {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TLSAuthentication {
+        fn default() -> Self {
+            tls_authentication::TLS_AUTHENTICATION_UNSPECIFIED
         }
     }
 }
@@ -2269,7 +2371,7 @@ pub mod autonomous_database_character_set {
     use super::*;
 
     /// The type of character set an Autonomous Database can have.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CharacterSetType(std::borrow::Cow<'static, str>);
 
     impl CharacterSetType {
@@ -2302,6 +2404,12 @@ pub mod autonomous_database_character_set {
     impl std::convert::From<std::string::String> for CharacterSetType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CharacterSetType {
+        fn default() -> Self {
+            character_set_type::CHARACTER_SET_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2649,7 +2757,7 @@ pub mod autonomous_database_backup_properties {
     use super::*;
 
     /// // The various lifecycle states of the Autonomous Database Backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2696,8 +2804,14 @@ pub mod autonomous_database_backup_properties {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The type of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -2732,6 +2846,12 @@ pub mod autonomous_database_backup_properties {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -2981,7 +3101,7 @@ pub mod db_node_properties {
     use super::*;
 
     /// The various lifecycle states of the database node.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3034,6 +3154,12 @@ pub mod db_node_properties {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3219,7 +3345,7 @@ pub mod db_server_properties {
     use super::*;
 
     /// The various lifecycle states of the database server.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3260,6 +3386,12 @@ pub mod db_server_properties {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3468,7 +3600,7 @@ pub mod entitlement {
     use super::*;
 
     /// The various lifecycle states of the subscription.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3506,6 +3638,12 @@ pub mod entitlement {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4020,7 +4158,7 @@ pub mod cloud_exadata_infrastructure_properties {
     use super::*;
 
     /// The various lifecycle states of the Exadata Infrastructure.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4067,6 +4205,12 @@ pub mod cloud_exadata_infrastructure_properties {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4231,7 +4375,7 @@ pub mod maintenance_window {
     use super::*;
 
     /// Maintenance window preference.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MaintenanceWindowPreference(std::borrow::Cow<'static, str>);
 
     impl MaintenanceWindowPreference {
@@ -4269,8 +4413,14 @@ pub mod maintenance_window {
         }
     }
 
+    impl std::default::Default for MaintenanceWindowPreference {
+        fn default() -> Self {
+            maintenance_window_preference::MAINTENANCE_WINDOW_PREFERENCE_UNSPECIFIED
+        }
+    }
+
     /// Patching mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PatchingMode(std::borrow::Cow<'static, str>);
 
     impl PatchingMode {
@@ -4304,6 +4454,12 @@ pub mod maintenance_window {
     impl std::convert::From<std::string::String> for PatchingMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PatchingMode {
+        fn default() -> Self {
+            patching_mode::PATCHING_MODE_UNSPECIFIED
         }
     }
 }
@@ -6889,7 +7045,7 @@ pub mod cloud_vm_cluster_properties {
     use super::*;
 
     /// Different licenses supported.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LicenseType(std::borrow::Cow<'static, str>);
 
     impl LicenseType {
@@ -6925,8 +7081,14 @@ pub mod cloud_vm_cluster_properties {
         }
     }
 
+    impl std::default::Default for LicenseType {
+        fn default() -> Self {
+            license_type::LICENSE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Types of disk redundancy provided by Oracle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskRedundancy(std::borrow::Cow<'static, str>);
 
     impl DiskRedundancy {
@@ -6962,8 +7124,14 @@ pub mod cloud_vm_cluster_properties {
         }
     }
 
+    impl std::default::Default for DiskRedundancy {
+        fn default() -> Self {
+            disk_redundancy::DISK_REDUNDANCY_UNSPECIFIED
+        }
+    }
+
     /// The various lifecycle states of the VM cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7010,6 +7178,12 @@ pub mod cloud_vm_cluster_properties {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -7063,7 +7237,7 @@ impl wkt::message::Message for DataCollectionOptions {
 }
 
 /// The type of wallet generation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GenerateType(std::borrow::Cow<'static, str>);
 
 impl GenerateType {
@@ -7099,8 +7273,14 @@ impl std::convert::From<std::string::String> for GenerateType {
     }
 }
 
+impl std::default::Default for GenerateType {
+    fn default() -> Self {
+        generate_type::GENERATE_TYPE_UNSPECIFIED
+    }
+}
+
 /// The various lifecycle states of the Autonomous Database.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct State(std::borrow::Cow<'static, str>);
 
 impl State {
@@ -7193,8 +7373,14 @@ impl std::convert::From<std::string::String> for State {
     }
 }
 
+impl std::default::Default for State {
+    fn default() -> Self {
+        state::STATE_UNSPECIFIED
+    }
+}
+
 /// The state of the Operations Insights for this Autonomous Database.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct OperationsInsightsState(std::borrow::Cow<'static, str>);
 
 impl OperationsInsightsState {
@@ -7244,8 +7430,14 @@ impl std::convert::From<std::string::String> for OperationsInsightsState {
     }
 }
 
+impl std::default::Default for OperationsInsightsState {
+    fn default() -> Self {
+        operations_insights_state::OPERATIONS_INSIGHTS_STATE_UNSPECIFIED
+    }
+}
+
 /// The various states available for the Autonomous Database workload type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DBWorkload(std::borrow::Cow<'static, str>);
 
 impl DBWorkload {
@@ -7284,5 +7476,11 @@ pub mod db_workload {
 impl std::convert::From<std::string::String> for DBWorkload {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DBWorkload {
+    fn default() -> Self {
+        db_workload::DB_WORKLOAD_UNSPECIFIED
     }
 }

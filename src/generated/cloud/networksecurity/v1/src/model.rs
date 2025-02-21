@@ -469,7 +469,7 @@ pub mod authorization_policy {
     }
 
     /// Possible values that define what action to take.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -503,6 +503,12 @@ pub mod authorization_policy {
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
         }
     }
 }

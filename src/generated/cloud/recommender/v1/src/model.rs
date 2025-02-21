@@ -242,7 +242,7 @@ pub mod insight {
     }
 
     /// Insight category.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Category(std::borrow::Cow<'static, str>);
 
     impl Category {
@@ -289,8 +289,14 @@ pub mod insight {
         }
     }
 
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            category::CATEGORY_UNSPECIFIED
+        }
+    }
+
     /// Insight severity levels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -328,6 +334,12 @@ pub mod insight {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -385,7 +397,7 @@ pub mod insight_state_info {
     use super::*;
 
     /// Represents insight state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -426,6 +438,12 @@ pub mod insight_state_info {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -807,7 +825,7 @@ pub mod recommendation {
     }
 
     /// Recommendation priority levels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Priority(std::borrow::Cow<'static, str>);
 
     impl Priority {
@@ -845,6 +863,12 @@ pub mod recommendation {
     impl std::convert::From<std::string::String> for Priority {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Priority {
+        fn default() -> Self {
+            priority::PRIORITY_UNSPECIFIED
         }
     }
 }
@@ -1456,7 +1480,7 @@ pub mod reliability_projection {
     use super::*;
 
     /// The risk associated with the reliability issue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RiskType(std::borrow::Cow<'static, str>);
 
     impl RiskType {
@@ -1492,6 +1516,12 @@ pub mod reliability_projection {
     impl std::convert::From<std::string::String> for RiskType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RiskType {
+        fn default() -> Self {
+            risk_type::RISK_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1671,7 +1701,7 @@ pub mod impact {
     use super::*;
 
     /// The category of the impact.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Category(std::borrow::Cow<'static, str>);
 
     impl Category {
@@ -1715,6 +1745,12 @@ pub mod impact {
     impl std::convert::From<std::string::String> for Category {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Category {
+        fn default() -> Self {
+            category::CATEGORY_UNSPECIFIED
         }
     }
 
@@ -1787,7 +1823,7 @@ pub mod recommendation_state_info {
     use super::*;
 
     /// Represents Recommendation State.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1843,6 +1879,12 @@ pub mod recommendation_state_info {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }

@@ -573,7 +573,7 @@ pub mod execution {
         use super::*;
 
         /// Describes the possible types of a state error.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -604,11 +604,17 @@ pub mod execution {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Describes the current state of the execution. More states might be added
     /// in the future.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -655,9 +661,15 @@ pub mod execution {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CallLogLevel(std::borrow::Cow<'static, str>);
 
     impl CallLogLevel {
@@ -694,6 +706,12 @@ pub mod execution {
     impl std::convert::From<std::string::String> for CallLogLevel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CallLogLevel {
+        fn default() -> Self {
+            call_log_level::CALL_LOG_LEVEL_UNSPECIFIED
         }
     }
 }
@@ -987,7 +1005,7 @@ impl wkt::message::Message for CancelExecutionRequest {
 }
 
 /// Defines possible views for execution resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExecutionView(std::borrow::Cow<'static, str>);
 
 impl ExecutionView {
@@ -1022,5 +1040,11 @@ pub mod execution_view {
 impl std::convert::From<std::string::String> for ExecutionView {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ExecutionView {
+    fn default() -> Self {
+        execution_view::EXECUTION_VIEW_UNSPECIFIED
     }
 }

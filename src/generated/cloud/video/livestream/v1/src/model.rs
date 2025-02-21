@@ -425,7 +425,7 @@ pub mod manifest {
     use super::*;
 
     /// The manifest type can be either `HLS` or `DASH`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ManifestType(std::borrow::Cow<'static, str>);
 
     impl ManifestType {
@@ -458,6 +458,12 @@ pub mod manifest {
     impl std::convert::From<std::string::String> for ManifestType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ManifestType {
+        fn default() -> Self {
+            manifest_type::MANIFEST_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1556,7 +1562,7 @@ pub mod timecode_config {
     use super::*;
 
     /// The source of timecode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TimecodeSource(std::borrow::Cow<'static, str>);
 
     impl TimecodeSource {
@@ -1589,6 +1595,12 @@ pub mod timecode_config {
     impl std::convert::From<std::string::String> for TimecodeSource {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TimecodeSource {
+        fn default() -> Self {
+            timecode_source::TIMECODE_SOURCE_UNSPECIFIED
         }
     }
 
@@ -1808,7 +1820,7 @@ pub mod input {
     }
 
     /// The type of the input.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1843,8 +1855,14 @@ pub mod input {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Tier of the input specification.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -1879,6 +1897,12 @@ pub mod input {
     impl std::convert::From<std::string::String> for Tier {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
         }
     }
 }
@@ -2228,7 +2252,7 @@ pub mod channel {
     }
 
     /// State of streaming operation that the channel is running.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StreamingState(std::borrow::Cow<'static, str>);
 
     impl StreamingState {
@@ -2281,6 +2305,12 @@ pub mod channel {
     impl std::convert::From<std::string::String> for StreamingState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StreamingState {
+        fn default() -> Self {
+            streaming_state::STREAMING_STATE_UNSPECIFIED
         }
     }
 }
@@ -2477,7 +2507,7 @@ pub mod input_config {
     use super::*;
 
     /// Input switch mode.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InputSwitchMode(std::borrow::Cow<'static, str>);
 
     impl InputSwitchMode {
@@ -2524,6 +2554,12 @@ pub mod input_config {
     impl std::convert::From<std::string::String> for InputSwitchMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InputSwitchMode {
+        fn default() -> Self {
+            input_switch_mode::INPUT_SWITCH_MODE_UNSPECIFIED
         }
     }
 }
@@ -2575,7 +2611,7 @@ pub mod log_config {
     /// See
     /// [LogSeverity](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity)
     /// for more information.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogSeverity(std::borrow::Cow<'static, str>);
 
     impl LogSeverity {
@@ -2617,6 +2653,12 @@ pub mod log_config {
     impl std::convert::From<std::string::String> for LogSeverity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LogSeverity {
+        fn default() -> Self {
+            log_severity::LOG_SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -3527,7 +3569,7 @@ pub mod event {
     }
 
     /// State of the event
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3571,6 +3613,12 @@ pub mod event {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -3936,7 +3984,7 @@ pub mod clip {
     }
 
     /// State of clipping operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3977,6 +4025,12 @@ pub mod clip {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4234,7 +4288,7 @@ pub mod asset {
     }
 
     /// State of the asset resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4272,6 +4326,12 @@ pub mod asset {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 

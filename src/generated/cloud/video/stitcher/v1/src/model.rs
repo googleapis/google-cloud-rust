@@ -687,7 +687,7 @@ pub mod companion_ads {
     use super::*;
 
     /// Indicates how many of the companions should be displayed with the ad.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DisplayRequirement(std::borrow::Cow<'static, str>);
 
     impl DisplayRequirement {
@@ -723,6 +723,12 @@ pub mod companion_ads {
     impl std::convert::From<std::string::String> for DisplayRequirement {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DisplayRequirement {
+        fn default() -> Self {
+            display_requirement::DISPLAY_REQUIREMENT_UNSPECIFIED
         }
     }
 }
@@ -1130,7 +1136,7 @@ pub mod event {
     use super::*;
 
     /// Describes the event that occurred.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventType(std::borrow::Cow<'static, str>);
 
     impl EventType {
@@ -1228,6 +1234,12 @@ pub mod event {
     impl std::convert::From<std::string::String> for EventType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            event_type::EVENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1476,7 +1488,7 @@ pub mod live_config {
     use super::*;
 
     /// State of the live config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1514,10 +1526,16 @@ pub mod live_config {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Defines the ad stitching behavior in case the ad duration does not align
     /// exactly with the ad break boundaries. If not specified, the default is
     /// `CUT_CURRENT`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StitchingPolicy(std::borrow::Cow<'static, str>);
 
     impl StitchingPolicy {
@@ -1550,6 +1568,12 @@ pub mod live_config {
     impl std::convert::From<std::string::String> for StitchingPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StitchingPolicy {
+        fn default() -> Self {
+            stitching_policy::STITCHING_POLICY_UNSPECIFIED
         }
     }
 }
@@ -2335,7 +2359,7 @@ pub mod manifest_options {
     use super::*;
 
     /// Defines the ordering policy during manifest generation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OrderPolicy(std::borrow::Cow<'static, str>);
 
     impl OrderPolicy {
@@ -2368,6 +2392,12 @@ pub mod manifest_options {
     impl std::convert::From<std::string::String> for OrderPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OrderPolicy {
+        fn default() -> Self {
+            order_policy::ORDER_POLICY_UNSPECIFIED
         }
     }
 }
@@ -4651,7 +4681,7 @@ pub mod vod_config {
     use super::*;
 
     /// State of the VOD config.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4688,6 +4718,12 @@ pub mod vod_config {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
 }
 
 /// Metadata used for GAM ad decisioning.
@@ -4720,7 +4756,7 @@ impl wkt::message::Message for GamVodConfig {
 }
 
 /// Determines the ad tracking policy.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AdTracking(std::borrow::Cow<'static, str>);
 
 impl AdTracking {
@@ -4754,5 +4790,11 @@ pub mod ad_tracking {
 impl std::convert::From<std::string::String> for AdTracking {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for AdTracking {
+    fn default() -> Self {
+        ad_tracking::AD_TRACKING_UNSPECIFIED
     }
 }

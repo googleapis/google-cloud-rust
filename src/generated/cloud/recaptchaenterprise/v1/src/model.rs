@@ -149,7 +149,7 @@ pub mod transaction_event {
     use super::*;
 
     /// Enum that represents an event in the payment transaction lifecycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TransactionEventType(std::borrow::Cow<'static, str>);
 
     impl TransactionEventType {
@@ -282,6 +282,12 @@ pub mod transaction_event {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for TransactionEventType {
+        fn default() -> Self {
+            transaction_event_type::TRANSACTION_EVENT_TYPE_UNSPECIFIED
+        }
+    }
 }
 
 /// The request message to annotate an Assessment.
@@ -393,7 +399,7 @@ pub mod annotate_assessment_request {
     use super::*;
 
     /// Enum that represents the types of annotations.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Annotation(std::borrow::Cow<'static, str>);
 
     impl Annotation {
@@ -438,8 +444,14 @@ pub mod annotate_assessment_request {
         }
     }
 
+    impl std::default::Default for Annotation {
+        fn default() -> Self {
+            annotation::ANNOTATION_UNSPECIFIED
+        }
+    }
+
     /// Enum that represents potential reasons for annotating an assessment.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Reason(std::borrow::Cow<'static, str>);
 
     impl Reason {
@@ -524,6 +536,12 @@ pub mod annotate_assessment_request {
     impl std::convert::From<std::string::String> for Reason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            reason::REASON_UNSPECIFIED
         }
     }
 }
@@ -751,7 +769,7 @@ pub mod account_verification_info {
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Result(std::borrow::Cow<'static, str>);
 
     impl Result {
@@ -816,6 +834,12 @@ pub mod account_verification_info {
     impl std::convert::From<std::string::String> for Result {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Result {
+        fn default() -> Self {
+            result::RESULT_UNSPECIFIED
         }
     }
 }
@@ -1313,7 +1337,7 @@ pub mod event {
     use super::*;
 
     /// Setting that controls Fraud Prevention assessments.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FraudPrevention(std::borrow::Cow<'static, str>);
 
     impl FraudPrevention {
@@ -1350,6 +1374,12 @@ pub mod event {
     impl std::convert::From<std::string::String> for FraudPrevention {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FraudPrevention {
+        fn default() -> Self {
+            fraud_prevention::FRAUD_PREVENTION_UNSPECIFIED
         }
     }
 }
@@ -2125,7 +2155,7 @@ pub mod risk_analysis {
     use super::*;
 
     /// Reasons contributing to the risk analysis verdict.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ClassificationReason(std::borrow::Cow<'static, str>);
 
     impl ClassificationReason {
@@ -2184,8 +2214,14 @@ pub mod risk_analysis {
         }
     }
 
+    impl std::default::Default for ClassificationReason {
+        fn default() -> Self {
+            classification_reason::CLASSIFICATION_REASON_UNSPECIFIED
+        }
+    }
+
     /// Challenge information for SCORE_AND_CHALLENGE and INVISIBLE keys
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Challenge(std::borrow::Cow<'static, str>);
 
     impl Challenge {
@@ -2221,6 +2257,12 @@ pub mod risk_analysis {
     impl std::convert::From<std::string::String> for Challenge {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Challenge {
+        fn default() -> Self {
+            challenge::CHALLENGE_UNSPECIFIED
         }
     }
 }
@@ -2336,7 +2378,7 @@ pub mod token_properties {
     use super::*;
 
     /// Enum that represents the types of invalid token reasons.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InvalidReason(std::borrow::Cow<'static, str>);
 
     impl InvalidReason {
@@ -2383,6 +2425,12 @@ pub mod token_properties {
     impl std::convert::From<std::string::String> for InvalidReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InvalidReason {
+        fn default() -> Self {
+            invalid_reason::INVALID_REASON_UNSPECIFIED
         }
     }
 }
@@ -2705,7 +2753,7 @@ pub mod fraud_signals {
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct CardLabel(std::borrow::Cow<'static, str>);
 
         impl CardLabel {
@@ -2742,6 +2790,12 @@ pub mod fraud_signals {
         impl std::convert::From<std::string::String> for CardLabel {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for CardLabel {
+            fn default() -> Self {
+                card_label::CARD_LABEL_UNSPECIFIED
             }
         }
     }
@@ -2797,7 +2851,7 @@ pub mod sms_toll_fraud_verdict {
     use super::*;
 
     /// Reasons contributing to the SMS toll fraud verdict.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SmsTollFraudReason(std::borrow::Cow<'static, str>);
 
     impl SmsTollFraudReason {
@@ -2828,6 +2882,12 @@ pub mod sms_toll_fraud_verdict {
     impl std::convert::From<std::string::String> for SmsTollFraudReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SmsTollFraudReason {
+        fn default() -> Self {
+            sms_toll_fraud_reason::SMS_TOLL_FRAUD_REASON_UNSPECIFIED
         }
     }
 }
@@ -2906,7 +2966,7 @@ pub mod account_defender_assessment {
     use super::*;
 
     /// Labels returned by account defender for this request.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AccountDefenderLabel(std::borrow::Cow<'static, str>);
 
     impl AccountDefenderLabel {
@@ -2952,6 +3012,12 @@ pub mod account_defender_assessment {
     impl std::convert::From<std::string::String> for AccountDefenderLabel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AccountDefenderLabel {
+        fn default() -> Self {
+            account_defender_label::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED
         }
     }
 }
@@ -4068,7 +4134,7 @@ pub mod testing_options {
 
     /// Enum that represents the challenge option for challenge-based (CHECKBOX,
     /// INVISIBLE) testing keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TestingChallenge(std::borrow::Cow<'static, str>);
 
     impl TestingChallenge {
@@ -4105,6 +4171,12 @@ pub mod testing_options {
     impl std::convert::From<std::string::String> for TestingChallenge {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TestingChallenge {
+        fn default() -> Self {
+            testing_challenge::TESTING_CHALLENGE_UNSPECIFIED
         }
     }
 }
@@ -4201,7 +4273,7 @@ pub mod web_key_settings {
     use super::*;
 
     /// Enum that represents the integration types for web keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IntegrationType(std::borrow::Cow<'static, str>);
 
     impl IntegrationType {
@@ -4245,9 +4317,15 @@ pub mod web_key_settings {
         }
     }
 
+    impl std::default::Default for IntegrationType {
+        fn default() -> Self {
+            integration_type::INTEGRATION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Enum that represents the possible challenge frequency and difficulty
     /// configurations for a web key.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ChallengeSecurityPreference(std::borrow::Cow<'static, str>);
 
     impl ChallengeSecurityPreference {
@@ -4286,6 +4364,12 @@ pub mod web_key_settings {
     impl std::convert::From<std::string::String> for ChallengeSecurityPreference {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ChallengeSecurityPreference {
+        fn default() -> Self {
+            challenge_security_preference::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED
         }
     }
 }
@@ -5948,7 +6032,7 @@ pub mod waf_settings {
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WafFeature(std::borrow::Cow<'static, str>);
 
     impl WafFeature {
@@ -5991,8 +6075,14 @@ pub mod waf_settings {
         }
     }
 
+    impl std::default::Default for WafFeature {
+        fn default() -> Self {
+            waf_feature::WAF_FEATURE_UNSPECIFIED
+        }
+    }
+
     /// Web Application Firewalls supported by reCAPTCHA.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WafService(std::borrow::Cow<'static, str>);
 
     impl WafService {
@@ -6030,6 +6120,12 @@ pub mod waf_settings {
     impl std::convert::From<std::string::String> for WafService {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WafService {
+        fn default() -> Self {
+            waf_service::WAF_SERVICE_UNSPECIFIED
         }
     }
 }
@@ -6136,7 +6232,7 @@ pub mod ip_override_data {
     use super::*;
 
     /// Enum that represents the type of IP override.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OverrideType(std::borrow::Cow<'static, str>);
 
     impl OverrideType {
@@ -6167,6 +6263,12 @@ pub mod ip_override_data {
     impl std::convert::From<std::string::String> for OverrideType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OverrideType {
+        fn default() -> Self {
+            override_type::OVERRIDE_TYPE_UNSPECIFIED
         }
     }
 }

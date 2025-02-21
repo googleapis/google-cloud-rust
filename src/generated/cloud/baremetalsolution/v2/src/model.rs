@@ -426,7 +426,7 @@ pub mod instance {
     use super::*;
 
     /// The possible states for this server.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -473,6 +473,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1131,7 +1137,7 @@ pub mod server_network_template {
         use super::*;
 
         /// Interface type.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct InterfaceType(std::borrow::Cow<'static, str>);
 
         impl InterfaceType {
@@ -1164,6 +1170,12 @@ pub mod server_network_template {
         impl std::convert::From<std::string::String> for InterfaceType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for InterfaceType {
+            fn default() -> Self {
+                interface_type::INTERFACE_TYPE_UNSPECIFIED
             }
         }
     }
@@ -1325,7 +1337,7 @@ pub mod lun {
     use super::*;
 
     /// The possible states for the LUN.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1369,8 +1381,14 @@ pub mod lun {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Display the operating systems present for the LUN multiprotocol type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MultiprotocolType(std::borrow::Cow<'static, str>);
 
     impl MultiprotocolType {
@@ -1403,8 +1421,14 @@ pub mod lun {
         }
     }
 
+    impl std::default::Default for MultiprotocolType {
+        fn default() -> Self {
+            multiprotocol_type::MULTIPROTOCOL_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The storage types for a LUN.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(std::borrow::Cow<'static, str>);
 
     impl StorageType {
@@ -1437,6 +1461,12 @@ pub mod lun {
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StorageType {
+        fn default() -> Self {
+            storage_type::STORAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1833,7 +1863,7 @@ pub mod network {
     use super::*;
 
     /// Network type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1868,8 +1898,14 @@ pub mod network {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// The possible states for this Network.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1907,6 +1943,12 @@ pub mod network {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2168,7 +2210,7 @@ pub mod vrf {
     }
 
     /// The possible states for this VRF.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2200,6 +2242,12 @@ pub mod vrf {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3002,7 +3050,7 @@ pub mod nfs_share {
     }
 
     /// The possible states for this NFS share.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3043,8 +3091,14 @@ pub mod nfs_share {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The possible mount permissions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MountPermissions(std::borrow::Cow<'static, str>);
 
     impl MountPermissions {
@@ -3080,8 +3134,14 @@ pub mod nfs_share {
         }
     }
 
+    impl std::default::Default for MountPermissions {
+        fn default() -> Self {
+            mount_permissions::MOUNT_PERMISSIONS_UNSPECIFIED
+        }
+    }
+
     /// The storage type for a volume.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(std::borrow::Cow<'static, str>);
 
     impl StorageType {
@@ -3114,6 +3174,12 @@ pub mod nfs_share {
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StorageType {
+        fn default() -> Self {
+            storage_type::STORAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3824,7 +3890,7 @@ pub mod provisioning_config {
     use super::*;
 
     /// The possible states for this ProvisioningConfig.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3874,6 +3940,12 @@ pub mod provisioning_config {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4181,7 +4253,7 @@ pub mod provisioning_quota {
     use super::*;
 
     /// The available asset types for intake.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AssetType(std::borrow::Cow<'static, str>);
 
     impl AssetType {
@@ -4216,6 +4288,12 @@ pub mod provisioning_quota {
     impl std::convert::From<std::string::String> for AssetType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AssetType {
+        fn default() -> Self {
+            asset_type::ASSET_TYPE_UNSPECIFIED
         }
     }
 
@@ -4593,7 +4671,7 @@ pub mod instance_config {
     }
 
     /// The network configuration of the instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NetworkConfig(std::borrow::Cow<'static, str>);
 
     impl NetworkConfig {
@@ -4627,6 +4705,12 @@ pub mod instance_config {
     impl std::convert::From<std::string::String> for NetworkConfig {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NetworkConfig {
+        fn default() -> Self {
+            network_config::NETWORKCONFIG_UNSPECIFIED
         }
     }
 }
@@ -4982,7 +5066,7 @@ pub mod volume_config {
         use super::*;
 
         /// Permissions that can granted for an export.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Permissions(std::borrow::Cow<'static, str>);
 
         impl Permissions {
@@ -5018,6 +5102,12 @@ pub mod volume_config {
             }
         }
 
+        impl std::default::Default for Permissions {
+            fn default() -> Self {
+                permissions::PERMISSIONS_UNSPECIFIED
+            }
+        }
+
         /// A client object.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -5032,7 +5122,7 @@ pub mod volume_config {
     }
 
     /// The types of Volumes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -5067,8 +5157,14 @@ pub mod volume_config {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// The protocol used to access the volume.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Protocol(std::borrow::Cow<'static, str>);
 
     impl Protocol {
@@ -5100,6 +5196,12 @@ pub mod volume_config {
     impl std::convert::From<std::string::String> for Protocol {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            protocol::PROTOCOL_UNSPECIFIED
         }
     }
 }
@@ -5292,7 +5394,7 @@ pub mod network_config {
     }
 
     /// Network type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -5327,8 +5429,14 @@ pub mod network_config {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Interconnect bandwidth.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Bandwidth(std::borrow::Cow<'static, str>);
 
     impl Bandwidth {
@@ -5369,8 +5477,14 @@ pub mod network_config {
         }
     }
 
+    impl std::default::Default for Bandwidth {
+        fn default() -> Self {
+            bandwidth::BANDWIDTH_UNSPECIFIED
+        }
+    }
+
     /// Service network block.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ServiceCidr(std::borrow::Cow<'static, str>);
 
     impl ServiceCidr {
@@ -5409,6 +5523,12 @@ pub mod network_config {
     impl std::convert::From<std::string::String> for ServiceCidr {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ServiceCidr {
+        fn default() -> Self {
+            service_cidr::SERVICE_CIDR_UNSPECIFIED
         }
     }
 }
@@ -6236,7 +6356,7 @@ pub mod volume {
     }
 
     /// The storage type for a volume.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StorageType(std::borrow::Cow<'static, str>);
 
     impl StorageType {
@@ -6272,8 +6392,14 @@ pub mod volume {
         }
     }
 
+    impl std::default::Default for StorageType {
+        fn default() -> Self {
+            storage_type::STORAGE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The possible states for a storage volume.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6318,9 +6444,15 @@ pub mod volume {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The kinds of auto delete behavior to use when snapshot reserved space is
     /// full.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SnapshotAutoDeleteBehavior(std::borrow::Cow<'static, str>);
 
     impl SnapshotAutoDeleteBehavior {
@@ -6363,8 +6495,14 @@ pub mod volume {
         }
     }
 
+    impl std::default::Default for SnapshotAutoDeleteBehavior {
+        fn default() -> Self {
+            snapshot_auto_delete_behavior::SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED
+        }
+    }
+
     /// Storage protocol.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Protocol(std::borrow::Cow<'static, str>);
 
     impl Protocol {
@@ -6400,8 +6538,14 @@ pub mod volume {
         }
     }
 
+    impl std::default::Default for Protocol {
+        fn default() -> Self {
+            protocol::PROTOCOL_UNSPECIFIED
+        }
+    }
+
     /// The possible values for a workload profile.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WorkloadProfile(std::borrow::Cow<'static, str>);
 
     impl WorkloadProfile {
@@ -6434,6 +6578,12 @@ pub mod volume {
     impl std::convert::From<std::string::String> for WorkloadProfile {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WorkloadProfile {
+        fn default() -> Self {
+            workload_profile::WORKLOAD_PROFILE_UNSPECIFIED
         }
     }
 }
@@ -6848,7 +6998,7 @@ pub mod volume_snapshot {
     use super::*;
 
     /// Represents the type of a snapshot.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SnapshotType(std::borrow::Cow<'static, str>);
 
     impl SnapshotType {
@@ -6881,6 +7031,12 @@ pub mod volume_snapshot {
     impl std::convert::From<std::string::String> for SnapshotType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SnapshotType {
+        fn default() -> Self {
+            snapshot_type::SNAPSHOT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -7139,7 +7295,7 @@ impl wkt::message::Message for RestoreVolumeSnapshotRequest {
 }
 
 /// Performance tier of the Volume.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct VolumePerformanceTier(std::borrow::Cow<'static, str>);
 
 impl VolumePerformanceTier {
@@ -7181,8 +7337,14 @@ impl std::convert::From<std::string::String> for VolumePerformanceTier {
     }
 }
 
+impl std::default::Default for VolumePerformanceTier {
+    fn default() -> Self {
+        volume_performance_tier::VOLUME_PERFORMANCE_TIER_UNSPECIFIED
+    }
+}
+
 /// The possible values for a workload profile.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct WorkloadProfile(std::borrow::Cow<'static, str>);
 
 impl WorkloadProfile {
@@ -7217,5 +7379,11 @@ pub mod workload_profile {
 impl std::convert::From<std::string::String> for WorkloadProfile {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for WorkloadProfile {
+    fn default() -> Self {
+        workload_profile::WORKLOAD_PROFILE_UNSPECIFIED
     }
 }

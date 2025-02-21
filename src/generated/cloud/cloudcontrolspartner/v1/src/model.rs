@@ -299,7 +299,7 @@ pub mod access_reason {
     use super::*;
 
     /// Type of access justification.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -362,6 +362,12 @@ pub mod access_reason {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -594,7 +600,7 @@ pub mod workload {
     use super::*;
 
     /// Supported Assured Workloads Partners.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Partner(std::borrow::Cow<'static, str>);
 
     impl Partner {
@@ -645,6 +651,12 @@ pub mod workload {
     impl std::convert::From<std::string::String> for Partner {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Partner {
+        fn default() -> Self {
+            partner::PARTNER_UNSPECIFIED
         }
     }
 }
@@ -933,7 +945,7 @@ pub mod workload_onboarding_step {
     use super::*;
 
     /// Enum for possible onboarding steps.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Step(std::borrow::Cow<'static, str>);
 
     impl Step {
@@ -966,6 +978,12 @@ pub mod workload_onboarding_step {
     impl std::convert::From<std::string::String> for Step {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Step {
+        fn default() -> Self {
+            step::STEP_UNSPECIFIED
         }
     }
 }
@@ -1317,7 +1335,7 @@ pub mod customer_onboarding_step {
     use super::*;
 
     /// Enum for possible onboarding steps
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Step(std::borrow::Cow<'static, str>);
 
     impl Step {
@@ -1349,6 +1367,12 @@ pub mod customer_onboarding_step {
     impl std::convert::From<std::string::String> for Step {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Step {
+        fn default() -> Self {
+            step::STEP_UNSPECIFIED
         }
     }
 }
@@ -1539,7 +1563,7 @@ pub mod ekm_connection {
     }
 
     /// The EKM connection state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConnectionState(std::borrow::Cow<'static, str>);
 
     impl ConnectionState {
@@ -1578,6 +1602,12 @@ pub mod ekm_connection {
     impl std::convert::From<std::string::String> for ConnectionState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ConnectionState {
+        fn default() -> Self {
+            connection_state::CONNECTION_STATE_UNSPECIFIED
         }
     }
 }
@@ -1632,7 +1662,7 @@ pub mod partner_permissions {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Permission(std::borrow::Cow<'static, str>);
 
     impl Permission {
@@ -1678,6 +1708,12 @@ pub mod partner_permissions {
     impl std::convert::From<std::string::String> for Permission {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Permission {
+        fn default() -> Self {
+            permission::PERMISSION_UNSPECIFIED
         }
     }
 }
@@ -1956,7 +1992,7 @@ pub mod ekm_metadata {
     /// Represents Google Cloud supported external key management partners
     /// [Google Cloud EKM partners
     /// docs](https://cloud.google.com/kms/docs/ekm#supported_partners).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EkmSolution(std::borrow::Cow<'static, str>);
 
     impl EkmSolution {
@@ -1995,6 +2031,12 @@ pub mod ekm_metadata {
     impl std::convert::From<std::string::String> for EkmSolution {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EkmSolution {
+        fn default() -> Self {
+            ekm_solution::EKM_SOLUTION_UNSPECIFIED
         }
     }
 }
@@ -2419,7 +2461,7 @@ pub mod violation {
         /// violation. For example, violations caused due to changes in boolean org
         /// policy requires different remediation instructions compared to violation
         /// caused due to changes in allowed values of list org policy.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct RemediationType(std::borrow::Cow<'static, str>);
 
         impl RemediationType {
@@ -2472,10 +2514,16 @@ pub mod violation {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for RemediationType {
+            fn default() -> Self {
+                remediation_type::REMEDIATION_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Violation State Values
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2510,6 +2558,12 @@ pub mod violation {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2706,7 +2760,7 @@ impl wkt::message::Message for GetViolationRequest {
 }
 
 /// Enum for possible completion states.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompletionState(std::borrow::Cow<'static, str>);
 
 impl CompletionState {
@@ -2745,5 +2799,11 @@ pub mod completion_state {
 impl std::convert::From<std::string::String> for CompletionState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for CompletionState {
+    fn default() -> Self {
+        completion_state::COMPLETION_STATE_UNSPECIFIED
     }
 }

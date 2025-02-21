@@ -824,7 +824,7 @@ pub mod config_variable_template {
     use super::*;
 
     /// ValueType indicates the data type of the value.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
@@ -871,8 +871,14 @@ pub mod config_variable_template {
         }
     }
 
+    impl std::default::Default for ValueType {
+        fn default() -> Self {
+            value_type::VALUE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Indicates the state of the config variable.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -904,6 +910,12 @@ pub mod config_variable_template {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1270,7 +1282,7 @@ pub mod role_grant {
         use super::*;
 
         /// Resource Type definition.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -1311,10 +1323,16 @@ pub mod role_grant {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// Supported Principal values.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Principal(std::borrow::Cow<'static, str>);
 
     impl Principal {
@@ -1345,6 +1363,12 @@ pub mod role_grant {
     impl std::convert::From<std::string::String> for Principal {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Principal {
+        fn default() -> Self {
+            principal::PRINCIPAL_UNSPECIFIED
         }
     }
 }
@@ -1822,7 +1846,7 @@ pub mod connection_schema_metadata {
     use super::*;
 
     /// State of connection runtime schema.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1854,6 +1878,12 @@ pub mod connection_schema_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2952,7 +2982,7 @@ pub mod connection_status {
     use super::*;
 
     /// All the possible Connection State.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3000,6 +3030,12 @@ pub mod connection_status {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3985,7 +4021,7 @@ pub mod extraction_rule {
     }
 
     /// Supported Source types for extraction.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SourceType(std::borrow::Cow<'static, str>);
 
     impl SourceType {
@@ -4014,6 +4050,12 @@ pub mod extraction_rule {
     impl std::convert::From<std::string::String> for SourceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SourceType {
+        fn default() -> Self {
+            source_type::SOURCE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4651,7 +4693,7 @@ pub mod runtime_config {
     use super::*;
 
     /// State of the location.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4695,6 +4737,12 @@ pub mod runtime_config {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -5014,7 +5062,7 @@ pub mod ssl_config {
     use super::*;
 
     /// Enum for Ttust Model
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TrustModel(std::borrow::Cow<'static, str>);
 
     impl TrustModel {
@@ -5048,10 +5096,16 @@ pub mod ssl_config {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for TrustModel {
+        fn default() -> Self {
+            trust_model::PUBLIC
+        }
+    }
 }
 
 /// AuthType defines different authentication types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AuthType(std::borrow::Cow<'static, str>);
 
 impl AuthType {
@@ -5096,9 +5150,15 @@ impl std::convert::From<std::string::String> for AuthType {
     }
 }
 
+impl std::default::Default for AuthType {
+    fn default() -> Self {
+        auth_type::AUTH_TYPE_UNSPECIFIED
+    }
+}
+
 /// LaunchStage is a enum to indicate launch stage:
 /// PREVIEW, GA, DEPRECATED, PRIVATE_PREVIEW.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LaunchStage(std::borrow::Cow<'static, str>);
 
 impl LaunchStage {
@@ -5139,8 +5199,14 @@ impl std::convert::From<std::string::String> for LaunchStage {
     }
 }
 
+impl std::default::Default for LaunchStage {
+    fn default() -> Self {
+        launch_stage::LAUNCH_STAGE_UNSPECIFIED
+    }
+}
+
 /// All possible data types of a entity or action field.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DataType(std::borrow::Cow<'static, str>);
 
 impl DataType {
@@ -5303,8 +5369,14 @@ impl std::convert::From<std::string::String> for DataType {
     }
 }
 
+impl std::default::Default for DataType {
+    fn default() -> Self {
+        data_type::DATA_TYPE_UNSPECIFIED
+    }
+}
+
 /// Enum to control which fields should be included in the response.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConnectionView(std::borrow::Cow<'static, str>);
 
 impl ConnectionView {
@@ -5340,8 +5412,14 @@ impl std::convert::From<std::string::String> for ConnectionView {
     }
 }
 
+impl std::default::Default for ConnectionView {
+    fn default() -> Self {
+        connection_view::CONNECTION_VIEW_UNSPECIFIED
+    }
+}
+
 /// Enum to control which fields should be included in the response.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ConnectorVersionView(std::borrow::Cow<'static, str>);
 
 impl ConnectorVersionView {
@@ -5379,8 +5457,14 @@ impl std::convert::From<std::string::String> for ConnectorVersionView {
     }
 }
 
+impl std::default::Default for ConnectorVersionView {
+    fn default() -> Self {
+        connector_version_view::CONNECTOR_VERSION_VIEW_UNSPECIFIED
+    }
+}
+
 /// Enum for controlling the SSL Type (TLS/MTLS)
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SslType(std::borrow::Cow<'static, str>);
 
 impl SslType {
@@ -5415,8 +5499,14 @@ impl std::convert::From<std::string::String> for SslType {
     }
 }
 
+impl std::default::Default for SslType {
+    fn default() -> Self {
+        ssl_type::SSL_TYPE_UNSPECIFIED
+    }
+}
+
 /// Enum for Cert Types
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CertType(std::borrow::Cow<'static, str>);
 
 impl CertType {
@@ -5445,5 +5535,11 @@ pub mod cert_type {
 impl std::convert::From<std::string::String> for CertType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for CertType {
+    fn default() -> Self {
+        cert_type::CERT_TYPE_UNSPECIFIED
     }
 }

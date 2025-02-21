@@ -3467,7 +3467,7 @@ pub mod private_connection {
     use super::*;
 
     /// Private Connection state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3508,6 +3508,12 @@ pub mod private_connection {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -6621,7 +6627,7 @@ pub mod json_file_format {
     use super::*;
 
     /// Schema file format.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SchemaFileFormat(std::borrow::Cow<'static, str>);
 
     impl SchemaFileFormat {
@@ -6657,8 +6663,14 @@ pub mod json_file_format {
         }
     }
 
+    impl std::default::Default for SchemaFileFormat {
+        fn default() -> Self {
+            schema_file_format::SCHEMA_FILE_FORMAT_UNSPECIFIED
+        }
+    }
+
     /// Json file compression.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct JsonCompression(std::borrow::Cow<'static, str>);
 
     impl JsonCompression {
@@ -6691,6 +6703,12 @@ pub mod json_file_format {
     impl std::convert::From<std::string::String> for JsonCompression {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for JsonCompression {
+        fn default() -> Self {
+            json_compression::JSON_COMPRESSION_UNSPECIFIED
         }
     }
 }
@@ -7853,7 +7871,7 @@ pub mod stream {
     }
 
     /// Stream state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7907,6 +7925,12 @@ pub mod stream {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -8491,7 +8515,7 @@ pub mod backfill_job {
     use super::*;
 
     /// State of the stream object's backfill job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8544,8 +8568,14 @@ pub mod backfill_job {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Triggering reason for a backfill job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Trigger(std::borrow::Cow<'static, str>);
 
     impl Trigger {
@@ -8578,6 +8608,12 @@ pub mod backfill_job {
     impl std::convert::From<std::string::String> for Trigger {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Trigger {
+        fn default() -> Self {
+            trigger::TRIGGER_UNSPECIFIED
         }
     }
 }
@@ -8768,7 +8804,7 @@ pub mod validation {
     use super::*;
 
     /// Validation execution state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8806,6 +8842,12 @@ pub mod validation {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -8883,7 +8925,7 @@ pub mod validation_message {
     use super::*;
 
     /// Validation message level.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Level(std::borrow::Cow<'static, str>);
 
     impl Level {
@@ -8915,6 +8957,12 @@ pub mod validation_message {
     impl std::convert::From<std::string::String> for Level {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Level {
+        fn default() -> Self {
+            level::LEVEL_UNSPECIFIED
         }
     }
 }

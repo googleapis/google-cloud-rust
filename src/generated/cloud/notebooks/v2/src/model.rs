@@ -180,7 +180,7 @@ pub mod event {
     use super::*;
 
     /// The definition of the event types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventType(std::borrow::Cow<'static, str>);
 
     impl EventType {
@@ -229,6 +229,12 @@ pub mod event {
     impl std::convert::From<std::string::String> for EventType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            event_type::EVENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -296,7 +302,7 @@ pub mod network_interface {
 
     /// The type of vNIC driver.
     /// Default should be NIC_TYPE_UNSPECIFIED.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NicType(std::borrow::Cow<'static, str>);
 
     impl NicType {
@@ -328,6 +334,12 @@ pub mod network_interface {
     impl std::convert::From<std::string::String> for NicType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NicType {
+        fn default() -> Self {
+            nic_type::NIC_TYPE_UNSPECIFIED
         }
     }
 }
@@ -532,7 +544,7 @@ pub mod accelerator_config {
 
     /// Definition of the types of hardware accelerators that can be used on
     /// this instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AcceleratorType(std::borrow::Cow<'static, str>);
 
     impl AcceleratorType {
@@ -592,6 +604,12 @@ pub mod accelerator_config {
     impl std::convert::From<std::string::String> for AcceleratorType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AcceleratorType {
+        fn default() -> Self {
+            accelerator_type::ACCELERATOR_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1278,7 +1296,7 @@ pub mod upgrade_history_entry {
     use super::*;
 
     /// The definition of the states of this upgrade history entry.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1316,8 +1334,14 @@ pub mod upgrade_history_entry {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The definition of operations of this upgrade history entry.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -1349,6 +1373,12 @@ pub mod upgrade_history_entry {
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
         }
     }
 }
@@ -2370,7 +2400,7 @@ impl wkt::message::Message for DiagnoseInstanceRequest {
 }
 
 /// Definition of the disk encryption options.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DiskEncryption(std::borrow::Cow<'static, str>);
 
 impl DiskEncryption {
@@ -2406,8 +2436,14 @@ impl std::convert::From<std::string::String> for DiskEncryption {
     }
 }
 
+impl std::default::Default for DiskEncryption {
+    fn default() -> Self {
+        disk_encryption::DISK_ENCRYPTION_UNSPECIFIED
+    }
+}
+
 /// Possible disk types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DiskType(std::borrow::Cow<'static, str>);
 
 impl DiskType {
@@ -2448,8 +2484,14 @@ impl std::convert::From<std::string::String> for DiskType {
     }
 }
 
+impl std::default::Default for DiskType {
+    fn default() -> Self {
+        disk_type::DISK_TYPE_UNSPECIFIED
+    }
+}
+
 /// The definition of the states of this instance.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct State(std::borrow::Cow<'static, str>);
 
 impl State {
@@ -2509,8 +2551,14 @@ impl std::convert::From<std::string::String> for State {
     }
 }
 
+impl std::default::Default for State {
+    fn default() -> Self {
+        state::STATE_UNSPECIFIED
+    }
+}
+
 /// The instance health state.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HealthState(std::borrow::Cow<'static, str>);
 
 impl HealthState {
@@ -2554,5 +2602,11 @@ pub mod health_state {
 impl std::convert::From<std::string::String> for HealthState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HealthState {
+    fn default() -> Self {
+        health_state::HEALTH_STATE_UNSPECIFIED
     }
 }

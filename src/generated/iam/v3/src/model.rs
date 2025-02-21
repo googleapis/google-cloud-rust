@@ -444,7 +444,7 @@ pub mod policy_binding {
     }
 
     /// Different policy kinds supported in this binding.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyKind(std::borrow::Cow<'static, str>);
 
     impl PolicyKind {
@@ -474,6 +474,12 @@ pub mod policy_binding {
     impl std::convert::From<std::string::String> for PolicyKind {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PolicyKind {
+        fn default() -> Self {
+            policy_kind::POLICY_KIND_UNSPECIFIED
         }
     }
 }
@@ -1727,7 +1733,7 @@ pub mod principal_access_boundary_policy_rule {
     use super::*;
 
     /// An effect to describe the access relationship.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Effect(std::borrow::Cow<'static, str>);
 
     impl Effect {
@@ -1756,6 +1762,12 @@ pub mod principal_access_boundary_policy_rule {
     impl std::convert::From<std::string::String> for Effect {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            effect::EFFECT_UNSPECIFIED
         }
     }
 }

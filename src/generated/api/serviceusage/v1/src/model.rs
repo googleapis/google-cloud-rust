@@ -443,7 +443,7 @@ pub mod disable_service_request {
 
     /// Enum to determine if service usage should be checked when disabling a
     /// service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CheckIfServiceHasUsage(std::borrow::Cow<'static, str>);
 
     impl CheckIfServiceHasUsage {
@@ -478,6 +478,12 @@ pub mod disable_service_request {
     impl std::convert::From<std::string::String> for CheckIfServiceHasUsage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CheckIfServiceHasUsage {
+        fn default() -> Self {
+            check_if_service_has_usage::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED
         }
     }
 }
@@ -919,7 +925,7 @@ impl wkt::message::Message for BatchGetServicesResponse {
 }
 
 /// Whether or not a service has been enabled for use by a consumer.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct State(std::borrow::Cow<'static, str>);
 
 impl State {
@@ -954,5 +960,11 @@ pub mod state {
 impl std::convert::From<std::string::String> for State {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for State {
+    fn default() -> Self {
+        state::STATE_UNSPECIFIED
     }
 }

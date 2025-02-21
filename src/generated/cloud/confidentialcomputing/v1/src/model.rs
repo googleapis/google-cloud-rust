@@ -1096,7 +1096,7 @@ impl wkt::message::Message for ContainerImageSignature {
 }
 
 /// SigningAlgorithm enumerates all the supported signing algorithms.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SigningAlgorithm(std::borrow::Cow<'static, str>);
 
 impl SigningAlgorithm {
@@ -1136,9 +1136,15 @@ impl std::convert::From<std::string::String> for SigningAlgorithm {
     }
 }
 
+impl std::default::Default for SigningAlgorithm {
+    fn default() -> Self {
+        signing_algorithm::SIGNING_ALGORITHM_UNSPECIFIED
+    }
+}
+
 /// Token type enum contains the different types of token responses Confidential
 /// Space supports
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TokenType(std::borrow::Cow<'static, str>);
 
 impl TokenType {
@@ -1177,5 +1183,11 @@ pub mod token_type {
 impl std::convert::From<std::string::String> for TokenType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for TokenType {
+    fn default() -> Self {
+        token_type::TOKEN_TYPE_UNSPECIFIED
     }
 }

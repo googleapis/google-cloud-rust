@@ -758,7 +758,7 @@ pub mod list_service_account_keys_request {
 
     /// `KeyType` filters to selectively retrieve certain varieties
     /// of keys.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KeyType(std::borrow::Cow<'static, str>);
 
     impl KeyType {
@@ -791,6 +791,12 @@ pub mod list_service_account_keys_request {
     impl std::convert::From<std::string::String> for KeyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for KeyType {
+        fn default() -> Self {
+            key_type::KEY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1586,7 +1592,7 @@ pub mod role {
     use super::*;
 
     /// A stage representing a role's lifecycle phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RoleLaunchStage(std::borrow::Cow<'static, str>);
 
     impl RoleLaunchStage {
@@ -1630,6 +1636,12 @@ pub mod role {
     impl std::convert::From<std::string::String> for RoleLaunchStage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RoleLaunchStage {
+        fn default() -> Self {
+            role_launch_stage::ALPHA
         }
     }
 }
@@ -2373,7 +2385,7 @@ pub mod permission {
     use super::*;
 
     /// A stage representing a permission's lifecycle phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PermissionLaunchStage(std::borrow::Cow<'static, str>);
 
     impl PermissionLaunchStage {
@@ -2411,8 +2423,14 @@ pub mod permission {
         }
     }
 
+    impl std::default::Default for PermissionLaunchStage {
+        fn default() -> Self {
+            permission_launch_stage::ALPHA
+        }
+    }
+
     /// The state of the permission with regards to custom roles.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CustomRolesSupportLevel(std::borrow::Cow<'static, str>);
 
     impl CustomRolesSupportLevel {
@@ -2445,6 +2463,12 @@ pub mod permission {
     impl std::convert::From<std::string::String> for CustomRolesSupportLevel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CustomRolesSupportLevel {
+        fn default() -> Self {
+            custom_roles_support_level::SUPPORTED
         }
     }
 }
@@ -2872,7 +2896,7 @@ pub mod lint_result {
 
     /// Possible Level values of a validation unit corresponding to its domain
     /// of discourse.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Level(std::borrow::Cow<'static, str>);
 
     impl Level {
@@ -2905,8 +2929,14 @@ pub mod lint_result {
         }
     }
 
+    impl std::default::Default for Level {
+        fn default() -> Self {
+            level::LEVEL_UNSPECIFIED
+        }
+    }
+
     /// Possible Severity values of an issued result.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -2964,6 +2994,12 @@ pub mod lint_result {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
+        }
+    }
 }
 
 /// The response of a lint operation. An empty response indicates
@@ -3002,7 +3038,7 @@ impl wkt::message::Message for LintPolicyResponse {
 }
 
 /// Supported key algorithms.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountKeyAlgorithm(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountKeyAlgorithm {
@@ -3040,8 +3076,14 @@ impl std::convert::From<std::string::String> for ServiceAccountKeyAlgorithm {
     }
 }
 
+impl std::default::Default for ServiceAccountKeyAlgorithm {
+    fn default() -> Self {
+        service_account_key_algorithm::KEY_ALG_UNSPECIFIED
+    }
+}
+
 /// Supported private key output formats.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountPrivateKeyType(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountPrivateKeyType {
@@ -3081,8 +3123,14 @@ impl std::convert::From<std::string::String> for ServiceAccountPrivateKeyType {
     }
 }
 
+impl std::default::Default for ServiceAccountPrivateKeyType {
+    fn default() -> Self {
+        service_account_private_key_type::TYPE_UNSPECIFIED
+    }
+}
+
 /// Supported public key output formats.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountPublicKeyType(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountPublicKeyType {
@@ -3120,8 +3168,14 @@ impl std::convert::From<std::string::String> for ServiceAccountPublicKeyType {
     }
 }
 
+impl std::default::Default for ServiceAccountPublicKeyType {
+    fn default() -> Self {
+        service_account_public_key_type::TYPE_NONE
+    }
+}
+
 /// Service Account Key Origin.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountKeyOrigin(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountKeyOrigin {
@@ -3159,8 +3213,14 @@ impl std::convert::From<std::string::String> for ServiceAccountKeyOrigin {
     }
 }
 
+impl std::default::Default for ServiceAccountKeyOrigin {
+    fn default() -> Self {
+        service_account_key_origin::ORIGIN_UNSPECIFIED
+    }
+}
+
 /// A view for Role objects.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RoleView(std::borrow::Cow<'static, str>);
 
 impl RoleView {
@@ -3190,5 +3250,11 @@ pub mod role_view {
 impl std::convert::From<std::string::String> for RoleView {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for RoleView {
+    fn default() -> Self {
+        role_view::BASIC
     }
 }

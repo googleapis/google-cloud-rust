@@ -148,7 +148,7 @@ pub mod orchestration_cluster {
     use super::*;
 
     /// Possible states that the Orchestration Cluster can be in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -187,6 +187,12 @@ pub mod orchestration_cluster {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -320,7 +326,7 @@ pub mod edge_slm {
     use super::*;
 
     /// Possible states of the resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -362,9 +368,15 @@ pub mod edge_slm {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Workload clusters supported by TNA. New values will be added to the enum
     /// list as TNA adds supports for new workload clusters in future.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WorkloadClusterType(std::borrow::Cow<'static, str>);
 
     impl WorkloadClusterType {
@@ -397,6 +409,12 @@ pub mod edge_slm {
     impl std::convert::From<std::string::String> for WorkloadClusterType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WorkloadClusterType {
+        fn default() -> Self {
+            workload_cluster_type::WORKLOAD_CLUSTER_TYPE_UNSPECIFIED
         }
     }
 }
@@ -610,7 +628,7 @@ pub mod blueprint {
 
     /// Approval state indicates the state of a Blueprint in its approval
     /// lifecycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ApprovalState(std::borrow::Cow<'static, str>);
 
     impl ApprovalState {
@@ -652,6 +670,12 @@ pub mod blueprint {
     impl std::convert::From<std::string::String> for ApprovalState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ApprovalState {
+        fn default() -> Self {
+            approval_state::APPROVAL_STATE_UNSPECIFIED
         }
     }
 }
@@ -961,7 +985,7 @@ pub mod deployment {
     use super::*;
 
     /// State defines which state the current deployment is in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1005,6 +1029,12 @@ pub mod deployment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1089,7 +1119,7 @@ pub mod hydrated_deployment {
     use super::*;
 
     /// State defines which state the current hydrated deployment is in.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1123,6 +1153,12 @@ pub mod hydrated_deployment {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4484,7 +4520,7 @@ impl wkt::message::Message for WorkloadStatus {
 }
 
 /// BlueprintView defines the type of view of the blueprint.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BlueprintView(std::borrow::Cow<'static, str>);
 
 impl BlueprintView {
@@ -4520,8 +4556,14 @@ impl std::convert::From<std::string::String> for BlueprintView {
     }
 }
 
+impl std::default::Default for BlueprintView {
+    fn default() -> Self {
+        blueprint_view::BLUEPRINT_VIEW_UNSPECIFIED
+    }
+}
+
 /// DeploymentView defines the type of view of the deployment.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeploymentView(std::borrow::Cow<'static, str>);
 
 impl DeploymentView {
@@ -4557,8 +4599,14 @@ impl std::convert::From<std::string::String> for DeploymentView {
     }
 }
 
+impl std::default::Default for DeploymentView {
+    fn default() -> Self {
+        deployment_view::DEPLOYMENT_VIEW_UNSPECIFIED
+    }
+}
+
 /// Represent type of CR.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ResourceType(std::borrow::Cow<'static, str>);
 
 impl ResourceType {
@@ -4594,8 +4642,14 @@ impl std::convert::From<std::string::String> for ResourceType {
     }
 }
 
+impl std::default::Default for ResourceType {
+    fn default() -> Self {
+        resource_type::RESOURCE_TYPE_UNSPECIFIED
+    }
+}
+
 /// Status of an entity (resource, deployment).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Status(std::borrow::Cow<'static, str>);
 
 impl Status {
@@ -4646,9 +4700,15 @@ impl std::convert::From<std::string::String> for Status {
     }
 }
 
+impl std::default::Default for Status {
+    fn default() -> Self {
+        status::STATUS_UNSPECIFIED
+    }
+}
+
 /// DeploymentLevel of a blueprint signifies where the blueprint will be
 /// applied.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DeploymentLevel(std::borrow::Cow<'static, str>);
 
 impl DeploymentLevel {
@@ -4701,5 +4761,11 @@ pub mod deployment_level {
 impl std::convert::From<std::string::String> for DeploymentLevel {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DeploymentLevel {
+    fn default() -> Self {
+        deployment_level::DEPLOYMENT_LEVEL_UNSPECIFIED
     }
 }

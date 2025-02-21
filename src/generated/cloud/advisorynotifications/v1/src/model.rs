@@ -831,7 +831,7 @@ impl wkt::message::Message for UpdateSettingsRequest {
 }
 
 /// Notification view.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NotificationView(std::borrow::Cow<'static, str>);
 
 impl NotificationView {
@@ -869,8 +869,14 @@ impl std::convert::From<std::string::String> for NotificationView {
     }
 }
 
+impl std::default::Default for NotificationView {
+    fn default() -> Self {
+        notification_view::NOTIFICATION_VIEW_UNSPECIFIED
+    }
+}
+
 /// Status of localized text.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LocalizationState(std::borrow::Cow<'static, str>);
 
 impl LocalizationState {
@@ -918,8 +924,14 @@ impl std::convert::From<std::string::String> for LocalizationState {
     }
 }
 
+impl std::default::Default for LocalizationState {
+    fn default() -> Self {
+        localization_state::LOCALIZATION_STATE_UNSPECIFIED
+    }
+}
+
 /// Type of notification
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NotificationType(std::borrow::Cow<'static, str>);
 
 impl NotificationType {
@@ -962,5 +974,11 @@ pub mod notification_type {
 impl std::convert::From<std::string::String> for NotificationType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for NotificationType {
+    fn default() -> Self {
+        notification_type::NOTIFICATION_TYPE_UNSPECIFIED
     }
 }

@@ -168,7 +168,7 @@ pub mod replication_cycle {
     use super::*;
 
     /// Possible states of a replication cycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -207,6 +207,12 @@ pub mod replication_cycle {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -858,7 +864,7 @@ pub mod migrating_vm {
     use super::*;
 
     /// The possible values of the state/health of source VM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -923,6 +929,12 @@ pub mod migrating_vm {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1120,7 +1132,7 @@ pub mod clone_job {
     use super::*;
 
     /// Possible states of the clone job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1168,6 +1180,12 @@ pub mod clone_job {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1585,7 +1603,7 @@ pub mod cutover_job {
     use super::*;
 
     /// Possible states of the cutover job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1633,6 +1651,12 @@ pub mod cutover_job {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -2680,7 +2704,7 @@ pub mod aws_source_details {
     }
 
     /// The possible values of the state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2718,6 +2742,12 @@ pub mod aws_source_details {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -2940,7 +2970,7 @@ pub mod datacenter_connector {
     use super::*;
 
     /// The possible values of the state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2981,6 +3011,12 @@ pub mod datacenter_connector {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3071,7 +3107,7 @@ pub mod upgrade_status {
     use super::*;
 
     /// The possible values of the state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3106,6 +3142,12 @@ pub mod upgrade_status {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -3794,7 +3836,7 @@ pub mod vmware_vm_details {
     use super::*;
 
     /// Possible values for the power state of the VM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PowerState(std::borrow::Cow<'static, str>);
 
     impl PowerState {
@@ -3832,8 +3874,14 @@ pub mod vmware_vm_details {
         }
     }
 
+    impl std::default::Default for PowerState {
+        fn default() -> Self {
+            power_state::POWER_STATE_UNSPECIFIED
+        }
+    }
+
     /// Possible values for vm boot option.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BootOption(std::borrow::Cow<'static, str>);
 
     impl BootOption {
@@ -3865,6 +3913,12 @@ pub mod vmware_vm_details {
     impl std::convert::From<std::string::String> for BootOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BootOption {
+        fn default() -> Self {
+            boot_option::BOOT_OPTION_UNSPECIFIED
         }
     }
 }
@@ -4095,7 +4149,7 @@ pub mod aws_vm_details {
     use super::*;
 
     /// Possible values for the power state of the VM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PowerState(std::borrow::Cow<'static, str>);
 
     impl PowerState {
@@ -4137,8 +4191,14 @@ pub mod aws_vm_details {
         }
     }
 
+    impl std::default::Default for PowerState {
+        fn default() -> Self {
+            power_state::POWER_STATE_UNSPECIFIED
+        }
+    }
+
     /// The possible values for the vm boot option.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BootOption(std::borrow::Cow<'static, str>);
 
     impl BootOption {
@@ -4173,8 +4233,14 @@ pub mod aws_vm_details {
         }
     }
 
+    impl std::default::Default for BootOption {
+        fn default() -> Self {
+            boot_option::BOOT_OPTION_UNSPECIFIED
+        }
+    }
+
     /// Possible values for the virtualization types of the VM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VmVirtualizationType(std::borrow::Cow<'static, str>);
 
     impl VmVirtualizationType {
@@ -4210,8 +4276,14 @@ pub mod aws_vm_details {
         }
     }
 
+    impl std::default::Default for VmVirtualizationType {
+        fn default() -> Self {
+            vm_virtualization_type::VM_VIRTUALIZATION_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Possible values for the architectures of the VM.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VmArchitecture(std::borrow::Cow<'static, str>);
 
     impl VmArchitecture {
@@ -4250,6 +4322,12 @@ pub mod aws_vm_details {
     impl std::convert::From<std::string::String> for VmArchitecture {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VmArchitecture {
+        fn default() -> Self {
+            vm_architecture::VM_ARCHITECTURE_UNSPECIFIED
         }
     }
 }
@@ -4643,7 +4721,7 @@ pub mod utilization_report {
     use super::*;
 
     /// Utilization report state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4681,8 +4759,14 @@ pub mod utilization_report {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Report time frame options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TimeFrame(std::borrow::Cow<'static, str>);
 
     impl TimeFrame {
@@ -4717,6 +4801,12 @@ pub mod utilization_report {
     impl std::convert::From<std::string::String> for TimeFrame {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TimeFrame {
+        fn default() -> Self {
+            time_frame::TIME_FRAME_UNSPECIFIED
         }
     }
 }
@@ -6246,7 +6336,7 @@ pub mod applied_license {
     use super::*;
 
     /// License types used in OS adaptation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -6281,6 +6371,12 @@ pub mod applied_license {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -6351,7 +6447,7 @@ pub mod scheduling_node_affinity {
 
     /// Possible types of node selection operators. Valid operators are IN for
     /// affinity and NOT_IN for anti-affinity.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Operator(std::borrow::Cow<'static, str>);
 
     impl Operator {
@@ -6383,6 +6479,12 @@ pub mod scheduling_node_affinity {
     impl std::convert::From<std::string::String> for Operator {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Operator {
+        fn default() -> Self {
+            operator::OPERATOR_UNSPECIFIED
         }
     }
 }
@@ -6473,7 +6575,7 @@ pub mod compute_scheduling {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OnHostMaintenance(std::borrow::Cow<'static, str>);
 
     impl OnHostMaintenance {
@@ -6509,9 +6611,15 @@ pub mod compute_scheduling {
         }
     }
 
+    impl std::default::Default for OnHostMaintenance {
+        fn default() -> Self {
+            on_host_maintenance::ON_HOST_MAINTENANCE_UNSPECIFIED
+        }
+    }
+
     /// Defines whether the Instance should be automatically restarted whenever
     /// it is terminated by Compute Engine (not terminated by user).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RestartType(std::borrow::Cow<'static, str>);
 
     impl RestartType {
@@ -6546,6 +6654,12 @@ pub mod compute_scheduling {
     impl std::convert::From<std::string::String> for RestartType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RestartType {
+        fn default() -> Self {
+            restart_type::RESTART_TYPE_UNSPECIFIED
         }
     }
 }
@@ -8677,7 +8791,7 @@ pub mod migration_error {
     use super::*;
 
     /// Represents resource error codes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ErrorCode(std::borrow::Cow<'static, str>);
 
     impl ErrorCode {
@@ -8734,6 +8848,12 @@ pub mod migration_error {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for ErrorCode {
+        fn default() -> Self {
+            error_code::ERROR_CODE_UNSPECIFIED
+        }
+    }
 }
 
 /// Represent the source AWS VM details.
@@ -8783,7 +8903,7 @@ pub mod aws_source_vm_details {
     use super::*;
 
     /// Possible values for AWS VM firmware.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Firmware(std::borrow::Cow<'static, str>);
 
     impl Firmware {
@@ -8815,6 +8935,12 @@ pub mod aws_source_vm_details {
     impl std::convert::From<std::string::String> for Firmware {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Firmware {
+        fn default() -> Self {
+            firmware::FIRMWARE_UNSPECIFIED
         }
     }
 }
@@ -8997,7 +9123,7 @@ impl wkt::message::Message for GetReplicationCycleRequest {
 }
 
 /// Controls the level of details of a Utilization Report.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UtilizationReportView(std::borrow::Cow<'static, str>);
 
 impl UtilizationReportView {
@@ -9036,8 +9162,14 @@ impl std::convert::From<std::string::String> for UtilizationReportView {
     }
 }
 
+impl std::default::Default for UtilizationReportView {
+    fn default() -> Self {
+        utilization_report_view::UTILIZATION_REPORT_VIEW_UNSPECIFIED
+    }
+}
+
 /// Controls the level of details of a Migrating VM.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct MigratingVmView(std::borrow::Cow<'static, str>);
 
 impl MigratingVmView {
@@ -9077,8 +9209,14 @@ impl std::convert::From<std::string::String> for MigratingVmView {
     }
 }
 
+impl std::default::Default for MigratingVmView {
+    fn default() -> Self {
+        migrating_vm_view::MIGRATING_VM_VIEW_UNSPECIFIED
+    }
+}
+
 /// Types of disks supported for Compute Engine VM.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ComputeEngineDiskType(std::borrow::Cow<'static, str>);
 
 impl ComputeEngineDiskType {
@@ -9121,8 +9259,14 @@ impl std::convert::From<std::string::String> for ComputeEngineDiskType {
     }
 }
 
+impl std::default::Default for ComputeEngineDiskType {
+    fn default() -> Self {
+        compute_engine_disk_type::COMPUTE_ENGINE_DISK_TYPE_UNSPECIFIED
+    }
+}
+
 /// Types of licenses used in OS adaptation.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ComputeEngineLicenseType(std::borrow::Cow<'static, str>);
 
 impl ComputeEngineLicenseType {
@@ -9160,8 +9304,14 @@ impl std::convert::From<std::string::String> for ComputeEngineLicenseType {
     }
 }
 
+impl std::default::Default for ComputeEngineLicenseType {
+    fn default() -> Self {
+        compute_engine_license_type::COMPUTE_ENGINE_LICENSE_TYPE_DEFAULT
+    }
+}
+
 /// Possible values for vm boot option.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ComputeEngineBootOption(std::borrow::Cow<'static, str>);
 
 impl ComputeEngineBootOption {
@@ -9196,5 +9346,11 @@ pub mod compute_engine_boot_option {
 impl std::convert::From<std::string::String> for ComputeEngineBootOption {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ComputeEngineBootOption {
+    fn default() -> Self {
+        compute_engine_boot_option::COMPUTE_ENGINE_BOOT_OPTION_UNSPECIFIED
     }
 }

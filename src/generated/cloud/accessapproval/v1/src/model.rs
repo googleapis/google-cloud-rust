@@ -147,7 +147,7 @@ pub mod access_reason {
     use super::*;
 
     /// Type of access justification.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -204,6 +204,12 @@ pub mod access_reason {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -1372,7 +1378,7 @@ impl wkt::message::Message for GetAccessApprovalServiceAccountMessage {
 }
 
 /// Represents the type of enrollment for a given service to Access Approval.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EnrollmentLevel(std::borrow::Cow<'static, str>);
 
 impl EnrollmentLevel {
@@ -1402,5 +1408,11 @@ pub mod enrollment_level {
 impl std::convert::From<std::string::String> for EnrollmentLevel {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for EnrollmentLevel {
+    fn default() -> Self {
+        enrollment_level::ENROLLMENT_LEVEL_UNSPECIFIED
     }
 }

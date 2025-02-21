@@ -1395,7 +1395,7 @@ pub mod partition_spec {
     /// a timestamp column, the actual partition is based on its date value
     /// (expressed in UTC. see details in
     /// <https://cloud.google.com/bigquery/docs/partitioned-tables#date_timestamp_partitioned_tables>).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PartitionKey(std::borrow::Cow<'static, str>);
 
     impl PartitionKey {
@@ -1435,6 +1435,12 @@ pub mod partition_spec {
     impl std::convert::From<std::string::String> for PartitionKey {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PartitionKey {
+        fn default() -> Self {
+            partition_key::PARTITION_KEY_UNSPECIFIED
         }
     }
 }
@@ -3273,7 +3279,7 @@ pub mod iam_policy_analysis_output_config {
         /// Partitioning can improve query performance and reduce query cost by
         /// filtering partitions. Refer to
         /// <https://cloud.google.com/bigquery/docs/partitioned-tables> for details.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PartitionKey(std::borrow::Cow<'static, str>);
 
         impl PartitionKey {
@@ -3306,6 +3312,12 @@ pub mod iam_policy_analysis_output_config {
         impl std::convert::From<std::string::String> for PartitionKey {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for PartitionKey {
+            fn default() -> Self {
+                partition_key::PARTITION_KEY_UNSPECIFIED
             }
         }
     }
@@ -4034,7 +4046,7 @@ pub mod analyze_move_request {
     use super::*;
 
     /// View enum for supporting partial analysis responses.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AnalysisView(std::borrow::Cow<'static, str>);
 
     impl AnalysisView {
@@ -4070,6 +4082,12 @@ pub mod analyze_move_request {
     impl std::convert::From<std::string::String> for AnalysisView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AnalysisView {
+        fn default() -> Self {
+            analysis_view::ANALYSIS_VIEW_UNSPECIFIED
         }
     }
 }
@@ -6048,7 +6066,7 @@ pub mod analyzer_org_policy_constraint {
 
         /// Specifies the default behavior in the absence of any `Policy` for the
         /// `Constraint`. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ConstraintDefault(std::borrow::Cow<'static, str>);
 
         impl ConstraintDefault {
@@ -6084,6 +6102,12 @@ pub mod analyzer_org_policy_constraint {
         impl std::convert::From<std::string::String> for ConstraintDefault {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ConstraintDefault {
+            fn default() -> Self {
+                constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
             }
         }
 
@@ -6242,7 +6266,7 @@ pub mod analyzer_org_policy_constraint {
         /// If the constraint applies only when create VMs, the method_types will be
         /// "CREATE" only. If the constraint applied when create or delete VMs, the
         /// method_types will be "CREATE" and "DELETE".
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct MethodType(std::borrow::Cow<'static, str>);
 
         impl MethodType {
@@ -6281,8 +6305,14 @@ pub mod analyzer_org_policy_constraint {
             }
         }
 
+        impl std::default::Default for MethodType {
+            fn default() -> Self {
+                method_type::METHOD_TYPE_UNSPECIFIED
+            }
+        }
+
         /// Allow or deny type.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ActionType(std::borrow::Cow<'static, str>);
 
         impl ActionType {
@@ -6315,6 +6345,12 @@ pub mod analyzer_org_policy_constraint {
         impl std::convert::From<std::string::String> for ActionType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ActionType {
+            fn default() -> Self {
+                action_type::ACTION_TYPE_UNSPECIFIED
             }
         }
     }
@@ -7679,7 +7715,7 @@ pub mod temporal_asset {
     use super::*;
 
     /// State of prior asset.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PriorAssetState(std::borrow::Cow<'static, str>);
 
     impl PriorAssetState {
@@ -7718,6 +7754,12 @@ pub mod temporal_asset {
     impl std::convert::From<std::string::String> for PriorAssetState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PriorAssetState {
+        fn default() -> Self {
+            prior_asset_state::PRIOR_ASSET_STATE_UNSPECIFIED
         }
     }
 }
@@ -9729,7 +9771,7 @@ pub mod condition_evaluation {
     use super::*;
 
     /// Value of this expression.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EvaluationValue(std::borrow::Cow<'static, str>);
 
     impl EvaluationValue {
@@ -9767,6 +9809,12 @@ pub mod condition_evaluation {
     impl std::convert::From<std::string::String> for EvaluationValue {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EvaluationValue {
+        fn default() -> Self {
+            evaluation_value::EVALUATION_VALUE_UNSPECIFIED
         }
     }
 }
@@ -10322,7 +10370,7 @@ pub mod iam_policy_analysis_result {
 }
 
 /// Asset content type.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ContentType(std::borrow::Cow<'static, str>);
 
 impl ContentType {
@@ -10366,5 +10414,11 @@ pub mod content_type {
 impl std::convert::From<std::string::String> for ContentType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ContentType {
+    fn default() -> Self {
+        content_type::CONTENT_TYPE_UNSPECIFIED
     }
 }

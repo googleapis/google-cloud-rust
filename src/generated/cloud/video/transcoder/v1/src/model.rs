@@ -290,7 +290,7 @@ pub mod job {
     use super::*;
 
     /// The current state of the job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProcessingState(std::borrow::Cow<'static, str>);
 
     impl ProcessingState {
@@ -333,8 +333,14 @@ pub mod job {
         }
     }
 
+    impl std::default::Default for ProcessingState {
+        fn default() -> Self {
+            processing_state::PROCESSING_STATE_UNSPECIFIED
+        }
+    }
+
     /// The processing mode of the job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProcessingMode(std::borrow::Cow<'static, str>);
 
     impl ProcessingMode {
@@ -375,8 +381,14 @@ pub mod job {
         }
     }
 
+    impl std::default::Default for ProcessingMode {
+        fn default() -> Self {
+            processing_mode::PROCESSING_MODE_UNSPECIFIED
+        }
+    }
+
     /// The optimization strategy of the job. The default is `AUTODETECT`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OptimizationStrategy(std::borrow::Cow<'static, str>);
 
     impl OptimizationStrategy {
@@ -409,6 +421,12 @@ pub mod job {
     impl std::convert::From<std::string::String> for OptimizationStrategy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OptimizationStrategy {
+        fn default() -> Self {
+            optimization_strategy::OPTIMIZATION_STRATEGY_UNSPECIFIED
         }
     }
 
@@ -1291,7 +1309,7 @@ pub mod manifest {
         use super::*;
 
         /// The segment reference scheme for a `DASH` manifest.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SegmentReferenceScheme(std::borrow::Cow<'static, str>);
 
         impl SegmentReferenceScheme {
@@ -1328,10 +1346,16 @@ pub mod manifest {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for SegmentReferenceScheme {
+            fn default() -> Self {
+                segment_reference_scheme::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED
+            }
+        }
     }
 
     /// The manifest type, which corresponds to the adaptive streaming format used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ManifestType(std::borrow::Cow<'static, str>);
 
     impl ManifestType {
@@ -1364,6 +1388,12 @@ pub mod manifest {
     impl std::convert::From<std::string::String> for ManifestType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ManifestType {
+        fn default() -> Self {
+            manifest_type::MANIFEST_TYPE_UNSPECIFIED
         }
     }
 
@@ -2111,7 +2141,7 @@ pub mod overlay {
     }
 
     /// Fade type for the overlay: `FADE_IN` or `FADE_OUT`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FadeType(std::borrow::Cow<'static, str>);
 
     impl FadeType {
@@ -2143,6 +2173,12 @@ pub mod overlay {
     impl std::convert::From<std::string::String> for FadeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FadeType {
+        fn default() -> Self {
+            fade_type::FADE_TYPE_UNSPECIFIED
         }
     }
 }

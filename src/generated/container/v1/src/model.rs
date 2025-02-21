@@ -163,7 +163,7 @@ pub mod linux_node_config {
     }
 
     /// Possible cgroup modes that can be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CgroupMode(std::borrow::Cow<'static, str>);
 
     impl CgroupMode {
@@ -198,6 +198,12 @@ pub mod linux_node_config {
     impl std::convert::From<std::string::String> for CgroupMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CgroupMode {
+        fn default() -> Self {
+            cgroup_mode::CGROUP_MODE_UNSPECIFIED
         }
     }
 }
@@ -241,7 +247,7 @@ pub mod windows_node_config {
     use super::*;
 
     /// Possible OS version that can be used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OSVersion(std::borrow::Cow<'static, str>);
 
     impl OSVersion {
@@ -273,6 +279,12 @@ pub mod windows_node_config {
     impl std::convert::From<std::string::String> for OSVersion {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for OSVersion {
+        fn default() -> Self {
+            os_version::OS_VERSION_UNSPECIFIED
         }
     }
 }
@@ -1097,7 +1109,7 @@ pub mod node_config {
 
     /// LocalSsdEncryptionMode specifies the method used for encrypting the Local
     /// SSDs attached to the node.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LocalSsdEncryptionMode(std::borrow::Cow<'static, str>);
 
     impl LocalSsdEncryptionMode {
@@ -1142,8 +1154,14 @@ pub mod node_config {
         }
     }
 
+    impl std::default::Default for LocalSsdEncryptionMode {
+        fn default() -> Self {
+            local_ssd_encryption_mode::LOCAL_SSD_ENCRYPTION_MODE_UNSPECIFIED
+        }
+    }
+
     /// Possible effective cgroup modes for the node.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EffectiveCgroupMode(std::borrow::Cow<'static, str>);
 
     impl EffectiveCgroupMode {
@@ -1181,6 +1199,12 @@ pub mod node_config {
     impl std::convert::From<std::string::String> for EffectiveCgroupMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EffectiveCgroupMode {
+        fn default() -> Self {
+            effective_cgroup_mode::EFFECTIVE_CGROUP_MODE_UNSPECIFIED
         }
     }
 }
@@ -1470,7 +1494,7 @@ pub mod node_network_config {
         use super::*;
 
         /// Node network tier
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Tier(std::borrow::Cow<'static, str>);
 
         impl Tier {
@@ -1499,6 +1523,12 @@ pub mod node_network_config {
         impl std::convert::From<std::string::String> for Tier {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Tier {
+            fn default() -> Self {
+                tier::TIER_UNSPECIFIED
             }
         }
     }
@@ -1687,7 +1717,7 @@ pub mod sandbox_config {
     use super::*;
 
     /// Possible types of sandboxes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1716,6 +1746,12 @@ pub mod sandbox_config {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::UNSPECIFIED
         }
     }
 }
@@ -1818,7 +1854,7 @@ pub mod reservation_affinity {
     use super::*;
 
     /// Indicates whether to consume capacity from a reservation or not.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -1854,6 +1890,12 @@ pub mod reservation_affinity {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::UNSPECIFIED
         }
     }
 }
@@ -1965,7 +2007,7 @@ pub mod sole_tenant_config {
 
         /// Operator allows user to specify affinity or anti-affinity for the
         /// given key values.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Operator(std::borrow::Cow<'static, str>);
 
         impl Operator {
@@ -1997,6 +2039,12 @@ pub mod sole_tenant_config {
         impl std::convert::From<std::string::String> for Operator {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Operator {
+            fn default() -> Self {
+                operator::OPERATOR_UNSPECIFIED
             }
         }
     }
@@ -2291,7 +2339,7 @@ pub mod node_taint {
     use super::*;
 
     /// Possible values for Effect in taint.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Effect(std::borrow::Cow<'static, str>);
 
     impl Effect {
@@ -2326,6 +2374,12 @@ pub mod node_taint {
     impl std::convert::From<std::string::String> for Effect {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            effect::EFFECT_UNSPECIFIED
         }
     }
 }
@@ -3277,7 +3331,7 @@ pub mod cloud_run_config {
     use super::*;
 
     /// Load balancer type of ingress service of Cloud Run.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
 
     impl LoadBalancerType {
@@ -3312,6 +3366,12 @@ pub mod cloud_run_config {
     impl std::convert::From<std::string::String> for LoadBalancerType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LoadBalancerType {
+        fn default() -> Self {
+            load_balancer_type::LOAD_BALANCER_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3774,7 +3834,7 @@ pub mod network_policy {
     use super::*;
 
     /// Allowed Network Policy providers.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Provider(std::borrow::Cow<'static, str>);
 
     impl Provider {
@@ -3803,6 +3863,12 @@ pub mod network_policy {
     impl std::convert::From<std::string::String> for Provider {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Provider {
+        fn default() -> Self {
+            provider::PROVIDER_UNSPECIFIED
         }
     }
 }
@@ -3858,7 +3924,7 @@ pub mod binary_authorization {
     use super::*;
 
     /// Binary Authorization mode of operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EvaluationMode(std::borrow::Cow<'static, str>);
 
     impl EvaluationMode {
@@ -3894,6 +3960,12 @@ pub mod binary_authorization {
     impl std::convert::From<std::string::String> for EvaluationMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EvaluationMode {
+        fn default() -> Self {
+            evaluation_mode::EVALUATION_MODE_UNSPECIFIED
         }
     }
 }
@@ -5425,7 +5497,7 @@ pub mod cluster {
     use super::*;
 
     /// The current status of the cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -5474,6 +5546,12 @@ pub mod cluster {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }
@@ -5749,7 +5827,7 @@ pub mod compliance_posture_config {
     }
 
     /// Mode defines enablement mode for Compliance Posture.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -5781,6 +5859,12 @@ pub mod compliance_posture_config {
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
         }
     }
 }
@@ -5878,7 +5962,7 @@ pub mod security_posture_config {
     use super::*;
 
     /// Mode defines enablement mode for GKE Security posture features.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -5916,8 +6000,14 @@ pub mod security_posture_config {
         }
     }
 
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
+        }
+    }
+
     /// VulnerabilityMode defines enablement mode for vulnerability scanning.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VulnerabilityMode(std::borrow::Cow<'static, str>);
 
     impl VulnerabilityMode {
@@ -5957,6 +6047,12 @@ pub mod security_posture_config {
     impl std::convert::From<std::string::String> for VulnerabilityMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VulnerabilityMode {
+        fn default() -> Self {
+            vulnerability_mode::VULNERABILITY_MODE_UNSPECIFIED
         }
     }
 }
@@ -7573,7 +7669,7 @@ pub mod operation {
     use super::*;
 
     /// Current status of the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -7614,8 +7710,14 @@ pub mod operation {
         }
     }
 
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
+        }
+    }
+
     /// Operation type categorizes the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -7781,6 +7883,12 @@ pub mod operation {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -9328,7 +9436,7 @@ pub mod set_master_auth_request {
     use super::*;
 
     /// Operation type: what type update to perform.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -9366,6 +9474,12 @@ pub mod set_master_auth_request {
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::UNKNOWN
         }
     }
 }
@@ -11135,7 +11249,7 @@ pub mod node_pool {
             use super::*;
 
             /// Phase represents the different stages blue-green upgrade is running in.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct Phase(std::borrow::Cow<'static, str>);
 
             impl Phase {
@@ -11182,6 +11296,12 @@ pub mod node_pool {
             impl std::convert::From<std::string::String> for Phase {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for Phase {
+                fn default() -> Self {
+                    phase::PHASE_UNSPECIFIED
                 }
             }
         }
@@ -11251,7 +11371,7 @@ pub mod node_pool {
         use super::*;
 
         /// Type defines the type of placement policy.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
@@ -11282,6 +11402,12 @@ pub mod node_pool {
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                r#type::TYPE_UNSPECIFIED
             }
         }
     }
@@ -11317,7 +11443,7 @@ pub mod node_pool {
     }
 
     /// The current status of the node pool instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -11368,6 +11494,12 @@ pub mod node_pool {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::STATUS_UNSPECIFIED
         }
     }
 }
@@ -11846,7 +11978,7 @@ pub mod maintenance_exclusion_options {
     use super::*;
 
     /// Scope of exclusion.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
@@ -11883,6 +12015,12 @@ pub mod maintenance_exclusion_options {
     impl std::convert::From<std::string::String> for Scope {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            scope::NO_UPGRADES
         }
     }
 }
@@ -12444,7 +12582,7 @@ pub mod cluster_autoscaling {
     use super::*;
 
     /// Defines possible options for autoscaling_profile field.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AutoscalingProfile(std::borrow::Cow<'static, str>);
 
     impl AutoscalingProfile {
@@ -12478,6 +12616,12 @@ pub mod cluster_autoscaling {
     impl std::convert::From<std::string::String> for AutoscalingProfile {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AutoscalingProfile {
+        fn default() -> Self {
+            autoscaling_profile::PROFILE_UNSPECIFIED
         }
     }
 }
@@ -12818,7 +12962,7 @@ pub mod node_pool_autoscaling {
 
     /// Location policy specifies how zones are picked when scaling up the
     /// nodepool.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LocationPolicy(std::borrow::Cow<'static, str>);
 
     impl LocationPolicy {
@@ -12852,6 +12996,12 @@ pub mod node_pool_autoscaling {
     impl std::convert::From<std::string::String> for LocationPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LocationPolicy {
+        fn default() -> Self {
+            location_policy::LOCATION_POLICY_UNSPECIFIED
         }
     }
 }
@@ -13319,7 +13469,7 @@ pub mod gpu_sharing_config {
     use super::*;
 
     /// The type of GPU sharing strategy currently provided.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct GPUSharingStrategy(std::borrow::Cow<'static, str>);
 
     impl GPUSharingStrategy {
@@ -13352,6 +13502,12 @@ pub mod gpu_sharing_config {
     impl std::convert::From<std::string::String> for GPUSharingStrategy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for GPUSharingStrategy {
+        fn default() -> Self {
+            gpu_sharing_strategy::GPU_SHARING_STRATEGY_UNSPECIFIED
         }
     }
 }
@@ -13400,7 +13556,7 @@ pub mod gpu_driver_installation_config {
     use super::*;
 
     /// The GPU driver version to install.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct GPUDriverVersion(std::borrow::Cow<'static, str>);
 
     impl GPUDriverVersion {
@@ -13437,6 +13593,12 @@ pub mod gpu_driver_installation_config {
     impl std::convert::From<std::string::String> for GPUDriverVersion {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for GPUDriverVersion {
+        fn default() -> Self {
+            gpu_driver_version::GPU_DRIVER_VERSION_UNSPECIFIED
         }
     }
 }
@@ -13481,7 +13643,7 @@ pub mod workload_metadata_config {
 
     /// Mode is the configuration for how to expose metadata to workloads running
     /// on the node.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -13517,6 +13679,12 @@ pub mod workload_metadata_config {
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
         }
     }
 }
@@ -13740,7 +13908,7 @@ pub mod status_condition {
     use super::*;
 
     /// Code for each condition
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -13787,6 +13955,12 @@ pub mod status_condition {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::UNKNOWN
         }
     }
 }
@@ -14089,7 +14263,7 @@ pub mod network_config {
         use super::*;
 
         /// Node network tier
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Tier(std::borrow::Cow<'static, str>);
 
         impl Tier {
@@ -14118,6 +14292,12 @@ pub mod network_config {
         impl std::convert::From<std::string::String> for Tier {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Tier {
+            fn default() -> Self {
+                tier::TIER_UNSPECIFIED
             }
         }
     }
@@ -14161,7 +14341,7 @@ pub mod gateway_api_config {
 
     /// Channel describes if/how Gateway API should be installed and implemented in
     /// a cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Channel(std::borrow::Cow<'static, str>);
 
     impl Channel {
@@ -14197,6 +14377,12 @@ pub mod gateway_api_config {
     impl std::convert::From<std::string::String> for Channel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Channel {
+        fn default() -> Self {
+            channel::CHANNEL_UNSPECIFIED
         }
     }
 }
@@ -14685,7 +14871,7 @@ pub mod autopilot_compatibility_issue {
     use super::*;
 
     /// The type of the reported issue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IssueType(std::borrow::Cow<'static, str>);
 
     impl IssueType {
@@ -14726,6 +14912,12 @@ pub mod autopilot_compatibility_issue {
     impl std::convert::From<std::string::String> for IssueType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for IssueType {
+        fn default() -> Self {
+            issue_type::UNSPECIFIED
         }
     }
 }
@@ -14816,7 +15008,7 @@ pub mod release_channel {
     use super::*;
 
     /// Possible values for 'channel'.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Channel(std::borrow::Cow<'static, str>);
 
     impl Channel {
@@ -14863,6 +15055,12 @@ pub mod release_channel {
     impl std::convert::From<std::string::String> for Channel {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Channel {
+        fn default() -> Self {
+            channel::UNSPECIFIED
         }
     }
 }
@@ -15028,7 +15226,7 @@ pub mod dns_config {
     use super::*;
 
     /// Provider lists the various in-cluster DNS providers.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Provider(std::borrow::Cow<'static, str>);
 
     impl Provider {
@@ -15066,8 +15264,14 @@ pub mod dns_config {
         }
     }
 
+    impl std::default::Default for Provider {
+        fn default() -> Self {
+            provider::PROVIDER_UNSPECIFIED
+        }
+    }
+
     /// DNSScope lists the various scopes of access to cluster DNS records.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DNSScope(std::borrow::Cow<'static, str>);
 
     impl DNSScope {
@@ -15099,6 +15303,12 @@ pub mod dns_config {
     impl std::convert::From<std::string::String> for DNSScope {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DNSScope {
+        fn default() -> Self {
+            dns_scope::DNS_SCOPE_UNSPECIFIED
         }
     }
 }
@@ -15386,7 +15596,7 @@ pub mod database_encryption {
     }
 
     /// State of etcd encryption.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -15422,8 +15632,14 @@ pub mod database_encryption {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::UNKNOWN
+        }
+    }
+
     /// Current State of etcd encryption.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CurrentState(std::borrow::Cow<'static, str>);
 
     impl CurrentState {
@@ -15477,6 +15693,12 @@ pub mod database_encryption {
     impl std::convert::From<std::string::String> for CurrentState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CurrentState {
+        fn default() -> Self {
+            current_state::CURRENT_STATE_UNSPECIFIED
         }
     }
 }
@@ -15669,7 +15891,7 @@ pub mod usable_subnetwork_secondary_range {
     use super::*;
 
     /// Status shows the current usage of a secondary IP range.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
@@ -15712,6 +15934,12 @@ pub mod usable_subnetwork_secondary_range {
     impl std::convert::From<std::string::String> for Status {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            status::UNKNOWN
         }
     }
 }
@@ -16205,7 +16433,7 @@ pub mod notification_config {
 
     /// Types of notifications currently supported. Can be used to filter what
     /// notifications are sent.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EventType(std::borrow::Cow<'static, str>);
 
     impl EventType {
@@ -16240,6 +16468,12 @@ pub mod notification_config {
     impl std::convert::From<std::string::String> for EventType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            event_type::EVENT_TYPE_UNSPECIFIED
         }
     }
 }
@@ -16486,7 +16720,7 @@ pub mod upgrade_info_event {
     use super::*;
 
     /// The state of the upgrade.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -16524,6 +16758,12 @@ pub mod upgrade_info_event {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -16898,7 +17138,7 @@ pub mod logging_component_config {
     use super::*;
 
     /// GKE components exposing logs
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Component(std::borrow::Cow<'static, str>);
 
     impl Component {
@@ -16945,6 +17185,12 @@ pub mod logging_component_config {
     impl std::convert::From<std::string::String> for Component {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Component {
+        fn default() -> Self {
+            component::COMPONENT_UNSPECIFIED
         }
     }
 }
@@ -17105,7 +17351,7 @@ pub mod advanced_datapath_observability_config {
     use super::*;
 
     /// Supported Relay modes
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RelayMode(std::borrow::Cow<'static, str>);
 
     impl RelayMode {
@@ -17140,6 +17386,12 @@ pub mod advanced_datapath_observability_config {
     impl std::convert::From<std::string::String> for RelayMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RelayMode {
+        fn default() -> Self {
+            relay_mode::RELAY_MODE_UNSPECIFIED
         }
     }
 }
@@ -17244,7 +17496,7 @@ pub mod logging_variant_config {
     use super::*;
 
     /// Logging component variants.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Variant(std::borrow::Cow<'static, str>);
 
     impl Variant {
@@ -17276,6 +17528,12 @@ pub mod logging_variant_config {
     impl std::convert::From<std::string::String> for Variant {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Variant {
+        fn default() -> Self {
+            variant::VARIANT_UNSPECIFIED
         }
     }
 }
@@ -17321,7 +17579,7 @@ pub mod monitoring_component_config {
     use super::*;
 
     /// GKE components exposing metrics
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Component(std::borrow::Cow<'static, str>);
 
     impl Component {
@@ -17386,6 +17644,12 @@ pub mod monitoring_component_config {
     impl std::convert::From<std::string::String> for Component {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Component {
+        fn default() -> Self {
+            component::COMPONENT_UNSPECIFIED
         }
     }
 }
@@ -17899,7 +18163,7 @@ pub mod enterprise_config {
     use super::*;
 
     /// Premium tiers for GKE Cluster.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ClusterTier(std::borrow::Cow<'static, str>);
 
     impl ClusterTier {
@@ -17932,6 +18196,12 @@ pub mod enterprise_config {
     impl std::convert::From<std::string::String> for ClusterTier {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ClusterTier {
+        fn default() -> Self {
+            cluster_tier::CLUSTER_TIER_UNSPECIFIED
         }
     }
 }
@@ -18014,7 +18284,7 @@ pub mod secondary_boot_disk {
 
     /// Mode specifies how the secondary boot disk will be used.
     /// This triggers mode-specified logic in the control plane.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -18046,6 +18316,12 @@ pub mod secondary_boot_disk {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
+        }
+    }
 }
 
 /// SecondaryBootDiskUpdateStrategy is a placeholder which will be extended
@@ -18070,7 +18346,7 @@ impl wkt::message::Message for SecondaryBootDiskUpdateStrategy {
 
 /// PrivateIPv6GoogleAccess controls whether and how the pods can communicate
 /// with Google Services through gRPC over IPv6.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct PrivateIPv6GoogleAccess(std::borrow::Cow<'static, str>);
 
 impl PrivateIPv6GoogleAccess {
@@ -18112,9 +18388,15 @@ impl std::convert::From<std::string::String> for PrivateIPv6GoogleAccess {
     }
 }
 
+impl std::default::Default for PrivateIPv6GoogleAccess {
+    fn default() -> Self {
+        private_i_pv_6_google_access::PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED
+    }
+}
+
 /// UpgradeResourceType is the resource type that is upgrading. It is used
 /// in upgrade notifications.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UpgradeResourceType(std::borrow::Cow<'static, str>);
 
 impl UpgradeResourceType {
@@ -18150,9 +18432,15 @@ impl std::convert::From<std::string::String> for UpgradeResourceType {
     }
 }
 
+impl std::default::Default for UpgradeResourceType {
+    fn default() -> Self {
+        upgrade_resource_type::UPGRADE_RESOURCE_TYPE_UNSPECIFIED
+    }
+}
+
 /// The datapath provider selects the implementation of the Kubernetes networking
 /// model for service resolution and network policy enforcement.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatapathProvider(std::borrow::Cow<'static, str>);
 
 impl DatapathProvider {
@@ -18191,8 +18479,14 @@ impl std::convert::From<std::string::String> for DatapathProvider {
     }
 }
 
+impl std::default::Default for DatapathProvider {
+    fn default() -> Self {
+        datapath_provider::DATAPATH_PROVIDER_UNSPECIFIED
+    }
+}
+
 /// Strategy used for node pool update.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NodePoolUpdateStrategy(std::borrow::Cow<'static, str>);
 
 impl NodePoolUpdateStrategy {
@@ -18230,8 +18524,14 @@ impl std::convert::From<std::string::String> for NodePoolUpdateStrategy {
     }
 }
 
+impl std::default::Default for NodePoolUpdateStrategy {
+    fn default() -> Self {
+        node_pool_update_strategy::NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED
+    }
+}
+
 /// Possible values for IP stack type
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StackType(std::borrow::Cow<'static, str>);
 
 impl StackType {
@@ -18266,8 +18566,14 @@ impl std::convert::From<std::string::String> for StackType {
     }
 }
 
+impl std::default::Default for StackType {
+    fn default() -> Self {
+        stack_type::STACK_TYPE_UNSPECIFIED
+    }
+}
+
 /// Possible values for IPv6 access type
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IPv6AccessType(std::borrow::Cow<'static, str>);
 
 impl IPv6AccessType {
@@ -18303,8 +18609,14 @@ impl std::convert::From<std::string::String> for IPv6AccessType {
     }
 }
 
+impl std::default::Default for IPv6AccessType {
+    fn default() -> Self {
+        i_pv_6_access_type::IPV6_ACCESS_TYPE_UNSPECIFIED
+    }
+}
+
 /// Options for in-transit encryption.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct InTransitEncryptionConfig(std::borrow::Cow<'static, str>);
 
 impl InTransitEncryptionConfig {
@@ -18340,5 +18652,11 @@ pub mod in_transit_encryption_config {
 impl std::convert::From<std::string::String> for InTransitEncryptionConfig {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for InTransitEncryptionConfig {
+    fn default() -> Self {
+        in_transit_encryption_config::IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED
     }
 }

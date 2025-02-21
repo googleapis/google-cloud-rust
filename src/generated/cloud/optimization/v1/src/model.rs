@@ -348,7 +348,7 @@ pub mod async_model_metadata {
     use super::*;
 
     /// Possible states of the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -386,6 +386,12 @@ pub mod async_model_metadata {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -814,7 +820,7 @@ pub mod optimize_tours_request {
     /// to cap the number of errors returned.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.max_validation_errors]: crate::model::OptimizeToursRequest::max_validation_errors
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SolvingMode(std::borrow::Cow<'static, str>);
 
     impl SolvingMode {
@@ -871,9 +877,15 @@ pub mod optimize_tours_request {
         }
     }
 
+    impl std::default::Default for SolvingMode {
+        fn default() -> Self {
+            solving_mode::DEFAULT_SOLVE
+        }
+    }
+
     /// Mode defining the behavior of the search, trading off latency versus
     /// solution quality. In all modes, the global request deadline is enforced.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SearchMode(std::borrow::Cow<'static, str>);
 
     impl SearchMode {
@@ -906,6 +918,12 @@ pub mod optimize_tours_request {
     impl std::convert::From<std::string::String> for SearchMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SearchMode {
+        fn default() -> Self {
+            search_mode::SEARCH_MODE_UNSPECIFIED
         }
     }
 }
@@ -2780,7 +2798,7 @@ pub mod shipment_type_incompatibility {
 
     /// Modes defining how the appearance of incompatible shipments are restricted
     /// on the same route.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IncompatibilityMode(std::borrow::Cow<'static, str>);
 
     impl IncompatibilityMode {
@@ -2823,6 +2841,12 @@ pub mod shipment_type_incompatibility {
     impl std::convert::From<std::string::String> for IncompatibilityMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for IncompatibilityMode {
+        fn default() -> Self {
+            incompatibility_mode::INCOMPATIBILITY_MODE_UNSPECIFIED
         }
     }
 }
@@ -2903,7 +2927,7 @@ pub mod shipment_type_requirement {
     use super::*;
 
     /// Modes defining the appearance of dependent shipments on a route.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RequirementMode(std::borrow::Cow<'static, str>);
 
     impl RequirementMode {
@@ -2953,6 +2977,12 @@ pub mod shipment_type_requirement {
     impl std::convert::From<std::string::String> for RequirementMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RequirementMode {
+        fn default() -> Self {
+            requirement_mode::REQUIREMENT_MODE_UNSPECIFIED
         }
     }
 }
@@ -3883,7 +3913,7 @@ pub mod vehicle {
     /// These should be a subset of the Google Maps Platform Routes Preferred API
     /// travel modes, see:
     /// <https://developers.google.com/maps/documentation/routes_preferred/reference/rest/Shared.Types/RouteTravelMode>.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TravelMode(std::borrow::Cow<'static, str>);
 
     impl TravelMode {
@@ -3918,12 +3948,18 @@ pub mod vehicle {
         }
     }
 
+    impl std::default::Default for TravelMode {
+        fn default() -> Self {
+            travel_mode::TRAVEL_MODE_UNSPECIFIED
+        }
+    }
+
     /// Policy on how a vehicle can be unloaded. Applies only to shipments having
     /// both a pickup and a delivery.
     ///
     /// Other shipments are free to occur anywhere on the route independent of
     /// `unloading_policy`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UnloadingPolicy(std::borrow::Cow<'static, str>);
 
     impl UnloadingPolicy {
@@ -3957,6 +3993,12 @@ pub mod vehicle {
     impl std::convert::From<std::string::String> for UnloadingPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for UnloadingPolicy {
+        fn default() -> Self {
+            unloading_policy::UNLOADING_POLICY_UNSPECIFIED
         }
     }
 }
@@ -6066,7 +6108,7 @@ pub mod skipped_shipment {
         /// Code identifying the reason type. The order here is meaningless. In
         /// particular, it gives no indication of whether a given reason will
         /// appear before another in the solution, if both apply.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Code(std::borrow::Cow<'static, str>);
 
         impl Code {
@@ -6135,6 +6177,12 @@ pub mod skipped_shipment {
         impl std::convert::From<std::string::String> for Code {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Code {
+            fn default() -> Self {
+                code::CODE_UNSPECIFIED
             }
         }
     }
@@ -6593,7 +6641,7 @@ pub mod injected_solution_constraint {
             /// threshold conditions.
             ///
             /// The enumeration below is in order of increasing relaxation.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct Level(std::borrow::Cow<'static, str>);
 
             impl Level {
@@ -6641,6 +6689,12 @@ pub mod injected_solution_constraint {
             impl std::convert::From<std::string::String> for Level {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for Level {
+                fn default() -> Self {
+                    level::LEVEL_UNSPECIFIED
                 }
             }
         }
@@ -7159,7 +7213,7 @@ pub mod optimize_tours_validation_error {
 }
 
 /// Data formats for input and output files.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DataFormat(std::borrow::Cow<'static, str>);
 
 impl DataFormat {
@@ -7191,5 +7245,11 @@ pub mod data_format {
 impl std::convert::From<std::string::String> for DataFormat {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DataFormat {
+    fn default() -> Self {
+        data_format::DATA_FORMAT_UNSPECIFIED
     }
 }

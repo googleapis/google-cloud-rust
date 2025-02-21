@@ -350,7 +350,7 @@ pub mod custom_pronunciation_params {
     use super::*;
 
     /// The phonetic encoding of the phrase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PhoneticEncoding(std::borrow::Cow<'static, str>);
 
     impl PhoneticEncoding {
@@ -387,6 +387,12 @@ pub mod custom_pronunciation_params {
     impl std::convert::From<std::string::String> for PhoneticEncoding {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PhoneticEncoding {
+        fn default() -> Self {
+            phonetic_encoding::PHONETIC_ENCODING_UNSPECIFIED
         }
     }
 }
@@ -924,7 +930,7 @@ pub mod custom_voice_params {
 
     /// Deprecated. The usage of the synthesized audio. Usage does not affect
     /// billing.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReportedUsage(std::borrow::Cow<'static, str>);
 
     impl ReportedUsage {
@@ -960,6 +966,12 @@ pub mod custom_voice_params {
     impl std::convert::From<std::string::String> for ReportedUsage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ReportedUsage {
+        fn default() -> Self {
+            reported_usage::REPORTED_USAGE_UNSPECIFIED
         }
     }
 }
@@ -1518,7 +1530,7 @@ impl wkt::message::Message for SynthesizeLongAudioMetadata {
 
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SsmlVoiceGender(std::borrow::Cow<'static, str>);
 
 impl SsmlVoiceGender {
@@ -1561,9 +1573,15 @@ impl std::convert::From<std::string::String> for SsmlVoiceGender {
     }
 }
 
+impl std::default::Default for SsmlVoiceGender {
+    fn default() -> Self {
+        ssml_voice_gender::SSML_VOICE_GENDER_UNSPECIFIED
+    }
+}
+
 /// Configuration to set up audio encoder. The encoding determines the output
 /// audio format that we'd like.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AudioEncoding(std::borrow::Cow<'static, str>);
 
 impl AudioEncoding {
@@ -1617,5 +1635,11 @@ pub mod audio_encoding {
 impl std::convert::From<std::string::String> for AudioEncoding {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for AudioEncoding {
+    fn default() -> Self {
+        audio_encoding::AUDIO_ENCODING_UNSPECIFIED
     }
 }

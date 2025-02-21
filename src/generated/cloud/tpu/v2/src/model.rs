@@ -214,7 +214,7 @@ pub mod attached_disk {
     use super::*;
 
     /// The different mode of the attached disk.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskMode(std::borrow::Cow<'static, str>);
 
     impl DiskMode {
@@ -248,6 +248,12 @@ pub mod attached_disk {
     impl std::convert::From<std::string::String> for DiskMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DiskMode {
+        fn default() -> Self {
+            disk_mode::DISK_MODE_UNSPECIFIED
         }
     }
 }
@@ -864,7 +870,7 @@ pub mod node {
     use super::*;
 
     /// Represents the different states of a TPU node during its lifecycle.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -940,9 +946,15 @@ pub mod node {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Health defines the status of a TPU node as reported by
     /// Health Monitor.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Health(std::borrow::Cow<'static, str>);
 
     impl Health {
@@ -984,8 +996,14 @@ pub mod node {
         }
     }
 
+    impl std::default::Default for Health {
+        fn default() -> Self {
+            health::HEALTH_UNSPECIFIED
+        }
+    }
+
     /// TPU API Version.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ApiVersion(std::borrow::Cow<'static, str>);
 
     impl ApiVersion {
@@ -1023,6 +1041,12 @@ pub mod node {
     impl std::convert::From<std::string::String> for ApiVersion {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ApiVersion {
+        fn default() -> Self {
+            api_version::API_VERSION_UNSPECIFIED
         }
     }
 }
@@ -2264,7 +2288,7 @@ pub mod queued_resource_state {
     }
 
     /// Output only state of the request
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2339,8 +2363,14 @@ pub mod queued_resource_state {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The initiator of the QueuedResource's SUSPENDING/SUSPENDED state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StateInitiator(std::borrow::Cow<'static, str>);
 
     impl StateInitiator {
@@ -2373,6 +2403,12 @@ pub mod queued_resource_state {
     impl std::convert::From<std::string::String> for StateInitiator {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StateInitiator {
+        fn default() -> Self {
+            state_initiator::STATE_INITIATOR_UNSPECIFIED
         }
     }
 
@@ -3781,7 +3817,7 @@ pub mod symptom {
 
     /// SymptomType represents the different types of Symptoms that a TPU can be
     /// at.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SymptomType(std::borrow::Cow<'static, str>);
 
     impl SymptomType {
@@ -3827,6 +3863,12 @@ pub mod symptom {
     impl std::convert::From<std::string::String> for SymptomType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SymptomType {
+        fn default() -> Self {
+            symptom_type::SYMPTOM_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3973,7 +4015,7 @@ pub mod accelerator_config {
     use super::*;
 
     /// TPU type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -4017,6 +4059,12 @@ pub mod accelerator_config {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }

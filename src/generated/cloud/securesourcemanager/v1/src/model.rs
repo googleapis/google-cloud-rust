@@ -328,7 +328,7 @@ pub mod instance {
     }
 
     /// Secure Source Manager instance state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -372,8 +372,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Provides information about the current instance state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StateNote(std::borrow::Cow<'static, str>);
 
     impl StateNote {
@@ -406,6 +412,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for StateNote {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StateNote {
+        fn default() -> Self {
+            state_note::STATE_NOTE_UNSPECIFIED
         }
     }
 }

@@ -1028,7 +1028,7 @@ pub mod app_connector {
     }
 
     /// Represents the different states of a AppConnector.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1070,6 +1070,12 @@ pub mod app_connector {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1266,7 +1272,7 @@ impl wkt::message::Message for ResourceInfo {
 }
 
 /// HealthStatus represents the health status.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct HealthStatus(std::borrow::Cow<'static, str>);
 
 impl HealthStatus {
@@ -1305,5 +1311,11 @@ pub mod health_status {
 impl std::convert::From<std::string::String> for HealthStatus {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for HealthStatus {
+    fn default() -> Self {
+        health_status::HEALTH_STATUS_UNSPECIFIED
     }
 }

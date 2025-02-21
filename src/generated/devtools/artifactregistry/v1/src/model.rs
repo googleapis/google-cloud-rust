@@ -125,7 +125,7 @@ pub mod apt_artifact {
     use super::*;
 
     /// Package type is either binary or source.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PackageType(std::borrow::Cow<'static, str>);
 
     impl PackageType {
@@ -158,6 +158,12 @@ pub mod apt_artifact {
     impl std::convert::From<std::string::String> for PackageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PackageType {
+        fn default() -> Self {
+            package_type::PACKAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1875,7 +1881,7 @@ pub mod hash {
     use super::*;
 
     /// The algorithm used to compute the hash.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct HashType(std::borrow::Cow<'static, str>);
 
     impl HashType {
@@ -1907,6 +1913,12 @@ pub mod hash {
     impl std::convert::From<std::string::String> for HashType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for HashType {
+        fn default() -> Self {
+            hash_type::HASH_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2904,7 +2916,7 @@ pub mod cleanup_policy_condition {
     use super::*;
 
     /// Statuses applying to versions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TagState(std::borrow::Cow<'static, str>);
 
     impl TagState {
@@ -2939,6 +2951,12 @@ pub mod cleanup_policy_condition {
     impl std::convert::From<std::string::String> for TagState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TagState {
+        fn default() -> Self {
+            tag_state::TAG_STATE_UNSPECIFIED
         }
     }
 }
@@ -3113,7 +3131,7 @@ pub mod cleanup_policy {
     use super::*;
 
     /// Action type for a cleanup policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -3145,6 +3163,12 @@ pub mod cleanup_policy {
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
         }
     }
 
@@ -3795,7 +3819,7 @@ pub mod remote_repository_config {
 
         /// Predefined list of publicly available Docker repositories like Docker
         /// Hub.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PublicRepository(std::borrow::Cow<'static, str>);
 
         impl PublicRepository {
@@ -3825,6 +3849,12 @@ pub mod remote_repository_config {
         impl std::convert::From<std::string::String> for PublicRepository {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for PublicRepository {
+            fn default() -> Self {
+                public_repository::PUBLIC_REPOSITORY_UNSPECIFIED
             }
         }
 
@@ -3999,7 +4029,7 @@ pub mod remote_repository_config {
 
         /// Predefined list of publicly available Maven repositories like Maven
         /// Central.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PublicRepository(std::borrow::Cow<'static, str>);
 
         impl PublicRepository {
@@ -4029,6 +4059,12 @@ pub mod remote_repository_config {
         impl std::convert::From<std::string::String> for PublicRepository {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for PublicRepository {
+            fn default() -> Self {
+                public_repository::PUBLIC_REPOSITORY_UNSPECIFIED
             }
         }
 
@@ -4202,7 +4238,7 @@ pub mod remote_repository_config {
         }
 
         /// Predefined list of publicly available NPM repositories like npmjs.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PublicRepository(std::borrow::Cow<'static, str>);
 
         impl PublicRepository {
@@ -4232,6 +4268,12 @@ pub mod remote_repository_config {
         impl std::convert::From<std::string::String> for PublicRepository {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for PublicRepository {
+            fn default() -> Self {
+                public_repository::PUBLIC_REPOSITORY_UNSPECIFIED
             }
         }
 
@@ -4406,7 +4448,7 @@ pub mod remote_repository_config {
         }
 
         /// Predefined list of publicly available Python repositories like PyPI.org.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PublicRepository(std::borrow::Cow<'static, str>);
 
         impl PublicRepository {
@@ -4436,6 +4478,12 @@ pub mod remote_repository_config {
         impl std::convert::From<std::string::String> for PublicRepository {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for PublicRepository {
+            fn default() -> Self {
+                public_repository::PUBLIC_REPOSITORY_UNSPECIFIED
             }
         }
 
@@ -4631,7 +4679,7 @@ pub mod remote_repository_config {
             use super::*;
 
             /// Predefined list of publicly available repository bases for Apt.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct RepositoryBase(std::borrow::Cow<'static, str>);
 
             impl RepositoryBase {
@@ -4667,6 +4715,12 @@ pub mod remote_repository_config {
             impl std::convert::From<std::string::String> for RepositoryBase {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for RepositoryBase {
+                fn default() -> Self {
+                    repository_base::REPOSITORY_BASE_UNSPECIFIED
                 }
             }
         }
@@ -4895,7 +4949,7 @@ pub mod remote_repository_config {
             use super::*;
 
             /// Predefined list of publicly available repository bases for Yum.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct RepositoryBase(std::borrow::Cow<'static, str>);
 
             impl RepositoryBase {
@@ -4940,6 +4994,12 @@ pub mod remote_repository_config {
             impl std::convert::From<std::string::String> for RepositoryBase {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for RepositoryBase {
+                fn default() -> Self {
+                    repository_base::REPOSITORY_BASE_UNSPECIFIED
                 }
             }
         }
@@ -5472,7 +5532,7 @@ pub mod repository {
         use super::*;
 
         /// VersionPolicy is the version policy for the repository.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct VersionPolicy(std::borrow::Cow<'static, str>);
 
         impl VersionPolicy {
@@ -5507,6 +5567,12 @@ pub mod repository {
         impl std::convert::From<std::string::String> for VersionPolicy {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for VersionPolicy {
+            fn default() -> Self {
+                version_policy::VERSION_POLICY_UNSPECIFIED
             }
         }
     }
@@ -5631,7 +5697,7 @@ pub mod repository {
         use super::*;
 
         /// Config for vulnerability scanning of resources in this repository.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct EnablementConfig(std::borrow::Cow<'static, str>);
 
         impl EnablementConfig {
@@ -5668,9 +5734,15 @@ pub mod repository {
             }
         }
 
+        impl std::default::Default for EnablementConfig {
+            fn default() -> Self {
+                enablement_config::ENABLEMENT_CONFIG_UNSPECIFIED
+            }
+        }
+
         /// Describes the state of vulnerability scanning in this repository,
         /// including both repository enablement and API enablement.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct EnablementState(std::borrow::Cow<'static, str>);
 
         impl EnablementState {
@@ -5710,10 +5782,16 @@ pub mod repository {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for EnablementState {
+            fn default() -> Self {
+                enablement_state::ENABLEMENT_STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// A package format.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
@@ -5769,9 +5847,15 @@ pub mod repository {
         }
     }
 
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            format::FORMAT_UNSPECIFIED
+        }
+    }
+
     /// The mode configures the repository to serve artifacts from different
     /// sources.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -5806,6 +5890,12 @@ pub mod repository {
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
         }
     }
 
@@ -6221,7 +6311,7 @@ pub mod rule {
     use super::*;
 
     /// Defines the action of the rule.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
@@ -6256,8 +6346,14 @@ pub mod rule {
         }
     }
 
+    impl std::default::Default for Action {
+        fn default() -> Self {
+            action::ACTION_UNSPECIFIED
+        }
+    }
+
     /// The operation the rule applies to.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Operation(std::borrow::Cow<'static, str>);
 
     impl Operation {
@@ -6286,6 +6382,12 @@ pub mod rule {
     impl std::convert::From<std::string::String> for Operation {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Operation {
+        fn default() -> Self {
+            operation::OPERATION_UNSPECIFIED
         }
     }
 }
@@ -6639,7 +6741,7 @@ pub mod project_settings {
     use super::*;
 
     /// The possible redirection states for legacy repositories.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RedirectionState(std::borrow::Cow<'static, str>);
 
     impl RedirectionState {
@@ -6686,6 +6788,12 @@ pub mod project_settings {
     impl std::convert::From<std::string::String> for RedirectionState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RedirectionState {
+        fn default() -> Self {
+            redirection_state::REDIRECTION_STATE_UNSPECIFIED
         }
     }
 }
@@ -7681,7 +7789,7 @@ pub mod vpcsc_config {
     use super::*;
 
     /// VPCSCPolicy is the VPC SC policy for project and location.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VPCSCPolicy(std::borrow::Cow<'static, str>);
 
     impl VPCSCPolicy {
@@ -7718,6 +7826,12 @@ pub mod vpcsc_config {
     impl std::convert::From<std::string::String> for VPCSCPolicy {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VPCSCPolicy {
+        fn default() -> Self {
+            vpcsc_policy::VPCSC_POLICY_UNSPECIFIED
         }
     }
 }
@@ -7865,7 +7979,7 @@ pub mod yum_artifact {
     use super::*;
 
     /// Package type is either binary or source.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PackageType(std::borrow::Cow<'static, str>);
 
     impl PackageType {
@@ -7898,6 +8012,12 @@ pub mod yum_artifact {
     impl std::convert::From<std::string::String> for PackageType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PackageType {
+        fn default() -> Self {
+            package_type::PACKAGE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -8202,7 +8322,7 @@ impl wkt::message::Message for ImportYumArtifactsMetadata {
 
 /// The view, which determines what version information is returned in a
 /// response.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct VersionView(std::borrow::Cow<'static, str>);
 
 impl VersionView {
@@ -8235,5 +8355,11 @@ pub mod version_view {
 impl std::convert::From<std::string::String> for VersionView {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for VersionView {
+    fn default() -> Self {
+        version_view::VERSION_VIEW_UNSPECIFIED
     }
 }

@@ -838,7 +838,7 @@ impl wkt::message::Message for HttpResponse {
 }
 
 /// The action taken by agent.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Action(std::borrow::Cow<'static, str>);
 
 impl Action {
@@ -870,8 +870,14 @@ impl std::convert::From<std::string::String> for Action {
     }
 }
 
+impl std::default::Default for Action {
+    fn default() -> Self {
+        action::ACTION_UNSPECIFIED
+    }
+}
+
 /// Endpoint indicates where the messages will be delivered.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TetherEndpoint(std::borrow::Cow<'static, str>);
 
 impl TetherEndpoint {
@@ -910,8 +916,14 @@ impl std::convert::From<std::string::String> for TetherEndpoint {
     }
 }
 
+impl std::default::Default for TetherEndpoint {
+    fn default() -> Self {
+        tether_endpoint::TETHER_ENDPOINT_UNSPECIFIED
+    }
+}
+
 /// HTTP Scheme.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Scheme(std::borrow::Cow<'static, str>);
 
 impl Scheme {
@@ -940,5 +952,11 @@ pub mod scheme {
 impl std::convert::From<std::string::String> for Scheme {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Scheme {
+    fn default() -> Self {
+        scheme::SCHEME_UNSPECIFIED
     }
 }

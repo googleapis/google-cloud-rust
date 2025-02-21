@@ -2982,7 +2982,7 @@ pub mod describe_database_entities_request {
     use super::*;
 
     /// The type of a tree to return
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DBTreeType(std::borrow::Cow<'static, str>);
 
     impl DBTreeType {
@@ -3018,6 +3018,12 @@ pub mod describe_database_entities_request {
     impl std::convert::From<std::string::String> for DBTreeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DBTreeType {
+        fn default() -> Self {
+            db_tree_type::DB_TREE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3553,7 +3559,7 @@ pub mod ssl_config {
     use super::*;
 
     /// Specifies The kind of ssl configuration used.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SslType(std::borrow::Cow<'static, str>);
 
     impl SslType {
@@ -3586,6 +3592,12 @@ pub mod ssl_config {
     impl std::convert::From<std::string::String> for SslType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SslType {
+        fn default() -> Self {
+            ssl_type::SSL_TYPE_UNSPECIFIED
         }
     }
 }
@@ -4774,7 +4786,7 @@ pub mod cloud_sql_settings {
     use super::*;
 
     /// Specifies when the instance should be activated.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlActivationPolicy(std::borrow::Cow<'static, str>);
 
     impl SqlActivationPolicy {
@@ -4810,8 +4822,14 @@ pub mod cloud_sql_settings {
         }
     }
 
+    impl std::default::Default for SqlActivationPolicy {
+        fn default() -> Self {
+            sql_activation_policy::SQL_ACTIVATION_POLICY_UNSPECIFIED
+        }
+    }
+
     /// The storage options for Cloud SQL databases.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlDataDiskType(std::borrow::Cow<'static, str>);
 
     impl SqlDataDiskType {
@@ -4847,8 +4865,14 @@ pub mod cloud_sql_settings {
         }
     }
 
+    impl std::default::Default for SqlDataDiskType {
+        fn default() -> Self {
+            sql_data_disk_type::SQL_DATA_DISK_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The database engine type and version.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlDatabaseVersion(std::borrow::Cow<'static, str>);
 
     impl SqlDatabaseVersion {
@@ -4908,8 +4932,14 @@ pub mod cloud_sql_settings {
         }
     }
 
+    impl std::default::Default for SqlDatabaseVersion {
+        fn default() -> Self {
+            sql_database_version::SQL_DATABASE_VERSION_UNSPECIFIED
+        }
+    }
+
     /// The availability type of the given Cloud SQL instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlAvailabilityType(std::borrow::Cow<'static, str>);
 
     impl SqlAvailabilityType {
@@ -4945,9 +4975,15 @@ pub mod cloud_sql_settings {
         }
     }
 
+    impl std::default::Default for SqlAvailabilityType {
+        fn default() -> Self {
+            sql_availability_type::SQL_AVAILABILITY_TYPE_UNSPECIFIED
+        }
+    }
+
     /// The edition of the given Cloud SQL instance.
     /// Can be ENTERPRISE or ENTERPRISE_PLUS.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Edition(std::borrow::Cow<'static, str>);
 
     impl Edition {
@@ -4979,6 +5015,12 @@ pub mod cloud_sql_settings {
     impl std::convert::From<std::string::String> for Edition {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            edition::EDITION_UNSPECIFIED
         }
     }
 }
@@ -6228,7 +6270,7 @@ pub mod migration_job {
         use super::*;
 
         /// Describes the parallelism level during initial dump.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct DumpParallelLevel(std::borrow::Cow<'static, str>);
 
         impl DumpParallelLevel {
@@ -6266,10 +6308,16 @@ pub mod migration_job {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for DumpParallelLevel {
+            fn default() -> Self {
+                dump_parallel_level::DUMP_PARALLEL_LEVEL_UNSPECIFIED
+            }
+        }
     }
 
     /// The current migration job states.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6343,8 +6391,14 @@ pub mod migration_job {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The current migration job phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Phase(std::borrow::Cow<'static, str>);
 
     impl Phase {
@@ -6389,8 +6443,14 @@ pub mod migration_job {
         }
     }
 
+    impl std::default::Default for Phase {
+        fn default() -> Self {
+            phase::PHASE_UNSPECIFIED
+        }
+    }
+
     /// The type of migration job (one-time or continuous).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -6422,6 +6482,12 @@ pub mod migration_job {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 
@@ -6790,7 +6856,7 @@ pub mod connection_profile {
     use super::*;
 
     /// The current connection profile state (e.g. DRAFT, READY, or FAILED).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -6837,6 +6903,12 @@ pub mod connection_profile {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -6921,7 +6993,7 @@ pub mod migration_job_verification_error {
     use super::*;
 
     /// A general error code describing the type of error that occurred.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ErrorCode(std::borrow::Cow<'static, str>);
 
     impl ErrorCode {
@@ -7051,6 +7123,12 @@ pub mod migration_job_verification_error {
     impl std::convert::From<std::string::String> for ErrorCode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ErrorCode {
+        fn default() -> Self {
+            error_code::ERROR_CODE_UNSPECIFIED
         }
     }
 }
@@ -7218,7 +7296,7 @@ pub mod private_connection {
     use super::*;
 
     /// Private Connection state.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -7261,6 +7339,12 @@ pub mod private_connection {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -7920,7 +8004,7 @@ pub mod background_job_log_entry {
     }
 
     /// Final state after a job completes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct JobCompletionState(std::borrow::Cow<'static, str>);
 
     impl JobCompletionState {
@@ -7954,6 +8038,12 @@ pub mod background_job_log_entry {
     impl std::convert::From<std::string::String> for JobCompletionState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for JobCompletionState {
+        fn default() -> Self {
+            job_completion_state::JOB_COMPLETION_STATE_UNSPECIFIED
         }
     }
 
@@ -8553,7 +8643,7 @@ pub mod mapping_rule {
     use super::*;
 
     /// The current mapping rule state such as enabled, disabled or deleted.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8588,6 +8678,12 @@ pub mod mapping_rule {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -10746,7 +10842,7 @@ pub mod database_entity {
     use super::*;
 
     /// The type of database entities tree.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TreeType(std::borrow::Cow<'static, str>);
 
     impl TreeType {
@@ -10781,6 +10877,12 @@ pub mod database_entity {
     impl std::convert::From<std::string::String> for TreeType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TreeType {
+        fn default() -> Self {
+            tree_type::TREE_TYPE_UNSPECIFIED
         }
     }
 
@@ -12288,7 +12390,7 @@ pub mod entity_issue {
     }
 
     /// Type of issue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IssueType(std::borrow::Cow<'static, str>);
 
     impl IssueType {
@@ -12326,8 +12428,14 @@ pub mod entity_issue {
         }
     }
 
+    impl std::default::Default for IssueType {
+        fn default() -> Self {
+            issue_type::ISSUE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Severity of issue.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IssueSeverity(std::borrow::Cow<'static, str>);
 
     impl IssueSeverity {
@@ -12366,10 +12474,16 @@ pub mod entity_issue {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for IssueSeverity {
+        fn default() -> Self {
+            issue_severity::ISSUE_SEVERITY_UNSPECIFIED
+        }
+    }
 }
 
 /// AIP-157 Partial Response view for Database Entity.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseEntityView(std::borrow::Cow<'static, str>);
 
 impl DatabaseEntityView {
@@ -12415,7 +12529,13 @@ impl std::convert::From<std::string::String> for DatabaseEntityView {
     }
 }
 
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+impl std::default::Default for DatabaseEntityView {
+    fn default() -> Self {
+        database_entity_view::DATABASE_ENTITY_VIEW_UNSPECIFIED
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NetworkArchitecture(std::borrow::Cow<'static, str>);
 
 impl NetworkArchitecture {
@@ -12452,8 +12572,14 @@ impl std::convert::From<std::string::String> for NetworkArchitecture {
     }
 }
 
+impl std::default::Default for NetworkArchitecture {
+    fn default() -> Self {
+        network_architecture::NETWORK_ARCHITECTURE_UNSPECIFIED
+    }
+}
+
 /// The database engine types.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseEngine(std::borrow::Cow<'static, str>);
 
 impl DatabaseEngine {
@@ -12492,8 +12618,14 @@ impl std::convert::From<std::string::String> for DatabaseEngine {
     }
 }
 
+impl std::default::Default for DatabaseEngine {
+    fn default() -> Self {
+        database_engine::DATABASE_ENGINE_UNSPECIFIED
+    }
+}
+
 /// The database providers.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseProvider(std::borrow::Cow<'static, str>);
 
 impl DatabaseProvider {
@@ -12535,9 +12667,15 @@ impl std::convert::From<std::string::String> for DatabaseProvider {
     }
 }
 
+impl std::default::Default for DatabaseProvider {
+    fn default() -> Self {
+        database_provider::DATABASE_PROVIDER_UNSPECIFIED
+    }
+}
+
 /// Enum used by ValueListFilter to indicate whether the source value is in the
 /// supplied list
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ValuePresentInList(std::borrow::Cow<'static, str>);
 
 impl ValuePresentInList {
@@ -12575,8 +12713,14 @@ impl std::convert::From<std::string::String> for ValuePresentInList {
     }
 }
 
+impl std::default::Default for ValuePresentInList {
+    fn default() -> Self {
+        value_present_in_list::VALUE_PRESENT_IN_LIST_UNSPECIFIED
+    }
+}
+
 /// The type of database entities supported,
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseEntityType(std::borrow::Cow<'static, str>);
 
 impl DatabaseEntityType {
@@ -12666,8 +12810,14 @@ impl std::convert::From<std::string::String> for DatabaseEntityType {
     }
 }
 
+impl std::default::Default for DatabaseEntityType {
+    fn default() -> Self {
+        database_entity_type::DATABASE_ENTITY_TYPE_UNSPECIFIED
+    }
+}
+
 /// Entity Name Transformation Types
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EntityNameTransformation(std::borrow::Cow<'static, str>);
 
 impl EntityNameTransformation {
@@ -12713,8 +12863,14 @@ impl std::convert::From<std::string::String> for EntityNameTransformation {
     }
 }
 
+impl std::default::Default for EntityNameTransformation {
+    fn default() -> Self {
+        entity_name_transformation::ENTITY_NAME_TRANSFORMATION_UNSPECIFIED
+    }
+}
+
 /// The types of jobs that can be executed in the background.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BackgroundJobType(std::borrow::Cow<'static, str>);
 
 impl BackgroundJobType {
@@ -12762,8 +12918,14 @@ impl std::convert::From<std::string::String> for BackgroundJobType {
     }
 }
 
+impl std::default::Default for BackgroundJobType {
+    fn default() -> Self {
+        background_job_type::BACKGROUND_JOB_TYPE_UNSPECIFIED
+    }
+}
+
 /// The format for the import rules file.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ImportRulesFileFormat(std::borrow::Cow<'static, str>);
 
 impl ImportRulesFileFormat {
@@ -12801,9 +12963,15 @@ impl std::convert::From<std::string::String> for ImportRulesFileFormat {
     }
 }
 
+impl std::default::Default for ImportRulesFileFormat {
+    fn default() -> Self {
+        import_rules_file_format::IMPORT_RULES_FILE_FORMAT_UNSPECIFIED
+    }
+}
+
 /// Enum used by IntComparisonFilter and DoubleComparisonFilter to indicate the
 /// relation between source value and compare value.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ValueComparison(std::borrow::Cow<'static, str>);
 
 impl ValueComparison {
@@ -12849,8 +13017,14 @@ impl std::convert::From<std::string::String> for ValueComparison {
     }
 }
 
+impl std::default::Default for ValueComparison {
+    fn default() -> Self {
+        value_comparison::VALUE_COMPARISON_UNSPECIFIED
+    }
+}
+
 /// Specifies the columns on which numeric filter needs to be applied.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NumericFilterOption(std::borrow::Cow<'static, str>);
 
 impl NumericFilterOption {
@@ -12891,5 +13065,11 @@ pub mod numeric_filter_option {
 impl std::convert::From<std::string::String> for NumericFilterOption {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for NumericFilterOption {
+    fn default() -> Self {
+        numeric_filter_option::NUMERIC_FILTER_OPTION_UNSPECIFIED
     }
 }

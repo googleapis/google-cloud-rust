@@ -863,7 +863,7 @@ pub mod backend_rule {
     /// Path Translation is applicable only to HTTP-based backends. Backends which
     /// do not accept requests over HTTP/HTTPS should leave `path_translation`
     /// unspecified.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PathTranslation(std::borrow::Cow<'static, str>);
 
     impl PathTranslation {
@@ -944,6 +944,12 @@ pub mod backend_rule {
     impl std::convert::From<std::string::String> for PathTranslation {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PathTranslation {
+        fn default() -> Self {
+            path_translation::PATH_TRANSLATION_UNSPECIFIED
         }
     }
 
@@ -2495,7 +2501,7 @@ pub mod property {
     use super::*;
 
     /// Supported data type of the property values
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PropertyType(std::borrow::Cow<'static, str>);
 
     impl PropertyType {
@@ -2533,6 +2539,12 @@ pub mod property {
     impl std::convert::From<std::string::String> for PropertyType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PropertyType {
+        fn default() -> Self {
+            property_type::UNSPECIFIED
         }
     }
 }
@@ -3779,7 +3791,7 @@ pub mod field_info {
 
     /// The standard format of a field value. The supported formats are all backed
     /// by either an RFC defined by the IETF or a Google-defined AIP.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
@@ -3830,6 +3842,12 @@ pub mod field_info {
     impl std::convert::From<std::string::String> for Format {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            format::FORMAT_UNSPECIFIED
         }
     }
 }
@@ -4670,7 +4688,7 @@ pub mod label_descriptor {
     use super::*;
 
     /// Value types that can be used as label values.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
@@ -4702,6 +4720,12 @@ pub mod label_descriptor {
     impl std::convert::From<std::string::String> for ValueType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ValueType {
+        fn default() -> Self {
+            value_type::STRING
         }
     }
 }
@@ -5330,7 +5354,7 @@ pub mod metric_descriptor {
         use super::*;
 
         /// The resource hierarchy level of the timeseries data of a metric.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct TimeSeriesResourceHierarchyLevel(std::borrow::Cow<'static, str>);
 
         impl TimeSeriesResourceHierarchyLevel {
@@ -5373,12 +5397,18 @@ pub mod metric_descriptor {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for TimeSeriesResourceHierarchyLevel {
+            fn default() -> Self {
+                time_series_resource_hierarchy_level::TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED
+            }
+        }
     }
 
     /// The kind of measurement. It describes how the data is reported.
     /// For information on setting the start time and end time based on
     /// the MetricKind, see [TimeInterval][google.monitoring.v3.TimeInterval].
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MetricKind(std::borrow::Cow<'static, str>);
 
     impl MetricKind {
@@ -5420,8 +5450,14 @@ pub mod metric_descriptor {
         }
     }
 
+    impl std::default::Default for MetricKind {
+        fn default() -> Self {
+            metric_kind::METRIC_KIND_UNSPECIFIED
+        }
+    }
+
     /// The value type of a metric.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
@@ -5469,6 +5505,12 @@ pub mod metric_descriptor {
     impl std::convert::From<std::string::String> for ValueType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ValueType {
+        fn default() -> Self {
+            value_type::VALUE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -6646,7 +6688,7 @@ pub mod resource_descriptor {
 
     /// A description of the historical or future-looking state of the
     /// resource pattern.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct History(std::borrow::Cow<'static, str>);
 
     impl History {
@@ -6684,8 +6726,14 @@ pub mod resource_descriptor {
         }
     }
 
+    impl std::default::Default for History {
+        fn default() -> Self {
+            history::HISTORY_UNSPECIFIED
+        }
+    }
+
     /// A flag representing a specific style that a resource claims to conform to.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Style(std::borrow::Cow<'static, str>);
 
     impl Style {
@@ -6721,6 +6769,12 @@ pub mod resource_descriptor {
     impl std::convert::From<std::string::String> for Style {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Style {
+        fn default() -> Self {
+            style::STYLE_UNSPECIFIED
         }
     }
 }
@@ -8295,7 +8349,7 @@ impl wkt::message::Message for VisibilityRule {
 
 /// The organization for which the client libraries are being published.
 /// Affects the url where generated docs are published, etc.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClientLibraryOrganization(std::borrow::Cow<'static, str>);
 
 impl ClientLibraryOrganization {
@@ -8348,8 +8402,14 @@ impl std::convert::From<std::string::String> for ClientLibraryOrganization {
     }
 }
 
+impl std::default::Default for ClientLibraryOrganization {
+    fn default() -> Self {
+        client_library_organization::CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED
+    }
+}
+
 /// To where should client libraries be published?
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClientLibraryDestination(std::borrow::Cow<'static, str>);
 
 impl ClientLibraryDestination {
@@ -8388,9 +8448,15 @@ impl std::convert::From<std::string::String> for ClientLibraryDestination {
     }
 }
 
+impl std::default::Default for ClientLibraryDestination {
+    fn default() -> Self {
+        client_library_destination::CLIENT_LIBRARY_DESTINATION_UNSPECIFIED
+    }
+}
+
 /// Classifies set of possible modifications to an object in the service
 /// configuration.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ChangeType(std::borrow::Cow<'static, str>);
 
 impl ChangeType {
@@ -8431,6 +8497,12 @@ impl std::convert::From<std::string::String> for ChangeType {
     }
 }
 
+impl std::default::Default for ChangeType {
+    fn default() -> Self {
+        change_type::CHANGE_TYPE_UNSPECIFIED
+    }
+}
+
 /// Defines the supported values for `google.rpc.ErrorInfo.reason` for the
 /// `googleapis.com` error domain. This error domain is reserved for [Service
 /// Infrastructure](https://cloud.google.com/service-infrastructure/docs/overview).
@@ -8441,7 +8513,7 @@ impl std::convert::From<std::string::String> for ChangeType {
 /// such as "projects/123". Other metadata keys are specific to each error
 /// reason. For more information, see the definition of the specific error
 /// reason.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ErrorReason(std::borrow::Cow<'static, str>);
 
 impl ErrorReason {
@@ -9124,13 +9196,19 @@ impl std::convert::From<std::string::String> for ErrorReason {
     }
 }
 
+impl std::default::Default for ErrorReason {
+    fn default() -> Self {
+        error_reason::ERROR_REASON_UNSPECIFIED
+    }
+}
+
 /// An indicator of the behavior of a given field (for example, that a field
 /// is required in requests, or given as output but ignored as input).
 /// This **does not** change the behavior in protocol buffers itself; it only
 /// denotes the behavior and may affect how API tooling handles the field.
 ///
 /// Note: This enum **may** receive new values in the future.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct FieldBehavior(std::borrow::Cow<'static, str>);
 
 impl FieldBehavior {
@@ -9212,9 +9290,15 @@ impl std::convert::From<std::string::String> for FieldBehavior {
     }
 }
 
+impl std::default::Default for FieldBehavior {
+    fn default() -> Self {
+        field_behavior::FIELD_BEHAVIOR_UNSPECIFIED
+    }
+}
+
 /// The launch stage as defined by [Google Cloud Platform
 /// Launch Stages](https://cloud.google.com/terms/launch-stages).
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LaunchStage(std::borrow::Cow<'static, str>);
 
 impl LaunchStage {
@@ -9282,5 +9366,11 @@ pub mod launch_stage {
 impl std::convert::From<std::string::String> for LaunchStage {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for LaunchStage {
+    fn default() -> Self {
+        launch_stage::LAUNCH_STAGE_UNSPECIFIED
     }
 }

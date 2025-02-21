@@ -369,7 +369,7 @@ pub mod service {
     use super::*;
 
     /// The current state of the metastore service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -422,8 +422,14 @@ pub mod service {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Available service tiers.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -460,10 +466,16 @@ pub mod service {
         }
     }
 
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
+        }
+    }
+
     /// Release channels bundle features of varying levels of stability. Newer
     /// features may be introduced initially into less stable release channels and
     /// can be automatically promoted into more stable release channels.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReleaseChannel(std::borrow::Cow<'static, str>);
 
     impl ReleaseChannel {
@@ -502,8 +514,14 @@ pub mod service {
         }
     }
 
+    impl std::default::Default for ReleaseChannel {
+        fn default() -> Self {
+            release_channel::RELEASE_CHANNEL_UNSPECIFIED
+        }
+    }
+
     /// The backend database type for the metastore service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
     impl DatabaseType {
@@ -536,6 +554,12 @@ pub mod service {
     impl std::convert::From<std::string::String> for DatabaseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            database_type::DATABASE_TYPE_UNSPECIFIED
         }
     }
 
@@ -707,7 +731,7 @@ pub mod hive_metastore_config {
     use super::*;
 
     /// Protocols available for serving the metastore service endpoint.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EndpointProtocol(std::borrow::Cow<'static, str>);
 
     impl EndpointProtocol {
@@ -740,6 +764,12 @@ pub mod hive_metastore_config {
     impl std::convert::From<std::string::String> for EndpointProtocol {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for EndpointProtocol {
+        fn default() -> Self {
+            endpoint_protocol::ENDPOINT_PROTOCOL_UNSPECIFIED
         }
     }
 }
@@ -1161,7 +1191,7 @@ pub mod telemetry_config {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogFormat(std::borrow::Cow<'static, str>);
 
     impl LogFormat {
@@ -1193,6 +1223,12 @@ pub mod telemetry_config {
     impl std::convert::From<std::string::String> for LogFormat {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LogFormat {
+        fn default() -> Self {
+            log_format::LOG_FORMAT_UNSPECIFIED
         }
     }
 }
@@ -1468,7 +1504,7 @@ pub mod metadata_import {
         use super::*;
 
         /// The type of the database.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
         impl DatabaseType {
@@ -1500,10 +1536,16 @@ pub mod metadata_import {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for DatabaseType {
+            fn default() -> Self {
+                database_type::DATABASE_TYPE_UNSPECIFIED
+            }
+        }
     }
 
     /// The current state of the metadata import.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1542,6 +1584,12 @@ pub mod metadata_import {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1672,7 +1720,7 @@ pub mod metadata_export {
     use super::*;
 
     /// The current state of the metadata export.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1710,6 +1758,12 @@ pub mod metadata_export {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -1837,7 +1891,7 @@ pub mod backup {
     use super::*;
 
     /// The current state of the backup.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1878,6 +1932,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1979,7 +2039,7 @@ pub mod restore {
     use super::*;
 
     /// The current state of the restore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2020,8 +2080,14 @@ pub mod restore {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The type of restore. If unspecified, defaults to `METADATA_ONLY`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RestoreType(std::borrow::Cow<'static, str>);
 
     impl RestoreType {
@@ -2054,6 +2120,12 @@ pub mod restore {
     impl std::convert::From<std::string::String> for RestoreType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RestoreType {
+        fn default() -> Self {
+            restore_type::RESTORE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -2154,7 +2226,7 @@ pub mod scaling_config {
     use super::*;
 
     /// Metastore instance sizes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceSize(std::borrow::Cow<'static, str>);
 
     impl InstanceSize {
@@ -2196,6 +2268,12 @@ pub mod scaling_config {
     impl std::convert::From<std::string::String> for InstanceSize {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InstanceSize {
+        fn default() -> Self {
+            instance_size::INSTANCE_SIZE_UNSPECIFIED
         }
     }
 
@@ -3754,7 +3832,7 @@ pub mod database_dump_spec {
     use super::*;
 
     /// The type of the database dump.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -3786,6 +3864,12 @@ pub mod database_dump_spec {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -4243,7 +4327,7 @@ pub mod federation {
     use super::*;
 
     /// The current state of the federation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4286,6 +4370,12 @@ pub mod federation {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -4346,7 +4436,7 @@ pub mod backend_metastore {
     use super::*;
 
     /// The type of the backend metastore.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MetastoreType(std::borrow::Cow<'static, str>);
 
     impl MetastoreType {
@@ -4379,6 +4469,12 @@ pub mod backend_metastore {
     impl std::convert::From<std::string::String> for MetastoreType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MetastoreType {
+        fn default() -> Self {
+            metastore_type::METASTORE_TYPE_UNSPECIFIED
         }
     }
 }

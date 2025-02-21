@@ -309,7 +309,7 @@ pub mod compute_threat_list_diff_response {
     }
 
     /// The type of response sent to the client.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ResponseType(std::borrow::Cow<'static, str>);
 
     impl ResponseType {
@@ -344,6 +344,12 @@ pub mod compute_threat_list_diff_response {
     impl std::convert::From<std::string::String> for ResponseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ResponseType {
+        fn default() -> Self {
+            response_type::RESPONSE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1106,7 +1112,7 @@ pub mod threat_info {
         use super::*;
 
         /// Enum representation of confidence.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ConfidenceLevel(std::borrow::Cow<'static, str>);
 
         impl ConfidenceLevel {
@@ -1142,6 +1148,12 @@ pub mod threat_info {
         impl std::convert::From<std::string::String> for ConfidenceLevel {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ConfidenceLevel {
+            fn default() -> Self {
+                confidence_level::CONFIDENCE_LEVEL_UNSPECIFIED
             }
         }
 
@@ -1216,7 +1228,7 @@ pub mod threat_info {
         use super::*;
 
         /// Labels that explain how the URI was classified.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct JustificationLabel(std::borrow::Cow<'static, str>);
 
         impl JustificationLabel {
@@ -1256,10 +1268,16 @@ pub mod threat_info {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for JustificationLabel {
+            fn default() -> Self {
+                justification_label::JUSTIFICATION_LABEL_UNSPECIFIED
+            }
+        }
     }
 
     /// The abuse type found on the URI.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AbuseType(std::borrow::Cow<'static, str>);
 
     impl AbuseType {
@@ -1294,6 +1312,12 @@ pub mod threat_info {
     impl std::convert::From<std::string::String> for AbuseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AbuseType {
+        fn default() -> Self {
+            abuse_type::ABUSE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1351,7 +1375,7 @@ pub mod threat_discovery {
     use super::*;
 
     /// Platform types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Platform(std::borrow::Cow<'static, str>);
 
     impl Platform {
@@ -1389,6 +1413,12 @@ pub mod threat_discovery {
     impl std::convert::From<std::string::String> for Platform {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Platform {
+        fn default() -> Self {
+            platform::PLATFORM_UNSPECIFIED
         }
     }
 }
@@ -1571,7 +1601,7 @@ pub mod submit_uri_metadata {
     use super::*;
 
     /// Enum that represents the state of the long-running operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1614,11 +1644,17 @@ pub mod submit_uri_metadata {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
 }
 
 /// The type of threat. This maps directly to the threat list a threat may
 /// belong to.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ThreatType(std::borrow::Cow<'static, str>);
 
 impl ThreatType {
@@ -1661,8 +1697,14 @@ impl std::convert::From<std::string::String> for ThreatType {
     }
 }
 
+impl std::default::Default for ThreatType {
+    fn default() -> Self {
+        threat_type::THREAT_TYPE_UNSPECIFIED
+    }
+}
+
 /// The ways in which threat entry sets can be compressed.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompressionType(std::borrow::Cow<'static, str>);
 
 impl CompressionType {
@@ -1695,5 +1737,11 @@ pub mod compression_type {
 impl std::convert::From<std::string::String> for CompressionType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for CompressionType {
+    fn default() -> Self {
+        compression_type::COMPRESSION_TYPE_UNSPECIFIED
     }
 }

@@ -251,7 +251,7 @@ pub mod registration {
     use super::*;
 
     /// Possible states of a `Registration`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -310,8 +310,14 @@ pub mod registration {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Possible issues with a `Registration` that require attention.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Issue(std::borrow::Cow<'static, str>);
 
     impl Issue {
@@ -350,6 +356,12 @@ pub mod registration {
     impl std::convert::From<std::string::String> for Issue {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Issue {
+        fn default() -> Self {
+            issue::ISSUE_UNSPECIFIED
         }
     }
 }
@@ -405,7 +417,7 @@ pub mod management_settings {
     use super::*;
 
     /// Defines how the `Registration` is renewed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RenewalMethod(std::borrow::Cow<'static, str>);
 
     impl RenewalMethod {
@@ -446,6 +458,12 @@ pub mod management_settings {
     impl std::convert::From<std::string::String> for RenewalMethod {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RenewalMethod {
+        fn default() -> Self {
+            renewal_method::RENEWAL_METHOD_UNSPECIFIED
         }
     }
 }
@@ -764,7 +782,7 @@ pub mod dns_settings {
 
         /// List of algorithms used to create a DNSKEY. Certain
         /// algorithms are not supported for particular domains.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Algorithm(std::borrow::Cow<'static, str>);
 
         impl Algorithm {
@@ -844,9 +862,15 @@ pub mod dns_settings {
             }
         }
 
+        impl std::default::Default for Algorithm {
+            fn default() -> Self {
+                algorithm::ALGORITHM_UNSPECIFIED
+            }
+        }
+
         /// List of hash functions that may have been used to generate a digest of a
         /// DNSKEY.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct DigestType(std::borrow::Cow<'static, str>);
 
         impl DigestType {
@@ -885,6 +909,12 @@ pub mod dns_settings {
         impl std::convert::From<std::string::String> for DigestType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for DigestType {
+            fn default() -> Self {
+                digest_type::DIGEST_TYPE_UNSPECIFIED
             }
         }
     }
@@ -958,7 +988,7 @@ pub mod dns_settings {
     }
 
     /// The publication state of DS records for a `Registration`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DsState(std::borrow::Cow<'static, str>);
 
     impl DsState {
@@ -994,6 +1024,12 @@ pub mod dns_settings {
     impl std::convert::From<std::string::String> for DsState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DsState {
+        fn default() -> Self {
+            ds_state::DS_STATE_UNSPECIFIED
         }
     }
 
@@ -2249,7 +2285,7 @@ pub mod register_parameters {
     use super::*;
 
     /// Possible availability states of a domain name.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Availability(std::borrow::Cow<'static, str>);
 
     impl Availability {
@@ -2291,6 +2327,12 @@ pub mod register_parameters {
     impl std::convert::From<std::string::String> for Availability {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Availability {
+        fn default() -> Self {
+            availability::AVAILABILITY_UNSPECIFIED
         }
     }
 }
@@ -2515,7 +2557,7 @@ impl wkt::message::Message for OperationMetadata {
 /// accessible mapping from domain name to contact information, and requires that
 /// each domain name have an entry. Choose from these options to control how much
 /// information in your `ContactSettings` is published.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ContactPrivacy(std::borrow::Cow<'static, str>);
 
 impl ContactPrivacy {
@@ -2563,8 +2605,14 @@ impl std::convert::From<std::string::String> for ContactPrivacy {
     }
 }
 
+impl std::default::Default for ContactPrivacy {
+    fn default() -> Self {
+        contact_privacy::CONTACT_PRIVACY_UNSPECIFIED
+    }
+}
+
 /// Notices about special properties of certain domains.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DomainNotice(std::borrow::Cow<'static, str>);
 
 impl DomainNotice {
@@ -2601,8 +2649,14 @@ impl std::convert::From<std::string::String> for DomainNotice {
     }
 }
 
+impl std::default::Default for DomainNotice {
+    fn default() -> Self {
+        domain_notice::DOMAIN_NOTICE_UNSPECIFIED
+    }
+}
+
 /// Notices related to contact information.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ContactNotice(std::borrow::Cow<'static, str>);
 
 impl ContactNotice {
@@ -2637,8 +2691,14 @@ impl std::convert::From<std::string::String> for ContactNotice {
     }
 }
 
+impl std::default::Default for ContactNotice {
+    fn default() -> Self {
+        contact_notice::CONTACT_NOTICE_UNSPECIFIED
+    }
+}
+
 /// Possible states of a `Registration`'s transfer lock.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct TransferLockState(std::borrow::Cow<'static, str>);
 
 impl TransferLockState {
@@ -2671,5 +2731,11 @@ pub mod transfer_lock_state {
 impl std::convert::From<std::string::String> for TransferLockState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for TransferLockState {
+    fn default() -> Self {
+        transfer_lock_state::TRANSFER_LOCK_STATE_UNSPECIFIED
     }
 }

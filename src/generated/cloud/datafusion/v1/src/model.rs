@@ -150,7 +150,7 @@ pub mod version {
     use super::*;
 
     /// Each type represents the release availability of a CDF version
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -182,6 +182,12 @@ pub mod version {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -238,7 +244,7 @@ pub mod accelerator {
 
     /// Each type represents an Accelerator (Add-On) supported by Cloud Data Fusion
     /// service.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AcceleratorType(std::borrow::Cow<'static, str>);
 
     impl AcceleratorType {
@@ -280,8 +286,14 @@ pub mod accelerator {
         }
     }
 
+    impl std::default::Default for AcceleratorType {
+        fn default() -> Self {
+            accelerator_type::ACCELERATOR_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Different values possible for the state of an accelerator
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -317,6 +329,12 @@ pub mod accelerator {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -724,7 +742,7 @@ pub mod instance {
 
     /// Represents the type of Data Fusion instance. Each type is configured with
     /// the default settings for processing and memory.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -770,8 +788,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Represents the state of a Data Fusion instance
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -831,8 +855,14 @@ pub mod instance {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// The reason for disabling the instance if the state is DISABLED.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DisabledReason(std::borrow::Cow<'static, str>);
 
     impl DisabledReason {
@@ -862,6 +892,12 @@ pub mod instance {
     impl std::convert::From<std::string::String> for DisabledReason {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DisabledReason {
+        fn default() -> Self {
+            disabled_reason::DISABLED_REASON_UNSPECIFIED
         }
     }
 }

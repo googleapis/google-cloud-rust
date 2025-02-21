@@ -734,7 +734,7 @@ pub mod cloud_sql_properties {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DatabaseType(std::borrow::Cow<'static, str>);
 
     impl DatabaseType {
@@ -767,6 +767,12 @@ pub mod cloud_sql_properties {
     impl std::convert::From<std::string::String> for DatabaseType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DatabaseType {
+        fn default() -> Self {
+            database_type::DATABASE_TYPE_UNSPECIFIED
         }
     }
 }

@@ -231,7 +231,7 @@ impl wkt::message::Message for HttpRequest {
 /// one of these standard levels. For example, you might map all of Java's FINE,
 /// FINER, and FINEST levels to `LogSeverity.DEBUG`. You can preserve the
 /// original severity level in the log entry payload if you wish.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct LogSeverity(std::borrow::Cow<'static, str>);
 
 impl LogSeverity {
@@ -282,5 +282,11 @@ pub mod log_severity {
 impl std::convert::From<std::string::String> for LogSeverity {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for LogSeverity {
+    fn default() -> Self {
+        log_severity::DEFAULT
     }
 }

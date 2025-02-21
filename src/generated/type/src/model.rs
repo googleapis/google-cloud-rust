@@ -1579,7 +1579,7 @@ impl wkt::message::Message for TimeOfDay {
 /// A `CalendarPeriod` represents the abstract concept of a time period that has
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CalendarPeriod(std::borrow::Cow<'static, str>);
 
 impl CalendarPeriod {
@@ -1634,8 +1634,14 @@ impl std::convert::From<std::string::String> for CalendarPeriod {
     }
 }
 
+impl std::default::Default for CalendarPeriod {
+    fn default() -> Self {
+        calendar_period::CALENDAR_PERIOD_UNSPECIFIED
+    }
+}
+
 /// Represents a day of the week.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DayOfWeek(std::borrow::Cow<'static, str>);
 
 impl DayOfWeek {
@@ -1685,8 +1691,14 @@ impl std::convert::From<std::string::String> for DayOfWeek {
     }
 }
 
+impl std::default::Default for DayOfWeek {
+    fn default() -> Self {
+        day_of_week::DAY_OF_WEEK_UNSPECIFIED
+    }
+}
+
 /// Represents a month in the Gregorian calendar.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Month(std::borrow::Cow<'static, str>);
 
 impl Month {
@@ -1748,5 +1760,11 @@ pub mod month {
 impl std::convert::From<std::string::String> for Month {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Month {
+    fn default() -> Self {
+        month::MONTH_UNSPECIFIED
     }
 }

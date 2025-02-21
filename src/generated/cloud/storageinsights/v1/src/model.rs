@@ -909,7 +909,7 @@ pub mod frequency_options {
     use super::*;
 
     /// This ENUM specifies possible frequencies of report generation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Frequency(std::borrow::Cow<'static, str>);
 
     impl Frequency {
@@ -941,6 +941,12 @@ pub mod frequency_options {
     impl std::convert::From<std::string::String> for Frequency {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Frequency {
+        fn default() -> Self {
+            frequency::FREQUENCY_UNSPECIFIED
         }
     }
 }

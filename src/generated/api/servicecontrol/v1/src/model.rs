@@ -112,7 +112,7 @@ pub mod check_error {
     use super::*;
 
     /// Error codes for Check responses.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -206,6 +206,12 @@ pub mod check_error {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::ERROR_CODE_UNSPECIFIED
         }
     }
 }
@@ -1704,7 +1710,7 @@ pub mod operation {
     use super::*;
 
     /// Defines the importance of the data contained in the operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Importance(std::borrow::Cow<'static, str>);
 
     impl Importance {
@@ -1736,6 +1742,12 @@ pub mod operation {
     impl std::convert::From<std::string::String> for Importance {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Importance {
+        fn default() -> Self {
+            importance::LOW
         }
     }
 }
@@ -1933,7 +1945,7 @@ pub mod quota_operation {
     use super::*;
 
     /// Supported quota modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct QuotaMode(std::borrow::Cow<'static, str>);
 
     impl QuotaMode {
@@ -1996,6 +2008,12 @@ pub mod quota_operation {
     impl std::convert::From<std::string::String> for QuotaMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for QuotaMode {
+        fn default() -> Self {
+            quota_mode::UNSPECIFIED
         }
     }
 }
@@ -2162,7 +2180,7 @@ pub mod quota_error {
     /// have to call the Check method, without quota_properties field, to perform
     /// these validations before calling the quota controller methods. These
     /// methods check only for project deletion to be wipe out compliant.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
@@ -2205,6 +2223,12 @@ pub mod quota_error {
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Code {
+        fn default() -> Self {
+            code::UNSPECIFIED
         }
     }
 }
@@ -2502,7 +2526,7 @@ pub mod check_response {
 
         /// The type of the consumer as defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ConsumerType(std::borrow::Cow<'static, str>);
 
         impl ConsumerType {
@@ -2543,6 +2567,12 @@ pub mod check_response {
         impl std::convert::From<std::string::String> for ConsumerType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ConsumerType {
+            fn default() -> Self {
+                consumer_type::CONSUMER_TYPE_UNSPECIFIED
             }
         }
     }

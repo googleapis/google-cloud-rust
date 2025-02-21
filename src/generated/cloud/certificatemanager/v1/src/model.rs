@@ -556,7 +556,7 @@ pub mod certificate_issuance_config {
     }
 
     /// The type of keypair to generate.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct KeyAlgorithm(std::borrow::Cow<'static, str>);
 
     impl KeyAlgorithm {
@@ -589,6 +589,12 @@ pub mod certificate_issuance_config {
     impl std::convert::From<std::string::String> for KeyAlgorithm {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for KeyAlgorithm {
+        fn default() -> Self {
+            key_algorithm::KEY_ALGORITHM_UNSPECIFIED
         }
     }
 }
@@ -2396,7 +2402,7 @@ pub mod certificate {
             use super::*;
 
             /// Reason for provisioning failures.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct Reason(std::borrow::Cow<'static, str>);
 
             impl Reason {
@@ -2432,6 +2438,12 @@ pub mod certificate {
             impl std::convert::From<std::string::String> for Reason {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for Reason {
+                fn default() -> Self {
+                    reason::REASON_UNSPECIFIED
                 }
             }
         }
@@ -2504,7 +2516,7 @@ pub mod certificate {
             use super::*;
 
             /// State of the domain for managed certificate issuance.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct State(std::borrow::Cow<'static, str>);
 
             impl State {
@@ -2545,8 +2557,14 @@ pub mod certificate {
                 }
             }
 
+            impl std::default::Default for State {
+                fn default() -> Self {
+                    state::STATE_UNSPECIFIED
+                }
+            }
+
             /// Reason for failure of the authorization attempt for the domain.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct FailureReason(std::borrow::Cow<'static, str>);
 
             impl FailureReason {
@@ -2587,10 +2605,16 @@ pub mod certificate {
                     Self(std::borrow::Cow::Owned(value))
                 }
             }
+
+            impl std::default::Default for FailureReason {
+                fn default() -> Self {
+                    failure_reason::FAILURE_REASON_UNSPECIFIED
+                }
+            }
         }
 
         /// State of the managed certificate resource.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -2633,10 +2657,16 @@ pub mod certificate {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// Certificate scope.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
@@ -2672,6 +2702,12 @@ pub mod certificate {
     impl std::convert::From<std::string::String> for Scope {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            scope::DEFAULT
         }
     }
 
@@ -3150,7 +3186,7 @@ pub mod certificate_map_entry {
 
     /// Defines predefined cases other than SNI-hostname match when this
     /// configuration should be applied.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Matcher(std::borrow::Cow<'static, str>);
 
     impl Matcher {
@@ -3180,6 +3216,12 @@ pub mod certificate_map_entry {
     impl std::convert::From<std::string::String> for Matcher {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Matcher {
+        fn default() -> Self {
+            matcher::MATCHER_UNSPECIFIED
         }
     }
 
@@ -3386,7 +3428,7 @@ pub mod dns_authorization {
     }
 
     /// DnsAuthorization type.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -3420,6 +3462,12 @@ pub mod dns_authorization {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -4081,7 +4129,7 @@ pub mod trust_config {
 }
 
 /// Defines set of serving states associated with a resource.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServingState(std::borrow::Cow<'static, str>);
 
 impl ServingState {
@@ -4114,5 +4162,11 @@ pub mod serving_state {
 impl std::convert::From<std::string::String> for ServingState {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for ServingState {
+    fn default() -> Self {
+        serving_state::SERVING_STATE_UNSPECIFIED
     }
 }

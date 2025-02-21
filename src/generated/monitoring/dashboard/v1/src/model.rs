@@ -258,7 +258,7 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Aligner(std::borrow::Cow<'static, str>);
 
     impl Aligner {
@@ -429,11 +429,17 @@ pub mod aggregation {
         }
     }
 
+    impl std::default::Default for Aligner {
+        fn default() -> Self {
+            aligner::ALIGN_NONE
+        }
+    }
+
     /// A Reducer operation describes how to aggregate data points from multiple
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Reducer(std::borrow::Cow<'static, str>);
 
     impl Reducer {
@@ -547,6 +553,12 @@ pub mod aggregation {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Reducer {
+        fn default() -> Self {
+            reducer::REDUCE_NONE
+        }
+    }
 }
 
 /// Describes a ranking-based time series filter. Each input time series is
@@ -632,7 +644,7 @@ pub mod pick_time_series_filter {
     use super::*;
 
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
@@ -677,8 +689,14 @@ pub mod pick_time_series_filter {
         }
     }
 
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            method::METHOD_UNSPECIFIED
+        }
+    }
+
     /// Describes the ranking directions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
@@ -711,6 +729,12 @@ pub mod pick_time_series_filter {
     impl std::convert::From<std::string::String> for Direction {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            direction::DIRECTION_UNSPECIFIED
         }
     }
 }
@@ -769,7 +793,7 @@ pub mod statistical_time_series_filter {
     use super::*;
 
     /// The filter methods that can be applied to a stream.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Method(std::borrow::Cow<'static, str>);
 
     impl Method {
@@ -798,6 +822,12 @@ pub mod statistical_time_series_filter {
     impl std::convert::From<std::string::String> for Method {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Method {
+        fn default() -> Self {
+            method::METHOD_UNSPECIFIED
         }
     }
 }
@@ -1137,7 +1167,7 @@ pub mod dashboard_filter {
     use super::*;
 
     /// The type for the dashboard filter
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FilterType(std::borrow::Cow<'static, str>);
 
     impl FilterType {
@@ -1178,6 +1208,12 @@ pub mod dashboard_filter {
     impl std::convert::From<std::string::String> for FilterType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FilterType {
+        fn default() -> Self {
+            filter_type::FILTER_TYPE_UNSPECIFIED
         }
     }
 
@@ -2672,7 +2708,7 @@ pub mod threshold {
     /// The color suggests an interpretation to the viewer when actual values cross
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Color(std::borrow::Cow<'static, str>);
 
     impl Color {
@@ -2707,9 +2743,15 @@ pub mod threshold {
         }
     }
 
+    impl std::default::Default for Color {
+        fn default() -> Self {
+            color::COLOR_UNSPECIFIED
+        }
+    }
+
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Direction(std::borrow::Cow<'static, str>);
 
     impl Direction {
@@ -2746,8 +2788,14 @@ pub mod threshold {
         }
     }
 
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            direction::DIRECTION_UNSPECIFIED
+        }
+    }
+
     /// An axis identifier.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TargetAxis(std::borrow::Cow<'static, str>);
 
     impl TargetAxis {
@@ -2779,6 +2827,12 @@ pub mod threshold {
     impl std::convert::From<std::string::String> for TargetAxis {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TargetAxis {
+        fn default() -> Self {
+            target_axis::TARGET_AXIS_UNSPECIFIED
         }
     }
 }
@@ -2916,7 +2970,7 @@ pub mod pie_chart {
     }
 
     /// Types for the pie chart.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PieChartType(std::borrow::Cow<'static, str>);
 
     impl PieChartType {
@@ -2949,6 +3003,12 @@ pub mod pie_chart {
     impl std::convert::From<std::string::String> for PieChartType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PieChartType {
+        fn default() -> Self {
+            pie_chart_type::PIE_CHART_TYPE_UNSPECIFIED
         }
     }
 }
@@ -3508,7 +3568,7 @@ pub mod time_series_table {
     }
 
     /// Enum for metric metric_visualization
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct MetricVisualization(std::borrow::Cow<'static, str>);
 
     impl MetricVisualization {
@@ -3541,6 +3601,12 @@ pub mod time_series_table {
     impl std::convert::From<std::string::String> for MetricVisualization {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for MetricVisualization {
+        fn default() -> Self {
+            metric_visualization::METRIC_VISUALIZATION_UNSPECIFIED
         }
     }
 }
@@ -3751,7 +3817,7 @@ pub mod text {
         use super::*;
 
         /// The horizontal alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct HorizontalAlignment(std::borrow::Cow<'static, str>);
 
         impl HorizontalAlignment {
@@ -3790,8 +3856,14 @@ pub mod text {
             }
         }
 
+        impl std::default::Default for HorizontalAlignment {
+            fn default() -> Self {
+                horizontal_alignment::HORIZONTAL_ALIGNMENT_UNSPECIFIED
+            }
+        }
+
         /// The vertical alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct VerticalAlignment(std::borrow::Cow<'static, str>);
 
         impl VerticalAlignment {
@@ -3830,8 +3902,14 @@ pub mod text {
             }
         }
 
+        impl std::default::Default for VerticalAlignment {
+            fn default() -> Self {
+                vertical_alignment::VERTICAL_ALIGNMENT_UNSPECIFIED
+            }
+        }
+
         /// Specifies padding size around a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PaddingSize(std::borrow::Cow<'static, str>);
 
         impl PaddingSize {
@@ -3876,8 +3954,14 @@ pub mod text {
             }
         }
 
+        impl std::default::Default for PaddingSize {
+            fn default() -> Self {
+                padding_size::PADDING_SIZE_UNSPECIFIED
+            }
+        }
+
         /// Specifies a font size for the title and content of a text widget
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct FontSize(std::borrow::Cow<'static, str>);
 
         impl FontSize {
@@ -3921,9 +4005,15 @@ pub mod text {
             }
         }
 
+        impl std::default::Default for FontSize {
+            fn default() -> Self {
+                font_size::FONT_SIZE_UNSPECIFIED
+            }
+        }
+
         /// Specifies where a visual pointer is placed on a text widget (also
         /// sometimes called a "tail")
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PointerLocation(std::borrow::Cow<'static, str>);
 
         impl PointerLocation {
@@ -3988,10 +4078,16 @@ pub mod text {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for PointerLocation {
+            fn default() -> Self {
+                pointer_location::POINTER_LOCATION_UNSPECIFIED
+            }
+        }
     }
 
     /// The format type of the text content.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
@@ -4023,6 +4119,12 @@ pub mod text {
     impl std::convert::From<std::string::String> for Format {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Format {
+        fn default() -> Self {
+            format::FORMAT_UNSPECIFIED
         }
     }
 }
@@ -4692,7 +4794,7 @@ pub mod xy_chart {
         use super::*;
 
         /// The types of plotting strategies for data sets.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct PlotType(std::borrow::Cow<'static, str>);
 
         impl PlotType {
@@ -4742,8 +4844,14 @@ pub mod xy_chart {
             }
         }
 
+        impl std::default::Default for PlotType {
+            fn default() -> Self {
+                plot_type::PLOT_TYPE_UNSPECIFIED
+            }
+        }
+
         /// An axis identifier.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct TargetAxis(std::borrow::Cow<'static, str>);
 
         impl TargetAxis {
@@ -4776,6 +4884,12 @@ pub mod xy_chart {
         impl std::convert::From<std::string::String> for TargetAxis {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for TargetAxis {
+            fn default() -> Self {
+                target_axis::TARGET_AXIS_UNSPECIFIED
             }
         }
     }
@@ -4827,7 +4941,7 @@ pub mod xy_chart {
         use super::*;
 
         /// Types of scales used in axes.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Scale(std::borrow::Cow<'static, str>);
 
         impl Scale {
@@ -4859,6 +4973,12 @@ pub mod xy_chart {
         impl std::convert::From<std::string::String> for Scale {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Scale {
+            fn default() -> Self {
+                scale::SCALE_UNSPECIFIED
             }
         }
     }
@@ -4901,7 +5021,7 @@ pub mod chart_options {
     use super::*;
 
     /// Chart mode options.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
@@ -4941,10 +5061,16 @@ pub mod chart_options {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            mode::MODE_UNSPECIFIED
+        }
+    }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SparkChartType(std::borrow::Cow<'static, str>);
 
 impl SparkChartType {
@@ -4977,5 +5103,11 @@ pub mod spark_chart_type {
 impl std::convert::From<std::string::String> for SparkChartType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for SparkChartType {
+    fn default() -> Self {
+        spark_chart_type::SPARK_CHART_TYPE_UNSPECIFIED
     }
 }

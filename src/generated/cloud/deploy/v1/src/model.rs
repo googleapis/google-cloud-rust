@@ -3157,7 +3157,7 @@ pub mod execution_config {
     use super::*;
 
     /// Possible usages of this configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExecutionEnvironmentUsage(std::borrow::Cow<'static, str>);
 
     impl ExecutionEnvironmentUsage {
@@ -3201,6 +3201,12 @@ pub mod execution_config {
     impl std::convert::From<std::string::String> for ExecutionEnvironmentUsage {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ExecutionEnvironmentUsage {
+        fn default() -> Self {
+            execution_environment_usage::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED
         }
     }
 
@@ -5243,7 +5249,7 @@ pub mod deploy_policy {
 
     /// What invoked the action. Filters enforcing the policy depending on what
     /// invoked the action.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Invoker(std::borrow::Cow<'static, str>);
 
     impl Invoker {
@@ -5276,6 +5282,12 @@ pub mod deploy_policy {
     impl std::convert::From<std::string::String> for Invoker {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Invoker {
+        fn default() -> Self {
+            invoker::INVOKER_UNSPECIFIED
         }
     }
 }
@@ -5588,7 +5600,7 @@ pub mod rollout_restriction {
     use super::*;
 
     /// Rollout actions to be restricted as part of the policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolloutActions(std::borrow::Cow<'static, str>);
 
     impl RolloutActions {
@@ -5639,6 +5651,12 @@ pub mod rollout_restriction {
     impl std::convert::From<std::string::String> for RolloutActions {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RolloutActions {
+        fn default() -> Self {
+            rollout_actions::ROLLOUT_ACTIONS_UNSPECIFIED
         }
     }
 }
@@ -6378,7 +6396,7 @@ pub mod release {
         use super::*;
 
         /// Valid states of the render operation.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct TargetRenderState(std::borrow::Cow<'static, str>);
 
         impl TargetRenderState {
@@ -6417,8 +6435,14 @@ pub mod release {
             }
         }
 
+        impl std::default::Default for TargetRenderState {
+            fn default() -> Self {
+                target_render_state::TARGET_RENDER_STATE_UNSPECIFIED
+            }
+        }
+
         /// Well-known rendering failures.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct FailureCause(std::borrow::Cow<'static, str>);
 
         impl FailureCause {
@@ -6481,6 +6505,12 @@ pub mod release {
         impl std::convert::From<std::string::String> for FailureCause {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for FailureCause {
+            fn default() -> Self {
+                failure_cause::FAILURE_CAUSE_UNSPECIFIED
             }
         }
     }
@@ -6648,7 +6678,7 @@ pub mod release {
     }
 
     /// Valid states of the render operation.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RenderState(std::borrow::Cow<'static, str>);
 
     impl RenderState {
@@ -6684,6 +6714,12 @@ pub mod release {
     impl std::convert::From<std::string::String> for RenderState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RenderState {
+        fn default() -> Self {
+            render_state::RENDER_STATE_UNSPECIFIED
         }
     }
 }
@@ -8090,7 +8126,7 @@ pub mod rollout {
     use super::*;
 
     /// Valid approval states of a `Rollout`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ApprovalState(std::borrow::Cow<'static, str>);
 
     impl ApprovalState {
@@ -8133,8 +8169,14 @@ pub mod rollout {
         }
     }
 
+    impl std::default::Default for ApprovalState {
+        fn default() -> Self {
+            approval_state::APPROVAL_STATE_UNSPECIFIED
+        }
+    }
+
     /// Valid states of a `Rollout`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8194,8 +8236,14 @@ pub mod rollout {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Well-known rollout failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FailureCause(std::borrow::Cow<'static, str>);
 
     impl FailureCause {
@@ -8254,6 +8302,12 @@ pub mod rollout {
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FailureCause {
+        fn default() -> Self {
+            failure_cause::FAILURE_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -8713,7 +8767,7 @@ pub mod phase {
     use super::*;
 
     /// Valid states of a Phase.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -8757,6 +8811,12 @@ pub mod phase {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -9133,7 +9193,7 @@ pub mod job {
     use super::*;
 
     /// Valid states of a Job.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -9183,6 +9243,12 @@ pub mod job {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -10504,7 +10570,7 @@ pub mod job_run {
     use super::*;
 
     /// Valid states of a `JobRun`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -10545,6 +10611,12 @@ pub mod job_run {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -10658,7 +10730,7 @@ pub mod deploy_job_run {
     use super::*;
 
     /// Well-known deploy failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FailureCause(std::borrow::Cow<'static, str>);
 
     impl FailureCause {
@@ -10712,6 +10784,12 @@ pub mod deploy_job_run {
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FailureCause {
+        fn default() -> Self {
+            failure_cause::FAILURE_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -10798,7 +10876,7 @@ pub mod verify_job_run {
     use super::*;
 
     /// Well-known verify failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FailureCause(std::borrow::Cow<'static, str>);
 
     impl FailureCause {
@@ -10847,6 +10925,12 @@ pub mod verify_job_run {
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FailureCause {
+        fn default() -> Self {
+            failure_cause::FAILURE_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -10914,7 +10998,7 @@ pub mod predeploy_job_run {
     use super::*;
 
     /// Well-known predeploy failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FailureCause(std::borrow::Cow<'static, str>);
 
     impl FailureCause {
@@ -10959,6 +11043,12 @@ pub mod predeploy_job_run {
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FailureCause {
+        fn default() -> Self {
+            failure_cause::FAILURE_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -11026,7 +11116,7 @@ pub mod postdeploy_job_run {
     use super::*;
 
     /// Well-known postdeploy failures.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FailureCause(std::borrow::Cow<'static, str>);
 
     impl FailureCause {
@@ -11071,6 +11161,12 @@ pub mod postdeploy_job_run {
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FailureCause {
+        fn default() -> Self {
+            failure_cause::FAILURE_CAUSE_UNSPECIFIED
         }
     }
 }
@@ -13573,7 +13669,7 @@ pub mod automation_run {
     use super::*;
 
     /// Valid state of an `AutomationRun`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -13617,6 +13713,12 @@ pub mod automation_run {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -14730,7 +14832,7 @@ pub mod deploy_policy_evaluation_event {
     use super::*;
 
     /// The policy verdict of the request.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyVerdict(std::borrow::Cow<'static, str>);
 
     impl PolicyVerdict {
@@ -14768,9 +14870,15 @@ pub mod deploy_policy_evaluation_event {
         }
     }
 
+    impl std::default::Default for PolicyVerdict {
+        fn default() -> Self {
+            policy_verdict::POLICY_VERDICT_UNSPECIFIED
+        }
+    }
+
     /// Things that could have overridden the policy verdict. When overrides are
     /// used, the request will be allowed even if it is DENIED_BY_POLICY.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyVerdictOverride(std::borrow::Cow<'static, str>);
 
     impl PolicyVerdictOverride {
@@ -14805,6 +14913,12 @@ pub mod deploy_policy_evaluation_event {
     impl std::convert::From<std::string::String> for PolicyVerdictOverride {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PolicyVerdictOverride {
+        fn default() -> Self {
+            policy_verdict_override::POLICY_VERDICT_OVERRIDE_UNSPECIFIED
         }
     }
 }
@@ -15344,7 +15458,7 @@ pub mod rollout_update_event {
     use super::*;
 
     /// RolloutUpdateType indicates the type of the rollout update.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RolloutUpdateType(std::borrow::Cow<'static, str>);
 
     impl RolloutUpdateType {
@@ -15413,6 +15527,12 @@ pub mod rollout_update_event {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for RolloutUpdateType {
+        fn default() -> Self {
+            rollout_update_type::ROLLOUT_UPDATE_TYPE_UNSPECIFIED
+        }
+    }
 }
 
 /// Payload proto for "clouddeploy.googleapis.com/target_notification"
@@ -15467,7 +15587,7 @@ impl wkt::message::Message for TargetNotificationEvent {
 }
 
 /// The support state of a specific Skaffold version.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SkaffoldSupportState(std::borrow::Cow<'static, str>);
 
 impl SkaffoldSupportState {
@@ -15509,8 +15629,14 @@ impl std::convert::From<std::string::String> for SkaffoldSupportState {
     }
 }
 
+impl std::default::Default for SkaffoldSupportState {
+    fn default() -> Self {
+        skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED
+    }
+}
+
 /// The pattern of how wait time is increased.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BackoffMode(std::borrow::Cow<'static, str>);
 
 impl BackoffMode {
@@ -15545,8 +15671,14 @@ impl std::convert::From<std::string::String> for BackoffMode {
     }
 }
 
+impl std::default::Default for BackoffMode {
+    fn default() -> Self {
+        backoff_mode::BACKOFF_MODE_UNSPECIFIED
+    }
+}
+
 /// Valid state of a repair attempt.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RepairState(std::borrow::Cow<'static, str>);
 
 impl RepairState {
@@ -15593,8 +15725,14 @@ impl std::convert::From<std::string::String> for RepairState {
     }
 }
 
+impl std::default::Default for RepairState {
+    fn default() -> Self {
+        repair_state::REPAIR_STATE_UNSPECIFIED
+    }
+}
+
 /// Type indicates the type of the log entry and can be used as a filter.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Type(std::borrow::Cow<'static, str>);
 
 impl Type {
@@ -15645,5 +15783,11 @@ pub mod r#type {
 impl std::convert::From<std::string::String> for Type {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Type {
+    fn default() -> Self {
+        r#type::TYPE_UNSPECIFIED
     }
 }

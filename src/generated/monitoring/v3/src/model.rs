@@ -2109,7 +2109,7 @@ pub mod alert_policy {
         /// A condition control that determines how metric-threshold conditions
         /// are evaluated when data stops arriving.
         /// This control doesn't affect metric-absence policies.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct EvaluationMissingData(std::borrow::Cow<'static, str>);
 
         impl EvaluationMissingData {
@@ -2151,6 +2151,12 @@ pub mod alert_policy {
         impl std::convert::From<std::string::String> for EvaluationMissingData {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for EvaluationMissingData {
+            fn default() -> Self {
+                evaluation_missing_data::EVALUATION_MISSING_DATA_UNSPECIFIED
             }
         }
 
@@ -2379,7 +2385,7 @@ pub mod alert_policy {
         }
 
         /// Control when notifications will be sent out.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct NotificationPrompt(std::borrow::Cow<'static, str>);
 
         impl NotificationPrompt {
@@ -2414,10 +2420,16 @@ pub mod alert_policy {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for NotificationPrompt {
+            fn default() -> Self {
+                notification_prompt::NOTIFICATION_PROMPT_UNSPECIFIED
+            }
+        }
     }
 
     /// Operators for combining conditions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConditionCombinerType(std::borrow::Cow<'static, str>);
 
     impl ConditionCombinerType {
@@ -2463,8 +2475,14 @@ pub mod alert_policy {
         }
     }
 
+    impl std::default::Default for ConditionCombinerType {
+        fn default() -> Self {
+            condition_combiner_type::COMBINE_UNSPECIFIED
+        }
+    }
+
     /// An enumeration of possible severity level for an alerting policy.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
@@ -2503,6 +2521,12 @@ pub mod alert_policy {
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Severity {
+        fn default() -> Self {
+            severity::SEVERITY_UNSPECIFIED
         }
     }
 }
@@ -3299,7 +3323,7 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Aligner(std::borrow::Cow<'static, str>);
 
     impl Aligner {
@@ -3473,11 +3497,17 @@ pub mod aggregation {
         }
     }
 
+    impl std::default::Default for Aligner {
+        fn default() -> Self {
+            aligner::ALIGN_NONE
+        }
+    }
+
     /// A Reducer operation describes how to aggregate data points from multiple
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Reducer(std::borrow::Cow<'static, str>);
 
     impl Reducer {
@@ -3593,6 +3623,12 @@ pub mod aggregation {
     impl std::convert::From<std::string::String> for Reducer {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Reducer {
+        fn default() -> Self {
+            reducer::REDUCE_NONE
         }
     }
 }
@@ -5729,7 +5765,7 @@ pub mod list_time_series_request {
     use super::*;
 
     /// Controls which fields are returned by `ListTimeSeries*`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TimeSeriesView(std::borrow::Cow<'static, str>);
 
     impl TimeSeriesView {
@@ -5760,6 +5796,12 @@ pub mod list_time_series_request {
     impl std::convert::From<std::string::String> for TimeSeriesView {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for TimeSeriesView {
+        fn default() -> Self {
+            time_series_view::FULL
         }
     }
 }
@@ -6648,7 +6690,7 @@ pub mod notification_channel {
     ///
     /// [google.monitoring.v3.NotificationChannelService.CreateNotificationChannel]: crate::client::NotificationChannelService::create_notification_channel
     /// [google.monitoring.v3.NotificationChannelService.UpdateNotificationChannel]: crate::client::NotificationChannelService::update_notification_channel
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VerificationStatus(std::borrow::Cow<'static, str>);
 
     impl VerificationStatus {
@@ -6688,6 +6730,12 @@ pub mod notification_channel {
     impl std::convert::From<std::string::String> for VerificationStatus {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VerificationStatus {
+        fn default() -> Self {
+            verification_status::VERIFICATION_STATUS_UNSPECIFIED
         }
     }
 }
@@ -8657,7 +8705,7 @@ pub mod service_level_objective {
     /// `ServiceLevelObjective.View` determines what form of
     /// `ServiceLevelObjective` is returned from `GetServiceLevelObjective`,
     /// `ListServiceLevelObjectives`, and `ListServiceLevelObjectiveVersions` RPCs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct View(std::borrow::Cow<'static, str>);
 
     impl View {
@@ -8694,6 +8742,12 @@ pub mod service_level_objective {
     impl std::convert::From<std::string::String> for View {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for View {
+        fn default() -> Self {
+            view::VIEW_UNSPECIFIED
         }
     }
 
@@ -11022,7 +11076,7 @@ pub mod internal_checker {
     use super::*;
 
     /// Operational states for an internal checker.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -11064,6 +11118,12 @@ pub mod internal_checker {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::UNSPECIFIED
         }
     }
 }
@@ -12106,7 +12166,7 @@ pub mod uptime_check_config {
             use super::*;
 
             /// An HTTP status code class.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct StatusClass(std::borrow::Cow<'static, str>);
 
             impl StatusClass {
@@ -12151,6 +12211,12 @@ pub mod uptime_check_config {
             impl std::convert::From<std::string::String> for StatusClass {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for StatusClass {
+                fn default() -> Self {
+                    status_class::STATUS_CLASS_UNSPECIFIED
                 }
             }
 
@@ -12207,7 +12273,7 @@ pub mod uptime_check_config {
             use super::*;
 
             /// Type of authentication.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct ServiceAgentAuthenticationType(std::borrow::Cow<'static, str>);
 
             impl ServiceAgentAuthenticationType {
@@ -12242,10 +12308,16 @@ pub mod uptime_check_config {
                     Self(std::borrow::Cow::Owned(value))
                 }
             }
+
+            impl std::default::Default for ServiceAgentAuthenticationType {
+                fn default() -> Self {
+                    service_agent_authentication_type::SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED
+                }
+            }
         }
 
         /// The HTTP request method options.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct RequestMethod(std::borrow::Cow<'static, str>);
 
         impl RequestMethod {
@@ -12280,8 +12352,14 @@ pub mod uptime_check_config {
             }
         }
 
+        impl std::default::Default for RequestMethod {
+            fn default() -> Self {
+                request_method::METHOD_UNSPECIFIED
+            }
+        }
+
         /// Header options corresponding to the content type of a HTTP request body.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ContentType(std::borrow::Cow<'static, str>);
 
         impl ContentType {
@@ -12316,6 +12394,12 @@ pub mod uptime_check_config {
         impl std::convert::From<std::string::String> for ContentType {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for ContentType {
+            fn default() -> Self {
+                content_type::TYPE_UNSPECIFIED
             }
         }
 
@@ -12551,7 +12635,7 @@ pub mod uptime_check_config {
             use super::*;
 
             /// Options to perform JSONPath content matching.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct JsonPathMatcherOption(std::borrow::Cow<'static, str>);
 
             impl JsonPathMatcherOption {
@@ -12592,10 +12676,16 @@ pub mod uptime_check_config {
                     Self(std::borrow::Cow::Owned(value))
                 }
             }
+
+            impl std::default::Default for JsonPathMatcherOption {
+                fn default() -> Self {
+                    json_path_matcher_option::JSON_PATH_MATCHER_OPTION_UNSPECIFIED
+                }
+            }
         }
 
         /// Options to perform content matching.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ContentMatcherOption(std::borrow::Cow<'static, str>);
 
         impl ContentMatcherOption {
@@ -12664,6 +12754,12 @@ pub mod uptime_check_config {
             }
         }
 
+        impl std::default::Default for ContentMatcherOption {
+            fn default() -> Self {
+                content_matcher_option::CONTENT_MATCHER_OPTION_UNSPECIFIED
+            }
+        }
+
         /// Certain `ContentMatcherOption` types require additional information.
         /// `MATCHES_JSON_PATH` or `NOT_MATCHES_JSON_PATH` require a
         /// `JsonPathMatcher`; not used for other options.
@@ -12681,7 +12777,7 @@ pub mod uptime_check_config {
     }
 
     /// What kind of checkers are available to be used by the check.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CheckerType(std::borrow::Cow<'static, str>);
 
     impl CheckerType {
@@ -12719,6 +12815,12 @@ pub mod uptime_check_config {
     impl std::convert::From<std::string::String> for CheckerType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for CheckerType {
+        fn default() -> Self {
+            checker_type::CHECKER_TYPE_UNSPECIFIED
         }
     }
 
@@ -13246,7 +13348,7 @@ impl gax::paginator::PageableResponse for ListUptimeCheckIpsResponse {
 
 /// Specifies an ordering relationship on two arguments, called `left` and
 /// `right`.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ComparisonType(std::borrow::Cow<'static, str>);
 
 impl ComparisonType {
@@ -13294,11 +13396,17 @@ impl std::convert::From<std::string::String> for ComparisonType {
     }
 }
 
+impl std::default::Default for ComparisonType {
+    fn default() -> Self {
+        comparison_type::COMPARISON_UNSPECIFIED
+    }
+}
+
 /// The tier of service for a Metrics Scope. Please see the
 /// [service tiers
 /// documentation](https://cloud.google.com/monitoring/workspaces/tiers) for more
 /// details.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceTier(std::borrow::Cow<'static, str>);
 
 impl ServiceTier {
@@ -13342,8 +13450,14 @@ impl std::convert::From<std::string::String> for ServiceTier {
     }
 }
 
+impl std::default::Default for ServiceTier {
+    fn default() -> Self {
+        service_tier::SERVICE_TIER_UNSPECIFIED
+    }
+}
+
 /// The regions from which an Uptime check can be run.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct UptimeCheckRegion(std::borrow::Cow<'static, str>);
 
 impl UptimeCheckRegion {
@@ -13399,12 +13513,18 @@ impl std::convert::From<std::string::String> for UptimeCheckRegion {
     }
 }
 
+impl std::default::Default for UptimeCheckRegion {
+    fn default() -> Self {
+        uptime_check_region::REGION_UNSPECIFIED
+    }
+}
+
 /// The supported resource types that can be used as values of
 /// `group_resource.resource_type`.
 /// `INSTANCE` includes `gce_instance` and `aws_ec2_instance` resource types.
 /// The resource types `gae_app` and `uptime_url` are not valid here because
 /// group checks on App Engine modules and URLs are not allowed.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct GroupResourceType(std::borrow::Cow<'static, str>);
 
 impl GroupResourceType {
@@ -13439,5 +13559,11 @@ pub mod group_resource_type {
 impl std::convert::From<std::string::String> for GroupResourceType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for GroupResourceType {
+    fn default() -> Self {
+        group_resource_type::RESOURCE_TYPE_UNSPECIFIED
     }
 }

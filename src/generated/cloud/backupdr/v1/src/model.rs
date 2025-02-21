@@ -84,7 +84,7 @@ pub mod network_config {
     use super::*;
 
     /// VPC peering modes supported by Cloud BackupDR.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PeeringMode(std::borrow::Cow<'static, str>);
 
     impl PeeringMode {
@@ -116,6 +116,12 @@ pub mod network_config {
     impl std::convert::From<std::string::String> for PeeringMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PeeringMode {
+        fn default() -> Self {
+            peering_mode::PEERING_MODE_UNSPECIFIED
         }
     }
 }
@@ -498,7 +504,7 @@ pub mod management_server {
     use super::*;
 
     /// Type of backup service resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceType(std::borrow::Cow<'static, str>);
 
     impl InstanceType {
@@ -531,8 +537,14 @@ pub mod management_server {
         }
     }
 
+    impl std::default::Default for InstanceType {
+        fn default() -> Self {
+            instance_type::INSTANCE_TYPE_UNSPECIFIED
+        }
+    }
+
     /// State of Management server instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceState(std::borrow::Cow<'static, str>);
 
     impl InstanceState {
@@ -583,6 +595,12 @@ pub mod management_server {
     impl std::convert::From<std::string::String> for InstanceState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InstanceState {
+        fn default() -> Self {
+            instance_state::INSTANCE_STATE_UNSPECIFIED
         }
     }
 }
@@ -1322,7 +1340,7 @@ pub mod backup_plan {
     use super::*;
 
     /// `State` enumerates the possible states for a `BackupPlan`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -1360,6 +1378,12 @@ pub mod backup_plan {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -1651,7 +1675,7 @@ pub mod standard_schedule {
     use super::*;
 
     /// `RecurrenceTypes` enumerates the applicable periodicity for the schedule.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RecurrenceType(std::borrow::Cow<'static, str>);
 
     impl RecurrenceType {
@@ -1693,6 +1717,12 @@ pub mod standard_schedule {
     impl std::convert::From<std::string::String> for RecurrenceType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RecurrenceType {
+        fn default() -> Self {
+            recurrence_type::RECURRENCE_TYPE_UNSPECIFIED
         }
     }
 }
@@ -1793,7 +1823,7 @@ pub mod week_day_of_month {
 
     /// `WeekOfMonth` enumerates possible weeks in the month, e.g. the first,
     /// third, or last week of the month.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct WeekOfMonth(std::borrow::Cow<'static, str>);
 
     impl WeekOfMonth {
@@ -1835,6 +1865,12 @@ pub mod week_day_of_month {
     impl std::convert::From<std::string::String> for WeekOfMonth {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for WeekOfMonth {
+        fn default() -> Self {
+            week_of_month::WEEK_OF_MONTH_UNSPECIFIED
         }
     }
 }
@@ -2311,7 +2347,7 @@ pub mod backup_plan_association {
     use super::*;
 
     /// Enum for State of BackupPlan Association
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -2349,6 +2385,12 @@ pub mod backup_plan_association {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 }
@@ -2431,7 +2473,7 @@ pub mod rule_config_info {
     use super::*;
 
     /// Enum for LastBackupState
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LastBackupState(std::borrow::Cow<'static, str>);
 
     impl LastBackupState {
@@ -2472,6 +2514,12 @@ pub mod rule_config_info {
     impl std::convert::From<std::string::String> for LastBackupState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LastBackupState {
+        fn default() -> Self {
+            last_backup_state::LAST_BACKUP_STATE_UNSPECIFIED
         }
     }
 }
@@ -3084,7 +3132,7 @@ pub mod backup_vault {
     use super::*;
 
     /// Holds the state of the backup vault resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3125,8 +3173,14 @@ pub mod backup_vault {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Holds the access restriction for the backup vault.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AccessRestriction(std::borrow::Cow<'static, str>);
 
     impl AccessRestriction {
@@ -3170,6 +3224,12 @@ pub mod backup_vault {
     impl std::convert::From<std::string::String> for AccessRestriction {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AccessRestriction {
+        fn default() -> Self {
+            access_restriction::ACCESS_RESTRICTION_UNSPECIFIED
         }
     }
 }
@@ -3422,7 +3482,7 @@ pub mod data_source {
     use super::*;
 
     /// Holds the state of the data source resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -3460,6 +3520,12 @@ pub mod data_source {
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
         }
     }
 
@@ -3630,7 +3696,7 @@ pub mod backup_config_info {
 
     /// LastBackupstate tracks whether the last backup was not yet started,
     /// successful, failed, or could not be run because of the lack of permissions.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LastBackupState(std::borrow::Cow<'static, str>);
 
     impl LastBackupState {
@@ -3671,6 +3737,12 @@ pub mod backup_config_info {
     impl std::convert::From<std::string::String> for LastBackupState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for LastBackupState {
+        fn default() -> Self {
+            last_backup_state::LAST_BACKUP_STATE_UNSPECIFIED
         }
     }
 
@@ -4789,7 +4861,7 @@ pub mod backup {
     }
 
     /// Holds the state of the backup resource.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
@@ -4830,8 +4902,14 @@ pub mod backup {
         }
     }
 
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
     /// Type of the backup, scheduled or ondemand.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BackupType(std::borrow::Cow<'static, str>);
 
     impl BackupType {
@@ -4863,6 +4941,12 @@ pub mod backup {
     impl std::convert::From<std::string::String> for BackupType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for BackupType {
+        fn default() -> Self {
+            backup_type::BACKUP_TYPE_UNSPECIFIED
         }
     }
 
@@ -7194,7 +7278,7 @@ pub mod compute_instance_restore_properties {
     use super::*;
 
     /// The private IPv6 google access type for the VMs.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstancePrivateIpv6GoogleAccess(std::borrow::Cow<'static, str>);
 
     impl InstancePrivateIpv6GoogleAccess {
@@ -7240,6 +7324,12 @@ pub mod compute_instance_restore_properties {
     impl std::convert::From<std::string::String> for InstancePrivateIpv6GoogleAccess {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InstancePrivateIpv6GoogleAccess {
+        fn default() -> Self {
+            instance_private_ipv_6_google_access::INSTANCE_PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED
         }
     }
 }
@@ -8020,7 +8110,7 @@ pub mod network_interface {
     use super::*;
 
     /// Stack type for this network interface.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct StackType(std::borrow::Cow<'static, str>);
 
     impl StackType {
@@ -8055,8 +8145,14 @@ pub mod network_interface {
         }
     }
 
+    impl std::default::Default for StackType {
+        fn default() -> Self {
+            stack_type::STACK_TYPE_UNSPECIFIED
+        }
+    }
+
     /// IPv6 access type for this network interface.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Ipv6AccessType(std::borrow::Cow<'static, str>);
 
     impl Ipv6AccessType {
@@ -8093,8 +8189,14 @@ pub mod network_interface {
         }
     }
 
+    impl std::default::Default for Ipv6AccessType {
+        fn default() -> Self {
+            ipv_6_access_type::UNSPECIFIED_IPV6_ACCESS_TYPE
+        }
+    }
+
     /// Nic type for this network interface.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NicType(std::borrow::Cow<'static, str>);
 
     impl NicType {
@@ -8126,6 +8228,12 @@ pub mod network_interface {
     impl std::convert::From<std::string::String> for NicType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NicType {
+        fn default() -> Self {
+            nic_type::NIC_TYPE_UNSPECIFIED
         }
     }
 }
@@ -8171,7 +8279,7 @@ pub mod network_performance_config {
     use super::*;
 
     /// Network performance tier.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Tier(std::borrow::Cow<'static, str>);
 
     impl Tier {
@@ -8203,6 +8311,12 @@ pub mod network_performance_config {
     impl std::convert::From<std::string::String> for Tier {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Tier {
+        fn default() -> Self {
+            tier::TIER_UNSPECIFIED
         }
     }
 }
@@ -8349,7 +8463,7 @@ pub mod access_config {
     use super::*;
 
     /// The type of configuration.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AccessType(std::borrow::Cow<'static, str>);
 
     impl AccessType {
@@ -8384,8 +8498,14 @@ pub mod access_config {
         }
     }
 
+    impl std::default::Default for AccessType {
+        fn default() -> Self {
+            access_type::ACCESS_TYPE_UNSPECIFIED
+        }
+    }
+
     /// Network tier property used by addresses, instances and forwarding rules.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct NetworkTier(std::borrow::Cow<'static, str>);
 
     impl NetworkTier {
@@ -8420,6 +8540,12 @@ pub mod access_config {
     impl std::convert::From<std::string::String> for NetworkTier {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for NetworkTier {
+        fn default() -> Self {
+            network_tier::NETWORK_TIER_UNSPECIFIED
         }
     }
 }
@@ -8577,7 +8703,7 @@ pub mod allocation_affinity {
     use super::*;
 
     /// Indicates whether to consume from a reservation or not.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -8613,6 +8739,12 @@ pub mod allocation_affinity {
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
         }
     }
 }
@@ -8835,7 +8967,7 @@ pub mod scheduling {
         use super::*;
 
         /// Defines the type of node selections.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Operator(std::borrow::Cow<'static, str>);
 
         impl Operator {
@@ -8869,10 +9001,16 @@ pub mod scheduling {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for Operator {
+            fn default() -> Self {
+                operator::OPERATOR_UNSPECIFIED
+            }
+        }
     }
 
     /// Defines the maintenance behavior for this instance=
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct OnHostMaintenance(std::borrow::Cow<'static, str>);
 
     impl OnHostMaintenance {
@@ -8910,8 +9048,14 @@ pub mod scheduling {
         }
     }
 
+    impl std::default::Default for OnHostMaintenance {
+        fn default() -> Self {
+            on_host_maintenance::ON_HOST_MAINTENANCE_UNSPECIFIED
+        }
+    }
+
     /// Defines the provisioning model for an instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ProvisioningModel(std::borrow::Cow<'static, str>);
 
     impl ProvisioningModel {
@@ -8947,8 +9091,14 @@ pub mod scheduling {
         }
     }
 
+    impl std::default::Default for ProvisioningModel {
+        fn default() -> Self {
+            provisioning_model::PROVISIONING_MODEL_UNSPECIFIED
+        }
+    }
+
     /// Defines the supported termination actions for an instance.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct InstanceTerminationAction(std::borrow::Cow<'static, str>);
 
     impl InstanceTerminationAction {
@@ -8981,6 +9131,12 @@ pub mod scheduling {
     impl std::convert::From<std::string::String> for InstanceTerminationAction {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for InstanceTerminationAction {
+        fn default() -> Self {
+            instance_termination_action::INSTANCE_TERMINATION_ACTION_UNSPECIFIED
         }
     }
 }
@@ -9430,7 +9586,7 @@ pub mod attached_disk {
     }
 
     /// List of the Disk Types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskType(std::borrow::Cow<'static, str>);
 
     impl DiskType {
@@ -9465,8 +9621,14 @@ pub mod attached_disk {
         }
     }
 
+    impl std::default::Default for DiskType {
+        fn default() -> Self {
+            disk_type::DISK_TYPE_UNSPECIFIED
+        }
+    }
+
     /// List of the Disk Modes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskMode(std::borrow::Cow<'static, str>);
 
     impl DiskMode {
@@ -9509,8 +9671,14 @@ pub mod attached_disk {
         }
     }
 
+    impl std::default::Default for DiskMode {
+        fn default() -> Self {
+            disk_mode::DISK_MODE_UNSPECIFIED
+        }
+    }
+
     /// List of the Disk Interfaces.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskInterface(std::borrow::Cow<'static, str>);
 
     impl DiskInterface {
@@ -9552,8 +9720,14 @@ pub mod attached_disk {
         }
     }
 
+    impl std::default::Default for DiskInterface {
+        fn default() -> Self {
+            disk_interface::DISK_INTERFACE_UNSPECIFIED
+        }
+    }
+
     /// List of the states of the Disk.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiskSavedState(std::borrow::Cow<'static, str>);
 
     impl DiskSavedState {
@@ -9583,6 +9757,12 @@ pub mod attached_disk {
     impl std::convert::From<std::string::String> for DiskSavedState {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DiskSavedState {
+        fn default() -> Self {
+            disk_saved_state::DISK_SAVED_STATE_UNSPECIFIED
         }
     }
 }
@@ -9628,7 +9808,7 @@ pub mod guest_os_feature {
     use super::*;
 
     /// List of the Feature Types.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FeatureType(std::borrow::Cow<'static, str>);
 
     impl FeatureType {
@@ -9701,10 +9881,16 @@ pub mod guest_os_feature {
             Self(std::borrow::Cow::Owned(value))
         }
     }
+
+    impl std::default::Default for FeatureType {
+        fn default() -> Self {
+            feature_type::FEATURE_TYPE_UNSPECIFIED
+        }
+    }
 }
 
 /// Backup configuration state. Is the resource configured for backup?
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BackupConfigState(std::borrow::Cow<'static, str>);
 
 impl BackupConfigState {
@@ -9742,8 +9928,14 @@ impl std::convert::From<std::string::String> for BackupConfigState {
     }
 }
 
+impl std::default::Default for BackupConfigState {
+    fn default() -> Self {
+        backup_config_state::BACKUP_CONFIG_STATE_UNSPECIFIED
+    }
+}
+
 /// BackupView contains enum options for Partial and Full view.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BackupView(std::borrow::Cow<'static, str>);
 
 impl BackupView {
@@ -9779,8 +9971,14 @@ impl std::convert::From<std::string::String> for BackupView {
     }
 }
 
+impl std::default::Default for BackupView {
+    fn default() -> Self {
+        backup_view::BACKUP_VIEW_UNSPECIFIED
+    }
+}
+
 /// BackupVaultView contains enum options for Partial and Full view.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct BackupVaultView(std::borrow::Cow<'static, str>);
 
 impl BackupVaultView {
@@ -9819,10 +10017,16 @@ impl std::convert::From<std::string::String> for BackupVaultView {
     }
 }
 
+impl std::default::Default for BackupVaultView {
+    fn default() -> Self {
+        backup_vault_view::BACKUP_VAULT_VIEW_UNSPECIFIED
+    }
+}
+
 /// Specifies whether the virtual machine instance will be shut down on key
 /// revocation. It is currently used in instance, instance properties and GMI
 /// protos
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct KeyRevocationActionType(std::borrow::Cow<'static, str>);
 
 impl KeyRevocationActionType {
@@ -9855,5 +10059,11 @@ pub mod key_revocation_action_type {
 impl std::convert::From<std::string::String> for KeyRevocationActionType {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for KeyRevocationActionType {
+    fn default() -> Self {
+        key_revocation_action_type::KEY_REVOCATION_ACTION_TYPE_UNSPECIFIED
     }
 }

@@ -1227,7 +1227,7 @@ pub mod cvs_sv_3 {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttackVector(std::borrow::Cow<'static, str>);
 
     impl AttackVector {
@@ -1266,7 +1266,13 @@ pub mod cvs_sv_3 {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for AttackVector {
+        fn default() -> Self {
+            attack_vector::ATTACK_VECTOR_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttackComplexity(std::borrow::Cow<'static, str>);
 
     impl AttackComplexity {
@@ -1301,7 +1307,13 @@ pub mod cvs_sv_3 {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for AttackComplexity {
+        fn default() -> Self {
+            attack_complexity::ATTACK_COMPLEXITY_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PrivilegesRequired(std::borrow::Cow<'static, str>);
 
     impl PrivilegesRequired {
@@ -1339,7 +1351,13 @@ pub mod cvs_sv_3 {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for PrivilegesRequired {
+        fn default() -> Self {
+            privileges_required::PRIVILEGES_REQUIRED_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UserInteraction(std::borrow::Cow<'static, str>);
 
     impl UserInteraction {
@@ -1374,7 +1392,13 @@ pub mod cvs_sv_3 {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for UserInteraction {
+        fn default() -> Self {
+            user_interaction::USER_INTERACTION_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
@@ -1406,7 +1430,13 @@ pub mod cvs_sv_3 {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            scope::SCOPE_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Impact(std::borrow::Cow<'static, str>);
 
     impl Impact {
@@ -1437,6 +1467,12 @@ pub mod cvs_sv_3 {
     impl std::convert::From<std::string::String> for Impact {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Impact {
+        fn default() -> Self {
+            impact::IMPACT_UNSPECIFIED
         }
     }
 }
@@ -1594,7 +1630,7 @@ pub mod cvss {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttackVector(std::borrow::Cow<'static, str>);
 
     impl AttackVector {
@@ -1633,7 +1669,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for AttackVector {
+        fn default() -> Self {
+            attack_vector::ATTACK_VECTOR_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttackComplexity(std::borrow::Cow<'static, str>);
 
     impl AttackComplexity {
@@ -1671,7 +1713,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for AttackComplexity {
+        fn default() -> Self {
+            attack_complexity::ATTACK_COMPLEXITY_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Authentication(std::borrow::Cow<'static, str>);
 
     impl Authentication {
@@ -1708,7 +1756,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for Authentication {
+        fn default() -> Self {
+            authentication::AUTHENTICATION_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PrivilegesRequired(std::borrow::Cow<'static, str>);
 
     impl PrivilegesRequired {
@@ -1746,7 +1800,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for PrivilegesRequired {
+        fn default() -> Self {
+            privileges_required::PRIVILEGES_REQUIRED_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UserInteraction(std::borrow::Cow<'static, str>);
 
     impl UserInteraction {
@@ -1781,7 +1841,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for UserInteraction {
+        fn default() -> Self {
+            user_interaction::USER_INTERACTION_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
@@ -1813,7 +1879,13 @@ pub mod cvss {
         }
     }
 
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            scope::SCOPE_UNSPECIFIED
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Impact(std::borrow::Cow<'static, str>);
 
     impl Impact {
@@ -1848,6 +1920,12 @@ pub mod cvss {
     impl std::convert::From<std::string::String> for Impact {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Impact {
+        fn default() -> Self {
+            impact::IMPACT_UNSPECIFIED
         }
     }
 }
@@ -1995,7 +2073,7 @@ pub mod deployment_occurrence {
     use super::*;
 
     /// Types of platforms.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Platform(std::borrow::Cow<'static, str>);
 
     impl Platform {
@@ -2030,6 +2108,12 @@ pub mod deployment_occurrence {
     impl std::convert::From<std::string::String> for Platform {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Platform {
+        fn default() -> Self {
+            platform::PLATFORM_UNSPECIFIED
         }
     }
 }
@@ -2323,7 +2407,7 @@ pub mod discovery_occurrence {
         use super::*;
 
         /// An enum indicating the progress of the SBOM generation.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct SBOMState(std::borrow::Cow<'static, str>);
 
         impl SBOMState {
@@ -2355,6 +2439,12 @@ pub mod discovery_occurrence {
         impl std::convert::From<std::string::String> for SBOMState {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for SBOMState {
+            fn default() -> Self {
+                sbom_state::SBOM_STATE_UNSPECIFIED
             }
         }
     }
@@ -2417,7 +2507,7 @@ pub mod discovery_occurrence {
         use super::*;
 
         /// An enum indicating the state of the attestation generation.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct VulnerabilityAttestationState(std::borrow::Cow<'static, str>);
 
         impl VulnerabilityAttestationState {
@@ -2454,10 +2544,16 @@ pub mod discovery_occurrence {
                 Self(std::borrow::Cow::Owned(value))
             }
         }
+
+        impl std::default::Default for VulnerabilityAttestationState {
+            fn default() -> Self {
+                vulnerability_attestation_state::VULNERABILITY_ATTESTATION_STATE_UNSPECIFIED
+            }
+        }
     }
 
     /// Whether the resource is continuously analyzed.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ContinuousAnalysis(std::borrow::Cow<'static, str>);
 
     impl ContinuousAnalysis {
@@ -2493,9 +2589,15 @@ pub mod discovery_occurrence {
         }
     }
 
+    impl std::default::Default for ContinuousAnalysis {
+        fn default() -> Self {
+            continuous_analysis::CONTINUOUS_ANALYSIS_UNSPECIFIED
+        }
+    }
+
     /// Analysis status for a resource. Currently for initial analysis only (not
     /// updated in continuous analysis).
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AnalysisStatus(std::borrow::Cow<'static, str>);
 
     impl AnalysisStatus {
@@ -2542,6 +2644,12 @@ pub mod discovery_occurrence {
     impl std::convert::From<std::string::String> for AnalysisStatus {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AnalysisStatus {
+        fn default() -> Self {
+            analysis_status::ANALYSIS_STATUS_UNSPECIFIED
         }
     }
 }
@@ -6325,7 +6433,7 @@ pub mod version {
     use super::*;
 
     /// Whether this is an ordinary package version or a sentinel MIN/MAX version.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VersionKind(std::borrow::Cow<'static, str>);
 
     impl VersionKind {
@@ -6361,6 +6469,12 @@ pub mod version {
     impl std::convert::From<std::string::String> for VersionKind {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for VersionKind {
+        fn default() -> Self {
+            version_kind::VERSION_KIND_UNSPECIFIED
         }
     }
 }
@@ -7066,7 +7180,7 @@ pub mod alias_context {
     use super::*;
 
     /// The type of an alias.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Kind(std::borrow::Cow<'static, str>);
 
     impl Kind {
@@ -7102,6 +7216,12 @@ pub mod alias_context {
     impl std::convert::From<std::string::String> for Kind {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Kind {
+        fn default() -> Self {
+            kind::KIND_UNSPECIFIED
         }
     }
 }
@@ -9513,7 +9633,7 @@ pub mod vulnerability_assessment_note {
             use super::*;
 
             /// Provides the type of justification.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct JustificationType(std::borrow::Cow<'static, str>);
 
             impl JustificationType {
@@ -9569,6 +9689,12 @@ pub mod vulnerability_assessment_note {
             impl std::convert::From<std::string::String> for JustificationType {
                 fn from(value: std::string::String) -> Self {
                     Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for JustificationType {
+                fn default() -> Self {
+                    justification_type::JUSTIFICATION_TYPE_UNSPECIFIED
                 }
             }
         }
@@ -9633,7 +9759,7 @@ pub mod vulnerability_assessment_note {
             use super::*;
 
             /// The type of remediation that can be applied.
-            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             pub struct RemediationType(std::borrow::Cow<'static, str>);
 
             impl RemediationType {
@@ -9677,10 +9803,16 @@ pub mod vulnerability_assessment_note {
                     Self(std::borrow::Cow::Owned(value))
                 }
             }
+
+            impl std::default::Default for RemediationType {
+                fn default() -> Self {
+                    remediation_type::REMEDIATION_TYPE_UNSPECIFIED
+                }
+            }
         }
 
         /// Provides the state of this Vulnerability assessment.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct State(std::borrow::Cow<'static, str>);
 
         impl State {
@@ -9719,6 +9851,12 @@ pub mod vulnerability_assessment_note {
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                state::STATE_UNSPECIFIED
             }
         }
     }
@@ -10702,7 +10840,7 @@ pub mod vulnerability_occurrence {
 }
 
 /// Kind represents the kinds of notes supported.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NoteKind(std::borrow::Cow<'static, str>);
 
 impl NoteKind {
@@ -10767,8 +10905,14 @@ impl std::convert::From<std::string::String> for NoteKind {
     }
 }
 
+impl std::default::Default for NoteKind {
+    fn default() -> Self {
+        note_kind::NOTE_KIND_UNSPECIFIED
+    }
+}
+
 /// CVSS Version.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CVSSVersion(std::borrow::Cow<'static, str>);
 
 impl CVSSVersion {
@@ -10800,8 +10944,14 @@ impl std::convert::From<std::string::String> for CVSSVersion {
     }
 }
 
+impl std::default::Default for CVSSVersion {
+    fn default() -> Self {
+        cvss_version::CVSS_VERSION_UNSPECIFIED
+    }
+}
+
 /// Instruction set architectures supported by various package managers.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Architecture(std::borrow::Cow<'static, str>);
 
 impl Architecture {
@@ -10837,8 +10987,14 @@ impl std::convert::From<std::string::String> for Architecture {
     }
 }
 
+impl std::default::Default for Architecture {
+    fn default() -> Self {
+        architecture::ARCHITECTURE_UNSPECIFIED
+    }
+}
+
 /// Note provider assigned severity/impact ranking.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Severity(std::borrow::Cow<'static, str>);
 
 impl Severity {
@@ -10879,5 +11035,11 @@ pub mod severity {
 impl std::convert::From<std::string::String> for Severity {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for Severity {
+    fn default() -> Self {
+        severity::SEVERITY_UNSPECIFIED
     }
 }

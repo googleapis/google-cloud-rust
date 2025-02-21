@@ -733,7 +733,7 @@ pub mod catalog_attribute {
     }
 
     /// The type of an attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct AttributeType(std::borrow::Cow<'static, str>);
 
     impl AttributeType {
@@ -773,8 +773,14 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::default::Default for AttributeType {
+        fn default() -> Self {
+            attribute_type::UNKNOWN
+        }
+    }
+
     /// The status of the indexable option of a catalog attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct IndexableOption(std::borrow::Cow<'static, str>);
 
     impl IndexableOption {
@@ -810,8 +816,14 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::default::Default for IndexableOption {
+        fn default() -> Self {
+            indexable_option::INDEXABLE_OPTION_UNSPECIFIED
+        }
+    }
+
     /// The status of the dynamic facetable option of a catalog attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DynamicFacetableOption(std::borrow::Cow<'static, str>);
 
     impl DynamicFacetableOption {
@@ -849,8 +861,14 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::default::Default for DynamicFacetableOption {
+        fn default() -> Self {
+            dynamic_facetable_option::DYNAMIC_FACETABLE_OPTION_UNSPECIFIED
+        }
+    }
+
     /// The status of the searchable option of a catalog attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SearchableOption(std::borrow::Cow<'static, str>);
 
     impl SearchableOption {
@@ -888,8 +906,14 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::default::Default for SearchableOption {
+        fn default() -> Self {
+            searchable_option::SEARCHABLE_OPTION_UNSPECIFIED
+        }
+    }
+
     /// The status of the exact-searchable option of a catalog attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExactSearchableOption(std::borrow::Cow<'static, str>);
 
     impl ExactSearchableOption {
@@ -927,8 +951,14 @@ pub mod catalog_attribute {
         }
     }
 
+    impl std::default::Default for ExactSearchableOption {
+        fn default() -> Self {
+            exact_searchable_option::EXACT_SEARCHABLE_OPTION_UNSPECIFIED
+        }
+    }
+
     /// The status of the retrievable option of a catalog attribute.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RetrievableOption(std::borrow::Cow<'static, str>);
 
     impl RetrievableOption {
@@ -963,6 +993,12 @@ pub mod catalog_attribute {
     impl std::convert::From<std::string::String> for RetrievableOption {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for RetrievableOption {
+        fn default() -> Self {
+            retrievable_option::RETRIEVABLE_OPTION_UNSPECIFIED
         }
     }
 }
@@ -6854,7 +6890,7 @@ pub mod import_products_request {
 
     /// Indicates how imported products are reconciled with the existing products
     /// created or imported before.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ReconciliationMode(std::borrow::Cow<'static, str>);
 
     impl ReconciliationMode {
@@ -6888,6 +6924,12 @@ pub mod import_products_request {
     impl std::convert::From<std::string::String> for ReconciliationMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ReconciliationMode {
+        fn default() -> Self {
+            reconciliation_mode::RECONCILIATION_MODE_UNSPECIFIED
         }
     }
 }
@@ -8169,7 +8211,7 @@ pub mod model {
     }
 
     /// The serving state of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ServingState(std::borrow::Cow<'static, str>);
 
     impl ServingState {
@@ -8209,8 +8251,14 @@ pub mod model {
         }
     }
 
+    impl std::default::Default for ServingState {
+        fn default() -> Self {
+            serving_state::SERVING_STATE_UNSPECIFIED
+        }
+    }
+
     /// The training state of the model.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TrainingState(std::borrow::Cow<'static, str>);
 
     impl TrainingState {
@@ -8246,13 +8294,19 @@ pub mod model {
         }
     }
 
+    impl std::default::Default for TrainingState {
+        fn default() -> Self {
+            training_state::TRAINING_STATE_UNSPECIFIED
+        }
+    }
+
     /// Describes whether periodic tuning is enabled for this model
     /// or not. Periodic tuning is scheduled at most every three months. You can
     /// start a tuning process manually by using the `TuneModel`
     /// method, which starts a tuning process immediately and resets the quarterly
     /// schedule. Enabling or disabling periodic tuning does not affect any
     /// current tuning processes.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PeriodicTuningState(std::borrow::Cow<'static, str>);
 
     impl PeriodicTuningState {
@@ -8300,9 +8354,15 @@ pub mod model {
         }
     }
 
+    impl std::default::Default for PeriodicTuningState {
+        fn default() -> Self {
+            periodic_tuning_state::PERIODIC_TUNING_STATE_UNSPECIFIED
+        }
+    }
+
     /// Describes whether this model have sufficient training data
     /// to be continuously trained.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DataState(std::borrow::Cow<'static, str>);
 
     impl DataState {
@@ -8338,8 +8398,14 @@ pub mod model {
         }
     }
 
+    impl std::default::Default for DataState {
+        fn default() -> Self {
+            data_state::DATA_STATE_UNSPECIFIED
+        }
+    }
+
     /// Use single or multiple context products for recommendations.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ContextProductsType(std::borrow::Cow<'static, str>);
 
     impl ContextProductsType {
@@ -8380,6 +8446,12 @@ pub mod model {
     impl std::convert::From<std::string::String> for ContextProductsType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for ContextProductsType {
+        fn default() -> Self {
+            context_products_type::CONTEXT_PRODUCTS_TYPE_UNSPECIFIED
         }
     }
 }
@@ -10124,7 +10196,7 @@ pub mod product {
     use super::*;
 
     /// The type of this product.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
@@ -10196,9 +10268,15 @@ pub mod product {
         }
     }
 
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            r#type::TYPE_UNSPECIFIED
+        }
+    }
+
     /// Product availability. If this field is unspecified, the product is
     /// assumed to be in stock.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Availability(std::borrow::Cow<'static, str>);
 
     impl Availability {
@@ -10241,6 +10319,12 @@ pub mod product {
     impl std::convert::From<std::string::String> for Availability {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Availability {
+        fn default() -> Self {
+            availability::AVAILABILITY_UNSPECIFIED
         }
     }
 
@@ -13290,7 +13374,7 @@ pub mod search_request {
         use super::*;
 
         /// Enum to control DynamicFacet mode
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Mode(std::borrow::Cow<'static, str>);
 
         impl Mode {
@@ -13322,6 +13406,12 @@ pub mod search_request {
         impl std::convert::From<std::string::String> for Mode {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                mode::MODE_UNSPECIFIED
             }
         }
     }
@@ -13514,7 +13604,7 @@ pub mod search_request {
         use super::*;
 
         /// Enum describing under which condition query expansion should occur.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Condition(std::borrow::Cow<'static, str>);
 
         impl Condition {
@@ -13554,6 +13644,12 @@ pub mod search_request {
         impl std::convert::From<std::string::String> for Condition {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Condition {
+            fn default() -> Self {
+                condition::CONDITION_UNSPECIFIED
             }
         }
     }
@@ -13600,7 +13696,7 @@ pub mod search_request {
         use super::*;
 
         /// The personalization mode of each search request.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Mode(std::borrow::Cow<'static, str>);
 
         impl Mode {
@@ -13636,6 +13732,12 @@ pub mod search_request {
         impl std::convert::From<std::string::String> for Mode {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                mode::MODE_UNSPECIFIED
             }
         }
     }
@@ -13683,7 +13785,7 @@ pub mod search_request {
         use super::*;
 
         /// Enum describing under which mode spell correction should occur.
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct Mode(std::borrow::Cow<'static, str>);
 
         impl Mode {
@@ -13725,6 +13827,12 @@ pub mod search_request {
         impl std::convert::From<std::string::String> for Mode {
             fn from(value: std::string::String) -> Self {
                 Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                mode::MODE_UNSPECIFIED
             }
         }
     }
@@ -14026,7 +14134,7 @@ pub mod search_request {
     }
 
     /// The search mode of each search request.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SearchMode(std::borrow::Cow<'static, str>);
 
     impl SearchMode {
@@ -14097,6 +14205,12 @@ pub mod search_request {
     impl std::convert::From<std::string::String> for SearchMode {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for SearchMode {
+        fn default() -> Self {
+            search_mode::SEARCH_MODE_UNSPECIFIED
         }
     }
 }
@@ -15710,7 +15824,7 @@ pub mod serving_config {
     use super::*;
 
     /// What type of diversity - data or rule based.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DiversityType(std::borrow::Cow<'static, str>);
 
     impl DiversityType {
@@ -15744,6 +15858,12 @@ pub mod serving_config {
     impl std::convert::From<std::string::String> for DiversityType {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for DiversityType {
+        fn default() -> Self {
+            diversity_type::DIVERSITY_TYPE_UNSPECIFIED
         }
     }
 }
@@ -17055,7 +17175,7 @@ pub mod rejoin_user_events_request {
     /// events, set `UserEventRejoinScope` to `JOINED_EVENTS`.
     /// If all events needs to be rejoined, set `UserEventRejoinScope` to
     /// `USER_EVENT_REJOIN_SCOPE_UNSPECIFIED`.
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct UserEventRejoinScope(std::borrow::Cow<'static, str>);
 
     impl UserEventRejoinScope {
@@ -17090,6 +17210,12 @@ pub mod rejoin_user_events_request {
     impl std::convert::From<std::string::String> for UserEventRejoinScope {
         fn from(value: std::string::String) -> Self {
             Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for UserEventRejoinScope {
+        fn default() -> Self {
+            user_event_rejoin_scope::USER_EVENT_REJOIN_SCOPE_UNSPECIFIED
         }
     }
 }
@@ -17143,7 +17269,7 @@ impl wkt::message::Message for RejoinUserEventsMetadata {
 }
 
 /// At which level we offer configuration for attributes.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct AttributeConfigLevel(std::borrow::Cow<'static, str>);
 
 impl AttributeConfigLevel {
@@ -17188,8 +17314,14 @@ impl std::convert::From<std::string::String> for AttributeConfigLevel {
     }
 }
 
+impl std::default::Default for AttributeConfigLevel {
+    fn default() -> Self {
+        attribute_config_level::ATTRIBUTE_CONFIG_LEVEL_UNSPECIFIED
+    }
+}
+
 /// The type of solution.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SolutionType(std::borrow::Cow<'static, str>);
 
 impl SolutionType {
@@ -17226,8 +17358,14 @@ impl std::convert::From<std::string::String> for SolutionType {
     }
 }
 
+impl std::default::Default for SolutionType {
+    fn default() -> Self {
+        solution_type::SOLUTION_TYPE_UNSPECIFIED
+    }
+}
+
 /// If filtering for recommendations is enabled.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RecommendationsFilteringOption(std::borrow::Cow<'static, str>);
 
 impl RecommendationsFilteringOption {
@@ -17269,8 +17407,14 @@ impl std::convert::From<std::string::String> for RecommendationsFilteringOption 
     }
 }
 
+impl std::default::Default for RecommendationsFilteringOption {
+    fn default() -> Self {
+        recommendations_filtering_option::RECOMMENDATIONS_FILTERING_OPTION_UNSPECIFIED
+    }
+}
+
 /// The use case of Cloud Retail Search.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SearchSolutionUseCase(std::borrow::Cow<'static, str>);
 
 impl SearchSolutionUseCase {
@@ -17314,5 +17458,11 @@ pub mod search_solution_use_case {
 impl std::convert::From<std::string::String> for SearchSolutionUseCase {
     fn from(value: std::string::String) -> Self {
         Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for SearchSolutionUseCase {
+    fn default() -> Self {
+        search_solution_use_case::SEARCH_SOLUTION_USE_CASE_UNSPECIFIED
     }
 }
