@@ -36,6 +36,37 @@ type dartImport struct {
 	DartImport string
 }
 
+// A mapping from protobuf packages to their equivalent Dart import.
+//
+// This covers well-known types and other common imports.
+var wellKnownTypes = map[string]*dartImport{
+	"google.cloud.location": {
+		Package:    "google.cloud.location",
+		DartImport: "package:google_cloud_location/location.dart",
+	},
+	"google.protobuf": {
+		Package:    "google.protobuf",
+		DartImport: "package:google_cloud_protobuf/protobuf.dart",
+	},
+	"google.rpc": {
+		Package:    "google.rpc",
+		DartImport: "package:google_cloud_rpc/rpc.dart",
+	},
+	"google.type": {
+		Package:    "google.type",
+		DartImport: "package:google_cloud_type/type.dart",
+	},
+}
+
+// A map of message ID => name renames.
+//
+// `Duration` in particular is important to rename as this would conflict with
+// the `Duration` class in the 'dart:core' library (imported by default into
+// every library).
+var messageRenames = map[string]string{
+	".google.protobuf.Duration": "PbDuration",
+}
+
 var typedDataImport = &dartImport{
 	Package:    "typed_data",
 	DartImport: "dart:typed_data",
@@ -75,26 +106,9 @@ func generatedFiles(model *api.API) []language.GeneratedFile {
 	return files
 }
 
-func loadWellKnownTypes(s *api.APIState) {
-	// TODO(#1034): Create a WKT for google.protobuf.Timestamp.
-	timestamp := &api.Message{
-		ID:      ".google.protobuf.Timestamp",
-		Name:    "DateTime",
-		Package: "google.protobuf",
-	}
-	s.MessageByID[timestamp.ID] = timestamp
-
-	// TODO(#1034): Create a WKT for google.protobuf.Duration.
-	duration := &api.Message{
-		ID:      ".google.protobuf.Duration",
-		Name:    "Duration",
-		Package: "google.protobuf",
-	}
-	s.MessageByID[duration.ID] = duration
-}
-
 func fieldType(f *api.Field, state *api.APIState, importMap map[string]*dartImport) string {
 	var out string
+
 	switch f.Typez {
 	case api.BOOL_TYPE:
 		out = "bool"
@@ -128,7 +142,7 @@ func fieldType(f *api.Field, state *api.APIState, importMap map[string]*dartImpo
 			val := fieldType(m.Fields[1], state, importMap)
 			out = "Map<" + key + ", " + val + ">"
 		} else {
-			out = messageName(m)
+			out = resolveTypeName(m.ID, state, importMap)
 		}
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
@@ -140,9 +154,11 @@ func fieldType(f *api.Field, state *api.APIState, importMap map[string]*dartImpo
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
+
 	if f.Repeated {
 		out = "List<" + out + ">"
 	}
+
 	return out
 }
 
@@ -156,22 +172,43 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func methodInOutTypeName(id string, s *api.APIState) string {
+func resolveTypeName(id string, state *api.APIState, importMap map[string]*dartImport) string {
 	if id == "" {
 		return ""
 	}
+
 	if id == ".google.protobuf.Empty" {
 		return "void"
 	}
-	m, ok := s.MessageByID[id]
-	if !ok {
-		slog.Error("unable to lookup type", "id", id)
-		return ""
+
+	// Parse ".google.protobuf.FieldMask" into "google.protobuf" and use
+	// `wellKnownTypes` to add any necessary import.
+	packageName := strings.TrimPrefix(id, ".")
+	index := strings.LastIndex(packageName, ".")
+	if index != -1 {
+		packageName = packageName[:index]
+		importInfo, ok := wellKnownTypes[packageName]
+		if ok {
+			importMap[importInfo.Package] = importInfo
+		}
 	}
-	return strcase.ToCamel(m.Name)
+
+	m, ok := state.MessageByID[id]
+	if ok {
+		return messageName(m)
+	}
+
+	slog.Error("unable to lookup type", "id", id)
+
+	return ""
 }
 
 func messageName(m *api.Message) string {
+	rename, ok := messageRenames[m.ID]
+	if ok {
+		return rename
+	}
+
 	if m.Parent != nil {
 		return messageName(m.Parent) + "$" + strcase.ToCamel(m.Name)
 	}
@@ -225,8 +262,8 @@ func modelPackageName(api *api.API, packageNameOverride string) string {
 }
 
 func generateMethod(m *api.Method) bool {
-	// Ignore methods without HTTP annotations, we cannot generate working
-	// RPCs for them.
+	// Ignore methods without HTTP annotations; we cannot generate working RPCs
+	// for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
 	//     find them and fix them that way.
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0

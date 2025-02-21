@@ -138,29 +138,25 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			partFileReference = definition
 		case key == "dev-dependencies":
 			devDependencies = strings.Split(definition, ",")
-		case strings.HasPrefix(key, "import-mapping"):
-			keys := strings.Split(key, ":")
-			if len(keys) != 2 {
-				return nil, fmt.Errorf("key should be in the format import-mapping:proto.path, got=%q", key)
-			}
-			defs := strings.Split(definition, ";")
-			if len(defs) != 2 {
-				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
-			}
-			// TODO(#1034): Handle updating Dart imports.
 		}
 	}
 
-	loadWellKnownTypes(model.State)
-	for _, e := range model.State.EnumByID {
+	// Traverse and annotate the enums defined in this API.
+	for _, e := range model.Enums {
 		annotateEnum(e, model.State)
 	}
-	for _, m := range model.State.MessageByID {
-		annotateMessage(m, model.State, importMap)
+
+	// Traverse and annotate the messages defined in this API.
+	for _, m := range model.Messages {
+		traverseMessage(m, model.State, importMap)
 	}
+
 	for _, s := range model.Services {
 		annotateService(s, model.State, importMap)
 	}
+
+	// Remove our self-reference.
+	delete(importMap, model.PackageName)
 
 	deps := calculateDependencies(importMap)
 
@@ -245,7 +241,7 @@ func annotateService(s *api.Service, state *api.APIState, importMap map[string]*
 		return generateMethod(m)
 	})
 	for _, m := range methods {
-		annotateMethod(m, state)
+		annotateMethod(m, state, importMap)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
@@ -255,6 +251,18 @@ func annotateService(s *api.Service, state *api.APIState, importMap map[string]*
 		DefaultHost: s.DefaultHost,
 	}
 	s.Codec = ann
+}
+
+func traverseMessage(m *api.Message, state *api.APIState, importMap map[string]*dartImport) {
+	annotateMessage(m, state, importMap)
+
+	for _, e := range m.Enums {
+		annotateEnum(e, state)
+	}
+
+	for _, m := range m.Messages {
+		traverseMessage(m, state, importMap)
+	}
 }
 
 func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*dartImport) {
@@ -275,24 +283,24 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 	}
 }
 
-func annotateMethod(m *api.Method, state *api.APIState) {
+func annotateMethod(method *api.Method, state *api.APIState, importMap map[string]*dartImport) {
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   m.PathInfo.Verb,
-		PathFmt:  httpPathFmt(m.PathInfo),
-		PathArgs: httpPathArgs(m.PathInfo),
-		HasBody:  m.PathInfo.BodyFieldPath != "",
+		Method:   method.PathInfo.Verb,
+		PathFmt:  httpPathFmt(method.PathInfo),
+		PathArgs: httpPathArgs(method.PathInfo),
+		HasBody:  method.PathInfo.BodyFieldPath != "",
 	}
-	m.PathInfo.Codec = pathInfoAnnotation
+	method.PathInfo.Codec = pathInfoAnnotation
 	annotation := &methodAnnotation{
-		Name:         strcase.ToLowerCamel(m.Name),
-		RequestType:  methodInOutTypeName(m.InputTypeID, state),
-		ResponseType: methodInOutTypeName(m.OutputTypeID, state),
-		DocLines:     formatDocComments(m.Documentation, state),
-		BodyAccessor: bodyAccessor(m),
-		PathParams:   language.PathParams(m, state),
-		QueryParams:  language.QueryParams(m, state),
+		Name:         strcase.ToLowerCamel(method.Name),
+		RequestType:  resolveTypeName(method.InputTypeID, state, importMap),
+		ResponseType: resolveTypeName(method.OutputTypeID, state, importMap),
+		DocLines:     formatDocComments(method.Documentation, state),
+		BodyAccessor: bodyAccessor(method),
+		PathParams:   language.PathParams(method, state),
+		QueryParams:  language.QueryParams(method, state),
 	}
-	m.Codec = annotation
+	method.Codec = annotation
 }
 
 func annotateOneOf(field *api.OneOf, state *api.APIState) {
@@ -310,13 +318,13 @@ func annotateField(field *api.Field, state *api.APIState, importMap map[string]*
 	}
 }
 
-func annotateEnum(e *api.Enum, state *api.APIState) {
-	for _, ev := range e.Values {
+func annotateEnum(enum *api.Enum, state *api.APIState) {
+	for _, ev := range enum.Values {
 		annotateEnumValue(ev, state)
 	}
-	e.Codec = &enumAnnotation{
-		Name:     enumName(e),
-		DocLines: formatDocComments(e.Documentation, state),
+	enum.Codec = &enumAnnotation{
+		Name:     enumName(enum),
+		DocLines: formatDocComments(enum.Documentation, state),
 	}
 }
 

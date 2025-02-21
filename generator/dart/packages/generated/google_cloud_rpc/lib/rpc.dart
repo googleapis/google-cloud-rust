@@ -21,6 +21,8 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:google_cloud_protobuf/protobuf.dart';
+
 /// Describes the cause of the error with structured details.
 /// 
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
@@ -96,7 +98,7 @@ class ErrorInfo {
 class RetryInfo {
 
   /// Clients should wait at least this long between retrying the same request.
-  final Duration? retryDelay;
+  final PbDuration? retryDelay;
 
   RetryInfo({
     this.retryDelay,

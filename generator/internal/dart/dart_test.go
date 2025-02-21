@@ -158,21 +158,53 @@ func TestEnumValues(t *testing.T) {
 	}
 }
 
-func TestMethodInOutTypeName(t *testing.T) {
+func TestResolveTypeName(t *testing.T) {
 	message := sample.CreateRequest()
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{
+		message, {
+			ID:   ".google.protobuf.Duration",
+			Name: "Duration",
+		}, {
+			ID:   ".google.protobuf.Timestamp",
+			Name: "Timestamp",
+		},
+	}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
 
 	for _, test := range []struct {
 		typeId string
 		want   string
 	}{
-		{".google.protobuf.Empty", "void"},
 		{message.ID, "CreateSecretRequest"},
+		{".google.protobuf.Empty", "void"},
+		{".google.protobuf.Timestamp", "Timestamp"},
+		{".google.protobuf.Duration", "PbDuration"},
 	} {
-		got := methodInOutTypeName(test.typeId, model.State)
+		got := resolveTypeName(test.typeId, model.State, map[string]*dartImport{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+}
+
+func TestResolveTypeName_Imports(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	annotateModel(model, map[string]string{})
+
+	for _, test := range []struct {
+		typeId string
+		want   string
+	}{
+		{".google.protobuf.Any", "google.protobuf"},
+		{".google.protobuf.Duration", "google.protobuf"},
+		{".google.protobuf.Timestamp", "google.protobuf"},
+		{".google.rpc.Status", "google.rpc"},
+		{".google.type.Expr", "google.type"},
+	} {
+		imports := map[string]*dartImport{}
+		resolveTypeName(test.typeId, model.State, imports)
+		if _, ok := imports[test.want]; !ok {
+			t.Errorf("import not added type name, got: %v want: %s", imports, test.want)
 		}
 	}
 }
@@ -404,23 +436,5 @@ func TestFieldType_Repeated(t *testing.T) {
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
-	}
-}
-
-func TestWKT(t *testing.T) {
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
-
-	for _, test := range []struct {
-		wktID string
-	}{
-		{".google.protobuf.Duration"},
-		{".google.protobuf.Timestamp"},
-	} {
-		resolvedType := model.State.MessageByID[test.wktID]
-
-		if resolvedType == nil {
-			t.Errorf("no mapping for WKT: %s", test.wktID)
-		}
 	}
 }

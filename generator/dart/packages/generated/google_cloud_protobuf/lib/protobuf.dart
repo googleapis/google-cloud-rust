@@ -19,6 +19,7 @@
 /// Core Protobuf types used by most services.
 library;
 
+
 part 'src/protobuf.p.dart';
 
 /// `FieldMask` represents a set of symbolic field paths, for example:
