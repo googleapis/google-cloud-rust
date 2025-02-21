@@ -17,6 +17,7 @@ package dart
 import (
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -46,6 +47,7 @@ type modelAnnotations struct {
 	// Whether the generated package specified any dev_dependencies.
 	HasDevDependencies bool
 	DevDependencies    []string
+	DoNotPublish       bool
 }
 
 type serviceAnnotations struct {
@@ -124,6 +126,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		importMap           = map[string]*dartImport{}
 		partFileReference   string
 		devDependencies     = []string{}
+		doNotPublish        bool
 	)
 
 	for key, definition := range options {
@@ -138,6 +141,16 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			partFileReference = definition
 		case key == "dev-dependencies":
 			devDependencies = strings.Split(definition, ",")
+		case key == "not-for-publication":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"cannot convert `not-for-publication` value %q to boolean: %w",
+					definition,
+					err,
+				)
+			}
+			doNotPublish = value
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
@@ -186,6 +199,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		Imports:             calculateImports(importMap),
 		HasDevDependencies:  len(devDependencies) > 0,
 		DevDependencies:     devDependencies,
+		DoNotPublish:        doNotPublish,
 	}
 
 	model.Codec = ann
