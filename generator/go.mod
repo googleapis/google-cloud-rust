@@ -7,7 +7,7 @@ require (
 	cloud.google.com/go/longrunning v0.6.4
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/pb33f/libopenapi v0.21.7
 	github.com/pelletier/go-toml/v2 v2.2.3
