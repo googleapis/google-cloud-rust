@@ -30,7 +30,7 @@ pub struct Token {
 
     /// The instant at which the token expires.
     ///
-    /// If `None`, the token does not expire or its expiration is unknown.
+    /// If `None`, the token does not expire.
     ///
     /// Note that the `Instant` is not valid across processes. It is
     /// recommended to let the authentication library refresh tokens within a
