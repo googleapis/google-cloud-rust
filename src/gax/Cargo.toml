@@ -35,7 +35,7 @@ pin-project = { version = "1.1.9", optional = true }
 rand        = "0.9"
 reqwest     = { version = "0.12.11", optional = true }
 rpc         = { version = "0.1", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-serde       = "1.0.216"
+serde       = "1.0.218"
 serde_json  = "1"
 serde_with  = { version = "3.12.0", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2.0.11"
@@ -49,7 +49,7 @@ echo-server = { path = "echo-server" }
 axum        = "0.8.1"
 gax         = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 mockall     = "0.13.1"
-serde       = { version = "1.0.216", features = ["serde_derive"] }
+serde       = { version = "1.0.218", features = ["serde_derive"] }
 serial_test = "3.2.0"
 tempfile    = "3.17.0"
 test-case   = "3.3.1"
