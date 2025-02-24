@@ -30,7 +30,7 @@ gax         = { version = "0.20", path = "../gax", package = "google-cloud-gax" 
 longrunning = { version = "0.22", path = "../generated/longrunning", package = "google-cloud-longrunning" }
 pin-project = { version = "1.1.9", optional = true }
 rpc         = { version = "0.1", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-serde       = "1.0.216"
+serde       = "1.0.218"
 tokio       = { version = "1.42", features = ["time"] }
 wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
 
