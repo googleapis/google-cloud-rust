@@ -13,7 +13,10 @@
 // limitations under the License.
 
 use google_cloud_auth::credentials::testing::test_credentials;
-use google_cloud_auth::credentials::{create_access_token_credential, Credential, CredentialTrait};
+use google_cloud_auth::credentials::{
+    create_access_token_credential, create_api_key_credential, ApiKeyOptions, Credential,
+    CredentialTrait,
+};
 use google_cloud_auth::errors::CredentialError;
 use google_cloud_auth::token::Token;
 
@@ -123,6 +126,15 @@ mod test {
         let sac = create_access_token_credential().await.unwrap();
         let fmt = format!("{:?}", sac);
         assert!(fmt.contains("ServiceAccountCredential"));
+    }
+
+    #[tokio::test]
+    async fn create_api_key_credential_success() {
+        let creds = create_api_key_credential("test-api-key", ApiKeyOptions::default())
+            .await
+            .unwrap();
+        let fmt = format!("{:?}", creds);
+        assert!(fmt.contains("ApiKeyCredential"));
     }
 
     mockall::mock! {

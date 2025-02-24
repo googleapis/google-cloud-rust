@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod api_key_credential;
 pub(crate) mod mds_credential;
 mod service_account_credential;
 pub(crate) mod user_credential;
@@ -268,6 +269,10 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         ))),
     }
 }
+
+/// Export API Key factory function and options
+pub use api_key_credential::create_api_key_credential;
+pub use api_key_credential::ApiKeyOptions;
 
 #[derive(Debug, PartialEq)]
 enum AdcPath {
