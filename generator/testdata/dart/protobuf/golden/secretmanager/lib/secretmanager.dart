@@ -22,7 +22,6 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:google_cloud_location/location.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart';
 

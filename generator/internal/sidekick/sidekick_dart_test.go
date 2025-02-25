@@ -38,9 +38,10 @@ func TestDartFromProtobuf(t *testing.T) {
 		Language:      "dart",
 		Output:        outDir,
 		Codec: map[string]string{
-			"copyright-year":      "2025",
-			"not-for-publication": "true",
-			"version":             "0.1.0",
+			"copyright-year":        "2025",
+			"not-for-publication":   "true",
+			"version":               "0.1.0",
+			"proto:google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
 		},
 	}
 	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
