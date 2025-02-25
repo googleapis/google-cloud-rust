@@ -184,6 +184,7 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
     use http::StatusCode;
@@ -309,14 +310,6 @@ mod test {
         assert!(uc.get_token().await.is_err());
     }
 
-    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
-    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
-    struct HV {
-        header: String,
-        value: String,
-        is_sensitive: bool,
-    }
-
     #[tokio::test]
     async fn get_headers_success() {
         let token = Token {
@@ -333,17 +326,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = uc
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
+        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -385,20 +368,7 @@ mod test {
             token_provider: mock,
             quota_project_id: Some("test-project".to_string()),
         };
-        let mut headers: Vec<HV> = uc
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
-
-        // The ordering of the headers does not matter.
-        headers.sort();
+        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
         assert_eq!(
             headers,
             vec![
