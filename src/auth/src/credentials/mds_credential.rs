@@ -166,6 +166,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::response::IntoResponse;
     use reqwest::StatusCode;
@@ -212,13 +213,6 @@ mod test {
 
     #[tokio::test]
     async fn get_headers_success() {
-        #[derive(Debug, PartialEq)]
-        struct HV {
-            header: String,
-            value: String,
-            is_sensitive: bool,
-        }
-
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -232,17 +226,7 @@ mod test {
         let mdsc = MDSCredential {
             token_provider: mock,
         };
-        let headers: Vec<HV> = mdsc
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
+        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
 
         assert_eq!(
             headers,

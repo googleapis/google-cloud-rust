@@ -136,6 +136,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::test::HV;
     use scoped_env::ScopedEnv;
 
     #[test]
@@ -145,14 +146,6 @@ mod test {
         };
         let fmt = format!("{expected:?}");
         assert!(!fmt.contains("super-secret-api-key"), "{fmt}");
-    }
-
-    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
-    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
-    struct HV {
-        header: String,
-        value: String,
-        is_sensitive: bool,
     }
 
     #[tokio::test]
@@ -173,17 +166,7 @@ mod test {
                 metadata: None,
             }
         );
-        let headers: Vec<HV> = creds
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
+        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -204,17 +187,7 @@ mod test {
         let creds = create_api_key_credential("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = creds
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
+        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -241,17 +214,7 @@ mod test {
         let creds = create_api_key_credential("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = creds
-            .get_headers()
-            .await
-            .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
+        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
 
         assert_eq!(
             headers,
