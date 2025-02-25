@@ -63,9 +63,9 @@ pub async fn create_api_key_credential<T: Into<String>>(
         api_key: api_key.into(),
     };
 
-    let quota_project_id = o
-        .quota_project
-        .or_else(|| std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok());
+    let quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT")
+        .ok()
+        .or(o.quota_project);
 
     Ok(Credential {
         inner: Arc::new(ApiKeyCredential {
@@ -198,7 +198,7 @@ mod test {
     #[tokio::test]
     #[serial_test::serial]
     async fn create_api_key_credential_with_options() {
-        let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
+        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
         let options = ApiKeyOptions::default().set_quota_project("qp-option");
         let creds = create_api_key_credential("test-api-key", options)
@@ -237,7 +237,7 @@ mod test {
     #[serial_test::serial]
     async fn create_api_key_credential_with_env() {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
-        let options = ApiKeyOptions::default();
+        let options = ApiKeyOptions::default().set_quota_project("qp-option");
         let creds = create_api_key_credential("test-api-key", options)
             .await
             .unwrap();
