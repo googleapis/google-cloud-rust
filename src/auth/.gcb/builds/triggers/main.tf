@@ -15,6 +15,7 @@
 variable "project" {}
 variable "region" {}
 variable "sa_adc_secret" {}
+variable "api_key_secret" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -106,6 +107,14 @@ resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
 resource "google_secret_manager_secret_iam_member" "test-adc-json-secret-member" {
   project   = var.project
   secret_id = "${var.sa_adc_secret}".id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The integration test runner needs access to the API key secret
+resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" {
+  project   = var.project
+  secret_id = "${var.api_key_secret}".id
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
