@@ -158,21 +158,78 @@ func TestEnumValues(t *testing.T) {
 	}
 }
 
-func TestMethodInOutTypeName(t *testing.T) {
+func TestResolveTypeName(t *testing.T) {
 	message := sample.CreateRequest()
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{
+		message, {
+			ID:   ".google.protobuf.Duration",
+			Name: "Duration",
+		}, {
+			ID:   ".google.protobuf.Empty",
+			Name: "Empty",
+		},
+		{
+			ID:   ".google.protobuf.Timestamp",
+			Name: "Timestamp",
+		},
+	}, []*api.Enum{}, []*api.Service{})
+
 	annotateModel(model, map[string]string{})
+	state := model.State
 
 	for _, test := range []struct {
 		typeId string
 		want   string
 	}{
-		{".google.protobuf.Empty", "void"},
 		{message.ID, "CreateSecretRequest"},
+		{".google.protobuf.Empty", "void"},
+		{".google.protobuf.Timestamp", "Timestamp"},
+		{".google.protobuf.Duration", "PbDuration"},
 	} {
-		got := methodInOutTypeName(test.typeId, model.State)
+		got := resolveTypeName(state.MessageByID[test.typeId], map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+		}
+	}
+}
+
+func TestResolveTypeName_Imports(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{
+		{
+			ID:      ".google.protobuf.Any",
+			Package: "google.protobuf",
+		},
+		{
+			ID:      ".google.rpc.Status",
+			Package: "google.rpc",
+		},
+		{
+			ID:      ".google.type.Expr",
+			Package: "google.type",
+		},
+	}, []*api.Enum{}, []*api.Service{})
+
+	annotateModel(model, map[string]string{})
+	state := model.State
+
+	packageMapping := map[string]string{
+		"google.protobuf": "package:google_cloud_protobuf/protobuf.dart",
+		"google.rpc":      "package:google_cloud_rpc/rpc.dart",
+		"google.type":     "package:google_cloud_type/type.dart",
+	}
+
+	for _, test := range []struct {
+		typeId string
+		want   string
+	}{
+		{".google.protobuf.Any", "google.protobuf"},
+		{".google.rpc.Status", "google.rpc"},
+		{".google.type.Expr", "google.type"},
+	} {
+		imports := map[string]string{}
+		resolveTypeName(state.MessageByID[test.typeId], packageMapping, imports)
+		if _, ok := imports[test.want]; !ok {
+			t.Errorf("import not added type name, got: %v want: %s", imports, test.want)
 		}
 	}
 }
@@ -208,7 +265,7 @@ func TestFieldType(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State, map[string]*dartImport{})
+		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -244,13 +301,13 @@ func TestFieldType(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State, map[string]*dartImport{})
+	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
 	want := "CreateSecretRequest"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State, map[string]*dartImport{})
+	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
 	want = "State"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
@@ -282,7 +339,7 @@ func TestFieldType_Maps(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{map1}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field, model.State, map[string]*dartImport{})
+	got := fieldType(field, model.State, map[string]string{}, map[string]string{})
 	want := "Map<String, int>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
@@ -303,9 +360,9 @@ func TestFieldType_Bytes(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 	annotateModel(model, map[string]string{})
-	imports := map[string]*dartImport{}
+	imports := map[string]string{}
 
-	got := fieldType(field, model.State, imports)
+	got := fieldType(field, model.State, map[string]string{}, imports)
 	want := "Uint8List"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
@@ -316,8 +373,7 @@ func TestFieldType_Bytes(t *testing.T) {
 		t.Errorf("unexpected: no typed_data import added")
 	}
 
-	for _, imp := range imports {
-		got := imp.DartImport
+	for _, got := range imports {
 		want := "dart:typed_data"
 		if got != want {
 			t.Errorf("unexpected import, got: %s want: %s", got, want)
@@ -356,7 +412,7 @@ func TestFieldType_Repeated(t *testing.T) {
 		model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 		annotateModel(model, map[string]string{})
 
-		got := fieldType(field, model.State, map[string]*dartImport{})
+		got := fieldType(field, model.State, map[string]string{}, map[string]string{})
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -394,33 +450,15 @@ func TestFieldType_Repeated(t *testing.T) {
 	)
 	annotateModel(model, map[string]string{})
 
-	got := fieldType(field1, model.State, map[string]*dartImport{})
+	got := fieldType(field1, model.State, map[string]string{}, map[string]string{})
 	want := "List<CreateSecretRequest>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
 	}
 
-	got = fieldType(field2, model.State, map[string]*dartImport{})
+	got = fieldType(field2, model.State, map[string]string{}, map[string]string{})
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
-	}
-}
-
-func TestWKT(t *testing.T) {
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	annotateModel(model, map[string]string{})
-
-	for _, test := range []struct {
-		wktID string
-	}{
-		{".google.protobuf.Duration"},
-		{".google.protobuf.Timestamp"},
-	} {
-		resolvedType := model.State.MessageByID[test.wktID]
-
-		if resolvedType == nil {
-			t.Errorf("no mapping for WKT: %s", test.wktID)
-		}
 	}
 }

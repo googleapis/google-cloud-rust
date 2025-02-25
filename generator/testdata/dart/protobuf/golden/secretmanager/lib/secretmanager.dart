@@ -22,6 +22,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart';
 
 /// Secret Manager Service
@@ -180,7 +181,7 @@ class Secret {
 
   /// Output only. The time at which the
   /// [Secret][google.cloud.secretmanager.v1.Secret] was created.
-  final DateTime? createTime;
+  final Timestamp? createTime;
 
   /// The labels assigned to this Secret.
   /// 
@@ -202,11 +203,11 @@ class Secret {
   /// Optional. Timestamp in UTC when the
   /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
   /// This is always provided on output, regardless of what was sent on input.
-  final DateTime? expireTime;
+  final Timestamp? expireTime;
 
   /// Input only. The TTL for the
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  final Duration? ttl;
+  final PbDuration? ttl;
 
   /// Optional. Etag of the currently stored
   /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -250,7 +251,7 @@ class Secret {
   /// For secret with TTL>0, version destruction doesn't happen immediately
   /// on calling destroy instead the version goes to a disabled state and
   /// destruction happens after the TTL expires.
-  final Duration? versionDestroyTtl;
+  final PbDuration? versionDestroyTtl;
 
   /// Optional. The customer-managed encryption configuration of the Regionalised
   /// Secrets. If no configuration is provided, Google-managed default encryption
@@ -294,14 +295,14 @@ class SecretVersion {
 
   /// Output only. The time at which the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
-  final DateTime? createTime;
+  final Timestamp? createTime;
 
   /// Output only. The time this
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
   /// Only present if [state][google.cloud.secretmanager.v1.SecretVersion.state]
   /// is
   /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
-  final DateTime? destroyTime;
+  final Timestamp? destroyTime;
 
   /// Output only. The current state of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -329,7 +330,7 @@ class SecretVersion {
   /// destroyed, the version is moved to disabled state and it is scheduled for
   /// destruction. The version is destroyed only after the
   /// `scheduled_destroy_time`.
-  final DateTime? scheduledDestroyTime;
+  final Timestamp? scheduledDestroyTime;
 
   /// Output only. The customer-managed encryption status of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
@@ -608,7 +609,7 @@ class Rotation {
   /// MUST  be set if
   /// [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
   /// is set.
-  final DateTime? nextRotationTime;
+  final Timestamp? nextRotationTime;
 
   /// Input only. The Duration between rotation notifications. Must be in seconds
   /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -621,7 +622,7 @@ class Rotation {
   /// [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
   /// will be advanced by this period when the service automatically sends
   /// rotation notifications.
-  final Duration? rotationPeriod;
+  final PbDuration? rotationPeriod;
 
   Rotation({
     this.nextRotationTime,

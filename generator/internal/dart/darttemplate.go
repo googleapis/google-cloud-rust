@@ -123,10 +123,13 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		packageNameOverride string
 		generationYear      string
 		packageVersion      string
-		importMap           = map[string]*dartImport{}
-		partFileReference   string
-		devDependencies     = []string{}
-		doNotPublish        bool
+		// The Dart imports discovered while annotating the API model.
+		imports           = map[string]string{}
+		partFileReference string
+		devDependencies   = []string{}
+		doNotPublish      bool
+		// A mapping from protobuf packages to Dart import URLs.
+		packageMapping = map[string]string{}
 	)
 
 	for key, definition := range options {
@@ -151,31 +154,35 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 				)
 			}
 			doNotPublish = value
-		case strings.HasPrefix(key, "import-mapping"):
+		case strings.HasPrefix(key, "proto:"):
+			// "proto:google.protobuf" = "package:google_cloud_protobuf/protobuf.dart"
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
-				return nil, fmt.Errorf("key should be in the format import-mapping:proto.path, got=%q", key)
+				return nil, fmt.Errorf("key should be in the format proto:<proto-package>, got=%q", key)
 			}
-			defs := strings.Split(definition, ";")
-			if len(defs) != 2 {
-				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
-			}
-			// TODO(#1034): Handle updating Dart imports.
+			protoPackage := keys[1]
+			packageMapping[protoPackage] = definition
 		}
 	}
 
-	loadWellKnownTypes(model.State)
-	for _, e := range model.State.EnumByID {
+	// Traverse and annotate the enums defined in this API.
+	for _, e := range model.Enums {
 		annotateEnum(e, model.State)
 	}
-	for _, m := range model.State.MessageByID {
-		annotateMessage(m, model.State, importMap)
-	}
-	for _, s := range model.Services {
-		annotateService(s, model.State, importMap)
+
+	// Traverse and annotate the messages defined in this API.
+	for _, m := range model.Messages {
+		traverseMessage(m, model.State, packageMapping, imports)
 	}
 
-	deps := calculateDependencies(importMap)
+	for _, s := range model.Services {
+		annotateService(s, model.State, packageMapping, imports)
+	}
+
+	// Remove our self-reference.
+	delete(imports, model.PackageName)
+
+	deps := calculateDependencies(imports)
 
 	ann := &modelAnnotations{
 		PackageName:    modelPackageName(model, packageNameOverride),
@@ -196,7 +203,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		HasDependencies:     len(deps) > 0,
 		PartFileReference:   partFileReference,
 		PackageDependencies: deps,
-		Imports:             calculateImports(importMap),
+		Imports:             calculateImports(imports),
 		HasDevDependencies:  len(devDependencies) > 0,
 		DevDependencies:     devDependencies,
 		DoNotPublish:        doNotPublish,
@@ -207,12 +214,12 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 }
 
 // Calculate package dependencies based on `package:` imports.
-func calculateDependencies(importMap map[string]*dartImport) []packageDependency {
+func calculateDependencies(imports map[string]string) []packageDependency {
 	var deps []packageDependency
 
-	for _, imp := range importMap {
-		if strings.HasPrefix(imp.DartImport, "package:") {
-			name := strings.TrimPrefix(imp.DartImport, "package:")
+	for _, imp := range imports {
+		if strings.HasPrefix(imp, "package:") {
+			name := strings.TrimPrefix(imp, "package:")
 			name = strings.Split(name, "/")[0]
 
 			deps = append(deps, packageDependency{Name: name, Constraint: "any"})
@@ -226,10 +233,10 @@ func calculateDependencies(importMap map[string]*dartImport) []packageDependency
 	return deps
 }
 
-func calculateImports(importMap map[string]*dartImport) []string {
+func calculateImports(usedImports map[string]string) []string {
 	var dartImports []string
-	for _, imp := range importMap {
-		dartImports = append(dartImports, imp.DartImport)
+	for _, imp := range usedImports {
+		dartImports = append(dartImports, imp)
 	}
 	sort.Strings(dartImports)
 
@@ -250,16 +257,16 @@ func calculateImports(importMap map[string]*dartImport) []string {
 	return imports
 }
 
-func annotateService(s *api.Service, state *api.APIState, importMap map[string]*dartImport) {
+func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	// Require package:http when generating services.
-	importMap[httpImport.Package] = httpImport
+	imports["http"] = httpImport
 
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
 	})
 	for _, m := range methods {
-		annotateMethod(m, state)
+		annotateMethod(m, state, packageMapping, imports)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
@@ -271,9 +278,21 @@ func annotateService(s *api.Service, state *api.APIState, importMap map[string]*
 	s.Codec = ann
 }
 
-func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*dartImport) {
+func traverseMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+	annotateMessage(m, state, packageMapping, imports)
+
+	for _, e := range m.Enums {
+		annotateEnum(e, state)
+	}
+
+	for _, m := range m.Messages {
+		traverseMessage(m, state, packageMapping, imports)
+	}
+}
+
+func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	for _, f := range m.Fields {
-		annotateField(f, state, importMap)
+		annotateField(f, state, packageMapping, imports)
 	}
 	for _, f := range m.OneOfs {
 		annotateOneOf(f, state)
@@ -289,24 +308,24 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 	}
 }
 
-func annotateMethod(m *api.Method, state *api.APIState) {
+func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   m.PathInfo.Verb,
-		PathFmt:  httpPathFmt(m.PathInfo),
-		PathArgs: httpPathArgs(m.PathInfo),
-		HasBody:  m.PathInfo.BodyFieldPath != "",
+		Method:   method.PathInfo.Verb,
+		PathFmt:  httpPathFmt(method.PathInfo),
+		PathArgs: httpPathArgs(method.PathInfo),
+		HasBody:  method.PathInfo.BodyFieldPath != "",
 	}
-	m.PathInfo.Codec = pathInfoAnnotation
+	method.PathInfo.Codec = pathInfoAnnotation
 	annotation := &methodAnnotation{
-		Name:         strcase.ToLowerCamel(m.Name),
-		RequestType:  methodInOutTypeName(m.InputTypeID, state),
-		ResponseType: methodInOutTypeName(m.OutputTypeID, state),
-		DocLines:     formatDocComments(m.Documentation, state),
-		BodyAccessor: bodyAccessor(m),
-		PathParams:   language.PathParams(m, state),
-		QueryParams:  language.QueryParams(m, state),
+		Name:         strcase.ToLowerCamel(method.Name),
+		RequestType:  resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
+		ResponseType: resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
+		DocLines:     formatDocComments(method.Documentation, state),
+		BodyAccessor: bodyAccessor(method),
+		PathParams:   language.PathParams(method, state),
+		QueryParams:  language.QueryParams(method, state),
 	}
-	m.Codec = annotation
+	method.Codec = annotation
 }
 
 func annotateOneOf(field *api.OneOf, state *api.APIState) {
@@ -316,21 +335,21 @@ func annotateOneOf(field *api.OneOf, state *api.APIState) {
 	}
 }
 
-func annotateField(field *api.Field, state *api.APIState, importMap map[string]*dartImport) {
+func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	field.Codec = &fieldAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
-		Type:     fieldType(field, state, importMap),
+		Type:     fieldType(field, state, packageMapping, imports),
 		DocLines: formatDocComments(field.Documentation, state),
 	}
 }
 
-func annotateEnum(e *api.Enum, state *api.APIState) {
-	for _, ev := range e.Values {
+func annotateEnum(enum *api.Enum, state *api.APIState) {
+	for _, ev := range enum.Values {
 		annotateEnumValue(ev, state)
 	}
-	e.Codec = &enumAnnotation{
-		Name:     enumName(e),
-		DocLines: formatDocComments(e.Documentation, state),
+	enum.Codec = &enumAnnotation{
+		Name:     enumName(enum),
+		DocLines: formatDocComments(enum.Documentation, state),
 	}
 }
 

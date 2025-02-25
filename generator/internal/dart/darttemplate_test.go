@@ -79,7 +79,7 @@ func TestAnnotateMethod(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	annotateMethod(method, model.State)
+	annotateMethod(method, model.State, map[string]string{}, map[string]string{})
 	codec := method.Codec.(*methodAnnotation)
 
 	got := codec.Name
@@ -89,13 +89,13 @@ func TestAnnotateMethod(t *testing.T) {
 	}
 
 	got = codec.RequestType
-	want = "ListSecretVersionRequest"
+	want = "ListSecretVersionRequest" // todo:
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
 
 	got = codec.ResponseType
-	want = "ListSecretVersionsResponse"
+	want = "ListSecretVersionsResponse" // todo:
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
@@ -104,25 +104,22 @@ func TestAnnotateMethod(t *testing.T) {
 func TestCalculateDependencies(t *testing.T) {
 	for _, test := range []struct {
 		name    string
-		imports []*dartImport
+		imports []string
 		want    []string
 	}{
-		{name: "empty", imports: []*dartImport{}, want: []string{}},
-		{name: "dart import", imports: []*dartImport{typedDataImport}, want: []string{}},
-		{name: "package import", imports: []*dartImport{httpImport}, want: []string{"http"}},
-		{name: "dart and package imports", imports: []*dartImport{typedDataImport, httpImport}, want: []string{"http"}},
-		{name: "package imports", imports: []*dartImport{
+		{name: "empty", imports: []string{}, want: []string{}},
+		{name: "dart import", imports: []string{typedDataImport}, want: []string{}},
+		{name: "package import", imports: []string{httpImport}, want: []string{"http"}},
+		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{"http"}},
+		{name: "package imports", imports: []string{
 			httpImport,
-			{
-				Package:    "google_cloud_foo",
-				DartImport: "package:google_cloud_foo/foo.dart",
-			},
+			"package:google_cloud_foo/foo.dart",
 		}, want: []string{"google_cloud_foo", "http"}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			deps := map[string]*dartImport{}
+			deps := map[string]string{}
 			for _, imp := range test.imports {
-				deps[imp.Package] = imp
+				deps[imp] = imp
 			}
 			gotFull := calculateDependencies(deps)
 
@@ -141,35 +138,32 @@ func TestCalculateDependencies(t *testing.T) {
 func TestCalculateImports(t *testing.T) {
 	for _, test := range []struct {
 		name    string
-		imports []*dartImport
+		imports []string
 		want    []string
 	}{
-		{name: "dart import", imports: []*dartImport{typedDataImport}, want: []string{
+		{name: "dart import", imports: []string{typedDataImport}, want: []string{
 			"import 'dart:typed_data';",
 		}},
-		{name: "package import", imports: []*dartImport{httpImport}, want: []string{
+		{name: "package import", imports: []string{httpImport}, want: []string{
 			"import 'package:http/http.dart';",
 		}},
-		{name: "dart and package imports", imports: []*dartImport{typedDataImport, httpImport}, want: []string{
+		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{
 			"import 'dart:typed_data';",
 			"",
 			"import 'package:http/http.dart';",
 		}},
-		{name: "package imports", imports: []*dartImport{
+		{name: "package imports", imports: []string{
 			httpImport,
-			{
-				Package:    "google_cloud_foo",
-				DartImport: "package:google_cloud_foo/foo.dart",
-			},
+			"package:google_cloud_foo/foo.dart",
 		}, want: []string{
 			"import 'package:google_cloud_foo/foo.dart';",
 			"import 'package:http/http.dart';",
 		}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			deps := map[string]*dartImport{}
+			deps := map[string]string{}
 			for _, imp := range test.imports {
-				deps[imp.Package] = imp
+				deps[imp] = imp
 			}
 			got := calculateImports(deps)
 

@@ -24,4 +24,5 @@ environment:
 resolution: workspace
 
 dependencies:
+  google_cloud_protobuf: any
   http: any
