@@ -22,9 +22,11 @@ terraform {
 }
 
 provider "google" {
-  project = var.project
-  region  = var.region
-  zone    = var.zone
+  project               = var.project
+  region                = var.region
+  zone                  = var.zone
+  user_project_override = true
+  billing_project       = var.project
 }
 
 # Enable SecretManager

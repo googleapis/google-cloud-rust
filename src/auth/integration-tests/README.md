@@ -61,8 +61,7 @@ terraform plan \
     -target="module.api_key_test" \
     -target="module.service_account_test"
 
-env GOOGLE_CLOUD_QUOTA_PROJECT=${PROJECT} \
-    terraform apply "/tmp/builds.plan"
+terraform apply "/tmp/builds.plan"
 ```
 
 Run the tests:
@@ -82,8 +81,7 @@ terraform plan \
     -target="module.service_account_test" \
     -destroy
 
-env GOOGLE_CLOUD_QUOTA_PROJECT=${PROJECT} \
-    terraform apply "/tmp/builds.plan"
+terraform apply "/tmp/builds.plan"
 ```
 
 ## Test Design
