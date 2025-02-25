@@ -86,7 +86,6 @@ env GOOGLE_CLOUD_QUOTA_PROJECT=${PROJECT} \
     terraform apply "/tmp/builds.plan"
 ```
 
-
 ## Test Design
 
 For access token credentials, there are integration tests for each type of
