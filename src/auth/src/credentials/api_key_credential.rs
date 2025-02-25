@@ -50,7 +50,7 @@ impl ApiKeyOptions {
 /// associates the request with a Google Cloud project for billing and quota
 /// purposes.
 ///
-/// Note that most Cloud APIs do not support API keys, instead requiring full
+/// Note that only some Cloud APIs support API keys. The rest require full
 /// credentials.
 ///
 /// [API key]: https://cloud.google.com/docs/authentication/api-keys-use
@@ -63,8 +63,9 @@ pub async fn create_api_key_credential<T: Into<String>>(
         api_key: api_key.into(),
     };
 
-    let qp_env = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok();
-    let quota_project_id = qp_env.or(o.quota_project);
+    let quota_project_id = o
+        .quota_project
+        .or_else(|| std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok());
 
     Ok(Credential {
         inner: Arc::new(ApiKeyCredential {
@@ -197,9 +198,9 @@ mod test {
     #[tokio::test]
     #[serial_test::serial]
     async fn create_api_key_credential_with_options() {
-        let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
+        let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
 
-        let options = ApiKeyOptions::default().set_quota_project("test-project");
+        let options = ApiKeyOptions::default().set_quota_project("qp-option");
         let creds = create_api_key_credential("test-api-key", options)
             .await
             .unwrap();
@@ -225,7 +226,7 @@ mod test {
                 },
                 HV {
                     header: QUOTA_PROJECT_KEY.to_string(),
-                    value: "test-project".to_string(),
+                    value: "qp-option".to_string(),
                     is_sensitive: false,
                 }
             ]
@@ -236,7 +237,7 @@ mod test {
     #[serial_test::serial]
     async fn create_api_key_credential_with_env() {
         let _e = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "qp-env");
-        let options = ApiKeyOptions::default().set_quota_project("qp-option");
+        let options = ApiKeyOptions::default();
         let creds = create_api_key_credential("test-api-key", options)
             .await
             .unwrap();
