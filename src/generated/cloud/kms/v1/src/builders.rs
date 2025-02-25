@@ -2331,6 +2331,15 @@ pub mod key_management_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [public_key_format][crate::model::GetPublicKeyRequest::public_key_format].
+        pub fn set_public_key_format<T: Into<crate::model::public_key::PublicKeyFormat>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.public_key_format = v.into();
+            self
+        }
     }
 
     impl gax::options::RequestBuilder for GetPublicKey {

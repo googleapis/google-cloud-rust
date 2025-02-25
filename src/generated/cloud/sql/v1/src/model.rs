@@ -752,10 +752,12 @@ pub struct GenerateEphemeralCertRequest {
     pub project: std::string::String,
 
     /// PEM encoded public key to include in the signed certificate.
+    #[serde(rename = "public_key")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub public_key: std::string::String,
 
     /// Optional. Access token to include in the signed certificate.
+    #[serde(rename = "access_token")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub access_token: std::string::String,
 
@@ -3359,10 +3361,12 @@ impl wkt::message::Message for InstancesFailoverRequest {
 pub struct SslCertsCreateEphemeralRequest {
 
     /// PEM encoded public key to include in the signed certificate.
+    #[serde(rename = "public_key")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub public_key: std::string::String,
 
     /// Access token to include in the signed certificate.
+    #[serde(rename = "access_token")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub access_token: std::string::String,
 }

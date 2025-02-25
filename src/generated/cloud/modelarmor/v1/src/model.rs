@@ -268,7 +268,8 @@ pub struct FloorSetting {
     pub filter_config: std::option::Option<crate::model::FilterConfig>,
 
     /// Optional. Floor Settings enforcement status.
-    pub enable_floor_setting_enforcement: bool,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub enable_floor_setting_enforcement: std::option::Option<bool>,
 }
 
 impl FloorSetting {
@@ -312,7 +313,9 @@ impl FloorSetting {
     }
 
     /// Sets the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
-    pub fn set_enable_floor_setting_enforcement<T: std::convert::Into<bool>>(
+    pub fn set_enable_floor_setting_enforcement<
+        T: std::convert::Into<std::option::Option<bool>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -1356,10 +1359,9 @@ pub struct SdpAdvancedConfig {
     /// If only inspect template is provided (de-identify template not provided),
     /// then Sensitive Data Protection InspectContent action is performed during
     /// Sanitization. All Sensitive Data Protection findings identified during
-    /// inspection will be returned as SdpFinding in SdpInsepctionResult e.g.
-    /// `organizations/{organization}/inspectTemplates/{inspect_template}`,
-    /// `projects/{project}/inspectTemplates/{inspect_template}`
-    /// `organizations/{organization}/locations/{location}/inspectTemplates/{inspect_template}`
+    /// inspection will be returned as SdpFinding in SdpInsepctionResult.
+    ///
+    /// e.g.
     /// `projects/{project}/locations/{location}/inspectTemplates/{inspect_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub inspect_template: std::string::String,
@@ -1374,9 +1376,6 @@ pub struct SdpAdvancedConfig {
     /// in inspect template.
     ///
     /// e.g.
-    /// `organizations/{organization}/deidentifyTemplates/{deidentify_template}`,
-    /// `projects/{project}/deidentifyTemplates/{deidentify_template}`
-    /// `organizations/{organization}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     /// `projects/{project}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub deidentify_template: std::string::String,
@@ -1807,14 +1806,14 @@ impl FilterResult {
     }
 
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
+    /// if it holds a `CsamFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csam_filter_filter_result(
+    pub fn get_csam_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => {
+            crate::model::filter_result::FilterResult::CsamFilterResult(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -1905,18 +1904,18 @@ impl FilterResult {
     }
 
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `CsamFilterFilterResult`.
+    /// to hold a `CsamFilterResult`.
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
-    pub fn set_csam_filter_filter_result<
+    pub fn set_csam_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>,
     >(
         mut self,
         v: T,
     ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v.into()),
+            crate::model::filter_result::FilterResult::CsamFilterResult(v.into()),
         );
         self
     }
@@ -1966,7 +1965,7 @@ pub mod filter_result {
         /// Malicious URI filter results.
         MaliciousUriFilterResult(std::boxed::Box<crate::model::MaliciousUriFilterResult>),
         /// CSAM filter results.
-        CsamFilterFilterResult(std::boxed::Box<crate::model::CsamFilterResult>),
+        CsamFilterResult(std::boxed::Box<crate::model::CsamFilterResult>),
         /// Virus scan results.
         VirusScanFilterResult(std::boxed::Box<crate::model::VirusScanFilterResult>),
     }
@@ -2546,6 +2545,10 @@ pub struct SdpDeidentifyResult {
     /// Total size in bytes that were transformed during deidentification.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
+
+    /// List of Sensitive Data Protection info-types that were de-identified.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub info_types: std::vec::Vec<std::string::String>,
 }
 
 impl SdpDeidentifyResult {
@@ -2594,6 +2597,17 @@ impl SdpDeidentifyResult {
     {
         use std::iter::Iterator;
         self.message_items = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [info_types][crate::model::SdpDeidentifyResult::info_types].
+    pub fn set_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.info_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

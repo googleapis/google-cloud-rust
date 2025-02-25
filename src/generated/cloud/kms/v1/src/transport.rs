@@ -1024,6 +1024,7 @@ impl crate::stubs::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("publicKeyFormat", &req.public_key_format.value())]);
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await

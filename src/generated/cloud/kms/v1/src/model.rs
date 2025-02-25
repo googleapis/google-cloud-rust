@@ -2951,6 +2951,16 @@ pub mod crypto_key_version {
         /// Algorithm representing symmetric encryption by an external key manager.
         pub const EXTERNAL_SYMMETRIC_ENCRYPTION: CryptoKeyVersionAlgorithm =
             CryptoKeyVersionAlgorithm::new("EXTERNAL_SYMMETRIC_ENCRYPTION");
+
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 3. Randomized version.
+        pub const PQ_SIGN_ML_DSA_65: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("PQ_SIGN_ML_DSA_65");
+
+        /// The post-quantum stateless hash-based digital signature algorithm, at
+        /// security level 1. Randomized version.
+        pub const PQ_SIGN_SLH_DSA_SHA2_128S: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("PQ_SIGN_SLH_DSA_SHA2_128S");
     }
 
     impl std::convert::From<std::string::String> for CryptoKeyVersionAlgorithm {
@@ -3155,6 +3165,66 @@ pub mod crypto_key_version {
     }
 }
 
+/// Data with integrity verification field.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ChecksummedData {
+    /// Raw Data.
+    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde_as(as = "serde_with::base64::Base64")]
+    pub data: bytes::Bytes,
+
+    /// Integrity verification field. A CRC32C
+    /// checksum of the returned
+    /// [ChecksummedData.data][google.cloud.kms.v1.ChecksummedData.data]. An
+    /// integrity check of
+    /// [ChecksummedData.data][google.cloud.kms.v1.ChecksummedData.data] can be
+    /// performed by computing the CRC32C checksum of
+    /// [ChecksummedData.data][google.cloud.kms.v1.ChecksummedData.data] and
+    /// comparing your results to this field. Discard the response in case of
+    /// non-matching checksum values, and perform a limited number of retries. A
+    /// persistent mismatch may indicate an issue in your computation of the CRC32C
+    /// checksum. Note: This field is defined as int64 for reasons of compatibility
+    /// across different languages. However, it is a non-negative integer, which
+    /// will never exceed `2^32-1`, and can be safely downconverted to uint32 in
+    /// languages that support this type.
+    ///
+    /// [google.cloud.kms.v1.ChecksummedData.data]: crate::model::ChecksummedData::data
+    #[serde(rename = "crc32cChecksum")]
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub crc32c_checksum: std::option::Option<wkt::Int64Value>,
+}
+
+impl ChecksummedData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data][crate::model::ChecksummedData::data].
+    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.data = v.into();
+        self
+    }
+
+    /// Sets the value of [crc32c_checksum][crate::model::ChecksummedData::crc32c_checksum].
+    pub fn set_crc32c_checksum<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crc32c_checksum = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ChecksummedData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ChecksummedData"
+    }
+}
+
 /// The public keys for a given
 /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. Obtained via
 /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
@@ -3191,8 +3261,8 @@ pub struct PublicKey {
     /// mismatch may indicate an issue in your computation of the CRC32C checksum.
     /// Note: This field is defined as int64 for reasons of compatibility across
     /// different languages. However, it is a non-negative integer, which will
-    /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
-    /// that support this type.
+    /// never exceed `2^32-1`, and can be safely downconverted to uint32 in
+    /// languages that support this type.
     ///
     /// NOTE: This field is in Beta.
     ///
@@ -3219,6 +3289,23 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    /// The [PublicKey][google.cloud.kms.v1.PublicKey] format specified by the
+    /// customer through the
+    /// [public_key_format][google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]
+    /// field.
+    ///
+    /// [google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]: crate::model::GetPublicKeyRequest::public_key_format
+    /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
+    pub public_key_format: crate::model::public_key::PublicKeyFormat,
+
+    /// This field contains the public key (with integrity verification), formatted
+    /// according to the
+    /// [public_key_format][google.cloud.kms.v1.PublicKey.public_key_format] field.
+    ///
+    /// [google.cloud.kms.v1.PublicKey.public_key_format]: crate::model::PublicKey::public_key_format
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub public_key: std::option::Option<crate::model::ChecksummedData>,
 }
 
 impl PublicKey {
@@ -3266,11 +3353,104 @@ impl PublicKey {
         self.protection_level = v.into();
         self
     }
+
+    /// Sets the value of [public_key_format][crate::model::PublicKey::public_key_format].
+    pub fn set_public_key_format<
+        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.public_key_format = v.into();
+        self
+    }
+
+    /// Sets the value of [public_key][crate::model::PublicKey::public_key].
+    pub fn set_public_key<
+        T: std::convert::Into<std::option::Option<crate::model::ChecksummedData>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.public_key = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for PublicKey {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.PublicKey"
+    }
+}
+
+/// Defines additional types related to PublicKey
+pub mod public_key {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The supported [PublicKey][google.cloud.kms.v1.PublicKey] formats.
+    ///
+    /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct PublicKeyFormat(std::borrow::Cow<'static, str>);
+
+    impl PublicKeyFormat {
+        /// Creates a new PublicKeyFormat instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [PublicKeyFormat](PublicKeyFormat)
+    pub mod public_key_format {
+        use super::PublicKeyFormat;
+
+        /// If the
+        /// [public_key_format][google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]
+        /// field is not specified:
+        ///
+        /// - For PQC algorithms, an error will be returned.
+        /// - For non-PQC algorithms, the default format is PEM, and the field
+        ///   [pem][google.cloud.kms.v1.PublicKey.pem] will be populated.
+        ///
+        /// Otherwise, the public key will be exported through the
+        /// [public_key][google.cloud.kms.v1.PublicKey.public_key] field in the
+        /// requested format.
+        ///
+        /// [google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]: crate::model::GetPublicKeyRequest::public_key_format
+        /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
+        /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
+        pub const PUBLIC_KEY_FORMAT_UNSPECIFIED: PublicKeyFormat =
+            PublicKeyFormat::new("PUBLIC_KEY_FORMAT_UNSPECIFIED");
+
+        /// The returned public key will be encoded in PEM format.
+        /// See the [RFC7468](https://tools.ietf.org/html/rfc7468) sections for
+        /// [General Considerations](https://tools.ietf.org/html/rfc7468#section-2)
+        /// and [Textual Encoding of Subject Public Key Info]
+        /// (<https://tools.ietf.org/html/rfc7468#section-13>) for more information.
+        pub const PEM: PublicKeyFormat = PublicKeyFormat::new("PEM");
+
+        /// This is supported only for PQC algorithms.
+        /// The key material is returned in the format defined by NIST PQC
+        /// standards (FIPS 203, FIPS 204, and FIPS 205).
+        pub const NIST_PQC: PublicKeyFormat = PublicKeyFormat::new("NIST_PQC");
+    }
+
+    impl std::convert::From<std::string::String> for PublicKeyFormat {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for PublicKeyFormat {
+        fn default() -> Self {
+            public_key_format::PUBLIC_KEY_FORMAT_UNSPECIFIED
+        }
     }
 }
 
@@ -4648,6 +4828,19 @@ pub struct GetPublicKeyRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    /// Optional. The [PublicKey][google.cloud.kms.v1.PublicKey] format specified
+    /// by the user. This field is required for PQC algorithms. If specified, the
+    /// public key will be exported through the
+    /// [public_key][google.cloud.kms.v1.PublicKey.public_key] field in the
+    /// requested format. Otherwise, the [pem][google.cloud.kms.v1.PublicKey.pem]
+    /// field will be populated for non-PQC algorithms, and an error will be
+    /// returned for PQC algorithms.
+    ///
+    /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
+    /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
+    /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
+    pub public_key_format: crate::model::public_key::PublicKeyFormat,
 }
 
 impl GetPublicKeyRequest {
@@ -4658,6 +4851,17 @@ impl GetPublicKeyRequest {
     /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [public_key_format][crate::model::GetPublicKeyRequest::public_key_format].
+    pub fn set_public_key_format<
+        T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.public_key_format = v.into();
         self
     }
 }
