@@ -46,7 +46,7 @@ resource "google_project_service" "language" {
 resource "google_apikeys_key" "test-api-key" {
   name         = "test-key"
   display_name = "Test API Key"
-  project   = var.project
+  project      = var.project
 
   # Restrict the API Key to the one RPC we use to verify the credentials.
   restrictions {
@@ -56,7 +56,7 @@ resource "google_apikeys_key" "test-api-key" {
     }
   }
 
-  depends_on = [ google_project_service.apikeys ]
+  depends_on = [google_project_service.apikeys]
 }
 
 # This secret stores the test API key.
