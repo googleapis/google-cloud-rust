@@ -22,9 +22,11 @@ terraform {
 }
 
 provider "google" {
-  project = var.project
-  region  = var.region
-  zone    = var.zone
+  project               = var.project
+  region                = var.region
+  zone                  = var.zone
+  user_project_override = true
+  billing_project       = var.project
 }
 
 # Enable SecretManager
@@ -39,11 +41,18 @@ module "service_account_test" {
   project = var.project
 }
 
+# Set up for the API key integration test.
+module "api_key_test" {
+  source  = "./api_key_test"
+  project = var.project
+}
+
 # Create the GCB resources, connection, triggers, etc.
 module "triggers" {
-  depends_on    = [module.service_account_test]
-  source        = "./triggers"
-  project       = var.project
-  region        = var.region
-  sa_adc_secret = module.service_account_test.adc_secret
+  depends_on     = [module.service_account_test, module.api_key_test]
+  source         = "./triggers"
+  project        = var.project
+  region         = var.region
+  sa_adc_secret  = module.service_account_test.adc_secret
+  api_key_secret = module.api_key_test.secret
 }
