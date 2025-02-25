@@ -983,6 +983,9 @@ pub mod byte_content_item {
 
         /// Executable file types. Only used for profiling.
         pub const EXECUTABLE: BytesType = BytesType::new("EXECUTABLE");
+
+        /// AI model file types. Only used for profiling.
+        pub const AI_MODEL: BytesType = BytesType::new("AI_MODEL");
     }
 
     impl std::convert::From<std::string::String> for BytesType {
@@ -4026,6 +4029,10 @@ pub struct InfoTypeDescription {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
+    /// A sample that is a true positive for this infoType.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub example: std::string::String,
+
     /// A list of available versions for the infotype.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub versions: std::vec::Vec<crate::model::VersionDescription>,
@@ -4059,6 +4066,12 @@ impl InfoTypeDescription {
     /// Sets the value of [description][crate::model::InfoTypeDescription::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [example][crate::model::InfoTypeDescription::example].
+    pub fn set_example<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.example = v.into();
         self
     }
 
@@ -4535,6 +4548,9 @@ pub mod info_type_category {
         /// the circumstances surrounding an entity or an event.
         pub const CONTEXTUAL_INFORMATION: TypeCategory =
             TypeCategory::new("CONTEXTUAL_INFORMATION");
+
+        /// Category for `CustomInfoType` types.
+        pub const CUSTOM: TypeCategory = TypeCategory::new("CUSTOM");
     }
 
     impl std::convert::From<std::string::String> for TypeCategory {
@@ -8785,7 +8801,8 @@ pub mod primitive_transformation {
         RedactConfig(std::boxed::Box<crate::model::RedactConfig>),
         /// Mask
         CharacterMaskConfig(std::boxed::Box<crate::model::CharacterMaskConfig>),
-        /// Ffx-Fpe
+        /// Ffx-Fpe. Strongly discouraged, consider using CryptoDeterministicConfig
+        /// instead. Fpe is computationally expensive incurring latency costs.
         CryptoReplaceFfxFpeConfig(std::boxed::Box<crate::model::CryptoReplaceFfxFpeConfig>),
         /// Fixed size bucketing
         FixedSizeBucketingConfig(std::boxed::Box<crate::model::FixedSizeBucketingConfig>),
@@ -9671,7 +9688,7 @@ pub mod bucketing_config {
 ///
 /// Note: We recommend using  CryptoDeterministicConfig for all use cases which
 /// do not require preserving the input alphabet space and size, plus warrant
-/// referential integrity.
+/// referential integrity. FPE incurs significant latency costs.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14773,15 +14790,32 @@ pub mod data_profile_action {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Export {
-        /// Store all table and column profiles in an existing table or a new table
-        /// in an existing dataset. Each re-generation will result in new rows in
-        /// BigQuery. Data is inserted using [streaming
-        /// insert](https://cloud.google.com/blog/products/bigquery/life-of-a-bigquery-streaming-insert)
-        /// and so data may be in the buffer for a period of time after the profile
-        /// has finished. The Pub/Sub notification is sent before the streaming
-        /// buffer is guaranteed to be written, so data may not be instantly
-        /// visible to queries by the time your topic receives the Pub/Sub
-        /// notification.
+        /// Store all profiles to BigQuery.
+        ///
+        /// * The system will create a new dataset and table for you if none are
+        ///   are provided. The dataset will be named
+        ///   `sensitive_data_protection_discovery` and table will be named
+        ///   `discovery_profiles`. This table will be placed in the same project as
+        ///   the container project running the scan. After the first profile is
+        ///   generated and the dataset and table are created, the discovery scan
+        ///   configuration will be updated with the dataset and table names.
+        /// * See [Analyze data profiles stored in
+        ///   BigQuery](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles).
+        /// * See [Sample queries for your BigQuery
+        ///   table](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#sample_sql_queries).
+        /// * Data is inserted using [streaming
+        ///   insert](https://cloud.google.com/blog/products/bigquery/life-of-a-bigquery-streaming-insert)
+        ///   and so data may be in the buffer for a period of time after the
+        ///   profile has finished.
+        /// * The Pub/Sub notification is sent before the streaming buffer is
+        ///   guaranteed to be written, so data may not be instantly
+        ///   visible to queries by the time your topic receives the Pub/Sub
+        ///   notification.
+        /// * The best practice is to use the same table for an entire organization
+        ///   so that you can take advantage of the [provided Looker
+        ///   reports](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#use_a_premade_report).
+        ///   If you use VPC Service Controls to define security perimeters, then
+        ///   you must use a separate table for each boundary.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub profile_table: std::option::Option<crate::model::BigQueryTable>,
     }
@@ -14959,7 +14993,8 @@ pub mod data_profile_action {
         }
     }
 
-    /// If set, a summary finding will be created/updated in SCC for each profile.
+    /// If set, a summary finding will be created or updated in Security Command
+    /// Center for each profile.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15316,7 +15351,7 @@ pub mod data_profile_action {
         /// context-aware
         /// analytics](https://cloud.google.com/chronicle/docs/detection/usecase-dlp-high-risk-user-download).
         PublishToChronicle(std::boxed::Box<crate::model::data_profile_action::PublishToChronicle>),
-        /// Publishes findings to SCC for each data profile.
+        /// Publishes findings to Security Command Center for each data profile.
         PublishToScc(
             std::boxed::Box<crate::model::data_profile_action::PublishToSecurityCommandCenter>,
         ),
@@ -15343,7 +15378,7 @@ pub struct DataProfileJobConfig {
 
     /// The project that will run the scan. The DLP service
     /// account that exists within this project must have access to all resources
-    /// that are profiled, and the Cloud DLP API must be enabled.
+    /// that are profiled, and the DLP API must be enabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
 
@@ -15767,6 +15802,12 @@ pub struct DiscoveryConfig {
 
     /// Required. A status for this configuration.
     pub status: crate::model::discovery_config::Status,
+
+    /// Optional. Processing location configuration. Vertex AI dataset scanning
+    /// will set processing_location.image_fallback_type to MultiRegionProcessing
+    /// by default.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub processing_location: std::option::Option<crate::model::ProcessingLocation>,
 }
 
 impl DiscoveryConfig {
@@ -15844,6 +15885,17 @@ impl DiscoveryConfig {
         self
     }
 
+    /// Sets the value of [processing_location][crate::model::DiscoveryConfig::processing_location].
+    pub fn set_processing_location<
+        T: std::convert::Into<std::option::Option<crate::model::ProcessingLocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.processing_location = v.into();
+        self
+    }
+
     /// Sets the value of [inspect_templates][crate::model::DiscoveryConfig::inspect_templates].
     pub fn set_inspect_templates<T, V>(mut self, v: T) -> Self
     where
@@ -15912,7 +15964,7 @@ pub mod discovery_config {
 
         /// The project that will run the scan. The DLP service
         /// account that exists within this project must have access to all resources
-        /// that are profiled, and the Cloud DLP API must be enabled.
+        /// that are profiled, and the DLP API must be enabled.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub project_id: std::string::String,
     }
@@ -16092,6 +16144,21 @@ impl DiscoveryTarget {
         })
     }
 
+    /// The value of [target][crate::model::DiscoveryTarget::target]
+    /// if it holds a `VertexDatasetTarget`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_vertex_dataset_target(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexDatasetDiscoveryTarget>> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::discovery_target::Target::VertexDatasetTarget(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [target][crate::model::DiscoveryTarget::target]
     /// to hold a `BigQueryTarget`.
     ///
@@ -16176,6 +16243,23 @@ impl DiscoveryTarget {
         );
         self
     }
+
+    /// Sets the value of [target][crate::model::DiscoveryTarget::target]
+    /// to hold a `VertexDatasetTarget`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    pub fn set_vertex_dataset_target<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetDiscoveryTarget>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::discovery_target::Target::VertexDatasetTarget(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for DiscoveryTarget {
@@ -16210,6 +16294,15 @@ pub mod discovery_target {
         /// Other clouds target for discovery. The first target to match a resource
         /// will be the one applied.
         OtherCloudTarget(std::boxed::Box<crate::model::OtherCloudDiscoveryTarget>),
+        /// Vertex AI dataset target for Discovery. The first target to match a
+        /// dataset will be the one applied. Note that discovery for Vertex AI can
+        /// incur Cloud Storage Class B operation charges for storage.objects.get
+        /// operations and retrieval fees. For more information, see [Cloud Storage
+        /// pricing](https://cloud.google.com/storage/pricing#price-tables).
+        /// Note that discovery for Vertex AI dataset will not be able to scan images
+        /// unless DiscoveryConfig.processing_location.image_fallback_location has
+        /// multi_region_processing or global_processing configured.
+        VertexDatasetTarget(std::boxed::Box<crate::model::VertexDatasetDiscoveryTarget>),
     }
 }
 
@@ -18843,14 +18936,14 @@ pub mod discovery_cloud_storage_conditions {
         pub const ALL_SUPPORTED_BUCKETS: CloudStorageBucketAttribute =
             CloudStorageBucketAttribute::new("ALL_SUPPORTED_BUCKETS");
 
-        /// Buckets with autoclass disabled
-        /// (<https://cloud.google.com/storage/docs/autoclass>). Only one of
+        /// Buckets with [Autoclass](https://cloud.google.com/storage/docs/autoclass)
+        /// disabled. Only one of
         /// AUTOCLASS_DISABLED or AUTOCLASS_ENABLED should be set.
         pub const AUTOCLASS_DISABLED: CloudStorageBucketAttribute =
             CloudStorageBucketAttribute::new("AUTOCLASS_DISABLED");
 
-        /// Buckets with autoclass enabled
-        /// (<https://cloud.google.com/storage/docs/autoclass>). Only one of
+        /// Buckets with [Autoclass](https://cloud.google.com/storage/docs/autoclass)
+        /// enabled. Only one of
         /// AUTOCLASS_DISABLED or AUTOCLASS_ENABLED should be set. Scanning
         /// Autoclass-enabled buckets can affect object storage classes.
         pub const AUTOCLASS_ENABLED: CloudStorageBucketAttribute =
@@ -20387,6 +20480,607 @@ impl wkt::message::Message for AllOtherResources {
     }
 }
 
+/// Target used to match against for discovery with Vertex AI datasets.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexDatasetDiscoveryTarget {
+    /// Required. The datasets the discovery cadence applies to. The first target
+    /// with a matching filter will be the one to apply to a dataset.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub filter: std::option::Option<crate::model::DiscoveryVertexDatasetFilter>,
+
+    /// In addition to matching the filter, these conditions must be true
+    /// before a profile is generated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub conditions: std::option::Option<crate::model::DiscoveryVertexDatasetConditions>,
+
+    /// Type of schedule.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub cadence: std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
+}
+
+impl VertexDatasetDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filter][crate::model::VertexDatasetDiscoveryTarget::filter].
+    pub fn set_filter<
+        T: std::convert::Into<std::option::Option<crate::model::DiscoveryVertexDatasetFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::VertexDatasetDiscoveryTarget::conditions].
+    pub fn set_conditions<
+        T: std::convert::Into<std::option::Option<crate::model::DiscoveryVertexDatasetConditions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conditions = v.into();
+        self
+    }
+
+    /// Sets the value of `cadence`.
+    pub fn set_cadence<
+        T: std::convert::Into<
+            std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cadence = v.into();
+        self
+    }
+
+    /// The value of [cadence][crate::model::VertexDatasetDiscoveryTarget::cadence]
+    /// if it holds a `GenerationCadence`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_generation_cadence(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryVertexDatasetGenerationCadence>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cadence.as_ref().and_then(|v| match v {
+            crate::model::vertex_dataset_discovery_target::Cadence::GenerationCadence(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [cadence][crate::model::VertexDatasetDiscoveryTarget::cadence]
+    /// if it holds a `Disabled`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_disabled(&self) -> std::option::Option<&std::boxed::Box<crate::model::Disabled>> {
+        #[allow(unreachable_patterns)]
+        self.cadence.as_ref().and_then(|v| match v {
+            crate::model::vertex_dataset_discovery_target::Cadence::Disabled(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cadence][crate::model::VertexDatasetDiscoveryTarget::cadence]
+    /// to hold a `GenerationCadence`.
+    ///
+    /// Note that all the setters affecting `cadence` are
+    /// mutually exclusive.
+    pub fn set_generation_cadence<
+        T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryVertexDatasetGenerationCadence>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cadence = std::option::Option::Some(
+            crate::model::vertex_dataset_discovery_target::Cadence::GenerationCadence(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [cadence][crate::model::VertexDatasetDiscoveryTarget::cadence]
+    /// to hold a `Disabled`.
+    ///
+    /// Note that all the setters affecting `cadence` are
+    /// mutually exclusive.
+    pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cadence = std::option::Option::Some(
+            crate::model::vertex_dataset_discovery_target::Cadence::Disabled(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VertexDatasetDiscoveryTarget {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.VertexDatasetDiscoveryTarget"
+    }
+}
+
+/// Defines additional types related to VertexDatasetDiscoveryTarget
+pub mod vertex_dataset_discovery_target {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of schedule.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Cadence {
+        /// How often and when to update profiles. New datasets that match both the
+        /// filter and conditions are scanned as quickly as possible depending on
+        /// system capacity.
+        GenerationCadence(std::boxed::Box<crate::model::DiscoveryVertexDatasetGenerationCadence>),
+        /// Disable profiling for datasets that match this filter.
+        Disabled(std::boxed::Box<crate::model::Disabled>),
+    }
+}
+
+/// Determines what datasets will have profiles generated within an organization
+/// or project. Includes the ability to filter by regular expression patterns
+/// on project ID or dataset regex.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DiscoveryVertexDatasetFilter {
+    /// Whether the filter applies to a specific set of datasets or all
+    /// other datasets within the location being profiled. The first
+    /// filter to match will be applied, regardless of the condition. If none is
+    /// set, this field defaults to `others`.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub filter: std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
+}
+
+impl DiscoveryVertexDatasetFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<
+        T: std::convert::Into<
+            std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// The value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// if it holds a `Collection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_collection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexDatasetCollection>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::discovery_vertex_dataset_filter::Filter::Collection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// if it holds a `VertexDatasetResourceReference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_vertex_dataset_resource_reference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexDatasetResourceReference>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::discovery_vertex_dataset_filter::Filter::VertexDatasetResourceReference(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// if it holds a `Others`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_others(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AllOtherResources>> {
+        #[allow(unreachable_patterns)]
+        self.filter.as_ref().and_then(|v| match v {
+            crate::model::discovery_vertex_dataset_filter::Filter::Others(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// to hold a `Collection`.
+    ///
+    /// Note that all the setters affecting `filter` are
+    /// mutually exclusive.
+    pub fn set_collection<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetCollection>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = std::option::Option::Some(
+            crate::model::discovery_vertex_dataset_filter::Filter::Collection(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// to hold a `VertexDatasetResourceReference`.
+    ///
+    /// Note that all the setters affecting `filter` are
+    /// mutually exclusive.
+    pub fn set_vertex_dataset_resource_reference<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetResourceReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = std::option::Option::Some(
+            crate::model::discovery_vertex_dataset_filter::Filter::VertexDatasetResourceReference(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter]
+    /// to hold a `Others`.
+    ///
+    /// Note that all the setters affecting `filter` are
+    /// mutually exclusive.
+    pub fn set_others<T: std::convert::Into<std::boxed::Box<crate::model::AllOtherResources>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filter = std::option::Option::Some(
+            crate::model::discovery_vertex_dataset_filter::Filter::Others(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DiscoveryVertexDatasetFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DiscoveryVertexDatasetFilter"
+    }
+}
+
+/// Defines additional types related to DiscoveryVertexDatasetFilter
+pub mod discovery_vertex_dataset_filter {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Whether the filter applies to a specific set of datasets or all
+    /// other datasets within the location being profiled. The first
+    /// filter to match will be applied, regardless of the condition. If none is
+    /// set, this field defaults to `others`.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Filter {
+        /// A specific set of Vertex AI datasets for this filter to apply to.
+        Collection(std::boxed::Box<crate::model::VertexDatasetCollection>),
+        /// The dataset resource to scan. Targets including this can only include
+        /// one target (the target with this dataset resource reference).
+        VertexDatasetResourceReference(
+            std::boxed::Box<crate::model::VertexDatasetResourceReference>,
+        ),
+        /// Catch-all. This should always be the last target in the list because
+        /// anything above it will apply first. Should only appear once in a
+        /// configuration. If none is specified, a default one will be added
+        /// automatically.
+        Others(std::boxed::Box<crate::model::AllOtherResources>),
+    }
+}
+
+/// Match dataset resources using regex filters.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexDatasetCollection {
+    /// The pattern used to filter dataset resources.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub pattern: std::option::Option<crate::model::vertex_dataset_collection::Pattern>,
+}
+
+impl VertexDatasetCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of `pattern`.
+    pub fn set_pattern<
+        T: std::convert::Into<std::option::Option<crate::model::vertex_dataset_collection::Pattern>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pattern = v.into();
+        self
+    }
+
+    /// The value of [pattern][crate::model::VertexDatasetCollection::pattern]
+    /// if it holds a `VertexDatasetRegexes`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_vertex_dataset_regexes(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::VertexDatasetRegexes>> {
+        #[allow(unreachable_patterns)]
+        self.pattern.as_ref().and_then(|v| match v {
+            crate::model::vertex_dataset_collection::Pattern::VertexDatasetRegexes(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [pattern][crate::model::VertexDatasetCollection::pattern]
+    /// to hold a `VertexDatasetRegexes`.
+    ///
+    /// Note that all the setters affecting `pattern` are
+    /// mutually exclusive.
+    pub fn set_vertex_dataset_regexes<
+        T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetRegexes>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pattern = std::option::Option::Some(
+            crate::model::vertex_dataset_collection::Pattern::VertexDatasetRegexes(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VertexDatasetCollection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.VertexDatasetCollection"
+    }
+}
+
+/// Defines additional types related to VertexDatasetCollection
+pub mod vertex_dataset_collection {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The pattern used to filter dataset resources.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Pattern {
+        /// The regex used to filter dataset resources.
+        VertexDatasetRegexes(std::boxed::Box<crate::model::VertexDatasetRegexes>),
+    }
+}
+
+/// A collection of regular expressions to determine what datasets to match
+/// against.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexDatasetRegexes {
+    /// Required. The group of regular expression patterns to match against one or
+    /// more datasets. Maximum of 100 entries. The sum of the lengths of all
+    /// regular expressions can't exceed 10 KiB.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub patterns: std::vec::Vec<crate::model::VertexDatasetRegex>,
+}
+
+impl VertexDatasetRegexes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [patterns][crate::model::VertexDatasetRegexes::patterns].
+    pub fn set_patterns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VertexDatasetRegex>,
+    {
+        use std::iter::Iterator;
+        self.patterns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexDatasetRegexes {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.VertexDatasetRegexes"
+    }
+}
+
+/// A pattern to match against one or more dataset resources.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexDatasetRegex {
+    /// For organizations, if unset, will match all projects. Has no effect
+    /// for configurations created within a project.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub project_id_regex: std::string::String,
+}
+
+impl VertexDatasetRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id_regex][crate::model::VertexDatasetRegex::project_id_regex].
+    pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.project_id_regex = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexDatasetRegex {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.VertexDatasetRegex"
+    }
+}
+
+/// Identifies a single Vertex AI dataset.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct VertexDatasetResourceReference {
+    /// Required. The name of the dataset resource. If set within a project-level
+    /// configuration, the specified resource must be within the project.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub dataset_resource_name: std::string::String,
+}
+
+impl VertexDatasetResourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dataset_resource_name][crate::model::VertexDatasetResourceReference::dataset_resource_name].
+    pub fn set_dataset_resource_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dataset_resource_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VertexDatasetResourceReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.VertexDatasetResourceReference"
+    }
+}
+
+/// Requirements that must be true before a dataset is profiled for the
+/// first time.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DiscoveryVertexDatasetConditions {
+    /// Vertex AI dataset must have been created after this date. Used to avoid
+    /// backfilling.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub created_after: std::option::Option<wkt::Timestamp>,
+
+    /// Minimum age a Vertex AI dataset must have. If set, the value must be 1 hour
+    /// or greater.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub min_age: std::option::Option<wkt::Duration>,
+}
+
+impl DiscoveryVertexDatasetConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [created_after][crate::model::DiscoveryVertexDatasetConditions::created_after].
+    pub fn set_created_after<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.created_after = v.into();
+        self
+    }
+
+    /// Sets the value of [min_age][crate::model::DiscoveryVertexDatasetConditions::min_age].
+    pub fn set_min_age<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.min_age = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DiscoveryVertexDatasetConditions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DiscoveryVertexDatasetConditions"
+    }
+}
+
+/// How often existing datasets should have their profiles refreshed.
+/// New datasets are scanned as quickly as possible depending on system
+/// capacity.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DiscoveryVertexDatasetGenerationCadence {
+    /// If you set this field, profiles are refreshed at this
+    /// frequency regardless of whether the underlying datasets have changed.
+    /// Defaults to never.
+    pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
+
+    /// Governs when to update data profiles when the inspection rules
+    /// defined by the `InspectTemplate` change.
+    /// If not set, changing the template will not cause a data profile to be
+    /// updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub inspect_template_modified_cadence:
+        std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+}
+
+impl DiscoveryVertexDatasetGenerationCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [refresh_frequency][crate::model::DiscoveryVertexDatasetGenerationCadence::refresh_frequency].
+    pub fn set_refresh_frequency<
+        T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.refresh_frequency = v.into();
+        self
+    }
+
+    /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryVertexDatasetGenerationCadence::inspect_template_modified_cadence].
+    pub fn set_inspect_template_modified_cadence<
+        T: std::convert::Into<
+            std::option::Option<crate::model::DiscoveryInspectTemplateModifiedCadence>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inspect_template_modified_cadence = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DiscoveryVertexDatasetGenerationCadence {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DiscoveryVertexDatasetGenerationCadence"
+    }
+}
+
 /// Combines all of the information about a DLP job.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -20682,7 +21376,10 @@ pub mod dlp_job {
     }
 }
 
-/// The request message for [DlpJobs.GetDlpJob][].
+/// The request message for
+/// [GetDlpJob][google.privacy.dlp.v2.DlpService.GetDlpJob].
+///
+/// [google.privacy.dlp.v2.DlpService.GetDlpJob]: crate::client::DlpService::get_dlp_job
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23529,6 +24226,10 @@ pub struct TableDataProfile {
     /// The time at which the table was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Resources related to this profile.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 }
 
 impl TableDataProfile {
@@ -23750,6 +24451,17 @@ impl TableDataProfile {
     {
         use std::iter::Iterator;
         self.other_info_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [related_resources][crate::model::TableDataProfile::related_resources].
+    pub fn set_related_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RelatedResource>,
+    {
+        use std::iter::Iterator;
+        self.related_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -24477,8 +25189,8 @@ pub struct FileStoreDataProfile {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub data_storage_locations: std::vec::Vec<std::string::String>,
 
-    /// The location type of the bucket (region, dual-region, multi-region, etc).
-    /// If dual-region, expect data_storage_locations to be populated.
+    /// The location type of the file store (region, dual-region, multi-region,
+    /// etc). If dual-region, expect data_storage_locations to be populated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location_type: std::string::String,
 
@@ -24486,6 +25198,8 @@ pub struct FileStoreDataProfile {
     ///
     /// * Cloud Storage: `gs://{bucket}`
     /// * Amazon S3: `s3://{bucket}`
+    /// * Vertex AI dataset:
+    ///   `projects/{project_number}/locations/{location}/datasets/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub file_store_path: std::string::String,
 
@@ -24555,6 +25269,10 @@ pub struct FileStoreDataProfile {
 
     /// The file store does not have any files.
     pub file_store_is_empty: bool,
+
+    /// Resources related to this profile.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 }
 
 impl FileStoreDataProfile {
@@ -24751,6 +25469,17 @@ impl FileStoreDataProfile {
         self
     }
 
+    /// Sets the value of [related_resources][crate::model::FileStoreDataProfile::related_resources].
+    pub fn set_related_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RelatedResource>,
+    {
+        use std::iter::Iterator;
+        self.related_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [resource_attributes][crate::model::FileStoreDataProfile::resource_attributes].
     pub fn set_resource_attributes<T, K, V>(mut self, v: T) -> Self
     where
@@ -24830,6 +25559,39 @@ pub mod file_store_data_profile {
         fn default() -> Self {
             state::STATE_UNSPECIFIED
         }
+    }
+}
+
+/// A related resource.
+/// Examples:
+///
+/// * The source BigQuery table for a Vertex AI dataset.
+/// * The source Cloud Storage bucket for a Vertex AI dataset.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RelatedResource {
+    /// The full resource name of the related resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub full_resource: std::string::String,
+}
+
+impl RelatedResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [full_resource][crate::model::RelatedResource::full_resource].
+    pub fn set_full_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.full_resource = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RelatedResource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.RelatedResource"
     }
 }
 
@@ -24934,8 +25696,8 @@ pub struct FileClusterSummary {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub file_extensions_seen: std::vec::Vec<crate::model::FileExtensionInfo>,
 
-    /// True if no files exist in this cluster. If the bucket had more files than
-    /// could be listed, this will be false even if no files for this cluster
+    /// True if no files exist in this cluster. If the file store had more files
+    /// than could be listed, this will be false even if no files for this cluster
     /// were seen and file_extensions_seen is empty.
     pub no_files_exist: bool,
 }
@@ -26142,8 +26904,8 @@ impl wkt::message::Message for DeleteConnectionRequest {
     }
 }
 
-/// A data connection to allow DLP to profile data in locations that require
-/// additional configuration.
+/// A data connection to allow the DLP API to profile data in locations that
+/// require additional configuration.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26344,7 +27106,7 @@ pub struct CloudSqlProperties {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub connection_name: std::string::String,
 
-    /// Required. DLP will limit its connections to max_connections.
+    /// Required. The DLP API will limit its connections to max_connections.
     /// Must be 2 or greater.
     pub max_connections: i32,
 
@@ -26711,6 +27473,9 @@ pub mod file_cluster_type {
 
         /// Executable files like .exe, .class, .apk etc.
         pub const CLUSTER_EXECUTABLE: Cluster = Cluster::new("CLUSTER_EXECUTABLE");
+
+        /// AI models like .tflite etc.
+        pub const CLUSTER_AI_MODEL: Cluster = Cluster::new("CLUSTER_AI_MODEL");
     }
 
     impl std::convert::From<std::string::String> for Cluster {
@@ -26732,6 +27497,147 @@ pub mod file_cluster_type {
     pub enum FileClusterType {
         /// Cluster type.
         Cluster(crate::model::file_cluster_type::Cluster),
+    }
+}
+
+/// Configure processing location for discovery and inspection. For example,
+/// image OCR is only provided in limited regions but configuring
+/// ProcessingLocation will redirect OCR to a location where OCR is provided.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ProcessingLocation {
+    /// Image processing will fall back using this configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub image_fallback_location:
+        std::option::Option<crate::model::processing_location::ImageFallbackLocation>,
+}
+
+impl ProcessingLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [image_fallback_location][crate::model::ProcessingLocation::image_fallback_location].
+    pub fn set_image_fallback_location<
+        T: std::convert::Into<
+            std::option::Option<crate::model::processing_location::ImageFallbackLocation>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_fallback_location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ProcessingLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ProcessingLocation"
+    }
+}
+
+/// Defines additional types related to ProcessingLocation
+pub mod processing_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Processing will happen in a multi-region that contains the current region
+    /// if available.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct MultiRegionProcessing {}
+
+    impl MultiRegionProcessing {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for MultiRegionProcessing {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ProcessingLocation.MultiRegionProcessing"
+        }
+    }
+
+    /// Processing will happen in the global region.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GlobalProcessing {}
+
+    impl GlobalProcessing {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for GlobalProcessing {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ProcessingLocation.GlobalProcessing"
+        }
+    }
+
+    /// Configure image processing to fall back to the configured processing option
+    /// below if unavailable in the request location.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ImageFallbackLocation {
+        /// Processing will happen in a multi-region that contains the current region
+        /// if available.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub multi_region_processing:
+            std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
+
+        /// Processing will happen in the global region.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub global_processing:
+            std::option::Option<crate::model::processing_location::GlobalProcessing>,
+    }
+
+    impl ImageFallbackLocation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [multi_region_processing][crate::model::processing_location::ImageFallbackLocation::multi_region_processing].
+        pub fn set_multi_region_processing<
+            T: std::convert::Into<
+                std::option::Option<crate::model::processing_location::MultiRegionProcessing>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.multi_region_processing = v.into();
+            self
+        }
+
+        /// Sets the value of [global_processing][crate::model::processing_location::ImageFallbackLocation::global_processing].
+        pub fn set_global_processing<
+            T: std::convert::Into<
+                std::option::Option<crate::model::processing_location::GlobalProcessing>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.global_processing = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ImageFallbackLocation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ProcessingLocation.ImageFallbackLocation"
+        }
     }
 }
 
@@ -29344,7 +30250,7 @@ pub mod record_key {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BigQueryTable {
-    /// The Google Cloud Platform project ID of the project containing the table.
+    /// The Google Cloud project ID of the project containing the table.
     /// If omitted, project ID is inferred from the API call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
@@ -30600,8 +31506,8 @@ pub mod connection_state {
     pub const CONNECTION_STATE_UNSPECIFIED: ConnectionState =
         ConnectionState::new("CONNECTION_STATE_UNSPECIFIED");
 
-    /// DLP automatically created this connection during an initial scan, and it is
-    /// awaiting full configuration by a user.
+    /// The DLP API automatically created this connection during an initial scan,
+    /// and it is awaiting full configuration by a user.
     pub const MISSING_CREDENTIALS: ConnectionState = ConnectionState::new("MISSING_CREDENTIALS");
 
     /// A configured connection that has not encountered any errors.

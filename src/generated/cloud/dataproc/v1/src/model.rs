@@ -12369,6 +12369,13 @@ pub struct ExecutionConfig {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub staging_bucket: std::string::String,
 
+    /// Optional. Authentication configuration used to set the default identity for
+    /// the workload execution. The config specifies the type of identity
+    /// (service account or user) that will be used by workloads to access
+    /// resources on the project(s).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub authentication_config: std::option::Option<crate::model::AuthenticationConfig>,
+
     /// Network configuration for workload execution.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub network: std::option::Option<crate::model::execution_config::Network>,
@@ -12412,6 +12419,17 @@ impl ExecutionConfig {
     /// Sets the value of [staging_bucket][crate::model::ExecutionConfig::staging_bucket].
     pub fn set_staging_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.staging_bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [authentication_config][crate::model::ExecutionConfig::authentication_config].
+    pub fn set_authentication_config<
+        T: std::convert::Into<std::option::Option<crate::model::AuthenticationConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication_config = v.into();
         self
     }
 
@@ -13553,6 +13571,95 @@ pub mod gke_node_pool_config {
     impl wkt::message::Message for GkeNodePoolAutoscalingConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataproc.v1.GkeNodePoolConfig.GkeNodePoolAutoscalingConfig"
+        }
+    }
+}
+
+/// Authentication configuration for a workload is used to set the default
+/// identity for the workload execution.
+/// The config specifies the type of identity (service account or user) that
+/// will be used by workloads to access resources on the project(s).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AuthenticationConfig {
+    /// Optional. Authentication type for the user workload running in containers.
+    pub user_workload_authentication_type: crate::model::authentication_config::AuthenticationType,
+}
+
+impl AuthenticationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_workload_authentication_type][crate::model::AuthenticationConfig::user_workload_authentication_type].
+    pub fn set_user_workload_authentication_type<
+        T: std::convert::Into<crate::model::authentication_config::AuthenticationType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_workload_authentication_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthenticationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataproc.v1.AuthenticationConfig"
+    }
+}
+
+/// Defines additional types related to AuthenticationConfig
+pub mod authentication_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Authentication types for workload execution.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct AuthenticationType(std::borrow::Cow<'static, str>);
+
+    impl AuthenticationType {
+        /// Creates a new AuthenticationType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [AuthenticationType](AuthenticationType)
+    pub mod authentication_type {
+        use super::AuthenticationType;
+
+        /// If AuthenticationType is unspecified then END_USER_CREDENTIALS is used
+        /// for 3.0 and newer runtimes, and SERVICE_ACCOUNT is used for older
+        /// runtimes.
+        pub const AUTHENTICATION_TYPE_UNSPECIFIED: AuthenticationType =
+            AuthenticationType::new("AUTHENTICATION_TYPE_UNSPECIFIED");
+
+        /// Use service account credentials for authenticating to other services.
+        pub const SERVICE_ACCOUNT: AuthenticationType = AuthenticationType::new("SERVICE_ACCOUNT");
+
+        /// Use OAuth credentials associated with the workload creator/user for
+        /// authenticating to other services.
+        pub const END_USER_CREDENTIALS: AuthenticationType =
+            AuthenticationType::new("END_USER_CREDENTIALS");
+    }
+
+    impl std::convert::From<std::string::String> for AuthenticationType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for AuthenticationType {
+        fn default() -> Self {
+            authentication_type::AUTHENTICATION_TYPE_UNSPECIFIED
         }
     }
 }

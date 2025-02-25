@@ -164,6 +164,12 @@ pub mod confidential_computing {
             self
         }
 
+        /// Sets the value of [attester][crate::model::VerifyAttestationRequest::attester].
+        pub fn set_attester<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.attester = v.into();
+            self
+        }
+
         /// Sets the value of `tee_attestation`.
         pub fn set_tee_attestation<
             T: Into<Option<crate::model::verify_attestation_request::TeeAttestation>>,

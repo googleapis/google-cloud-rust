@@ -152,7 +152,7 @@ impl wkt::message::Message for CreateChallengeRequest {
 }
 
 /// A request for an OIDC token, providing all the necessary information needed
-/// for this service to verify the plaform state of the requestor.
+/// for this service to verify the platform state of the requestor.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -182,6 +182,11 @@ pub struct VerifyAttestationRequest {
     /// the token output.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub token_options: std::option::Option<crate::model::TokenOptions>,
+
+    /// Optional. An optional indicator of the attester, only applies to certain
+    /// products.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub attester: std::string::String,
 
     /// An optional tee attestation report, used to populate hardware rooted
     /// claims.
@@ -242,6 +247,12 @@ impl VerifyAttestationRequest {
         v: T,
     ) -> Self {
         self.token_options = v.into();
+        self
+    }
+
+    /// Sets the value of [attester][crate::model::VerifyAttestationRequest::attester].
+    pub fn set_attester<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.attester = v.into();
         self
     }
 
