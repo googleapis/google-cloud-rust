@@ -1017,8 +1017,8 @@ func protobufLinkMapping(doc ast.Node, source []byte) []string {
 //
 // The Google API documentation (typically in protos) include links to code
 // elements in the form `[Thing][google.package.blah.v1.Thing.SubThing]`.
-// This regular expression captures the `][...]` part. There is a lot of
-// escaping because the brackets are metacharacters in regex.
+// This regular expression captures the `][...]` part. There is a lot of scaping
+// because the brackets are metacharacters in regex.
 var commentCrossReferenceLink = regexp.MustCompile(
 	`` + // `go fmt` is annoying
 		`\]` + // The closing bracket for the `[Thing]`
@@ -1075,6 +1075,7 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 					escapedHTML := strings.Replace(segmentContent, "<", "\\<", 1)
 					escapedHTML = strings.Replace(escapedHTML, ">", "\\>", 1)
 					escapedString = strings.ReplaceAll(escapedString, string(lineContent[start:end]), escapedHTML)
+
 				}
 			}
 		}
