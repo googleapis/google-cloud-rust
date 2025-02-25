@@ -134,7 +134,7 @@ mod test {
             .await
             .unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ApiKeyCredential"));
+        assert!(fmt.contains("ApiKeyCredential"), "{fmt:?}");
     }
 
     mockall::mock! {
