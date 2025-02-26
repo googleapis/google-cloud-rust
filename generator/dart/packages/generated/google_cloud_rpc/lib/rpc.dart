@@ -98,7 +98,7 @@ class ErrorInfo {
 class RetryInfo {
 
   /// Clients should wait at least this long between retrying the same request.
-  final PbDuration? retryDelay;
+  final Duration? retryDelay;
 
   RetryInfo({
     this.retryDelay,

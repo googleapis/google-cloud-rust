@@ -25,3 +25,37 @@ extension FieldMaskExtension on FieldMask {
     return FieldMask(paths: format.split(','));
   }
 }
+
+extension DurationExtension on Duration {
+  /// Encode into a decimal representation of the seconds and nanos, suffixed
+  /// with 's'.
+  ///
+  /// E.g., 3 seconds with 0 nanoseconds would be '3s'; 3 seconds with 70
+  /// nanosecond would be '3.00000007s'.
+  String encode() {
+    if (nanos == 0) return '${seconds}s';
+
+    var duration = '${seconds}.${nanos.toString().padLeft(9, '0')}';
+    while (duration.endsWith('0')) {
+      duration = duration.substring(0, duration.length - 1);
+    }
+
+    return '${duration}s';
+  }
+
+  /// Decode a string representation of the duration.
+  ///
+  /// This is a decimal value suffixed with 's'. 3 seconds with 0 nanoseconds
+  /// would be '3s'; 3 seconds with 70 nanosecond would be '3.00000007s'.
+  static Duration decode(String format) {
+    if (!format.endsWith('s')) {
+      throw FormatException("duration value should end in 's'");
+    }
+
+    final value = double.parse(format.substring(0, format.length - 1));
+    final seconds = value.truncate();
+    final nanos = ((value - seconds) * 1_000_000_000).round();
+
+    return Duration(seconds: seconds, nanos: nanos);
+  }
+}

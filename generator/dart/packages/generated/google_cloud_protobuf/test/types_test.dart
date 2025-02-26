@@ -50,4 +50,41 @@ void main() {
       expect(actual, 'one|two');
     });
   });
+
+  group('Duration', () {
+    final testCases = [
+      (Duration(seconds: 0, nanos: 0), '0s'),
+      (Duration(seconds: 1, nanos: 0), '1s'),
+      (Duration(seconds: 0, nanos: 1), '0.000000001s'),
+      (Duration(seconds: 1, nanos: 1), '1.000000001s'),
+      (Duration(seconds: 60, nanos: 1_000_000), '60.001s'),
+    ];
+
+    // encode tests
+    for (final testCase in testCases) {
+      test('encode ${testCase.$2}', () {
+        expect(testCase.$1.encode(), testCase.$2);
+      });
+    }
+
+    // decode tests
+    for (final testCase in testCases) {
+      test('decode ${testCase.$2}', () {
+        final expected = testCase.$1;
+        final actual = DurationExtension.decode(testCase.$2);
+
+        expect(actual.seconds, expected.seconds);
+        expect(actual.nanos, expected.nanos);
+      });
+    }
+
+    // bad format tests
+    test('bad number', () {
+      expect(() => DurationExtension.decode('20u10s'), throwsFormatException);
+    });
+
+    test('bad format', () {
+      expect(() => DurationExtension.decode('2.00001'), throwsFormatException);
+    });
+  });
 }
