@@ -14,9 +14,13 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use auth::credentials::create_access_token_credential;
+    use auth::credentials::{
+        create_access_token_credential, create_api_key_credential, ApiKeyOptions,
+    };
     use gax::error::Error;
     use gax::options::ClientConfig as Config;
+    use language::client::LanguageService;
+    use language::model::Document;
     use scoped_env::ScopedEnv;
     use secretmanager::client::SecretManagerService;
 
@@ -73,6 +77,46 @@ mod driver {
             .expect("missing payload in test-sa-creds-secret response")
             .data;
         assert_eq!(secret, "service_account");
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn api_key() -> Result<()> {
+        let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
+        // Create a SecretManager client. When running on GCB, this loads MDS
+        // credentials for our `integration-test-runner` service account.
+        let client = SecretManagerService::new().await?;
+
+        // Load the API key under test.
+        let response = client
+            .access_secret_version(format!(
+                "projects/{}/secrets/test-api-key/versions/latest",
+                project
+            ))
+            .send()
+            .await?;
+        let api_key = response
+            .payload
+            .expect("missing payload in test-api-key response")
+            .data;
+        let api_key = std::str::from_utf8(&api_key).unwrap();
+
+        // Create credentials using the API key.
+        let creds = create_api_key_credential(api_key, ApiKeyOptions::default())
+            .await
+            .map_err(Error::authentication)?;
+
+        // Construct a Natural Language client using the credentials.
+        let config = Config::new().set_credential(creds);
+        let client = LanguageService::new_with_config(config).await?;
+
+        // Make a request using the API key.
+        let d = Document::new()
+            .set_content("Hello, world!")
+            .set_type("PLAIN_TEXT".to_string());
+        client.analyze_sentiment().set_document(d).send().await?;
 
         Ok(())
     }
