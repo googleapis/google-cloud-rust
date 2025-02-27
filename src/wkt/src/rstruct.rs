@@ -123,22 +123,6 @@ impl crate::message::Message for ListValue {
     }
 }
 
-impl crate::message::Message for NullValue {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.protobuf.Value"
-    }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        Value::from(self).to_map()
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        let value = Value::from_map(map)?;
-        if !value.is_null() {
-            return Err(crate::AnyError::deser("expected null value"));
-        }
-        Ok(Self)
-    }
-}
-
 impl std::convert::From<NullValue> for serde_json::Value {
     fn from(_value: NullValue) -> Self {
         serde_json::Value::Null
@@ -184,30 +168,6 @@ mod any_tests {
     use super::*;
     use crate::Any;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    #[test]
-    fn test_wkt_null_value() -> Result {
-        let input = NullValue;
-        let any = Any::try_from(&input)?;
-        let got = serde_json::to_value(&any)?;
-        let want = serde_json::json!({
-            "@type": "type.googleapis.com/google.protobuf.Value",
-            "value": null
-        });
-        assert_eq!(got, want);
-        let output = any.try_into_message::<NullValue>()?;
-        assert_eq!(output, input);
-        Ok(())
-    }
-
-    #[test]
-    fn test_wkt_null_value_bad_deser() -> Result {
-        let input = serde_json::json!("a string");
-        let any = Any::try_from(&input)?;
-        let output = any.try_into_message::<NullValue>();
-        assert!(output.is_err(), "{output:?}");
-        Ok(())
-    }
 
     #[test]
     fn test_serde_null_value() -> Result {
