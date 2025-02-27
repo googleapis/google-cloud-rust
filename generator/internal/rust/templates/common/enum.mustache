@@ -53,6 +53,11 @@ impl std::convert::From<std::string::String> for {{Codec.Name}} {
 
 impl std::default::Default for {{Codec.Name}} {
     fn default() -> Self {
+        {{#Codec.DefaultValueName}}
         {{Codec.ModuleName}}::{{Codec.DefaultValueName}}
+        {{/Codec.DefaultValueName}}
+        {{^Codec.DefaultValueName}}
+        Self::new("")
+        {{/Codec.DefaultValueName}}
     }
 }
