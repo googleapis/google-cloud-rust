@@ -91,7 +91,7 @@ mod test {
         Ok(())
     }
 
-    // A test message, inspired by `google.firestore.v1.ValueType`.
+    // A test message, inspired by `google.firestore.v1.Value`.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
