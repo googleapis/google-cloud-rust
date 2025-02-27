@@ -12,22 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Implement the well-known types for structured, yet dynamically typed
+//! messages. These types are a representation of JSON objects, lists, and
+//! values as Protobuf messages. We have taken some (allowed) liberty in their
+//! representation for Rust. We map them directly to the [serde_json] types,
+//! except for `NullValue` where there is no corresponding type in serde.
+//! 
+//! Services specified using Protobuf files may use `google.protobuf.Struct`,
+//! `google.protobuf.Value`, `google.protobuf.ListValue`, and/or 
+//! `google.protobuf.NullValue` as part of their interface specification.
+
 /// Protobuf (and consequently the Google Cloud APIs) use `Struct` to represent
-/// JSON objects. We need a type that might be referenced from the generated
-/// code.
+/// JSON objects. We need a type that can be referenced from the generated code.
 pub type Struct = serde_json::Map<String, serde_json::Value>;
 
 /// Protobuf (and consequently the Google Cloud APIs) use `Value` to represent
-/// JSON values. We need a type that might be referenced from the generated
-/// code.
+/// JSON values. We need a type that can be referenced from the generated code.
 pub type Value = serde_json::Value;
 
 /// Protobuf (and consequently the Google Cloud APIs) use `ListValue` to
-/// represent a list of JSON values. We need a type that might be referenced
+/// represent a list of JSON values. We need a type that can be referenced
 /// from the generated code.
 pub type ListValue = Vec<serde_json::Value>;
 
-/// A message representing the `null` value.
+/// A message representing the `null` value. We need a type that can be
+/// referenced from the generated code.
 #[derive(Clone, Debug, PartialEq)]
 pub struct NullValue;
 
