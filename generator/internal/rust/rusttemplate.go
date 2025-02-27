@@ -202,7 +202,7 @@ func annotateModel(model *api.API, c *codec, outdir string) *modelAnnotations {
 		annotateEnum(e, model.State, c.modulePath, c.packageMapping)
 	}
 	for _, m := range model.Messages {
-		annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
+		annotateMessage(m, model.State, c.modulePath, model.PackageName, c.packageMapping)
 	}
 	hasLROs := false
 	for _, s := range model.Services {
@@ -215,10 +215,10 @@ func annotateModel(model *api.API, c *codec, outdir string) *modelAnnotations {
 			}
 			annotateMethod(m, s, model.State, c.modulePath, model.PackageName, c.packageMapping, packageNamespace)
 			if m := m.InputType; m != nil {
-				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
+				annotateMessage(m, model.State, c.modulePath, model.PackageName, c.packageMapping)
 			}
 			if m := m.OutputType; m != nil {
-				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, model.PackageName, c.packageMapping)
+				annotateMessage(m, model.State, c.modulePath, model.PackageName, c.packageMapping)
 			}
 		}
 		annotateService(s, model, c.modulePath, c.packageMapping)
@@ -335,7 +335,7 @@ func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
 
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
-func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
+func annotateMessage(m *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
 	for _, f := range m.Fields {
 		annotateField(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
@@ -346,7 +346,7 @@ func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefault
 		annotateEnum(e, state, modulePath, packageMapping)
 	}
 	for _, child := range m.Messages {
-		annotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
+		annotateMessage(child, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
@@ -365,7 +365,7 @@ func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefault
 		QualifiedName:      fullyQualifiedMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           formatDocComments(m.Documentation, m.ID, state, modulePath, m.Scopes(), packageMapping),
-		MessageAttributes:  messageAttributes(deserializeWithDefaults),
+		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		SingularFields:     partition.singularFields,
