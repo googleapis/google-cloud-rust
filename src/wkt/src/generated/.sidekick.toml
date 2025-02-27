@@ -16,7 +16,7 @@
 specification-source = 'google/protobuf'
 
 [source]
-include-list = "api.proto,source_context.proto,type.proto"
+include-list = "api.proto,source_context.proto,type.proto,descriptor.proto"
 
 [codec]
 copyright-year  = '2025'
