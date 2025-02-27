@@ -27,6 +27,10 @@ pub type Value = serde_json::Value;
 /// from the generated code.
 pub type ListValue = Vec<serde_json::Value>;
 
+/// A message representing the `null` value.
+#[derive(Clone, Debug, PartialEq)]
+pub struct NullValue;
+
 impl crate::message::Message for Struct {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Struct"
@@ -110,14 +114,107 @@ impl crate::message::Message for ListValue {
     }
 }
 
+impl crate::message::Message for NullValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Value"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+        let map: crate::message::Map = [
+            ("@type", Value::String(Self::typename().to_string())),
+            ("value", serde_json::Value::Null),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        Ok(map)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+        let value = map
+            .get("value")
+            .cloned()
+            .ok_or_else(crate::message::missing_value_field)?;
+        if !value.is_null() {
+            return Err(crate::AnyError::deser("deserializing to null value"));
+        }
+        Ok(Self)
+    }
+}
+
+impl NullValue {
+    pub fn new() -> Self {
+        Self
+    }
+}
+
+impl std::default::Default for NullValue {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl std::convert::From<NullValue> for serde_json::Value {
+    fn from(_value: NullValue) -> Self {
+        serde_json::Value::Null
+    }
+}
+
+impl std::convert::From<&NullValue> for serde_json::Value {
+    fn from(_value: &NullValue) -> Self {
+        serde_json::Value::Null
+    }
+}
+
+/// Implement [`serde`](::serde) serialization for [NullValue].
+impl serde::ser::Serialize for NullValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        serde_json::Value::Null.serialize(serializer)
+    }
+}
+
+/// Implement [`serde`](::serde) deserialization for [NullValue].
+impl<'de> serde::de::Deserialize<'de> for NullValue {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        if value.is_null() {
+            return Ok(NullValue);
+        }
+        Err(serde::de::Error::invalid_value(
+            serde::de::Unexpected::Other(&value.to_string()),
+            &"a null JSON object",
+        ))
+    }
+}
+
+// Verify the different value types work with `crate::Any`.
 #[cfg(test)]
-mod test {
+mod any_tests {
     use super::*;
     use crate::Any;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
-    fn test_null_value() -> Result {
+    fn test_wkt_null_value() -> Result {
+        let input = NullValue;
+        let any = Any::try_from(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.Value",
+            "value": null
+        });
+        assert_eq!(got, want);
+        let output = any.try_into_message::<NullValue>()?;
+        assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_serde_null_value() -> Result {
         let input = Value::Null;
         let any = Any::try_from(&input)?;
         let got = serde_json::to_value(&any)?;
@@ -249,6 +346,47 @@ mod test {
         assert_eq!(got, want);
         let output = any.try_into_message::<Struct>()?;
         assert_eq!(output, input);
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod null_value_tests {
+    use super::*;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn test_wkt_null_value_to_value() {
+        let input = NullValue;
+        let value = Value::from(input);
+        assert!(value.is_null(), "{value:?}");
+
+        let input = &NullValue;
+        let value = Value::from(input);
+        assert!(value.is_null(), "{value:?}");
+    }
+
+    #[test]
+    fn test_null_value_serialize() -> Result {
+        let input = NullValue;
+        let got = serde_json::to_string(&input)?;
+        assert_eq!(got, "null");
+        Ok(())
+    }
+
+    #[test]
+    fn test_null_value_deserialize() -> Result {
+        let input = "null";
+        let got = serde_json::from_str::<NullValue>(input)?;
+        assert_eq!(got, NullValue);
+
+        let input = "123";
+        let got = serde_json::from_str::<NullValue>(input);
+        assert!(got.is_err(), "{got:?}");
+
+        let input = "\"123";
+        let got = serde_json::from_str::<NullValue>(input);
+        assert!(got.is_err(), "{got:?}");
         Ok(())
     }
 }
