@@ -119,36 +119,14 @@ impl crate::message::Message for NullValue {
         "type.googleapis.com/google.protobuf.Value"
     }
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        let map: crate::message::Map = [
-            ("@type", Value::String(Self::typename().to_string())),
-            ("value", serde_json::Value::Null),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-        Ok(map)
+        Value::from(self).to_map()
     }
     fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        let value = map
-            .get("value")
-            .cloned()
-            .ok_or_else(crate::message::missing_value_field)?;
+        let value = Value::from_map(map)?;
         if !value.is_null() {
-            return Err(crate::AnyError::deser("deserializing to null value"));
+            return Err(crate::AnyError::deser("expected null value"));
         }
         Ok(Self)
-    }
-}
-
-impl NullValue {
-    pub fn new() -> Self {
-        Self
-    }
-}
-
-impl std::default::Default for NullValue {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
@@ -210,6 +188,15 @@ mod any_tests {
         assert_eq!(got, want);
         let output = any.try_into_message::<NullValue>()?;
         assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_wkt_null_value_bad_deser() -> Result {
+        let input = serde_json::json!("a string");
+        let any = Any::try_from(&input)?;
+        let output = any.try_into_message::<NullValue>();
+        assert!(output.is_err(), "{output:?}");
         Ok(())
     }
 
