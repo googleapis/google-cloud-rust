@@ -241,10 +241,13 @@ const (
 	serviceDescriptorProtoOption = 3
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto
-	messageDescriptorField      = 2
-	messageDescriptorNestedType = 3
-	messageDescriptorEnum       = 4
-	messageDescriptorOneOf      = 8
+	messageDescriptorField          = 2
+	messageDescriptorNestedType     = 3
+	messageDescriptorEnum           = 4
+	messageDescriptorExtensionRange = 5
+	messageDescriptorExtension      = 6
+	messageDescriptorOptions        = 7
+	messageDescriptorOneOf          = 8
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#EnumDescriptorProto
 	enumDescriptorValue = 2
@@ -637,21 +640,27 @@ func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN st
 func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
 	// Beware of refactoring the calls to `trimLeadingSpacesInDocumentation`.
 	// We should modify `doc` only once, upon assignment to `.Documentation`
-	if len(p) == 0 {
+	switch {
+	case len(p) == 0:
 		// This is a comment for a top level message
 		state.MessageByID[mFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if p[0] == messageDescriptorNestedType {
+	case p[0] == messageDescriptorNestedType:
 		nmsg := m.GetNestedType()[p[1]]
 		nmFQN := mFQN + "." + nmsg.GetName()
 		addMessageDocumentation(state, nmsg, p[2:], doc, nmFQN)
-	} else if len(p) == 2 && p[0] == messageDescriptorField {
+	case p[0] == messageDescriptorField && len(p) == 2:
 		state.MessageByID[mFQN].Fields[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if p[0] == messageDescriptorEnum {
+	case p[0] == messageDescriptorEnum:
 		eFQN := mFQN + "." + m.GetEnumType()[p[1]].GetName()
 		addEnumDocumentation(state, p[2:], doc, eFQN)
-	} else if len(p) == 2 && p[0] == messageDescriptorOneOf {
+	case p[0] == messageDescriptorOneOf && len(p) == 2:
 		state.MessageByID[mFQN].OneOfs[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else {
+	case p[0] == messageDescriptorExtensionRange:
+	case p[0] == messageDescriptorOptions:
+	case p[0] == messageDescriptorExtension:
+		// These comments are ignored, as they refer to Protobuf elements
+		// without corresponding public APIs in the generated code.
+	default:
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
 	}
 }
