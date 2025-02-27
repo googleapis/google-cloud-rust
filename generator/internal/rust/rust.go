@@ -70,13 +70,12 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 func newCodec(options map[string]string) (*codec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &codec{
-		generationYear:           fmt.Sprintf("%04d", year),
-		modulePath:               "crate::model",
-		deserializeWithdDefaults: true,
-		extraPackages:            []*packagez{},
-		packageMapping:           map[string]*packagez{},
-		version:                  "0.0.0",
-		releaseLevel:             "preview",
+		generationYear: fmt.Sprintf("%04d", year),
+		modulePath:     "crate::model",
+		extraPackages:  []*packagez{},
+		packageMapping: map[string]*packagez{},
+		version:        "0.0.0",
+		releaseLevel:   "preview",
 	}
 
 	for key, definition := range options {
@@ -91,12 +90,6 @@ func newCodec(options map[string]string) (*codec, error) {
 			codec.generateModule = value
 		case key == "module-path":
 			codec.modulePath = definition
-		case key == "deserialize-with-defaults":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
-			}
-			codec.deserializeWithdDefaults = value
 		case key == "copyright-year":
 			codec.generationYear = definition
 		case key == "not-for-publication":
@@ -197,9 +190,6 @@ type codec struct {
 	// Note that using `self` does not work, as the generated code may contain
 	// nested modules for nested messages.
 	modulePath string
-	// If true, the deserialization functions will accept default values in
-	// messages. In almost all cases this should be `true`, but
-	deserializeWithdDefaults bool
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -690,15 +680,11 @@ func methodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpeci
 	return fullyQualifiedMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
 }
 
-func messageAttributes(deserializeWithdDefaults bool) []string {
-	serde := `#[serde(default, rename_all = "camelCase")]`
-	if !deserializeWithdDefaults {
-		serde = `#[serde(rename_all = "camelCase")]`
-	}
+func messageAttributes() []string {
 	return []string{
 		`#[serde_with::serde_as]`,
 		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-		serde,
+		`#[serde(default, rename_all = "camelCase")]`,
 		`#[non_exhaustive]`,
 	}
 }

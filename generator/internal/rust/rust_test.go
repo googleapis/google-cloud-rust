@@ -64,12 +64,11 @@ func TestParseOptions(t *testing.T) {
 		defaultFeatures: true,
 	}
 	want := &codec{
-		version:                  "1.2.3",
-		releaseLevel:             "preview",
-		packageNameOverride:      "test-only",
-		generationYear:           "2035",
-		modulePath:               "alternative::generated",
-		deserializeWithdDefaults: true,
+		version:             "1.2.3",
+		releaseLevel:        "preview",
+		packageNameOverride: "test-only",
+		generationYear:      "2035",
+		modulePath:          "alternative::generated",
 		extraPackages: []*packagez{
 			gp,
 			{
