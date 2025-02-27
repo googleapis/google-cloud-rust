@@ -17,9 +17,9 @@
 //! values as Protobuf messages. We have taken some (allowed) liberty in their
 //! representation for Rust. We map them directly to the [serde_json] types,
 //! except for `NullValue` where there is no corresponding type in serde.
-//! 
+//!
 //! Services specified using Protobuf files may use `google.protobuf.Struct`,
-//! `google.protobuf.Value`, `google.protobuf.ListValue`, and/or 
+//! `google.protobuf.Value`, `google.protobuf.ListValue`, and/or
 //! `google.protobuf.NullValue` as part of their interface specification.
 
 /// Protobuf (and consequently the Google Cloud APIs) use `Struct` to represent
