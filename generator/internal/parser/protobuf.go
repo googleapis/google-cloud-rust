@@ -658,8 +658,8 @@ func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProt
 	case p[0] == messageDescriptorExtensionRange:
 	case p[0] == messageDescriptorOptions:
 	case p[0] == messageDescriptorExtension:
-		// This is a comment for an extention range. Ignored, as these comments
-		// do not refer to any artifact in the generated code.
+		// These comments are ignored, as they refer to Protobuf elements
+		// without corresponding public APIs in the generated code.
 	default:
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
 	}
