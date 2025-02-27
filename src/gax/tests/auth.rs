@@ -18,6 +18,7 @@ use auth::token::Token;
 use gax::http_client::ReqwestClient;
 use gax::options::*;
 use google_cloud_gax as gax;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 use http::header::{HeaderName, HeaderValue};
 use serde_json::json;
 
@@ -72,6 +73,77 @@ async fn test_auth_headers() -> Result<()> {
         get_header_value(&response, "auth-key-2"),
         Some("auth-value-2".to_string())
     );
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn auth_error_retryable() -> Result<()> {
+    let (endpoint, _server) = echo_server::start().await?;
+    let retry_count = 3;
+    let mut mock = MockCredential::new();
+    mock.expect_get_headers()
+        .times(retry_count..)
+        .returning(|| Err(CredentialError::from_str(true, "mock retryable error")));
+
+    let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
+    let config = ClientConfig::default()
+        .set_credential(Credential::from(mock))
+        .set_retry_policy(retry_policy);
+    let client = ReqwestClient::new(config, &endpoint).await?;
+
+    let builder = client.builder(reqwest::Method::GET, "/echo".into());
+    let body = json!({});
+    let options = RequestOptions::default();
+    let result: std::result::Result<serde_json::Value, google_cloud_gax::error::Error> =
+        client.execute(builder, Some(body), options).await;
+
+    assert!(result.is_err());
+
+    if let Err(e) = result {
+        if let Some(cred_err) = e.as_inner::<CredentialError>() {
+            assert!(
+                cred_err.is_retryable(),
+                "Expected a retryable CredentialError, but got non-retryable"
+            );
+        } else {
+            panic!("Expected a CredentialError, but got some other error: {e:?}");
+        }
+    }
+
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn auth_error_non_retryable() -> Result<()> {
+    let (endpoint, _server) = echo_server::start().await?;
+    let mut mock = MockCredential::new();
+    mock.expect_get_headers()
+        .times(1)
+        .returning(|| Err(CredentialError::from_str(false, "mock non-retryable error")));
+
+    let config = ClientConfig::default().set_credential(Credential::from(mock));
+    let client = ReqwestClient::new(config, &endpoint).await?;
+
+    let builder = client.builder(reqwest::Method::GET, "/echo".into());
+    let body = serde_json::json!({});
+
+    let result: std::result::Result<serde_json::Value, google_cloud_gax::error::Error> = client
+        .execute(builder, Some(body), RequestOptions::default())
+        .await;
+
+    assert!(result.is_err());
+
+    if let Err(e) = result {
+        if let Some(cred_err) = e.as_inner::<CredentialError>() {
+            assert!(
+                !cred_err.is_retryable(),
+                "Expected a non-retryable CredentialError, but got retryable"
+            );
+        } else {
+            panic!("Expected a CredentialError, but got another error type: {e:?}");
+        }
+    }
+
     Ok(())
 }
 
