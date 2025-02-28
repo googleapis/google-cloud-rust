@@ -123,6 +123,8 @@ inputed     = "inputed"     # probably mean input-ed
 diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+# src/generated/cloud/financialservices/v1 has a typo, it needs to be fixed upstream.
+woud = "woud"
 # src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.
 everyting = "everyting"
 # src/generated/cloud/gkemulticloud/v1 has a typo, it needs to be fixed
