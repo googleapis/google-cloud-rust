@@ -26,10 +26,10 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart';
 
 /// Secret Manager Service
-/// 
+///
 /// Manages secrets and operations using those secrets. Implements a REST
 /// model with the following objects:
-/// 
+///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
 class SecretManagerService {
@@ -77,7 +77,7 @@ class SecretManagerService {
 
   /// Gets metadata for a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  /// 
+  ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   Future<SecretVersion> getSecretVersion(GetSecretVersionRequest request) {
@@ -86,7 +86,7 @@ class SecretManagerService {
 
   /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   /// This call returns the secret data.
-  /// 
+  ///
   /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
   /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
   Future<AccessSecretVersionResponse> accessSecretVersion(AccessSecretVersionRequest request) {
@@ -94,7 +94,7 @@ class SecretManagerService {
   }
 
   /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  /// 
+  ///
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
@@ -103,7 +103,7 @@ class SecretManagerService {
   }
 
   /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  /// 
+  ///
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
@@ -112,7 +112,7 @@ class SecretManagerService {
   }
 
   /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-  /// 
+  ///
   /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
   /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
@@ -123,7 +123,7 @@ class SecretManagerService {
 
   /// Sets the access control policy on the specified secret. Replaces any
   /// existing policy.
-  /// 
+  ///
   /// Permissions on
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
   /// according to the policy set on the associated
@@ -141,7 +141,7 @@ class SecretManagerService {
   /// Returns permissions that a caller has for the specified secret.
   /// If the secret does not exist, this call returns an empty set of
   /// permissions, not a NOT_FOUND error.
-  /// 
+  ///
   /// Note: This operation is designed to be used for building permission-aware
   /// UIs and command-line tools, not for authorization checking. This operation
   /// may "fail open" without warning.
@@ -162,7 +162,7 @@ class SecretManagerService {
 
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is a logical secret whose
 /// value and versions can be accessed.
-/// 
+///
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is made up of zero or more
 /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] that represent
 /// the secret data.
@@ -175,7 +175,7 @@ class Secret {
 
   /// Optional. Immutable. The replication policy of the secret data attached to
   /// the [Secret][google.cloud.secretmanager.v1.Secret].
-  /// 
+  ///
   /// The replication policy cannot be changed after the Secret has been created.
   final Replication? replication;
 
@@ -184,15 +184,15 @@ class Secret {
   final Timestamp? createTime;
 
   /// The labels assigned to this Secret.
-  /// 
+  ///
   /// Label keys must be between 1 and 63 characters long, have a UTF-8 encoding
   /// of maximum 128 bytes, and must conform to the following PCRE regular
   /// expression: `[\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}`
-  /// 
+  ///
   /// Label values must be between 0 and 63 characters long, have a UTF-8
   /// encoding of maximum 128 bytes, and must conform to the following PCRE
   /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
-  /// 
+  ///
   /// No more than 64 labels can be assigned to a given resource.
   final Map<String, String>? labels;
 
@@ -219,34 +219,34 @@ class Secret {
   final Rotation? rotation;
 
   /// Optional. Mapping from version alias to version name.
-  /// 
+  ///
   /// A version alias is a string with a maximum length of 63 characters and can
   /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`)
   /// and underscore ('_') characters. An alias string must start with a
   /// letter and cannot be the string 'latest' or 'NEW'.
   /// No more than 50 aliases can be assigned to a given secret.
-  /// 
+  ///
   /// Version-Alias pairs will be viewable via GetSecret and modifiable via
   /// UpdateSecret. Access by alias is only be supported on
   /// GetSecretVersion and AccessSecretVersion.
   final Map<String, int>? versionAliases;
 
   /// Optional. Custom metadata about the secret.
-  /// 
+  ///
   /// Annotations are distinct from various forms of labels.
   /// Annotations exist to allow client tools to store their own state
   /// information without requiring a database.
-  /// 
+  ///
   /// Annotation keys must be between 1 and 63 characters long, have a UTF-8
   /// encoding of maximum 128 bytes, begin and end with an alphanumeric character
   /// ([a-z0-9A-Z]), and may have dashes (-), underscores (_), dots (.), and
   /// alphanumerics in between these symbols.
-  /// 
+  ///
   /// The total size of annotation keys and values must be less than 16KiB.
   final Map<String, String>? annotations;
 
   /// Optional. Secret Version TTL after destruction request
-  /// 
+  ///
   /// This is a part of the Delayed secret version destroy feature.
   /// For secret with TTL>0, version destruction doesn't happen immediately
   /// on calling destroy instead the version goes to a disabled state and
@@ -256,7 +256,7 @@ class Secret {
   /// Optional. The customer-managed encryption configuration of the Regionalised
   /// Secrets. If no configuration is provided, Google-managed default encryption
   /// is used.
-  /// 
+  ///
   /// Updates to the [Secret][google.cloud.secretmanager.v1.Secret] encryption
   /// configuration only apply to
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
@@ -287,7 +287,7 @@ class SecretVersion {
   /// Output only. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*`.
-  /// 
+  ///
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] IDs in a
   /// [Secret][google.cloud.secretmanager.v1.Secret] start at 1 and are
   /// incremented for each subsequent version of the secret.
@@ -404,7 +404,7 @@ class Replication$Automatic {
   /// Optional. The customer-managed encryption configuration of the
   /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
   /// provided, Google-managed default encryption is used.
-  /// 
+  ///
   /// Updates to the [Secret][google.cloud.secretmanager.v1.Secret] encryption
   /// configuration only apply to
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
@@ -424,7 +424,7 @@ class Replication$UserManaged {
 
   /// Required. The list of Replicas for this
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  /// 
+  ///
   /// Cannot be empty.
   final List<Replication$UserManaged$Replica>? replicas;
 
@@ -444,7 +444,7 @@ class Replication$UserManaged$Replica {
   /// Optional. The customer-managed encryption configuration of the
   /// [User-Managed Replica][Replication.UserManaged.Replica]. If no
   /// configuration is provided, Google-managed default encryption is used.
-  /// 
+  ///
   /// Updates to the [Secret][google.cloud.secretmanager.v1.Secret]
   /// encryption configuration only apply to
   /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
@@ -464,16 +464,16 @@ class CustomerManagedEncryption {
 
   /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
   /// secret payloads.
-  /// 
+  ///
   /// For secrets using the
   /// [UserManaged][google.cloud.secretmanager.v1.Replication.UserManaged]
   /// replication policy type, Cloud KMS CryptoKeys must reside in the same
   /// location as the [replica location][Secret.UserManaged.Replica.location].
-  /// 
+  ///
   /// For secrets using the
   /// [Automatic][google.cloud.secretmanager.v1.Replication.Automatic]
   /// replication policy type, Cloud KMS CryptoKeys must reside in `global`.
-  /// 
+  ///
   /// The expected format is `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
   final String? kmsKeyName;
 
@@ -489,7 +489,7 @@ class ReplicationStatus {
   /// Describes the replication status of a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
   /// automatic replication.
-  /// 
+  ///
   /// Only populated if the parent
   /// [Secret][google.cloud.secretmanager.v1.Secret] has an automatic
   /// replication policy.
@@ -498,7 +498,7 @@ class ReplicationStatus {
   /// Describes the replication status of a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
   /// user-managed replication.
-  /// 
+  ///
   /// Only populated if the parent
   /// [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
   /// replication policy.
@@ -513,7 +513,7 @@ class ReplicationStatus {
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
 /// automatic replication.
-/// 
+///
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has an automatic replication policy.
 class ReplicationStatus$AutomaticStatus {
@@ -531,7 +531,7 @@ class ReplicationStatus$AutomaticStatus {
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
 /// user-managed replication.
-/// 
+///
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has a user-managed replication policy.
 class ReplicationStatus$UserManagedStatus {
@@ -604,7 +604,7 @@ class Rotation {
   /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
   /// Cannot be set to less than 300s (5 min) in the future and at most
   /// 3153600000s (100 years).
-  /// 
+  ///
   /// [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
   /// MUST  be set if
   /// [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
@@ -613,7 +613,7 @@ class Rotation {
 
   /// Input only. The Duration between rotation notifications. Must be in seconds
   /// and at least 3600s (1h) and at most 3153600000s (100 years).
-  /// 
+  ///
   /// If
   /// [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
   /// is set,
@@ -650,7 +650,7 @@ class SecretPayload {
   /// request, the
   /// [SecretManagerService][google.cloud.secretmanager.v1.SecretManagerService]
   /// will generate and store one for you.
-  /// 
+  ///
   /// The CRC32C value is encoded as a Int64 for compatibility, and can be
   /// safely downconverted to uint32 in languages that support this type.
   /// https://cloud.google.com/apis/design/design_patterns#integer_types
@@ -731,7 +731,7 @@ class CreateSecretRequest {
   final String? parent;
 
   /// Required. This must be unique within the project.
-  /// 
+  ///
   /// A secret ID is a string with a maximum length of 255 characters and can
   /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
   /// underscore (`_`) characters.
@@ -851,7 +851,7 @@ class GetSecretVersionRequest {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
   /// `projects/*/locations/*/secrets/*/versions/*`.
-  /// 
+  ///
   /// `projects/*/secrets/*/versions/latest` or
   /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
   /// recently created
@@ -888,7 +888,7 @@ class AccessSecretVersionRequest {
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
   /// `projects/*/secrets/*/versions/*` or
   /// `projects/*/locations/*/secrets/*/versions/*`.
-  /// 
+  ///
   /// `projects/*/secrets/*/versions/latest` or
   /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
   /// recently created
