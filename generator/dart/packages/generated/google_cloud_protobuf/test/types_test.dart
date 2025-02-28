@@ -80,7 +80,7 @@ void main() {
     testCase(0, 999_999_999, '0.999999999s');
     testCase(0, -999_999_999, '-0.999999999s');
 
-    // Verify durations can roundtrip from string -> Duration -> string.
+    // Verify durations can roundtrip from String -> Duration -> String.
     void roundTrip(String name, String encoding) {
       test('round trip $name ($encoding)', () {
         final duration = DurationExtension.decode(encoding);
@@ -93,7 +93,6 @@ void main() {
     roundTrip('200ms', '0.2s');
     roundTrip('round positive seconds', '12s');
     roundTrip('positive seconds and nanos', '12.000000123s');
-    // TODO: double check rust impl
     roundTrip('positive seconds and micros', '12.000123s');
     roundTrip('positive seconds and millis', '12.123s');
     roundTrip('positive seconds and full nanos', '12.123456789s');
