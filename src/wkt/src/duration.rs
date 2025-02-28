@@ -188,9 +188,6 @@ impl std::convert::From<&Duration> for String {
             return format!("{sign}{}s", duration.seconds.abs());
         }
         let ns = format!("{:09}", duration.nanos.abs());
-        if duration.seconds == 0 {
-            return format!("{sign}0.{}s", ns.trim_end_matches('0'));
-        }
         format!(
             "{sign}{}.{}s",
             duration.seconds.abs(),
