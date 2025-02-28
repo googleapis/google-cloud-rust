@@ -60,12 +60,10 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name           string
-	DocLines       []string
-	HasNestedTypes bool
-	// The FQN is the source specification
-	SourceFQN   string
-	BasicFields []*api.Field
+	Name            string
+	DocLines        []string
+	ConstructorBody string // A custom body for the message's constructor.
+	BasicFields     []*api.Field
 }
 
 type methodAnnotation struct {
@@ -297,11 +295,17 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 	for _, f := range m.OneOfs {
 		annotateOneOf(f, state)
 	}
+
+	constructorBody := ";"
+	_, needsValidation := needsCtorValidation[m.ID]
+	if needsValidation {
+		constructorBody = " {\n    _validate();\n  }"
+	}
+
 	m.Codec = &messageAnnotation{
-		Name:           messageName(m),
-		DocLines:       formatDocComments(m.Documentation, state),
-		HasNestedTypes: language.HasNestedTypes(m),
-		SourceFQN:      strings.TrimPrefix(m.ID, "."),
+		Name:            messageName(m),
+		DocLines:        formatDocComments(m.Documentation, state),
+		ConstructorBody: constructorBody,
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),

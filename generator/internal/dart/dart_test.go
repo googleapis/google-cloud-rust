@@ -184,7 +184,7 @@ func TestResolveTypeName(t *testing.T) {
 		{message.ID, "CreateSecretRequest"},
 		{".google.protobuf.Empty", "void"},
 		{".google.protobuf.Timestamp", "Timestamp"},
-		{".google.protobuf.Duration", "PbDuration"},
+		{".google.protobuf.Duration", "Duration"},
 	} {
 		got := resolveTypeName(state.MessageByID[test.typeId], map[string]string{}, map[string]string{})
 		if got != test.want {

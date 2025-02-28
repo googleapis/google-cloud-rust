@@ -207,7 +207,7 @@ class Secret {
 
   /// Input only. The TTL for the
   /// [Secret][google.cloud.secretmanager.v1.Secret].
-  final PbDuration? ttl;
+  final Duration? ttl;
 
   /// Optional. Etag of the currently stored
   /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -251,7 +251,7 @@ class Secret {
   /// For secret with TTL>0, version destruction doesn't happen immediately
   /// on calling destroy instead the version goes to a disabled state and
   /// destruction happens after the TTL expires.
-  final PbDuration? versionDestroyTtl;
+  final Duration? versionDestroyTtl;
 
   /// Optional. The customer-managed encryption configuration of the Regionalised
   /// Secrets. If no configuration is provided, Google-managed default encryption
@@ -622,7 +622,7 @@ class Rotation {
   /// [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
   /// will be advanced by this period when the service automatically sends
   /// rotation notifications.
-  final PbDuration? rotationPeriod;
+  final Duration? rotationPeriod;
 
   Rotation({
     this.nextRotationTime,

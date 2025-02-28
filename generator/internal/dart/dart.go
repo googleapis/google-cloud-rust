@@ -29,20 +29,12 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
-// A map of message ID => name renames.
-//
-// `Duration` in particular is important to rename as this would conflict with
-// the `Duration` class in the 'dart:core' library (imported by default into
-// every library).
-// TODO(#1034): Renaming this class is practical but unlikely to be what we want
-// to do long term. We want a reliable, low-ceremony way of avoiding name
-// conflicts with dart:core types.
-var messageRenames = map[string]string{
-	".google.protobuf.Duration": "PbDuration",
-}
-
 var typedDataImport = "dart:typed_data"
 var httpImport = "package:http/http.dart"
+
+var needsCtorValidation = map[string]string{
+	".google.protobuf.Duration": ".google.protobuf.Duration",
+}
 
 func Generate(model *api.API, outdir string, options map[string]string) error {
 	_, err := annotateModel(model, options)
@@ -159,11 +151,6 @@ func resolveTypeName(message *api.Message, packageMapping map[string]string, imp
 }
 
 func messageName(m *api.Message) string {
-	rename, ok := messageRenames[m.ID]
-	if ok {
-		return rename
-	}
-
 	if m.Parent != nil {
 		return messageName(m.Parent) + "$" + strcase.ToCamel(m.Name)
 	}
