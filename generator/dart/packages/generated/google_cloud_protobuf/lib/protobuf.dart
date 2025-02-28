@@ -99,7 +99,9 @@ class Duration {
   Duration({
     this.seconds,
     this.nanos,
-  });
+  }) {
+    _validate();
+  }
 }
 
 /// `FieldMask` represents a set of symbolic field paths, for example:

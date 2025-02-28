@@ -32,6 +32,10 @@ var dartTemplates embed.FS
 var typedDataImport = "dart:typed_data"
 var httpImport = "package:http/http.dart"
 
+var needsCtorValidation = map[string]string{
+	".google.protobuf.Duration": ".google.protobuf.Duration",
+}
+
 func Generate(model *api.API, outdir string, options map[string]string) error {
 	_, err := annotateModel(model, options)
 	if err != nil {

@@ -27,7 +27,7 @@ class {{Codec.Name}} {
   {{#Fields}}
     this.{{Codec.Name}},
   {{/Fields}}
-  });
+  }){{Codec.ConstructorBody}}
 }
 {{#Messages}}
 {{> message}}
