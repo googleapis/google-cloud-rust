@@ -50,13 +50,7 @@ pub struct Reservation {
     /// Queries using this reservation might use more slots during runtime if
     /// ignore_idle_slots is set to false, or autoscaling is enabled.
     ///
-    /// If edition is EDITION_UNSPECIFIED and total slot_capacity of the
-    /// reservation and its siblings exceeds the total slot_count of all capacity
-    /// commitments, the request will fail with
-    /// `google.rpc.Code.RESOURCE_EXHAUSTED`.
-    ///
-    /// If edition is any value but EDITION_UNSPECIFIED, then the above requirement
-    /// is not needed. The total slot_capacity of the reservation and its siblings
+    /// The total slot_capacity of the reservation and its siblings
     /// may exceed the total slot_count of capacity commitments. In that case, the
     /// exceeding slots will be charged with the autoscale SKU. You can increase
     /// the number of baseline slots in a reservation every few minutes. If you
@@ -110,8 +104,8 @@ pub struct Reservation {
     /// Edition of the reservation.
     pub edition: crate::model::Edition,
 
-    /// Optional. The current location of the reservation's primary replica. This
-    /// field is only set for reservations using the managed disaster recovery
+    /// Output only. The current location of the reservation's primary replica.
+    /// This field is only set for reservations using the managed disaster recovery
     /// feature.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_location: std::string::String,
@@ -124,11 +118,22 @@ pub struct Reservation {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secondary_location: std::string::String,
 
-    /// Optional. The location where the reservation was originally created. This
-    /// is set only during the failover reservation's creation. All billing charges
-    /// for the failover reservation will be applied to this location.
+    /// Output only. The location where the reservation was originally created.
+    /// This is set only during the failover reservation's creation. All billing
+    /// charges for the failover reservation will be applied to this location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub original_primary_location: std::string::String,
+
+    /// Output only. The Disaster Recovery(DR) replication status of the
+    /// reservation. This is only available for the primary replicas of DR/failover
+    /// reservations and provides information about the both the staleness of the
+    /// secondary and the last error encountered while trying to replicate changes
+    /// from the primary to the secondary. If this field is blank, it means that
+    /// the reservation is either not a DR reservation or the reservation is a DR
+    /// secondary or that any replication operations on the reservation have
+    /// succeeded.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication_status: std::option::Option<crate::model::reservation::ReplicationStatus>,
 }
 
 impl Reservation {
@@ -227,6 +232,17 @@ impl Reservation {
         self.original_primary_location = v.into();
         self
     }
+
+    /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
+    pub fn set_replication_status<
+        T: std::convert::Into<std::option::Option<crate::model::reservation::ReplicationStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_status = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Reservation {
@@ -280,6 +296,71 @@ pub mod reservation {
     impl wkt::message::Message for Autoscale {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.reservation.v1.Reservation.Autoscale"
+        }
+    }
+
+    /// Disaster Recovery(DR) replication status of the reservation.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ReplicationStatus {
+        /// Output only. The last error encountered while trying to replicate changes
+        /// from the primary to the secondary. This field is only available if the
+        /// replication has not succeeded since.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub error: std::option::Option<rpc::model::Status>,
+
+        /// Output only. The time at which the last error was encountered while
+        /// trying to replicate changes from the primary to the secondary. This field
+        /// is only available if the replication has not succeeded since.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub last_error_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. A timestamp corresponding to the last change on the primary
+        /// that was successfully replicated to the secondary.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub last_replication_time: std::option::Option<wkt::Timestamp>,
+    }
+
+    impl ReplicationStatus {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [error][crate::model::reservation::ReplicationStatus::error].
+        pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.error = v.into();
+            self
+        }
+
+        /// Sets the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
+        pub fn set_last_error_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_error_time = v.into();
+            self
+        }
+
+        /// Sets the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
+        pub fn set_last_replication_time<
+            T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.last_replication_time = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ReplicationStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.reservation.v1.Reservation.ReplicationStatus"
         }
     }
 }
@@ -1405,6 +1486,16 @@ pub struct Assignment {
 
     /// Output only. State of the assignment.
     pub state: crate::model::assignment::State,
+
+    /// Optional. This field controls if "Gemini in BigQuery"
+    /// (<https://cloud.google.com/gemini/docs/bigquery/overview>) features should be
+    /// enabled for this reservation assignment, which is not on by default.
+    /// "Gemini in BigQuery" has a distinct compliance posture from BigQuery.  If
+    /// this field is set to true, the assignment job type is QUERY, and
+    /// the parent reservation edition is ENTERPRISE_PLUS, then the assignment will
+    /// give the grantee project/organization access to "Gemini in BigQuery"
+    /// features.
+    pub enable_gemini_in_bigquery: bool,
 }
 
 impl Assignment {
@@ -1439,6 +1530,12 @@ impl Assignment {
         v: T,
     ) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_gemini_in_bigquery][crate::model::Assignment::enable_gemini_in_bigquery].
+    pub fn set_enable_gemini_in_bigquery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_gemini_in_bigquery = v.into();
         self
     }
 }
@@ -1490,6 +1587,10 @@ pub mod assignment {
 
         /// Background jobs that BigQuery runs for the customers in the background.
         pub const BACKGROUND: JobType = JobType::new("BACKGROUND");
+
+        /// Continuous SQL jobs will use this reservation. Reservations with
+        /// continuous assignments cannot be mixed with non-continuous assignments.
+        pub const CONTINUOUS: JobType = JobType::new("CONTINUOUS");
     }
 
     impl std::convert::From<std::string::String> for JobType {

@@ -164,7 +164,7 @@ pub mod advanced_settings {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub no_speech_timeout: std::option::Option<wkt::Duration>,
 
-        /// Use timeout based endpointing, interpreting endpointer sensitivy as
+        /// Use timeout based endpointing, interpreting endpointer sensitivity as
         /// seconds of timeout value.
         pub use_timeout_based_endpointing: bool,
 
@@ -537,6 +537,16 @@ pub struct Agent {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub client_certificate_settings:
         std::option::Option<crate::model::agent::ClientCertificateSettings>,
+
+    /// Optional. Output only. A read only boolean field reflecting Zone Separation
+    /// status of the agent.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Optional. Output only. A read only boolean field reflecting Zone Isolation
+    /// status of the agent.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
 }
 
 impl Agent {
@@ -707,6 +717,24 @@ impl Agent {
         v: T,
     ) -> Self {
         self.client_certificate_settings = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Agent::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Agent::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -2269,7 +2297,7 @@ impl wkt::message::Message for SpeechWordInfo {
 ///
 /// The client provides this configuration in terms of the durations of those
 /// two phases. The durations are measured in terms of the audio length from the
-/// the start of the input audio.
+/// start of the input audio.
 ///
 /// No-speech event is a response with END_OF_UTTERANCE without any transcript
 /// following up.
@@ -3040,6 +3068,11 @@ pub struct DataStoreConnection {
     /// `projects/{project}/locations/{location}/dataStores/{data_store}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub data_store: std::string::String,
+
+    /// The document processing mode for the data store connection. Should only be
+    /// set for PUBLIC_WEB and UNSTRUCTURED data stores. If not set it is
+    /// considered as DOCUMENTS, as this is the legacy mode.
+    pub document_processing_mode: crate::model::DocumentProcessingMode,
 }
 
 impl DataStoreConnection {
@@ -3059,6 +3092,17 @@ impl DataStoreConnection {
     /// Sets the value of [data_store][crate::model::DataStoreConnection::data_store].
     pub fn set_data_store<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_store = v.into();
+        self
+    }
+
+    /// Sets the value of [document_processing_mode][crate::model::DataStoreConnection::document_processing_mode].
+    pub fn set_document_processing_mode<
+        T: std::convert::Into<crate::model::DocumentProcessingMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.document_processing_mode = v.into();
         self
     }
 }
@@ -8522,7 +8566,7 @@ pub struct Flow {
     ///   way regardless of the current page. Transition routes defined in the page
     ///   have higher priority than those defined in the flow.
     ///
-    /// TransitionRoutes are evalauted in the following order:
+    /// TransitionRoutes are evaluated in the following order:
     ///
     /// * TransitionRoutes with intent specified.
     /// * TransitionRoutes with only condition specified.
@@ -12688,7 +12732,7 @@ pub struct Page {
     /// They route the conversation to another page in the same flow, or another
     /// flow.
     ///
-    /// When we are in a certain page, the TransitionRoutes are evalauted in the
+    /// When we are in a certain page, the TransitionRoutes are evaluated in the
     /// following order:
     ///
     /// * TransitionRoutes defined in the page with intent specified.
@@ -17065,34 +17109,28 @@ impl wkt::message::Message for CloudConversationDebuggingInfo {
 /// [StreamingDetectIntent][google.cloud.dialogflow.cx.v3.Sessions.StreamingDetectIntent]
 /// method.
 ///
-/// Multiple response messages (N) can be returned in order.
-///
-/// The first (N-1) responses set either the `recognition_result` or
-/// `detect_intent_response` field, depending on the request:
+/// Multiple response messages can be returned in order:
 ///
 /// * If the `StreamingDetectIntentRequest.query_input.audio` field was
-///   set, and the `StreamingDetectIntentRequest.enable_partial_response`
-///   field was false, the `recognition_result` field is populated for each
-///   of the (N-1) responses.
-///   See the
-///   [StreamingRecognitionResult][google.cloud.dialogflow.cx.v3.StreamingRecognitionResult]
-///   message for details about the result message sequence.
+///   set, the first M messages contain `recognition_result`.
+///   Each `recognition_result` represents a more complete transcript of what
+///   the user said. The last `recognition_result` has `is_final` set to
+///   `true`.
 ///
 /// * If the `StreamingDetectIntentRequest.enable_partial_response` field was
 ///   true, the `detect_intent_response` field is populated for each
-///   of the (N-1) responses, where 1 <= N <= 4.
+///   of the following N responses, where 0 <= N <= 5.
 ///   These responses set the
 ///   [DetectIntentResponse.response_type][google.cloud.dialogflow.cx.v3.DetectIntentResponse.response_type]
 ///   field to `PARTIAL`.
 ///
 ///
-/// For the final Nth response message, the `detect_intent_response` is fully
+/// For the last response message, the `detect_intent_response` is fully
 /// populated, and
 /// [DetectIntentResponse.response_type][google.cloud.dialogflow.cx.v3.DetectIntentResponse.response_type]
 /// is set to `FINAL`.
 ///
 /// [google.cloud.dialogflow.cx.v3.DetectIntentResponse.response_type]: crate::model::DetectIntentResponse::response_type
-/// [google.cloud.dialogflow.cx.v3.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17774,10 +17812,19 @@ impl wkt::message::Message for QueryParameters {
 #[non_exhaustive]
 pub struct SearchConfig {
     /// Optional. Boosting configuration for the datastores.
+    ///
+    /// Maps from datastore name to their boost configuration. Do not specify more
+    /// than one BoostSpecs for each datastore name. If multiple BoostSpecs are
+    /// provided for the same datastore name, the behavior is undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub boost_specs: std::vec::Vec<crate::model::BoostSpecs>,
 
     /// Optional. Filter configuration for the datastores.
+    ///
+    /// Maps from datastore name to the filter expression for that datastore. Do
+    /// not specify more than one FilterSpecs for each datastore name. If multiple
+    /// FilterSpecs are provided for the same datastore name, the behavior is
+    /// undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub filter_specs: std::vec::Vec<crate::model::FilterSpecs>,
 }
@@ -17826,8 +17873,8 @@ impl wkt::message::Message for SearchConfig {
 #[non_exhaustive]
 pub struct BoostSpec {
     /// Optional. Condition boost specifications. If a document matches multiple
-    /// conditions in the specifictions, boost scores from these specifications are
-    /// all applied and combined in a non-linear way. Maximum number of
+    /// conditions in the specifications, boost scores from these specifications
+    /// are all applied and combined in a non-linear way. Maximum number of
     /// specifications is 20.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub condition_boost_specs: std::vec::Vec<crate::model::boost_spec::ConditionBoostSpec>,
@@ -18634,9 +18681,7 @@ pub struct QueryResult {
     pub allow_answer_feedback: bool,
 
     /// Optional. Data store connection feature output signals.
-    /// Filled only when data stores are involved in serving the query and
-    /// DetectIntentRequest.populate_data_store_connection_signals is set to true
-    /// in the request.
+    /// Filled only when data stores are involved in serving the query.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub data_store_connection_signals:
         std::option::Option<crate::model::DataStoreConnectionSignals>,
@@ -24719,8 +24764,7 @@ pub mod webhook {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub password: std::string::String,
 
-        /// The HTTP request headers to send together with webhook
-        /// requests.
+        /// The HTTP request headers to send together with webhook requests.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub request_headers: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -27076,6 +27120,51 @@ impl std::convert::From<std::string::String> for DataStoreType {
 impl std::default::Default for DataStoreType {
     fn default() -> Self {
         data_store_type::DATA_STORE_TYPE_UNSPECIFIED
+    }
+}
+
+/// The document processing mode of the data store.
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DocumentProcessingMode(std::borrow::Cow<'static, str>);
+
+impl DocumentProcessingMode {
+    /// Creates a new DocumentProcessingMode instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Useful constants to work with [DocumentProcessingMode](DocumentProcessingMode)
+pub mod document_processing_mode {
+    use super::DocumentProcessingMode;
+
+    /// Not specified. This should be set for STRUCTURED type data stores. Due to
+    /// legacy reasons this is considered as DOCUMENTS for STRUCTURED and
+    /// PUBLIC_WEB data stores.
+    pub const DOCUMENT_PROCESSING_MODE_UNSPECIFIED: DocumentProcessingMode =
+        DocumentProcessingMode::new("DOCUMENT_PROCESSING_MODE_UNSPECIFIED");
+
+    /// Documents are processed as documents.
+    pub const DOCUMENTS: DocumentProcessingMode = DocumentProcessingMode::new("DOCUMENTS");
+
+    /// Documents are converted to chunks.
+    pub const CHUNKS: DocumentProcessingMode = DocumentProcessingMode::new("CHUNKS");
+}
+
+impl std::convert::From<std::string::String> for DocumentProcessingMode {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
+impl std::default::Default for DocumentProcessingMode {
+    fn default() -> Self {
+        document_processing_mode::DOCUMENT_PROCESSING_MODE_UNSPECIFIED
     }
 }
 

@@ -105,15 +105,14 @@ Underlaying = "Underlaying"
 aplies      = "aplies"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
-evalauted     = "evalauted"
-sensitivy     = "sensitivy"
-specifictions = "specifictions"
-verion        = "verion"
+verion = "verion"
 # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
 # seems too broad.
-evalution = "evalution"
-resonably = "resonably"
-tooks     = "tooks"
+evalution     = "evalution"
+resonably     = "resonably"
+sensitivy     = "sensitivy"
+specifictions = "specifictions"
+tooks         = "tooks"
 # src/generated/cloud/discoveryengine/v1 has typos, they need to be fixed
 # upstream.
 asscociated = "asscociated"
