@@ -24,7 +24,7 @@ on:
 
 jobs:
   generator-build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: generator
@@ -49,7 +49,7 @@ jobs:
         working-directory: generator/testdata/dart
 
   validate-packages:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
