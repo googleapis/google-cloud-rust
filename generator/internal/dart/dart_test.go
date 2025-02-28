@@ -20,6 +20,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
@@ -460,5 +461,77 @@ func TestFieldType_Repeated(t *testing.T) {
 	want = "List<State>"
 	if got != want {
 		t.Errorf("unexpected type name, got: %s want: %s", got, want)
+	}
+}
+
+func TestFormatDocComments(t *testing.T) {
+	input := `Some comments describing the thing.
+
+We want to respect whitespace at the beginning, because it important in Markdown:
+- A thing
+  - A nested thing
+- The next thing
+`
+
+	want := []string{
+		"/// Some comments describing the thing.",
+		"///",
+		"/// We want to respect whitespace at the beginning, because it important in Markdown:",
+		"/// - A thing",
+		"///   - A nested thing",
+		"/// - The next thing",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsEmpty(t *testing.T) {
+	input := ``
+
+	want := []string{}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsTrimTrailingSpaces(t *testing.T) {
+	input := `The next line contains spaces.
+  
+This line has trailing spaces.  `
+
+	want := []string{
+		"/// The next line contains spaces.",
+		"///",
+		"/// This line has trailing spaces.",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsTrimTrailingEmptyLines(t *testing.T) {
+	input := `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+
+
+`
+
+	want := []string{
+		"/// Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+		"/// sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+		"/// Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+	}
+	state := &api.APIState{}
+	got := formatDocComments(input, state)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }

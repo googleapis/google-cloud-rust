@@ -189,11 +189,25 @@ func httpPathArgs(_ *api.PathInfo) []string {
 }
 
 func formatDocComments(documentation string, _ *api.APIState) []string {
-	ss := strings.Split(documentation, "\n")
-	for i := range ss {
-		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
+	lines := strings.Split(documentation, "\n")
+
+	for i, line := range lines {
+		lines[i] = strings.TrimRightFunc(line, unicode.IsSpace)
 	}
-	return ss
+
+	for len(lines) > 0 && len(lines[len(lines)-1]) == 0 {
+		lines = lines[:len(lines)-1]
+	}
+
+	for i, line := range lines {
+		if len(line) == 0 {
+			lines[i] = "///"
+		} else {
+			lines[i] = "/// " + line
+		}
+	}
+
+	return lines
 }
 
 func modelPackageName(api *api.API, packageNameOverride string) string {

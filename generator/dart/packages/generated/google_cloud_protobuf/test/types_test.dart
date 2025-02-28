@@ -113,7 +113,7 @@ void main() {
       expect(() => DurationExtension.decode('2.00001'), throwsFormatException);
     });
 
-    test('bad format', () {
+    test('bad format - too many periods', () {
       expect(() => DurationExtension.decode('1.2.3.4s'), throwsFormatException);
     });
 
