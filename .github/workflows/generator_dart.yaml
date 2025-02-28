@@ -14,15 +14,17 @@
 
 name: Client Generator - Dart
 permissions: read-all
+
 # Run on PRs and pushes to the default branch.
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   generator-build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: generator
@@ -45,3 +47,22 @@ jobs:
       - name: Detect changed goldens
         run: git diff --exit-code
         working-directory: generator/testdata/dart
+
+  validate-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - run: dart pub get
+        working-directory: generator/dart
+
+      # package:google_cloud_protobuf
+      - run: dart analyze
+        working-directory: generator/dart/packages/generated/google_cloud_protobuf
+      - run: dart test
+        working-directory: generator/dart/packages/generated/google_cloud_protobuf
+
+      # package:google_cloud_type
+      - run: dart analyze
+        working-directory: generator/dart/packages/generated/google_cloud_type
