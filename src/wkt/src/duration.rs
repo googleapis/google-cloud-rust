@@ -187,14 +187,11 @@ impl std::convert::From<&Duration> for String {
         if duration.nanos == 0 {
             return format!("{sign}{}s", duration.seconds.abs());
         }
-        if duration.seconds == 0 {
-            let ns = format!("{:09}", duration.nanos.abs());
-            return format!("{sign}0.{}s", ns.trim_end_matches('0'));
-        }
+        let ns = format!("{:09}", duration.nanos.abs());
         format!(
-            "{sign}{}.{:09}s",
+            "{sign}{}.{}s",
             duration.seconds.abs(),
-            duration.nanos.abs()
+            ns.trim_end_matches('0')
         )
     }
 }
@@ -430,13 +427,13 @@ mod test {
     #[test_case(0, 200_000_000, "0.2s" ; "200ms")]
     #[test_case(12, 0, "12s"; "round positive seconds")]
     #[test_case(12, 123, "12.000000123s"; "positive seconds and nanos")]
-    #[test_case(12, 123_000, "12.000123000s"; "positive seconds and micros")]
-    #[test_case(12, 123_000_000, "12.123000000s"; "positive seconds and millis")]
+    #[test_case(12, 123_000, "12.000123s"; "positive seconds and micros")]
+    #[test_case(12, 123_000_000, "12.123s"; "positive seconds and millis")]
     #[test_case(12, 123_456_789, "12.123456789s"; "positive seconds and full nanos")]
     #[test_case(-12, -0, "-12s"; "round negative seconds")]
     #[test_case(-12, -123, "-12.000000123s"; "negative seconds and nanos")]
-    #[test_case(-12, -123_000, "-12.000123000s"; "negative seconds and micros")]
-    #[test_case(-12, -123_000_000, "-12.123000000s"; "negative seconds and millis")]
+    #[test_case(-12, -123_000, "-12.000123s"; "negative seconds and micros")]
+    #[test_case(-12, -123_000_000, "-12.123s"; "negative seconds and millis")]
     #[test_case(-12, -123_456_789, "-12.123456789s"; "negative seconds and full nanos")]
     #[test_case(-10_000 * SECONDS_IN_YEAR, -999_999_999, "-315576000000.999999999s"; "range edge start")]
     #[test_case(10_000 * SECONDS_IN_YEAR, 999_999_999, "315576000000.999999999s"; "range edge end")]
