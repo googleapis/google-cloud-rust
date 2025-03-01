@@ -116,17 +116,13 @@ mod test {
     //   SYNTAX_EDITONS = 2,
     // }
     mod generated {
+        use google_cloud_wkt as wkt;
+
         #[derive(Clone, Debug, PartialEq)]
-        pub struct Syntax(syntax::Inner);
+        pub struct Syntax(wkt::enumerations::Enumeration);
 
         pub mod syntax {
             use super::Syntax;
-            #[derive(Clone, Debug, PartialEq)]
-            pub(crate) enum Inner {
-                Known { str: &'static str, val: i32 },
-                UnknownValue { str: String },
-                UnknownName { val: i32, formatted: String },
-            }
             pub const SYNTAX_PROTO2: Syntax = Syntax::known("SYNTAX_PROTO2", 0);
             pub const SYNTAX_PROTO3: Syntax = Syntax::known("SYNTAX_PROTO3", 1);
             pub const SYNTAX_EDITIONS: Syntax = Syntax::known("SYNTAX_EDITIONS", 2);
@@ -134,34 +130,19 @@ mod test {
 
         impl Syntax {
             pub(crate) const fn known(str: &'static str, val: i32) -> Self {
-                Self(syntax::Inner::Known { str, val })
+                Self(wkt::enumerations::Enumeration::known(str, val))
             }
             pub(crate) fn unknown_str(str: String) -> Self {
-                Self(syntax::Inner::UnknownValue { str })
+                Self(wkt::enumerations::Enumeration::unknown_str(str))
             }
             pub(crate) fn unknown_i32(val: i32) -> Self {
-                let formatted = format!("UNKNOWN-NAME:{}", val);
-                Self(syntax::Inner::UnknownName { val, formatted })
+                Self(wkt::enumerations::Enumeration::unknown_i32(val))
             }
             pub fn value(&self) -> &str {
-                match &self.0 {
-                    syntax::Inner::Known { str: s, val: _ } => s,
-                    syntax::Inner::UnknownValue { str: s } => s,
-                    syntax::Inner::UnknownName {
-                        val: _,
-                        formatted: s,
-                    } => s,
-                }
+                self.0.value()
             }
             pub fn numeric_value(&self) -> Option<i32> {
-                match &self.0 {
-                    syntax::Inner::Known { str: _, val: v } => Some(v.clone()),
-                    syntax::Inner::UnknownValue { str: _ } => None,
-                    syntax::Inner::UnknownName {
-                        val: v,
-                        formatted: _,
-                    } => Some(v.clone()),
-                }
+                self.0.numeric_value()
             }
         }
 
@@ -170,14 +151,7 @@ mod test {
             where
                 S: serde::ser::Serializer,
             {
-                match &self.0 {
-                    syntax::Inner::Known { str: s, val: _ } => s.serialize(serializer),
-                    syntax::Inner::UnknownName {
-                        val: v,
-                        formatted: _,
-                    } => v.serialize(serializer),
-                    syntax::Inner::UnknownValue { str: s } => s.serialize(serializer),
-                }
+                self.0.serialize(serializer)
             }
         }
 
@@ -186,47 +160,13 @@ mod test {
             where
                 D: serde::Deserializer<'de>,
             {
-                struct Visitor;
-                impl serde::de::Visitor<'_> for Visitor {
-                    type Value = Syntax;
-
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                        formatter.write_str("integer or a string")
-                    }
-
-                    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        Ok(Syntax::from(value.to_string()))
-                    }
-                    fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        if value >= i32::MAX as u64 {
-                            return Err(serde::de::Error::invalid_value(
-                                serde::de::Unexpected::Unsigned(value),
-                                &"an integer",
-                            ));
-                        }
-                        Ok(Syntax::from(value as i32))
-                    }
-                    fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        if value >= i32::MAX as i64 || value <= i32::MIN as i64 {
-                            return Err(serde::de::Error::invalid_value(
-                                serde::de::Unexpected::Signed(value),
-                                &"an integer",
-                            ));
-                        }
-                        Ok(Syntax::from(value as i32))
-                    }
+                use wkt::enumerations::Enumeration;
+                let enumeration = Enumeration::deserialize(deserializer)?;
+                match enumeration {
+                    Enumeration::Known { str: _, val } => Ok(Syntax::from(val)),
+                    Enumeration::UnknownName { val, formatted: _ } => Ok(Syntax::from(val)),
+                    Enumeration::UnknownValue { str } => Ok(Syntax::from(str)),
                 }
-
-                deserializer.deserialize_any(Visitor)
             }
         }
 
@@ -254,7 +194,7 @@ mod test {
 
         impl std::default::Default for Syntax {
             fn default() -> Self {
-                syntax::SYNTAX_PROTO2
+                Self::from(0)
             }
         }
     }

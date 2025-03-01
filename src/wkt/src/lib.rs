@@ -40,3 +40,5 @@ pub use crate::rstruct::*;
 mod wrappers;
 pub use crate::wrappers::*;
 pub mod message;
+
+pub mod enumerations;
