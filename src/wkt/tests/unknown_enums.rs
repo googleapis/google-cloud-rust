@@ -117,14 +117,16 @@ mod test {
     // }
     mod generated {
         #[derive(Clone, Debug, PartialEq)]
-        pub enum Syntax {
-            Known { str: &'static str, val: i32 },
-            UnkwownValue { str: String },
-            UnknownName { val: i32, formatted: String },
-        }
+        pub struct Syntax(syntax::Inner);
 
         pub mod syntax {
             use super::Syntax;
+            #[derive(Clone, Debug, PartialEq)]
+            pub(crate) enum Inner {
+                Known { str: &'static str, val: i32 },
+                UnknownValue { str: String },
+                UnknownName { val: i32, formatted: String },
+            }
             pub const SYNTAX_PROTO2: Syntax = Syntax::known("SYNTAX_PROTO2", 0);
             pub const SYNTAX_PROTO3: Syntax = Syntax::known("SYNTAX_PROTO3", 1);
             pub const SYNTAX_EDITIONS: Syntax = Syntax::known("SYNTAX_EDITIONS", 2);
@@ -132,30 +134,30 @@ mod test {
 
         impl Syntax {
             pub(crate) const fn known(str: &'static str, val: i32) -> Self {
-                Self::Known { str, val }
+                Self(syntax::Inner::Known { str, val })
             }
             pub(crate) fn unknown_str(str: String) -> Self {
-                Self::UnkwownValue { str }
+                Self(syntax::Inner::UnknownValue { str })
             }
             pub(crate) fn unknown_i32(val: i32) -> Self {
-                let formatted = format!("UNKOWN-NAME:{}", val);
-                Self::UnknownName { val, formatted }
+                let formatted = format!("UNKNOWN-NAME:{}", val);
+                Self(syntax::Inner::UnknownName { val, formatted })
             }
             pub fn value(&self) -> &str {
-                match self {
-                    Self::Known { str: s, val: _ } => s,
-                    Self::UnkwownValue { str: s } => s,
-                    Self::UnknownName {
+                match &self.0 {
+                    syntax::Inner::Known { str: s, val: _ } => s,
+                    syntax::Inner::UnknownValue { str: s } => s,
+                    syntax::Inner::UnknownName {
                         val: _,
                         formatted: s,
                     } => s,
                 }
             }
             pub fn numeric_value(&self) -> Option<i32> {
-                match self {
-                    Self::Known { str: _, val: v } => Some(v.clone()),
-                    Self::UnkwownValue { str: _ } => None,
-                    Self::UnknownName {
+                match &self.0 {
+                    syntax::Inner::Known { str: _, val: v } => Some(v.clone()),
+                    syntax::Inner::UnknownValue { str: _ } => None,
+                    syntax::Inner::UnknownName {
                         val: v,
                         formatted: _,
                     } => Some(v.clone()),
@@ -168,13 +170,13 @@ mod test {
             where
                 S: serde::ser::Serializer,
             {
-                match self {
-                    Self::Known { str: s, val: _ } => s.serialize(serializer),
-                    Self::UnknownName {
+                match &self.0 {
+                    syntax::Inner::Known { str: s, val: _ } => s.serialize(serializer),
+                    syntax::Inner::UnknownName {
                         val: v,
                         formatted: _,
                     } => v.serialize(serializer),
-                    Self::UnkwownValue { str: s } => s.serialize(serializer),
+                    syntax::Inner::UnknownValue { str: s } => s.serialize(serializer),
                 }
             }
         }
@@ -205,7 +207,7 @@ mod test {
                         if value >= i32::MAX as u64 {
                             return Err(serde::de::Error::invalid_value(
                                 serde::de::Unexpected::Unsigned(value),
-                                &"a i32 integer",
+                                &"an integer",
                             ));
                         }
                         Ok(Syntax::from(value as i32))
@@ -217,7 +219,7 @@ mod test {
                         if value >= i32::MAX as i64 || value <= i32::MIN as i64 {
                             return Err(serde::de::Error::invalid_value(
                                 serde::de::Unexpected::Signed(value),
-                                &"a i32 integer",
+                                &"an integer",
                             ));
                         }
                         Ok(Syntax::from(value as i32))
