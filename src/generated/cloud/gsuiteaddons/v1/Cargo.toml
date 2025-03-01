@@ -26,13 +26,13 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-apps_script_calendar = { version = "0.1", path = "../../../../../src/generated/apps/script/calendar", package = "google-cloud-apps-script-type-calendar" }
-apps_script_docs = { version = "0.1", path = "../../../../../src/generated/apps/script/docs", package = "google-cloud-apps-script-type-docs" }
-apps_script_drive = { version = "0.1", path = "../../../../../src/generated/apps/script/drive", package = "google-cloud-apps-script-type-drive" }
-apps_script_gmail = { version = "0.1", path = "../../../../../src/generated/apps/script/gmail", package = "google-cloud-apps-script-type-gmail" }
-apps_script_sheets = { version = "0.1", path = "../../../../../src/generated/apps/script/sheets", package = "google-cloud-apps-script-type-sheets" }
-apps_script_slides = { version = "0.1", path = "../../../../../src/generated/apps/script/slides", package = "google-cloud-apps-script-type-slides" }
-apps_script_type = { version = "0.1", path = "../../../../../src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
+apps_script_calendar = { version = "0.2", path = "../../../../../src/generated/apps/script/calendar", package = "google-cloud-apps-script-type-calendar" }
+apps_script_docs = { version = "0.2", path = "../../../../../src/generated/apps/script/docs", package = "google-cloud-apps-script-type-docs" }
+apps_script_drive = { version = "0.2", path = "../../../../../src/generated/apps/script/drive", package = "google-cloud-apps-script-type-drive" }
+apps_script_gmail = { version = "0.2", path = "../../../../../src/generated/apps/script/gmail", package = "google-cloud-apps-script-type-gmail" }
+apps_script_sheets = { version = "0.2", path = "../../../../../src/generated/apps/script/sheets", package = "google-cloud-apps-script-type-sheets" }
+apps_script_slides = { version = "0.2", path = "../../../../../src/generated/apps/script/slides", package = "google-cloud-apps-script-type-slides" }
+apps_script_type = { version = "0.2", path = "../../../../../src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.20", path = "../../../../../src/gax", package = "google-cloud-gax", features = ["unstable-sdk-client"] }

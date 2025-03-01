@@ -16,6 +16,9 @@ package rust
 
 import (
 	"fmt"
+	"maps"
+	"slices"
+	"sort"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -172,10 +175,10 @@ type fieldAnnotations struct {
 }
 
 type enumAnnotation struct {
-	Name             string
-	ModuleName       string
-	DocLines         []string
-	DefaultValueName string
+	Name          string
+	ModuleName    string
+	DocLines      []string
+	UniqueNumbers []*api.EnumValue
 }
 
 type enumValueAnnotation struct {
@@ -455,21 +458,31 @@ func annotateField(field *api.Field, message *api.Message, state *api.APIState, 
 }
 
 func annotateEnum(e *api.Enum, state *api.APIState, modulePath string, packageMapping map[string]*packagez) {
+	byNumber := map[int32]*api.EnumValue{}
 	for _, ev := range e.Values {
 		annotateEnumValue(ev, e, state, modulePath, packageMapping)
-	}
-	defaultValueName := ""
-	for _, ev := range e.Values {
-		if ev.Number == 0 {
-			defaultValueName = enumValueName(ev)
-			break
+		if v, ok := byNumber[ev.Number]; ok {
+			// Often *_UNSPECIFIED is used as the default value (`0`). But if
+			// there is another value that also maps to `0` that is commonly the
+			// one with more interesting semantics.
+			//
+			// We use the enum length to disambiguate other cases, but this is
+			// just arbitrary and hardly ever has any effect.
+			if strings.Contains(v.Name, "_UNSPECIFIED") || len(v.Name) > len(ev.Name) {
+				byNumber[ev.Number] = ev
+			}
+		} else {
+			byNumber[ev.Number] = ev
 		}
 	}
+
+	uniqueNumeric := slices.Collect(maps.Values(byNumber))
+	sort.Slice(uniqueNumeric, func(i, j int) bool { return uniqueNumeric[i].Number < uniqueNumeric[j].Number })
 	e.Codec = &enumAnnotation{
-		Name:             enumName(e),
-		ModuleName:       toSnake(enumName(e)),
-		DocLines:         formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
-		DefaultValueName: defaultValueName,
+		Name:          enumName(e),
+		ModuleName:    toSnake(enumName(e)),
+		DocLines:      formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
+		UniqueNumbers: uniqueNumeric,
 	}
 }
 
