@@ -158,8 +158,8 @@ mod test {
                 let enumeration = Enumeration::deserialize(deserializer)?;
                 match enumeration {
                     Enumeration::Known { str: _, val } => Ok(Syntax::from(val)),
-                    Enumeration::UnknownName { val, formatted: _ } => Ok(Syntax::from(val)),
-                    Enumeration::UnknownValue { str } => Ok(Syntax::from(str)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Syntax::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Syntax::from(str)),
                 }
             }
         }
@@ -170,7 +170,7 @@ mod test {
                     "SYNTAX_PROTO2" => syntax::SYNTAX_PROTO2,
                     "SYNTAX_PROTO3" => syntax::SYNTAX_PROTO3,
                     "SYNTAX_EDITIONS" => syntax::SYNTAX_EDITIONS,
-                    _ => Self(wkt::enumerations::Enumeration::unknown_str(value)),
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
                 }
             }
         }
@@ -181,7 +181,7 @@ mod test {
                     0 => syntax::SYNTAX_PROTO2,
                     1 => syntax::SYNTAX_PROTO3,
                     2 => syntax::SYNTAX_EDITIONS,
-                    _ => Self(wkt::enumerations::Enumeration::unknown_i32(value)),
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
                 }
             }
         }

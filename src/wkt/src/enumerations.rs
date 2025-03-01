@@ -17,36 +17,33 @@
 #[derive(Clone, Debug, PartialEq)]
 pub enum Enumeration {
     Known { str: &'static str, val: i32 },
-    UnknownValue { str: String },
-    UnknownName { val: i32, formatted: String },
+    UnknownNum { str: String },
+    UnknownStr { val: i32, str: String },
 }
 
 impl Enumeration {
     pub const fn known(str: &'static str, val: i32) -> Self {
         Self::Known { str, val }
     }
-    pub fn unknown_str(str: String) -> Self {
-        Self::UnknownValue { str }
+    pub fn known_str<T: Into<String>>(str: T) -> Self {
+        Self::UnknownNum { str: str.into() }
     }
-    pub fn unknown_i32(val: i32) -> Self {
-        let formatted = format!("UNKNOWN-NAME:{}", val);
-        Self::UnknownName { val, formatted }
+    pub fn known_num(val: i32) -> Self {
+        let str = format!("UNKNOWN-NAME:{}", val);
+        Self::UnknownStr { val, str }
     }
     pub fn value(&self) -> &str {
         match &self {
             Self::Known { str: s, val: _ } => s,
-            Self::UnknownValue { str: s } => s,
-            Self::UnknownName {
-                val: _,
-                formatted: s,
-            } => s,
+            Self::UnknownNum { str: s } => s,
+            Self::UnknownStr { val: _, str: s } => s,
         }
     }
     pub fn numeric_value(&self) -> Option<i32> {
         match &self {
             Self::Known { str: _, val } => Some(*val),
-            Self::UnknownValue { str: _ } => None,
-            Self::UnknownName { val, formatted: _ } => Some(*val),
+            Self::UnknownNum { str: _ } => None,
+            Self::UnknownStr { val, str: _ } => Some(*val),
         }
     }
 }
@@ -58,11 +55,8 @@ impl serde::ser::Serialize for Enumeration {
     {
         match &self {
             Self::Known { str: s, val: _ } => s.serialize(serializer),
-            Self::UnknownName {
-                val: v,
-                formatted: _,
-            } => v.serialize(serializer),
-            Self::UnknownValue { str: s } => s.serialize(serializer),
+            Self::UnknownStr { val: v, str: _ } => v.serialize(serializer),
+            Self::UnknownNum { str: s } => s.serialize(serializer),
         }
     }
 }
@@ -84,7 +78,7 @@ impl<'de> serde::de::Deserialize<'de> for Enumeration {
             where
                 E: serde::de::Error,
             {
-                Ok(Enumeration::unknown_str(value.to_string()))
+                Ok(Enumeration::known_str(value.to_string()))
             }
             fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
             where
@@ -96,7 +90,7 @@ impl<'de> serde::de::Deserialize<'de> for Enumeration {
                         &"an integer",
                     ));
                 }
-                Ok(Enumeration::unknown_i32(value as i32))
+                Ok(Enumeration::known_num(value as i32))
             }
             fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
             where
@@ -108,10 +102,82 @@ impl<'de> serde::de::Deserialize<'de> for Enumeration {
                         &"an integer",
                     ));
                 }
-                Ok(Enumeration::unknown_i32(value as i32))
+                Ok(Enumeration::known_num(value as i32))
             }
         }
 
         deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use serde_json::json;
+    use test_case::test_case;
+    type TestResult = Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn ctors() {
+        let input = Enumeration::known("123", 123);
+        assert_eq!(input.value(), "123");
+        assert_eq!(input.numeric_value(), Some(123));
+
+        let input = Enumeration::known_num(123);
+        assert!(
+            input.value().contains("123"),
+            "input={input:?}, input.value()={}",
+            input.value()
+        );
+        assert_eq!(input.numeric_value(), Some(123));
+
+        let input = Enumeration::known_str("BLAH");
+        assert_eq!(input.value(), "BLAH");
+        assert_eq!(input.numeric_value(), None);
+    }
+
+    #[test]
+    fn serialize() -> TestResult {
+        let input = Enumeration::known("123", 123);
+        let got = serde_json::to_value(&input)?;
+        assert_eq!(got.as_str(), Some("123"));
+
+        let input = Enumeration::known_num(123);
+        let got = serde_json::to_value(&input)?;
+        assert_eq!(got.as_number().cloned(), serde_json::Number::from_i128(123));
+
+        let input = Enumeration::known_str("BLAH");
+        let got = serde_json::to_value(&input)?;
+        assert_eq!(got.as_str(), Some("BLAH"));
+
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize() -> TestResult {
+        let input = json!("BLAH");
+        let got = serde_json::from_value::<Enumeration>(input)?;
+        assert_eq!(got.value(), "BLAH");
+        assert_eq!(got.numeric_value(), None);
+
+        let input = json!(123);
+        let got = serde_json::from_value::<Enumeration>(input)?;
+        assert!(
+            got.value().contains("123"),
+            "got={got:?}, got.value()={}",
+            got.value()
+        );
+        assert_eq!(got.numeric_value(), Some(123));
+
+        Ok(())
+    }
+
+    #[test_case(i64::MAX)]
+    #[test_case(i64::MIN)]
+    #[test_case(u32::MAX as i64)]
+    fn deserialize_out_of_range(value: i64) {
+        let input = json!(value);
+        let got = serde_json::from_value::<Enumeration>(input);
+        assert!(got.is_err(), "{got:?}")
     }
 }
