@@ -169,6 +169,15 @@ mod test {
         );
         assert_eq!(got.numeric_value(), Some(123));
 
+        let input = json!(-123);
+        let got = serde_json::from_value::<Enumeration>(input)?;
+        assert!(
+            got.value().contains("-123"),
+            "got={got:?}, got.value()={}",
+            got.value()
+        );
+        assert_eq!(got.numeric_value(), Some(-123));
+
         Ok(())
     }
 
@@ -177,6 +186,13 @@ mod test {
     #[test_case(u32::MAX as i64)]
     fn deserialize_out_of_range(value: i64) {
         let input = json!(value);
+        let got = serde_json::from_value::<Enumeration>(input);
+        assert!(got.is_err(), "{got:?}")
+    }
+
+    #[test]
+    fn deserialize_invalid_type() {
+        let input = json!({ "name": 123 });
         let got = serde_json::from_value::<Enumeration>(input);
         assert!(got.is_err(), "{got:?}")
     }
