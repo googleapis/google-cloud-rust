@@ -443,20 +443,8 @@ pub mod disable_service_request {
 
     /// Enum to determine if service usage should be checked when disabling a
     /// service.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CheckIfServiceHasUsage(std::borrow::Cow<'static, str>);
-
-    impl CheckIfServiceHasUsage {
-        /// Creates a new CheckIfServiceHasUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CheckIfServiceHasUsage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CheckIfServiceHasUsage](CheckIfServiceHasUsage)
     pub mod check_if_service_has_usage {
@@ -464,26 +452,86 @@ pub mod disable_service_request {
 
         /// When unset, the default behavior is used, which is SKIP.
         pub const CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED: CheckIfServiceHasUsage =
-            CheckIfServiceHasUsage::new("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED");
+            CheckIfServiceHasUsage::known("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED", 0);
 
         /// If set, skip checking service usage when disabling a service.
-        pub const SKIP: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new("SKIP");
+        pub const SKIP: CheckIfServiceHasUsage = CheckIfServiceHasUsage::known("SKIP", 1);
 
         /// If set, service usage is checked when disabling the service. If a
         /// service, or its dependents, has usage in the last 30 days, the request
         /// returns a FAILED_PRECONDITION error.
-        pub const CHECK: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new("CHECK");
+        pub const CHECK: CheckIfServiceHasUsage = CheckIfServiceHasUsage::known("CHECK", 2);
+    }
+
+    impl CheckIfServiceHasUsage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CheckIfServiceHasUsage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CheckIfServiceHasUsage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CheckIfServiceHasUsage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CheckIfServiceHasUsage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CheckIfServiceHasUsage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CheckIfServiceHasUsage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED" => {
+                    check_if_service_has_usage::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED
+                }
+                "SKIP" => check_if_service_has_usage::SKIP,
+                "CHECK" => check_if_service_has_usage::CHECK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CheckIfServiceHasUsage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => check_if_service_has_usage::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED,
+                1 => check_if_service_has_usage::SKIP,
+                2 => check_if_service_has_usage::CHECK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CheckIfServiceHasUsage {
         fn default() -> Self {
-            check_if_service_has_usage::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -925,20 +973,8 @@ impl wkt::message::Message for BatchGetServicesResponse {
 }
 
 /// Whether or not a service has been enabled for use by a consumer.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct State(std::borrow::Cow<'static, str>);
-
-impl State {
-    /// Creates a new State instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct State(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [State](State)
 pub mod state {
@@ -947,24 +983,82 @@ pub mod state {
     /// The default value, which indicates that the enabled state of the service
     /// is unspecified or not meaningful. Currently, all consumers other than
     /// projects (such as folders and organizations) are always in this state.
-    pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+    pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
     /// The service cannot be used by this consumer. It has either been explicitly
     /// disabled, or has never been enabled.
-    pub const DISABLED: State = State::new("DISABLED");
+    pub const DISABLED: State = State::known("DISABLED", 1);
 
     /// The service has been explicitly enabled for use by this consumer.
-    pub const ENABLED: State = State::new("ENABLED");
+    pub const ENABLED: State = State::known("ENABLED", 2);
+}
+
+impl State {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for State {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for State {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(State::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+            Enumeration::UnknownNum { str } => Ok(State::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for State {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+            "DISABLED" => state::DISABLED,
+            "ENABLED" => state::ENABLED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for State {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => state::STATE_UNSPECIFIED,
+            1 => state::DISABLED,
+            2 => state::ENABLED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for State {
     fn default() -> Self {
-        state::STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

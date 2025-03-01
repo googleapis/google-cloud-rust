@@ -267,57 +267,111 @@ pub mod instance {
     use super::*;
 
     /// The possible states of a Parallelstore instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The instance is available for use.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
 
         /// The instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// The instance is not usable.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// The instance is being upgraded.
-        pub const UPGRADING: State = State::new("UPGRADING");
+        pub const UPGRADING: State = State::known("UPGRADING", 5);
 
         /// The instance is being repaired. This should only be used by instances
         /// using the `PERSISTENT` deployment type.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::known("REPAIRING", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "ACTIVE" => state::ACTIVE,
+                "DELETING" => state::DELETING,
+                "FAILED" => state::FAILED,
+                "UPGRADING" => state::UPGRADING,
+                "REPAIRING" => state::REPAIRING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::ACTIVE,
+                3 => state::DELETING,
+                4 => state::FAILED,
+                5 => state::UPGRADING,
+                6 => state::REPAIRING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2030,20 +2084,8 @@ impl wkt::message::Message for TransferCounters {
 }
 
 /// Type of transfer that occurred.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferType(std::borrow::Cow<'static, str>);
-
-impl TransferType {
-    /// Creates a new TransferType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct TransferType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [TransferType](TransferType)
 pub mod transfer_type {
@@ -2051,42 +2093,88 @@ pub mod transfer_type {
 
     /// Zero is an illegal value.
     pub const TRANSFER_TYPE_UNSPECIFIED: TransferType =
-        TransferType::new("TRANSFER_TYPE_UNSPECIFIED");
+        TransferType::known("TRANSFER_TYPE_UNSPECIFIED", 0);
 
     /// Imports to Parallelstore.
-    pub const IMPORT: TransferType = TransferType::new("IMPORT");
+    pub const IMPORT: TransferType = TransferType::known("IMPORT", 1);
 
     /// Exports from Parallelstore.
-    pub const EXPORT: TransferType = TransferType::new("EXPORT");
+    pub const EXPORT: TransferType = TransferType::known("EXPORT", 2);
+}
+
+impl TransferType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for TransferType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TransferType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(TransferType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(TransferType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(TransferType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for TransferType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TRANSFER_TYPE_UNSPECIFIED" => transfer_type::TRANSFER_TYPE_UNSPECIFIED,
+            "IMPORT" => transfer_type::IMPORT,
+            "EXPORT" => transfer_type::EXPORT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for TransferType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => transfer_type::TRANSFER_TYPE_UNSPECIFIED,
+            1 => transfer_type::IMPORT,
+            2 => transfer_type::EXPORT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for TransferType {
     fn default() -> Self {
-        transfer_type::TRANSFER_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Represents the striping options for files.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FileStripeLevel(std::borrow::Cow<'static, str>);
-
-impl FileStripeLevel {
-    /// Creates a new FileStripeLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct FileStripeLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [FileStripeLevel](FileStripeLevel)
 pub mod file_stripe_level {
@@ -2094,48 +2182,96 @@ pub mod file_stripe_level {
 
     /// If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
     pub const FILE_STRIPE_LEVEL_UNSPECIFIED: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_UNSPECIFIED");
+        FileStripeLevel::known("FILE_STRIPE_LEVEL_UNSPECIFIED", 0);
 
     /// Minimum file striping
     pub const FILE_STRIPE_LEVEL_MIN: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_MIN");
+        FileStripeLevel::known("FILE_STRIPE_LEVEL_MIN", 1);
 
     /// Medium file striping
     pub const FILE_STRIPE_LEVEL_BALANCED: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_BALANCED");
+        FileStripeLevel::known("FILE_STRIPE_LEVEL_BALANCED", 2);
 
     /// Maximum file striping
     pub const FILE_STRIPE_LEVEL_MAX: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_MAX");
+        FileStripeLevel::known("FILE_STRIPE_LEVEL_MAX", 3);
+}
+
+impl FileStripeLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for FileStripeLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FileStripeLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(FileStripeLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(FileStripeLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(FileStripeLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for FileStripeLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "FILE_STRIPE_LEVEL_UNSPECIFIED" => file_stripe_level::FILE_STRIPE_LEVEL_UNSPECIFIED,
+            "FILE_STRIPE_LEVEL_MIN" => file_stripe_level::FILE_STRIPE_LEVEL_MIN,
+            "FILE_STRIPE_LEVEL_BALANCED" => file_stripe_level::FILE_STRIPE_LEVEL_BALANCED,
+            "FILE_STRIPE_LEVEL_MAX" => file_stripe_level::FILE_STRIPE_LEVEL_MAX,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for FileStripeLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => file_stripe_level::FILE_STRIPE_LEVEL_UNSPECIFIED,
+            1 => file_stripe_level::FILE_STRIPE_LEVEL_MIN,
+            2 => file_stripe_level::FILE_STRIPE_LEVEL_BALANCED,
+            3 => file_stripe_level::FILE_STRIPE_LEVEL_MAX,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for FileStripeLevel {
     fn default() -> Self {
-        file_stripe_level::FILE_STRIPE_LEVEL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Represents the striping options for directories.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DirectoryStripeLevel(std::borrow::Cow<'static, str>);
-
-impl DirectoryStripeLevel {
-    /// Creates a new DirectoryStripeLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DirectoryStripeLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DirectoryStripeLevel](DirectoryStripeLevel)
 pub mod directory_stripe_level {
@@ -2143,48 +2279,100 @@ pub mod directory_stripe_level {
 
     /// If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
     pub const DIRECTORY_STRIPE_LEVEL_UNSPECIFIED: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED");
+        DirectoryStripeLevel::known("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED", 0);
 
     /// Minimum directory striping
     pub const DIRECTORY_STRIPE_LEVEL_MIN: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_MIN");
+        DirectoryStripeLevel::known("DIRECTORY_STRIPE_LEVEL_MIN", 1);
 
     /// Medium directory striping
     pub const DIRECTORY_STRIPE_LEVEL_BALANCED: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_BALANCED");
+        DirectoryStripeLevel::known("DIRECTORY_STRIPE_LEVEL_BALANCED", 2);
 
     /// Maximum directory striping
     pub const DIRECTORY_STRIPE_LEVEL_MAX: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_MAX");
+        DirectoryStripeLevel::known("DIRECTORY_STRIPE_LEVEL_MAX", 3);
+}
+
+impl DirectoryStripeLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DirectoryStripeLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DirectoryStripeLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DirectoryStripeLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DirectoryStripeLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DirectoryStripeLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DirectoryStripeLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DIRECTORY_STRIPE_LEVEL_UNSPECIFIED" => {
+                directory_stripe_level::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED
+            }
+            "DIRECTORY_STRIPE_LEVEL_MIN" => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_MIN,
+            "DIRECTORY_STRIPE_LEVEL_BALANCED" => {
+                directory_stripe_level::DIRECTORY_STRIPE_LEVEL_BALANCED
+            }
+            "DIRECTORY_STRIPE_LEVEL_MAX" => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_MAX,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DirectoryStripeLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED,
+            1 => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_MIN,
+            2 => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_BALANCED,
+            3 => directory_stripe_level::DIRECTORY_STRIPE_LEVEL_MAX,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DirectoryStripeLevel {
     fn default() -> Self {
-        directory_stripe_level::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Represents the deployment type for the instance.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentType(std::borrow::Cow<'static, str>);
-
-impl DeploymentType {
-    /// Creates a new DeploymentType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DeploymentType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DeploymentType](DeploymentType)
 pub mod deployment_type {
@@ -2193,23 +2381,81 @@ pub mod deployment_type {
     /// Default Deployment Type
     /// It is equivalent to SCRATCH
     pub const DEPLOYMENT_TYPE_UNSPECIFIED: DeploymentType =
-        DeploymentType::new("DEPLOYMENT_TYPE_UNSPECIFIED");
+        DeploymentType::known("DEPLOYMENT_TYPE_UNSPECIFIED", 0);
 
     /// Scratch
-    pub const SCRATCH: DeploymentType = DeploymentType::new("SCRATCH");
+    pub const SCRATCH: DeploymentType = DeploymentType::known("SCRATCH", 1);
 
     /// Persistent
-    pub const PERSISTENT: DeploymentType = DeploymentType::new("PERSISTENT");
+    pub const PERSISTENT: DeploymentType = DeploymentType::known("PERSISTENT", 2);
+}
+
+impl DeploymentType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DeploymentType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeploymentType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DeploymentType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DeploymentType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DeploymentType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DeploymentType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DEPLOYMENT_TYPE_UNSPECIFIED" => deployment_type::DEPLOYMENT_TYPE_UNSPECIFIED,
+            "SCRATCH" => deployment_type::SCRATCH,
+            "PERSISTENT" => deployment_type::PERSISTENT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DeploymentType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => deployment_type::DEPLOYMENT_TYPE_UNSPECIFIED,
+            1 => deployment_type::SCRATCH,
+            2 => deployment_type::PERSISTENT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DeploymentType {
     fn default() -> Self {
-        deployment_type::DEPLOYMENT_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

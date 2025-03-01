@@ -163,20 +163,8 @@ pub mod troubleshoot_iam_policy_response {
     use super::*;
 
     /// Whether the principal has the permission on the resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OverallAccessState(std::borrow::Cow<'static, str>);
-
-    impl OverallAccessState {
-        /// Creates a new OverallAccessState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OverallAccessState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OverallAccessState](OverallAccessState)
     pub mod overall_access_state {
@@ -184,34 +172,98 @@ pub mod troubleshoot_iam_policy_response {
 
         /// Not specified.
         pub const OVERALL_ACCESS_STATE_UNSPECIFIED: OverallAccessState =
-            OverallAccessState::new("OVERALL_ACCESS_STATE_UNSPECIFIED");
+            OverallAccessState::known("OVERALL_ACCESS_STATE_UNSPECIFIED", 0);
 
         /// The principal has the permission.
-        pub const CAN_ACCESS: OverallAccessState = OverallAccessState::new("CAN_ACCESS");
+        pub const CAN_ACCESS: OverallAccessState = OverallAccessState::known("CAN_ACCESS", 1);
 
         /// The principal doesn't have the permission.
-        pub const CANNOT_ACCESS: OverallAccessState = OverallAccessState::new("CANNOT_ACCESS");
+        pub const CANNOT_ACCESS: OverallAccessState = OverallAccessState::known("CANNOT_ACCESS", 2);
 
         /// The principal might have the permission, but the sender can't access all
         /// of the information needed to fully evaluate the principal's access.
-        pub const UNKNOWN_INFO: OverallAccessState = OverallAccessState::new("UNKNOWN_INFO");
+        pub const UNKNOWN_INFO: OverallAccessState = OverallAccessState::known("UNKNOWN_INFO", 3);
 
         /// The principal might have the permission, but Policy Troubleshooter can't
         /// fully evaluate the principal's access because the sender didn't provide
         /// the required context to evaluate the condition.
         pub const UNKNOWN_CONDITIONAL: OverallAccessState =
-            OverallAccessState::new("UNKNOWN_CONDITIONAL");
+            OverallAccessState::known("UNKNOWN_CONDITIONAL", 4);
+    }
+
+    impl OverallAccessState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OverallAccessState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OverallAccessState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OverallAccessState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OverallAccessState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OverallAccessState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OverallAccessState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "OVERALL_ACCESS_STATE_UNSPECIFIED" => {
+                    overall_access_state::OVERALL_ACCESS_STATE_UNSPECIFIED
+                }
+                "CAN_ACCESS" => overall_access_state::CAN_ACCESS,
+                "CANNOT_ACCESS" => overall_access_state::CANNOT_ACCESS,
+                "UNKNOWN_INFO" => overall_access_state::UNKNOWN_INFO,
+                "UNKNOWN_CONDITIONAL" => overall_access_state::UNKNOWN_CONDITIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OverallAccessState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => overall_access_state::OVERALL_ACCESS_STATE_UNSPECIFIED,
+                1 => overall_access_state::CAN_ACCESS,
+                2 => overall_access_state::CANNOT_ACCESS,
+                3 => overall_access_state::UNKNOWN_INFO,
+                4 => overall_access_state::UNKNOWN_CONDITIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OverallAccessState {
         fn default() -> Self {
-            overall_access_state::OVERALL_ACCESS_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1852,20 +1904,8 @@ pub mod condition_explanation {
 }
 
 /// Whether IAM allow policies gives the principal the permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AllowAccessState(std::borrow::Cow<'static, str>);
-
-impl AllowAccessState {
-    /// Creates a new AllowAccessState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct AllowAccessState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [AllowAccessState](AllowAccessState)
 pub mod allow_access_state {
@@ -1873,56 +1913,110 @@ pub mod allow_access_state {
 
     /// Not specified.
     pub const ALLOW_ACCESS_STATE_UNSPECIFIED: AllowAccessState =
-        AllowAccessState::new("ALLOW_ACCESS_STATE_UNSPECIFIED");
+        AllowAccessState::known("ALLOW_ACCESS_STATE_UNSPECIFIED", 0);
 
     /// The allow policy gives the principal the permission.
     pub const ALLOW_ACCESS_STATE_GRANTED: AllowAccessState =
-        AllowAccessState::new("ALLOW_ACCESS_STATE_GRANTED");
+        AllowAccessState::known("ALLOW_ACCESS_STATE_GRANTED", 1);
 
     /// The allow policy doesn't give the principal the permission.
     pub const ALLOW_ACCESS_STATE_NOT_GRANTED: AllowAccessState =
-        AllowAccessState::new("ALLOW_ACCESS_STATE_NOT_GRANTED");
+        AllowAccessState::known("ALLOW_ACCESS_STATE_NOT_GRANTED", 2);
 
     /// The allow policy gives the principal the permission if a condition
     /// expression evaluate to `true`. However, the sender of the request didn't
     /// provide enough context for Policy Troubleshooter to evaluate the condition
     /// expression.
     pub const ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL: AllowAccessState =
-        AllowAccessState::new("ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL");
+        AllowAccessState::known("ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL", 3);
 
     /// The sender of the request doesn't have access to all of the allow policies
     /// that Policy Troubleshooter needs to evaluate the principal's access.
     pub const ALLOW_ACCESS_STATE_UNKNOWN_INFO: AllowAccessState =
-        AllowAccessState::new("ALLOW_ACCESS_STATE_UNKNOWN_INFO");
+        AllowAccessState::known("ALLOW_ACCESS_STATE_UNKNOWN_INFO", 4);
+}
+
+impl AllowAccessState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for AllowAccessState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AllowAccessState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(AllowAccessState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(AllowAccessState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(AllowAccessState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for AllowAccessState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ALLOW_ACCESS_STATE_UNSPECIFIED" => allow_access_state::ALLOW_ACCESS_STATE_UNSPECIFIED,
+            "ALLOW_ACCESS_STATE_GRANTED" => allow_access_state::ALLOW_ACCESS_STATE_GRANTED,
+            "ALLOW_ACCESS_STATE_NOT_GRANTED" => allow_access_state::ALLOW_ACCESS_STATE_NOT_GRANTED,
+            "ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL" => {
+                allow_access_state::ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL
+            }
+            "ALLOW_ACCESS_STATE_UNKNOWN_INFO" => {
+                allow_access_state::ALLOW_ACCESS_STATE_UNKNOWN_INFO
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for AllowAccessState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => allow_access_state::ALLOW_ACCESS_STATE_UNSPECIFIED,
+            1 => allow_access_state::ALLOW_ACCESS_STATE_GRANTED,
+            2 => allow_access_state::ALLOW_ACCESS_STATE_NOT_GRANTED,
+            3 => allow_access_state::ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL,
+            4 => allow_access_state::ALLOW_ACCESS_STATE_UNKNOWN_INFO,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for AllowAccessState {
     fn default() -> Self {
-        allow_access_state::ALLOW_ACCESS_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Whether IAM deny policies deny the principal the permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DenyAccessState(std::borrow::Cow<'static, str>);
-
-impl DenyAccessState {
-    /// Creates a new DenyAccessState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DenyAccessState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DenyAccessState](DenyAccessState)
 pub mod deny_access_state {
@@ -1930,56 +2024,108 @@ pub mod deny_access_state {
 
     /// Not specified.
     pub const DENY_ACCESS_STATE_UNSPECIFIED: DenyAccessState =
-        DenyAccessState::new("DENY_ACCESS_STATE_UNSPECIFIED");
+        DenyAccessState::known("DENY_ACCESS_STATE_UNSPECIFIED", 0);
 
     /// The deny policy denies the principal the permission.
     pub const DENY_ACCESS_STATE_DENIED: DenyAccessState =
-        DenyAccessState::new("DENY_ACCESS_STATE_DENIED");
+        DenyAccessState::known("DENY_ACCESS_STATE_DENIED", 1);
 
     /// The deny policy doesn't deny the principal the permission.
     pub const DENY_ACCESS_STATE_NOT_DENIED: DenyAccessState =
-        DenyAccessState::new("DENY_ACCESS_STATE_NOT_DENIED");
+        DenyAccessState::known("DENY_ACCESS_STATE_NOT_DENIED", 2);
 
     /// The deny policy denies the principal the permission if a condition
     /// expression evaluates to `true`. However, the sender of the request didn't
     /// provide enough context for Policy Troubleshooter to evaluate the condition
     /// expression.
     pub const DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL: DenyAccessState =
-        DenyAccessState::new("DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL");
+        DenyAccessState::known("DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL", 3);
 
     /// The sender of the request does not have access to all of the deny policies
     /// that Policy Troubleshooter needs to evaluate the principal's access.
     pub const DENY_ACCESS_STATE_UNKNOWN_INFO: DenyAccessState =
-        DenyAccessState::new("DENY_ACCESS_STATE_UNKNOWN_INFO");
+        DenyAccessState::known("DENY_ACCESS_STATE_UNKNOWN_INFO", 4);
+}
+
+impl DenyAccessState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DenyAccessState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DenyAccessState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DenyAccessState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DenyAccessState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DenyAccessState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DenyAccessState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DENY_ACCESS_STATE_UNSPECIFIED" => deny_access_state::DENY_ACCESS_STATE_UNSPECIFIED,
+            "DENY_ACCESS_STATE_DENIED" => deny_access_state::DENY_ACCESS_STATE_DENIED,
+            "DENY_ACCESS_STATE_NOT_DENIED" => deny_access_state::DENY_ACCESS_STATE_NOT_DENIED,
+            "DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL" => {
+                deny_access_state::DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL
+            }
+            "DENY_ACCESS_STATE_UNKNOWN_INFO" => deny_access_state::DENY_ACCESS_STATE_UNKNOWN_INFO,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DenyAccessState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => deny_access_state::DENY_ACCESS_STATE_UNSPECIFIED,
+            1 => deny_access_state::DENY_ACCESS_STATE_DENIED,
+            2 => deny_access_state::DENY_ACCESS_STATE_NOT_DENIED,
+            3 => deny_access_state::DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL,
+            4 => deny_access_state::DENY_ACCESS_STATE_UNKNOWN_INFO,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DenyAccessState {
     fn default() -> Self {
-        deny_access_state::DENY_ACCESS_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Whether a role includes a specific permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RolePermissionInclusionState(std::borrow::Cow<'static, str>);
-
-impl RolePermissionInclusionState {
-    /// Creates a new RolePermissionInclusionState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct RolePermissionInclusionState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [RolePermissionInclusionState](RolePermissionInclusionState)
 pub mod role_permission_inclusion_state {
@@ -1987,48 +2133,102 @@ pub mod role_permission_inclusion_state {
 
     /// Not specified.
     pub const ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED: RolePermissionInclusionState =
-        RolePermissionInclusionState::new("ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED");
+        RolePermissionInclusionState::known("ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED", 0);
 
     /// The permission is included in the role.
     pub const ROLE_PERMISSION_INCLUDED: RolePermissionInclusionState =
-        RolePermissionInclusionState::new("ROLE_PERMISSION_INCLUDED");
+        RolePermissionInclusionState::known("ROLE_PERMISSION_INCLUDED", 1);
 
     /// The permission is not included in the role.
     pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermissionInclusionState =
-        RolePermissionInclusionState::new("ROLE_PERMISSION_NOT_INCLUDED");
+        RolePermissionInclusionState::known("ROLE_PERMISSION_NOT_INCLUDED", 2);
 
     /// The sender of the request is not allowed to access the role definition.
     pub const ROLE_PERMISSION_UNKNOWN_INFO: RolePermissionInclusionState =
-        RolePermissionInclusionState::new("ROLE_PERMISSION_UNKNOWN_INFO");
+        RolePermissionInclusionState::known("ROLE_PERMISSION_UNKNOWN_INFO", 3);
+}
+
+impl RolePermissionInclusionState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for RolePermissionInclusionState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RolePermissionInclusionState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(RolePermissionInclusionState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(RolePermissionInclusionState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(RolePermissionInclusionState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for RolePermissionInclusionState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED" => {
+                role_permission_inclusion_state::ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED
+            }
+            "ROLE_PERMISSION_INCLUDED" => role_permission_inclusion_state::ROLE_PERMISSION_INCLUDED,
+            "ROLE_PERMISSION_NOT_INCLUDED" => {
+                role_permission_inclusion_state::ROLE_PERMISSION_NOT_INCLUDED
+            }
+            "ROLE_PERMISSION_UNKNOWN_INFO" => {
+                role_permission_inclusion_state::ROLE_PERMISSION_UNKNOWN_INFO
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for RolePermissionInclusionState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => role_permission_inclusion_state::ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED,
+            1 => role_permission_inclusion_state::ROLE_PERMISSION_INCLUDED,
+            2 => role_permission_inclusion_state::ROLE_PERMISSION_NOT_INCLUDED,
+            3 => role_permission_inclusion_state::ROLE_PERMISSION_UNKNOWN_INFO,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for RolePermissionInclusionState {
     fn default() -> Self {
-        role_permission_inclusion_state::ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Whether the permission in the request matches the permission in the policy.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PermissionPatternMatchingState(std::borrow::Cow<'static, str>);
-
-impl PermissionPatternMatchingState {
-    /// Creates a new PermissionPatternMatchingState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct PermissionPatternMatchingState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [PermissionPatternMatchingState](PermissionPatternMatchingState)
 pub mod permission_pattern_matching_state {
@@ -2036,44 +2236,98 @@ pub mod permission_pattern_matching_state {
 
     /// Not specified.
     pub const PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED: PermissionPatternMatchingState =
-        PermissionPatternMatchingState::new("PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED");
+        PermissionPatternMatchingState::known("PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED", 0);
 
     /// The permission in the request matches the permission in the policy.
     pub const PERMISSION_PATTERN_MATCHED: PermissionPatternMatchingState =
-        PermissionPatternMatchingState::new("PERMISSION_PATTERN_MATCHED");
+        PermissionPatternMatchingState::known("PERMISSION_PATTERN_MATCHED", 1);
 
     /// The permission in the request matches the permission in the policy.
     pub const PERMISSION_PATTERN_NOT_MATCHED: PermissionPatternMatchingState =
-        PermissionPatternMatchingState::new("PERMISSION_PATTERN_NOT_MATCHED");
+        PermissionPatternMatchingState::known("PERMISSION_PATTERN_NOT_MATCHED", 2);
+}
+
+impl PermissionPatternMatchingState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for PermissionPatternMatchingState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PermissionPatternMatchingState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(PermissionPatternMatchingState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => {
+                Ok(PermissionPatternMatchingState::from(val))
+            }
+            Enumeration::UnknownNum { str } => Ok(PermissionPatternMatchingState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for PermissionPatternMatchingState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED" => {
+                permission_pattern_matching_state::PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED
+            }
+            "PERMISSION_PATTERN_MATCHED" => {
+                permission_pattern_matching_state::PERMISSION_PATTERN_MATCHED
+            }
+            "PERMISSION_PATTERN_NOT_MATCHED" => {
+                permission_pattern_matching_state::PERMISSION_PATTERN_NOT_MATCHED
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for PermissionPatternMatchingState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => permission_pattern_matching_state::PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED,
+            1 => permission_pattern_matching_state::PERMISSION_PATTERN_MATCHED,
+            2 => permission_pattern_matching_state::PERMISSION_PATTERN_NOT_MATCHED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for PermissionPatternMatchingState {
     fn default() -> Self {
-        permission_pattern_matching_state::PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Whether the principal in the request matches the principal in the policy.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct MembershipMatchingState(std::borrow::Cow<'static, str>);
-
-impl MembershipMatchingState {
-    /// Creates a new MembershipMatchingState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct MembershipMatchingState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [MembershipMatchingState](MembershipMatchingState)
 pub mod membership_matching_state {
@@ -2081,7 +2335,7 @@ pub mod membership_matching_state {
 
     /// Not specified.
     pub const MEMBERSHIP_MATCHING_STATE_UNSPECIFIED: MembershipMatchingState =
-        MembershipMatchingState::new("MEMBERSHIP_MATCHING_STATE_UNSPECIFIED");
+        MembershipMatchingState::known("MEMBERSHIP_MATCHING_STATE_UNSPECIFIED", 0);
 
     /// The principal in the request matches the principal in the policy. The
     /// principal can be included directly or indirectly:
@@ -2092,51 +2346,105 @@ pub mod membership_matching_state {
     ///   group, Google Workspace account, or Cloud Identity domain that is listed
     ///   in the policy.
     pub const MEMBERSHIP_MATCHED: MembershipMatchingState =
-        MembershipMatchingState::new("MEMBERSHIP_MATCHED");
+        MembershipMatchingState::known("MEMBERSHIP_MATCHED", 1);
 
     /// The principal in the request doesn't match the principal in the policy.
     pub const MEMBERSHIP_NOT_MATCHED: MembershipMatchingState =
-        MembershipMatchingState::new("MEMBERSHIP_NOT_MATCHED");
+        MembershipMatchingState::known("MEMBERSHIP_NOT_MATCHED", 2);
 
     /// The principal in the policy is a group or domain, and the sender of the
     /// request doesn't have permission to view whether the principal in the
     /// request is a member of the group or domain.
     pub const MEMBERSHIP_UNKNOWN_INFO: MembershipMatchingState =
-        MembershipMatchingState::new("MEMBERSHIP_UNKNOWN_INFO");
+        MembershipMatchingState::known("MEMBERSHIP_UNKNOWN_INFO", 3);
 
     /// The principal is an unsupported type.
     pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: MembershipMatchingState =
-        MembershipMatchingState::new("MEMBERSHIP_UNKNOWN_UNSUPPORTED");
+        MembershipMatchingState::known("MEMBERSHIP_UNKNOWN_UNSUPPORTED", 4);
+}
+
+impl MembershipMatchingState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for MembershipMatchingState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MembershipMatchingState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(MembershipMatchingState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(MembershipMatchingState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(MembershipMatchingState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for MembershipMatchingState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "MEMBERSHIP_MATCHING_STATE_UNSPECIFIED" => {
+                membership_matching_state::MEMBERSHIP_MATCHING_STATE_UNSPECIFIED
+            }
+            "MEMBERSHIP_MATCHED" => membership_matching_state::MEMBERSHIP_MATCHED,
+            "MEMBERSHIP_NOT_MATCHED" => membership_matching_state::MEMBERSHIP_NOT_MATCHED,
+            "MEMBERSHIP_UNKNOWN_INFO" => membership_matching_state::MEMBERSHIP_UNKNOWN_INFO,
+            "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => {
+                membership_matching_state::MEMBERSHIP_UNKNOWN_UNSUPPORTED
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for MembershipMatchingState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => membership_matching_state::MEMBERSHIP_MATCHING_STATE_UNSPECIFIED,
+            1 => membership_matching_state::MEMBERSHIP_MATCHED,
+            2 => membership_matching_state::MEMBERSHIP_NOT_MATCHED,
+            3 => membership_matching_state::MEMBERSHIP_UNKNOWN_INFO,
+            4 => membership_matching_state::MEMBERSHIP_UNKNOWN_UNSUPPORTED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for MembershipMatchingState {
     fn default() -> Self {
-        membership_matching_state::MEMBERSHIP_MATCHING_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The extent to which a single data point contributes to an overall
 /// determination.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
-
-impl HeuristicRelevance {
-    /// Creates a new HeuristicRelevance instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HeuristicRelevance(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [HeuristicRelevance](HeuristicRelevance)
 pub mod heuristic_relevance {
@@ -2144,27 +2452,87 @@ pub mod heuristic_relevance {
 
     /// Not specified.
     pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_UNSPECIFIED");
+        HeuristicRelevance::known("HEURISTIC_RELEVANCE_UNSPECIFIED", 0);
 
     /// The data point has a limited effect on the result. Changing the data point
     /// is unlikely to affect the overall determination.
     pub const HEURISTIC_RELEVANCE_NORMAL: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_NORMAL");
+        HeuristicRelevance::known("HEURISTIC_RELEVANCE_NORMAL", 1);
 
     /// The data point has a strong effect on the result. Changing the data point
     /// is likely to affect the overall determination.
     pub const HEURISTIC_RELEVANCE_HIGH: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_HIGH");
+        HeuristicRelevance::known("HEURISTIC_RELEVANCE_HIGH", 2);
+}
+
+impl HeuristicRelevance {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for HeuristicRelevance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(HeuristicRelevance::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(HeuristicRelevance::from(val)),
+            Enumeration::UnknownNum { str } => Ok(HeuristicRelevance::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for HeuristicRelevance {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "HEURISTIC_RELEVANCE_UNSPECIFIED" => {
+                heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
+            }
+            "HEURISTIC_RELEVANCE_NORMAL" => heuristic_relevance::HEURISTIC_RELEVANCE_NORMAL,
+            "HEURISTIC_RELEVANCE_HIGH" => heuristic_relevance::HEURISTIC_RELEVANCE_HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for HeuristicRelevance {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED,
+            1 => heuristic_relevance::HEURISTIC_RELEVANCE_NORMAL,
+            2 => heuristic_relevance::HEURISTIC_RELEVANCE_HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for HeuristicRelevance {
     fn default() -> Self {
-        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

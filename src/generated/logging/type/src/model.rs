@@ -231,62 +231,120 @@ impl wkt::message::Message for HttpRequest {
 /// one of these standard levels. For example, you might map all of Java's FINE,
 /// FINER, and FINEST levels to `LogSeverity.DEBUG`. You can preserve the
 /// original severity level in the log entry payload if you wish.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LogSeverity(std::borrow::Cow<'static, str>);
-
-impl LogSeverity {
-    /// Creates a new LogSeverity instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LogSeverity(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LogSeverity](LogSeverity)
 pub mod log_severity {
     use super::LogSeverity;
 
     /// (0) The log entry has no assigned severity level.
-    pub const DEFAULT: LogSeverity = LogSeverity::new("DEFAULT");
+    pub const DEFAULT: LogSeverity = LogSeverity::known("DEFAULT", 0);
 
     /// (100) Debug or trace information.
-    pub const DEBUG: LogSeverity = LogSeverity::new("DEBUG");
+    pub const DEBUG: LogSeverity = LogSeverity::known("DEBUG", 100);
 
     /// (200) Routine information, such as ongoing status or performance.
-    pub const INFO: LogSeverity = LogSeverity::new("INFO");
+    pub const INFO: LogSeverity = LogSeverity::known("INFO", 200);
 
     /// (300) Normal but significant events, such as start up, shut down, or
     /// a configuration change.
-    pub const NOTICE: LogSeverity = LogSeverity::new("NOTICE");
+    pub const NOTICE: LogSeverity = LogSeverity::known("NOTICE", 300);
 
     /// (400) Warning events might cause problems.
-    pub const WARNING: LogSeverity = LogSeverity::new("WARNING");
+    pub const WARNING: LogSeverity = LogSeverity::known("WARNING", 400);
 
     /// (500) Error events are likely to cause problems.
-    pub const ERROR: LogSeverity = LogSeverity::new("ERROR");
+    pub const ERROR: LogSeverity = LogSeverity::known("ERROR", 500);
 
     /// (600) Critical events cause more severe problems or outages.
-    pub const CRITICAL: LogSeverity = LogSeverity::new("CRITICAL");
+    pub const CRITICAL: LogSeverity = LogSeverity::known("CRITICAL", 600);
 
     /// (700) A person must take an action immediately.
-    pub const ALERT: LogSeverity = LogSeverity::new("ALERT");
+    pub const ALERT: LogSeverity = LogSeverity::known("ALERT", 700);
 
     /// (800) One or more systems are unusable.
-    pub const EMERGENCY: LogSeverity = LogSeverity::new("EMERGENCY");
+    pub const EMERGENCY: LogSeverity = LogSeverity::known("EMERGENCY", 800);
+}
+
+impl LogSeverity {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LogSeverity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LogSeverity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LogSeverity::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LogSeverity::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LogSeverity::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LogSeverity {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DEFAULT" => log_severity::DEFAULT,
+            "DEBUG" => log_severity::DEBUG,
+            "INFO" => log_severity::INFO,
+            "NOTICE" => log_severity::NOTICE,
+            "WARNING" => log_severity::WARNING,
+            "ERROR" => log_severity::ERROR,
+            "CRITICAL" => log_severity::CRITICAL,
+            "ALERT" => log_severity::ALERT,
+            "EMERGENCY" => log_severity::EMERGENCY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LogSeverity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => log_severity::DEFAULT,
+            100 => log_severity::DEBUG,
+            200 => log_severity::INFO,
+            300 => log_severity::NOTICE,
+            400 => log_severity::WARNING,
+            500 => log_severity::ERROR,
+            600 => log_severity::CRITICAL,
+            700 => log_severity::ALERT,
+            800 => log_severity::EMERGENCY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LogSeverity {
     fn default() -> Self {
-        log_severity::DEFAULT
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

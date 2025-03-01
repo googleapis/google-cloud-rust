@@ -267,79 +267,145 @@ pub mod feature {
     use super::*;
 
     /// Type of Google Cloud Vision API feature to be extracted.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Unspecified feature type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Run face detection.
-        pub const FACE_DETECTION: Type = Type::new("FACE_DETECTION");
+        pub const FACE_DETECTION: Type = Type::known("FACE_DETECTION", 1);
 
         /// Run landmark detection.
-        pub const LANDMARK_DETECTION: Type = Type::new("LANDMARK_DETECTION");
+        pub const LANDMARK_DETECTION: Type = Type::known("LANDMARK_DETECTION", 2);
 
         /// Run logo detection.
-        pub const LOGO_DETECTION: Type = Type::new("LOGO_DETECTION");
+        pub const LOGO_DETECTION: Type = Type::known("LOGO_DETECTION", 3);
 
         /// Run label detection.
-        pub const LABEL_DETECTION: Type = Type::new("LABEL_DETECTION");
+        pub const LABEL_DETECTION: Type = Type::known("LABEL_DETECTION", 4);
 
         /// Run text detection / optical character recognition (OCR). Text detection
         /// is optimized for areas of text within a larger image; if the image is
         /// a document, use `DOCUMENT_TEXT_DETECTION` instead.
-        pub const TEXT_DETECTION: Type = Type::new("TEXT_DETECTION");
+        pub const TEXT_DETECTION: Type = Type::known("TEXT_DETECTION", 5);
 
         /// Run dense text document OCR. Takes precedence when both
         /// `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` are present.
-        pub const DOCUMENT_TEXT_DETECTION: Type = Type::new("DOCUMENT_TEXT_DETECTION");
+        pub const DOCUMENT_TEXT_DETECTION: Type = Type::known("DOCUMENT_TEXT_DETECTION", 11);
 
         /// Run Safe Search to detect potentially unsafe
         /// or undesirable content.
-        pub const SAFE_SEARCH_DETECTION: Type = Type::new("SAFE_SEARCH_DETECTION");
+        pub const SAFE_SEARCH_DETECTION: Type = Type::known("SAFE_SEARCH_DETECTION", 6);
 
         /// Compute a set of image properties, such as the
         /// image's dominant colors.
-        pub const IMAGE_PROPERTIES: Type = Type::new("IMAGE_PROPERTIES");
+        pub const IMAGE_PROPERTIES: Type = Type::known("IMAGE_PROPERTIES", 7);
 
         /// Run crop hints.
-        pub const CROP_HINTS: Type = Type::new("CROP_HINTS");
+        pub const CROP_HINTS: Type = Type::known("CROP_HINTS", 9);
 
         /// Run web detection.
-        pub const WEB_DETECTION: Type = Type::new("WEB_DETECTION");
+        pub const WEB_DETECTION: Type = Type::known("WEB_DETECTION", 10);
 
         /// Run Product Search.
-        pub const PRODUCT_SEARCH: Type = Type::new("PRODUCT_SEARCH");
+        pub const PRODUCT_SEARCH: Type = Type::known("PRODUCT_SEARCH", 12);
 
         /// Run localizer for object detection.
-        pub const OBJECT_LOCALIZATION: Type = Type::new("OBJECT_LOCALIZATION");
+        pub const OBJECT_LOCALIZATION: Type = Type::known("OBJECT_LOCALIZATION", 19);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "FACE_DETECTION" => r#type::FACE_DETECTION,
+                "LANDMARK_DETECTION" => r#type::LANDMARK_DETECTION,
+                "LOGO_DETECTION" => r#type::LOGO_DETECTION,
+                "LABEL_DETECTION" => r#type::LABEL_DETECTION,
+                "TEXT_DETECTION" => r#type::TEXT_DETECTION,
+                "DOCUMENT_TEXT_DETECTION" => r#type::DOCUMENT_TEXT_DETECTION,
+                "SAFE_SEARCH_DETECTION" => r#type::SAFE_SEARCH_DETECTION,
+                "IMAGE_PROPERTIES" => r#type::IMAGE_PROPERTIES,
+                "CROP_HINTS" => r#type::CROP_HINTS,
+                "WEB_DETECTION" => r#type::WEB_DETECTION,
+                "PRODUCT_SEARCH" => r#type::PRODUCT_SEARCH,
+                "OBJECT_LOCALIZATION" => r#type::OBJECT_LOCALIZATION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::FACE_DETECTION,
+                2 => r#type::LANDMARK_DETECTION,
+                3 => r#type::LOGO_DETECTION,
+                4 => r#type::LABEL_DETECTION,
+                5 => r#type::TEXT_DETECTION,
+                6 => r#type::SAFE_SEARCH_DETECTION,
+                7 => r#type::IMAGE_PROPERTIES,
+                9 => r#type::CROP_HINTS,
+                10 => r#type::WEB_DETECTION,
+                11 => r#type::DOCUMENT_TEXT_DETECTION,
+                12 => r#type::PRODUCT_SEARCH,
+                19 => r#type::OBJECT_LOCALIZATION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -723,147 +789,263 @@ pub mod face_annotation {
         /// Left and right are defined from the vantage of the viewer of the image
         /// without considering mirror projections typical of photos. So, `LEFT_EYE`,
         /// typically, is the person's right eye.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
-
-        impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Type(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
             use super::Type;
 
             /// Unknown face landmark detected. Should not be filled.
-            pub const UNKNOWN_LANDMARK: Type = Type::new("UNKNOWN_LANDMARK");
+            pub const UNKNOWN_LANDMARK: Type = Type::known("UNKNOWN_LANDMARK", 0);
 
             /// Left eye.
-            pub const LEFT_EYE: Type = Type::new("LEFT_EYE");
+            pub const LEFT_EYE: Type = Type::known("LEFT_EYE", 1);
 
             /// Right eye.
-            pub const RIGHT_EYE: Type = Type::new("RIGHT_EYE");
+            pub const RIGHT_EYE: Type = Type::known("RIGHT_EYE", 2);
 
             /// Left of left eyebrow.
-            pub const LEFT_OF_LEFT_EYEBROW: Type = Type::new("LEFT_OF_LEFT_EYEBROW");
+            pub const LEFT_OF_LEFT_EYEBROW: Type = Type::known("LEFT_OF_LEFT_EYEBROW", 3);
 
             /// Right of left eyebrow.
-            pub const RIGHT_OF_LEFT_EYEBROW: Type = Type::new("RIGHT_OF_LEFT_EYEBROW");
+            pub const RIGHT_OF_LEFT_EYEBROW: Type = Type::known("RIGHT_OF_LEFT_EYEBROW", 4);
 
             /// Left of right eyebrow.
-            pub const LEFT_OF_RIGHT_EYEBROW: Type = Type::new("LEFT_OF_RIGHT_EYEBROW");
+            pub const LEFT_OF_RIGHT_EYEBROW: Type = Type::known("LEFT_OF_RIGHT_EYEBROW", 5);
 
             /// Right of right eyebrow.
-            pub const RIGHT_OF_RIGHT_EYEBROW: Type = Type::new("RIGHT_OF_RIGHT_EYEBROW");
+            pub const RIGHT_OF_RIGHT_EYEBROW: Type = Type::known("RIGHT_OF_RIGHT_EYEBROW", 6);
 
             /// Midpoint between eyes.
-            pub const MIDPOINT_BETWEEN_EYES: Type = Type::new("MIDPOINT_BETWEEN_EYES");
+            pub const MIDPOINT_BETWEEN_EYES: Type = Type::known("MIDPOINT_BETWEEN_EYES", 7);
 
             /// Nose tip.
-            pub const NOSE_TIP: Type = Type::new("NOSE_TIP");
+            pub const NOSE_TIP: Type = Type::known("NOSE_TIP", 8);
 
             /// Upper lip.
-            pub const UPPER_LIP: Type = Type::new("UPPER_LIP");
+            pub const UPPER_LIP: Type = Type::known("UPPER_LIP", 9);
 
             /// Lower lip.
-            pub const LOWER_LIP: Type = Type::new("LOWER_LIP");
+            pub const LOWER_LIP: Type = Type::known("LOWER_LIP", 10);
 
             /// Mouth left.
-            pub const MOUTH_LEFT: Type = Type::new("MOUTH_LEFT");
+            pub const MOUTH_LEFT: Type = Type::known("MOUTH_LEFT", 11);
 
             /// Mouth right.
-            pub const MOUTH_RIGHT: Type = Type::new("MOUTH_RIGHT");
+            pub const MOUTH_RIGHT: Type = Type::known("MOUTH_RIGHT", 12);
 
             /// Mouth center.
-            pub const MOUTH_CENTER: Type = Type::new("MOUTH_CENTER");
+            pub const MOUTH_CENTER: Type = Type::known("MOUTH_CENTER", 13);
 
             /// Nose, bottom right.
-            pub const NOSE_BOTTOM_RIGHT: Type = Type::new("NOSE_BOTTOM_RIGHT");
+            pub const NOSE_BOTTOM_RIGHT: Type = Type::known("NOSE_BOTTOM_RIGHT", 14);
 
             /// Nose, bottom left.
-            pub const NOSE_BOTTOM_LEFT: Type = Type::new("NOSE_BOTTOM_LEFT");
+            pub const NOSE_BOTTOM_LEFT: Type = Type::known("NOSE_BOTTOM_LEFT", 15);
 
             /// Nose, bottom center.
-            pub const NOSE_BOTTOM_CENTER: Type = Type::new("NOSE_BOTTOM_CENTER");
+            pub const NOSE_BOTTOM_CENTER: Type = Type::known("NOSE_BOTTOM_CENTER", 16);
 
             /// Left eye, top boundary.
-            pub const LEFT_EYE_TOP_BOUNDARY: Type = Type::new("LEFT_EYE_TOP_BOUNDARY");
+            pub const LEFT_EYE_TOP_BOUNDARY: Type = Type::known("LEFT_EYE_TOP_BOUNDARY", 17);
 
             /// Left eye, right corner.
-            pub const LEFT_EYE_RIGHT_CORNER: Type = Type::new("LEFT_EYE_RIGHT_CORNER");
+            pub const LEFT_EYE_RIGHT_CORNER: Type = Type::known("LEFT_EYE_RIGHT_CORNER", 18);
 
             /// Left eye, bottom boundary.
-            pub const LEFT_EYE_BOTTOM_BOUNDARY: Type = Type::new("LEFT_EYE_BOTTOM_BOUNDARY");
+            pub const LEFT_EYE_BOTTOM_BOUNDARY: Type = Type::known("LEFT_EYE_BOTTOM_BOUNDARY", 19);
 
             /// Left eye, left corner.
-            pub const LEFT_EYE_LEFT_CORNER: Type = Type::new("LEFT_EYE_LEFT_CORNER");
+            pub const LEFT_EYE_LEFT_CORNER: Type = Type::known("LEFT_EYE_LEFT_CORNER", 20);
 
             /// Right eye, top boundary.
-            pub const RIGHT_EYE_TOP_BOUNDARY: Type = Type::new("RIGHT_EYE_TOP_BOUNDARY");
+            pub const RIGHT_EYE_TOP_BOUNDARY: Type = Type::known("RIGHT_EYE_TOP_BOUNDARY", 21);
 
             /// Right eye, right corner.
-            pub const RIGHT_EYE_RIGHT_CORNER: Type = Type::new("RIGHT_EYE_RIGHT_CORNER");
+            pub const RIGHT_EYE_RIGHT_CORNER: Type = Type::known("RIGHT_EYE_RIGHT_CORNER", 22);
 
             /// Right eye, bottom boundary.
-            pub const RIGHT_EYE_BOTTOM_BOUNDARY: Type = Type::new("RIGHT_EYE_BOTTOM_BOUNDARY");
+            pub const RIGHT_EYE_BOTTOM_BOUNDARY: Type =
+                Type::known("RIGHT_EYE_BOTTOM_BOUNDARY", 23);
 
             /// Right eye, left corner.
-            pub const RIGHT_EYE_LEFT_CORNER: Type = Type::new("RIGHT_EYE_LEFT_CORNER");
+            pub const RIGHT_EYE_LEFT_CORNER: Type = Type::known("RIGHT_EYE_LEFT_CORNER", 24);
 
             /// Left eyebrow, upper midpoint.
-            pub const LEFT_EYEBROW_UPPER_MIDPOINT: Type = Type::new("LEFT_EYEBROW_UPPER_MIDPOINT");
+            pub const LEFT_EYEBROW_UPPER_MIDPOINT: Type =
+                Type::known("LEFT_EYEBROW_UPPER_MIDPOINT", 25);
 
             /// Right eyebrow, upper midpoint.
             pub const RIGHT_EYEBROW_UPPER_MIDPOINT: Type =
-                Type::new("RIGHT_EYEBROW_UPPER_MIDPOINT");
+                Type::known("RIGHT_EYEBROW_UPPER_MIDPOINT", 26);
 
             /// Left ear tragion.
-            pub const LEFT_EAR_TRAGION: Type = Type::new("LEFT_EAR_TRAGION");
+            pub const LEFT_EAR_TRAGION: Type = Type::known("LEFT_EAR_TRAGION", 27);
 
             /// Right ear tragion.
-            pub const RIGHT_EAR_TRAGION: Type = Type::new("RIGHT_EAR_TRAGION");
+            pub const RIGHT_EAR_TRAGION: Type = Type::known("RIGHT_EAR_TRAGION", 28);
 
             /// Left eye pupil.
-            pub const LEFT_EYE_PUPIL: Type = Type::new("LEFT_EYE_PUPIL");
+            pub const LEFT_EYE_PUPIL: Type = Type::known("LEFT_EYE_PUPIL", 29);
 
             /// Right eye pupil.
-            pub const RIGHT_EYE_PUPIL: Type = Type::new("RIGHT_EYE_PUPIL");
+            pub const RIGHT_EYE_PUPIL: Type = Type::known("RIGHT_EYE_PUPIL", 30);
 
             /// Forehead glabella.
-            pub const FOREHEAD_GLABELLA: Type = Type::new("FOREHEAD_GLABELLA");
+            pub const FOREHEAD_GLABELLA: Type = Type::known("FOREHEAD_GLABELLA", 31);
 
             /// Chin gnathion.
-            pub const CHIN_GNATHION: Type = Type::new("CHIN_GNATHION");
+            pub const CHIN_GNATHION: Type = Type::known("CHIN_GNATHION", 32);
 
             /// Chin left gonion.
-            pub const CHIN_LEFT_GONION: Type = Type::new("CHIN_LEFT_GONION");
+            pub const CHIN_LEFT_GONION: Type = Type::known("CHIN_LEFT_GONION", 33);
 
             /// Chin right gonion.
-            pub const CHIN_RIGHT_GONION: Type = Type::new("CHIN_RIGHT_GONION");
+            pub const CHIN_RIGHT_GONION: Type = Type::known("CHIN_RIGHT_GONION", 34);
 
             /// Left cheek center.
-            pub const LEFT_CHEEK_CENTER: Type = Type::new("LEFT_CHEEK_CENTER");
+            pub const LEFT_CHEEK_CENTER: Type = Type::known("LEFT_CHEEK_CENTER", 35);
 
             /// Right cheek center.
-            pub const RIGHT_CHEEK_CENTER: Type = Type::new("RIGHT_CHEEK_CENTER");
+            pub const RIGHT_CHEEK_CENTER: Type = Type::known("RIGHT_CHEEK_CENTER", 36);
+        }
+
+        impl Type {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "UNKNOWN_LANDMARK" => r#type::UNKNOWN_LANDMARK,
+                    "LEFT_EYE" => r#type::LEFT_EYE,
+                    "RIGHT_EYE" => r#type::RIGHT_EYE,
+                    "LEFT_OF_LEFT_EYEBROW" => r#type::LEFT_OF_LEFT_EYEBROW,
+                    "RIGHT_OF_LEFT_EYEBROW" => r#type::RIGHT_OF_LEFT_EYEBROW,
+                    "LEFT_OF_RIGHT_EYEBROW" => r#type::LEFT_OF_RIGHT_EYEBROW,
+                    "RIGHT_OF_RIGHT_EYEBROW" => r#type::RIGHT_OF_RIGHT_EYEBROW,
+                    "MIDPOINT_BETWEEN_EYES" => r#type::MIDPOINT_BETWEEN_EYES,
+                    "NOSE_TIP" => r#type::NOSE_TIP,
+                    "UPPER_LIP" => r#type::UPPER_LIP,
+                    "LOWER_LIP" => r#type::LOWER_LIP,
+                    "MOUTH_LEFT" => r#type::MOUTH_LEFT,
+                    "MOUTH_RIGHT" => r#type::MOUTH_RIGHT,
+                    "MOUTH_CENTER" => r#type::MOUTH_CENTER,
+                    "NOSE_BOTTOM_RIGHT" => r#type::NOSE_BOTTOM_RIGHT,
+                    "NOSE_BOTTOM_LEFT" => r#type::NOSE_BOTTOM_LEFT,
+                    "NOSE_BOTTOM_CENTER" => r#type::NOSE_BOTTOM_CENTER,
+                    "LEFT_EYE_TOP_BOUNDARY" => r#type::LEFT_EYE_TOP_BOUNDARY,
+                    "LEFT_EYE_RIGHT_CORNER" => r#type::LEFT_EYE_RIGHT_CORNER,
+                    "LEFT_EYE_BOTTOM_BOUNDARY" => r#type::LEFT_EYE_BOTTOM_BOUNDARY,
+                    "LEFT_EYE_LEFT_CORNER" => r#type::LEFT_EYE_LEFT_CORNER,
+                    "RIGHT_EYE_TOP_BOUNDARY" => r#type::RIGHT_EYE_TOP_BOUNDARY,
+                    "RIGHT_EYE_RIGHT_CORNER" => r#type::RIGHT_EYE_RIGHT_CORNER,
+                    "RIGHT_EYE_BOTTOM_BOUNDARY" => r#type::RIGHT_EYE_BOTTOM_BOUNDARY,
+                    "RIGHT_EYE_LEFT_CORNER" => r#type::RIGHT_EYE_LEFT_CORNER,
+                    "LEFT_EYEBROW_UPPER_MIDPOINT" => r#type::LEFT_EYEBROW_UPPER_MIDPOINT,
+                    "RIGHT_EYEBROW_UPPER_MIDPOINT" => r#type::RIGHT_EYEBROW_UPPER_MIDPOINT,
+                    "LEFT_EAR_TRAGION" => r#type::LEFT_EAR_TRAGION,
+                    "RIGHT_EAR_TRAGION" => r#type::RIGHT_EAR_TRAGION,
+                    "LEFT_EYE_PUPIL" => r#type::LEFT_EYE_PUPIL,
+                    "RIGHT_EYE_PUPIL" => r#type::RIGHT_EYE_PUPIL,
+                    "FOREHEAD_GLABELLA" => r#type::FOREHEAD_GLABELLA,
+                    "CHIN_GNATHION" => r#type::CHIN_GNATHION,
+                    "CHIN_LEFT_GONION" => r#type::CHIN_LEFT_GONION,
+                    "CHIN_RIGHT_GONION" => r#type::CHIN_RIGHT_GONION,
+                    "LEFT_CHEEK_CENTER" => r#type::LEFT_CHEEK_CENTER,
+                    "RIGHT_CHEEK_CENTER" => r#type::RIGHT_CHEEK_CENTER,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => r#type::UNKNOWN_LANDMARK,
+                    1 => r#type::LEFT_EYE,
+                    2 => r#type::RIGHT_EYE,
+                    3 => r#type::LEFT_OF_LEFT_EYEBROW,
+                    4 => r#type::RIGHT_OF_LEFT_EYEBROW,
+                    5 => r#type::LEFT_OF_RIGHT_EYEBROW,
+                    6 => r#type::RIGHT_OF_RIGHT_EYEBROW,
+                    7 => r#type::MIDPOINT_BETWEEN_EYES,
+                    8 => r#type::NOSE_TIP,
+                    9 => r#type::UPPER_LIP,
+                    10 => r#type::LOWER_LIP,
+                    11 => r#type::MOUTH_LEFT,
+                    12 => r#type::MOUTH_RIGHT,
+                    13 => r#type::MOUTH_CENTER,
+                    14 => r#type::NOSE_BOTTOM_RIGHT,
+                    15 => r#type::NOSE_BOTTOM_LEFT,
+                    16 => r#type::NOSE_BOTTOM_CENTER,
+                    17 => r#type::LEFT_EYE_TOP_BOUNDARY,
+                    18 => r#type::LEFT_EYE_RIGHT_CORNER,
+                    19 => r#type::LEFT_EYE_BOTTOM_BOUNDARY,
+                    20 => r#type::LEFT_EYE_LEFT_CORNER,
+                    21 => r#type::RIGHT_EYE_TOP_BOUNDARY,
+                    22 => r#type::RIGHT_EYE_RIGHT_CORNER,
+                    23 => r#type::RIGHT_EYE_BOTTOM_BOUNDARY,
+                    24 => r#type::RIGHT_EYE_LEFT_CORNER,
+                    25 => r#type::LEFT_EYEBROW_UPPER_MIDPOINT,
+                    26 => r#type::RIGHT_EYEBROW_UPPER_MIDPOINT,
+                    27 => r#type::LEFT_EAR_TRAGION,
+                    28 => r#type::RIGHT_EAR_TRAGION,
+                    29 => r#type::LEFT_EYE_PUPIL,
+                    30 => r#type::RIGHT_EYE_PUPIL,
+                    31 => r#type::FOREHEAD_GLABELLA,
+                    32 => r#type::CHIN_GNATHION,
+                    33 => r#type::CHIN_LEFT_GONION,
+                    34 => r#type::CHIN_RIGHT_GONION,
+                    35 => r#type::LEFT_CHEEK_CENTER,
+                    36 => r#type::RIGHT_CHEEK_CENTER,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::UNKNOWN_LANDMARK
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -3060,50 +3242,100 @@ pub mod operation_metadata {
     use super::*;
 
     /// Batch operation states.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Request is received.
-        pub const CREATED: State = State::new("CREATED");
+        pub const CREATED: State = State::known("CREATED", 1);
 
         /// Request is actively being processed.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 2);
 
         /// The batch processing is done.
-        pub const DONE: State = State::new("DONE");
+        pub const DONE: State = State::known("DONE", 3);
 
         /// The batch processing was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATED" => state::CREATED,
+                "RUNNING" => state::RUNNING,
+                "DONE" => state::DONE,
+                "CANCELLED" => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATED,
+                2 => state::RUNNING,
+                3 => state::DONE,
+                4 => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5120,53 +5352,103 @@ pub mod batch_operation_metadata {
     use super::*;
 
     /// Enumerates the possible states that the batch request can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Request is actively being processed.
-        pub const PROCESSING: State = State::new("PROCESSING");
+        pub const PROCESSING: State = State::known("PROCESSING", 1);
 
         /// The request is done and at least one item has been successfully
         /// processed.
-        pub const SUCCESSFUL: State = State::new("SUCCESSFUL");
+        pub const SUCCESSFUL: State = State::known("SUCCESSFUL", 2);
 
         /// The request is done and no item has been successfully processed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 3);
 
         /// The request is done after the longrunning.Operations.CancelOperation has
         /// been called by the user.  Any records that were processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PROCESSING" => state::PROCESSING,
+                "SUCCESSFUL" => state::SUCCESSFUL,
+                "FAILED" => state::FAILED,
+                "CANCELLED" => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PROCESSING,
+                2 => state::SUCCESSFUL,
+                3 => state::FAILED,
+                4 => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5483,54 +5765,106 @@ pub mod text_annotation {
         use super::*;
 
         /// Enum to denote the type of break found. New line, space etc.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct BreakType(std::borrow::Cow<'static, str>);
-
-        impl BreakType {
-            /// Creates a new BreakType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct BreakType(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [BreakType](BreakType)
         pub mod break_type {
             use super::BreakType;
 
             /// Unknown break label type.
-            pub const UNKNOWN: BreakType = BreakType::new("UNKNOWN");
+            pub const UNKNOWN: BreakType = BreakType::known("UNKNOWN", 0);
 
             /// Regular space.
-            pub const SPACE: BreakType = BreakType::new("SPACE");
+            pub const SPACE: BreakType = BreakType::known("SPACE", 1);
 
             /// Sure space (very wide).
-            pub const SURE_SPACE: BreakType = BreakType::new("SURE_SPACE");
+            pub const SURE_SPACE: BreakType = BreakType::known("SURE_SPACE", 2);
 
             /// Line-wrapping break.
-            pub const EOL_SURE_SPACE: BreakType = BreakType::new("EOL_SURE_SPACE");
+            pub const EOL_SURE_SPACE: BreakType = BreakType::known("EOL_SURE_SPACE", 3);
 
             /// End-line hyphen that is not present in text; does not co-occur with
             /// `SPACE`, `LEADER_SPACE`, or `LINE_BREAK`.
-            pub const HYPHEN: BreakType = BreakType::new("HYPHEN");
+            pub const HYPHEN: BreakType = BreakType::known("HYPHEN", 4);
 
             /// Line break that ends a paragraph.
-            pub const LINE_BREAK: BreakType = BreakType::new("LINE_BREAK");
+            pub const LINE_BREAK: BreakType = BreakType::known("LINE_BREAK", 5);
+        }
+
+        impl BreakType {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for BreakType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for BreakType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(BreakType::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(BreakType::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(BreakType::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for BreakType {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "UNKNOWN" => break_type::UNKNOWN,
+                    "SPACE" => break_type::SPACE,
+                    "SURE_SPACE" => break_type::SURE_SPACE,
+                    "EOL_SURE_SPACE" => break_type::EOL_SURE_SPACE,
+                    "HYPHEN" => break_type::HYPHEN,
+                    "LINE_BREAK" => break_type::LINE_BREAK,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for BreakType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => break_type::UNKNOWN,
+                    1 => break_type::SPACE,
+                    2 => break_type::SURE_SPACE,
+                    3 => break_type::EOL_SURE_SPACE,
+                    4 => break_type::HYPHEN,
+                    5 => break_type::LINE_BREAK,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for BreakType {
             fn default() -> Self {
-                break_type::UNKNOWN
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -5778,53 +6112,105 @@ pub mod block {
     use super::*;
 
     /// Type of a block (text, image etc) as identified by OCR.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BlockType(std::borrow::Cow<'static, str>);
-
-    impl BlockType {
-        /// Creates a new BlockType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct BlockType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [BlockType](BlockType)
     pub mod block_type {
         use super::BlockType;
 
         /// Unknown block type.
-        pub const UNKNOWN: BlockType = BlockType::new("UNKNOWN");
+        pub const UNKNOWN: BlockType = BlockType::known("UNKNOWN", 0);
 
         /// Regular text block.
-        pub const TEXT: BlockType = BlockType::new("TEXT");
+        pub const TEXT: BlockType = BlockType::known("TEXT", 1);
 
         /// Table block.
-        pub const TABLE: BlockType = BlockType::new("TABLE");
+        pub const TABLE: BlockType = BlockType::known("TABLE", 2);
 
         /// Image block.
-        pub const PICTURE: BlockType = BlockType::new("PICTURE");
+        pub const PICTURE: BlockType = BlockType::known("PICTURE", 3);
 
         /// Horizontal/vertical line box.
-        pub const RULER: BlockType = BlockType::new("RULER");
+        pub const RULER: BlockType = BlockType::known("RULER", 4);
 
         /// Barcode block.
-        pub const BARCODE: BlockType = BlockType::new("BARCODE");
+        pub const BARCODE: BlockType = BlockType::known("BARCODE", 5);
+    }
+
+    impl BlockType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for BlockType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BlockType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(BlockType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(BlockType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(BlockType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for BlockType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNKNOWN" => block_type::UNKNOWN,
+                "TEXT" => block_type::TEXT,
+                "TABLE" => block_type::TABLE,
+                "PICTURE" => block_type::PICTURE,
+                "RULER" => block_type::RULER,
+                "BARCODE" => block_type::BARCODE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for BlockType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => block_type::UNKNOWN,
+                1 => block_type::TEXT,
+                2 => block_type::TABLE,
+                3 => block_type::PICTURE,
+                4 => block_type::RULER,
+                5 => block_type::BARCODE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for BlockType {
         fn default() -> Self {
-            block_type::UNKNOWN
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6423,52 +6809,104 @@ pub mod web_detection {
 
 /// A bucketized representation of likelihood, which is intended to give clients
 /// highly stable results across model upgrades.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(std::borrow::Cow<'static, str>);
-
-impl Likelihood {
-    /// Creates a new Likelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Likelihood(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Likelihood](Likelihood)
 pub mod likelihood {
     use super::Likelihood;
 
     /// Unknown likelihood.
-    pub const UNKNOWN: Likelihood = Likelihood::new("UNKNOWN");
+    pub const UNKNOWN: Likelihood = Likelihood::known("UNKNOWN", 0);
 
     /// It is very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new("VERY_UNLIKELY");
+    pub const VERY_UNLIKELY: Likelihood = Likelihood::known("VERY_UNLIKELY", 1);
 
     /// It is unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new("UNLIKELY");
+    pub const UNLIKELY: Likelihood = Likelihood::known("UNLIKELY", 2);
 
     /// It is possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new("POSSIBLE");
+    pub const POSSIBLE: Likelihood = Likelihood::known("POSSIBLE", 3);
 
     /// It is likely.
-    pub const LIKELY: Likelihood = Likelihood::new("LIKELY");
+    pub const LIKELY: Likelihood = Likelihood::known("LIKELY", 4);
 
     /// It is very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new("VERY_LIKELY");
+    pub const VERY_LIKELY: Likelihood = Likelihood::known("VERY_LIKELY", 5);
+}
+
+impl Likelihood {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Likelihood {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Likelihood {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Likelihood::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Likelihood::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Likelihood::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Likelihood {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "UNKNOWN" => likelihood::UNKNOWN,
+            "VERY_UNLIKELY" => likelihood::VERY_UNLIKELY,
+            "UNLIKELY" => likelihood::UNLIKELY,
+            "POSSIBLE" => likelihood::POSSIBLE,
+            "LIKELY" => likelihood::LIKELY,
+            "VERY_LIKELY" => likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => likelihood::UNKNOWN,
+            1 => likelihood::VERY_UNLIKELY,
+            2 => likelihood::UNLIKELY,
+            3 => likelihood::POSSIBLE,
+            4 => likelihood::LIKELY,
+            5 => likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Likelihood {
     fn default() -> Self {
-        likelihood::UNKNOWN
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

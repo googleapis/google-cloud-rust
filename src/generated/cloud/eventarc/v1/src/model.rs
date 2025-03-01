@@ -208,38 +208,26 @@ pub mod channel {
     use super::*;
 
     /// State lists all the possible states of a Channel
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The PENDING state indicates that a Channel has been created successfully
         /// and there is a new activation token available for the subscriber to use
         /// to convey the Channel to the provider in order to create a Connection.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// The ACTIVE state indicates that a Channel has been successfully
         /// connected with the event provider.
         /// An ACTIVE Channel is ready to receive and route events from the
         /// event provider.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
 
         /// The INACTIVE state indicates that the Channel cannot receive events
         /// permanently. There are two possible cases this state can happen:
@@ -250,18 +238,78 @@ pub mod channel {
         ///
         /// To re-establish a Connection with a provider, the subscriber
         /// should create a new Channel and give it to the provider.
-        pub const INACTIVE: State = State::new("INACTIVE");
+        pub const INACTIVE: State = State::known("INACTIVE", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "ACTIVE" => state::ACTIVE,
+                "INACTIVE" => state::INACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::ACTIVE,
+                3 => state::INACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -3889,20 +3937,8 @@ pub mod logging_config {
     /// resources.
     /// This enum is an exhaustive list of log severities and is FROZEN. Do not
     /// expect new values to be added.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSeverity(std::borrow::Cow<'static, str>);
-
-    impl LogSeverity {
-        /// Creates a new LogSeverity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct LogSeverity(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [LogSeverity](LogSeverity)
     pub mod log_severity {
@@ -3912,47 +3948,119 @@ pub mod logging_config {
         /// but is used to distinguish between no update and update to NONE in
         /// update_masks.
         pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity =
-            LogSeverity::new("LOG_SEVERITY_UNSPECIFIED");
+            LogSeverity::known("LOG_SEVERITY_UNSPECIFIED", 0);
 
         /// Default value at resource creation, presence of this value must be
         /// treated as no logging/disable logging.
-        pub const NONE: LogSeverity = LogSeverity::new("NONE");
+        pub const NONE: LogSeverity = LogSeverity::known("NONE", 1);
 
         /// Debug or trace level logging.
-        pub const DEBUG: LogSeverity = LogSeverity::new("DEBUG");
+        pub const DEBUG: LogSeverity = LogSeverity::known("DEBUG", 2);
 
         /// Routine information, such as ongoing status or performance.
-        pub const INFO: LogSeverity = LogSeverity::new("INFO");
+        pub const INFO: LogSeverity = LogSeverity::known("INFO", 3);
 
         /// Normal but significant events, such as start up, shut down, or a
         /// configuration change.
-        pub const NOTICE: LogSeverity = LogSeverity::new("NOTICE");
+        pub const NOTICE: LogSeverity = LogSeverity::known("NOTICE", 4);
 
         /// Warning events might cause problems.
-        pub const WARNING: LogSeverity = LogSeverity::new("WARNING");
+        pub const WARNING: LogSeverity = LogSeverity::known("WARNING", 5);
 
         /// Error events are likely to cause problems.
-        pub const ERROR: LogSeverity = LogSeverity::new("ERROR");
+        pub const ERROR: LogSeverity = LogSeverity::known("ERROR", 6);
 
         /// Critical events cause more severe problems or outages.
-        pub const CRITICAL: LogSeverity = LogSeverity::new("CRITICAL");
+        pub const CRITICAL: LogSeverity = LogSeverity::known("CRITICAL", 7);
 
         /// A person must take action immediately.
-        pub const ALERT: LogSeverity = LogSeverity::new("ALERT");
+        pub const ALERT: LogSeverity = LogSeverity::known("ALERT", 8);
 
         /// One or more systems are unusable.
-        pub const EMERGENCY: LogSeverity = LogSeverity::new("EMERGENCY");
+        pub const EMERGENCY: LogSeverity = LogSeverity::known("EMERGENCY", 9);
+    }
+
+    impl LogSeverity {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for LogSeverity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LogSeverity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(LogSeverity::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(LogSeverity::from(val)),
+                Enumeration::UnknownNum { str } => Ok(LogSeverity::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for LogSeverity {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LOG_SEVERITY_UNSPECIFIED" => log_severity::LOG_SEVERITY_UNSPECIFIED,
+                "NONE" => log_severity::NONE,
+                "DEBUG" => log_severity::DEBUG,
+                "INFO" => log_severity::INFO,
+                "NOTICE" => log_severity::NOTICE,
+                "WARNING" => log_severity::WARNING,
+                "ERROR" => log_severity::ERROR,
+                "CRITICAL" => log_severity::CRITICAL,
+                "ALERT" => log_severity::ALERT,
+                "EMERGENCY" => log_severity::EMERGENCY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for LogSeverity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => log_severity::LOG_SEVERITY_UNSPECIFIED,
+                1 => log_severity::NONE,
+                2 => log_severity::DEBUG,
+                3 => log_severity::INFO,
+                4 => log_severity::NOTICE,
+                5 => log_severity::WARNING,
+                6 => log_severity::ERROR,
+                7 => log_severity::CRITICAL,
+                8 => log_severity::ALERT,
+                9 => log_severity::EMERGENCY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for LogSeverity {
         fn default() -> Self {
-            log_severity::LOG_SEVERITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

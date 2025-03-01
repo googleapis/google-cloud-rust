@@ -251,96 +251,140 @@ pub mod registration {
     use super::*;
 
     /// Possible states of a `Registration`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The state is undefined.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The domain is being registered.
-        pub const REGISTRATION_PENDING: State = State::new("REGISTRATION_PENDING");
+        pub const REGISTRATION_PENDING: State = State::known("REGISTRATION_PENDING", 1);
 
         /// The domain registration failed. You can delete resources in this state
         /// to allow registration to be retried.
-        pub const REGISTRATION_FAILED: State = State::new("REGISTRATION_FAILED");
+        pub const REGISTRATION_FAILED: State = State::known("REGISTRATION_FAILED", 2);
 
         /// The domain is being transferred from another registrar to Cloud Domains.
-        pub const TRANSFER_PENDING: State = State::new("TRANSFER_PENDING");
+        pub const TRANSFER_PENDING: State = State::known("TRANSFER_PENDING", 3);
 
         /// The attempt to transfer the domain from another registrar to
         /// Cloud Domains failed. You can delete resources in this state and retry
         /// the transfer.
-        pub const TRANSFER_FAILED: State = State::new("TRANSFER_FAILED");
+        pub const TRANSFER_FAILED: State = State::known("TRANSFER_FAILED", 4);
 
         /// The domain is registered and operational. The domain renews automatically
         /// as long as it remains in this state.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 6);
 
         /// The domain is suspended and inoperative. For more details, see the
         /// `issues` field.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::known("SUSPENDED", 7);
 
         /// The domain is no longer managed with Cloud Domains. It may have been
         /// transferred to another registrar or exported for management in
         /// [Google Domains](https://domains.google/). You can no longer update it
         /// with this API, and information shown about it may be stale. Domains in
         /// this state are not automatically renewed by Cloud Domains.
-        pub const EXPORTED: State = State::new("EXPORTED");
+        pub const EXPORTED: State = State::known("EXPORTED", 8);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "REGISTRATION_PENDING" => state::REGISTRATION_PENDING,
+                "REGISTRATION_FAILED" => state::REGISTRATION_FAILED,
+                "TRANSFER_PENDING" => state::TRANSFER_PENDING,
+                "TRANSFER_FAILED" => state::TRANSFER_FAILED,
+                "ACTIVE" => state::ACTIVE,
+                "SUSPENDED" => state::SUSPENDED,
+                "EXPORTED" => state::EXPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::REGISTRATION_PENDING,
+                2 => state::REGISTRATION_FAILED,
+                3 => state::TRANSFER_PENDING,
+                4 => state::TRANSFER_FAILED,
+                6 => state::ACTIVE,
+                7 => state::SUSPENDED,
+                8 => state::EXPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Possible issues with a `Registration` that require attention.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Issue(std::borrow::Cow<'static, str>);
-
-    impl Issue {
-        /// Creates a new Issue instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Issue(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Issue](Issue)
     pub mod issue {
         use super::Issue;
 
         /// The issue is undefined.
-        pub const ISSUE_UNSPECIFIED: Issue = Issue::new("ISSUE_UNSPECIFIED");
+        pub const ISSUE_UNSPECIFIED: Issue = Issue::known("ISSUE_UNSPECIFIED", 0);
 
         /// Contact the Cloud Support team to resolve a problem with this domain.
-        pub const CONTACT_SUPPORT: Issue = Issue::new("CONTACT_SUPPORT");
+        pub const CONTACT_SUPPORT: Issue = Issue::known("CONTACT_SUPPORT", 1);
 
         /// [ICANN](https://icann.org/) requires verification of the email address
         /// in the `Registration`'s `contact_settings.registrant_contact` field. To
@@ -350,18 +394,76 @@ pub mod registration {
         /// 15 days of registration, the domain is suspended. To resend the
         /// verification email, call ConfigureContactSettings and provide the current
         /// `registrant_contact.email`.
-        pub const UNVERIFIED_EMAIL: Issue = Issue::new("UNVERIFIED_EMAIL");
+        pub const UNVERIFIED_EMAIL: Issue = Issue::known("UNVERIFIED_EMAIL", 2);
+    }
+
+    impl Issue {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Issue {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Issue {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Issue::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Issue::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Issue::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Issue {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ISSUE_UNSPECIFIED" => issue::ISSUE_UNSPECIFIED,
+                "CONTACT_SUPPORT" => issue::CONTACT_SUPPORT,
+                "UNVERIFIED_EMAIL" => issue::UNVERIFIED_EMAIL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Issue {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => issue::ISSUE_UNSPECIFIED,
+                1 => issue::CONTACT_SUPPORT,
+                2 => issue::UNVERIFIED_EMAIL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Issue {
         fn default() -> Self {
-            issue::ISSUE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -417,20 +519,8 @@ pub mod management_settings {
     use super::*;
 
     /// Defines how the `Registration` is renewed.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RenewalMethod(std::borrow::Cow<'static, str>);
-
-    impl RenewalMethod {
-        /// Creates a new RenewalMethod instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RenewalMethod(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RenewalMethod](RenewalMethod)
     pub mod renewal_method {
@@ -438,13 +528,13 @@ pub mod management_settings {
 
         /// The renewal method is undefined.
         pub const RENEWAL_METHOD_UNSPECIFIED: RenewalMethod =
-            RenewalMethod::new("RENEWAL_METHOD_UNSPECIFIED");
+            RenewalMethod::known("RENEWAL_METHOD_UNSPECIFIED", 0);
 
         /// The domain is automatically renewed each year .
         ///
         /// To disable automatic renewals, delete the resource by calling
         /// `DeleteRegistration` or export it by calling `ExportRegistration`.
-        pub const AUTOMATIC_RENEWAL: RenewalMethod = RenewalMethod::new("AUTOMATIC_RENEWAL");
+        pub const AUTOMATIC_RENEWAL: RenewalMethod = RenewalMethod::known("AUTOMATIC_RENEWAL", 1);
 
         /// The domain must be explicitly renewed each year before its
         /// `expire_time`. This option is only available when the `Registration`
@@ -452,18 +542,76 @@ pub mod management_settings {
         ///
         /// To manage the domain's current billing and
         /// renewal settings, go to [Google Domains](https://domains.google/).
-        pub const MANUAL_RENEWAL: RenewalMethod = RenewalMethod::new("MANUAL_RENEWAL");
+        pub const MANUAL_RENEWAL: RenewalMethod = RenewalMethod::known("MANUAL_RENEWAL", 2);
+    }
+
+    impl RenewalMethod {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RenewalMethod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RenewalMethod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RenewalMethod::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RenewalMethod::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RenewalMethod::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RenewalMethod {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RENEWAL_METHOD_UNSPECIFIED" => renewal_method::RENEWAL_METHOD_UNSPECIFIED,
+                "AUTOMATIC_RENEWAL" => renewal_method::AUTOMATIC_RENEWAL,
+                "MANUAL_RENEWAL" => renewal_method::MANUAL_RENEWAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RenewalMethod {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => renewal_method::RENEWAL_METHOD_UNSPECIFIED,
+                1 => renewal_method::AUTOMATIC_RENEWAL,
+                2 => renewal_method::MANUAL_RENEWAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RenewalMethod {
         fn default() -> Self {
-            renewal_method::RENEWAL_METHOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -782,108 +930,173 @@ pub mod dns_settings {
 
         /// List of algorithms used to create a DNSKEY. Certain
         /// algorithms are not supported for particular domains.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Algorithm(std::borrow::Cow<'static, str>);
-
-        impl Algorithm {
-            /// Creates a new Algorithm instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Algorithm(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Algorithm](Algorithm)
         pub mod algorithm {
             use super::Algorithm;
 
             /// The algorithm is unspecified.
-            pub const ALGORITHM_UNSPECIFIED: Algorithm = Algorithm::new("ALGORITHM_UNSPECIFIED");
+            pub const ALGORITHM_UNSPECIFIED: Algorithm =
+                Algorithm::known("ALGORITHM_UNSPECIFIED", 0);
 
             /// RSA/MD5. Cannot be used for new deployments.
-            pub const RSAMD5: Algorithm = Algorithm::new("RSAMD5");
+            pub const RSAMD5: Algorithm = Algorithm::known("RSAMD5", 1);
 
             /// Diffie-Hellman. Cannot be used for new deployments.
-            pub const DH: Algorithm = Algorithm::new("DH");
+            pub const DH: Algorithm = Algorithm::known("DH", 2);
 
             /// DSA/SHA1. Not recommended for new deployments.
-            pub const DSA: Algorithm = Algorithm::new("DSA");
+            pub const DSA: Algorithm = Algorithm::known("DSA", 3);
 
             /// ECC. Not recommended for new deployments.
-            pub const ECC: Algorithm = Algorithm::new("ECC");
+            pub const ECC: Algorithm = Algorithm::known("ECC", 4);
 
             /// RSA/SHA-1. Not recommended for new deployments.
-            pub const RSASHA1: Algorithm = Algorithm::new("RSASHA1");
+            pub const RSASHA1: Algorithm = Algorithm::known("RSASHA1", 5);
 
             /// DSA-NSEC3-SHA1. Not recommended for new deployments.
-            pub const DSANSEC3SHA1: Algorithm = Algorithm::new("DSANSEC3SHA1");
+            pub const DSANSEC3SHA1: Algorithm = Algorithm::known("DSANSEC3SHA1", 6);
 
             /// RSA/SHA1-NSEC3-SHA1. Not recommended for new deployments.
-            pub const RSASHA1NSEC3SHA1: Algorithm = Algorithm::new("RSASHA1NSEC3SHA1");
+            pub const RSASHA1NSEC3SHA1: Algorithm = Algorithm::known("RSASHA1NSEC3SHA1", 7);
 
             /// RSA/SHA-256.
-            pub const RSASHA256: Algorithm = Algorithm::new("RSASHA256");
+            pub const RSASHA256: Algorithm = Algorithm::known("RSASHA256", 8);
 
             /// RSA/SHA-512.
-            pub const RSASHA512: Algorithm = Algorithm::new("RSASHA512");
+            pub const RSASHA512: Algorithm = Algorithm::known("RSASHA512", 10);
 
             /// GOST R 34.10-2001.
-            pub const ECCGOST: Algorithm = Algorithm::new("ECCGOST");
+            pub const ECCGOST: Algorithm = Algorithm::known("ECCGOST", 12);
 
             /// ECDSA Curve P-256 with SHA-256.
-            pub const ECDSAP256SHA256: Algorithm = Algorithm::new("ECDSAP256SHA256");
+            pub const ECDSAP256SHA256: Algorithm = Algorithm::known("ECDSAP256SHA256", 13);
 
             /// ECDSA Curve P-384 with SHA-384.
-            pub const ECDSAP384SHA384: Algorithm = Algorithm::new("ECDSAP384SHA384");
+            pub const ECDSAP384SHA384: Algorithm = Algorithm::known("ECDSAP384SHA384", 14);
 
             /// Ed25519.
-            pub const ED25519: Algorithm = Algorithm::new("ED25519");
+            pub const ED25519: Algorithm = Algorithm::known("ED25519", 15);
 
             /// Ed448.
-            pub const ED448: Algorithm = Algorithm::new("ED448");
+            pub const ED448: Algorithm = Algorithm::known("ED448", 16);
 
             /// Reserved for Indirect Keys. Cannot be used for new deployments.
-            pub const INDIRECT: Algorithm = Algorithm::new("INDIRECT");
+            pub const INDIRECT: Algorithm = Algorithm::known("INDIRECT", 252);
 
             /// Private algorithm. Cannot be used for new deployments.
-            pub const PRIVATEDNS: Algorithm = Algorithm::new("PRIVATEDNS");
+            pub const PRIVATEDNS: Algorithm = Algorithm::known("PRIVATEDNS", 253);
 
             /// Private algorithm OID. Cannot be used for new deployments.
-            pub const PRIVATEOID: Algorithm = Algorithm::new("PRIVATEOID");
+            pub const PRIVATEOID: Algorithm = Algorithm::known("PRIVATEOID", 254);
+        }
+
+        impl Algorithm {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Algorithm {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Algorithm {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Algorithm::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Algorithm::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Algorithm::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Algorithm {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "ALGORITHM_UNSPECIFIED" => algorithm::ALGORITHM_UNSPECIFIED,
+                    "RSAMD5" => algorithm::RSAMD5,
+                    "DH" => algorithm::DH,
+                    "DSA" => algorithm::DSA,
+                    "ECC" => algorithm::ECC,
+                    "RSASHA1" => algorithm::RSASHA1,
+                    "DSANSEC3SHA1" => algorithm::DSANSEC3SHA1,
+                    "RSASHA1NSEC3SHA1" => algorithm::RSASHA1NSEC3SHA1,
+                    "RSASHA256" => algorithm::RSASHA256,
+                    "RSASHA512" => algorithm::RSASHA512,
+                    "ECCGOST" => algorithm::ECCGOST,
+                    "ECDSAP256SHA256" => algorithm::ECDSAP256SHA256,
+                    "ECDSAP384SHA384" => algorithm::ECDSAP384SHA384,
+                    "ED25519" => algorithm::ED25519,
+                    "ED448" => algorithm::ED448,
+                    "INDIRECT" => algorithm::INDIRECT,
+                    "PRIVATEDNS" => algorithm::PRIVATEDNS,
+                    "PRIVATEOID" => algorithm::PRIVATEOID,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Algorithm {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => algorithm::ALGORITHM_UNSPECIFIED,
+                    1 => algorithm::RSAMD5,
+                    2 => algorithm::DH,
+                    3 => algorithm::DSA,
+                    4 => algorithm::ECC,
+                    5 => algorithm::RSASHA1,
+                    6 => algorithm::DSANSEC3SHA1,
+                    7 => algorithm::RSASHA1NSEC3SHA1,
+                    8 => algorithm::RSASHA256,
+                    10 => algorithm::RSASHA512,
+                    12 => algorithm::ECCGOST,
+                    13 => algorithm::ECDSAP256SHA256,
+                    14 => algorithm::ECDSAP384SHA384,
+                    15 => algorithm::ED25519,
+                    16 => algorithm::ED448,
+                    252 => algorithm::INDIRECT,
+                    253 => algorithm::PRIVATEDNS,
+                    254 => algorithm::PRIVATEOID,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Algorithm {
             fn default() -> Self {
-                algorithm::ALGORITHM_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// List of hash functions that may have been used to generate a digest of a
         /// DNSKEY.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct DigestType(std::borrow::Cow<'static, str>);
-
-        impl DigestType {
-            /// Creates a new DigestType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct DigestType(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [DigestType](DigestType)
         pub mod digest_type {
@@ -891,30 +1104,92 @@ pub mod dns_settings {
 
             /// The DigestType is unspecified.
             pub const DIGEST_TYPE_UNSPECIFIED: DigestType =
-                DigestType::new("DIGEST_TYPE_UNSPECIFIED");
+                DigestType::known("DIGEST_TYPE_UNSPECIFIED", 0);
 
             /// SHA-1. Not recommended for new deployments.
-            pub const SHA1: DigestType = DigestType::new("SHA1");
+            pub const SHA1: DigestType = DigestType::known("SHA1", 1);
 
             /// SHA-256.
-            pub const SHA256: DigestType = DigestType::new("SHA256");
+            pub const SHA256: DigestType = DigestType::known("SHA256", 2);
 
             /// GOST R 34.11-94.
-            pub const GOST3411: DigestType = DigestType::new("GOST3411");
+            pub const GOST3411: DigestType = DigestType::known("GOST3411", 3);
 
             /// SHA-384.
-            pub const SHA384: DigestType = DigestType::new("SHA384");
+            pub const SHA384: DigestType = DigestType::known("SHA384", 4);
+        }
+
+        impl DigestType {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for DigestType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for DigestType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(DigestType::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(DigestType::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(DigestType::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for DigestType {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "DIGEST_TYPE_UNSPECIFIED" => digest_type::DIGEST_TYPE_UNSPECIFIED,
+                    "SHA1" => digest_type::SHA1,
+                    "SHA256" => digest_type::SHA256,
+                    "GOST3411" => digest_type::GOST3411,
+                    "SHA384" => digest_type::SHA384,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for DigestType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => digest_type::DIGEST_TYPE_UNSPECIFIED,
+                    1 => digest_type::SHA1,
+                    2 => digest_type::SHA256,
+                    3 => digest_type::GOST3411,
+                    4 => digest_type::SHA384,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for DigestType {
             fn default() -> Self {
-                digest_type::DIGEST_TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -988,48 +1263,94 @@ pub mod dns_settings {
     }
 
     /// The publication state of DS records for a `Registration`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DsState(std::borrow::Cow<'static, str>);
-
-    impl DsState {
-        /// Creates a new DsState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DsState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DsState](DsState)
     pub mod ds_state {
         use super::DsState;
 
         /// DS state is unspecified.
-        pub const DS_STATE_UNSPECIFIED: DsState = DsState::new("DS_STATE_UNSPECIFIED");
+        pub const DS_STATE_UNSPECIFIED: DsState = DsState::known("DS_STATE_UNSPECIFIED", 0);
 
         /// DNSSEC is disabled for this domain. No DS records for this domain are
         /// published in the parent DNS zone.
-        pub const DS_RECORDS_UNPUBLISHED: DsState = DsState::new("DS_RECORDS_UNPUBLISHED");
+        pub const DS_RECORDS_UNPUBLISHED: DsState = DsState::known("DS_RECORDS_UNPUBLISHED", 1);
 
         /// DNSSEC is enabled for this domain. Appropriate DS records for this domain
         /// are published in the parent DNS zone. This option is valid only if the
         /// DNS zone referenced in the `Registration`'s `dns_provider` field is
         /// already DNSSEC-signed.
-        pub const DS_RECORDS_PUBLISHED: DsState = DsState::new("DS_RECORDS_PUBLISHED");
+        pub const DS_RECORDS_PUBLISHED: DsState = DsState::known("DS_RECORDS_PUBLISHED", 2);
+    }
+
+    impl DsState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DsState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DsState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DsState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DsState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DsState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DsState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DS_STATE_UNSPECIFIED" => ds_state::DS_STATE_UNSPECIFIED,
+                "DS_RECORDS_UNPUBLISHED" => ds_state::DS_RECORDS_UNPUBLISHED,
+                "DS_RECORDS_PUBLISHED" => ds_state::DS_RECORDS_PUBLISHED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DsState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => ds_state::DS_STATE_UNSPECIFIED,
+                1 => ds_state::DS_RECORDS_UNPUBLISHED,
+                2 => ds_state::DS_RECORDS_PUBLISHED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DsState {
         fn default() -> Self {
-            ds_state::DS_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2285,20 +2606,8 @@ pub mod register_parameters {
     use super::*;
 
     /// Possible availability states of a domain name.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Availability(std::borrow::Cow<'static, str>);
-
-    impl Availability {
-        /// Creates a new Availability instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Availability(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Availability](Availability)
     pub mod availability {
@@ -2306,33 +2615,95 @@ pub mod register_parameters {
 
         /// The availability is unspecified.
         pub const AVAILABILITY_UNSPECIFIED: Availability =
-            Availability::new("AVAILABILITY_UNSPECIFIED");
+            Availability::known("AVAILABILITY_UNSPECIFIED", 0);
 
         /// The domain is available for registration.
-        pub const AVAILABLE: Availability = Availability::new("AVAILABLE");
+        pub const AVAILABLE: Availability = Availability::known("AVAILABLE", 1);
 
         /// The domain is not available for registration. Generally this means it is
         /// already registered to another party.
-        pub const UNAVAILABLE: Availability = Availability::new("UNAVAILABLE");
+        pub const UNAVAILABLE: Availability = Availability::known("UNAVAILABLE", 2);
 
         /// The domain is not currently supported by Cloud Domains, but may
         /// be available elsewhere.
-        pub const UNSUPPORTED: Availability = Availability::new("UNSUPPORTED");
+        pub const UNSUPPORTED: Availability = Availability::known("UNSUPPORTED", 3);
 
         /// Cloud Domains is unable to determine domain availability, generally
         /// due to system maintenance at the domain name registry.
-        pub const UNKNOWN: Availability = Availability::new("UNKNOWN");
+        pub const UNKNOWN: Availability = Availability::known("UNKNOWN", 4);
+    }
+
+    impl Availability {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Availability {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Availability {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Availability::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Availability::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Availability::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Availability {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AVAILABILITY_UNSPECIFIED" => availability::AVAILABILITY_UNSPECIFIED,
+                "AVAILABLE" => availability::AVAILABLE,
+                "UNAVAILABLE" => availability::UNAVAILABLE,
+                "UNSUPPORTED" => availability::UNSUPPORTED,
+                "UNKNOWN" => availability::UNKNOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Availability {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => availability::AVAILABILITY_UNSPECIFIED,
+                1 => availability::AVAILABLE,
+                2 => availability::UNAVAILABLE,
+                3 => availability::UNSUPPORTED,
+                4 => availability::UNKNOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Availability {
         fn default() -> Self {
-            availability::AVAILABILITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2557,20 +2928,8 @@ impl wkt::message::Message for OperationMetadata {
 /// accessible mapping from domain name to contact information, and requires that
 /// each domain name have an entry. Choose from these options to control how much
 /// information in your `ContactSettings` is published.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ContactPrivacy(std::borrow::Cow<'static, str>);
-
-impl ContactPrivacy {
-    /// Creates a new ContactPrivacy instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ContactPrivacy(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ContactPrivacy](ContactPrivacy)
 pub mod contact_privacy {
@@ -2578,54 +2937,104 @@ pub mod contact_privacy {
 
     /// The contact privacy settings are undefined.
     pub const CONTACT_PRIVACY_UNSPECIFIED: ContactPrivacy =
-        ContactPrivacy::new("CONTACT_PRIVACY_UNSPECIFIED");
+        ContactPrivacy::known("CONTACT_PRIVACY_UNSPECIFIED", 0);
 
     /// All the data from `ContactSettings` is publicly available. When setting
     /// this option, you must also provide a
     /// `PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT` in the `contact_notices` field of the
     /// request.
-    pub const PUBLIC_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("PUBLIC_CONTACT_DATA");
+    pub const PUBLIC_CONTACT_DATA: ContactPrivacy = ContactPrivacy::known("PUBLIC_CONTACT_DATA", 1);
 
     /// None of the data from `ContactSettings` is publicly available. Instead,
     /// proxy contact data is published for your domain. Email sent to the proxy
     /// email address is forwarded to the registrant's email address. Cloud Domains
     /// provides this privacy proxy service at no additional cost.
-    pub const PRIVATE_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("PRIVATE_CONTACT_DATA");
+    pub const PRIVATE_CONTACT_DATA: ContactPrivacy =
+        ContactPrivacy::known("PRIVATE_CONTACT_DATA", 2);
 
     /// Some data from `ContactSettings` is publicly available. The actual
     /// information redacted depends on the domain. For details, see [the
     /// registration privacy
     /// article](https://support.google.com/domains/answer/3251242).
-    pub const REDACTED_CONTACT_DATA: ContactPrivacy = ContactPrivacy::new("REDACTED_CONTACT_DATA");
+    pub const REDACTED_CONTACT_DATA: ContactPrivacy =
+        ContactPrivacy::known("REDACTED_CONTACT_DATA", 3);
+}
+
+impl ContactPrivacy {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ContactPrivacy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ContactPrivacy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ContactPrivacy::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ContactPrivacy::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ContactPrivacy::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ContactPrivacy {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CONTACT_PRIVACY_UNSPECIFIED" => contact_privacy::CONTACT_PRIVACY_UNSPECIFIED,
+            "PUBLIC_CONTACT_DATA" => contact_privacy::PUBLIC_CONTACT_DATA,
+            "PRIVATE_CONTACT_DATA" => contact_privacy::PRIVATE_CONTACT_DATA,
+            "REDACTED_CONTACT_DATA" => contact_privacy::REDACTED_CONTACT_DATA,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ContactPrivacy {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => contact_privacy::CONTACT_PRIVACY_UNSPECIFIED,
+            1 => contact_privacy::PUBLIC_CONTACT_DATA,
+            2 => contact_privacy::PRIVATE_CONTACT_DATA,
+            3 => contact_privacy::REDACTED_CONTACT_DATA,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ContactPrivacy {
     fn default() -> Self {
-        contact_privacy::CONTACT_PRIVACY_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Notices about special properties of certain domains.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DomainNotice(std::borrow::Cow<'static, str>);
-
-impl DomainNotice {
-    /// Creates a new DomainNotice instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DomainNotice(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DomainNotice](DomainNotice)
 pub mod domain_notice {
@@ -2633,43 +3042,87 @@ pub mod domain_notice {
 
     /// The notice is undefined.
     pub const DOMAIN_NOTICE_UNSPECIFIED: DomainNotice =
-        DomainNotice::new("DOMAIN_NOTICE_UNSPECIFIED");
+        DomainNotice::known("DOMAIN_NOTICE_UNSPECIFIED", 0);
 
     /// Indicates that the domain is preloaded on the HTTP Strict Transport
     /// Security list in browsers. Serving a website on such domain requires
     /// an SSL certificate. For details, see
     /// [how to get an SSL
     /// certificate](https://support.google.com/domains/answer/7638036).
-    pub const HSTS_PRELOADED: DomainNotice = DomainNotice::new("HSTS_PRELOADED");
+    pub const HSTS_PRELOADED: DomainNotice = DomainNotice::known("HSTS_PRELOADED", 1);
+}
+
+impl DomainNotice {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DomainNotice {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DomainNotice {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DomainNotice::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DomainNotice::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DomainNotice::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DomainNotice {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DOMAIN_NOTICE_UNSPECIFIED" => domain_notice::DOMAIN_NOTICE_UNSPECIFIED,
+            "HSTS_PRELOADED" => domain_notice::HSTS_PRELOADED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DomainNotice {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => domain_notice::DOMAIN_NOTICE_UNSPECIFIED,
+            1 => domain_notice::HSTS_PRELOADED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DomainNotice {
     fn default() -> Self {
-        domain_notice::DOMAIN_NOTICE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Notices related to contact information.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ContactNotice(std::borrow::Cow<'static, str>);
-
-impl ContactNotice {
-    /// Creates a new ContactNotice instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ContactNotice(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ContactNotice](ContactNotice)
 pub mod contact_notice {
@@ -2677,41 +3130,87 @@ pub mod contact_notice {
 
     /// The notice is undefined.
     pub const CONTACT_NOTICE_UNSPECIFIED: ContactNotice =
-        ContactNotice::new("CONTACT_NOTICE_UNSPECIFIED");
+        ContactNotice::known("CONTACT_NOTICE_UNSPECIFIED", 0);
 
     /// Required when setting the `privacy` field of `ContactSettings` to
     /// `PUBLIC_CONTACT_DATA`, which exposes contact data publicly.
     pub const PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT: ContactNotice =
-        ContactNotice::new("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT");
+        ContactNotice::known("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT", 1);
+}
+
+impl ContactNotice {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ContactNotice {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ContactNotice {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ContactNotice::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ContactNotice::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ContactNotice::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ContactNotice {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CONTACT_NOTICE_UNSPECIFIED" => contact_notice::CONTACT_NOTICE_UNSPECIFIED,
+            "PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT" => {
+                contact_notice::PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ContactNotice {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => contact_notice::CONTACT_NOTICE_UNSPECIFIED,
+            1 => contact_notice::PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ContactNotice {
     fn default() -> Self {
-        contact_notice::CONTACT_NOTICE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Possible states of a `Registration`'s transfer lock.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferLockState(std::borrow::Cow<'static, str>);
-
-impl TransferLockState {
-    /// Creates a new TransferLockState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct TransferLockState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [TransferLockState](TransferLockState)
 pub mod transfer_lock_state {
@@ -2719,23 +3218,83 @@ pub mod transfer_lock_state {
 
     /// The state is unspecified.
     pub const TRANSFER_LOCK_STATE_UNSPECIFIED: TransferLockState =
-        TransferLockState::new("TRANSFER_LOCK_STATE_UNSPECIFIED");
+        TransferLockState::known("TRANSFER_LOCK_STATE_UNSPECIFIED", 0);
 
     /// The domain is unlocked and can be transferred to another registrar.
-    pub const UNLOCKED: TransferLockState = TransferLockState::new("UNLOCKED");
+    pub const UNLOCKED: TransferLockState = TransferLockState::known("UNLOCKED", 1);
 
     /// The domain is locked and cannot be transferred to another registrar.
-    pub const LOCKED: TransferLockState = TransferLockState::new("LOCKED");
+    pub const LOCKED: TransferLockState = TransferLockState::known("LOCKED", 2);
+}
+
+impl TransferLockState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for TransferLockState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TransferLockState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(TransferLockState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(TransferLockState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(TransferLockState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for TransferLockState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TRANSFER_LOCK_STATE_UNSPECIFIED" => {
+                transfer_lock_state::TRANSFER_LOCK_STATE_UNSPECIFIED
+            }
+            "UNLOCKED" => transfer_lock_state::UNLOCKED,
+            "LOCKED" => transfer_lock_state::LOCKED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for TransferLockState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => transfer_lock_state::TRANSFER_LOCK_STATE_UNSPECIFIED,
+            1 => transfer_lock_state::UNLOCKED,
+            2 => transfer_lock_state::LOCKED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for TransferLockState {
     fn default() -> Self {
-        transfer_lock_state::TRANSFER_LOCK_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -17,20 +17,8 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct {{Codec.Name}}(std::borrow::Cow<'static, str>);
-
-impl {{Codec.Name}} {
-    /// Creates a new {{Codec.Name}} instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct {{Codec.Name}}(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [{{Codec.Name}}]({{Codec.Name}})
 pub mod {{Codec.ModuleName}} {
@@ -41,23 +29,76 @@ pub mod {{Codec.ModuleName}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new("{{Codec.Name}}");
+    pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::known("{{Codec.Name}}", {{Number}});
     {{/Values}}
 }
 
+impl {{Codec.Name}} {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for {{Codec.Name}} {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok({{Codec.Name}}::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok({{Codec.Name}}::from(val)),
+            Enumeration::UnknownNum { str } => Ok({{Codec.Name}}::from(str)),
+        }
+    }
+}
+
 impl std::convert::From<std::string::String> for {{Codec.Name}} {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+    fn from(value: std::string::String) -> Self {
+        match value.as_str() {
+            {{#Values}}
+            "{{Codec.Name}}" => {{Parent.Codec.ModuleName}}::{{Codec.Name}},
+            {{/Values}}
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for {{Codec.Name}} {
+    fn from(value: i32) -> Self {
+        match value {
+            {{#Codec.UniqueNumbers}}
+            {{Number}} => {{Parent.Codec.ModuleName}}::{{Codec.Name}},
+            {{/Codec.UniqueNumbers}}
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
+    }
 }
 
 impl std::default::Default for {{Codec.Name}} {
     fn default() -> Self {
-        {{#Codec.DefaultValueName}}
-        {{Codec.ModuleName}}::{{Codec.DefaultValueName}}
-        {{/Codec.DefaultValueName}}
-        {{^Codec.DefaultValueName}}
-        Self::new("")
-        {{/Codec.DefaultValueName}}
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

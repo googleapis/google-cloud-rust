@@ -424,20 +424,8 @@ pub mod binding_explanation {
     }
 
     /// Whether a role includes a specific permission.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolePermission(std::borrow::Cow<'static, str>);
-
-    impl RolePermission {
-        /// Creates a new RolePermission instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RolePermission(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RolePermission](RolePermission)
     pub mod role_permission {
@@ -445,15 +433,15 @@ pub mod binding_explanation {
 
         /// Default value. This value is unused.
         pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNSPECIFIED");
+            RolePermission::known("ROLE_PERMISSION_UNSPECIFIED", 0);
 
         /// The permission is included in the role.
         pub const ROLE_PERMISSION_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_INCLUDED");
+            RolePermission::known("ROLE_PERMISSION_INCLUDED", 1);
 
         /// The permission is not included in the role.
         pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_NOT_INCLUDED");
+            RolePermission::known("ROLE_PERMISSION_NOT_INCLUDED", 2);
 
         /// The user who created the
         /// [Replay][google.cloud.policysimulator.v1.Replay] is not
@@ -461,43 +449,94 @@ pub mod binding_explanation {
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
         pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNKNOWN_INFO_DENIED");
+            RolePermission::known("ROLE_PERMISSION_UNKNOWN_INFO_DENIED", 3);
+    }
+
+    impl RolePermission {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RolePermission {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RolePermission {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RolePermission::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RolePermission::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RolePermission::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RolePermission {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ROLE_PERMISSION_UNSPECIFIED" => role_permission::ROLE_PERMISSION_UNSPECIFIED,
+                "ROLE_PERMISSION_INCLUDED" => role_permission::ROLE_PERMISSION_INCLUDED,
+                "ROLE_PERMISSION_NOT_INCLUDED" => role_permission::ROLE_PERMISSION_NOT_INCLUDED,
+                "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => {
+                    role_permission::ROLE_PERMISSION_UNKNOWN_INFO_DENIED
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RolePermission {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => role_permission::ROLE_PERMISSION_UNSPECIFIED,
+                1 => role_permission::ROLE_PERMISSION_INCLUDED,
+                2 => role_permission::ROLE_PERMISSION_NOT_INCLUDED,
+                3 => role_permission::ROLE_PERMISSION_UNKNOWN_INFO_DENIED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RolePermission {
         fn default() -> Self {
-            role_permission::ROLE_PERMISSION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Whether the binding includes the principal.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Membership(std::borrow::Cow<'static, str>);
-
-    impl Membership {
-        /// Creates a new Membership instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Membership(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Membership](Membership)
     pub mod membership {
         use super::Membership;
 
         /// Default value. This value is unused.
-        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new("MEMBERSHIP_UNSPECIFIED");
+        pub const MEMBERSHIP_UNSPECIFIED: Membership =
+            Membership::known("MEMBERSHIP_UNSPECIFIED", 0);
 
         /// The binding includes the principal. The principal can be included
         /// directly or indirectly. For example:
@@ -506,10 +545,11 @@ pub mod binding_explanation {
         ///   binding.
         /// * A principal is included indirectly if that principal is in a Google
         ///   group or Google Workspace domain that is listed in the binding.
-        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new("MEMBERSHIP_INCLUDED");
+        pub const MEMBERSHIP_INCLUDED: Membership = Membership::known("MEMBERSHIP_INCLUDED", 1);
 
         /// The binding does not include the principal.
-        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new("MEMBERSHIP_NOT_INCLUDED");
+        pub const MEMBERSHIP_NOT_INCLUDED: Membership =
+            Membership::known("MEMBERSHIP_NOT_INCLUDED", 2);
 
         /// The user who created the
         /// [Replay][google.cloud.policysimulator.v1.Replay] is not
@@ -517,23 +557,85 @@ pub mod binding_explanation {
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
         pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_INFO_DENIED");
+            Membership::known("MEMBERSHIP_UNKNOWN_INFO_DENIED", 3);
 
         /// The principal is an unsupported type. Only Google Accounts and service
         /// accounts are supported.
         pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_UNSUPPORTED");
+            Membership::known("MEMBERSHIP_UNKNOWN_UNSUPPORTED", 4);
+    }
+
+    impl Membership {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Membership {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Membership {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Membership::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Membership::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Membership::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Membership {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MEMBERSHIP_UNSPECIFIED" => membership::MEMBERSHIP_UNSPECIFIED,
+                "MEMBERSHIP_INCLUDED" => membership::MEMBERSHIP_INCLUDED,
+                "MEMBERSHIP_NOT_INCLUDED" => membership::MEMBERSHIP_NOT_INCLUDED,
+                "MEMBERSHIP_UNKNOWN_INFO_DENIED" => membership::MEMBERSHIP_UNKNOWN_INFO_DENIED,
+                "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => membership::MEMBERSHIP_UNKNOWN_UNSUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Membership {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => membership::MEMBERSHIP_UNSPECIFIED,
+                1 => membership::MEMBERSHIP_INCLUDED,
+                2 => membership::MEMBERSHIP_NOT_INCLUDED,
+                3 => membership::MEMBERSHIP_UNKNOWN_INFO_DENIED,
+                4 => membership::MEMBERSHIP_UNKNOWN_UNSUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Membership {
         fn default() -> Self {
-            membership::MEMBERSHIP_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -703,50 +805,100 @@ pub mod replay {
     /// The current state of the [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The `Replay` has not started yet.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// The `Replay` is currently running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 2);
 
         /// The `Replay` has successfully completed.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The `Replay` has finished with an error.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "RUNNING" => state::RUNNING,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::RUNNING,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1267,20 +1419,8 @@ pub mod replay_config {
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSource(std::borrow::Cow<'static, str>);
-
-    impl LogSource {
-        /// Creates a new LogSource instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct LogSource(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [LogSource](LogSource)
     pub mod log_source {
@@ -1292,22 +1432,78 @@ pub mod replay_config {
         /// `RECENT_ACCESSES`.
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-        pub const LOG_SOURCE_UNSPECIFIED: LogSource = LogSource::new("LOG_SOURCE_UNSPECIFIED");
+        pub const LOG_SOURCE_UNSPECIFIED: LogSource = LogSource::known("LOG_SOURCE_UNSPECIFIED", 0);
 
         /// All access logs from the last 90 days. These logs may not include logs
         /// from the most recent 7 days.
-        pub const RECENT_ACCESSES: LogSource = LogSource::new("RECENT_ACCESSES");
+        pub const RECENT_ACCESSES: LogSource = LogSource::known("RECENT_ACCESSES", 1);
+    }
+
+    impl LogSource {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for LogSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LogSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(LogSource::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(LogSource::from(val)),
+                Enumeration::UnknownNum { str } => Ok(LogSource::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for LogSource {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LOG_SOURCE_UNSPECIFIED" => log_source::LOG_SOURCE_UNSPECIFIED,
+                "RECENT_ACCESSES" => log_source::RECENT_ACCESSES,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for LogSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => log_source::LOG_SOURCE_UNSPECIFIED,
+                1 => log_source::RECENT_ACCESSES,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for LogSource {
         fn default() -> Self {
-            log_source::LOG_SOURCE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1438,20 +1634,8 @@ pub mod access_state_diff {
 
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccessChangeType(std::borrow::Cow<'static, str>);
-
-    impl AccessChangeType {
-        /// Creates a new AccessChangeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AccessChangeType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AccessChangeType](AccessChangeType)
     pub mod access_change_type {
@@ -1459,25 +1643,25 @@ pub mod access_state_diff {
 
         /// Default value. This value is unused.
         pub const ACCESS_CHANGE_TYPE_UNSPECIFIED: AccessChangeType =
-            AccessChangeType::new("ACCESS_CHANGE_TYPE_UNSPECIFIED");
+            AccessChangeType::known("ACCESS_CHANGE_TYPE_UNSPECIFIED", 0);
 
         /// The principal's access did not change.
         /// This includes the case where both baseline and simulated are UNKNOWN,
         /// but the unknown information is equivalent.
-        pub const NO_CHANGE: AccessChangeType = AccessChangeType::new("NO_CHANGE");
+        pub const NO_CHANGE: AccessChangeType = AccessChangeType::known("NO_CHANGE", 1);
 
         /// The principal's access under both the current policies and the proposed
         /// policies is `UNKNOWN`, but the unknown information differs between them.
-        pub const UNKNOWN_CHANGE: AccessChangeType = AccessChangeType::new("UNKNOWN_CHANGE");
+        pub const UNKNOWN_CHANGE: AccessChangeType = AccessChangeType::known("UNKNOWN_CHANGE", 2);
 
         /// The principal had access under the current policies (`GRANTED`), but will
         /// no longer have access after the proposed changes (`NOT_GRANTED`).
-        pub const ACCESS_REVOKED: AccessChangeType = AccessChangeType::new("ACCESS_REVOKED");
+        pub const ACCESS_REVOKED: AccessChangeType = AccessChangeType::known("ACCESS_REVOKED", 3);
 
         /// The principal did not have access under the current policies
         /// (`NOT_GRANTED`), but will have access after the proposed changes
         /// (`GRANTED`).
-        pub const ACCESS_GAINED: AccessChangeType = AccessChangeType::new("ACCESS_GAINED");
+        pub const ACCESS_GAINED: AccessChangeType = AccessChangeType::known("ACCESS_GAINED", 4);
 
         /// This result can occur for the following reasons:
         ///
@@ -1489,7 +1673,7 @@ pub mod access_state_diff {
         ///   will not have access after the proposed changes (`NOT_GRANTED`).
         ///
         pub const ACCESS_MAYBE_REVOKED: AccessChangeType =
-            AccessChangeType::new("ACCESS_MAYBE_REVOKED");
+            AccessChangeType::known("ACCESS_MAYBE_REVOKED", 5);
 
         /// This result can occur for the following reasons:
         ///
@@ -1501,18 +1685,86 @@ pub mod access_state_diff {
         ///   they will have access after the proposed changes (`GRANTED`).
         ///
         pub const ACCESS_MAYBE_GAINED: AccessChangeType =
-            AccessChangeType::new("ACCESS_MAYBE_GAINED");
+            AccessChangeType::known("ACCESS_MAYBE_GAINED", 6);
+    }
+
+    impl AccessChangeType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AccessChangeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AccessChangeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AccessChangeType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AccessChangeType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AccessChangeType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AccessChangeType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ACCESS_CHANGE_TYPE_UNSPECIFIED" => {
+                    access_change_type::ACCESS_CHANGE_TYPE_UNSPECIFIED
+                }
+                "NO_CHANGE" => access_change_type::NO_CHANGE,
+                "UNKNOWN_CHANGE" => access_change_type::UNKNOWN_CHANGE,
+                "ACCESS_REVOKED" => access_change_type::ACCESS_REVOKED,
+                "ACCESS_GAINED" => access_change_type::ACCESS_GAINED,
+                "ACCESS_MAYBE_REVOKED" => access_change_type::ACCESS_MAYBE_REVOKED,
+                "ACCESS_MAYBE_GAINED" => access_change_type::ACCESS_MAYBE_GAINED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AccessChangeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => access_change_type::ACCESS_CHANGE_TYPE_UNSPECIFIED,
+                1 => access_change_type::NO_CHANGE,
+                2 => access_change_type::UNKNOWN_CHANGE,
+                3 => access_change_type::ACCESS_REVOKED,
+                4 => access_change_type::ACCESS_GAINED,
+                5 => access_change_type::ACCESS_MAYBE_REVOKED,
+                6 => access_change_type::ACCESS_MAYBE_GAINED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AccessChangeType {
         fn default() -> Self {
-            access_change_type::ACCESS_CHANGE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1599,75 +1851,114 @@ impl wkt::message::Message for ExplainedAccess {
 }
 
 /// Whether a principal has a permission for a resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessState(std::borrow::Cow<'static, str>);
-
-impl AccessState {
-    /// Creates a new AccessState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct AccessState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [AccessState](AccessState)
 pub mod access_state {
     use super::AccessState;
 
     /// Default value. This value is unused.
-    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new("ACCESS_STATE_UNSPECIFIED");
+    pub const ACCESS_STATE_UNSPECIFIED: AccessState =
+        AccessState::known("ACCESS_STATE_UNSPECIFIED", 0);
 
     /// The principal has the permission.
-    pub const GRANTED: AccessState = AccessState::new("GRANTED");
+    pub const GRANTED: AccessState = AccessState::known("GRANTED", 1);
 
     /// The principal does not have the permission.
-    pub const NOT_GRANTED: AccessState = AccessState::new("NOT_GRANTED");
+    pub const NOT_GRANTED: AccessState = AccessState::known("NOT_GRANTED", 2);
 
     /// The principal has the permission only if a condition expression evaluates
     /// to `true`.
-    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new("UNKNOWN_CONDITIONAL");
+    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::known("UNKNOWN_CONDITIONAL", 3);
 
     /// The user who created the
     /// [Replay][google.cloud.policysimulator.v1.Replay] does not have
     /// access to all of the policies that Policy Simulator needs to evaluate.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new("UNKNOWN_INFO_DENIED");
+    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::known("UNKNOWN_INFO_DENIED", 4);
+}
+
+impl AccessState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for AccessState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AccessState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(AccessState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(AccessState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(AccessState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for AccessState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ACCESS_STATE_UNSPECIFIED" => access_state::ACCESS_STATE_UNSPECIFIED,
+            "GRANTED" => access_state::GRANTED,
+            "NOT_GRANTED" => access_state::NOT_GRANTED,
+            "UNKNOWN_CONDITIONAL" => access_state::UNKNOWN_CONDITIONAL,
+            "UNKNOWN_INFO_DENIED" => access_state::UNKNOWN_INFO_DENIED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for AccessState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => access_state::ACCESS_STATE_UNSPECIFIED,
+            1 => access_state::GRANTED,
+            2 => access_state::NOT_GRANTED,
+            3 => access_state::UNKNOWN_CONDITIONAL,
+            4 => access_state::UNKNOWN_INFO_DENIED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for AccessState {
     fn default() -> Self {
-        access_state::ACCESS_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The extent to which a single data point, such as the existence of a binding
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
-
-impl HeuristicRelevance {
-    /// Creates a new HeuristicRelevance instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HeuristicRelevance(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [HeuristicRelevance](HeuristicRelevance)
 pub mod heuristic_relevance {
@@ -1675,25 +1966,85 @@ pub mod heuristic_relevance {
 
     /// Default value. This value is unused.
     pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_UNSPECIFIED");
+        HeuristicRelevance::known("HEURISTIC_RELEVANCE_UNSPECIFIED", 0);
 
     /// The data point has a limited effect on the result. Changing the data point
     /// is unlikely to affect the overall determination.
-    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new("NORMAL");
+    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::known("NORMAL", 1);
 
     /// The data point has a strong effect on the result. Changing the data point
     /// is likely to affect the overall determination.
-    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new("HIGH");
+    pub const HIGH: HeuristicRelevance = HeuristicRelevance::known("HIGH", 2);
+}
+
+impl HeuristicRelevance {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for HeuristicRelevance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(HeuristicRelevance::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(HeuristicRelevance::from(val)),
+            Enumeration::UnknownNum { str } => Ok(HeuristicRelevance::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for HeuristicRelevance {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "HEURISTIC_RELEVANCE_UNSPECIFIED" => {
+                heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
+            }
+            "NORMAL" => heuristic_relevance::NORMAL,
+            "HIGH" => heuristic_relevance::HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for HeuristicRelevance {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED,
+            1 => heuristic_relevance::NORMAL,
+            2 => heuristic_relevance::HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for HeuristicRelevance {
     fn default() -> Self {
-        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

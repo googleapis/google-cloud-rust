@@ -203,11 +203,11 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	annotateModel(model, codec, "")
 
 	if diff := cmp.Diff(&enumAnnotation{
-		Name:             "TestEnum",
-		ModuleName:       "test_enum",
-		DocLines:         []string{"/// The enum is documented."},
-		DefaultValueName: "VALUE",
-	}, enum.Codec); diff != "" {
+		Name:          "TestEnum",
+		ModuleName:    "test_enum",
+		DocLines:      []string{"/// The enum is documented."},
+		UniqueNumbers: []*api.EnumValue{v2, v1, v0},
+	}, enum.Codec, cmpopts.IgnoreFields(api.Enum{}, "Codec")); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 

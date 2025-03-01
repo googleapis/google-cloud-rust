@@ -142,56 +142,106 @@ pub mod calendar_add_on_manifest {
     use super::*;
 
     /// An enum defining the level of data access event triggers require.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventAccess(std::borrow::Cow<'static, str>);
-
-    impl EventAccess {
-        /// Creates a new EventAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EventAccess(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EventAccess](EventAccess)
     pub mod event_access {
         use super::EventAccess;
 
         /// Default value when nothing is set for EventAccess.
-        pub const UNSPECIFIED: EventAccess = EventAccess::new("UNSPECIFIED");
+        pub const UNSPECIFIED: EventAccess = EventAccess::known("UNSPECIFIED", 0);
 
         /// METADATA gives event triggers the permission to access the metadata of
         /// events such as event id and calendar id.
-        pub const METADATA: EventAccess = EventAccess::new("METADATA");
+        pub const METADATA: EventAccess = EventAccess::known("METADATA", 1);
 
         /// READ gives event triggers access to all provided event fields including
         /// the metadata, attendees, and conference data.
-        pub const READ: EventAccess = EventAccess::new("READ");
+        pub const READ: EventAccess = EventAccess::known("READ", 3);
 
         /// WRITE gives event triggers access to the metadata of events and the
         /// ability to perform all actions, including adding attendees and setting
         /// conference data.
-        pub const WRITE: EventAccess = EventAccess::new("WRITE");
+        pub const WRITE: EventAccess = EventAccess::known("WRITE", 4);
 
         /// READ_WRITE gives event triggers access to all provided event fields
         /// including the metadata, attendees, and conference data and the ability to
         /// perform all actions.
-        pub const READ_WRITE: EventAccess = EventAccess::new("READ_WRITE");
+        pub const READ_WRITE: EventAccess = EventAccess::known("READ_WRITE", 5);
+    }
+
+    impl EventAccess {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EventAccess {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventAccess {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EventAccess::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EventAccess::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EventAccess::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EventAccess {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNSPECIFIED" => event_access::UNSPECIFIED,
+                "METADATA" => event_access::METADATA,
+                "READ" => event_access::READ,
+                "WRITE" => event_access::WRITE,
+                "READ_WRITE" => event_access::READ_WRITE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EventAccess {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => event_access::UNSPECIFIED,
+                1 => event_access::METADATA,
+                3 => event_access::READ,
+                4 => event_access::WRITE,
+                5 => event_access::READ_WRITE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EventAccess {
         fn default() -> Self {
-            event_access::UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

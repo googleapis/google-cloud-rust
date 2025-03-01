@@ -1028,54 +1028,106 @@ pub mod app_connector {
     }
 
     /// Represents the different states of a AppConnector.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// AppConnector is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// AppConnector has been created.
-        pub const CREATED: State = State::new("CREATED");
+        pub const CREATED: State = State::known("CREATED", 2);
 
         /// AppConnector's configuration is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 3);
 
         /// AppConnector is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
 
         /// AppConnector is down and may be restored in the future.
         /// This happens when CCFE sends ProjectState = OFF.
-        pub const DOWN: State = State::new("DOWN");
+        pub const DOWN: State = State::known("DOWN", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "CREATED" => state::CREATED,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                "DOWN" => state::DOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::CREATED,
+                3 => state::UPDATING,
+                4 => state::DELETING,
+                5 => state::DOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1272,20 +1324,8 @@ impl wkt::message::Message for ResourceInfo {
 }
 
 /// HealthStatus represents the health status.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HealthStatus(std::borrow::Cow<'static, str>);
-
-impl HealthStatus {
-    /// Creates a new HealthStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HealthStatus(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [HealthStatus](HealthStatus)
 pub mod health_status {
@@ -1293,29 +1333,91 @@ pub mod health_status {
 
     /// Health status is unknown: not initialized or failed to retrieve.
     pub const HEALTH_STATUS_UNSPECIFIED: HealthStatus =
-        HealthStatus::new("HEALTH_STATUS_UNSPECIFIED");
+        HealthStatus::known("HEALTH_STATUS_UNSPECIFIED", 0);
 
     /// The resource is healthy.
-    pub const HEALTHY: HealthStatus = HealthStatus::new("HEALTHY");
+    pub const HEALTHY: HealthStatus = HealthStatus::known("HEALTHY", 1);
 
     /// The resource is unhealthy.
-    pub const UNHEALTHY: HealthStatus = HealthStatus::new("UNHEALTHY");
+    pub const UNHEALTHY: HealthStatus = HealthStatus::known("UNHEALTHY", 2);
 
     /// The resource is unresponsive.
-    pub const UNRESPONSIVE: HealthStatus = HealthStatus::new("UNRESPONSIVE");
+    pub const UNRESPONSIVE: HealthStatus = HealthStatus::known("UNRESPONSIVE", 3);
 
     /// Some sub-resources are UNHEALTHY.
-    pub const DEGRADED: HealthStatus = HealthStatus::new("DEGRADED");
+    pub const DEGRADED: HealthStatus = HealthStatus::known("DEGRADED", 4);
+}
+
+impl HealthStatus {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for HealthStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HealthStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(HealthStatus::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(HealthStatus::from(val)),
+            Enumeration::UnknownNum { str } => Ok(HealthStatus::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for HealthStatus {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "HEALTH_STATUS_UNSPECIFIED" => health_status::HEALTH_STATUS_UNSPECIFIED,
+            "HEALTHY" => health_status::HEALTHY,
+            "UNHEALTHY" => health_status::UNHEALTHY,
+            "UNRESPONSIVE" => health_status::UNRESPONSIVE,
+            "DEGRADED" => health_status::DEGRADED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for HealthStatus {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => health_status::HEALTH_STATUS_UNSPECIFIED,
+            1 => health_status::HEALTHY,
+            2 => health_status::UNHEALTHY,
+            3 => health_status::UNRESPONSIVE,
+            4 => health_status::DEGRADED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for HealthStatus {
     fn default() -> Self {
-        health_status::HEALTH_STATUS_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

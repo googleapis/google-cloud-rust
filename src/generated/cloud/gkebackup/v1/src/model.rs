@@ -669,56 +669,108 @@ pub mod backup {
     }
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The Backup resource is in the process of being created.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Backup resource has been created and the associated BackupJob
         /// Kubernetes resource has been injected into the source cluster.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The gkebackup agent in the cluster has begun executing the backup
         /// operation.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 2);
 
         /// The backup operation has completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The backup operation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// This Backup resource (and its associated artifacts) is in the process
         /// of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::IN_PROGRESS,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -1383,56 +1435,110 @@ pub mod backup_plan {
     }
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default first value for Enums.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Waiting for cluster state to be RUNNING.
-        pub const CLUSTER_PENDING: State = State::new("CLUSTER_PENDING");
+        pub const CLUSTER_PENDING: State = State::known("CLUSTER_PENDING", 1);
 
         /// The BackupPlan is in the process of being created.
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::known("PROVISIONING", 2);
 
         /// The BackupPlan has successfully been created and is ready for Backups.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 3);
 
         /// BackupPlan creation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// The BackupPlan has been deactivated.
-        pub const DEACTIVATED: State = State::new("DEACTIVATED");
+        pub const DEACTIVATED: State = State::known("DEACTIVATED", 5);
 
         /// The BackupPlan is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CLUSTER_PENDING" => state::CLUSTER_PENDING,
+                "PROVISIONING" => state::PROVISIONING,
+                "READY" => state::READY,
+                "FAILED" => state::FAILED,
+                "DEACTIVATED" => state::DEACTIVATED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CLUSTER_PENDING,
+                2 => state::PROVISIONING,
+                3 => state::READY,
+                4 => state::FAILED,
+                5 => state::DEACTIVATED,
+                6 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1874,41 +1980,86 @@ pub mod volume_type_enum {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeType(std::borrow::Cow<'static, str>);
-
-    impl VolumeType {
-        /// Creates a new VolumeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct VolumeType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [VolumeType](VolumeType)
     pub mod volume_type {
         use super::VolumeType;
 
         /// Default
-        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType = VolumeType::new("VOLUME_TYPE_UNSPECIFIED");
+        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType =
+            VolumeType::known("VOLUME_TYPE_UNSPECIFIED", 0);
 
         /// Compute Engine Persistent Disk volume
-        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::new("GCE_PERSISTENT_DISK");
+        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::known("GCE_PERSISTENT_DISK", 1);
+    }
+
+    impl VolumeType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(VolumeType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(VolumeType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(VolumeType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for VolumeType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VOLUME_TYPE_UNSPECIFIED" => volume_type::VOLUME_TYPE_UNSPECIFIED,
+                "GCE_PERSISTENT_DISK" => volume_type::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => volume_type::VOLUME_TYPE_UNSPECIFIED,
+                1 => volume_type::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for VolumeType {
         fn default() -> Self {
-            volume_type::VOLUME_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4178,56 +4329,108 @@ pub mod restore {
     }
 
     /// Possible values for state of the Restore.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The Restore resource is in the process of being created.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Restore resource has been created and the associated RestoreJob
         /// Kubernetes resource has been injected into target cluster.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The gkebackup agent in the cluster has begun executing the restore
         /// operation.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 2);
 
         /// The restore operation has completed successfully. Restored workloads may
         /// not yet be operational.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The restore operation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// This Restore resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::IN_PROGRESS,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4911,38 +5114,26 @@ pub mod restore_config {
         use super::*;
 
         /// Possible values for operations of a transformation rule action.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Op(std::borrow::Cow<'static, str>);
-
-        impl Op {
-            /// Creates a new Op instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Op(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Op](Op)
         pub mod op {
             use super::Op;
 
             /// Unspecified operation
-            pub const OP_UNSPECIFIED: Op = Op::new("OP_UNSPECIFIED");
+            pub const OP_UNSPECIFIED: Op = Op::known("OP_UNSPECIFIED", 0);
 
             /// The "remove" operation removes the value at the target location.
-            pub const REMOVE: Op = Op::new("REMOVE");
+            pub const REMOVE: Op = Op::known("REMOVE", 1);
 
             /// The "move" operation removes the value at a specified location and
             /// adds it to the target location.
-            pub const MOVE: Op = Op::new("MOVE");
+            pub const MOVE: Op = Op::known("MOVE", 2);
 
             /// The "copy" operation copies the value at a specified location to the
             /// target location.
-            pub const COPY: Op = Op::new("COPY");
+            pub const COPY: Op = Op::known("COPY", 3);
 
             /// The "add" operation performs one of the following functions,
             /// depending upon what the target location references:
@@ -4953,27 +5144,93 @@ pub mod restore_config {
             ///   already exist, a new member is added to the object.
             /// . If the target location specifies an object member that does exist,
             ///   that member's value is replaced.
-            pub const ADD: Op = Op::new("ADD");
+            pub const ADD: Op = Op::known("ADD", 4);
 
             /// The "test" operation tests that a value at the target location is
             /// equal to a specified value.
-            pub const TEST: Op = Op::new("TEST");
+            pub const TEST: Op = Op::known("TEST", 5);
 
             /// The "replace" operation replaces the value at the target location
             /// with a new value.  The operation object MUST contain a "value" member
             /// whose content specifies the replacement value.
-            pub const REPLACE: Op = Op::new("REPLACE");
+            pub const REPLACE: Op = Op::known("REPLACE", 6);
+        }
+
+        impl Op {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Op {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Op {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Op::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Op::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Op::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Op {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "OP_UNSPECIFIED" => op::OP_UNSPECIFIED,
+                    "REMOVE" => op::REMOVE,
+                    "MOVE" => op::MOVE,
+                    "COPY" => op::COPY,
+                    "ADD" => op::ADD,
+                    "TEST" => op::TEST,
+                    "REPLACE" => op::REPLACE,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Op {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => op::OP_UNSPECIFIED,
+                    1 => op::REMOVE,
+                    2 => op::MOVE,
+                    3 => op::COPY,
+                    4 => op::ADD,
+                    5 => op::TEST,
+                    6 => op::REPLACE,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Op {
             fn default() -> Self {
-                op::OP_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -5316,20 +5573,8 @@ pub mod restore_config {
     }
 
     /// Defines how volume data should be restored.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeDataRestorePolicy(std::borrow::Cow<'static, str>);
-
-    impl VolumeDataRestorePolicy {
-        /// Creates a new VolumeDataRestorePolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct VolumeDataRestorePolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [VolumeDataRestorePolicy](VolumeDataRestorePolicy)
     pub mod volume_data_restore_policy {
@@ -5337,55 +5582,111 @@ pub mod restore_config {
 
         /// Unspecified (illegal).
         pub const VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED");
+            VolumeDataRestorePolicy::known("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED", 0);
 
         /// For each PVC to be restored, create a new underlying volume and PV
         /// from the corresponding VolumeBackup contained within the Backup.
         pub const RESTORE_VOLUME_DATA_FROM_BACKUP: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new("RESTORE_VOLUME_DATA_FROM_BACKUP");
+            VolumeDataRestorePolicy::known("RESTORE_VOLUME_DATA_FROM_BACKUP", 1);
 
         /// For each PVC to be restored, attempt to reuse the original PV contained
         /// in the Backup (with its original underlying volume). This option
         /// is likely only usable when restoring a workload to its original cluster.
         pub const REUSE_VOLUME_HANDLE_FROM_BACKUP: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new("REUSE_VOLUME_HANDLE_FROM_BACKUP");
+            VolumeDataRestorePolicy::known("REUSE_VOLUME_HANDLE_FROM_BACKUP", 2);
 
         /// For each PVC to be restored, create PVC without any particular
         /// action to restore data. In this case, the normal Kubernetes provisioning
         /// logic would kick in, and this would likely result in either dynamically
         /// provisioning blank PVs or binding to statically provisioned PVs.
         pub const NO_VOLUME_DATA_RESTORATION: VolumeDataRestorePolicy =
-            VolumeDataRestorePolicy::new("NO_VOLUME_DATA_RESTORATION");
+            VolumeDataRestorePolicy::known("NO_VOLUME_DATA_RESTORATION", 3);
+    }
+
+    impl VolumeDataRestorePolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeDataRestorePolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeDataRestorePolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(VolumeDataRestorePolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(VolumeDataRestorePolicy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(VolumeDataRestorePolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for VolumeDataRestorePolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED" => {
+                    volume_data_restore_policy::VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED
+                }
+                "RESTORE_VOLUME_DATA_FROM_BACKUP" => {
+                    volume_data_restore_policy::RESTORE_VOLUME_DATA_FROM_BACKUP
+                }
+                "REUSE_VOLUME_HANDLE_FROM_BACKUP" => {
+                    volume_data_restore_policy::REUSE_VOLUME_HANDLE_FROM_BACKUP
+                }
+                "NO_VOLUME_DATA_RESTORATION" => {
+                    volume_data_restore_policy::NO_VOLUME_DATA_RESTORATION
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeDataRestorePolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => volume_data_restore_policy::VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED,
+                1 => volume_data_restore_policy::RESTORE_VOLUME_DATA_FROM_BACKUP,
+                2 => volume_data_restore_policy::REUSE_VOLUME_HANDLE_FROM_BACKUP,
+                3 => volume_data_restore_policy::NO_VOLUME_DATA_RESTORATION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for VolumeDataRestorePolicy {
         fn default() -> Self {
-            volume_data_restore_policy::VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Defines the behavior for handling the situation where cluster-scoped
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClusterResourceConflictPolicy(std::borrow::Cow<'static, str>);
-
-    impl ClusterResourceConflictPolicy {
-        /// Creates a new ClusterResourceConflictPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ClusterResourceConflictPolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ClusterResourceConflictPolicy](ClusterResourceConflictPolicy)
     pub mod cluster_resource_conflict_policy {
@@ -5394,48 +5695,98 @@ pub mod restore_config {
         /// Unspecified. Only allowed if no cluster-scoped resources will be
         /// restored.
         pub const CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED");
+            ClusterResourceConflictPolicy::known("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED", 0);
 
         /// Do not attempt to restore the conflicting resource.
         pub const USE_EXISTING_VERSION: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new("USE_EXISTING_VERSION");
+            ClusterResourceConflictPolicy::known("USE_EXISTING_VERSION", 1);
 
         /// Delete the existing version before re-creating it from the Backup.
         /// This is a dangerous option which could cause unintentional
         /// data loss if used inappropriately. For example, deleting a CRD will
         /// cause Kubernetes to delete all CRs of that type.
         pub const USE_BACKUP_VERSION: ClusterResourceConflictPolicy =
-            ClusterResourceConflictPolicy::new("USE_BACKUP_VERSION");
+            ClusterResourceConflictPolicy::known("USE_BACKUP_VERSION", 2);
+    }
+
+    impl ClusterResourceConflictPolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterResourceConflictPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterResourceConflictPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ClusterResourceConflictPolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(ClusterResourceConflictPolicy::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(ClusterResourceConflictPolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ClusterResourceConflictPolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED" => {
+                    cluster_resource_conflict_policy::CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED
+                }
+                "USE_EXISTING_VERSION" => cluster_resource_conflict_policy::USE_EXISTING_VERSION,
+                "USE_BACKUP_VERSION" => cluster_resource_conflict_policy::USE_BACKUP_VERSION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterResourceConflictPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => cluster_resource_conflict_policy::CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED,
+                1 => cluster_resource_conflict_policy::USE_EXISTING_VERSION,
+                2 => cluster_resource_conflict_policy::USE_BACKUP_VERSION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ClusterResourceConflictPolicy {
         fn default() -> Self {
-            cluster_resource_conflict_policy::CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Defines the behavior for handling the situation where sets of namespaced
     /// resources being restored already exist in the target cluster.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NamespacedResourceRestoreMode(std::borrow::Cow<'static, str>);
-
-    impl NamespacedResourceRestoreMode {
-        /// Creates a new NamespacedResourceRestoreMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct NamespacedResourceRestoreMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [NamespacedResourceRestoreMode](NamespacedResourceRestoreMode)
     pub mod namespaced_resource_restore_mode {
@@ -5443,7 +5794,7 @@ pub mod restore_config {
 
         /// Unspecified (invalid).
         pub const NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED");
+            NamespacedResourceRestoreMode::known("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED", 0);
 
         /// When conflicting top-level resources (either Namespaces or
         /// ProtectedApplications, depending upon the scope) are encountered, this
@@ -5453,7 +5804,7 @@ pub mod restore_config {
         /// resources from the Backup. This mode should only be used when you are
         /// intending to revert some portion of a cluster to an earlier state.
         pub const DELETE_AND_RESTORE: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("DELETE_AND_RESTORE");
+            NamespacedResourceRestoreMode::known("DELETE_AND_RESTORE", 1);
 
         /// If conflicting top-level resources (either Namespaces or
         /// ProtectedApplications, depending upon the scope) are encountered at the
@@ -5461,14 +5812,14 @@ pub mod restore_config {
         /// occurs during the restore process itself (e.g., because an out of band
         /// process creates conflicting resources), a conflict will be reported.
         pub const FAIL_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("FAIL_ON_CONFLICT");
+            NamespacedResourceRestoreMode::known("FAIL_ON_CONFLICT", 2);
 
         /// This mode merges the backup and the target cluster and skips the
         /// conflicting resources. If a single resource to restore exists in the
         /// cluster before restoration, the resource will be skipped, otherwise it
         /// will be restored.
         pub const MERGE_SKIP_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("MERGE_SKIP_ON_CONFLICT");
+            NamespacedResourceRestoreMode::known("MERGE_SKIP_ON_CONFLICT", 3);
 
         /// This mode merges the backup and the target cluster and skips the
         /// conflicting resources except volume data. If a PVC to restore already
@@ -5485,7 +5836,7 @@ pub mod restore_config {
         ///   Note that this mode could cause data loss as the original PV can be
         ///   retained or deleted depending on its reclaim policy.
         pub const MERGE_REPLACE_VOLUME_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("MERGE_REPLACE_VOLUME_ON_CONFLICT");
+            NamespacedResourceRestoreMode::known("MERGE_REPLACE_VOLUME_ON_CONFLICT", 4);
 
         /// This mode merges the backup and the target cluster and replaces the
         /// conflicting resources with the ones in the backup. If a single resource
@@ -5498,18 +5849,92 @@ pub mod restore_config {
         /// resources in the target cluster, and the original PV can be retained or
         /// deleted depending on its reclaim policy.
         pub const MERGE_REPLACE_ON_CONFLICT: NamespacedResourceRestoreMode =
-            NamespacedResourceRestoreMode::new("MERGE_REPLACE_ON_CONFLICT");
+            NamespacedResourceRestoreMode::known("MERGE_REPLACE_ON_CONFLICT", 5);
+    }
+
+    impl NamespacedResourceRestoreMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for NamespacedResourceRestoreMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NamespacedResourceRestoreMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(NamespacedResourceRestoreMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(NamespacedResourceRestoreMode::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(NamespacedResourceRestoreMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for NamespacedResourceRestoreMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED" => {
+                    namespaced_resource_restore_mode::NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED
+                }
+                "DELETE_AND_RESTORE" => namespaced_resource_restore_mode::DELETE_AND_RESTORE,
+                "FAIL_ON_CONFLICT" => namespaced_resource_restore_mode::FAIL_ON_CONFLICT,
+                "MERGE_SKIP_ON_CONFLICT" => {
+                    namespaced_resource_restore_mode::MERGE_SKIP_ON_CONFLICT
+                }
+                "MERGE_REPLACE_VOLUME_ON_CONFLICT" => {
+                    namespaced_resource_restore_mode::MERGE_REPLACE_VOLUME_ON_CONFLICT
+                }
+                "MERGE_REPLACE_ON_CONFLICT" => {
+                    namespaced_resource_restore_mode::MERGE_REPLACE_ON_CONFLICT
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for NamespacedResourceRestoreMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => namespaced_resource_restore_mode::NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED,
+                1 => namespaced_resource_restore_mode::DELETE_AND_RESTORE,
+                2 => namespaced_resource_restore_mode::FAIL_ON_CONFLICT,
+                3 => namespaced_resource_restore_mode::MERGE_SKIP_ON_CONFLICT,
+                4 => namespaced_resource_restore_mode::MERGE_REPLACE_VOLUME_ON_CONFLICT,
+                5 => namespaced_resource_restore_mode::MERGE_REPLACE_ON_CONFLICT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for NamespacedResourceRestoreMode {
         fn default() -> Self {
-            namespaced_resource_restore_mode::NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -5919,50 +6344,100 @@ pub mod restore_plan {
     use super::*;
 
     /// State
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default first value for Enums.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Waiting for cluster state to be RUNNING.
-        pub const CLUSTER_PENDING: State = State::new("CLUSTER_PENDING");
+        pub const CLUSTER_PENDING: State = State::known("CLUSTER_PENDING", 1);
 
         /// The RestorePlan has successfully been created and is ready for Restores.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// RestorePlan creation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 3);
 
         /// The RestorePlan is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CLUSTER_PENDING" => state::CLUSTER_PENDING,
+                "READY" => state::READY,
+                "FAILED" => state::FAILED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CLUSTER_PENDING,
+                2 => state::READY,
+                3 => state::FAILED,
+                4 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6162,20 +6637,8 @@ pub mod volume_backup {
     use super::*;
 
     /// Identifies the format used for the volume backup.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeBackupFormat(std::borrow::Cow<'static, str>);
-
-    impl VolumeBackupFormat {
-        /// Creates a new VolumeBackupFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct VolumeBackupFormat(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [VolumeBackupFormat](VolumeBackupFormat)
     pub mod volume_backup_format {
@@ -6183,82 +6646,194 @@ pub mod volume_backup {
 
         /// Default value, not specified.
         pub const VOLUME_BACKUP_FORMAT_UNSPECIFIED: VolumeBackupFormat =
-            VolumeBackupFormat::new("VOLUME_BACKUP_FORMAT_UNSPECIFIED");
+            VolumeBackupFormat::known("VOLUME_BACKUP_FORMAT_UNSPECIFIED", 0);
 
         /// Compute Engine Persistent Disk snapshot based volume backup.
         pub const GCE_PERSISTENT_DISK: VolumeBackupFormat =
-            VolumeBackupFormat::new("GCE_PERSISTENT_DISK");
+            VolumeBackupFormat::known("GCE_PERSISTENT_DISK", 1);
+    }
+
+    impl VolumeBackupFormat {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeBackupFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeBackupFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(VolumeBackupFormat::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(VolumeBackupFormat::from(val)),
+                Enumeration::UnknownNum { str } => Ok(VolumeBackupFormat::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for VolumeBackupFormat {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => {
+                    volume_backup_format::VOLUME_BACKUP_FORMAT_UNSPECIFIED
+                }
+                "GCE_PERSISTENT_DISK" => volume_backup_format::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeBackupFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => volume_backup_format::VOLUME_BACKUP_FORMAT_UNSPECIFIED,
+                1 => volume_backup_format::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for VolumeBackupFormat {
         fn default() -> Self {
-            volume_backup_format::VOLUME_BACKUP_FORMAT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The current state of a VolumeBackup
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// This is an illegal state and should not be encountered.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// A volume for the backup was identified and backup process is about to
         /// start.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The volume backup operation has begun and is in the initial "snapshot"
         /// phase of the process. Any defined ProtectedApplication "pre" hooks will
         /// be executed before entering this state and "post" hooks will be executed
         /// upon leaving this state.
-        pub const SNAPSHOTTING: State = State::new("SNAPSHOTTING");
+        pub const SNAPSHOTTING: State = State::known("SNAPSHOTTING", 2);
 
         /// The snapshot phase of the volume backup operation has completed and
         /// the snapshot is now being uploaded to backup storage.
-        pub const UPLOADING: State = State::new("UPLOADING");
+        pub const UPLOADING: State = State::known("UPLOADING", 3);
 
         /// The volume backup operation has completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 4);
 
         /// The volume backup operation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 5);
 
         /// This VolumeBackup resource (and its associated artifacts) is in the
         /// process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "SNAPSHOTTING" => state::SNAPSHOTTING,
+                "UPLOADING" => state::UPLOADING,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::SNAPSHOTTING,
+                3 => state::UPLOADING,
+                4 => state::SUCCEEDED,
+                5 => state::FAILED,
+                6 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6439,93 +7014,190 @@ pub mod volume_restore {
     use super::*;
 
     /// Supported volume types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VolumeType(std::borrow::Cow<'static, str>);
-
-    impl VolumeType {
-        /// Creates a new VolumeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct VolumeType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [VolumeType](VolumeType)
     pub mod volume_type {
         use super::VolumeType;
 
         /// Default
-        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType = VolumeType::new("VOLUME_TYPE_UNSPECIFIED");
+        pub const VOLUME_TYPE_UNSPECIFIED: VolumeType =
+            VolumeType::known("VOLUME_TYPE_UNSPECIFIED", 0);
 
         /// Compute Engine Persistent Disk volume
-        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::new("GCE_PERSISTENT_DISK");
+        pub const GCE_PERSISTENT_DISK: VolumeType = VolumeType::known("GCE_PERSISTENT_DISK", 1);
+    }
+
+    impl VolumeType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for VolumeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VolumeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(VolumeType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(VolumeType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(VolumeType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for VolumeType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VOLUME_TYPE_UNSPECIFIED" => volume_type::VOLUME_TYPE_UNSPECIFIED,
+                "GCE_PERSISTENT_DISK" => volume_type::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VolumeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => volume_type::VOLUME_TYPE_UNSPECIFIED,
+                1 => volume_type::GCE_PERSISTENT_DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for VolumeType {
         fn default() -> Self {
-            volume_type::VOLUME_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The current state of a VolumeRestore
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// This is an illegal state and should not be encountered.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// A volume for the restore was identified and restore process is about to
         /// start.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The volume is currently being restored.
-        pub const RESTORING: State = State::new("RESTORING");
+        pub const RESTORING: State = State::known("RESTORING", 2);
 
         /// The volume has been successfully restored.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The volume restoration process failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// This VolumeRestore resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "RESTORING" => state::RESTORING,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::RESTORING,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

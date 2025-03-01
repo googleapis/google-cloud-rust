@@ -348,50 +348,100 @@ pub mod async_model_metadata {
     use super::*;
 
     /// Possible states of the operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Request is being processed.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 1);
 
         /// The operation completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 2);
 
         /// The operation was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 3);
 
         /// The operation has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "RUNNING" => state::RUNNING,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "CANCELLED" => state::CANCELLED,
+                "FAILED" => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::RUNNING,
+                2 => state::SUCCEEDED,
+                3 => state::CANCELLED,
+                4 => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -820,34 +870,22 @@ pub mod optimize_tours_request {
     /// to cap the number of errors returned.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.max_validation_errors]: crate::model::OptimizeToursRequest::max_validation_errors
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SolvingMode(std::borrow::Cow<'static, str>);
-
-    impl SolvingMode {
-        /// Creates a new SolvingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SolvingMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SolvingMode](SolvingMode)
     pub mod solving_mode {
         use super::SolvingMode;
 
         /// Solve the model.
-        pub const DEFAULT_SOLVE: SolvingMode = SolvingMode::new("DEFAULT_SOLVE");
+        pub const DEFAULT_SOLVE: SolvingMode = SolvingMode::known("DEFAULT_SOLVE", 0);
 
         /// Only validates the model without solving it: populates as many
         /// [OptimizeToursResponse.validation_errors][google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]
         /// as possible.
         ///
         /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
-        pub const VALIDATE_ONLY: SolvingMode = SolvingMode::new("VALIDATE_ONLY");
+        pub const VALIDATE_ONLY: SolvingMode = SolvingMode::known("VALIDATE_ONLY", 1);
 
         /// Only populates
         /// [OptimizeToursResponse.validation_errors][google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]
@@ -868,62 +906,169 @@ pub mod optimize_tours_request {
         /// [google.cloud.optimization.v1.OptimizeToursResponse.skipped_shipments]: crate::model::OptimizeToursResponse::skipped_shipments
         /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
         pub const DETECT_SOME_INFEASIBLE_SHIPMENTS: SolvingMode =
-            SolvingMode::new("DETECT_SOME_INFEASIBLE_SHIPMENTS");
+            SolvingMode::known("DETECT_SOME_INFEASIBLE_SHIPMENTS", 2);
+    }
+
+    impl SolvingMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SolvingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SolvingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SolvingMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SolvingMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SolvingMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SolvingMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DEFAULT_SOLVE" => solving_mode::DEFAULT_SOLVE,
+                "VALIDATE_ONLY" => solving_mode::VALIDATE_ONLY,
+                "DETECT_SOME_INFEASIBLE_SHIPMENTS" => {
+                    solving_mode::DETECT_SOME_INFEASIBLE_SHIPMENTS
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SolvingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => solving_mode::DEFAULT_SOLVE,
+                1 => solving_mode::VALIDATE_ONLY,
+                2 => solving_mode::DETECT_SOME_INFEASIBLE_SHIPMENTS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SolvingMode {
         fn default() -> Self {
-            solving_mode::DEFAULT_SOLVE
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Mode defining the behavior of the search, trading off latency versus
     /// solution quality. In all modes, the global request deadline is enforced.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SearchMode(std::borrow::Cow<'static, str>);
-
-    impl SearchMode {
-        /// Creates a new SearchMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SearchMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SearchMode](SearchMode)
     pub mod search_mode {
         use super::SearchMode;
 
         /// Unspecified search mode, equivalent to `RETURN_FAST`.
-        pub const SEARCH_MODE_UNSPECIFIED: SearchMode = SearchMode::new("SEARCH_MODE_UNSPECIFIED");
+        pub const SEARCH_MODE_UNSPECIFIED: SearchMode =
+            SearchMode::known("SEARCH_MODE_UNSPECIFIED", 0);
 
         /// Stop the search after finding the first good solution.
-        pub const RETURN_FAST: SearchMode = SearchMode::new("RETURN_FAST");
+        pub const RETURN_FAST: SearchMode = SearchMode::known("RETURN_FAST", 1);
 
         /// Spend all the available time to search for better solutions.
         pub const CONSUME_ALL_AVAILABLE_TIME: SearchMode =
-            SearchMode::new("CONSUME_ALL_AVAILABLE_TIME");
+            SearchMode::known("CONSUME_ALL_AVAILABLE_TIME", 2);
+    }
+
+    impl SearchMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SearchMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SearchMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SearchMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SearchMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SearchMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SearchMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEARCH_MODE_UNSPECIFIED" => search_mode::SEARCH_MODE_UNSPECIFIED,
+                "RETURN_FAST" => search_mode::RETURN_FAST,
+                "CONSUME_ALL_AVAILABLE_TIME" => search_mode::CONSUME_ALL_AVAILABLE_TIME,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SearchMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => search_mode::SEARCH_MODE_UNSPECIFIED,
+                1 => search_mode::RETURN_FAST,
+                2 => search_mode::CONSUME_ALL_AVAILABLE_TIME,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SearchMode {
         fn default() -> Self {
-            search_mode::SEARCH_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2798,20 +2943,8 @@ pub mod shipment_type_incompatibility {
 
     /// Modes defining how the appearance of incompatible shipments are restricted
     /// on the same route.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IncompatibilityMode(std::borrow::Cow<'static, str>);
-
-    impl IncompatibilityMode {
-        /// Creates a new IncompatibilityMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct IncompatibilityMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [IncompatibilityMode](IncompatibilityMode)
     pub mod incompatibility_mode {
@@ -2819,12 +2952,12 @@ pub mod shipment_type_incompatibility {
 
         /// Unspecified incompatibility mode. This value should never be used.
         pub const INCOMPATIBILITY_MODE_UNSPECIFIED: IncompatibilityMode =
-            IncompatibilityMode::new("INCOMPATIBILITY_MODE_UNSPECIFIED");
+            IncompatibilityMode::known("INCOMPATIBILITY_MODE_UNSPECIFIED", 0);
 
         /// In this mode, two shipments with incompatible types can never share the
         /// same vehicle.
         pub const NOT_PERFORMED_BY_SAME_VEHICLE: IncompatibilityMode =
-            IncompatibilityMode::new("NOT_PERFORMED_BY_SAME_VEHICLE");
+            IncompatibilityMode::known("NOT_PERFORMED_BY_SAME_VEHICLE", 1);
 
         /// For two shipments with incompatible types with the
         /// `NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY` incompatibility mode:
@@ -2835,18 +2968,82 @@ pub mod shipment_type_incompatibility {
         ///   shipments can share the same vehicle iff the former shipment is
         ///   delivered before the latter is picked up.
         pub const NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY: IncompatibilityMode =
-            IncompatibilityMode::new("NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY");
+            IncompatibilityMode::known("NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY", 2);
+    }
+
+    impl IncompatibilityMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for IncompatibilityMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IncompatibilityMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(IncompatibilityMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(IncompatibilityMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(IncompatibilityMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for IncompatibilityMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "INCOMPATIBILITY_MODE_UNSPECIFIED" => {
+                    incompatibility_mode::INCOMPATIBILITY_MODE_UNSPECIFIED
+                }
+                "NOT_PERFORMED_BY_SAME_VEHICLE" => {
+                    incompatibility_mode::NOT_PERFORMED_BY_SAME_VEHICLE
+                }
+                "NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY" => {
+                    incompatibility_mode::NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IncompatibilityMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => incompatibility_mode::INCOMPATIBILITY_MODE_UNSPECIFIED,
+                1 => incompatibility_mode::NOT_PERFORMED_BY_SAME_VEHICLE,
+                2 => incompatibility_mode::NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for IncompatibilityMode {
         fn default() -> Self {
-            incompatibility_mode::INCOMPATIBILITY_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2927,20 +3124,8 @@ pub mod shipment_type_requirement {
     use super::*;
 
     /// Modes defining the appearance of dependent shipments on a route.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RequirementMode(std::borrow::Cow<'static, str>);
-
-    impl RequirementMode {
-        /// Creates a new RequirementMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RequirementMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RequirementMode](RequirementMode)
     pub mod requirement_mode {
@@ -2948,12 +3133,12 @@ pub mod shipment_type_requirement {
 
         /// Unspecified requirement mode. This value should never be used.
         pub const REQUIREMENT_MODE_UNSPECIFIED: RequirementMode =
-            RequirementMode::new("REQUIREMENT_MODE_UNSPECIFIED");
+            RequirementMode::known("REQUIREMENT_MODE_UNSPECIFIED", 0);
 
         /// In this mode, all "dependent" shipments must share the same vehicle as at
         /// least one of their "required" shipments.
         pub const PERFORMED_BY_SAME_VEHICLE: RequirementMode =
-            RequirementMode::new("PERFORMED_BY_SAME_VEHICLE");
+            RequirementMode::known("PERFORMED_BY_SAME_VEHICLE", 1);
 
         /// With the `IN_SAME_VEHICLE_AT_PICKUP_TIME` mode, all "dependent"
         /// shipments need to have at least one "required" shipment on their vehicle
@@ -2966,23 +3151,87 @@ pub mod shipment_type_requirement {
         ///   "required" shipment has a delivery, this delivery must be performed
         ///   after the "dependent" shipment's pickup.
         pub const IN_SAME_VEHICLE_AT_PICKUP_TIME: RequirementMode =
-            RequirementMode::new("IN_SAME_VEHICLE_AT_PICKUP_TIME");
+            RequirementMode::known("IN_SAME_VEHICLE_AT_PICKUP_TIME", 2);
 
         /// Same as before, except the "dependent" shipments need to have a
         /// "required" shipment on their vehicle at the time of their *delivery*.
         pub const IN_SAME_VEHICLE_AT_DELIVERY_TIME: RequirementMode =
-            RequirementMode::new("IN_SAME_VEHICLE_AT_DELIVERY_TIME");
+            RequirementMode::known("IN_SAME_VEHICLE_AT_DELIVERY_TIME", 3);
+    }
+
+    impl RequirementMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RequirementMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RequirementMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RequirementMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RequirementMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RequirementMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RequirementMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REQUIREMENT_MODE_UNSPECIFIED" => requirement_mode::REQUIREMENT_MODE_UNSPECIFIED,
+                "PERFORMED_BY_SAME_VEHICLE" => requirement_mode::PERFORMED_BY_SAME_VEHICLE,
+                "IN_SAME_VEHICLE_AT_PICKUP_TIME" => {
+                    requirement_mode::IN_SAME_VEHICLE_AT_PICKUP_TIME
+                }
+                "IN_SAME_VEHICLE_AT_DELIVERY_TIME" => {
+                    requirement_mode::IN_SAME_VEHICLE_AT_DELIVERY_TIME
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RequirementMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => requirement_mode::REQUIREMENT_MODE_UNSPECIFIED,
+                1 => requirement_mode::PERFORMED_BY_SAME_VEHICLE,
+                2 => requirement_mode::IN_SAME_VEHICLE_AT_PICKUP_TIME,
+                3 => requirement_mode::IN_SAME_VEHICLE_AT_DELIVERY_TIME,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RequirementMode {
         fn default() -> Self {
-            requirement_mode::REQUIREMENT_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3913,44 +4162,91 @@ pub mod vehicle {
     /// These should be a subset of the Google Maps Platform Routes Preferred API
     /// travel modes, see:
     /// <https://developers.google.com/maps/documentation/routes_preferred/reference/rest/Shared.Types/RouteTravelMode>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TravelMode(std::borrow::Cow<'static, str>);
-
-    impl TravelMode {
-        /// Creates a new TravelMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TravelMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TravelMode](TravelMode)
     pub mod travel_mode {
         use super::TravelMode;
 
         /// Unspecified travel mode, equivalent to `DRIVING`.
-        pub const TRAVEL_MODE_UNSPECIFIED: TravelMode = TravelMode::new("TRAVEL_MODE_UNSPECIFIED");
+        pub const TRAVEL_MODE_UNSPECIFIED: TravelMode =
+            TravelMode::known("TRAVEL_MODE_UNSPECIFIED", 0);
 
         /// Travel mode corresponding to driving directions (car, ...).
-        pub const DRIVING: TravelMode = TravelMode::new("DRIVING");
+        pub const DRIVING: TravelMode = TravelMode::known("DRIVING", 1);
 
         /// Travel mode corresponding to walking directions.
-        pub const WALKING: TravelMode = TravelMode::new("WALKING");
+        pub const WALKING: TravelMode = TravelMode::known("WALKING", 2);
+    }
+
+    impl TravelMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TravelMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TravelMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TravelMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TravelMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TravelMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TravelMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TRAVEL_MODE_UNSPECIFIED" => travel_mode::TRAVEL_MODE_UNSPECIFIED,
+                "DRIVING" => travel_mode::DRIVING,
+                "WALKING" => travel_mode::WALKING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TravelMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => travel_mode::TRAVEL_MODE_UNSPECIFIED,
+                1 => travel_mode::DRIVING,
+                2 => travel_mode::WALKING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TravelMode {
         fn default() -> Self {
-            travel_mode::TRAVEL_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -3959,20 +4255,8 @@ pub mod vehicle {
     ///
     /// Other shipments are free to occur anywhere on the route independent of
     /// `unloading_policy`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UnloadingPolicy(std::borrow::Cow<'static, str>);
-
-    impl UnloadingPolicy {
-        /// Creates a new UnloadingPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnloadingPolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [UnloadingPolicy](UnloadingPolicy)
     pub mod unloading_policy {
@@ -3981,24 +4265,84 @@ pub mod vehicle {
         /// Unspecified unloading policy; deliveries must just occur after their
         /// corresponding pickups.
         pub const UNLOADING_POLICY_UNSPECIFIED: UnloadingPolicy =
-            UnloadingPolicy::new("UNLOADING_POLICY_UNSPECIFIED");
+            UnloadingPolicy::known("UNLOADING_POLICY_UNSPECIFIED", 0);
 
         /// Deliveries must occur in reverse order of pickups
-        pub const LAST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new("LAST_IN_FIRST_OUT");
+        pub const LAST_IN_FIRST_OUT: UnloadingPolicy =
+            UnloadingPolicy::known("LAST_IN_FIRST_OUT", 1);
 
         /// Deliveries must occur in the same order as pickups
-        pub const FIRST_IN_FIRST_OUT: UnloadingPolicy = UnloadingPolicy::new("FIRST_IN_FIRST_OUT");
+        pub const FIRST_IN_FIRST_OUT: UnloadingPolicy =
+            UnloadingPolicy::known("FIRST_IN_FIRST_OUT", 2);
+    }
+
+    impl UnloadingPolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for UnloadingPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UnloadingPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(UnloadingPolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(UnloadingPolicy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(UnloadingPolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for UnloadingPolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNLOADING_POLICY_UNSPECIFIED" => unloading_policy::UNLOADING_POLICY_UNSPECIFIED,
+                "LAST_IN_FIRST_OUT" => unloading_policy::LAST_IN_FIRST_OUT,
+                "FIRST_IN_FIRST_OUT" => unloading_policy::FIRST_IN_FIRST_OUT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for UnloadingPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => unloading_policy::UNLOADING_POLICY_UNSPECIFIED,
+                1 => unloading_policy::LAST_IN_FIRST_OUT,
+                2 => unloading_policy::FIRST_IN_FIRST_OUT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for UnloadingPolicy {
         fn default() -> Self {
-            unloading_policy::UNLOADING_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6108,20 +6452,8 @@ pub mod skipped_shipment {
         /// Code identifying the reason type. The order here is meaningless. In
         /// particular, it gives no indication of whether a given reason will
         /// appear before another in the solution, if both apply.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
-
-        impl Code {
-            /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Code(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Code](Code)
         pub mod code {
@@ -6129,15 +6461,15 @@ pub mod skipped_shipment {
 
             /// This should never be used. If we are unable to understand why a
             /// shipment was skipped, we simply return an empty set of reasons.
-            pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+            pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
             /// There is no vehicle in the model making all shipments infeasible.
-            pub const NO_VEHICLE: Code = Code::new("NO_VEHICLE");
+            pub const NO_VEHICLE: Code = Code::known("NO_VEHICLE", 1);
 
             /// The demand of the shipment exceeds a vehicle's capacity for some
             /// capacity types, one of which is `example_exceeded_capacity_type`.
             pub const DEMAND_EXCEEDS_VEHICLE_CAPACITY: Code =
-                Code::new("DEMAND_EXCEEDS_VEHICLE_CAPACITY");
+                Code::known("DEMAND_EXCEEDS_VEHICLE_CAPACITY", 2);
 
             /// The minimum distance necessary to perform this shipment, i.e. from
             /// the vehicle's `start_location` to the shipment's pickup and/or delivery
@@ -6146,7 +6478,7 @@ pub mod skipped_shipment {
             ///
             /// Note that for this computation we use the geodesic distances.
             pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT");
+                Code::known("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT", 3);
 
             /// The minimum time necessary to perform this shipment, including travel
             /// time, wait time and service time exceeds the vehicle's
@@ -6155,34 +6487,112 @@ pub mod skipped_shipment {
             /// Note: travel time is computed in the best-case scenario, namely as
             /// geodesic distance x 36 m/s (roughly 130 km/hour).
             pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT");
+                Code::known("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT", 4);
 
             /// Same as above but we only compare minimum travel time and the
             /// vehicle's `travel_duration_limit`.
-            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT");
+            pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT: Code = Code::known(
+                "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT",
+                5,
+            );
 
             /// The vehicle cannot perform this shipment in the best-case scenario
             /// (see `CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT` for time
             /// computation) if it starts at its earliest start time: the total time
             /// would make the vehicle end after its latest end time.
             pub const CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS: Code =
-                Code::new("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS");
+                Code::known("CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS", 6);
 
             /// The `allowed_vehicle_indices` field of the shipment is not empty and
             /// this vehicle does not belong to it.
-            pub const VEHICLE_NOT_ALLOWED: Code = Code::new("VEHICLE_NOT_ALLOWED");
+            pub const VEHICLE_NOT_ALLOWED: Code = Code::known("VEHICLE_NOT_ALLOWED", 7);
+        }
+
+        impl Code {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Code {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                    "NO_VEHICLE" => code::NO_VEHICLE,
+                    "DEMAND_EXCEEDS_VEHICLE_CAPACITY" => code::DEMAND_EXCEEDS_VEHICLE_CAPACITY,
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT" => {
+                        code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT" => {
+                        code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT" => {
+                        code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT
+                    }
+                    "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS" => {
+                        code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS
+                    }
+                    "VEHICLE_NOT_ALLOWED" => code::VEHICLE_NOT_ALLOWED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => code::CODE_UNSPECIFIED,
+                    1 => code::NO_VEHICLE,
+                    2 => code::DEMAND_EXCEEDS_VEHICLE_CAPACITY,
+                    3 => code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT,
+                    4 => code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT,
+                    5 => code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT,
+                    6 => code::CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS,
+                    7 => code::VEHICLE_NOT_ALLOWED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Code {
             fn default() -> Self {
-                code::CODE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -6641,20 +7051,8 @@ pub mod injected_solution_constraint {
             /// threshold conditions.
             ///
             /// The enumeration below is in order of increasing relaxation.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Level(std::borrow::Cow<'static, str>);
-
-            impl Level {
-                /// Creates a new Level instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct Level(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [Level](Level)
             pub mod level {
@@ -6664,37 +7062,101 @@ pub mod injected_solution_constraint {
                 /// i.e., all visits are fully constrained.
                 ///
                 /// This value must not be explicitly used in `level`.
-                pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
+                pub const LEVEL_UNSPECIFIED: Level = Level::known("LEVEL_UNSPECIFIED", 0);
 
                 /// Visit start times and vehicle start/end times will be relaxed, but
                 /// each visit remains bound to the same vehicle and the visit sequence
                 /// must be observed: no visit can be inserted between them or before
                 /// them.
                 pub const RELAX_VISIT_TIMES_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_VISIT_TIMES_AFTER_THRESHOLD");
+                    Level::known("RELAX_VISIT_TIMES_AFTER_THRESHOLD", 1);
 
                 /// Same as `RELAX_VISIT_TIMES_AFTER_THRESHOLD`, but the visit sequence
                 /// is also relaxed: visits can only be performed by this vehicle, but
                 /// can potentially become unperformed.
                 pub const RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD");
+                    Level::known("RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD", 2);
 
                 /// Same as `RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD`, but the
                 /// vehicle is also relaxed: visits are completely free at or after the
                 /// threshold time and can potentially become unperformed.
                 pub const RELAX_ALL_AFTER_THRESHOLD: Level =
-                    Level::new("RELAX_ALL_AFTER_THRESHOLD");
+                    Level::known("RELAX_ALL_AFTER_THRESHOLD", 3);
+            }
+
+            impl Level {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for Level {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Level {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(Level::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(Level::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(Level::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for Level {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "LEVEL_UNSPECIFIED" => level::LEVEL_UNSPECIFIED,
+                        "RELAX_VISIT_TIMES_AFTER_THRESHOLD" => {
+                            level::RELAX_VISIT_TIMES_AFTER_THRESHOLD
+                        }
+                        "RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD" => {
+                            level::RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD
+                        }
+                        "RELAX_ALL_AFTER_THRESHOLD" => level::RELAX_ALL_AFTER_THRESHOLD,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Level {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => level::LEVEL_UNSPECIFIED,
+                        1 => level::RELAX_VISIT_TIMES_AFTER_THRESHOLD,
+                        2 => level::RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD,
+                        3 => level::RELAX_ALL_AFTER_THRESHOLD,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for Level {
                 fn default() -> Self {
-                    level::LEVEL_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -7213,43 +7675,89 @@ pub mod optimize_tours_validation_error {
 }
 
 /// Data formats for input and output files.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DataFormat(std::borrow::Cow<'static, str>);
-
-impl DataFormat {
-    /// Creates a new DataFormat instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DataFormat(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DataFormat](DataFormat)
 pub mod data_format {
     use super::DataFormat;
 
     /// Default value.
-    pub const DATA_FORMAT_UNSPECIFIED: DataFormat = DataFormat::new("DATA_FORMAT_UNSPECIFIED");
+    pub const DATA_FORMAT_UNSPECIFIED: DataFormat = DataFormat::known("DATA_FORMAT_UNSPECIFIED", 0);
 
     /// Input data in json format.
-    pub const JSON: DataFormat = DataFormat::new("JSON");
+    pub const JSON: DataFormat = DataFormat::known("JSON", 1);
 
     /// Input data in string format.
-    pub const STRING: DataFormat = DataFormat::new("STRING");
+    pub const STRING: DataFormat = DataFormat::known("STRING", 2);
+}
+
+impl DataFormat {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DataFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DataFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DataFormat::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DataFormat::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DataFormat::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DataFormat {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DATA_FORMAT_UNSPECIFIED" => data_format::DATA_FORMAT_UNSPECIFIED,
+            "JSON" => data_format::JSON,
+            "STRING" => data_format::STRING,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DataFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => data_format::DATA_FORMAT_UNSPECIFIED,
+            1 => data_format::JSON,
+            2 => data_format::STRING,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DataFormat {
     fn default() -> Self {
-        data_format::DATA_FORMAT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -378,20 +378,8 @@ pub mod endpoint_matcher {
         }
 
         /// Possible criteria values that define logic of how matching is made.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MetadataLabelMatchCriteria(std::borrow::Cow<'static, str>);
-
-        impl MetadataLabelMatchCriteria {
-            /// Creates a new MetadataLabelMatchCriteria instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct MetadataLabelMatchCriteria(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [MetadataLabelMatchCriteria](MetadataLabelMatchCriteria)
         pub mod metadata_label_match_criteria {
@@ -399,28 +387,90 @@ pub mod endpoint_matcher {
 
             /// Default value. Should not be used.
             pub const METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED");
+                MetadataLabelMatchCriteria::known("METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED", 0);
 
             /// At least one of the Labels specified in the matcher should match the
             /// metadata presented by xDS client.
             pub const MATCH_ANY: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("MATCH_ANY");
+                MetadataLabelMatchCriteria::known("MATCH_ANY", 1);
 
             /// The metadata presented by the xDS client should contain all of the
             /// labels specified here.
             pub const MATCH_ALL: MetadataLabelMatchCriteria =
-                MetadataLabelMatchCriteria::new("MATCH_ALL");
+                MetadataLabelMatchCriteria::known("MATCH_ALL", 2);
+        }
+
+        impl MetadataLabelMatchCriteria {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for MetadataLabelMatchCriteria {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for MetadataLabelMatchCriteria {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(MetadataLabelMatchCriteria::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => {
+                        Ok(MetadataLabelMatchCriteria::from(val))
+                    }
+                    Enumeration::UnknownNum { str } => Ok(MetadataLabelMatchCriteria::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for MetadataLabelMatchCriteria {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED" => {
+                        metadata_label_match_criteria::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED
+                    }
+                    "MATCH_ANY" => metadata_label_match_criteria::MATCH_ANY,
+                    "MATCH_ALL" => metadata_label_match_criteria::MATCH_ALL,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for MetadataLabelMatchCriteria {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => metadata_label_match_criteria::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED,
+                    1 => metadata_label_match_criteria::MATCH_ANY,
+                    2 => metadata_label_match_criteria::MATCH_ALL,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for MetadataLabelMatchCriteria {
             fn default() -> Self {
-                metadata_label_match_criteria::METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -1964,20 +2014,8 @@ pub mod endpoint_policy {
     use super::*;
 
     /// The type of endpoint policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EndpointPolicyType(std::borrow::Cow<'static, str>);
-
-    impl EndpointPolicyType {
-        /// Creates a new EndpointPolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EndpointPolicyType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EndpointPolicyType](EndpointPolicyType)
     pub mod endpoint_policy_type {
@@ -1985,24 +2023,84 @@ pub mod endpoint_policy {
 
         /// Default value. Must not be used.
         pub const ENDPOINT_POLICY_TYPE_UNSPECIFIED: EndpointPolicyType =
-            EndpointPolicyType::new("ENDPOINT_POLICY_TYPE_UNSPECIFIED");
+            EndpointPolicyType::known("ENDPOINT_POLICY_TYPE_UNSPECIFIED", 0);
 
         /// Represents a proxy deployed as a sidecar.
-        pub const SIDECAR_PROXY: EndpointPolicyType = EndpointPolicyType::new("SIDECAR_PROXY");
+        pub const SIDECAR_PROXY: EndpointPolicyType = EndpointPolicyType::known("SIDECAR_PROXY", 1);
 
         /// Represents a proxyless gRPC backend.
-        pub const GRPC_SERVER: EndpointPolicyType = EndpointPolicyType::new("GRPC_SERVER");
+        pub const GRPC_SERVER: EndpointPolicyType = EndpointPolicyType::known("GRPC_SERVER", 2);
+    }
+
+    impl EndpointPolicyType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EndpointPolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EndpointPolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EndpointPolicyType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EndpointPolicyType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EndpointPolicyType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EndpointPolicyType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => {
+                    endpoint_policy_type::ENDPOINT_POLICY_TYPE_UNSPECIFIED
+                }
+                "SIDECAR_PROXY" => endpoint_policy_type::SIDECAR_PROXY,
+                "GRPC_SERVER" => endpoint_policy_type::GRPC_SERVER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EndpointPolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => endpoint_policy_type::ENDPOINT_POLICY_TYPE_UNSPECIFIED,
+                1 => endpoint_policy_type::SIDECAR_PROXY,
+                2 => endpoint_policy_type::GRPC_SERVER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EndpointPolicyType {
         fn default() -> Self {
-            endpoint_policy_type::ENDPOINT_POLICY_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2453,45 +2551,91 @@ pub mod gateway {
     ///
     /// * OPEN_MESH
     /// * SECURE_WEB_GATEWAY
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// The type of the customer managed gateway is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// The type of the customer managed gateway is TrafficDirector Open
         /// Mesh.
-        pub const OPEN_MESH: Type = Type::new("OPEN_MESH");
+        pub const OPEN_MESH: Type = Type::known("OPEN_MESH", 1);
 
         /// The type of the customer managed gateway is SecureWebGateway (SWG).
-        pub const SECURE_WEB_GATEWAY: Type = Type::new("SECURE_WEB_GATEWAY");
+        pub const SECURE_WEB_GATEWAY: Type = Type::known("SECURE_WEB_GATEWAY", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "OPEN_MESH" => r#type::OPEN_MESH,
+                "SECURE_WEB_GATEWAY" => r#type::SECURE_WEB_GATEWAY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::OPEN_MESH,
+                2 => r#type::SECURE_WEB_GATEWAY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3050,45 +3194,91 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of the match.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
-
-        impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Type(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
             use super::Type;
 
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
             /// Will only match the exact name provided.
-            pub const EXACT: Type = Type::new("EXACT");
+            pub const EXACT: Type = Type::known("EXACT", 1);
 
             /// Will interpret grpc_method and grpc_service as regexes. RE2 syntax is
             /// supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new("REGULAR_EXPRESSION");
+            pub const REGULAR_EXPRESSION: Type = Type::known("REGULAR_EXPRESSION", 2);
+        }
+
+        impl Type {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                    "EXACT" => r#type::EXACT,
+                    "REGULAR_EXPRESSION" => r#type::REGULAR_EXPRESSION,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => r#type::TYPE_UNSPECIFIED,
+                    1 => r#type::EXACT,
+                    2 => r#type::REGULAR_EXPRESSION,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -3152,45 +3342,91 @@ pub mod grpc_route {
         use super::*;
 
         /// The type of match.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
-
-        impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Type(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
             use super::Type;
 
             /// Unspecified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
             /// Will only match the exact value provided.
-            pub const EXACT: Type = Type::new("EXACT");
+            pub const EXACT: Type = Type::known("EXACT", 1);
 
             /// Will match paths conforming to the prefix specified by value. RE2
             /// syntax is supported.
-            pub const REGULAR_EXPRESSION: Type = Type::new("REGULAR_EXPRESSION");
+            pub const REGULAR_EXPRESSION: Type = Type::known("REGULAR_EXPRESSION", 2);
+        }
+
+        impl Type {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                    "EXACT" => r#type::EXACT,
+                    "REGULAR_EXPRESSION" => r#type::REGULAR_EXPRESSION,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => r#type::TYPE_UNSPECIFIED,
+                    1 => r#type::EXACT,
+                    2 => r#type::REGULAR_EXPRESSION,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -4993,20 +5229,8 @@ pub mod http_route {
         use super::*;
 
         /// Supported HTTP response code.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ResponseCode(std::borrow::Cow<'static, str>);
-
-        impl ResponseCode {
-            /// Creates a new ResponseCode instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct ResponseCode(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [ResponseCode](ResponseCode)
         pub mod response_code {
@@ -5014,34 +5238,100 @@ pub mod http_route {
 
             /// Default value
             pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode =
-                ResponseCode::new("RESPONSE_CODE_UNSPECIFIED");
+                ResponseCode::known("RESPONSE_CODE_UNSPECIFIED", 0);
 
             /// Corresponds to 301.
             pub const MOVED_PERMANENTLY_DEFAULT: ResponseCode =
-                ResponseCode::new("MOVED_PERMANENTLY_DEFAULT");
+                ResponseCode::known("MOVED_PERMANENTLY_DEFAULT", 1);
 
             /// Corresponds to 302.
-            pub const FOUND: ResponseCode = ResponseCode::new("FOUND");
+            pub const FOUND: ResponseCode = ResponseCode::known("FOUND", 2);
 
             /// Corresponds to 303.
-            pub const SEE_OTHER: ResponseCode = ResponseCode::new("SEE_OTHER");
+            pub const SEE_OTHER: ResponseCode = ResponseCode::known("SEE_OTHER", 3);
 
             /// Corresponds to 307. In this case, the request method will be retained.
-            pub const TEMPORARY_REDIRECT: ResponseCode = ResponseCode::new("TEMPORARY_REDIRECT");
+            pub const TEMPORARY_REDIRECT: ResponseCode =
+                ResponseCode::known("TEMPORARY_REDIRECT", 4);
 
             /// Corresponds to 308. In this case, the request method will be retained.
-            pub const PERMANENT_REDIRECT: ResponseCode = ResponseCode::new("PERMANENT_REDIRECT");
+            pub const PERMANENT_REDIRECT: ResponseCode =
+                ResponseCode::known("PERMANENT_REDIRECT", 5);
+        }
+
+        impl ResponseCode {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for ResponseCode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ResponseCode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(ResponseCode::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(ResponseCode::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(ResponseCode::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for ResponseCode {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "RESPONSE_CODE_UNSPECIFIED" => response_code::RESPONSE_CODE_UNSPECIFIED,
+                    "MOVED_PERMANENTLY_DEFAULT" => response_code::MOVED_PERMANENTLY_DEFAULT,
+                    "FOUND" => response_code::FOUND,
+                    "SEE_OTHER" => response_code::SEE_OTHER,
+                    "TEMPORARY_REDIRECT" => response_code::TEMPORARY_REDIRECT,
+                    "PERMANENT_REDIRECT" => response_code::PERMANENT_REDIRECT,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for ResponseCode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => response_code::RESPONSE_CODE_UNSPECIFIED,
+                    1 => response_code::MOVED_PERMANENTLY_DEFAULT,
+                    2 => response_code::FOUND,
+                    3 => response_code::SEE_OTHER,
+                    4 => response_code::TEMPORARY_REDIRECT,
+                    5 => response_code::PERMANENT_REDIRECT,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for ResponseCode {
             fn default() -> Self {
-                response_code::RESPONSE_CODE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -8027,62 +8317,116 @@ impl wkt::message::Message for DeleteTlsRouteRequest {
 }
 
 /// The part of the request or response for which the extension is called.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventType(std::borrow::Cow<'static, str>);
-
-impl EventType {
-    /// Creates a new EventType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct EventType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [EventType](EventType)
 pub mod event_type {
     use super::EventType;
 
     /// Unspecified value. Do not use.
-    pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
+    pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::known("EVENT_TYPE_UNSPECIFIED", 0);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request headers arrive.
-    pub const REQUEST_HEADERS: EventType = EventType::new("REQUEST_HEADERS");
+    pub const REQUEST_HEADERS: EventType = EventType::known("REQUEST_HEADERS", 1);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request body arrives.
-    pub const REQUEST_BODY: EventType = EventType::new("REQUEST_BODY");
+    pub const REQUEST_BODY: EventType = EventType::known("REQUEST_BODY", 2);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response headers arrive.
-    pub const RESPONSE_HEADERS: EventType = EventType::new("RESPONSE_HEADERS");
+    pub const RESPONSE_HEADERS: EventType = EventType::known("RESPONSE_HEADERS", 3);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response body arrives.
-    pub const RESPONSE_BODY: EventType = EventType::new("RESPONSE_BODY");
+    pub const RESPONSE_BODY: EventType = EventType::known("RESPONSE_BODY", 4);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP request trailers arrives.
-    pub const REQUEST_TRAILERS: EventType = EventType::new("REQUEST_TRAILERS");
+    pub const REQUEST_TRAILERS: EventType = EventType::known("REQUEST_TRAILERS", 5);
 
     /// If included in `supported_events`,
     /// the extension is called when the HTTP response trailers arrives.
-    pub const RESPONSE_TRAILERS: EventType = EventType::new("RESPONSE_TRAILERS");
+    pub const RESPONSE_TRAILERS: EventType = EventType::known("RESPONSE_TRAILERS", 6);
+}
+
+impl EventType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for EventType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EventType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(EventType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(EventType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(EventType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for EventType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "EVENT_TYPE_UNSPECIFIED" => event_type::EVENT_TYPE_UNSPECIFIED,
+            "REQUEST_HEADERS" => event_type::REQUEST_HEADERS,
+            "REQUEST_BODY" => event_type::REQUEST_BODY,
+            "RESPONSE_HEADERS" => event_type::RESPONSE_HEADERS,
+            "RESPONSE_BODY" => event_type::RESPONSE_BODY,
+            "REQUEST_TRAILERS" => event_type::REQUEST_TRAILERS,
+            "RESPONSE_TRAILERS" => event_type::RESPONSE_TRAILERS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for EventType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => event_type::EVENT_TYPE_UNSPECIFIED,
+            1 => event_type::REQUEST_HEADERS,
+            2 => event_type::REQUEST_BODY,
+            3 => event_type::RESPONSE_HEADERS,
+            4 => event_type::RESPONSE_BODY,
+            5 => event_type::REQUEST_TRAILERS,
+            6 => event_type::RESPONSE_TRAILERS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for EventType {
     fn default() -> Self {
-        event_type::EVENT_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
@@ -8090,20 +8434,8 @@ impl std::default::Default for EventType {
 /// `LbRouteExtension` resource.
 /// For more information, refer to [Choosing a load
 /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoadBalancingScheme(std::borrow::Cow<'static, str>);
-
-impl LoadBalancingScheme {
-    /// Creates a new LoadBalancingScheme instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LoadBalancingScheme(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LoadBalancingScheme](LoadBalancingScheme)
 pub mod load_balancing_scheme {
@@ -8111,24 +8443,86 @@ pub mod load_balancing_scheme {
 
     /// Default value. Do not use.
     pub const LOAD_BALANCING_SCHEME_UNSPECIFIED: LoadBalancingScheme =
-        LoadBalancingScheme::new("LOAD_BALANCING_SCHEME_UNSPECIFIED");
+        LoadBalancingScheme::known("LOAD_BALANCING_SCHEME_UNSPECIFIED", 0);
 
     /// Signifies that this is used for Internal HTTP(S) Load Balancing.
-    pub const INTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new("INTERNAL_MANAGED");
+    pub const INTERNAL_MANAGED: LoadBalancingScheme =
+        LoadBalancingScheme::known("INTERNAL_MANAGED", 1);
 
     /// Signifies that this is used for External Managed HTTP(S) Load
     /// Balancing.
-    pub const EXTERNAL_MANAGED: LoadBalancingScheme = LoadBalancingScheme::new("EXTERNAL_MANAGED");
+    pub const EXTERNAL_MANAGED: LoadBalancingScheme =
+        LoadBalancingScheme::known("EXTERNAL_MANAGED", 2);
+}
+
+impl LoadBalancingScheme {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LoadBalancingScheme {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LoadBalancingScheme {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LoadBalancingScheme::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LoadBalancingScheme::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LoadBalancingScheme::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LoadBalancingScheme {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LOAD_BALANCING_SCHEME_UNSPECIFIED" => {
+                load_balancing_scheme::LOAD_BALANCING_SCHEME_UNSPECIFIED
+            }
+            "INTERNAL_MANAGED" => load_balancing_scheme::INTERNAL_MANAGED,
+            "EXTERNAL_MANAGED" => load_balancing_scheme::EXTERNAL_MANAGED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LoadBalancingScheme {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => load_balancing_scheme::LOAD_BALANCING_SCHEME_UNSPECIFIED,
+            1 => load_balancing_scheme::INTERNAL_MANAGED,
+            2 => load_balancing_scheme::EXTERNAL_MANAGED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LoadBalancingScheme {
     fn default() -> Self {
-        load_balancing_scheme::LOAD_BALANCING_SCHEME_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
