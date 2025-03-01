@@ -1107,20 +1107,8 @@ impl wkt::message::Message for ContainerImageSignature {
 }
 
 /// SigningAlgorithm enumerates all the supported signing algorithms.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SigningAlgorithm(std::borrow::Cow<'static, str>);
-
-impl SigningAlgorithm {
-    /// Creates a new SigningAlgorithm instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SigningAlgorithm(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SigningAlgorithm](SigningAlgorithm)
 pub mod signing_algorithm {
@@ -1128,77 +1116,187 @@ pub mod signing_algorithm {
 
     /// Unspecified signing algorithm.
     pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm =
-        SigningAlgorithm::new("SIGNING_ALGORITHM_UNSPECIFIED");
+        SigningAlgorithm::known("SIGNING_ALGORITHM_UNSPECIFIED", 0);
 
     /// RSASSA-PSS with a SHA256 digest.
-    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new("RSASSA_PSS_SHA256");
+    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::known("RSASSA_PSS_SHA256", 1);
 
     /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
     pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm =
-        SigningAlgorithm::new("RSASSA_PKCS1V15_SHA256");
+        SigningAlgorithm::known("RSASSA_PKCS1V15_SHA256", 2);
 
     /// ECDSA on the P-256 Curve with a SHA256 digest.
-    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new("ECDSA_P256_SHA256");
+    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::known("ECDSA_P256_SHA256", 3);
+}
+
+impl SigningAlgorithm {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SigningAlgorithm {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SigningAlgorithm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SigningAlgorithm::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SigningAlgorithm::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SigningAlgorithm::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SigningAlgorithm {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SIGNING_ALGORITHM_UNSPECIFIED" => signing_algorithm::SIGNING_ALGORITHM_UNSPECIFIED,
+            "RSASSA_PSS_SHA256" => signing_algorithm::RSASSA_PSS_SHA256,
+            "RSASSA_PKCS1V15_SHA256" => signing_algorithm::RSASSA_PKCS1V15_SHA256,
+            "ECDSA_P256_SHA256" => signing_algorithm::ECDSA_P256_SHA256,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SigningAlgorithm {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => signing_algorithm::SIGNING_ALGORITHM_UNSPECIFIED,
+            1 => signing_algorithm::RSASSA_PSS_SHA256,
+            2 => signing_algorithm::RSASSA_PKCS1V15_SHA256,
+            3 => signing_algorithm::ECDSA_P256_SHA256,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SigningAlgorithm {
     fn default() -> Self {
-        signing_algorithm::SIGNING_ALGORITHM_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Token type enum contains the different types of token responses Confidential
 /// Space supports
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TokenType(std::borrow::Cow<'static, str>);
-
-impl TokenType {
-    /// Creates a new TokenType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct TokenType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [TokenType](TokenType)
 pub mod token_type {
     use super::TokenType;
 
     /// Unspecified token type
-    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new("TOKEN_TYPE_UNSPECIFIED");
+    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::known("TOKEN_TYPE_UNSPECIFIED", 0);
 
     /// OpenID Connect (OIDC) token type
-    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new("TOKEN_TYPE_OIDC");
+    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::known("TOKEN_TYPE_OIDC", 1);
 
     /// Public Key Infrastructure (PKI) token type
-    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new("TOKEN_TYPE_PKI");
+    pub const TOKEN_TYPE_PKI: TokenType = TokenType::known("TOKEN_TYPE_PKI", 2);
 
     /// Limited claim token type for AWS integration
-    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new("TOKEN_TYPE_LIMITED_AWS");
+    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::known("TOKEN_TYPE_LIMITED_AWS", 3);
 
     /// Principal-tag-based token for AWS integration
     pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType =
-        TokenType::new("TOKEN_TYPE_AWS_PRINCIPALTAGS");
+        TokenType::known("TOKEN_TYPE_AWS_PRINCIPALTAGS", 4);
+}
+
+impl TokenType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for TokenType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TokenType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(TokenType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(TokenType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(TokenType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for TokenType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TOKEN_TYPE_UNSPECIFIED" => token_type::TOKEN_TYPE_UNSPECIFIED,
+            "TOKEN_TYPE_OIDC" => token_type::TOKEN_TYPE_OIDC,
+            "TOKEN_TYPE_PKI" => token_type::TOKEN_TYPE_PKI,
+            "TOKEN_TYPE_LIMITED_AWS" => token_type::TOKEN_TYPE_LIMITED_AWS,
+            "TOKEN_TYPE_AWS_PRINCIPALTAGS" => token_type::TOKEN_TYPE_AWS_PRINCIPALTAGS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for TokenType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => token_type::TOKEN_TYPE_UNSPECIFIED,
+            1 => token_type::TOKEN_TYPE_OIDC,
+            2 => token_type::TOKEN_TYPE_PKI,
+            3 => token_type::TOKEN_TYPE_LIMITED_AWS,
+            4 => token_type::TOKEN_TYPE_AWS_PRINCIPALTAGS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for TokenType {
     fn default() -> Self {
-        token_type::TOKEN_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

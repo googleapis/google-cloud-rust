@@ -294,64 +294,122 @@ pub mod collector {
     /// States are used for internal purposes and named to keep
     /// convention of legacy product:
     /// <https://cloud.google.com/migrate/stratozone/docs/about-stratoprobe>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Collector state is not recognized.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Collector started to create, but hasn't been completed MC source creation
         /// and db object creation.
-        pub const STATE_INITIALIZING: State = State::new("STATE_INITIALIZING");
+        pub const STATE_INITIALIZING: State = State::known("STATE_INITIALIZING", 1);
 
         /// Collector has been created, MC source creation and db object creation
         /// completed.
-        pub const STATE_READY_TO_USE: State = State::new("STATE_READY_TO_USE");
+        pub const STATE_READY_TO_USE: State = State::known("STATE_READY_TO_USE", 2);
 
         /// Collector client has been registered with client.
-        pub const STATE_REGISTERED: State = State::new("STATE_REGISTERED");
+        pub const STATE_REGISTERED: State = State::known("STATE_REGISTERED", 3);
 
         /// Collector client is actively scanning.
-        pub const STATE_ACTIVE: State = State::new("STATE_ACTIVE");
+        pub const STATE_ACTIVE: State = State::known("STATE_ACTIVE", 4);
 
         /// Collector is not actively scanning.
-        pub const STATE_PAUSED: State = State::new("STATE_PAUSED");
+        pub const STATE_PAUSED: State = State::known("STATE_PAUSED", 5);
 
         /// Collector is starting background job for deletion.
-        pub const STATE_DELETING: State = State::new("STATE_DELETING");
+        pub const STATE_DELETING: State = State::known("STATE_DELETING", 6);
 
         /// Collector completed all tasks for deletion.
-        pub const STATE_DECOMMISSIONED: State = State::new("STATE_DECOMMISSIONED");
+        pub const STATE_DECOMMISSIONED: State = State::known("STATE_DECOMMISSIONED", 7);
 
         /// Collector is in error state.
-        pub const STATE_ERROR: State = State::new("STATE_ERROR");
+        pub const STATE_ERROR: State = State::known("STATE_ERROR", 8);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "STATE_INITIALIZING" => state::STATE_INITIALIZING,
+                "STATE_READY_TO_USE" => state::STATE_READY_TO_USE,
+                "STATE_REGISTERED" => state::STATE_REGISTERED,
+                "STATE_ACTIVE" => state::STATE_ACTIVE,
+                "STATE_PAUSED" => state::STATE_PAUSED,
+                "STATE_DELETING" => state::STATE_DELETING,
+                "STATE_DECOMMISSIONED" => state::STATE_DECOMMISSIONED,
+                "STATE_ERROR" => state::STATE_ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::STATE_INITIALIZING,
+                2 => state::STATE_READY_TO_USE,
+                3 => state::STATE_REGISTERED,
+                4 => state::STATE_ACTIVE,
+                5 => state::STATE_PAUSED,
+                6 => state::STATE_DELETING,
+                7 => state::STATE_DECOMMISSIONED,
+                8 => state::STATE_ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -443,44 +501,90 @@ pub mod annotation {
     use super::*;
 
     /// Types for project level setting.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Unknown type
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Indicates that this project has opted into StratoZone export.
-        pub const TYPE_LEGACY_EXPORT_CONSENT: Type = Type::new("TYPE_LEGACY_EXPORT_CONSENT");
+        pub const TYPE_LEGACY_EXPORT_CONSENT: Type = Type::known("TYPE_LEGACY_EXPORT_CONSENT", 1);
 
         /// Indicates that this project is created by Qwiklab.
-        pub const TYPE_QWIKLAB: Type = Type::new("TYPE_QWIKLAB");
+        pub const TYPE_QWIKLAB: Type = Type::known("TYPE_QWIKLAB", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "TYPE_LEGACY_EXPORT_CONSENT" => r#type::TYPE_LEGACY_EXPORT_CONSENT,
+                "TYPE_QWIKLAB" => r#type::TYPE_QWIKLAB,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::TYPE_LEGACY_EXPORT_CONSENT,
+                2 => r#type::TYPE_QWIKLAB,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

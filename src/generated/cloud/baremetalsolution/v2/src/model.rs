@@ -426,59 +426,115 @@ pub mod instance {
     use super::*;
 
     /// The possible states for this server.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The server is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The server is being provisioned.
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::known("PROVISIONING", 1);
 
         /// The server is running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 2);
 
         /// The server has been deleted.
-        pub const DELETED: State = State::new("DELETED");
+        pub const DELETED: State = State::known("DELETED", 3);
 
         /// The server is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 4);
 
         /// The server is starting.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::known("STARTING", 5);
 
         /// The server is stopping.
-        pub const STOPPING: State = State::new("STOPPING");
+        pub const STOPPING: State = State::known("STOPPING", 6);
 
         /// The server is shutdown.
-        pub const SHUTDOWN: State = State::new("SHUTDOWN");
+        pub const SHUTDOWN: State = State::known("SHUTDOWN", 7);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PROVISIONING" => state::PROVISIONING,
+                "RUNNING" => state::RUNNING,
+                "DELETED" => state::DELETED,
+                "UPDATING" => state::UPDATING,
+                "STARTING" => state::STARTING,
+                "STOPPING" => state::STOPPING,
+                "SHUTDOWN" => state::SHUTDOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PROVISIONING,
+                2 => state::RUNNING,
+                3 => state::DELETED,
+                4 => state::UPDATING,
+                5 => state::STARTING,
+                6 => state::STOPPING,
+                7 => state::SHUTDOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1137,20 +1193,8 @@ pub mod server_network_template {
         use super::*;
 
         /// Interface type.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct InterfaceType(std::borrow::Cow<'static, str>);
-
-        impl InterfaceType {
-            /// Creates a new InterfaceType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct InterfaceType(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [InterfaceType](InterfaceType)
         pub mod interface_type {
@@ -1158,24 +1202,82 @@ pub mod server_network_template {
 
             /// Unspecified value.
             pub const INTERFACE_TYPE_UNSPECIFIED: InterfaceType =
-                InterfaceType::new("INTERFACE_TYPE_UNSPECIFIED");
+                InterfaceType::known("INTERFACE_TYPE_UNSPECIFIED", 0);
 
             /// Bond interface type.
-            pub const BOND: InterfaceType = InterfaceType::new("BOND");
+            pub const BOND: InterfaceType = InterfaceType::known("BOND", 1);
 
             /// NIC interface type.
-            pub const NIC: InterfaceType = InterfaceType::new("NIC");
+            pub const NIC: InterfaceType = InterfaceType::known("NIC", 2);
+        }
+
+        impl InterfaceType {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for InterfaceType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for InterfaceType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(InterfaceType::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(InterfaceType::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(InterfaceType::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for InterfaceType {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "INTERFACE_TYPE_UNSPECIFIED" => interface_type::INTERFACE_TYPE_UNSPECIFIED,
+                    "BOND" => interface_type::BOND,
+                    "NIC" => interface_type::NIC,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for InterfaceType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => interface_type::INTERFACE_TYPE_UNSPECIFIED,
+                    1 => interface_type::BOND,
+                    2 => interface_type::NIC,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for InterfaceType {
             fn default() -> Self {
-                interface_type::INTERFACE_TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -1337,71 +1439,111 @@ pub mod lun {
     use super::*;
 
     /// The possible states for the LUN.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The LUN is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The LUN is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The LUN is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 2);
 
         /// The LUN is ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 3);
 
         /// The LUN has been requested to be deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
 
         /// The LUN is in cool off state. It will be deleted after `expire_time`.
-        pub const COOL_OFF: State = State::new("COOL_OFF");
+        pub const COOL_OFF: State = State::known("COOL_OFF", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "UPDATING" => state::UPDATING,
+                "READY" => state::READY,
+                "DELETING" => state::DELETING,
+                "COOL_OFF" => state::COOL_OFF,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::UPDATING,
+                3 => state::READY,
+                4 => state::DELETING,
+                5 => state::COOL_OFF,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Display the operating systems present for the LUN multiprotocol type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MultiprotocolType(std::borrow::Cow<'static, str>);
-
-    impl MultiprotocolType {
-        /// Creates a new MultiprotocolType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MultiprotocolType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MultiprotocolType](MultiprotocolType)
     pub mod multiprotocol_type {
@@ -1409,39 +1551,85 @@ pub mod lun {
 
         /// Server has no OS specified.
         pub const MULTIPROTOCOL_TYPE_UNSPECIFIED: MultiprotocolType =
-            MultiprotocolType::new("MULTIPROTOCOL_TYPE_UNSPECIFIED");
+            MultiprotocolType::known("MULTIPROTOCOL_TYPE_UNSPECIFIED", 0);
 
         /// Server with Linux OS.
-        pub const LINUX: MultiprotocolType = MultiprotocolType::new("LINUX");
+        pub const LINUX: MultiprotocolType = MultiprotocolType::known("LINUX", 1);
+    }
+
+    impl MultiprotocolType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MultiprotocolType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MultiprotocolType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MultiprotocolType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MultiprotocolType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MultiprotocolType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MultiprotocolType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MULTIPROTOCOL_TYPE_UNSPECIFIED" => {
+                    multiprotocol_type::MULTIPROTOCOL_TYPE_UNSPECIFIED
+                }
+                "LINUX" => multiprotocol_type::LINUX,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MultiprotocolType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => multiprotocol_type::MULTIPROTOCOL_TYPE_UNSPECIFIED,
+                1 => multiprotocol_type::LINUX,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MultiprotocolType {
         fn default() -> Self {
-            multiprotocol_type::MULTIPROTOCOL_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The storage types for a LUN.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StorageType(std::borrow::Cow<'static, str>);
-
-    impl StorageType {
-        /// Creates a new StorageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct StorageType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [StorageType](StorageType)
     pub mod storage_type {
@@ -1449,24 +1637,82 @@ pub mod lun {
 
         /// The storage type for this LUN is unknown.
         pub const STORAGE_TYPE_UNSPECIFIED: StorageType =
-            StorageType::new("STORAGE_TYPE_UNSPECIFIED");
+            StorageType::known("STORAGE_TYPE_UNSPECIFIED", 0);
 
         /// This storage type for this LUN is SSD.
-        pub const SSD: StorageType = StorageType::new("SSD");
+        pub const SSD: StorageType = StorageType::known("SSD", 1);
 
         /// This storage type for this LUN is HDD.
-        pub const HDD: StorageType = StorageType::new("HDD");
+        pub const HDD: StorageType = StorageType::known("HDD", 2);
+    }
+
+    impl StorageType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for StorageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StorageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(StorageType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(StorageType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(StorageType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STORAGE_TYPE_UNSPECIFIED" => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                "SSD" => storage_type::SSD,
+                "HDD" => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StorageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                1 => storage_type::SSD,
+                2 => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for StorageType {
         fn default() -> Self {
-            storage_type::STORAGE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1863,92 +2109,188 @@ pub mod network {
     use super::*;
 
     /// Network type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Unspecified value.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Client network, a network peered to a Google Cloud VPC.
-        pub const CLIENT: Type = Type::new("CLIENT");
+        pub const CLIENT: Type = Type::known("CLIENT", 1);
 
         /// Private network, a network local to the Bare Metal Solution environment.
-        pub const PRIVATE: Type = Type::new("PRIVATE");
+        pub const PRIVATE: Type = Type::known("PRIVATE", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "CLIENT" => r#type::CLIENT,
+                "PRIVATE" => r#type::PRIVATE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::CLIENT,
+                2 => r#type::PRIVATE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The possible states for this Network.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The Network is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Network is provisioning.
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::known("PROVISIONING", 1);
 
         /// The Network has been provisioned.
-        pub const PROVISIONED: State = State::new("PROVISIONED");
+        pub const PROVISIONED: State = State::known("PROVISIONED", 2);
 
         /// The Network is being deprovisioned.
-        pub const DEPROVISIONING: State = State::new("DEPROVISIONING");
+        pub const DEPROVISIONING: State = State::known("DEPROVISIONING", 3);
 
         /// The Network is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PROVISIONING" => state::PROVISIONING,
+                "PROVISIONED" => state::PROVISIONED,
+                "DEPROVISIONING" => state::DEPROVISIONING,
+                "UPDATING" => state::UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PROVISIONING,
+                2 => state::PROVISIONED,
+                3 => state::DEPROVISIONING,
+                4 => state::UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2210,44 +2552,90 @@ pub mod vrf {
     }
 
     /// The possible states for this VRF.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The vrf is provisioning.
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::known("PROVISIONING", 1);
 
         /// The vrf is provisioned.
-        pub const PROVISIONED: State = State::new("PROVISIONED");
+        pub const PROVISIONED: State = State::known("PROVISIONED", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PROVISIONING" => state::PROVISIONING,
+                "PROVISIONED" => state::PROVISIONED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PROVISIONING,
+                2 => state::PROVISIONED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3050,68 +3438,106 @@ pub mod nfs_share {
     }
 
     /// The possible states for this NFS share.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The share is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The share has been provisioned.
-        pub const PROVISIONED: State = State::new("PROVISIONED");
+        pub const PROVISIONED: State = State::known("PROVISIONED", 1);
 
         /// The NFS Share is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 2);
 
         /// The NFS Share is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 3);
 
         /// The NFS Share has been requested to be deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PROVISIONED" => state::PROVISIONED,
+                "CREATING" => state::CREATING,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PROVISIONED,
+                2 => state::CREATING,
+                3 => state::UPDATING,
+                4 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The possible mount permissions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MountPermissions(std::borrow::Cow<'static, str>);
-
-    impl MountPermissions {
-        /// Creates a new MountPermissions instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MountPermissions(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MountPermissions](MountPermissions)
     pub mod mount_permissions {
@@ -3119,42 +3545,88 @@ pub mod nfs_share {
 
         /// Permissions were not specified.
         pub const MOUNT_PERMISSIONS_UNSPECIFIED: MountPermissions =
-            MountPermissions::new("MOUNT_PERMISSIONS_UNSPECIFIED");
+            MountPermissions::known("MOUNT_PERMISSIONS_UNSPECIFIED", 0);
 
         /// NFS share can be mount with read-only permissions.
-        pub const READ: MountPermissions = MountPermissions::new("READ");
+        pub const READ: MountPermissions = MountPermissions::known("READ", 1);
 
         /// NFS share can be mount with read-write permissions.
-        pub const READ_WRITE: MountPermissions = MountPermissions::new("READ_WRITE");
+        pub const READ_WRITE: MountPermissions = MountPermissions::known("READ_WRITE", 2);
+    }
+
+    impl MountPermissions {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MountPermissions {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MountPermissions {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MountPermissions::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MountPermissions::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MountPermissions::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MountPermissions {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MOUNT_PERMISSIONS_UNSPECIFIED" => mount_permissions::MOUNT_PERMISSIONS_UNSPECIFIED,
+                "READ" => mount_permissions::READ,
+                "READ_WRITE" => mount_permissions::READ_WRITE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MountPermissions {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => mount_permissions::MOUNT_PERMISSIONS_UNSPECIFIED,
+                1 => mount_permissions::READ,
+                2 => mount_permissions::READ_WRITE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MountPermissions {
         fn default() -> Self {
-            mount_permissions::MOUNT_PERMISSIONS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The storage type for a volume.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StorageType(std::borrow::Cow<'static, str>);
-
-    impl StorageType {
-        /// Creates a new StorageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct StorageType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [StorageType](StorageType)
     pub mod storage_type {
@@ -3162,24 +3634,82 @@ pub mod nfs_share {
 
         /// The storage type for this volume is unknown.
         pub const STORAGE_TYPE_UNSPECIFIED: StorageType =
-            StorageType::new("STORAGE_TYPE_UNSPECIFIED");
+            StorageType::known("STORAGE_TYPE_UNSPECIFIED", 0);
 
         /// The storage type for this volume is SSD.
-        pub const SSD: StorageType = StorageType::new("SSD");
+        pub const SSD: StorageType = StorageType::known("SSD", 1);
 
         /// This storage type for this volume is HDD.
-        pub const HDD: StorageType = StorageType::new("HDD");
+        pub const HDD: StorageType = StorageType::known("HDD", 2);
+    }
+
+    impl StorageType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for StorageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StorageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(StorageType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(StorageType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(StorageType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STORAGE_TYPE_UNSPECIFIED" => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                "SSD" => storage_type::SSD,
+                "HDD" => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StorageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                1 => storage_type::SSD,
+                2 => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for StorageType {
         fn default() -> Self {
-            storage_type::STORAGE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3890,62 +4420,118 @@ pub mod provisioning_config {
     use super::*;
 
     /// The possible states for this ProvisioningConfig.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State wasn't specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// ProvisioningConfig is a draft and can be freely modified.
-        pub const DRAFT: State = State::new("DRAFT");
+        pub const DRAFT: State = State::known("DRAFT", 1);
 
         /// ProvisioningConfig was already submitted and cannot be modified.
-        pub const SUBMITTED: State = State::new("SUBMITTED");
+        pub const SUBMITTED: State = State::known("SUBMITTED", 2);
 
         /// ProvisioningConfig was in the provisioning state.  Initially this state
         /// comes from the work order table in big query when SNOW is used.  Later
         /// this field can be set by the work order API.
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::known("PROVISIONING", 3);
 
         /// ProvisioningConfig was provisioned, meaning the resources exist.
-        pub const PROVISIONED: State = State::new("PROVISIONED");
+        pub const PROVISIONED: State = State::known("PROVISIONED", 4);
 
         /// ProvisioningConfig was validated.  A validation tool will be run to
         /// set this state.
-        pub const VALIDATED: State = State::new("VALIDATED");
+        pub const VALIDATED: State = State::known("VALIDATED", 5);
 
         /// ProvisioningConfig was canceled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 6);
 
         /// The request is submitted for provisioning, with error return.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 7);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "DRAFT" => state::DRAFT,
+                "SUBMITTED" => state::SUBMITTED,
+                "PROVISIONING" => state::PROVISIONING,
+                "PROVISIONED" => state::PROVISIONED,
+                "VALIDATED" => state::VALIDATED,
+                "CANCELLED" => state::CANCELLED,
+                "FAILED" => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::DRAFT,
+                2 => state::SUBMITTED,
+                3 => state::PROVISIONING,
+                4 => state::PROVISIONED,
+                5 => state::VALIDATED,
+                6 => state::CANCELLED,
+                7 => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4253,47 +4839,95 @@ pub mod provisioning_quota {
     use super::*;
 
     /// The available asset types for intake.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AssetType(std::borrow::Cow<'static, str>);
-
-    impl AssetType {
-        /// Creates a new AssetType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AssetType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AssetType](AssetType)
     pub mod asset_type {
         use super::AssetType;
 
         /// The unspecified type.
-        pub const ASSET_TYPE_UNSPECIFIED: AssetType = AssetType::new("ASSET_TYPE_UNSPECIFIED");
+        pub const ASSET_TYPE_UNSPECIFIED: AssetType = AssetType::known("ASSET_TYPE_UNSPECIFIED", 0);
 
         /// The server asset type.
-        pub const ASSET_TYPE_SERVER: AssetType = AssetType::new("ASSET_TYPE_SERVER");
+        pub const ASSET_TYPE_SERVER: AssetType = AssetType::known("ASSET_TYPE_SERVER", 1);
 
         /// The storage asset type.
-        pub const ASSET_TYPE_STORAGE: AssetType = AssetType::new("ASSET_TYPE_STORAGE");
+        pub const ASSET_TYPE_STORAGE: AssetType = AssetType::known("ASSET_TYPE_STORAGE", 2);
 
         /// The network asset type.
-        pub const ASSET_TYPE_NETWORK: AssetType = AssetType::new("ASSET_TYPE_NETWORK");
+        pub const ASSET_TYPE_NETWORK: AssetType = AssetType::known("ASSET_TYPE_NETWORK", 3);
+    }
+
+    impl AssetType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AssetType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AssetType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AssetType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AssetType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AssetType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AssetType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ASSET_TYPE_UNSPECIFIED" => asset_type::ASSET_TYPE_UNSPECIFIED,
+                "ASSET_TYPE_SERVER" => asset_type::ASSET_TYPE_SERVER,
+                "ASSET_TYPE_STORAGE" => asset_type::ASSET_TYPE_STORAGE,
+                "ASSET_TYPE_NETWORK" => asset_type::ASSET_TYPE_NETWORK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AssetType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => asset_type::ASSET_TYPE_UNSPECIFIED,
+                1 => asset_type::ASSET_TYPE_SERVER,
+                2 => asset_type::ASSET_TYPE_STORAGE,
+                3 => asset_type::ASSET_TYPE_NETWORK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AssetType {
         fn default() -> Self {
-            asset_type::ASSET_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -4671,20 +5305,8 @@ pub mod instance_config {
     }
 
     /// The network configuration of the instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NetworkConfig(std::borrow::Cow<'static, str>);
-
-    impl NetworkConfig {
-        /// Creates a new NetworkConfig instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct NetworkConfig(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [NetworkConfig](NetworkConfig)
     pub mod network_config {
@@ -4692,25 +5314,83 @@ pub mod instance_config {
 
         /// The unspecified network configuration.
         pub const NETWORKCONFIG_UNSPECIFIED: NetworkConfig =
-            NetworkConfig::new("NETWORKCONFIG_UNSPECIFIED");
+            NetworkConfig::known("NETWORKCONFIG_UNSPECIFIED", 0);
 
         /// Instance part of single client network and single private network.
-        pub const SINGLE_VLAN: NetworkConfig = NetworkConfig::new("SINGLE_VLAN");
+        pub const SINGLE_VLAN: NetworkConfig = NetworkConfig::known("SINGLE_VLAN", 1);
 
         /// Instance part of multiple (or single) client networks and private
         /// networks.
-        pub const MULTI_VLAN: NetworkConfig = NetworkConfig::new("MULTI_VLAN");
+        pub const MULTI_VLAN: NetworkConfig = NetworkConfig::known("MULTI_VLAN", 2);
+    }
+
+    impl NetworkConfig {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for NetworkConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NetworkConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(NetworkConfig::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(NetworkConfig::from(val)),
+                Enumeration::UnknownNum { str } => Ok(NetworkConfig::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for NetworkConfig {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "NETWORKCONFIG_UNSPECIFIED" => network_config::NETWORKCONFIG_UNSPECIFIED,
+                "SINGLE_VLAN" => network_config::SINGLE_VLAN,
+                "MULTI_VLAN" => network_config::MULTI_VLAN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for NetworkConfig {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => network_config::NETWORKCONFIG_UNSPECIFIED,
+                1 => network_config::SINGLE_VLAN,
+                2 => network_config::MULTI_VLAN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for NetworkConfig {
         fn default() -> Self {
-            network_config::NETWORKCONFIG_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5066,20 +5746,8 @@ pub mod volume_config {
         use super::*;
 
         /// Permissions that can granted for an export.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Permissions(std::borrow::Cow<'static, str>);
-
-        impl Permissions {
-            /// Creates a new Permissions instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Permissions(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Permissions](Permissions)
         pub mod permissions {
@@ -5087,24 +5755,82 @@ pub mod volume_config {
 
             /// Unspecified value.
             pub const PERMISSIONS_UNSPECIFIED: Permissions =
-                Permissions::new("PERMISSIONS_UNSPECIFIED");
+                Permissions::known("PERMISSIONS_UNSPECIFIED", 0);
 
             /// Read-only permission.
-            pub const READ_ONLY: Permissions = Permissions::new("READ_ONLY");
+            pub const READ_ONLY: Permissions = Permissions::known("READ_ONLY", 1);
 
             /// Read-write permission.
-            pub const READ_WRITE: Permissions = Permissions::new("READ_WRITE");
+            pub const READ_WRITE: Permissions = Permissions::known("READ_WRITE", 2);
+        }
+
+        impl Permissions {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Permissions {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Permissions {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Permissions::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Permissions::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Permissions::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Permissions {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "PERMISSIONS_UNSPECIFIED" => permissions::PERMISSIONS_UNSPECIFIED,
+                    "READ_ONLY" => permissions::READ_ONLY,
+                    "READ_WRITE" => permissions::READ_WRITE,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Permissions {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => permissions::PERMISSIONS_UNSPECIFIED,
+                    1 => permissions::READ_ONLY,
+                    2 => permissions::READ_WRITE,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Permissions {
             fn default() -> Self {
-                permissions::PERMISSIONS_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
@@ -5122,86 +5848,178 @@ pub mod volume_config {
     }
 
     /// The types of Volumes.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// The unspecified type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// This Volume is on flash.
-        pub const FLASH: Type = Type::new("FLASH");
+        pub const FLASH: Type = Type::known("FLASH", 1);
 
         /// This Volume is on disk.
-        pub const DISK: Type = Type::new("DISK");
+        pub const DISK: Type = Type::known("DISK", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "FLASH" => r#type::FLASH,
+                "DISK" => r#type::DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::FLASH,
+                2 => r#type::DISK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The protocol used to access the volume.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Protocol(std::borrow::Cow<'static, str>);
-
-    impl Protocol {
-        /// Creates a new Protocol instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Protocol(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Protocol](Protocol)
     pub mod protocol {
         use super::Protocol;
 
         /// Unspecified value.
-        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::new("PROTOCOL_UNSPECIFIED");
+        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::known("PROTOCOL_UNSPECIFIED", 0);
 
         /// Fibre channel.
-        pub const PROTOCOL_FC: Protocol = Protocol::new("PROTOCOL_FC");
+        pub const PROTOCOL_FC: Protocol = Protocol::known("PROTOCOL_FC", 1);
 
         /// Network file system.
-        pub const PROTOCOL_NFS: Protocol = Protocol::new("PROTOCOL_NFS");
+        pub const PROTOCOL_NFS: Protocol = Protocol::known("PROTOCOL_NFS", 2);
+    }
+
+    impl Protocol {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Protocol {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Protocol {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Protocol::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Protocol::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Protocol::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Protocol {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PROTOCOL_UNSPECIFIED" => protocol::PROTOCOL_UNSPECIFIED,
+                "PROTOCOL_FC" => protocol::PROTOCOL_FC,
+                "PROTOCOL_NFS" => protocol::PROTOCOL_NFS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Protocol {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => protocol::PROTOCOL_UNSPECIFIED,
+                1 => protocol::PROTOCOL_FC,
+                2 => protocol::PROTOCOL_NFS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Protocol {
         fn default() -> Self {
-            protocol::PROTOCOL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5394,110 +6212,194 @@ pub mod network_config {
     }
 
     /// Network type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Unspecified value.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Client network, that is a network peered to a GCP VPC.
-        pub const CLIENT: Type = Type::new("CLIENT");
+        pub const CLIENT: Type = Type::known("CLIENT", 1);
 
         /// Private network, that is a network local to the BMS POD.
-        pub const PRIVATE: Type = Type::new("PRIVATE");
+        pub const PRIVATE: Type = Type::known("PRIVATE", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "CLIENT" => r#type::CLIENT,
+                "PRIVATE" => r#type::PRIVATE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::CLIENT,
+                2 => r#type::PRIVATE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Interconnect bandwidth.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Bandwidth(std::borrow::Cow<'static, str>);
-
-    impl Bandwidth {
-        /// Creates a new Bandwidth instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Bandwidth(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Bandwidth](Bandwidth)
     pub mod bandwidth {
         use super::Bandwidth;
 
         /// Unspecified value.
-        pub const BANDWIDTH_UNSPECIFIED: Bandwidth = Bandwidth::new("BANDWIDTH_UNSPECIFIED");
+        pub const BANDWIDTH_UNSPECIFIED: Bandwidth = Bandwidth::known("BANDWIDTH_UNSPECIFIED", 0);
 
         /// 1 Gbps.
-        pub const BW_1_GBPS: Bandwidth = Bandwidth::new("BW_1_GBPS");
+        pub const BW_1_GBPS: Bandwidth = Bandwidth::known("BW_1_GBPS", 1);
 
         /// 2 Gbps.
-        pub const BW_2_GBPS: Bandwidth = Bandwidth::new("BW_2_GBPS");
+        pub const BW_2_GBPS: Bandwidth = Bandwidth::known("BW_2_GBPS", 2);
 
         /// 5 Gbps.
-        pub const BW_5_GBPS: Bandwidth = Bandwidth::new("BW_5_GBPS");
+        pub const BW_5_GBPS: Bandwidth = Bandwidth::known("BW_5_GBPS", 3);
 
         /// 10 Gbps.
-        pub const BW_10_GBPS: Bandwidth = Bandwidth::new("BW_10_GBPS");
+        pub const BW_10_GBPS: Bandwidth = Bandwidth::known("BW_10_GBPS", 4);
+    }
+
+    impl Bandwidth {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Bandwidth {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Bandwidth {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Bandwidth::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Bandwidth::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Bandwidth::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Bandwidth {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "BANDWIDTH_UNSPECIFIED" => bandwidth::BANDWIDTH_UNSPECIFIED,
+                "BW_1_GBPS" => bandwidth::BW_1_GBPS,
+                "BW_2_GBPS" => bandwidth::BW_2_GBPS,
+                "BW_5_GBPS" => bandwidth::BW_5_GBPS,
+                "BW_10_GBPS" => bandwidth::BW_10_GBPS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Bandwidth {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => bandwidth::BANDWIDTH_UNSPECIFIED,
+                1 => bandwidth::BW_1_GBPS,
+                2 => bandwidth::BW_2_GBPS,
+                3 => bandwidth::BW_5_GBPS,
+                4 => bandwidth::BW_10_GBPS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Bandwidth {
         fn default() -> Self {
-            bandwidth::BANDWIDTH_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Service network block.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ServiceCidr(std::borrow::Cow<'static, str>);
-
-    impl ServiceCidr {
-        /// Creates a new ServiceCidr instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ServiceCidr(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ServiceCidr](ServiceCidr)
     pub mod service_cidr {
@@ -5505,30 +6407,92 @@ pub mod network_config {
 
         /// Unspecified value.
         pub const SERVICE_CIDR_UNSPECIFIED: ServiceCidr =
-            ServiceCidr::new("SERVICE_CIDR_UNSPECIFIED");
+            ServiceCidr::known("SERVICE_CIDR_UNSPECIFIED", 0);
 
         /// Services are disabled for the given network.
-        pub const DISABLED: ServiceCidr = ServiceCidr::new("DISABLED");
+        pub const DISABLED: ServiceCidr = ServiceCidr::known("DISABLED", 1);
 
         /// Use the highest /26 block of the network to host services.
-        pub const HIGH_26: ServiceCidr = ServiceCidr::new("HIGH_26");
+        pub const HIGH_26: ServiceCidr = ServiceCidr::known("HIGH_26", 2);
 
         /// Use the highest /27 block of the network to host services.
-        pub const HIGH_27: ServiceCidr = ServiceCidr::new("HIGH_27");
+        pub const HIGH_27: ServiceCidr = ServiceCidr::known("HIGH_27", 3);
 
         /// Use the highest /28 block of the network to host services.
-        pub const HIGH_28: ServiceCidr = ServiceCidr::new("HIGH_28");
+        pub const HIGH_28: ServiceCidr = ServiceCidr::known("HIGH_28", 4);
+    }
+
+    impl ServiceCidr {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ServiceCidr {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ServiceCidr {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ServiceCidr::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ServiceCidr::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ServiceCidr::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ServiceCidr {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SERVICE_CIDR_UNSPECIFIED" => service_cidr::SERVICE_CIDR_UNSPECIFIED,
+                "DISABLED" => service_cidr::DISABLED,
+                "HIGH_26" => service_cidr::HIGH_26,
+                "HIGH_27" => service_cidr::HIGH_27,
+                "HIGH_28" => service_cidr::HIGH_28,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ServiceCidr {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => service_cidr::SERVICE_CIDR_UNSPECIFIED,
+                1 => service_cidr::DISABLED,
+                2 => service_cidr::HIGH_26,
+                3 => service_cidr::HIGH_27,
+                4 => service_cidr::HIGH_28,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ServiceCidr {
         fn default() -> Self {
-            service_cidr::SERVICE_CIDR_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6356,20 +7320,8 @@ pub mod volume {
     }
 
     /// The storage type for a volume.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StorageType(std::borrow::Cow<'static, str>);
-
-    impl StorageType {
-        /// Creates a new StorageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct StorageType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [StorageType](StorageType)
     pub mod storage_type {
@@ -6377,95 +7329,193 @@ pub mod volume {
 
         /// The storage type for this volume is unknown.
         pub const STORAGE_TYPE_UNSPECIFIED: StorageType =
-            StorageType::new("STORAGE_TYPE_UNSPECIFIED");
+            StorageType::known("STORAGE_TYPE_UNSPECIFIED", 0);
 
         /// The storage type for this volume is SSD.
-        pub const SSD: StorageType = StorageType::new("SSD");
+        pub const SSD: StorageType = StorageType::known("SSD", 1);
 
         /// This storage type for this volume is HDD.
-        pub const HDD: StorageType = StorageType::new("HDD");
+        pub const HDD: StorageType = StorageType::known("HDD", 2);
+    }
+
+    impl StorageType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for StorageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StorageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(StorageType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(StorageType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(StorageType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for StorageType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STORAGE_TYPE_UNSPECIFIED" => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                "SSD" => storage_type::SSD,
+                "HDD" => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StorageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => storage_type::STORAGE_TYPE_UNSPECIFIED,
+                1 => storage_type::SSD,
+                2 => storage_type::HDD,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for StorageType {
         fn default() -> Self {
-            storage_type::STORAGE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The possible states for a storage volume.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The storage volume is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The storage volume is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The storage volume is ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// The storage volume has been requested to be deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// The storage volume is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 4);
 
         /// The storage volume is in cool off state. It will be deleted after
         /// `expire_time`.
-        pub const COOL_OFF: State = State::new("COOL_OFF");
+        pub const COOL_OFF: State = State::known("COOL_OFF", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "DELETING" => state::DELETING,
+                "UPDATING" => state::UPDATING,
+                "COOL_OFF" => state::COOL_OFF,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::DELETING,
+                4 => state::UPDATING,
+                5 => state::COOL_OFF,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The kinds of auto delete behavior to use when snapshot reserved space is
     /// full.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SnapshotAutoDeleteBehavior(std::borrow::Cow<'static, str>);
-
-    impl SnapshotAutoDeleteBehavior {
-        /// Creates a new SnapshotAutoDeleteBehavior instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SnapshotAutoDeleteBehavior(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SnapshotAutoDeleteBehavior](SnapshotAutoDeleteBehavior)
     pub mod snapshot_auto_delete_behavior {
@@ -6473,92 +7523,190 @@ pub mod volume {
 
         /// The unspecified behavior.
         pub const SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED: SnapshotAutoDeleteBehavior =
-            SnapshotAutoDeleteBehavior::new("SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED");
+            SnapshotAutoDeleteBehavior::known("SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED", 0);
 
         /// Don't delete any snapshots. This disables new snapshot creation, as
         /// long as the snapshot reserved space is full.
         pub const DISABLED: SnapshotAutoDeleteBehavior =
-            SnapshotAutoDeleteBehavior::new("DISABLED");
+            SnapshotAutoDeleteBehavior::known("DISABLED", 1);
 
         /// Delete the oldest snapshots first.
         pub const OLDEST_FIRST: SnapshotAutoDeleteBehavior =
-            SnapshotAutoDeleteBehavior::new("OLDEST_FIRST");
+            SnapshotAutoDeleteBehavior::known("OLDEST_FIRST", 2);
 
         /// Delete the newest snapshots first.
         pub const NEWEST_FIRST: SnapshotAutoDeleteBehavior =
-            SnapshotAutoDeleteBehavior::new("NEWEST_FIRST");
+            SnapshotAutoDeleteBehavior::known("NEWEST_FIRST", 3);
+    }
+
+    impl SnapshotAutoDeleteBehavior {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SnapshotAutoDeleteBehavior {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SnapshotAutoDeleteBehavior {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SnapshotAutoDeleteBehavior::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(SnapshotAutoDeleteBehavior::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(SnapshotAutoDeleteBehavior::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SnapshotAutoDeleteBehavior {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED" => {
+                    snapshot_auto_delete_behavior::SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED
+                }
+                "DISABLED" => snapshot_auto_delete_behavior::DISABLED,
+                "OLDEST_FIRST" => snapshot_auto_delete_behavior::OLDEST_FIRST,
+                "NEWEST_FIRST" => snapshot_auto_delete_behavior::NEWEST_FIRST,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SnapshotAutoDeleteBehavior {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => snapshot_auto_delete_behavior::SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED,
+                1 => snapshot_auto_delete_behavior::DISABLED,
+                2 => snapshot_auto_delete_behavior::OLDEST_FIRST,
+                3 => snapshot_auto_delete_behavior::NEWEST_FIRST,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SnapshotAutoDeleteBehavior {
         fn default() -> Self {
-            snapshot_auto_delete_behavior::SNAPSHOT_AUTO_DELETE_BEHAVIOR_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Storage protocol.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Protocol(std::borrow::Cow<'static, str>);
-
-    impl Protocol {
-        /// Creates a new Protocol instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Protocol(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Protocol](Protocol)
     pub mod protocol {
         use super::Protocol;
 
         /// Value is not specified.
-        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::new("PROTOCOL_UNSPECIFIED");
+        pub const PROTOCOL_UNSPECIFIED: Protocol = Protocol::known("PROTOCOL_UNSPECIFIED", 0);
 
         /// Fibre Channel protocol.
-        pub const FIBRE_CHANNEL: Protocol = Protocol::new("FIBRE_CHANNEL");
+        pub const FIBRE_CHANNEL: Protocol = Protocol::known("FIBRE_CHANNEL", 1);
 
         /// NFS protocol means Volume is a NFS Share volume.
         /// Such volumes cannot be manipulated via Volumes API.
-        pub const NFS: Protocol = Protocol::new("NFS");
+        pub const NFS: Protocol = Protocol::known("NFS", 2);
+    }
+
+    impl Protocol {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Protocol {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Protocol {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Protocol::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Protocol::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Protocol::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Protocol {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PROTOCOL_UNSPECIFIED" => protocol::PROTOCOL_UNSPECIFIED,
+                "FIBRE_CHANNEL" => protocol::FIBRE_CHANNEL,
+                "NFS" => protocol::NFS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Protocol {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => protocol::PROTOCOL_UNSPECIFIED,
+                1 => protocol::FIBRE_CHANNEL,
+                2 => protocol::NFS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Protocol {
         fn default() -> Self {
-            protocol::PROTOCOL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The possible values for a workload profile.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WorkloadProfile(std::borrow::Cow<'static, str>);
-
-    impl WorkloadProfile {
-        /// Creates a new WorkloadProfile instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct WorkloadProfile(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [WorkloadProfile](WorkloadProfile)
     pub mod workload_profile {
@@ -6566,24 +7714,82 @@ pub mod volume {
 
         /// The workload profile is in an unknown state.
         pub const WORKLOAD_PROFILE_UNSPECIFIED: WorkloadProfile =
-            WorkloadProfile::new("WORKLOAD_PROFILE_UNSPECIFIED");
+            WorkloadProfile::known("WORKLOAD_PROFILE_UNSPECIFIED", 0);
 
         /// The workload profile is generic.
-        pub const GENERIC: WorkloadProfile = WorkloadProfile::new("GENERIC");
+        pub const GENERIC: WorkloadProfile = WorkloadProfile::known("GENERIC", 1);
 
         /// The workload profile is hana.
-        pub const HANA: WorkloadProfile = WorkloadProfile::new("HANA");
+        pub const HANA: WorkloadProfile = WorkloadProfile::known("HANA", 2);
+    }
+
+    impl WorkloadProfile {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for WorkloadProfile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WorkloadProfile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(WorkloadProfile::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(WorkloadProfile::from(val)),
+                Enumeration::UnknownNum { str } => Ok(WorkloadProfile::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for WorkloadProfile {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "WORKLOAD_PROFILE_UNSPECIFIED" => workload_profile::WORKLOAD_PROFILE_UNSPECIFIED,
+                "GENERIC" => workload_profile::GENERIC,
+                "HANA" => workload_profile::HANA,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for WorkloadProfile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => workload_profile::WORKLOAD_PROFILE_UNSPECIFIED,
+                1 => workload_profile::GENERIC,
+                2 => workload_profile::HANA,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for WorkloadProfile {
         fn default() -> Self {
-            workload_profile::WORKLOAD_PROFILE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6998,20 +8204,8 @@ pub mod volume_snapshot {
     use super::*;
 
     /// Represents the type of a snapshot.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SnapshotType(std::borrow::Cow<'static, str>);
-
-    impl SnapshotType {
-        /// Creates a new SnapshotType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SnapshotType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SnapshotType](SnapshotType)
     pub mod snapshot_type {
@@ -7019,24 +8213,82 @@ pub mod volume_snapshot {
 
         /// Type is not specified.
         pub const SNAPSHOT_TYPE_UNSPECIFIED: SnapshotType =
-            SnapshotType::new("SNAPSHOT_TYPE_UNSPECIFIED");
+            SnapshotType::known("SNAPSHOT_TYPE_UNSPECIFIED", 0);
 
         /// Snapshot was taken manually by user.
-        pub const AD_HOC: SnapshotType = SnapshotType::new("AD_HOC");
+        pub const AD_HOC: SnapshotType = SnapshotType::known("AD_HOC", 1);
 
         /// Snapshot was taken automatically as a part of a snapshot schedule.
-        pub const SCHEDULED: SnapshotType = SnapshotType::new("SCHEDULED");
+        pub const SCHEDULED: SnapshotType = SnapshotType::known("SCHEDULED", 2);
+    }
+
+    impl SnapshotType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SnapshotType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SnapshotType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SnapshotType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SnapshotType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SnapshotType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SnapshotType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SNAPSHOT_TYPE_UNSPECIFIED" => snapshot_type::SNAPSHOT_TYPE_UNSPECIFIED,
+                "AD_HOC" => snapshot_type::AD_HOC,
+                "SCHEDULED" => snapshot_type::SCHEDULED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SnapshotType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => snapshot_type::SNAPSHOT_TYPE_UNSPECIFIED,
+                1 => snapshot_type::AD_HOC,
+                2 => snapshot_type::SCHEDULED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SnapshotType {
         fn default() -> Self {
-            snapshot_type::SNAPSHOT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -7295,20 +8547,8 @@ impl wkt::message::Message for RestoreVolumeSnapshotRequest {
 }
 
 /// Performance tier of the Volume.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct VolumePerformanceTier(std::borrow::Cow<'static, str>);
-
-impl VolumePerformanceTier {
-    /// Creates a new VolumePerformanceTier instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct VolumePerformanceTier(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [VolumePerformanceTier](VolumePerformanceTier)
 pub mod volume_performance_tier {
@@ -7316,48 +8556,102 @@ pub mod volume_performance_tier {
 
     /// Value is not specified.
     pub const VOLUME_PERFORMANCE_TIER_UNSPECIFIED: VolumePerformanceTier =
-        VolumePerformanceTier::new("VOLUME_PERFORMANCE_TIER_UNSPECIFIED");
+        VolumePerformanceTier::known("VOLUME_PERFORMANCE_TIER_UNSPECIFIED", 0);
 
     /// Regular volumes, shared aggregates.
     pub const VOLUME_PERFORMANCE_TIER_SHARED: VolumePerformanceTier =
-        VolumePerformanceTier::new("VOLUME_PERFORMANCE_TIER_SHARED");
+        VolumePerformanceTier::known("VOLUME_PERFORMANCE_TIER_SHARED", 1);
 
     /// Assigned aggregates.
     pub const VOLUME_PERFORMANCE_TIER_ASSIGNED: VolumePerformanceTier =
-        VolumePerformanceTier::new("VOLUME_PERFORMANCE_TIER_ASSIGNED");
+        VolumePerformanceTier::known("VOLUME_PERFORMANCE_TIER_ASSIGNED", 2);
 
     /// High throughput aggregates.
     pub const VOLUME_PERFORMANCE_TIER_HT: VolumePerformanceTier =
-        VolumePerformanceTier::new("VOLUME_PERFORMANCE_TIER_HT");
+        VolumePerformanceTier::known("VOLUME_PERFORMANCE_TIER_HT", 3);
+}
+
+impl VolumePerformanceTier {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for VolumePerformanceTier {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for VolumePerformanceTier {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(VolumePerformanceTier::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(VolumePerformanceTier::from(val)),
+            Enumeration::UnknownNum { str } => Ok(VolumePerformanceTier::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for VolumePerformanceTier {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "VOLUME_PERFORMANCE_TIER_UNSPECIFIED" => {
+                volume_performance_tier::VOLUME_PERFORMANCE_TIER_UNSPECIFIED
+            }
+            "VOLUME_PERFORMANCE_TIER_SHARED" => {
+                volume_performance_tier::VOLUME_PERFORMANCE_TIER_SHARED
+            }
+            "VOLUME_PERFORMANCE_TIER_ASSIGNED" => {
+                volume_performance_tier::VOLUME_PERFORMANCE_TIER_ASSIGNED
+            }
+            "VOLUME_PERFORMANCE_TIER_HT" => volume_performance_tier::VOLUME_PERFORMANCE_TIER_HT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for VolumePerformanceTier {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => volume_performance_tier::VOLUME_PERFORMANCE_TIER_UNSPECIFIED,
+            1 => volume_performance_tier::VOLUME_PERFORMANCE_TIER_SHARED,
+            2 => volume_performance_tier::VOLUME_PERFORMANCE_TIER_ASSIGNED,
+            3 => volume_performance_tier::VOLUME_PERFORMANCE_TIER_HT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for VolumePerformanceTier {
     fn default() -> Self {
-        volume_performance_tier::VOLUME_PERFORMANCE_TIER_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The possible values for a workload profile.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct WorkloadProfile(std::borrow::Cow<'static, str>);
-
-impl WorkloadProfile {
-    /// Creates a new WorkloadProfile instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct WorkloadProfile(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [WorkloadProfile](WorkloadProfile)
 pub mod workload_profile {
@@ -7365,25 +8659,83 @@ pub mod workload_profile {
 
     /// The workload profile is in an unknown state.
     pub const WORKLOAD_PROFILE_UNSPECIFIED: WorkloadProfile =
-        WorkloadProfile::new("WORKLOAD_PROFILE_UNSPECIFIED");
+        WorkloadProfile::known("WORKLOAD_PROFILE_UNSPECIFIED", 0);
 
     /// The workload profile is generic.
     pub const WORKLOAD_PROFILE_GENERIC: WorkloadProfile =
-        WorkloadProfile::new("WORKLOAD_PROFILE_GENERIC");
+        WorkloadProfile::known("WORKLOAD_PROFILE_GENERIC", 1);
 
     /// The workload profile is hana.
     pub const WORKLOAD_PROFILE_HANA: WorkloadProfile =
-        WorkloadProfile::new("WORKLOAD_PROFILE_HANA");
+        WorkloadProfile::known("WORKLOAD_PROFILE_HANA", 2);
+}
+
+impl WorkloadProfile {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for WorkloadProfile {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for WorkloadProfile {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(WorkloadProfile::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(WorkloadProfile::from(val)),
+            Enumeration::UnknownNum { str } => Ok(WorkloadProfile::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for WorkloadProfile {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "WORKLOAD_PROFILE_UNSPECIFIED" => workload_profile::WORKLOAD_PROFILE_UNSPECIFIED,
+            "WORKLOAD_PROFILE_GENERIC" => workload_profile::WORKLOAD_PROFILE_GENERIC,
+            "WORKLOAD_PROFILE_HANA" => workload_profile::WORKLOAD_PROFILE_HANA,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for WorkloadProfile {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => workload_profile::WORKLOAD_PROFILE_UNSPECIFIED,
+            1 => workload_profile::WORKLOAD_PROFILE_GENERIC,
+            2 => workload_profile::WORKLOAD_PROFILE_HANA,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for WorkloadProfile {
     fn default() -> Self {
-        workload_profile::WORKLOAD_PROFILE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

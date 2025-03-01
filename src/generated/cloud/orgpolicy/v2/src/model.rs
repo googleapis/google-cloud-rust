@@ -283,20 +283,8 @@ pub mod constraint {
     /// constraint. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
     ///
     /// Immutable after creation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConstraintDefault(std::borrow::Cow<'static, str>);
-
-    impl ConstraintDefault {
-        /// Creates a new ConstraintDefault instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ConstraintDefault(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ConstraintDefault](ConstraintDefault)
     pub mod constraint_default {
@@ -305,26 +293,86 @@ pub mod constraint {
         /// This is only used for distinguishing unset values and should never be
         /// used.
         pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault =
-            ConstraintDefault::new("CONSTRAINT_DEFAULT_UNSPECIFIED");
+            ConstraintDefault::known("CONSTRAINT_DEFAULT_UNSPECIFIED", 0);
 
         /// Indicate that all values are allowed for list constraints.
         /// Indicate that enforcement is off for boolean constraints.
-        pub const ALLOW: ConstraintDefault = ConstraintDefault::new("ALLOW");
+        pub const ALLOW: ConstraintDefault = ConstraintDefault::known("ALLOW", 1);
 
         /// Indicate that all values are denied for list constraints.
         /// Indicate that enforcement is on for boolean constraints.
-        pub const DENY: ConstraintDefault = ConstraintDefault::new("DENY");
+        pub const DENY: ConstraintDefault = ConstraintDefault::known("DENY", 2);
+    }
+
+    impl ConstraintDefault {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ConstraintDefault {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConstraintDefault {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ConstraintDefault::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ConstraintDefault::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ConstraintDefault::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ConstraintDefault {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CONSTRAINT_DEFAULT_UNSPECIFIED" => {
+                    constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
+                }
+                "ALLOW" => constraint_default::ALLOW,
+                "DENY" => constraint_default::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ConstraintDefault {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED,
+                1 => constraint_default::ALLOW,
+                2 => constraint_default::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ConstraintDefault {
         fn default() -> Self {
-            constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -492,96 +540,196 @@ pub mod custom_constraint {
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MethodType(std::borrow::Cow<'static, str>);
-
-    impl MethodType {
-        /// Creates a new MethodType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MethodType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MethodType](MethodType)
     pub mod method_type {
         use super::MethodType;
 
         /// Unspecified. Results in an error.
-        pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new("METHOD_TYPE_UNSPECIFIED");
+        pub const METHOD_TYPE_UNSPECIFIED: MethodType =
+            MethodType::known("METHOD_TYPE_UNSPECIFIED", 0);
 
         /// Constraint applied when creating the resource.
-        pub const CREATE: MethodType = MethodType::new("CREATE");
+        pub const CREATE: MethodType = MethodType::known("CREATE", 1);
 
         /// Constraint applied when updating the resource.
-        pub const UPDATE: MethodType = MethodType::new("UPDATE");
+        pub const UPDATE: MethodType = MethodType::known("UPDATE", 2);
 
         /// Constraint applied when deleting the resource.
         /// Not supported yet.
-        pub const DELETE: MethodType = MethodType::new("DELETE");
+        pub const DELETE: MethodType = MethodType::known("DELETE", 3);
 
         /// Constraint applied when removing an IAM grant.
-        pub const REMOVE_GRANT: MethodType = MethodType::new("REMOVE_GRANT");
+        pub const REMOVE_GRANT: MethodType = MethodType::known("REMOVE_GRANT", 4);
 
         /// Constraint applied when enforcing forced tagging.
-        pub const GOVERN_TAGS: MethodType = MethodType::new("GOVERN_TAGS");
+        pub const GOVERN_TAGS: MethodType = MethodType::known("GOVERN_TAGS", 5);
+    }
+
+    impl MethodType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MethodType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MethodType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MethodType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MethodType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MethodType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MethodType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METHOD_TYPE_UNSPECIFIED" => method_type::METHOD_TYPE_UNSPECIFIED,
+                "CREATE" => method_type::CREATE,
+                "UPDATE" => method_type::UPDATE,
+                "DELETE" => method_type::DELETE,
+                "REMOVE_GRANT" => method_type::REMOVE_GRANT,
+                "GOVERN_TAGS" => method_type::GOVERN_TAGS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MethodType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => method_type::METHOD_TYPE_UNSPECIFIED,
+                1 => method_type::CREATE,
+                2 => method_type::UPDATE,
+                3 => method_type::DELETE,
+                4 => method_type::REMOVE_GRANT,
+                5 => method_type::GOVERN_TAGS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MethodType {
         fn default() -> Self {
-            method_type::METHOD_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Allow or deny type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ActionType(std::borrow::Cow<'static, str>);
-
-    impl ActionType {
-        /// Creates a new ActionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ActionType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ActionType](ActionType)
     pub mod action_type {
         use super::ActionType;
 
         /// Unspecified. Results in an error.
-        pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new("ACTION_TYPE_UNSPECIFIED");
+        pub const ACTION_TYPE_UNSPECIFIED: ActionType =
+            ActionType::known("ACTION_TYPE_UNSPECIFIED", 0);
 
         /// Allowed action type.
-        pub const ALLOW: ActionType = ActionType::new("ALLOW");
+        pub const ALLOW: ActionType = ActionType::known("ALLOW", 1);
 
         /// Deny action type.
-        pub const DENY: ActionType = ActionType::new("DENY");
+        pub const DENY: ActionType = ActionType::known("DENY", 2);
+    }
+
+    impl ActionType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ActionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ActionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ActionType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ActionType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ActionType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ActionType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ACTION_TYPE_UNSPECIFIED" => action_type::ACTION_TYPE_UNSPECIFIED,
+                "ALLOW" => action_type::ALLOW,
+                "DENY" => action_type::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ActionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => action_type::ACTION_TYPE_UNSPECIFIED,
+                1 => action_type::ALLOW,
+                2 => action_type::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ActionType {
         fn default() -> Self {
-            action_type::ACTION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

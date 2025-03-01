@@ -688,53 +688,105 @@ pub mod entitlement {
     }
 
     /// Different states an entitlement can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The entitlement is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The entitlement is available for requesting access.
-        pub const AVAILABLE: State = State::new("AVAILABLE");
+        pub const AVAILABLE: State = State::known("AVAILABLE", 2);
 
         /// The entitlement is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// The entitlement has been deleted.
-        pub const DELETED: State = State::new("DELETED");
+        pub const DELETED: State = State::known("DELETED", 4);
 
         /// The entitlement is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "AVAILABLE" => state::AVAILABLE,
+                "DELETING" => state::DELETING,
+                "DELETED" => state::DELETED,
+                "UPDATING" => state::UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::AVAILABLE,
+                3 => state::DELETING,
+                4 => state::DELETED,
+                5 => state::UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1400,20 +1452,8 @@ pub mod search_entitlements_request {
     use super::*;
 
     /// Different types of access a user can have on the entitlement resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerAccessType(std::borrow::Cow<'static, str>);
-
-    impl CallerAccessType {
-        /// Creates a new CallerAccessType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CallerAccessType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CallerAccessType](CallerAccessType)
     pub mod caller_access_type {
@@ -1421,25 +1461,85 @@ pub mod search_entitlements_request {
 
         /// Unspecified access type.
         pub const CALLER_ACCESS_TYPE_UNSPECIFIED: CallerAccessType =
-            CallerAccessType::new("CALLER_ACCESS_TYPE_UNSPECIFIED");
+            CallerAccessType::known("CALLER_ACCESS_TYPE_UNSPECIFIED", 0);
 
         /// The user has access to create grants using this entitlement.
-        pub const GRANT_REQUESTER: CallerAccessType = CallerAccessType::new("GRANT_REQUESTER");
+        pub const GRANT_REQUESTER: CallerAccessType = CallerAccessType::known("GRANT_REQUESTER", 1);
 
         /// The user has access to approve/deny grants created under this
         /// entitlement.
-        pub const GRANT_APPROVER: CallerAccessType = CallerAccessType::new("GRANT_APPROVER");
+        pub const GRANT_APPROVER: CallerAccessType = CallerAccessType::known("GRANT_APPROVER", 2);
+    }
+
+    impl CallerAccessType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CallerAccessType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallerAccessType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CallerAccessType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CallerAccessType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CallerAccessType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CallerAccessType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CALLER_ACCESS_TYPE_UNSPECIFIED" => {
+                    caller_access_type::CALLER_ACCESS_TYPE_UNSPECIFIED
+                }
+                "GRANT_REQUESTER" => caller_access_type::GRANT_REQUESTER,
+                "GRANT_APPROVER" => caller_access_type::GRANT_APPROVER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CallerAccessType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => caller_access_type::CALLER_ACCESS_TYPE_UNSPECIFIED,
+                1 => caller_access_type::GRANT_REQUESTER,
+                2 => caller_access_type::GRANT_APPROVER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CallerAccessType {
         fn default() -> Self {
-            caller_access_type::CALLER_ACCESS_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2769,74 +2869,136 @@ pub mod grant {
     }
 
     /// Different states a grant can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The entitlement had an approval workflow configured and this grant is
         /// waiting for the workflow to complete.
-        pub const APPROVAL_AWAITED: State = State::new("APPROVAL_AWAITED");
+        pub const APPROVAL_AWAITED: State = State::known("APPROVAL_AWAITED", 1);
 
         /// The approval workflow completed with a denied result. No access is
         /// granted for this grant. This is a terminal state.
-        pub const DENIED: State = State::new("DENIED");
+        pub const DENIED: State = State::known("DENIED", 3);
 
         /// The approval workflow completed successfully with an approved result or
         /// none was configured. Access is provided at an appropriate time.
-        pub const SCHEDULED: State = State::new("SCHEDULED");
+        pub const SCHEDULED: State = State::known("SCHEDULED", 4);
 
         /// Access is being given.
-        pub const ACTIVATING: State = State::new("ACTIVATING");
+        pub const ACTIVATING: State = State::known("ACTIVATING", 5);
 
         /// Access was successfully given and is currently active.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 6);
 
         /// The system could not give access due to a non-retriable error. This is a
         /// terminal state.
-        pub const ACTIVATION_FAILED: State = State::new("ACTIVATION_FAILED");
+        pub const ACTIVATION_FAILED: State = State::known("ACTIVATION_FAILED", 7);
 
         /// Expired after waiting for the approval workflow to complete. This is a
         /// terminal state.
-        pub const EXPIRED: State = State::new("EXPIRED");
+        pub const EXPIRED: State = State::known("EXPIRED", 8);
 
         /// Access is being revoked.
-        pub const REVOKING: State = State::new("REVOKING");
+        pub const REVOKING: State = State::known("REVOKING", 9);
 
         /// Access was revoked by a user. This is a terminal state.
-        pub const REVOKED: State = State::new("REVOKED");
+        pub const REVOKED: State = State::known("REVOKED", 10);
 
         /// System took back access as the requested duration was over. This is a
         /// terminal state.
-        pub const ENDED: State = State::new("ENDED");
+        pub const ENDED: State = State::known("ENDED", 11);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "APPROVAL_AWAITED" => state::APPROVAL_AWAITED,
+                "DENIED" => state::DENIED,
+                "SCHEDULED" => state::SCHEDULED,
+                "ACTIVATING" => state::ACTIVATING,
+                "ACTIVE" => state::ACTIVE,
+                "ACTIVATION_FAILED" => state::ACTIVATION_FAILED,
+                "EXPIRED" => state::EXPIRED,
+                "REVOKING" => state::REVOKING,
+                "REVOKED" => state::REVOKED,
+                "ENDED" => state::ENDED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::APPROVAL_AWAITED,
+                3 => state::DENIED,
+                4 => state::SCHEDULED,
+                5 => state::ACTIVATING,
+                6 => state::ACTIVE,
+                7 => state::ACTIVATION_FAILED,
+                8 => state::EXPIRED,
+                9 => state::REVOKING,
+                10 => state::REVOKED,
+                11 => state::ENDED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3138,20 +3300,8 @@ pub mod search_grants_request {
     use super::*;
 
     /// Different types of relationships a user can have with a grant.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerRelationshipType(std::borrow::Cow<'static, str>);
-
-    impl CallerRelationshipType {
-        /// Creates a new CallerRelationshipType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CallerRelationshipType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CallerRelationshipType](CallerRelationshipType)
     pub mod caller_relationship_type {
@@ -3159,29 +3309,93 @@ pub mod search_grants_request {
 
         /// Unspecified caller relationship type.
         pub const CALLER_RELATIONSHIP_TYPE_UNSPECIFIED: CallerRelationshipType =
-            CallerRelationshipType::new("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED");
+            CallerRelationshipType::known("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED", 0);
 
         /// The user created this grant by calling `CreateGrant` earlier.
-        pub const HAD_CREATED: CallerRelationshipType = CallerRelationshipType::new("HAD_CREATED");
+        pub const HAD_CREATED: CallerRelationshipType =
+            CallerRelationshipType::known("HAD_CREATED", 1);
 
         /// The user is an approver for the entitlement that this grant is parented
         /// under and can currently approve/deny it.
-        pub const CAN_APPROVE: CallerRelationshipType = CallerRelationshipType::new("CAN_APPROVE");
+        pub const CAN_APPROVE: CallerRelationshipType =
+            CallerRelationshipType::known("CAN_APPROVE", 2);
 
         /// The caller had successfully approved/denied this grant earlier.
         pub const HAD_APPROVED: CallerRelationshipType =
-            CallerRelationshipType::new("HAD_APPROVED");
+            CallerRelationshipType::known("HAD_APPROVED", 3);
+    }
+
+    impl CallerRelationshipType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CallerRelationshipType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallerRelationshipType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CallerRelationshipType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CallerRelationshipType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CallerRelationshipType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CallerRelationshipType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED" => {
+                    caller_relationship_type::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED
+                }
+                "HAD_CREATED" => caller_relationship_type::HAD_CREATED,
+                "CAN_APPROVE" => caller_relationship_type::CAN_APPROVE,
+                "HAD_APPROVED" => caller_relationship_type::HAD_APPROVED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CallerRelationshipType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => caller_relationship_type::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED,
+                1 => caller_relationship_type::HAD_CREATED,
+                2 => caller_relationship_type::CAN_APPROVE,
+                3 => caller_relationship_type::HAD_APPROVED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CallerRelationshipType {
         fn default() -> Self {
-            caller_relationship_type::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

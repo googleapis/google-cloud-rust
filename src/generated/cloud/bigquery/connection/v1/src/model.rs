@@ -734,20 +734,8 @@ pub mod cloud_sql_properties {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(std::borrow::Cow<'static, str>);
-
-    impl DatabaseType {
-        /// Creates a new DatabaseType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DatabaseType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DatabaseType](DatabaseType)
     pub mod database_type {
@@ -755,24 +743,82 @@ pub mod cloud_sql_properties {
 
         /// Unspecified database type.
         pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-            DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
+            DatabaseType::known("DATABASE_TYPE_UNSPECIFIED", 0);
 
         /// Cloud SQL for PostgreSQL.
-        pub const POSTGRES: DatabaseType = DatabaseType::new("POSTGRES");
+        pub const POSTGRES: DatabaseType = DatabaseType::known("POSTGRES", 1);
 
         /// Cloud SQL for MySQL.
-        pub const MYSQL: DatabaseType = DatabaseType::new("MYSQL");
+        pub const MYSQL: DatabaseType = DatabaseType::known("MYSQL", 2);
+    }
+
+    impl DatabaseType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DatabaseType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DatabaseType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DatabaseType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DatabaseType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DatabaseType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DatabaseType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DATABASE_TYPE_UNSPECIFIED" => database_type::DATABASE_TYPE_UNSPECIFIED,
+                "POSTGRES" => database_type::POSTGRES,
+                "MYSQL" => database_type::MYSQL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => database_type::DATABASE_TYPE_UNSPECIFIED,
+                1 => database_type::POSTGRES,
+                2 => database_type::MYSQL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            database_type::DATABASE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

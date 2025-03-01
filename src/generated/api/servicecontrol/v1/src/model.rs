@@ -112,106 +112,191 @@ pub mod check_error {
     use super::*;
 
     /// Error codes for Check responses.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// This is never used in `CheckResponse`.
-        pub const ERROR_CODE_UNSPECIFIED: Code = Code::new("ERROR_CODE_UNSPECIFIED");
+        pub const ERROR_CODE_UNSPECIFIED: Code = Code::known("ERROR_CODE_UNSPECIFIED", 0);
 
         /// The consumer's project id, network container, or resource container was
         /// not found. Same as [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND].
-        pub const NOT_FOUND: Code = Code::new("NOT_FOUND");
+        pub const NOT_FOUND: Code = Code::known("NOT_FOUND", 5);
 
         /// The consumer doesn't have access to the specified resource.
         /// Same as [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
-        pub const PERMISSION_DENIED: Code = Code::new("PERMISSION_DENIED");
+        pub const PERMISSION_DENIED: Code = Code::known("PERMISSION_DENIED", 7);
 
         /// Quota check failed. Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+        pub const RESOURCE_EXHAUSTED: Code = Code::known("RESOURCE_EXHAUSTED", 8);
 
         /// The consumer hasn't activated the service.
-        pub const SERVICE_NOT_ACTIVATED: Code = Code::new("SERVICE_NOT_ACTIVATED");
+        pub const SERVICE_NOT_ACTIVATED: Code = Code::known("SERVICE_NOT_ACTIVATED", 104);
 
         /// The consumer cannot access the service because billing is disabled.
-        pub const BILLING_DISABLED: Code = Code::new("BILLING_DISABLED");
+        pub const BILLING_DISABLED: Code = Code::known("BILLING_DISABLED", 107);
 
         /// The consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new("PROJECT_DELETED");
+        pub const PROJECT_DELETED: Code = Code::known("PROJECT_DELETED", 108);
 
         /// The consumer's project number or id does not represent a valid project.
-        pub const PROJECT_INVALID: Code = Code::new("PROJECT_INVALID");
+        pub const PROJECT_INVALID: Code = Code::known("PROJECT_INVALID", 114);
 
         /// The input consumer info does not represent a valid consumer folder or
         /// organization.
-        pub const CONSUMER_INVALID: Code = Code::new("CONSUMER_INVALID");
+        pub const CONSUMER_INVALID: Code = Code::known("CONSUMER_INVALID", 125);
 
         /// The IP address of the consumer is invalid for the specific consumer
         /// project.
-        pub const IP_ADDRESS_BLOCKED: Code = Code::new("IP_ADDRESS_BLOCKED");
+        pub const IP_ADDRESS_BLOCKED: Code = Code::known("IP_ADDRESS_BLOCKED", 109);
 
         /// The referer address of the consumer request is invalid for the specific
         /// consumer project.
-        pub const REFERER_BLOCKED: Code = Code::new("REFERER_BLOCKED");
+        pub const REFERER_BLOCKED: Code = Code::known("REFERER_BLOCKED", 110);
 
         /// The client application of the consumer request is invalid for the
         /// specific consumer project.
-        pub const CLIENT_APP_BLOCKED: Code = Code::new("CLIENT_APP_BLOCKED");
+        pub const CLIENT_APP_BLOCKED: Code = Code::known("CLIENT_APP_BLOCKED", 111);
 
         /// The API targeted by this request is invalid for the specified consumer
         /// project.
-        pub const API_TARGET_BLOCKED: Code = Code::new("API_TARGET_BLOCKED");
+        pub const API_TARGET_BLOCKED: Code = Code::known("API_TARGET_BLOCKED", 122);
 
         /// The consumer's API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new("API_KEY_INVALID");
+        pub const API_KEY_INVALID: Code = Code::known("API_KEY_INVALID", 105);
 
         /// The consumer's API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new("API_KEY_EXPIRED");
+        pub const API_KEY_EXPIRED: Code = Code::known("API_KEY_EXPIRED", 112);
 
         /// The consumer's API Key was not found in config record.
-        pub const API_KEY_NOT_FOUND: Code = Code::new("API_KEY_NOT_FOUND");
+        pub const API_KEY_NOT_FOUND: Code = Code::known("API_KEY_NOT_FOUND", 113);
 
         /// The credential in the request can not be verified.
-        pub const INVALID_CREDENTIAL: Code = Code::new("INVALID_CREDENTIAL");
+        pub const INVALID_CREDENTIAL: Code = Code::known("INVALID_CREDENTIAL", 123);
 
         /// The backend server for looking up project id/number is unavailable.
-        pub const NAMESPACE_LOOKUP_UNAVAILABLE: Code = Code::new("NAMESPACE_LOOKUP_UNAVAILABLE");
+        pub const NAMESPACE_LOOKUP_UNAVAILABLE: Code =
+            Code::known("NAMESPACE_LOOKUP_UNAVAILABLE", 300);
 
         /// The backend server for checking service status is unavailable.
-        pub const SERVICE_STATUS_UNAVAILABLE: Code = Code::new("SERVICE_STATUS_UNAVAILABLE");
+        pub const SERVICE_STATUS_UNAVAILABLE: Code = Code::known("SERVICE_STATUS_UNAVAILABLE", 301);
 
         /// The backend server for checking billing status is unavailable.
-        pub const BILLING_STATUS_UNAVAILABLE: Code = Code::new("BILLING_STATUS_UNAVAILABLE");
+        pub const BILLING_STATUS_UNAVAILABLE: Code = Code::known("BILLING_STATUS_UNAVAILABLE", 302);
 
         /// Cloud Resource Manager backend server is unavailable.
         pub const CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE: Code =
-            Code::new("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE");
+            Code::known("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE", 305);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ERROR_CODE_UNSPECIFIED" => code::ERROR_CODE_UNSPECIFIED,
+                "NOT_FOUND" => code::NOT_FOUND,
+                "PERMISSION_DENIED" => code::PERMISSION_DENIED,
+                "RESOURCE_EXHAUSTED" => code::RESOURCE_EXHAUSTED,
+                "SERVICE_NOT_ACTIVATED" => code::SERVICE_NOT_ACTIVATED,
+                "BILLING_DISABLED" => code::BILLING_DISABLED,
+                "PROJECT_DELETED" => code::PROJECT_DELETED,
+                "PROJECT_INVALID" => code::PROJECT_INVALID,
+                "CONSUMER_INVALID" => code::CONSUMER_INVALID,
+                "IP_ADDRESS_BLOCKED" => code::IP_ADDRESS_BLOCKED,
+                "REFERER_BLOCKED" => code::REFERER_BLOCKED,
+                "CLIENT_APP_BLOCKED" => code::CLIENT_APP_BLOCKED,
+                "API_TARGET_BLOCKED" => code::API_TARGET_BLOCKED,
+                "API_KEY_INVALID" => code::API_KEY_INVALID,
+                "API_KEY_EXPIRED" => code::API_KEY_EXPIRED,
+                "API_KEY_NOT_FOUND" => code::API_KEY_NOT_FOUND,
+                "INVALID_CREDENTIAL" => code::INVALID_CREDENTIAL,
+                "NAMESPACE_LOOKUP_UNAVAILABLE" => code::NAMESPACE_LOOKUP_UNAVAILABLE,
+                "SERVICE_STATUS_UNAVAILABLE" => code::SERVICE_STATUS_UNAVAILABLE,
+                "BILLING_STATUS_UNAVAILABLE" => code::BILLING_STATUS_UNAVAILABLE,
+                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => {
+                    code::CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::ERROR_CODE_UNSPECIFIED,
+                5 => code::NOT_FOUND,
+                7 => code::PERMISSION_DENIED,
+                8 => code::RESOURCE_EXHAUSTED,
+                104 => code::SERVICE_NOT_ACTIVATED,
+                105 => code::API_KEY_INVALID,
+                107 => code::BILLING_DISABLED,
+                108 => code::PROJECT_DELETED,
+                109 => code::IP_ADDRESS_BLOCKED,
+                110 => code::REFERER_BLOCKED,
+                111 => code::CLIENT_APP_BLOCKED,
+                112 => code::API_KEY_EXPIRED,
+                113 => code::API_KEY_NOT_FOUND,
+                114 => code::PROJECT_INVALID,
+                122 => code::API_TARGET_BLOCKED,
+                123 => code::INVALID_CREDENTIAL,
+                125 => code::CONSUMER_INVALID,
+                300 => code::NAMESPACE_LOOKUP_UNAVAILABLE,
+                301 => code::SERVICE_STATUS_UNAVAILABLE,
+                302 => code::BILLING_STATUS_UNAVAILABLE,
+                305 => code::CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::ERROR_CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1710,20 +1795,8 @@ pub mod operation {
     use super::*;
 
     /// Defines the importance of the data contained in the operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Importance(std::borrow::Cow<'static, str>);
-
-    impl Importance {
-        /// Creates a new Importance instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Importance(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Importance](Importance)
     pub mod importance {
@@ -1731,23 +1804,79 @@ pub mod operation {
 
         /// Allows data caching, batching, and aggregation. It provides
         /// higher performance with higher data loss risk.
-        pub const LOW: Importance = Importance::new("LOW");
+        pub const LOW: Importance = Importance::known("LOW", 0);
 
         /// Disables data aggregation to minimize data loss. It is for operations
         /// that contains significant monetary value or audit trail. This feature
         /// only applies to the client libraries.
-        pub const HIGH: Importance = Importance::new("HIGH");
+        pub const HIGH: Importance = Importance::known("HIGH", 1);
+    }
+
+    impl Importance {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Importance {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Importance {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Importance::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Importance::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Importance::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Importance {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LOW" => importance::LOW,
+                "HIGH" => importance::HIGH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Importance {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => importance::LOW,
+                1 => importance::HIGH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Importance {
         fn default() -> Self {
-            importance::LOW
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1945,27 +2074,15 @@ pub mod quota_operation {
     use super::*;
 
     /// Supported quota modes.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct QuotaMode(std::borrow::Cow<'static, str>);
-
-    impl QuotaMode {
-        /// Creates a new QuotaMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct QuotaMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [QuotaMode](QuotaMode)
     pub mod quota_mode {
         use super::QuotaMode;
 
         /// Guard against implicit default. Must not be used.
-        pub const UNSPECIFIED: QuotaMode = QuotaMode::new("UNSPECIFIED");
+        pub const UNSPECIFIED: QuotaMode = QuotaMode::known("UNSPECIFIED", 0);
 
         /// For AllocateQuota request, allocates quota for the amount specified in
         /// the service configuration or specified using the quota metrics. If the
@@ -1973,7 +2090,7 @@ pub mod quota_operation {
         /// returned and no quota will be allocated.
         /// If multiple quotas are part of the request, and one fails, none of the
         /// quotas are allocated or released.
-        pub const NORMAL: QuotaMode = QuotaMode::new("NORMAL");
+        pub const NORMAL: QuotaMode = QuotaMode::known("NORMAL", 1);
 
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the amount is
@@ -1983,37 +2100,101 @@ pub mod quota_operation {
         /// even if one does not have enough quota. For allocation, it will find the
         /// minimum available amount across all groups and deduct that amount from
         /// all the affected groups.
-        pub const BEST_EFFORT: QuotaMode = QuotaMode::new("BEST_EFFORT");
+        pub const BEST_EFFORT: QuotaMode = QuotaMode::known("BEST_EFFORT", 2);
 
         /// For AllocateQuota request, only checks if there is enough quota
         /// available and does not change the available quota. No lock is placed on
         /// the available quota either.
-        pub const CHECK_ONLY: QuotaMode = QuotaMode::new("CHECK_ONLY");
+        pub const CHECK_ONLY: QuotaMode = QuotaMode::known("CHECK_ONLY", 3);
 
         /// Unimplemented. When used in AllocateQuotaRequest, this returns the
         /// effective quota limit(s) in the response, and no quota check will be
         /// performed. Not supported for other requests, and even for
         /// AllocateQuotaRequest, this is currently supported only for allowlisted
         /// services.
-        pub const QUERY_ONLY: QuotaMode = QuotaMode::new("QUERY_ONLY");
+        pub const QUERY_ONLY: QuotaMode = QuotaMode::known("QUERY_ONLY", 4);
 
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the requested
         /// amount is higher than the available quota, request does not fail and
         /// remaining quota would become negative (going over the limit).
         /// Not supported for Rate Quota.
-        pub const ADJUST_ONLY: QuotaMode = QuotaMode::new("ADJUST_ONLY");
+        pub const ADJUST_ONLY: QuotaMode = QuotaMode::known("ADJUST_ONLY", 5);
+    }
+
+    impl QuotaMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for QuotaMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for QuotaMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(QuotaMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(QuotaMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(QuotaMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for QuotaMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNSPECIFIED" => quota_mode::UNSPECIFIED,
+                "NORMAL" => quota_mode::NORMAL,
+                "BEST_EFFORT" => quota_mode::BEST_EFFORT,
+                "CHECK_ONLY" => quota_mode::CHECK_ONLY,
+                "QUERY_ONLY" => quota_mode::QUERY_ONLY,
+                "ADJUST_ONLY" => quota_mode::ADJUST_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for QuotaMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => quota_mode::UNSPECIFIED,
+                1 => quota_mode::NORMAL,
+                2 => quota_mode::BEST_EFFORT,
+                3 => quota_mode::CHECK_ONLY,
+                4 => quota_mode::QUERY_ONLY,
+                5 => quota_mode::ADJUST_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for QuotaMode {
         fn default() -> Self {
-            quota_mode::UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2180,55 +2361,107 @@ pub mod quota_error {
     /// have to call the Check method, without quota_properties field, to perform
     /// these validations before calling the quota controller methods. These
     /// methods check only for project deletion to be wipe out compliant.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// This is never used.
-        pub const UNSPECIFIED: Code = Code::new("UNSPECIFIED");
+        pub const UNSPECIFIED: Code = Code::known("UNSPECIFIED", 0);
 
         /// Quota allocation failed.
         /// Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+        pub const RESOURCE_EXHAUSTED: Code = Code::known("RESOURCE_EXHAUSTED", 8);
 
         /// Consumer cannot access the service because the service requires active
         /// billing.
-        pub const BILLING_NOT_ACTIVE: Code = Code::new("BILLING_NOT_ACTIVE");
+        pub const BILLING_NOT_ACTIVE: Code = Code::known("BILLING_NOT_ACTIVE", 107);
 
         /// Consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new("PROJECT_DELETED");
+        pub const PROJECT_DELETED: Code = Code::known("PROJECT_DELETED", 108);
 
         /// Specified API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new("API_KEY_INVALID");
+        pub const API_KEY_INVALID: Code = Code::known("API_KEY_INVALID", 105);
 
         /// Specified API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new("API_KEY_EXPIRED");
+        pub const API_KEY_EXPIRED: Code = Code::known("API_KEY_EXPIRED", 112);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNSPECIFIED" => code::UNSPECIFIED,
+                "RESOURCE_EXHAUSTED" => code::RESOURCE_EXHAUSTED,
+                "BILLING_NOT_ACTIVE" => code::BILLING_NOT_ACTIVE,
+                "PROJECT_DELETED" => code::PROJECT_DELETED,
+                "API_KEY_INVALID" => code::API_KEY_INVALID,
+                "API_KEY_EXPIRED" => code::API_KEY_EXPIRED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::UNSPECIFIED,
+                8 => code::RESOURCE_EXHAUSTED,
+                105 => code::API_KEY_INVALID,
+                107 => code::BILLING_NOT_ACTIVE,
+                108 => code::PROJECT_DELETED,
+                112 => code::API_KEY_EXPIRED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2526,20 +2759,8 @@ pub mod check_response {
 
         /// The type of the consumer as defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConsumerType(std::borrow::Cow<'static, str>);
-
-        impl ConsumerType {
-            /// Creates a new ConsumerType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct ConsumerType(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [ConsumerType](ConsumerType)
         pub mod consumer_type {
@@ -2547,32 +2768,94 @@ pub mod check_response {
 
             /// This is never used.
             pub const CONSUMER_TYPE_UNSPECIFIED: ConsumerType =
-                ConsumerType::new("CONSUMER_TYPE_UNSPECIFIED");
+                ConsumerType::known("CONSUMER_TYPE_UNSPECIFIED", 0);
 
             /// The consumer is a Google Cloud Project.
-            pub const PROJECT: ConsumerType = ConsumerType::new("PROJECT");
+            pub const PROJECT: ConsumerType = ConsumerType::known("PROJECT", 1);
 
             /// The consumer is a Google Cloud Folder.
-            pub const FOLDER: ConsumerType = ConsumerType::new("FOLDER");
+            pub const FOLDER: ConsumerType = ConsumerType::known("FOLDER", 2);
 
             /// The consumer is a Google Cloud Organization.
-            pub const ORGANIZATION: ConsumerType = ConsumerType::new("ORGANIZATION");
+            pub const ORGANIZATION: ConsumerType = ConsumerType::known("ORGANIZATION", 3);
 
             /// Service-specific resource container which is defined by the service
             /// producer to offer their users the ability to manage service control
             /// functionalities at a finer level of granularity than the PROJECT.
-            pub const SERVICE_SPECIFIC: ConsumerType = ConsumerType::new("SERVICE_SPECIFIC");
+            pub const SERVICE_SPECIFIC: ConsumerType = ConsumerType::known("SERVICE_SPECIFIC", 4);
+        }
+
+        impl ConsumerType {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for ConsumerType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ConsumerType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(ConsumerType::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(ConsumerType::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(ConsumerType::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for ConsumerType {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CONSUMER_TYPE_UNSPECIFIED" => consumer_type::CONSUMER_TYPE_UNSPECIFIED,
+                    "PROJECT" => consumer_type::PROJECT,
+                    "FOLDER" => consumer_type::FOLDER,
+                    "ORGANIZATION" => consumer_type::ORGANIZATION,
+                    "SERVICE_SPECIFIC" => consumer_type::SERVICE_SPECIFIC,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for ConsumerType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => consumer_type::CONSUMER_TYPE_UNSPECIFIED,
+                    1 => consumer_type::PROJECT,
+                    2 => consumer_type::FOLDER,
+                    3 => consumer_type::ORGANIZATION,
+                    4 => consumer_type::SERVICE_SPECIFIC,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for ConsumerType {
             fn default() -> Self {
-                consumer_type::CONSUMER_TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }

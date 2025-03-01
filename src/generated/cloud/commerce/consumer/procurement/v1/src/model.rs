@@ -1821,20 +1821,8 @@ pub mod cancel_order_request {
     use super::*;
 
     /// Indicates the cancellation policy the customer uses to cancel the order.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CancellationPolicy(std::borrow::Cow<'static, str>);
-
-    impl CancellationPolicy {
-        /// Creates a new CancellationPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CancellationPolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CancellationPolicy](CancellationPolicy)
     pub mod cancellation_policy {
@@ -1846,28 +1834,92 @@ pub mod cancel_order_request {
         /// non-deterministic result. This is still supported mainly to maintain
         /// existing integrated usages and ensure backwards compatibility.
         pub const CANCELLATION_POLICY_UNSPECIFIED: CancellationPolicy =
-            CancellationPolicy::new("CANCELLATION_POLICY_UNSPECIFIED");
+            CancellationPolicy::known("CANCELLATION_POLICY_UNSPECIFIED", 0);
 
         /// Request will cancel the whole order immediately, if order cannot be
         /// immediately cancelled, the request will fail.
         pub const CANCELLATION_POLICY_CANCEL_IMMEDIATELY: CancellationPolicy =
-            CancellationPolicy::new("CANCELLATION_POLICY_CANCEL_IMMEDIATELY");
+            CancellationPolicy::known("CANCELLATION_POLICY_CANCEL_IMMEDIATELY", 1);
 
         /// Request will cancel the auto renewal, if order is not subscription based,
         /// the request will fail.
         pub const CANCELLATION_POLICY_CANCEL_AT_TERM_END: CancellationPolicy =
-            CancellationPolicy::new("CANCELLATION_POLICY_CANCEL_AT_TERM_END");
+            CancellationPolicy::known("CANCELLATION_POLICY_CANCEL_AT_TERM_END", 2);
+    }
+
+    impl CancellationPolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CancellationPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CancellationPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CancellationPolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CancellationPolicy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CancellationPolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CancellationPolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CANCELLATION_POLICY_UNSPECIFIED" => {
+                    cancellation_policy::CANCELLATION_POLICY_UNSPECIFIED
+                }
+                "CANCELLATION_POLICY_CANCEL_IMMEDIATELY" => {
+                    cancellation_policy::CANCELLATION_POLICY_CANCEL_IMMEDIATELY
+                }
+                "CANCELLATION_POLICY_CANCEL_AT_TERM_END" => {
+                    cancellation_policy::CANCELLATION_POLICY_CANCEL_AT_TERM_END
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CancellationPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => cancellation_policy::CANCELLATION_POLICY_UNSPECIFIED,
+                1 => cancellation_policy::CANCELLATION_POLICY_CANCEL_IMMEDIATELY,
+                2 => cancellation_policy::CANCELLATION_POLICY_CANCEL_AT_TERM_END,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CancellationPolicy {
         fn default() -> Self {
-            cancellation_policy::CANCELLATION_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1895,20 +1947,8 @@ impl wkt::message::Message for CancelOrderMetadata {
 }
 
 /// Type of a line item change.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeType(std::borrow::Cow<'static, str>);
-
-impl LineItemChangeType {
-    /// Creates a new LineItemChangeType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LineItemChangeType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LineItemChangeType](LineItemChangeType)
 pub mod line_item_change_type {
@@ -1916,52 +1956,106 @@ pub mod line_item_change_type {
 
     /// Sentinel value. Do not use.
     pub const LINE_ITEM_CHANGE_TYPE_UNSPECIFIED: LineItemChangeType =
-        LineItemChangeType::new("LINE_ITEM_CHANGE_TYPE_UNSPECIFIED");
+        LineItemChangeType::known("LINE_ITEM_CHANGE_TYPE_UNSPECIFIED", 0);
 
     /// The change is to create a new line item.
     pub const LINE_ITEM_CHANGE_TYPE_CREATE: LineItemChangeType =
-        LineItemChangeType::new("LINE_ITEM_CHANGE_TYPE_CREATE");
+        LineItemChangeType::known("LINE_ITEM_CHANGE_TYPE_CREATE", 1);
 
     /// The change is to update an existing line item.
     pub const LINE_ITEM_CHANGE_TYPE_UPDATE: LineItemChangeType =
-        LineItemChangeType::new("LINE_ITEM_CHANGE_TYPE_UPDATE");
+        LineItemChangeType::known("LINE_ITEM_CHANGE_TYPE_UPDATE", 2);
 
     /// The change is to cancel an existing line item.
     pub const LINE_ITEM_CHANGE_TYPE_CANCEL: LineItemChangeType =
-        LineItemChangeType::new("LINE_ITEM_CHANGE_TYPE_CANCEL");
+        LineItemChangeType::known("LINE_ITEM_CHANGE_TYPE_CANCEL", 3);
 
     /// The change is to revert a cancellation.
     pub const LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION: LineItemChangeType =
-        LineItemChangeType::new("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION");
+        LineItemChangeType::known("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION", 4);
+}
+
+impl LineItemChangeType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LineItemChangeType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LineItemChangeType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LineItemChangeType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LineItemChangeType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LINE_ITEM_CHANGE_TYPE_UNSPECIFIED" => {
+                line_item_change_type::LINE_ITEM_CHANGE_TYPE_UNSPECIFIED
+            }
+            "LINE_ITEM_CHANGE_TYPE_CREATE" => line_item_change_type::LINE_ITEM_CHANGE_TYPE_CREATE,
+            "LINE_ITEM_CHANGE_TYPE_UPDATE" => line_item_change_type::LINE_ITEM_CHANGE_TYPE_UPDATE,
+            "LINE_ITEM_CHANGE_TYPE_CANCEL" => line_item_change_type::LINE_ITEM_CHANGE_TYPE_CANCEL,
+            "LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION" => {
+                line_item_change_type::LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => line_item_change_type::LINE_ITEM_CHANGE_TYPE_UNSPECIFIED,
+            1 => line_item_change_type::LINE_ITEM_CHANGE_TYPE_CREATE,
+            2 => line_item_change_type::LINE_ITEM_CHANGE_TYPE_UPDATE,
+            3 => line_item_change_type::LINE_ITEM_CHANGE_TYPE_CANCEL,
+            4 => line_item_change_type::LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LineItemChangeType {
     fn default() -> Self {
-        line_item_change_type::LINE_ITEM_CHANGE_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// State of a change.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeState(std::borrow::Cow<'static, str>);
-
-impl LineItemChangeState {
-    /// Creates a new LineItemChangeState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LineItemChangeState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LineItemChangeState](LineItemChangeState)
 pub mod line_item_change_state {
@@ -1969,12 +2063,12 @@ pub mod line_item_change_state {
 
     /// Sentinel value. Do not use.
     pub const LINE_ITEM_CHANGE_STATE_UNSPECIFIED: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_UNSPECIFIED");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_UNSPECIFIED", 0);
 
     /// Change is in this state when a change is initiated and waiting for partner
     /// approval. This state is only applicable for pending change.
     pub const LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL", 1);
 
     /// Change is in this state after it's approved by the partner or auto-approved
     /// but before it takes effect. The change can be overwritten or cancelled
@@ -1982,57 +2076,125 @@ pub mod line_item_change_state {
     /// cannot be cancelled and can only be overwritten by another Private Offer).
     /// This state is only applicable for pending change.
     pub const LINE_ITEM_CHANGE_STATE_APPROVED: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_APPROVED");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_APPROVED", 2);
 
     /// Change is in this state after it's been activated. This state is only
     /// applicable for change in history.
     pub const LINE_ITEM_CHANGE_STATE_COMPLETED: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_COMPLETED");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_COMPLETED", 3);
 
     /// Change is in this state if it was rejected by the partner. This state is
     /// only applicable for change in history.
     pub const LINE_ITEM_CHANGE_STATE_REJECTED: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_REJECTED");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_REJECTED", 4);
 
     /// Change is in this state if it was abandoned by the user. This state is only
     /// applicable for change in history.
     pub const LINE_ITEM_CHANGE_STATE_ABANDONED: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_ABANDONED");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_ABANDONED", 5);
 
     /// Change is in this state if it's currently being provisioned downstream. The
     /// change can't be overwritten or cancelled when it's in this state. This
     /// state is only applicable for pending change.
     pub const LINE_ITEM_CHANGE_STATE_ACTIVATING: LineItemChangeState =
-        LineItemChangeState::new("LINE_ITEM_CHANGE_STATE_ACTIVATING");
+        LineItemChangeState::known("LINE_ITEM_CHANGE_STATE_ACTIVATING", 6);
+}
+
+impl LineItemChangeState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LineItemChangeState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LineItemChangeState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LineItemChangeState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LineItemChangeState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LINE_ITEM_CHANGE_STATE_UNSPECIFIED" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_UNSPECIFIED
+            }
+            "LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL
+            }
+            "LINE_ITEM_CHANGE_STATE_APPROVED" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_APPROVED
+            }
+            "LINE_ITEM_CHANGE_STATE_COMPLETED" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_COMPLETED
+            }
+            "LINE_ITEM_CHANGE_STATE_REJECTED" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_REJECTED
+            }
+            "LINE_ITEM_CHANGE_STATE_ABANDONED" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_ABANDONED
+            }
+            "LINE_ITEM_CHANGE_STATE_ACTIVATING" => {
+                line_item_change_state::LINE_ITEM_CHANGE_STATE_ACTIVATING
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => line_item_change_state::LINE_ITEM_CHANGE_STATE_UNSPECIFIED,
+            1 => line_item_change_state::LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL,
+            2 => line_item_change_state::LINE_ITEM_CHANGE_STATE_APPROVED,
+            3 => line_item_change_state::LINE_ITEM_CHANGE_STATE_COMPLETED,
+            4 => line_item_change_state::LINE_ITEM_CHANGE_STATE_REJECTED,
+            5 => line_item_change_state::LINE_ITEM_CHANGE_STATE_ABANDONED,
+            6 => line_item_change_state::LINE_ITEM_CHANGE_STATE_ACTIVATING,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LineItemChangeState {
     fn default() -> Self {
-        line_item_change_state::LINE_ITEM_CHANGE_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Predefined types for line item change state reason.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeStateReasonType(std::borrow::Cow<'static, str>);
-
-impl LineItemChangeStateReasonType {
-    /// Creates a new LineItemChangeStateReasonType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LineItemChangeStateReasonType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LineItemChangeStateReasonType](LineItemChangeStateReasonType)
 pub mod line_item_change_state_reason_type {
@@ -2041,48 +2203,102 @@ pub mod line_item_change_state_reason_type {
     /// Default value, indicating there's no predefined type for change state
     /// reason.
     pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED");
+        LineItemChangeStateReasonType::known("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED", 0);
 
     /// Change is in current state due to term expiration.
     pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED");
+        LineItemChangeStateReasonType::known("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED", 1);
 
     /// Change is in current state due to user-initiated cancellation.
     pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new("LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED");
+        LineItemChangeStateReasonType::known(
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED",
+            2,
+        );
 
     /// Change is in current state due to system-initiated cancellation.
     pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new("LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED");
+        LineItemChangeStateReasonType::known(
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED",
+            3,
+        );
+}
+
+impl LineItemChangeStateReasonType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeStateReasonType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeStateReasonType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LineItemChangeStateReasonType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LineItemChangeStateReasonType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LineItemChangeStateReasonType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LineItemChangeStateReasonType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED" => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED" => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED" => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED" => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeStateReasonType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED,
+            1 => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED,
+            2 => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED,
+            3 => line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LineItemChangeStateReasonType {
     fn default() -> Self {
-        line_item_change_state_reason_type::LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Indicates the auto renewal behavior customer specifies on subscription.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AutoRenewalBehavior(std::borrow::Cow<'static, str>);
-
-impl AutoRenewalBehavior {
-    /// Creates a new AutoRenewalBehavior instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct AutoRenewalBehavior(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [AutoRenewalBehavior](AutoRenewalBehavior)
 pub mod auto_renewal_behavior {
@@ -2090,25 +2306,85 @@ pub mod auto_renewal_behavior {
 
     /// If unspecified, the auto renewal behavior will follow the default config.
     pub const AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED: AutoRenewalBehavior =
-        AutoRenewalBehavior::new("AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED");
+        AutoRenewalBehavior::known("AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED", 0);
 
     /// Auto Renewal will be enabled on subscription.
     pub const AUTO_RENEWAL_BEHAVIOR_ENABLE: AutoRenewalBehavior =
-        AutoRenewalBehavior::new("AUTO_RENEWAL_BEHAVIOR_ENABLE");
+        AutoRenewalBehavior::known("AUTO_RENEWAL_BEHAVIOR_ENABLE", 1);
 
     /// Auto Renewal will be disabled on subscription.
     pub const AUTO_RENEWAL_BEHAVIOR_DISABLE: AutoRenewalBehavior =
-        AutoRenewalBehavior::new("AUTO_RENEWAL_BEHAVIOR_DISABLE");
+        AutoRenewalBehavior::known("AUTO_RENEWAL_BEHAVIOR_DISABLE", 2);
+}
+
+impl AutoRenewalBehavior {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for AutoRenewalBehavior {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AutoRenewalBehavior {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(AutoRenewalBehavior::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(AutoRenewalBehavior::from(val)),
+            Enumeration::UnknownNum { str } => Ok(AutoRenewalBehavior::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for AutoRenewalBehavior {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED" => {
+                auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED
+            }
+            "AUTO_RENEWAL_BEHAVIOR_ENABLE" => auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_ENABLE,
+            "AUTO_RENEWAL_BEHAVIOR_DISABLE" => auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_DISABLE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for AutoRenewalBehavior {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED,
+            1 => auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_ENABLE,
+            2 => auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_DISABLE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for AutoRenewalBehavior {
     fn default() -> Self {
-        auto_renewal_behavior::AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -1039,20 +1039,8 @@ impl wkt::message::Message for Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Code(std::borrow::Cow<'static, str>);
-
-impl Code {
-    /// Creates a new Code instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Code(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Code](Code)
 pub mod code {
@@ -1061,12 +1049,12 @@ pub mod code {
     /// Not an error; returned on success.
     ///
     /// HTTP Mapping: 200 OK
-    pub const OK: Code = Code::new("OK");
+    pub const OK: Code = Code::known("OK", 0);
 
     /// The operation was cancelled, typically by the caller.
     ///
     /// HTTP Mapping: 499 Client Closed Request
-    pub const CANCELLED: Code = Code::new("CANCELLED");
+    pub const CANCELLED: Code = Code::known("CANCELLED", 1);
 
     /// Unknown error.  For example, this error may be returned when
     /// a `Status` value received from another address space belongs to
@@ -1075,7 +1063,7 @@ pub mod code {
     /// may be converted to this error.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const UNKNOWN: Code = Code::new("UNKNOWN");
+    pub const UNKNOWN: Code = Code::known("UNKNOWN", 2);
 
     /// The client specified an invalid argument.  Note that this differs
     /// from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
@@ -1083,7 +1071,7 @@ pub mod code {
     /// (e.g., a malformed file name).
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const INVALID_ARGUMENT: Code = Code::new("INVALID_ARGUMENT");
+    pub const INVALID_ARGUMENT: Code = Code::known("INVALID_ARGUMENT", 3);
 
     /// The deadline expired before the operation could complete. For operations
     /// that change the state of the system, this error may be returned
@@ -1092,7 +1080,7 @@ pub mod code {
     /// enough for the deadline to expire.
     ///
     /// HTTP Mapping: 504 Gateway Timeout
-    pub const DEADLINE_EXCEEDED: Code = Code::new("DEADLINE_EXCEEDED");
+    pub const DEADLINE_EXCEEDED: Code = Code::known("DEADLINE_EXCEEDED", 4);
 
     /// Some requested entity (e.g., file or directory) was not found.
     ///
@@ -1103,13 +1091,13 @@ pub mod code {
     /// must be used.
     ///
     /// HTTP Mapping: 404 Not Found
-    pub const NOT_FOUND: Code = Code::new("NOT_FOUND");
+    pub const NOT_FOUND: Code = Code::known("NOT_FOUND", 5);
 
     /// The entity that a client attempted to create (e.g., file or directory)
     /// already exists.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ALREADY_EXISTS: Code = Code::new("ALREADY_EXISTS");
+    pub const ALREADY_EXISTS: Code = Code::known("ALREADY_EXISTS", 6);
 
     /// The caller does not have permission to execute the specified
     /// operation. `PERMISSION_DENIED` must not be used for rejections
@@ -1121,19 +1109,19 @@ pub mod code {
     /// other pre-conditions.
     ///
     /// HTTP Mapping: 403 Forbidden
-    pub const PERMISSION_DENIED: Code = Code::new("PERMISSION_DENIED");
+    pub const PERMISSION_DENIED: Code = Code::known("PERMISSION_DENIED", 7);
 
     /// The request does not have valid authentication credentials for the
     /// operation.
     ///
     /// HTTP Mapping: 401 Unauthorized
-    pub const UNAUTHENTICATED: Code = Code::new("UNAUTHENTICATED");
+    pub const UNAUTHENTICATED: Code = Code::known("UNAUTHENTICATED", 16);
 
     /// Some resource has been exhausted, perhaps a per-user quota, or
     /// perhaps the entire file system is out of space.
     ///
     /// HTTP Mapping: 429 Too Many Requests
-    pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+    pub const RESOURCE_EXHAUSTED: Code = Code::known("RESOURCE_EXHAUSTED", 8);
 
     /// The operation was rejected because the system is not in a state
     /// required for the operation's execution.  For example, the directory
@@ -1153,7 +1141,7 @@ pub mod code {
     /// the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const FAILED_PRECONDITION: Code = Code::new("FAILED_PRECONDITION");
+    pub const FAILED_PRECONDITION: Code = Code::known("FAILED_PRECONDITION", 9);
 
     /// The operation was aborted, typically due to a concurrency issue such as
     /// a sequencer check failure or transaction abort.
@@ -1162,7 +1150,7 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ABORTED: Code = Code::new("ABORTED");
+    pub const ABORTED: Code = Code::known("ABORTED", 10);
 
     /// The operation was attempted past the valid range.  E.g., seeking or
     /// reading past end-of-file.
@@ -1181,20 +1169,20 @@ pub mod code {
     /// they are done.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const OUT_OF_RANGE: Code = Code::new("OUT_OF_RANGE");
+    pub const OUT_OF_RANGE: Code = Code::known("OUT_OF_RANGE", 11);
 
     /// The operation is not implemented or is not supported/enabled in this
     /// service.
     ///
     /// HTTP Mapping: 501 Not Implemented
-    pub const UNIMPLEMENTED: Code = Code::new("UNIMPLEMENTED");
+    pub const UNIMPLEMENTED: Code = Code::known("UNIMPLEMENTED", 12);
 
     /// Internal errors.  This means that some invariants expected by the
     /// underlying system have been broken.  This error code is reserved
     /// for serious errors.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const INTERNAL: Code = Code::new("INTERNAL");
+    pub const INTERNAL: Code = Code::known("INTERNAL", 13);
 
     /// The service is currently unavailable.  This is most likely a
     /// transient condition, which can be corrected by retrying with
@@ -1205,22 +1193,108 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 503 Service Unavailable
-    pub const UNAVAILABLE: Code = Code::new("UNAVAILABLE");
+    pub const UNAVAILABLE: Code = Code::known("UNAVAILABLE", 14);
 
     /// Unrecoverable data loss or corruption.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const DATA_LOSS: Code = Code::new("DATA_LOSS");
+    pub const DATA_LOSS: Code = Code::known("DATA_LOSS", 15);
+}
+
+impl Code {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Code {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Code {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Code {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "OK" => code::OK,
+            "CANCELLED" => code::CANCELLED,
+            "UNKNOWN" => code::UNKNOWN,
+            "INVALID_ARGUMENT" => code::INVALID_ARGUMENT,
+            "DEADLINE_EXCEEDED" => code::DEADLINE_EXCEEDED,
+            "NOT_FOUND" => code::NOT_FOUND,
+            "ALREADY_EXISTS" => code::ALREADY_EXISTS,
+            "PERMISSION_DENIED" => code::PERMISSION_DENIED,
+            "UNAUTHENTICATED" => code::UNAUTHENTICATED,
+            "RESOURCE_EXHAUSTED" => code::RESOURCE_EXHAUSTED,
+            "FAILED_PRECONDITION" => code::FAILED_PRECONDITION,
+            "ABORTED" => code::ABORTED,
+            "OUT_OF_RANGE" => code::OUT_OF_RANGE,
+            "UNIMPLEMENTED" => code::UNIMPLEMENTED,
+            "INTERNAL" => code::INTERNAL,
+            "UNAVAILABLE" => code::UNAVAILABLE,
+            "DATA_LOSS" => code::DATA_LOSS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Code {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => code::OK,
+            1 => code::CANCELLED,
+            2 => code::UNKNOWN,
+            3 => code::INVALID_ARGUMENT,
+            4 => code::DEADLINE_EXCEEDED,
+            5 => code::NOT_FOUND,
+            6 => code::ALREADY_EXISTS,
+            7 => code::PERMISSION_DENIED,
+            8 => code::RESOURCE_EXHAUSTED,
+            9 => code::FAILED_PRECONDITION,
+            10 => code::ABORTED,
+            11 => code::OUT_OF_RANGE,
+            12 => code::UNIMPLEMENTED,
+            13 => code::INTERNAL,
+            14 => code::UNAVAILABLE,
+            15 => code::DATA_LOSS,
+            16 => code::UNAUTHENTICATED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Code {
     fn default() -> Self {
-        code::OK
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

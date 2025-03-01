@@ -2892,83 +2892,131 @@ impl wkt::message::Message for LogoRecognitionAnnotation {
 }
 
 /// Video annotation feature.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Feature(std::borrow::Cow<'static, str>);
-
-impl Feature {
-    /// Creates a new Feature instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Feature(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Feature](Feature)
 pub mod feature {
     use super::Feature;
 
     /// Unspecified.
-    pub const FEATURE_UNSPECIFIED: Feature = Feature::new("FEATURE_UNSPECIFIED");
+    pub const FEATURE_UNSPECIFIED: Feature = Feature::known("FEATURE_UNSPECIFIED", 0);
 
     /// Label detection. Detect objects, such as dog or flower.
-    pub const LABEL_DETECTION: Feature = Feature::new("LABEL_DETECTION");
+    pub const LABEL_DETECTION: Feature = Feature::known("LABEL_DETECTION", 1);
 
     /// Shot change detection.
-    pub const SHOT_CHANGE_DETECTION: Feature = Feature::new("SHOT_CHANGE_DETECTION");
+    pub const SHOT_CHANGE_DETECTION: Feature = Feature::known("SHOT_CHANGE_DETECTION", 2);
 
     /// Explicit content detection.
-    pub const EXPLICIT_CONTENT_DETECTION: Feature = Feature::new("EXPLICIT_CONTENT_DETECTION");
+    pub const EXPLICIT_CONTENT_DETECTION: Feature = Feature::known("EXPLICIT_CONTENT_DETECTION", 3);
 
     /// Human face detection.
-    pub const FACE_DETECTION: Feature = Feature::new("FACE_DETECTION");
+    pub const FACE_DETECTION: Feature = Feature::known("FACE_DETECTION", 4);
 
     /// Speech transcription.
-    pub const SPEECH_TRANSCRIPTION: Feature = Feature::new("SPEECH_TRANSCRIPTION");
+    pub const SPEECH_TRANSCRIPTION: Feature = Feature::known("SPEECH_TRANSCRIPTION", 6);
 
     /// OCR text detection and tracking.
-    pub const TEXT_DETECTION: Feature = Feature::new("TEXT_DETECTION");
+    pub const TEXT_DETECTION: Feature = Feature::known("TEXT_DETECTION", 7);
 
     /// Object detection and tracking.
-    pub const OBJECT_TRACKING: Feature = Feature::new("OBJECT_TRACKING");
+    pub const OBJECT_TRACKING: Feature = Feature::known("OBJECT_TRACKING", 9);
 
     /// Logo detection, tracking, and recognition.
-    pub const LOGO_RECOGNITION: Feature = Feature::new("LOGO_RECOGNITION");
+    pub const LOGO_RECOGNITION: Feature = Feature::known("LOGO_RECOGNITION", 12);
 
     /// Person detection.
-    pub const PERSON_DETECTION: Feature = Feature::new("PERSON_DETECTION");
+    pub const PERSON_DETECTION: Feature = Feature::known("PERSON_DETECTION", 14);
+}
+
+impl Feature {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Feature {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Feature {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Feature::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Feature::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Feature::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Feature {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "FEATURE_UNSPECIFIED" => feature::FEATURE_UNSPECIFIED,
+            "LABEL_DETECTION" => feature::LABEL_DETECTION,
+            "SHOT_CHANGE_DETECTION" => feature::SHOT_CHANGE_DETECTION,
+            "EXPLICIT_CONTENT_DETECTION" => feature::EXPLICIT_CONTENT_DETECTION,
+            "FACE_DETECTION" => feature::FACE_DETECTION,
+            "SPEECH_TRANSCRIPTION" => feature::SPEECH_TRANSCRIPTION,
+            "TEXT_DETECTION" => feature::TEXT_DETECTION,
+            "OBJECT_TRACKING" => feature::OBJECT_TRACKING,
+            "LOGO_RECOGNITION" => feature::LOGO_RECOGNITION,
+            "PERSON_DETECTION" => feature::PERSON_DETECTION,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Feature {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => feature::FEATURE_UNSPECIFIED,
+            1 => feature::LABEL_DETECTION,
+            2 => feature::SHOT_CHANGE_DETECTION,
+            3 => feature::EXPLICIT_CONTENT_DETECTION,
+            4 => feature::FACE_DETECTION,
+            6 => feature::SPEECH_TRANSCRIPTION,
+            7 => feature::TEXT_DETECTION,
+            9 => feature::OBJECT_TRACKING,
+            12 => feature::LOGO_RECOGNITION,
+            14 => feature::PERSON_DETECTION,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Feature {
     fn default() -> Self {
-        feature::FEATURE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Label detection mode.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LabelDetectionMode(std::borrow::Cow<'static, str>);
-
-impl LabelDetectionMode {
-    /// Creates a new LabelDetectionMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LabelDetectionMode(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LabelDetectionMode](LabelDetectionMode)
 pub mod label_detection_mode {
@@ -2976,78 +3024,192 @@ pub mod label_detection_mode {
 
     /// Unspecified.
     pub const LABEL_DETECTION_MODE_UNSPECIFIED: LabelDetectionMode =
-        LabelDetectionMode::new("LABEL_DETECTION_MODE_UNSPECIFIED");
+        LabelDetectionMode::known("LABEL_DETECTION_MODE_UNSPECIFIED", 0);
 
     /// Detect shot-level labels.
-    pub const SHOT_MODE: LabelDetectionMode = LabelDetectionMode::new("SHOT_MODE");
+    pub const SHOT_MODE: LabelDetectionMode = LabelDetectionMode::known("SHOT_MODE", 1);
 
     /// Detect frame-level labels.
-    pub const FRAME_MODE: LabelDetectionMode = LabelDetectionMode::new("FRAME_MODE");
+    pub const FRAME_MODE: LabelDetectionMode = LabelDetectionMode::known("FRAME_MODE", 2);
 
     /// Detect both shot-level and frame-level labels.
     pub const SHOT_AND_FRAME_MODE: LabelDetectionMode =
-        LabelDetectionMode::new("SHOT_AND_FRAME_MODE");
+        LabelDetectionMode::known("SHOT_AND_FRAME_MODE", 3);
+}
+
+impl LabelDetectionMode {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LabelDetectionMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LabelDetectionMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LabelDetectionMode::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LabelDetectionMode::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LabelDetectionMode::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LabelDetectionMode {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LABEL_DETECTION_MODE_UNSPECIFIED" => {
+                label_detection_mode::LABEL_DETECTION_MODE_UNSPECIFIED
+            }
+            "SHOT_MODE" => label_detection_mode::SHOT_MODE,
+            "FRAME_MODE" => label_detection_mode::FRAME_MODE,
+            "SHOT_AND_FRAME_MODE" => label_detection_mode::SHOT_AND_FRAME_MODE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LabelDetectionMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => label_detection_mode::LABEL_DETECTION_MODE_UNSPECIFIED,
+            1 => label_detection_mode::SHOT_MODE,
+            2 => label_detection_mode::FRAME_MODE,
+            3 => label_detection_mode::SHOT_AND_FRAME_MODE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LabelDetectionMode {
     fn default() -> Self {
-        label_detection_mode::LABEL_DETECTION_MODE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Bucketized representation of likelihood.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Likelihood(std::borrow::Cow<'static, str>);
-
-impl Likelihood {
-    /// Creates a new Likelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Likelihood(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Likelihood](Likelihood)
 pub mod likelihood {
     use super::Likelihood;
 
     /// Unspecified likelihood.
-    pub const LIKELIHOOD_UNSPECIFIED: Likelihood = Likelihood::new("LIKELIHOOD_UNSPECIFIED");
+    pub const LIKELIHOOD_UNSPECIFIED: Likelihood = Likelihood::known("LIKELIHOOD_UNSPECIFIED", 0);
 
     /// Very unlikely.
-    pub const VERY_UNLIKELY: Likelihood = Likelihood::new("VERY_UNLIKELY");
+    pub const VERY_UNLIKELY: Likelihood = Likelihood::known("VERY_UNLIKELY", 1);
 
     /// Unlikely.
-    pub const UNLIKELY: Likelihood = Likelihood::new("UNLIKELY");
+    pub const UNLIKELY: Likelihood = Likelihood::known("UNLIKELY", 2);
 
     /// Possible.
-    pub const POSSIBLE: Likelihood = Likelihood::new("POSSIBLE");
+    pub const POSSIBLE: Likelihood = Likelihood::known("POSSIBLE", 3);
 
     /// Likely.
-    pub const LIKELY: Likelihood = Likelihood::new("LIKELY");
+    pub const LIKELY: Likelihood = Likelihood::known("LIKELY", 4);
 
     /// Very likely.
-    pub const VERY_LIKELY: Likelihood = Likelihood::new("VERY_LIKELY");
+    pub const VERY_LIKELY: Likelihood = Likelihood::known("VERY_LIKELY", 5);
+}
+
+impl Likelihood {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Likelihood {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Likelihood {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Likelihood::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Likelihood::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Likelihood::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Likelihood {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LIKELIHOOD_UNSPECIFIED" => likelihood::LIKELIHOOD_UNSPECIFIED,
+            "VERY_UNLIKELY" => likelihood::VERY_UNLIKELY,
+            "UNLIKELY" => likelihood::UNLIKELY,
+            "POSSIBLE" => likelihood::POSSIBLE,
+            "LIKELY" => likelihood::LIKELY,
+            "VERY_LIKELY" => likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Likelihood {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => likelihood::LIKELIHOOD_UNSPECIFIED,
+            1 => likelihood::VERY_UNLIKELY,
+            2 => likelihood::UNLIKELY,
+            3 => likelihood::POSSIBLE,
+            4 => likelihood::LIKELY,
+            5 => likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Likelihood {
     fn default() -> Self {
-        likelihood::LIKELIHOOD_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

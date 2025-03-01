@@ -258,60 +258,116 @@ pub mod data_set {
     use super::*;
 
     /// DataSet state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified / undefined state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Dataset is unknown to the system; we have never seen this dataset before
         /// or we have seen this dataset but have fully GC-ed it.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::known("UNKNOWN", 1);
 
         /// Dataset processing is pending.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 2);
 
         /// Dataset is loading.
-        pub const LOADING: State = State::new("LOADING");
+        pub const LOADING: State = State::known("LOADING", 3);
 
         /// Dataset is loaded and can be queried.
-        pub const LOADED: State = State::new("LOADED");
+        pub const LOADED: State = State::known("LOADED", 4);
 
         /// Dataset is unloading.
-        pub const UNLOADING: State = State::new("UNLOADING");
+        pub const UNLOADING: State = State::known("UNLOADING", 5);
 
         /// Dataset is unloaded and is removed from the system.
-        pub const UNLOADED: State = State::new("UNLOADED");
+        pub const UNLOADED: State = State::known("UNLOADED", 6);
 
         /// Dataset processing failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 7);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "UNKNOWN" => state::UNKNOWN,
+                "PENDING" => state::PENDING,
+                "LOADING" => state::LOADING,
+                "LOADED" => state::LOADED,
+                "UNLOADING" => state::UNLOADING,
+                "UNLOADED" => state::UNLOADED,
+                "FAILED" => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::UNKNOWN,
+                2 => state::PENDING,
+                3 => state::LOADING,
+                4 => state::LOADED,
+                5 => state::UNLOADING,
+                6 => state::UNLOADED,
+                7 => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1063,53 +1119,105 @@ pub mod forecast_params {
     use super::*;
 
     /// A time period of a fixed interval.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Period(std::borrow::Cow<'static, str>);
-
-    impl Period {
-        /// Creates a new Period instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Period(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Period](Period)
     pub mod period {
         use super::Period;
 
         /// Unknown or simply not given.
-        pub const PERIOD_UNSPECIFIED: Period = Period::new("PERIOD_UNSPECIFIED");
+        pub const PERIOD_UNSPECIFIED: Period = Period::known("PERIOD_UNSPECIFIED", 0);
 
         /// 1 hour
-        pub const HOURLY: Period = Period::new("HOURLY");
+        pub const HOURLY: Period = Period::known("HOURLY", 5);
 
         /// 24 hours
-        pub const DAILY: Period = Period::new("DAILY");
+        pub const DAILY: Period = Period::known("DAILY", 1);
 
         /// 7 days
-        pub const WEEKLY: Period = Period::new("WEEKLY");
+        pub const WEEKLY: Period = Period::known("WEEKLY", 2);
 
         /// 30 days
-        pub const MONTHLY: Period = Period::new("MONTHLY");
+        pub const MONTHLY: Period = Period::known("MONTHLY", 3);
 
         /// 365 days
-        pub const YEARLY: Period = Period::new("YEARLY");
+        pub const YEARLY: Period = Period::known("YEARLY", 4);
+    }
+
+    impl Period {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Period {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Period {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Period::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Period::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Period::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Period {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PERIOD_UNSPECIFIED" => period::PERIOD_UNSPECIFIED,
+                "HOURLY" => period::HOURLY,
+                "DAILY" => period::DAILY,
+                "WEEKLY" => period::WEEKLY,
+                "MONTHLY" => period::MONTHLY,
+                "YEARLY" => period::YEARLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Period {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => period::PERIOD_UNSPECIFIED,
+                1 => period::DAILY,
+                2 => period::WEEKLY,
+                3 => period::MONTHLY,
+                4 => period::YEARLY,
+                5 => period::HOURLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Period {
         fn default() -> Self {
-            period::PERIOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1703,20 +1811,8 @@ pub mod timeseries_params {
     /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric].
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationMethod(std::borrow::Cow<'static, str>);
-
-    impl AggregationMethod {
-        /// Creates a new AggregationMethod instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AggregationMethod(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AggregationMethod](AggregationMethod)
     pub mod aggregation_method {
@@ -1724,30 +1820,90 @@ pub mod timeseries_params {
 
         /// Unspecified.
         pub const AGGREGATION_METHOD_UNSPECIFIED: AggregationMethod =
-            AggregationMethod::new("AGGREGATION_METHOD_UNSPECIFIED");
+            AggregationMethod::known("AGGREGATION_METHOD_UNSPECIFIED", 0);
 
         /// Aggregate multiple events by summing up the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const SUM: AggregationMethod = AggregationMethod::new("SUM");
+        pub const SUM: AggregationMethod = AggregationMethod::known("SUM", 1);
 
         /// Aggregate multiple events by averaging out the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const AVERAGE: AggregationMethod = AggregationMethod::new("AVERAGE");
+        pub const AVERAGE: AggregationMethod = AggregationMethod::known("AVERAGE", 2);
+    }
+
+    impl AggregationMethod {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationMethod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationMethod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AggregationMethod::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AggregationMethod::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AggregationMethod::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AggregationMethod {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AGGREGATION_METHOD_UNSPECIFIED" => {
+                    aggregation_method::AGGREGATION_METHOD_UNSPECIFIED
+                }
+                "SUM" => aggregation_method::SUM,
+                "AVERAGE" => aggregation_method::AVERAGE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationMethod {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => aggregation_method::AGGREGATION_METHOD_UNSPECIFIED,
+                1 => aggregation_method::SUM,
+                2 => aggregation_method::AVERAGE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AggregationMethod {
         fn default() -> Self {
-            aggregation_method::AGGREGATION_METHOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

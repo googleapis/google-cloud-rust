@@ -264,56 +264,108 @@ pub mod feature_resource_state {
     use super::*;
 
     /// State describes the lifecycle status of a Feature.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State is unknown or not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Feature is being enabled, and the Feature resource is being created.
         /// Once complete, the corresponding Feature will be enabled in this Hub.
-        pub const ENABLING: State = State::new("ENABLING");
+        pub const ENABLING: State = State::known("ENABLING", 1);
 
         /// The Feature is enabled in this Hub, and the Feature resource is fully
         /// available.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
 
         /// The Feature is being disabled in this Hub, and the Feature resource
         /// is being deleted.
-        pub const DISABLING: State = State::new("DISABLING");
+        pub const DISABLING: State = State::known("DISABLING", 3);
 
         /// The Feature resource is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 4);
 
         /// The Feature resource is being updated by the Hub Service.
-        pub const SERVICE_UPDATING: State = State::new("SERVICE_UPDATING");
+        pub const SERVICE_UPDATING: State = State::known("SERVICE_UPDATING", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ENABLING" => state::ENABLING,
+                "ACTIVE" => state::ACTIVE,
+                "DISABLING" => state::DISABLING,
+                "UPDATING" => state::UPDATING,
+                "SERVICE_UPDATING" => state::SERVICE_UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ENABLING,
+                2 => state::ACTIVE,
+                3 => state::DISABLING,
+                4 => state::UPDATING,
+                5 => state::SERVICE_UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -380,53 +432,101 @@ pub mod feature_state {
     use super::*;
 
     /// Code represents a machine-readable, high-level status of the Feature.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// Unknown or not set.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
         /// The Feature is operating normally.
-        pub const OK: Code = Code::new("OK");
+        pub const OK: Code = Code::known("OK", 1);
 
         /// The Feature has encountered an issue, and is operating in a degraded
         /// state. The Feature may need intervention to return to normal operation.
         /// See the description and any associated Feature-specific details for more
         /// information.
-        pub const WARNING: Code = Code::new("WARNING");
+        pub const WARNING: Code = Code::known("WARNING", 2);
 
         /// The Feature is not operating or is in a severely degraded state.
         /// The Feature may need intervention to return to normal operation.
         /// See the description and any associated Feature-specific details for more
         /// information.
-        pub const ERROR: Code = Code::new("ERROR");
+        pub const ERROR: Code = Code::known("ERROR", 3);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                "OK" => code::OK,
+                "WARNING" => code::WARNING,
+                "ERROR" => code::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::CODE_UNSPECIFIED,
+                1 => code::OK,
+                2 => code::WARNING,
+                3 => code::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1507,53 +1607,105 @@ pub mod membership_state {
     use super::*;
 
     /// Code describes the state of a Membership resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// The code is not set.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
         /// The cluster is being registered.
-        pub const CREATING: Code = Code::new("CREATING");
+        pub const CREATING: Code = Code::known("CREATING", 1);
 
         /// The cluster is registered.
-        pub const READY: Code = Code::new("READY");
+        pub const READY: Code = Code::known("READY", 2);
 
         /// The cluster is being unregistered.
-        pub const DELETING: Code = Code::new("DELETING");
+        pub const DELETING: Code = Code::known("DELETING", 3);
 
         /// The Membership is being updated.
-        pub const UPDATING: Code = Code::new("UPDATING");
+        pub const UPDATING: Code = Code::known("UPDATING", 4);
 
         /// The Membership is being updated by the Hub Service.
-        pub const SERVICE_UPDATING: Code = Code::new("SERVICE_UPDATING");
+        pub const SERVICE_UPDATING: Code = Code::known("SERVICE_UPDATING", 5);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                "CREATING" => code::CREATING,
+                "READY" => code::READY,
+                "DELETING" => code::DELETING,
+                "UPDATING" => code::UPDATING,
+                "SERVICE_UPDATING" => code::SERVICE_UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::CODE_UNSPECIFIED,
+                1 => code::CREATING,
+                2 => code::READY,
+                3 => code::DELETING,
+                4 => code::UPDATING,
+                5 => code::SERVICE_UPDATING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

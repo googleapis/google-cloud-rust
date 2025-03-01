@@ -570,44 +570,90 @@ pub mod span {
             use super::*;
 
             /// Indicates whether the message was sent or received.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(std::borrow::Cow<'static, str>);
-
-            impl Type {
-                /// Creates a new Type instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct Type(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [Type](Type)
             pub mod r#type {
                 use super::Type;
 
                 /// Unknown event type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+                pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
                 /// Indicates a sent message.
-                pub const SENT: Type = Type::new("SENT");
+                pub const SENT: Type = Type::known("SENT", 1);
 
                 /// Indicates a received message.
-                pub const RECEIVED: Type = Type::new("RECEIVED");
+                pub const RECEIVED: Type = Type::known("RECEIVED", 2);
+            }
+
+            impl Type {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for Type {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                        "SENT" => r#type::SENT,
+                        "RECEIVED" => r#type::RECEIVED,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => r#type::TYPE_UNSPECIFIED,
+                        1 => r#type::SENT,
+                        2 => r#type::RECEIVED,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    r#type::TYPE_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -762,44 +808,90 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
-
-        impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Type(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
             use super::Type;
 
             /// The relationship of the two spans is unknown.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
             /// The linked span is a child of the current span.
-            pub const CHILD_LINKED_SPAN: Type = Type::new("CHILD_LINKED_SPAN");
+            pub const CHILD_LINKED_SPAN: Type = Type::known("CHILD_LINKED_SPAN", 1);
 
             /// The linked span is a parent of the current span.
-            pub const PARENT_LINKED_SPAN: Type = Type::new("PARENT_LINKED_SPAN");
+            pub const PARENT_LINKED_SPAN: Type = Type::known("PARENT_LINKED_SPAN", 2);
+        }
+
+        impl Type {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                    "CHILD_LINKED_SPAN" => r#type::CHILD_LINKED_SPAN,
+                    "PARENT_LINKED_SPAN" => r#type::PARENT_LINKED_SPAN,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => r#type::TYPE_UNSPECIFIED,
+                    1 => r#type::CHILD_LINKED_SPAN,
+                    2 => r#type::PARENT_LINKED_SPAN,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -851,20 +943,8 @@ pub mod span {
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpanKind(std::borrow::Cow<'static, str>);
-
-    impl SpanKind {
-        /// Creates a new SpanKind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SpanKind(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SpanKind](SpanKind)
     pub mod span_kind {
@@ -872,41 +952,105 @@ pub mod span {
 
         /// Unspecified. Do NOT use as default.
         /// Implementations MAY assume SpanKind.INTERNAL to be default.
-        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new("SPAN_KIND_UNSPECIFIED");
+        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::known("SPAN_KIND_UNSPECIFIED", 0);
 
         /// Indicates that the span is used internally. Default value.
-        pub const INTERNAL: SpanKind = SpanKind::new("INTERNAL");
+        pub const INTERNAL: SpanKind = SpanKind::known("INTERNAL", 1);
 
         /// Indicates that the span covers server-side handling of an RPC or other
         /// remote network request.
-        pub const SERVER: SpanKind = SpanKind::new("SERVER");
+        pub const SERVER: SpanKind = SpanKind::known("SERVER", 2);
 
         /// Indicates that the span covers the client-side wrapper around an RPC or
         /// other remote request.
-        pub const CLIENT: SpanKind = SpanKind::new("CLIENT");
+        pub const CLIENT: SpanKind = SpanKind::known("CLIENT", 3);
 
         /// Indicates that the span describes producer sending a message to a broker.
         /// Unlike client and  server, there is no direct critical path latency
         /// relationship between producer and consumer spans (e.g. publishing a
         /// message to a pubsub service).
-        pub const PRODUCER: SpanKind = SpanKind::new("PRODUCER");
+        pub const PRODUCER: SpanKind = SpanKind::known("PRODUCER", 4);
 
         /// Indicates that the span describes consumer receiving a message from a
         /// broker. Unlike client and  server, there is no direct critical path
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
-        pub const CONSUMER: SpanKind = SpanKind::new("CONSUMER");
+        pub const CONSUMER: SpanKind = SpanKind::known("CONSUMER", 5);
+    }
+
+    impl SpanKind {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SpanKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SpanKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SpanKind::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SpanKind::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SpanKind::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SpanKind {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SPAN_KIND_UNSPECIFIED" => span_kind::SPAN_KIND_UNSPECIFIED,
+                "INTERNAL" => span_kind::INTERNAL,
+                "SERVER" => span_kind::SERVER,
+                "CLIENT" => span_kind::CLIENT,
+                "PRODUCER" => span_kind::PRODUCER,
+                "CONSUMER" => span_kind::CONSUMER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SpanKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => span_kind::SPAN_KIND_UNSPECIFIED,
+                1 => span_kind::INTERNAL,
+                2 => span_kind::SERVER,
+                3 => span_kind::CLIENT,
+                4 => span_kind::PRODUCER,
+                5 => span_kind::CONSUMER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SpanKind {
         fn default() -> Self {
-            span_kind::SPAN_KIND_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

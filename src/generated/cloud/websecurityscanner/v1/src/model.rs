@@ -333,50 +333,100 @@ pub mod finding {
     use super::*;
 
     /// The severity level of a vulnerability.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
-
-    impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Severity(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
         use super::Severity;
 
         /// No severity specified. The default value.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::known("SEVERITY_UNSPECIFIED", 0);
 
         /// Critical severity.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+        pub const CRITICAL: Severity = Severity::known("CRITICAL", 1);
 
         /// High severity.
-        pub const HIGH: Severity = Severity::new("HIGH");
+        pub const HIGH: Severity = Severity::known("HIGH", 2);
 
         /// Medium severity.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
+        pub const MEDIUM: Severity = Severity::known("MEDIUM", 3);
 
         /// Low severity.
-        pub const LOW: Severity = Severity::new("LOW");
+        pub const LOW: Severity = Severity::known("LOW", 4);
+    }
+
+    impl Severity {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Severity::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Severity::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Severity::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEVERITY_UNSPECIFIED" => severity::SEVERITY_UNSPECIFIED,
+                "CRITICAL" => severity::CRITICAL,
+                "HIGH" => severity::HIGH,
+                "MEDIUM" => severity::MEDIUM,
+                "LOW" => severity::LOW,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => severity::SEVERITY_UNSPECIFIED,
+                1 => severity::CRITICAL,
+                2 => severity::HIGH,
+                3 => severity::MEDIUM,
+                4 => severity::LOW,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -722,20 +772,8 @@ pub mod xss {
     use super::*;
 
     /// Types of XSS attack vector.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttackVector(std::borrow::Cow<'static, str>);
-
-    impl AttackVector {
-        /// Creates a new AttackVector instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AttackVector(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AttackVector](AttackVector)
     pub mod attack_vector {
@@ -743,64 +781,149 @@ pub mod xss {
 
         /// Unknown attack vector.
         pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector =
-            AttackVector::new("ATTACK_VECTOR_UNSPECIFIED");
+            AttackVector::known("ATTACK_VECTOR_UNSPECIFIED", 0);
 
         /// The attack comes from fuzzing the browser's localStorage.
-        pub const LOCAL_STORAGE: AttackVector = AttackVector::new("LOCAL_STORAGE");
+        pub const LOCAL_STORAGE: AttackVector = AttackVector::known("LOCAL_STORAGE", 1);
 
         /// The attack comes from fuzzing the browser's sessionStorage.
-        pub const SESSION_STORAGE: AttackVector = AttackVector::new("SESSION_STORAGE");
+        pub const SESSION_STORAGE: AttackVector = AttackVector::known("SESSION_STORAGE", 2);
 
         /// The attack comes from fuzzing the window's name property.
-        pub const WINDOW_NAME: AttackVector = AttackVector::new("WINDOW_NAME");
+        pub const WINDOW_NAME: AttackVector = AttackVector::known("WINDOW_NAME", 3);
 
         /// The attack comes from fuzzing the referrer property.
-        pub const REFERRER: AttackVector = AttackVector::new("REFERRER");
+        pub const REFERRER: AttackVector = AttackVector::known("REFERRER", 4);
 
         /// The attack comes from fuzzing an input element.
-        pub const FORM_INPUT: AttackVector = AttackVector::new("FORM_INPUT");
+        pub const FORM_INPUT: AttackVector = AttackVector::known("FORM_INPUT", 5);
 
         /// The attack comes from fuzzing the browser's cookies.
-        pub const COOKIE: AttackVector = AttackVector::new("COOKIE");
+        pub const COOKIE: AttackVector = AttackVector::known("COOKIE", 6);
 
         /// The attack comes from hijacking the post messaging mechanism.
-        pub const POST_MESSAGE: AttackVector = AttackVector::new("POST_MESSAGE");
+        pub const POST_MESSAGE: AttackVector = AttackVector::known("POST_MESSAGE", 7);
 
         /// The attack comes from fuzzing parameters in the url.
-        pub const GET_PARAMETERS: AttackVector = AttackVector::new("GET_PARAMETERS");
+        pub const GET_PARAMETERS: AttackVector = AttackVector::known("GET_PARAMETERS", 8);
 
         /// The attack comes from fuzzing the fragment in the url.
-        pub const URL_FRAGMENT: AttackVector = AttackVector::new("URL_FRAGMENT");
+        pub const URL_FRAGMENT: AttackVector = AttackVector::known("URL_FRAGMENT", 9);
 
         /// The attack comes from fuzzing the HTML comments.
-        pub const HTML_COMMENT: AttackVector = AttackVector::new("HTML_COMMENT");
+        pub const HTML_COMMENT: AttackVector = AttackVector::known("HTML_COMMENT", 10);
 
         /// The attack comes from fuzzing the POST parameters.
-        pub const POST_PARAMETERS: AttackVector = AttackVector::new("POST_PARAMETERS");
+        pub const POST_PARAMETERS: AttackVector = AttackVector::known("POST_PARAMETERS", 11);
 
         /// The attack comes from fuzzing the protocol.
-        pub const PROTOCOL: AttackVector = AttackVector::new("PROTOCOL");
+        pub const PROTOCOL: AttackVector = AttackVector::known("PROTOCOL", 12);
 
         /// The attack comes from the server side and is stored.
-        pub const STORED_XSS: AttackVector = AttackVector::new("STORED_XSS");
+        pub const STORED_XSS: AttackVector = AttackVector::known("STORED_XSS", 13);
 
         /// The attack is a Same-Origin Method Execution attack via a GET parameter.
-        pub const SAME_ORIGIN: AttackVector = AttackVector::new("SAME_ORIGIN");
+        pub const SAME_ORIGIN: AttackVector = AttackVector::known("SAME_ORIGIN", 14);
 
         /// The attack payload is received from a third-party host via a URL that is
         /// user-controllable
-        pub const USER_CONTROLLABLE_URL: AttackVector = AttackVector::new("USER_CONTROLLABLE_URL");
+        pub const USER_CONTROLLABLE_URL: AttackVector =
+            AttackVector::known("USER_CONTROLLABLE_URL", 15);
+    }
+
+    impl AttackVector {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AttackVector {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AttackVector {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AttackVector::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AttackVector::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AttackVector::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AttackVector {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ATTACK_VECTOR_UNSPECIFIED" => attack_vector::ATTACK_VECTOR_UNSPECIFIED,
+                "LOCAL_STORAGE" => attack_vector::LOCAL_STORAGE,
+                "SESSION_STORAGE" => attack_vector::SESSION_STORAGE,
+                "WINDOW_NAME" => attack_vector::WINDOW_NAME,
+                "REFERRER" => attack_vector::REFERRER,
+                "FORM_INPUT" => attack_vector::FORM_INPUT,
+                "COOKIE" => attack_vector::COOKIE,
+                "POST_MESSAGE" => attack_vector::POST_MESSAGE,
+                "GET_PARAMETERS" => attack_vector::GET_PARAMETERS,
+                "URL_FRAGMENT" => attack_vector::URL_FRAGMENT,
+                "HTML_COMMENT" => attack_vector::HTML_COMMENT,
+                "POST_PARAMETERS" => attack_vector::POST_PARAMETERS,
+                "PROTOCOL" => attack_vector::PROTOCOL,
+                "STORED_XSS" => attack_vector::STORED_XSS,
+                "SAME_ORIGIN" => attack_vector::SAME_ORIGIN,
+                "USER_CONTROLLABLE_URL" => attack_vector::USER_CONTROLLABLE_URL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AttackVector {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => attack_vector::ATTACK_VECTOR_UNSPECIFIED,
+                1 => attack_vector::LOCAL_STORAGE,
+                2 => attack_vector::SESSION_STORAGE,
+                3 => attack_vector::WINDOW_NAME,
+                4 => attack_vector::REFERRER,
+                5 => attack_vector::FORM_INPUT,
+                6 => attack_vector::COOKIE,
+                7 => attack_vector::POST_MESSAGE,
+                8 => attack_vector::GET_PARAMETERS,
+                9 => attack_vector::URL_FRAGMENT,
+                10 => attack_vector::HTML_COMMENT,
+                11 => attack_vector::POST_PARAMETERS,
+                12 => attack_vector::PROTOCOL,
+                13 => attack_vector::STORED_XSS,
+                14 => attack_vector::SAME_ORIGIN,
+                15 => attack_vector::USER_CONTROLLABLE_URL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AttackVector {
         fn default() -> Self {
-            attack_vector::ATTACK_VECTOR_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -853,41 +976,85 @@ pub mod xxe {
     use super::*;
 
     /// Locations within a request where XML was substituted.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Location(std::borrow::Cow<'static, str>);
-
-    impl Location {
-        /// Creates a new Location instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Location(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Location](Location)
     pub mod location {
         use super::Location;
 
         /// Unknown Location.
-        pub const LOCATION_UNSPECIFIED: Location = Location::new("LOCATION_UNSPECIFIED");
+        pub const LOCATION_UNSPECIFIED: Location = Location::known("LOCATION_UNSPECIFIED", 0);
 
         /// The XML payload replaced the complete request body.
-        pub const COMPLETE_REQUEST_BODY: Location = Location::new("COMPLETE_REQUEST_BODY");
+        pub const COMPLETE_REQUEST_BODY: Location = Location::known("COMPLETE_REQUEST_BODY", 1);
+    }
+
+    impl Location {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Location {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Location {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Location::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Location::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Location::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Location {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LOCATION_UNSPECIFIED" => location::LOCATION_UNSPECIFIED,
+                "COMPLETE_REQUEST_BODY" => location::COMPLETE_REQUEST_BODY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Location {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => location::LOCATION_UNSPECIFIED,
+                1 => location::COMPLETE_REQUEST_BODY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Location {
         fn default() -> Self {
-            location::LOCATION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1556,110 +1723,192 @@ pub mod scan_config {
     }
 
     /// Type of user agents used for scanning.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UserAgent(std::borrow::Cow<'static, str>);
-
-    impl UserAgent {
-        /// Creates a new UserAgent instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UserAgent(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [UserAgent](UserAgent)
     pub mod user_agent {
         use super::UserAgent;
 
         /// The user agent is unknown. Service will default to CHROME_LINUX.
-        pub const USER_AGENT_UNSPECIFIED: UserAgent = UserAgent::new("USER_AGENT_UNSPECIFIED");
+        pub const USER_AGENT_UNSPECIFIED: UserAgent = UserAgent::known("USER_AGENT_UNSPECIFIED", 0);
 
         /// Chrome on Linux. This is the service default if unspecified.
-        pub const CHROME_LINUX: UserAgent = UserAgent::new("CHROME_LINUX");
+        pub const CHROME_LINUX: UserAgent = UserAgent::known("CHROME_LINUX", 1);
 
         /// Chrome on Android.
-        pub const CHROME_ANDROID: UserAgent = UserAgent::new("CHROME_ANDROID");
+        pub const CHROME_ANDROID: UserAgent = UserAgent::known("CHROME_ANDROID", 2);
 
         /// Safari on IPhone.
-        pub const SAFARI_IPHONE: UserAgent = UserAgent::new("SAFARI_IPHONE");
+        pub const SAFARI_IPHONE: UserAgent = UserAgent::known("SAFARI_IPHONE", 3);
+    }
+
+    impl UserAgent {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for UserAgent {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UserAgent {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(UserAgent::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(UserAgent::from(val)),
+                Enumeration::UnknownNum { str } => Ok(UserAgent::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for UserAgent {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "USER_AGENT_UNSPECIFIED" => user_agent::USER_AGENT_UNSPECIFIED,
+                "CHROME_LINUX" => user_agent::CHROME_LINUX,
+                "CHROME_ANDROID" => user_agent::CHROME_ANDROID,
+                "SAFARI_IPHONE" => user_agent::SAFARI_IPHONE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for UserAgent {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => user_agent::USER_AGENT_UNSPECIFIED,
+                1 => user_agent::CHROME_LINUX,
+                2 => user_agent::CHROME_ANDROID,
+                3 => user_agent::SAFARI_IPHONE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for UserAgent {
         fn default() -> Self {
-            user_agent::USER_AGENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Scan risk levels supported by Web Security Scanner. LOW impact
     /// scanning will minimize requests with the potential to modify data. To
     /// achieve the maximum scan coverage, NORMAL risk level is recommended.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskLevel(std::borrow::Cow<'static, str>);
-
-    impl RiskLevel {
-        /// Creates a new RiskLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RiskLevel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RiskLevel](RiskLevel)
     pub mod risk_level {
         use super::RiskLevel;
 
         /// Use default, which is NORMAL.
-        pub const RISK_LEVEL_UNSPECIFIED: RiskLevel = RiskLevel::new("RISK_LEVEL_UNSPECIFIED");
+        pub const RISK_LEVEL_UNSPECIFIED: RiskLevel = RiskLevel::known("RISK_LEVEL_UNSPECIFIED", 0);
 
         /// Normal scanning (Recommended)
-        pub const NORMAL: RiskLevel = RiskLevel::new("NORMAL");
+        pub const NORMAL: RiskLevel = RiskLevel::known("NORMAL", 1);
 
         /// Lower impact scanning
-        pub const LOW: RiskLevel = RiskLevel::new("LOW");
+        pub const LOW: RiskLevel = RiskLevel::known("LOW", 2);
+    }
+
+    impl RiskLevel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RiskLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RiskLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RiskLevel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RiskLevel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RiskLevel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RiskLevel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RISK_LEVEL_UNSPECIFIED" => risk_level::RISK_LEVEL_UNSPECIFIED,
+                "NORMAL" => risk_level::NORMAL,
+                "LOW" => risk_level::LOW,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RiskLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => risk_level::RISK_LEVEL_UNSPECIFIED,
+                1 => risk_level::NORMAL,
+                2 => risk_level::LOW,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RiskLevel {
         fn default() -> Self {
-            risk_level::RISK_LEVEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Controls export of scan configurations and results to Security
     /// Command Center.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExportToSecurityCommandCenter(std::borrow::Cow<'static, str>);
-
-    impl ExportToSecurityCommandCenter {
-        /// Creates a new ExportToSecurityCommandCenter instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ExportToSecurityCommandCenter(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ExportToSecurityCommandCenter](ExportToSecurityCommandCenter)
     pub mod export_to_security_command_center {
@@ -1667,26 +1916,93 @@ pub mod scan_config {
 
         /// Use default, which is ENABLED.
         pub const EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED");
+            ExportToSecurityCommandCenter::known(
+                "EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED",
+                0,
+            );
 
         /// Export results of this scan to Security Command Center.
         pub const ENABLED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("ENABLED");
+            ExportToSecurityCommandCenter::known("ENABLED", 1);
 
         /// Do not export results of this scan to Security Command Center.
         pub const DISABLED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("DISABLED");
+            ExportToSecurityCommandCenter::known("DISABLED", 2);
+    }
+
+    impl ExportToSecurityCommandCenter {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ExportToSecurityCommandCenter {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExportToSecurityCommandCenter {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ExportToSecurityCommandCenter::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(ExportToSecurityCommandCenter::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(ExportToSecurityCommandCenter::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ExportToSecurityCommandCenter {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED" => {
+                    export_to_security_command_center::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED
+                }
+                "ENABLED" => export_to_security_command_center::ENABLED,
+                "DISABLED" => export_to_security_command_center::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ExportToSecurityCommandCenter {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => {
+                    export_to_security_command_center::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED
+                }
+                1 => export_to_security_command_center::ENABLED,
+                2 => export_to_security_command_center::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ExportToSecurityCommandCenter {
         fn default() -> Self {
-            export_to_security_command_center::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1746,193 +2062,338 @@ pub mod scan_config_error {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 44
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// There is no error.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
         /// There is no error.
-        pub const OK: Code = Code::new("OK");
+        pub const OK: Code = Code::known("OK", 0);
 
         /// Indicates an internal server error.
         /// Please DO NOT USE THIS ERROR CODE unless the root cause is truly unknown.
-        pub const INTERNAL_ERROR: Code = Code::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Code = Code::known("INTERNAL_ERROR", 1);
 
         /// One of the seed URLs is an App Engine URL but we cannot validate the scan
         /// settings due to an App Engine API backend error.
-        pub const APPENGINE_API_BACKEND_ERROR: Code = Code::new("APPENGINE_API_BACKEND_ERROR");
+        pub const APPENGINE_API_BACKEND_ERROR: Code = Code::known("APPENGINE_API_BACKEND_ERROR", 2);
 
         /// One of the seed URLs is an App Engine URL but we cannot access the
         /// App Engine API to validate scan settings.
-        pub const APPENGINE_API_NOT_ACCESSIBLE: Code = Code::new("APPENGINE_API_NOT_ACCESSIBLE");
+        pub const APPENGINE_API_NOT_ACCESSIBLE: Code =
+            Code::known("APPENGINE_API_NOT_ACCESSIBLE", 3);
 
         /// One of the seed URLs is an App Engine URL but the Default Host of the
         /// App Engine is not set.
         pub const APPENGINE_DEFAULT_HOST_MISSING: Code =
-            Code::new("APPENGINE_DEFAULT_HOST_MISSING");
+            Code::known("APPENGINE_DEFAULT_HOST_MISSING", 4);
 
         /// Google corporate accounts can not be used for scanning.
-        pub const CANNOT_USE_GOOGLE_COM_ACCOUNT: Code = Code::new("CANNOT_USE_GOOGLE_COM_ACCOUNT");
+        pub const CANNOT_USE_GOOGLE_COM_ACCOUNT: Code =
+            Code::known("CANNOT_USE_GOOGLE_COM_ACCOUNT", 6);
 
         /// The account of the scan creator can not be used for scanning.
-        pub const CANNOT_USE_OWNER_ACCOUNT: Code = Code::new("CANNOT_USE_OWNER_ACCOUNT");
+        pub const CANNOT_USE_OWNER_ACCOUNT: Code = Code::known("CANNOT_USE_OWNER_ACCOUNT", 7);
 
         /// This scan targets Compute Engine, but we cannot validate scan settings
         /// due to a Compute Engine API backend error.
-        pub const COMPUTE_API_BACKEND_ERROR: Code = Code::new("COMPUTE_API_BACKEND_ERROR");
+        pub const COMPUTE_API_BACKEND_ERROR: Code = Code::known("COMPUTE_API_BACKEND_ERROR", 8);
 
         /// This scan targets Compute Engine, but we cannot access the Compute Engine
         /// API to validate the scan settings.
-        pub const COMPUTE_API_NOT_ACCESSIBLE: Code = Code::new("COMPUTE_API_NOT_ACCESSIBLE");
+        pub const COMPUTE_API_NOT_ACCESSIBLE: Code = Code::known("COMPUTE_API_NOT_ACCESSIBLE", 9);
 
         /// The Custom Login URL does not belong to the current project.
         pub const CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code =
-            Code::new("CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT");
+            Code::known("CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT", 10);
 
         /// The Custom Login URL is malformed (can not be parsed).
-        pub const CUSTOM_LOGIN_URL_MALFORMED: Code = Code::new("CUSTOM_LOGIN_URL_MALFORMED");
+        pub const CUSTOM_LOGIN_URL_MALFORMED: Code = Code::known("CUSTOM_LOGIN_URL_MALFORMED", 11);
 
         /// The Custom Login URL is mapped to a non-routable IP address in DNS.
         pub const CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS");
+            Code::known("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS", 12);
 
         /// The Custom Login URL is mapped to an IP address which is not reserved for
         /// the current project.
         pub const CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS");
+            Code::known("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS", 13);
 
         /// The Custom Login URL has a non-routable IP address.
         pub const CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS");
+            Code::known("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS", 14);
 
         /// The Custom Login URL has an IP address which is not reserved for the
         /// current project.
         pub const CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS");
+            Code::known("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS", 15);
 
         /// Another scan with the same name (case-sensitive) already exists.
-        pub const DUPLICATE_SCAN_NAME: Code = Code::new("DUPLICATE_SCAN_NAME");
+        pub const DUPLICATE_SCAN_NAME: Code = Code::known("DUPLICATE_SCAN_NAME", 16);
 
         /// A field is set to an invalid value.
-        pub const INVALID_FIELD_VALUE: Code = Code::new("INVALID_FIELD_VALUE");
+        pub const INVALID_FIELD_VALUE: Code = Code::known("INVALID_FIELD_VALUE", 18);
 
         /// There was an error trying to authenticate to the scan target.
         pub const FAILED_TO_AUTHENTICATE_TO_TARGET: Code =
-            Code::new("FAILED_TO_AUTHENTICATE_TO_TARGET");
+            Code::known("FAILED_TO_AUTHENTICATE_TO_TARGET", 19);
 
         /// Finding type value is not specified in the list findings request.
-        pub const FINDING_TYPE_UNSPECIFIED: Code = Code::new("FINDING_TYPE_UNSPECIFIED");
+        pub const FINDING_TYPE_UNSPECIFIED: Code = Code::known("FINDING_TYPE_UNSPECIFIED", 20);
 
         /// Scan targets Compute Engine, yet current project was not whitelisted for
         /// Google Compute Engine Scanning Alpha access.
-        pub const FORBIDDEN_TO_SCAN_COMPUTE: Code = Code::new("FORBIDDEN_TO_SCAN_COMPUTE");
+        pub const FORBIDDEN_TO_SCAN_COMPUTE: Code = Code::known("FORBIDDEN_TO_SCAN_COMPUTE", 21);
 
         /// User tries to update managed scan
         pub const FORBIDDEN_UPDATE_TO_MANAGED_SCAN: Code =
-            Code::new("FORBIDDEN_UPDATE_TO_MANAGED_SCAN");
+            Code::known("FORBIDDEN_UPDATE_TO_MANAGED_SCAN", 43);
 
         /// The supplied filter is malformed. For example, it can not be parsed, does
         /// not have a filter type in expression, or the same filter type appears
         /// more than once.
-        pub const MALFORMED_FILTER: Code = Code::new("MALFORMED_FILTER");
+        pub const MALFORMED_FILTER: Code = Code::known("MALFORMED_FILTER", 22);
 
         /// The supplied resource name is malformed (can not be parsed).
-        pub const MALFORMED_RESOURCE_NAME: Code = Code::new("MALFORMED_RESOURCE_NAME");
+        pub const MALFORMED_RESOURCE_NAME: Code = Code::known("MALFORMED_RESOURCE_NAME", 23);
 
         /// The current project is not in an active state.
-        pub const PROJECT_INACTIVE: Code = Code::new("PROJECT_INACTIVE");
+        pub const PROJECT_INACTIVE: Code = Code::known("PROJECT_INACTIVE", 24);
 
         /// A required field is not set.
-        pub const REQUIRED_FIELD: Code = Code::new("REQUIRED_FIELD");
+        pub const REQUIRED_FIELD: Code = Code::known("REQUIRED_FIELD", 25);
 
         /// Project id, scanconfig id, scanrun id, or finding id are not consistent
         /// with each other in resource name.
-        pub const RESOURCE_NAME_INCONSISTENT: Code = Code::new("RESOURCE_NAME_INCONSISTENT");
+        pub const RESOURCE_NAME_INCONSISTENT: Code = Code::known("RESOURCE_NAME_INCONSISTENT", 26);
 
         /// The scan being requested to start is already running.
-        pub const SCAN_ALREADY_RUNNING: Code = Code::new("SCAN_ALREADY_RUNNING");
+        pub const SCAN_ALREADY_RUNNING: Code = Code::known("SCAN_ALREADY_RUNNING", 27);
 
         /// The scan that was requested to be stopped is not running.
-        pub const SCAN_NOT_RUNNING: Code = Code::new("SCAN_NOT_RUNNING");
+        pub const SCAN_NOT_RUNNING: Code = Code::known("SCAN_NOT_RUNNING", 28);
 
         /// One of the seed URLs does not belong to the current project.
         pub const SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code =
-            Code::new("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT");
+            Code::known("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT", 29);
 
         /// One of the seed URLs is malformed (can not be parsed).
-        pub const SEED_URL_MALFORMED: Code = Code::new("SEED_URL_MALFORMED");
+        pub const SEED_URL_MALFORMED: Code = Code::known("SEED_URL_MALFORMED", 30);
 
         /// One of the seed URLs is mapped to a non-routable IP address in DNS.
         pub const SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code =
-            Code::new("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS");
+            Code::known("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS", 31);
 
         /// One of the seed URLs is mapped to an IP address which is not reserved
         /// for the current project.
         pub const SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code =
-            Code::new("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS");
+            Code::known("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS", 32);
 
         /// One of the seed URLs has on-routable IP address.
         pub const SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code =
-            Code::new("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS");
+            Code::known("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS", 33);
 
         /// One of the seed URLs has an IP address that is not reserved
         /// for the current project.
         pub const SEED_URL_HAS_UNRESERVED_IP_ADDRESS: Code =
-            Code::new("SEED_URL_HAS_UNRESERVED_IP_ADDRESS");
+            Code::known("SEED_URL_HAS_UNRESERVED_IP_ADDRESS", 35);
 
         /// The Web Security Scanner service account is not configured under the
         /// project.
         pub const SERVICE_ACCOUNT_NOT_CONFIGURED: Code =
-            Code::new("SERVICE_ACCOUNT_NOT_CONFIGURED");
+            Code::known("SERVICE_ACCOUNT_NOT_CONFIGURED", 36);
 
         /// A project has reached the maximum number of scans.
-        pub const TOO_MANY_SCANS: Code = Code::new("TOO_MANY_SCANS");
+        pub const TOO_MANY_SCANS: Code = Code::known("TOO_MANY_SCANS", 37);
 
         /// Resolving the details of the current project fails.
         pub const UNABLE_TO_RESOLVE_PROJECT_INFO: Code =
-            Code::new("UNABLE_TO_RESOLVE_PROJECT_INFO");
+            Code::known("UNABLE_TO_RESOLVE_PROJECT_INFO", 38);
 
         /// One or more blacklist patterns were in the wrong format.
         pub const UNSUPPORTED_BLACKLIST_PATTERN_FORMAT: Code =
-            Code::new("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT");
+            Code::known("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT", 39);
 
         /// The supplied filter is not supported.
-        pub const UNSUPPORTED_FILTER: Code = Code::new("UNSUPPORTED_FILTER");
+        pub const UNSUPPORTED_FILTER: Code = Code::known("UNSUPPORTED_FILTER", 40);
 
         /// The supplied finding type is not supported. For example, we do not
         /// provide findings of the given finding type.
-        pub const UNSUPPORTED_FINDING_TYPE: Code = Code::new("UNSUPPORTED_FINDING_TYPE");
+        pub const UNSUPPORTED_FINDING_TYPE: Code = Code::known("UNSUPPORTED_FINDING_TYPE", 41);
 
         /// The URL scheme of one or more of the supplied URLs is not supported.
-        pub const UNSUPPORTED_URL_SCHEME: Code = Code::new("UNSUPPORTED_URL_SCHEME");
+        pub const UNSUPPORTED_URL_SCHEME: Code = Code::known("UNSUPPORTED_URL_SCHEME", 42);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                "OK" => code::OK,
+                "INTERNAL_ERROR" => code::INTERNAL_ERROR,
+                "APPENGINE_API_BACKEND_ERROR" => code::APPENGINE_API_BACKEND_ERROR,
+                "APPENGINE_API_NOT_ACCESSIBLE" => code::APPENGINE_API_NOT_ACCESSIBLE,
+                "APPENGINE_DEFAULT_HOST_MISSING" => code::APPENGINE_DEFAULT_HOST_MISSING,
+                "CANNOT_USE_GOOGLE_COM_ACCOUNT" => code::CANNOT_USE_GOOGLE_COM_ACCOUNT,
+                "CANNOT_USE_OWNER_ACCOUNT" => code::CANNOT_USE_OWNER_ACCOUNT,
+                "COMPUTE_API_BACKEND_ERROR" => code::COMPUTE_API_BACKEND_ERROR,
+                "COMPUTE_API_NOT_ACCESSIBLE" => code::COMPUTE_API_NOT_ACCESSIBLE,
+                "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
+                    code::CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT
+                }
+                "CUSTOM_LOGIN_URL_MALFORMED" => code::CUSTOM_LOGIN_URL_MALFORMED,
+                "CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    code::CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS
+                }
+                "CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
+                    code::CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS
+                }
+                "CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
+                    code::CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS
+                }
+                "CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS" => {
+                    code::CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS
+                }
+                "DUPLICATE_SCAN_NAME" => code::DUPLICATE_SCAN_NAME,
+                "INVALID_FIELD_VALUE" => code::INVALID_FIELD_VALUE,
+                "FAILED_TO_AUTHENTICATE_TO_TARGET" => code::FAILED_TO_AUTHENTICATE_TO_TARGET,
+                "FINDING_TYPE_UNSPECIFIED" => code::FINDING_TYPE_UNSPECIFIED,
+                "FORBIDDEN_TO_SCAN_COMPUTE" => code::FORBIDDEN_TO_SCAN_COMPUTE,
+                "FORBIDDEN_UPDATE_TO_MANAGED_SCAN" => code::FORBIDDEN_UPDATE_TO_MANAGED_SCAN,
+                "MALFORMED_FILTER" => code::MALFORMED_FILTER,
+                "MALFORMED_RESOURCE_NAME" => code::MALFORMED_RESOURCE_NAME,
+                "PROJECT_INACTIVE" => code::PROJECT_INACTIVE,
+                "REQUIRED_FIELD" => code::REQUIRED_FIELD,
+                "RESOURCE_NAME_INCONSISTENT" => code::RESOURCE_NAME_INCONSISTENT,
+                "SCAN_ALREADY_RUNNING" => code::SCAN_ALREADY_RUNNING,
+                "SCAN_NOT_RUNNING" => code::SCAN_NOT_RUNNING,
+                "SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
+                    code::SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT
+                }
+                "SEED_URL_MALFORMED" => code::SEED_URL_MALFORMED,
+                "SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    code::SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS
+                }
+                "SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
+                    code::SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS
+                }
+                "SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
+                    code::SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS
+                }
+                "SEED_URL_HAS_UNRESERVED_IP_ADDRESS" => code::SEED_URL_HAS_UNRESERVED_IP_ADDRESS,
+                "SERVICE_ACCOUNT_NOT_CONFIGURED" => code::SERVICE_ACCOUNT_NOT_CONFIGURED,
+                "TOO_MANY_SCANS" => code::TOO_MANY_SCANS,
+                "UNABLE_TO_RESOLVE_PROJECT_INFO" => code::UNABLE_TO_RESOLVE_PROJECT_INFO,
+                "UNSUPPORTED_BLACKLIST_PATTERN_FORMAT" => {
+                    code::UNSUPPORTED_BLACKLIST_PATTERN_FORMAT
+                }
+                "UNSUPPORTED_FILTER" => code::UNSUPPORTED_FILTER,
+                "UNSUPPORTED_FINDING_TYPE" => code::UNSUPPORTED_FINDING_TYPE,
+                "UNSUPPORTED_URL_SCHEME" => code::UNSUPPORTED_URL_SCHEME,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::OK,
+                1 => code::INTERNAL_ERROR,
+                2 => code::APPENGINE_API_BACKEND_ERROR,
+                3 => code::APPENGINE_API_NOT_ACCESSIBLE,
+                4 => code::APPENGINE_DEFAULT_HOST_MISSING,
+                6 => code::CANNOT_USE_GOOGLE_COM_ACCOUNT,
+                7 => code::CANNOT_USE_OWNER_ACCOUNT,
+                8 => code::COMPUTE_API_BACKEND_ERROR,
+                9 => code::COMPUTE_API_NOT_ACCESSIBLE,
+                10 => code::CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT,
+                11 => code::CUSTOM_LOGIN_URL_MALFORMED,
+                12 => code::CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS,
+                13 => code::CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS,
+                14 => code::CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS,
+                15 => code::CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS,
+                16 => code::DUPLICATE_SCAN_NAME,
+                18 => code::INVALID_FIELD_VALUE,
+                19 => code::FAILED_TO_AUTHENTICATE_TO_TARGET,
+                20 => code::FINDING_TYPE_UNSPECIFIED,
+                21 => code::FORBIDDEN_TO_SCAN_COMPUTE,
+                22 => code::MALFORMED_FILTER,
+                23 => code::MALFORMED_RESOURCE_NAME,
+                24 => code::PROJECT_INACTIVE,
+                25 => code::REQUIRED_FIELD,
+                26 => code::RESOURCE_NAME_INCONSISTENT,
+                27 => code::SCAN_ALREADY_RUNNING,
+                28 => code::SCAN_NOT_RUNNING,
+                29 => code::SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT,
+                30 => code::SEED_URL_MALFORMED,
+                31 => code::SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS,
+                32 => code::SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS,
+                33 => code::SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS,
+                35 => code::SEED_URL_HAS_UNRESERVED_IP_ADDRESS,
+                36 => code::SERVICE_ACCOUNT_NOT_CONFIGURED,
+                37 => code::TOO_MANY_SCANS,
+                38 => code::UNABLE_TO_RESOLVE_PROJECT_INFO,
+                39 => code::UNSUPPORTED_BLACKLIST_PATTERN_FORMAT,
+                40 => code::UNSUPPORTED_FILTER,
+                41 => code::UNSUPPORTED_FINDING_TYPE,
+                42 => code::UNSUPPORTED_URL_SCHEME,
+                43 => code::FORBIDDEN_UPDATE_TO_MANAGED_SCAN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2103,20 +2564,8 @@ pub mod scan_run {
     use super::*;
 
     /// Types of ScanRun execution state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionState(std::borrow::Cow<'static, str>);
-
-    impl ExecutionState {
-        /// Creates a new ExecutionState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ExecutionState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ExecutionState](ExecutionState)
     pub mod execution_state {
@@ -2125,45 +2574,93 @@ pub mod scan_run {
         /// Represents an invalid state caused by internal server error. This value
         /// should never be returned.
         pub const EXECUTION_STATE_UNSPECIFIED: ExecutionState =
-            ExecutionState::new("EXECUTION_STATE_UNSPECIFIED");
+            ExecutionState::known("EXECUTION_STATE_UNSPECIFIED", 0);
 
         /// The scan is waiting in the queue.
-        pub const QUEUED: ExecutionState = ExecutionState::new("QUEUED");
+        pub const QUEUED: ExecutionState = ExecutionState::known("QUEUED", 1);
 
         /// The scan is in progress.
-        pub const SCANNING: ExecutionState = ExecutionState::new("SCANNING");
+        pub const SCANNING: ExecutionState = ExecutionState::known("SCANNING", 2);
 
         /// The scan is either finished or stopped by user.
-        pub const FINISHED: ExecutionState = ExecutionState::new("FINISHED");
+        pub const FINISHED: ExecutionState = ExecutionState::known("FINISHED", 3);
+    }
+
+    impl ExecutionState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ExecutionState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ExecutionState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ExecutionState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ExecutionState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EXECUTION_STATE_UNSPECIFIED" => execution_state::EXECUTION_STATE_UNSPECIFIED,
+                "QUEUED" => execution_state::QUEUED,
+                "SCANNING" => execution_state::SCANNING,
+                "FINISHED" => execution_state::FINISHED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => execution_state::EXECUTION_STATE_UNSPECIFIED,
+                1 => execution_state::QUEUED,
+                2 => execution_state::SCANNING,
+                3 => execution_state::FINISHED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ExecutionState {
         fn default() -> Self {
-            execution_state::EXECUTION_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Types of ScanRun result state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResultState(std::borrow::Cow<'static, str>);
-
-    impl ResultState {
-        /// Creates a new ResultState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ResultState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ResultState](ResultState)
     pub mod result_state {
@@ -2172,27 +2669,87 @@ pub mod scan_run {
         /// Default value. This value is returned when the ScanRun is not yet
         /// finished.
         pub const RESULT_STATE_UNSPECIFIED: ResultState =
-            ResultState::new("RESULT_STATE_UNSPECIFIED");
+            ResultState::known("RESULT_STATE_UNSPECIFIED", 0);
 
         /// The scan finished without errors.
-        pub const SUCCESS: ResultState = ResultState::new("SUCCESS");
+        pub const SUCCESS: ResultState = ResultState::known("SUCCESS", 1);
 
         /// The scan finished with errors.
-        pub const ERROR: ResultState = ResultState::new("ERROR");
+        pub const ERROR: ResultState = ResultState::known("ERROR", 2);
 
         /// The scan was terminated by user.
-        pub const KILLED: ResultState = ResultState::new("KILLED");
+        pub const KILLED: ResultState = ResultState::known("KILLED", 3);
+    }
+
+    impl ResultState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ResultState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResultState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ResultState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ResultState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ResultState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ResultState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RESULT_STATE_UNSPECIFIED" => result_state::RESULT_STATE_UNSPECIFIED,
+                "SUCCESS" => result_state::SUCCESS,
+                "ERROR" => result_state::ERROR,
+                "KILLED" => result_state::KILLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ResultState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => result_state::RESULT_STATE_UNSPECIFIED,
+                1 => result_state::SUCCESS,
+                2 => result_state::ERROR,
+                3 => result_state::KILLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ResultState {
         fn default() -> Self {
-            result_state::RESULT_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2265,61 +2822,115 @@ pub mod scan_run_error_trace {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 8
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
         /// Indicates that the scan run failed due to an internal server error.
-        pub const INTERNAL_ERROR: Code = Code::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Code = Code::known("INTERNAL_ERROR", 1);
 
         /// Indicates a scan configuration error, usually due to outdated ScanConfig
         /// settings, such as starting_urls or the DNS configuration.
-        pub const SCAN_CONFIG_ISSUE: Code = Code::new("SCAN_CONFIG_ISSUE");
+        pub const SCAN_CONFIG_ISSUE: Code = Code::known("SCAN_CONFIG_ISSUE", 2);
 
         /// Indicates an authentication error, usually due to outdated ScanConfig
         /// authentication settings.
-        pub const AUTHENTICATION_CONFIG_ISSUE: Code = Code::new("AUTHENTICATION_CONFIG_ISSUE");
+        pub const AUTHENTICATION_CONFIG_ISSUE: Code = Code::known("AUTHENTICATION_CONFIG_ISSUE", 3);
 
         /// Indicates a scan operation timeout, usually caused by a very large site.
-        pub const TIMED_OUT_WHILE_SCANNING: Code = Code::new("TIMED_OUT_WHILE_SCANNING");
+        pub const TIMED_OUT_WHILE_SCANNING: Code = Code::known("TIMED_OUT_WHILE_SCANNING", 4);
 
         /// Indicates that a scan encountered excessive redirects, either to
         /// authentication or some other page outside of the scan scope.
-        pub const TOO_MANY_REDIRECTS: Code = Code::new("TOO_MANY_REDIRECTS");
+        pub const TOO_MANY_REDIRECTS: Code = Code::known("TOO_MANY_REDIRECTS", 5);
 
         /// Indicates that a scan encountered numerous errors from the web site
         /// pages. When available, most_common_http_error_code field indicates the
         /// most common HTTP error code encountered during the scan.
-        pub const TOO_MANY_HTTP_ERRORS: Code = Code::new("TOO_MANY_HTTP_ERRORS");
+        pub const TOO_MANY_HTTP_ERRORS: Code = Code::known("TOO_MANY_HTTP_ERRORS", 6);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                "INTERNAL_ERROR" => code::INTERNAL_ERROR,
+                "SCAN_CONFIG_ISSUE" => code::SCAN_CONFIG_ISSUE,
+                "AUTHENTICATION_CONFIG_ISSUE" => code::AUTHENTICATION_CONFIG_ISSUE,
+                "TIMED_OUT_WHILE_SCANNING" => code::TIMED_OUT_WHILE_SCANNING,
+                "TOO_MANY_REDIRECTS" => code::TOO_MANY_REDIRECTS,
+                "TOO_MANY_HTTP_ERRORS" => code::TOO_MANY_HTTP_ERRORS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::CODE_UNSPECIFIED,
+                1 => code::INTERNAL_ERROR,
+                2 => code::SCAN_CONFIG_ISSUE,
+                3 => code::AUTHENTICATION_CONFIG_ISSUE,
+                4 => code::TIMED_OUT_WHILE_SCANNING,
+                5 => code::TOO_MANY_REDIRECTS,
+                6 => code::TOO_MANY_HTTP_ERRORS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2472,59 +3083,113 @@ pub mod scan_run_warning_trace {
     /// Output only.
     /// Defines a warning message code.
     /// Next id: 6
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
-
-    impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Code(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
         use super::Code;
 
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
         /// Indicates that a scan discovered an unexpectedly low number of URLs. This
         /// is sometimes caused by complex navigation features or by using a single
         /// URL for numerous pages.
-        pub const INSUFFICIENT_CRAWL_RESULTS: Code = Code::new("INSUFFICIENT_CRAWL_RESULTS");
+        pub const INSUFFICIENT_CRAWL_RESULTS: Code = Code::known("INSUFFICIENT_CRAWL_RESULTS", 1);
 
         /// Indicates that a scan discovered too many URLs to test, or excessive
         /// redundant URLs.
-        pub const TOO_MANY_CRAWL_RESULTS: Code = Code::new("TOO_MANY_CRAWL_RESULTS");
+        pub const TOO_MANY_CRAWL_RESULTS: Code = Code::known("TOO_MANY_CRAWL_RESULTS", 2);
 
         /// Indicates that too many tests have been generated for the scan. Customer
         /// should try reducing the number of starting URLs, increasing the QPS rate,
         /// or narrowing down the scope of the scan using the excluded patterns.
-        pub const TOO_MANY_FUZZ_TASKS: Code = Code::new("TOO_MANY_FUZZ_TASKS");
+        pub const TOO_MANY_FUZZ_TASKS: Code = Code::known("TOO_MANY_FUZZ_TASKS", 3);
 
         /// Indicates that a scan is blocked by IAP.
-        pub const BLOCKED_BY_IAP: Code = Code::new("BLOCKED_BY_IAP");
+        pub const BLOCKED_BY_IAP: Code = Code::known("BLOCKED_BY_IAP", 4);
 
         /// Indicates that no seeds is found for a scan
         pub const NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN: Code =
-            Code::new("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN");
+            Code::known("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN", 5);
+    }
+
+    impl Code {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Code {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                "INSUFFICIENT_CRAWL_RESULTS" => code::INSUFFICIENT_CRAWL_RESULTS,
+                "TOO_MANY_CRAWL_RESULTS" => code::TOO_MANY_CRAWL_RESULTS,
+                "TOO_MANY_FUZZ_TASKS" => code::TOO_MANY_FUZZ_TASKS,
+                "BLOCKED_BY_IAP" => code::BLOCKED_BY_IAP,
+                "NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN" => {
+                    code::NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => code::CODE_UNSPECIFIED,
+                1 => code::INSUFFICIENT_CRAWL_RESULTS,
+                2 => code::TOO_MANY_CRAWL_RESULTS,
+                3 => code::TOO_MANY_FUZZ_TASKS,
+                4 => code::BLOCKED_BY_IAP,
+                5 => code::NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

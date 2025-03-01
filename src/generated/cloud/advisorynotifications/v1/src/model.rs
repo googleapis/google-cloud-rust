@@ -831,20 +831,8 @@ impl wkt::message::Message for UpdateSettingsRequest {
 }
 
 /// Notification view.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationView(std::borrow::Cow<'static, str>);
-
-impl NotificationView {
-    /// Creates a new NotificationView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct NotificationView(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [NotificationView](NotificationView)
 pub mod notification_view {
@@ -852,44 +840,90 @@ pub mod notification_view {
 
     /// Not specified, equivalent to BASIC.
     pub const NOTIFICATION_VIEW_UNSPECIFIED: NotificationView =
-        NotificationView::new("NOTIFICATION_VIEW_UNSPECIFIED");
+        NotificationView::known("NOTIFICATION_VIEW_UNSPECIFIED", 0);
 
     /// Server responses only include title, creation time and Notification ID.
     /// Note: for internal use responses also include the last update time,
     /// the latest message text and whether notification has attachments.
-    pub const BASIC: NotificationView = NotificationView::new("BASIC");
+    pub const BASIC: NotificationView = NotificationView::known("BASIC", 1);
 
     /// Include everything.
-    pub const FULL: NotificationView = NotificationView::new("FULL");
+    pub const FULL: NotificationView = NotificationView::known("FULL", 2);
+}
+
+impl NotificationView {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for NotificationView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(NotificationView::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(NotificationView::from(val)),
+            Enumeration::UnknownNum { str } => Ok(NotificationView::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for NotificationView {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "NOTIFICATION_VIEW_UNSPECIFIED" => notification_view::NOTIFICATION_VIEW_UNSPECIFIED,
+            "BASIC" => notification_view::BASIC,
+            "FULL" => notification_view::FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for NotificationView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => notification_view::NOTIFICATION_VIEW_UNSPECIFIED,
+            1 => notification_view::BASIC,
+            2 => notification_view::FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for NotificationView {
     fn default() -> Self {
-        notification_view::NOTIFICATION_VIEW_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Status of localized text.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LocalizationState(std::borrow::Cow<'static, str>);
-
-impl LocalizationState {
-    /// Creates a new LocalizationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LocalizationState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LocalizationState](LocalizationState)
 pub mod localization_state {
@@ -897,7 +931,7 @@ pub mod localization_state {
 
     /// Not used.
     pub const LOCALIZATION_STATE_UNSPECIFIED: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_UNSPECIFIED");
+        LocalizationState::known("LOCALIZATION_STATE_UNSPECIFIED", 0);
 
     /// Localization is not applicable for requested language. This can happen
     /// when:
@@ -907,44 +941,94 @@ pub mod localization_state {
     ///   localization feature was launched).
     /// - The requested language is English, so only the English text is returned.
     pub const LOCALIZATION_STATE_NOT_APPLICABLE: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_NOT_APPLICABLE");
+        LocalizationState::known("LOCALIZATION_STATE_NOT_APPLICABLE", 1);
 
     /// Localization for requested language is in progress, and not ready yet.
     pub const LOCALIZATION_STATE_PENDING: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_PENDING");
+        LocalizationState::known("LOCALIZATION_STATE_PENDING", 2);
 
     /// Localization for requested language is completed.
     pub const LOCALIZATION_STATE_COMPLETED: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_COMPLETED");
+        LocalizationState::known("LOCALIZATION_STATE_COMPLETED", 3);
+}
+
+impl LocalizationState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LocalizationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LocalizationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LocalizationState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LocalizationState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LocalizationState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LocalizationState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LOCALIZATION_STATE_UNSPECIFIED" => localization_state::LOCALIZATION_STATE_UNSPECIFIED,
+            "LOCALIZATION_STATE_NOT_APPLICABLE" => {
+                localization_state::LOCALIZATION_STATE_NOT_APPLICABLE
+            }
+            "LOCALIZATION_STATE_PENDING" => localization_state::LOCALIZATION_STATE_PENDING,
+            "LOCALIZATION_STATE_COMPLETED" => localization_state::LOCALIZATION_STATE_COMPLETED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LocalizationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => localization_state::LOCALIZATION_STATE_UNSPECIFIED,
+            1 => localization_state::LOCALIZATION_STATE_NOT_APPLICABLE,
+            2 => localization_state::LOCALIZATION_STATE_PENDING,
+            3 => localization_state::LOCALIZATION_STATE_COMPLETED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LocalizationState {
     fn default() -> Self {
-        localization_state::LOCALIZATION_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Type of notification
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationType(std::borrow::Cow<'static, str>);
-
-impl NotificationType {
-    /// Creates a new NotificationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct NotificationType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [NotificationType](NotificationType)
 pub mod notification_type {
@@ -952,33 +1036,101 @@ pub mod notification_type {
 
     /// Default type
     pub const NOTIFICATION_TYPE_UNSPECIFIED: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_UNSPECIFIED");
+        NotificationType::known("NOTIFICATION_TYPE_UNSPECIFIED", 0);
 
     /// Security and privacy advisory notifications
     pub const NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY");
+        NotificationType::known("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY", 1);
 
     /// Sensitive action notifications
     pub const NOTIFICATION_TYPE_SENSITIVE_ACTIONS: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SENSITIVE_ACTIONS");
+        NotificationType::known("NOTIFICATION_TYPE_SENSITIVE_ACTIONS", 2);
 
     /// General security MSA
     pub const NOTIFICATION_TYPE_SECURITY_MSA: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SECURITY_MSA");
+        NotificationType::known("NOTIFICATION_TYPE_SECURITY_MSA", 3);
 
     /// Threat horizons MSA
     pub const NOTIFICATION_TYPE_THREAT_HORIZONS: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_THREAT_HORIZONS");
+        NotificationType::known("NOTIFICATION_TYPE_THREAT_HORIZONS", 4);
+}
+
+impl NotificationType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for NotificationType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(NotificationType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(NotificationType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(NotificationType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for NotificationType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "NOTIFICATION_TYPE_UNSPECIFIED" => notification_type::NOTIFICATION_TYPE_UNSPECIFIED,
+            "NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY" => {
+                notification_type::NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY
+            }
+            "NOTIFICATION_TYPE_SENSITIVE_ACTIONS" => {
+                notification_type::NOTIFICATION_TYPE_SENSITIVE_ACTIONS
+            }
+            "NOTIFICATION_TYPE_SECURITY_MSA" => notification_type::NOTIFICATION_TYPE_SECURITY_MSA,
+            "NOTIFICATION_TYPE_THREAT_HORIZONS" => {
+                notification_type::NOTIFICATION_TYPE_THREAT_HORIZONS
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for NotificationType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => notification_type::NOTIFICATION_TYPE_UNSPECIFIED,
+            1 => notification_type::NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY,
+            2 => notification_type::NOTIFICATION_TYPE_SENSITIVE_ACTIONS,
+            3 => notification_type::NOTIFICATION_TYPE_SECURITY_MSA,
+            4 => notification_type::NOTIFICATION_TYPE_THREAT_HORIZONS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for NotificationType {
     fn default() -> Self {
-        notification_type::NOTIFICATION_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

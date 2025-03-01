@@ -349,103 +349,181 @@ pub mod workflow {
         use super::*;
 
         /// Describes the possibled types of a state error.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
-
-        impl Type {
-            /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Type(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
             use super::Type;
 
             /// No type specified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
             /// Caused by an issue with KMS.
-            pub const KMS_ERROR: Type = Type::new("KMS_ERROR");
+            pub const KMS_ERROR: Type = Type::known("KMS_ERROR", 1);
+        }
+
+        impl Type {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Type {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                    "KMS_ERROR" => r#type::KMS_ERROR,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => r#type::TYPE_UNSPECIFIED,
+                    1 => r#type::KMS_ERROR,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
 
     /// Describes the current state of workflow deployment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Invalid state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The workflow has been deployed successfully and is serving.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
 
         /// Workflow data is unavailable. See the `state_error` field.
-        pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
+        pub const UNAVAILABLE: State = State::known("UNAVAILABLE", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                "UNAVAILABLE" => state::UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                2 => state::UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallLogLevel(std::borrow::Cow<'static, str>);
-
-    impl CallLogLevel {
-        /// Creates a new CallLogLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CallLogLevel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CallLogLevel](CallLogLevel)
     pub mod call_log_level {
@@ -453,28 +531,88 @@ pub mod workflow {
 
         /// No call logging level specified.
         pub const CALL_LOG_LEVEL_UNSPECIFIED: CallLogLevel =
-            CallLogLevel::new("CALL_LOG_LEVEL_UNSPECIFIED");
+            CallLogLevel::known("CALL_LOG_LEVEL_UNSPECIFIED", 0);
 
         /// Log all call steps within workflows, all call returns, and all exceptions
         /// raised.
-        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::new("LOG_ALL_CALLS");
+        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::known("LOG_ALL_CALLS", 1);
 
         /// Log only exceptions that are raised from call steps within workflows.
-        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::new("LOG_ERRORS_ONLY");
+        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::known("LOG_ERRORS_ONLY", 2);
 
         /// Explicitly log nothing.
-        pub const LOG_NONE: CallLogLevel = CallLogLevel::new("LOG_NONE");
+        pub const LOG_NONE: CallLogLevel = CallLogLevel::known("LOG_NONE", 3);
+    }
+
+    impl CallLogLevel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CallLogLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallLogLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CallLogLevel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CallLogLevel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CallLogLevel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CallLogLevel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CALL_LOG_LEVEL_UNSPECIFIED" => call_log_level::CALL_LOG_LEVEL_UNSPECIFIED,
+                "LOG_ALL_CALLS" => call_log_level::LOG_ALL_CALLS,
+                "LOG_ERRORS_ONLY" => call_log_level::LOG_ERRORS_ONLY,
+                "LOG_NONE" => call_log_level::LOG_NONE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CallLogLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => call_log_level::CALL_LOG_LEVEL_UNSPECIFIED,
+                1 => call_log_level::LOG_ALL_CALLS,
+                2 => call_log_level::LOG_ERRORS_ONLY,
+                3 => call_log_level::LOG_NONE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CallLogLevel {
         fn default() -> Self {
-            call_log_level::CALL_LOG_LEVEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 

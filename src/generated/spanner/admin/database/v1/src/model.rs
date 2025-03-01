@@ -390,45 +390,91 @@ pub mod backup {
     use super::*;
 
     /// Indicates the current state of the backup.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The pending backup is still being created. Operations on the
         /// backup may fail with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The backup is complete and ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1472,20 +1518,8 @@ pub mod create_backup_encryption_config {
     use super::*;
 
     /// Encryption types for the backup.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::borrow::Cow<'static, str>);
-
-    impl EncryptionType {
-        /// Creates a new EncryptionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EncryptionType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
@@ -1493,7 +1527,7 @@ pub mod create_backup_encryption_config {
 
         /// Unspecified. Do not use.
         pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
-            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
+            EncryptionType::known("ENCRYPTION_TYPE_UNSPECIFIED", 0);
 
         /// Use the same encryption configuration as the database. This is the
         /// default option when
@@ -1504,27 +1538,87 @@ pub mod create_backup_encryption_config {
         ///
         /// [google.spanner.admin.database.v1.CreateBackupEncryptionConfig]: crate::model::CreateBackupEncryptionConfig
         pub const USE_DATABASE_ENCRYPTION: EncryptionType =
-            EncryptionType::new("USE_DATABASE_ENCRYPTION");
+            EncryptionType::known("USE_DATABASE_ENCRYPTION", 1);
 
         /// Use Google default encryption.
         pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
-            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
+            EncryptionType::known("GOOGLE_DEFAULT_ENCRYPTION", 2);
 
         /// Use customer managed encryption. If specified, `kms_key_name`
         /// must contain a valid Cloud KMS key.
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
-            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+            EncryptionType::known("CUSTOMER_MANAGED_ENCRYPTION", 3);
+    }
+
+    impl EncryptionType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EncryptionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EncryptionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EncryptionType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENCRYPTION_TYPE_UNSPECIFIED" => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                "USE_DATABASE_ENCRYPTION" => encryption_type::USE_DATABASE_ENCRYPTION,
+                "GOOGLE_DEFAULT_ENCRYPTION" => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                "CUSTOMER_MANAGED_ENCRYPTION" => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EncryptionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                1 => encryption_type::USE_DATABASE_ENCRYPTION,
+                2 => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                3 => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EncryptionType {
         fn default() -> Self {
-            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1615,20 +1709,8 @@ pub mod copy_backup_encryption_config {
     use super::*;
 
     /// Encryption types for the backup.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::borrow::Cow<'static, str>);
-
-    impl EncryptionType {
-        /// Creates a new EncryptionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EncryptionType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
@@ -1636,7 +1718,7 @@ pub mod copy_backup_encryption_config {
 
         /// Unspecified. Do not use.
         pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
-            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
+            EncryptionType::known("ENCRYPTION_TYPE_UNSPECIFIED", 0);
 
         /// This is the default option for
         /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]
@@ -1649,27 +1731,89 @@ pub mod copy_backup_encryption_config {
         /// [google.spanner.admin.database.v1.CopyBackupEncryptionConfig]: crate::model::CopyBackupEncryptionConfig
         /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
         pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
-            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
+            EncryptionType::known("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION", 1);
 
         /// Use Google default encryption.
         pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
-            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
+            EncryptionType::known("GOOGLE_DEFAULT_ENCRYPTION", 2);
 
         /// Use customer managed encryption. If specified, either `kms_key_name` or
         /// `kms_key_names` must contain valid Cloud KMS key(s).
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
-            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+            EncryptionType::known("CUSTOMER_MANAGED_ENCRYPTION", 3);
+    }
+
+    impl EncryptionType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EncryptionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EncryptionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EncryptionType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENCRYPTION_TYPE_UNSPECIFIED" => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => {
+                    encryption_type::USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION
+                }
+                "GOOGLE_DEFAULT_ENCRYPTION" => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                "CUSTOMER_MANAGED_ENCRYPTION" => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EncryptionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                1 => encryption_type::USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION,
+                2 => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                3 => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EncryptionType {
         fn default() -> Self {
-            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2597,48 +2741,94 @@ pub mod encryption_info {
     use super::*;
 
     /// Possible encryption types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Encryption type was not specified, though data at rest remains encrypted.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// The data is encrypted at rest with a key that is
         /// fully managed by Google. No key version or status will be populated.
         /// This is the default state.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: Type = Type::new("GOOGLE_DEFAULT_ENCRYPTION");
+        pub const GOOGLE_DEFAULT_ENCRYPTION: Type = Type::known("GOOGLE_DEFAULT_ENCRYPTION", 1);
 
         /// The data is encrypted at rest with a key that is
         /// managed by the customer. The active version of the key. `kms_key_version`
         /// will be populated, and `encryption_status` may be populated.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: Type = Type::new("CUSTOMER_MANAGED_ENCRYPTION");
+        pub const CUSTOMER_MANAGED_ENCRYPTION: Type = Type::known("CUSTOMER_MANAGED_ENCRYPTION", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "GOOGLE_DEFAULT_ENCRYPTION" => r#type::GOOGLE_DEFAULT_ENCRYPTION,
+                "CUSTOMER_MANAGED_ENCRYPTION" => r#type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::GOOGLE_DEFAULT_ENCRYPTION,
+                2 => r#type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2936,34 +3126,22 @@ pub mod database {
     use super::*;
 
     /// Indicates the current state of the database.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The database is still being created. Operations on the database may fail
         /// with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The database is fully created and ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// The database is fully created and ready for use, but is still
         /// being optimized for performance and cannot handle full load.
@@ -2973,18 +3151,78 @@ pub mod database {
         /// from being deleted. When optimizations are complete, the full performance
         /// of the database will be restored, and the database will transition to
         /// `READY` state.
-        pub const READY_OPTIMIZING: State = State::new("READY_OPTIMIZING");
+        pub const READY_OPTIMIZING: State = State::known("READY_OPTIMIZING", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "READY_OPTIMIZING" => state::READY_OPTIMIZING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::READY_OPTIMIZING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4248,20 +4486,8 @@ pub mod restore_database_encryption_config {
     use super::*;
 
     /// Encryption types for the database to be restored.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::borrow::Cow<'static, str>);
-
-    impl EncryptionType {
-        /// Creates a new EncryptionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EncryptionType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
@@ -4269,7 +4495,7 @@ pub mod restore_database_encryption_config {
 
         /// Unspecified. Do not use.
         pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
-            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
+            EncryptionType::known("ENCRYPTION_TYPE_UNSPECIFIED", 0);
 
         /// This is the default option when
         /// [encryption_config][google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]
@@ -4277,27 +4503,89 @@ pub mod restore_database_encryption_config {
         ///
         /// [google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]: crate::model::RestoreDatabaseEncryptionConfig
         pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
-            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
+            EncryptionType::known("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION", 1);
 
         /// Use Google default encryption.
         pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
-            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
+            EncryptionType::known("GOOGLE_DEFAULT_ENCRYPTION", 2);
 
         /// Use customer managed encryption. If specified, `kms_key_name` must
         /// must contain a valid Cloud KMS key.
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
-            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+            EncryptionType::known("CUSTOMER_MANAGED_ENCRYPTION", 3);
+    }
+
+    impl EncryptionType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EncryptionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EncryptionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EncryptionType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EncryptionType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EncryptionType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENCRYPTION_TYPE_UNSPECIFIED" => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION" => {
+                    encryption_type::USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION
+                }
+                "GOOGLE_DEFAULT_ENCRYPTION" => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                "CUSTOMER_MANAGED_ENCRYPTION" => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EncryptionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => encryption_type::ENCRYPTION_TYPE_UNSPECIFIED,
+                1 => encryption_type::USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION,
+                2 => encryption_type::GOOGLE_DEFAULT_ENCRYPTION,
+                3 => encryption_type::CUSTOMER_MANAGED_ENCRYPTION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EncryptionType {
         fn default() -> Self {
-            encryption_type::ENCRYPTION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4884,20 +5172,8 @@ pub mod split_points {
 }
 
 /// Indicates the dialect type of a database.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DatabaseDialect(std::borrow::Cow<'static, str>);
-
-impl DatabaseDialect {
-    /// Creates a new DatabaseDialect instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DatabaseDialect(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DatabaseDialect](DatabaseDialect)
 pub mod database_dialect {
@@ -4906,62 +5182,165 @@ pub mod database_dialect {
     /// Default value. This value will create a database with the
     /// GOOGLE_STANDARD_SQL dialect.
     pub const DATABASE_DIALECT_UNSPECIFIED: DatabaseDialect =
-        DatabaseDialect::new("DATABASE_DIALECT_UNSPECIFIED");
+        DatabaseDialect::known("DATABASE_DIALECT_UNSPECIFIED", 0);
 
     /// GoogleSQL supported SQL.
-    pub const GOOGLE_STANDARD_SQL: DatabaseDialect = DatabaseDialect::new("GOOGLE_STANDARD_SQL");
+    pub const GOOGLE_STANDARD_SQL: DatabaseDialect =
+        DatabaseDialect::known("GOOGLE_STANDARD_SQL", 1);
 
     /// PostgreSQL supported SQL.
-    pub const POSTGRESQL: DatabaseDialect = DatabaseDialect::new("POSTGRESQL");
+    pub const POSTGRESQL: DatabaseDialect = DatabaseDialect::known("POSTGRESQL", 2);
+}
+
+impl DatabaseDialect {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DatabaseDialect {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DatabaseDialect {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DatabaseDialect::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DatabaseDialect::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DatabaseDialect::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DatabaseDialect {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DATABASE_DIALECT_UNSPECIFIED" => database_dialect::DATABASE_DIALECT_UNSPECIFIED,
+            "GOOGLE_STANDARD_SQL" => database_dialect::GOOGLE_STANDARD_SQL,
+            "POSTGRESQL" => database_dialect::POSTGRESQL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DatabaseDialect {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => database_dialect::DATABASE_DIALECT_UNSPECIFIED,
+            1 => database_dialect::GOOGLE_STANDARD_SQL,
+            2 => database_dialect::POSTGRESQL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DatabaseDialect {
     fn default() -> Self {
-        database_dialect::DATABASE_DIALECT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Indicates the type of the restore source.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
-
-impl RestoreSourceType {
-    /// Creates a new RestoreSourceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct RestoreSourceType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [RestoreSourceType](RestoreSourceType)
 pub mod restore_source_type {
     use super::RestoreSourceType;
 
     /// No restore associated.
-    pub const TYPE_UNSPECIFIED: RestoreSourceType = RestoreSourceType::new("TYPE_UNSPECIFIED");
+    pub const TYPE_UNSPECIFIED: RestoreSourceType = RestoreSourceType::known("TYPE_UNSPECIFIED", 0);
 
     /// A backup was used as the source of the restore.
-    pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+    pub const BACKUP: RestoreSourceType = RestoreSourceType::known("BACKUP", 1);
+}
+
+impl RestoreSourceType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for RestoreSourceType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RestoreSourceType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(RestoreSourceType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(RestoreSourceType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(RestoreSourceType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for RestoreSourceType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TYPE_UNSPECIFIED" => restore_source_type::TYPE_UNSPECIFIED,
+            "BACKUP" => restore_source_type::BACKUP,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for RestoreSourceType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => restore_source_type::TYPE_UNSPECIFIED,
+            1 => restore_source_type::BACKUP,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for RestoreSourceType {
     fn default() -> Self {
-        restore_source_type::TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

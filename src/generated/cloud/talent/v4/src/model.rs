@@ -170,20 +170,8 @@ pub mod location {
     use super::*;
 
     /// An enum which represents the type of a location.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LocationType(std::borrow::Cow<'static, str>);
-
-    impl LocationType {
-        /// Creates a new LocationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct LocationType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [LocationType](LocationType)
     pub mod location_type {
@@ -191,53 +179,127 @@ pub mod location {
 
         /// Default value if the type isn't specified.
         pub const LOCATION_TYPE_UNSPECIFIED: LocationType =
-            LocationType::new("LOCATION_TYPE_UNSPECIFIED");
+            LocationType::known("LOCATION_TYPE_UNSPECIFIED", 0);
 
         /// A country level location.
-        pub const COUNTRY: LocationType = LocationType::new("COUNTRY");
+        pub const COUNTRY: LocationType = LocationType::known("COUNTRY", 1);
 
         /// A state or equivalent level location.
-        pub const ADMINISTRATIVE_AREA: LocationType = LocationType::new("ADMINISTRATIVE_AREA");
+        pub const ADMINISTRATIVE_AREA: LocationType = LocationType::known("ADMINISTRATIVE_AREA", 2);
 
         /// A county or equivalent level location.
         pub const SUB_ADMINISTRATIVE_AREA: LocationType =
-            LocationType::new("SUB_ADMINISTRATIVE_AREA");
+            LocationType::known("SUB_ADMINISTRATIVE_AREA", 3);
 
         /// A city or equivalent level location.
-        pub const LOCALITY: LocationType = LocationType::new("LOCALITY");
+        pub const LOCALITY: LocationType = LocationType::known("LOCALITY", 4);
 
         /// A postal code level location.
-        pub const POSTAL_CODE: LocationType = LocationType::new("POSTAL_CODE");
+        pub const POSTAL_CODE: LocationType = LocationType::known("POSTAL_CODE", 5);
 
         /// A sublocality is a subdivision of a locality, for example a city borough,
         /// ward, or arrondissement. Sublocalities are usually recognized by a local
         /// political authority. For example, Manhattan and Brooklyn are recognized
         /// as boroughs by the City of New York, and are therefore modeled as
         /// sublocalities.
-        pub const SUB_LOCALITY: LocationType = LocationType::new("SUB_LOCALITY");
+        pub const SUB_LOCALITY: LocationType = LocationType::known("SUB_LOCALITY", 6);
 
         /// A district or equivalent level location.
-        pub const SUB_LOCALITY_1: LocationType = LocationType::new("SUB_LOCALITY_1");
+        pub const SUB_LOCALITY_1: LocationType = LocationType::known("SUB_LOCALITY_1", 7);
 
         /// A smaller district or equivalent level display.
-        pub const SUB_LOCALITY_2: LocationType = LocationType::new("SUB_LOCALITY_2");
+        pub const SUB_LOCALITY_2: LocationType = LocationType::known("SUB_LOCALITY_2", 8);
 
         /// A neighborhood level location.
-        pub const NEIGHBORHOOD: LocationType = LocationType::new("NEIGHBORHOOD");
+        pub const NEIGHBORHOOD: LocationType = LocationType::known("NEIGHBORHOOD", 9);
 
         /// A street address level location.
-        pub const STREET_ADDRESS: LocationType = LocationType::new("STREET_ADDRESS");
+        pub const STREET_ADDRESS: LocationType = LocationType::known("STREET_ADDRESS", 10);
+    }
+
+    impl LocationType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for LocationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LocationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(LocationType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(LocationType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(LocationType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for LocationType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LOCATION_TYPE_UNSPECIFIED" => location_type::LOCATION_TYPE_UNSPECIFIED,
+                "COUNTRY" => location_type::COUNTRY,
+                "ADMINISTRATIVE_AREA" => location_type::ADMINISTRATIVE_AREA,
+                "SUB_ADMINISTRATIVE_AREA" => location_type::SUB_ADMINISTRATIVE_AREA,
+                "LOCALITY" => location_type::LOCALITY,
+                "POSTAL_CODE" => location_type::POSTAL_CODE,
+                "SUB_LOCALITY" => location_type::SUB_LOCALITY,
+                "SUB_LOCALITY_1" => location_type::SUB_LOCALITY_1,
+                "SUB_LOCALITY_2" => location_type::SUB_LOCALITY_2,
+                "NEIGHBORHOOD" => location_type::NEIGHBORHOOD,
+                "STREET_ADDRESS" => location_type::STREET_ADDRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for LocationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => location_type::LOCATION_TYPE_UNSPECIFIED,
+                1 => location_type::COUNTRY,
+                2 => location_type::ADMINISTRATIVE_AREA,
+                3 => location_type::SUB_ADMINISTRATIVE_AREA,
+                4 => location_type::LOCALITY,
+                5 => location_type::POSTAL_CODE,
+                6 => location_type::SUB_LOCALITY,
+                7 => location_type::SUB_LOCALITY_1,
+                8 => location_type::SUB_LOCALITY_2,
+                9 => location_type::NEIGHBORHOOD,
+                10 => location_type::STREET_ADDRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for LocationType {
         fn default() -> Self {
-            location_type::LOCATION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -456,59 +518,114 @@ pub mod device_info {
     use super::*;
 
     /// An enumeration describing an API access portal and exposure mechanism.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DeviceType(std::borrow::Cow<'static, str>);
-
-    impl DeviceType {
-        /// Creates a new DeviceType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DeviceType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DeviceType](DeviceType)
     pub mod device_type {
         use super::DeviceType;
 
         /// The device type isn't specified.
-        pub const DEVICE_TYPE_UNSPECIFIED: DeviceType = DeviceType::new("DEVICE_TYPE_UNSPECIFIED");
+        pub const DEVICE_TYPE_UNSPECIFIED: DeviceType =
+            DeviceType::known("DEVICE_TYPE_UNSPECIFIED", 0);
 
         /// A desktop web browser, such as, Chrome, Firefox, Safari, or Internet
         /// Explorer)
-        pub const WEB: DeviceType = DeviceType::new("WEB");
+        pub const WEB: DeviceType = DeviceType::known("WEB", 1);
 
         /// A mobile device web browser, such as a phone or tablet with a Chrome
         /// browser.
-        pub const MOBILE_WEB: DeviceType = DeviceType::new("MOBILE_WEB");
+        pub const MOBILE_WEB: DeviceType = DeviceType::known("MOBILE_WEB", 2);
 
         /// An Android device native application.
-        pub const ANDROID: DeviceType = DeviceType::new("ANDROID");
+        pub const ANDROID: DeviceType = DeviceType::known("ANDROID", 3);
 
         /// An iOS device native application.
-        pub const IOS: DeviceType = DeviceType::new("IOS");
+        pub const IOS: DeviceType = DeviceType::known("IOS", 4);
 
         /// A bot, as opposed to a device operated by human beings, such as a web
         /// crawler.
-        pub const BOT: DeviceType = DeviceType::new("BOT");
+        pub const BOT: DeviceType = DeviceType::known("BOT", 5);
 
         /// Other devices types.
-        pub const OTHER: DeviceType = DeviceType::new("OTHER");
+        pub const OTHER: DeviceType = DeviceType::known("OTHER", 6);
+    }
+
+    impl DeviceType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DeviceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DeviceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DeviceType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DeviceType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DeviceType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DeviceType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DEVICE_TYPE_UNSPECIFIED" => device_type::DEVICE_TYPE_UNSPECIFIED,
+                "WEB" => device_type::WEB,
+                "MOBILE_WEB" => device_type::MOBILE_WEB,
+                "ANDROID" => device_type::ANDROID,
+                "IOS" => device_type::IOS,
+                "BOT" => device_type::BOT,
+                "OTHER" => device_type::OTHER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DeviceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => device_type::DEVICE_TYPE_UNSPECIFIED,
+                1 => device_type::WEB,
+                2 => device_type::MOBILE_WEB,
+                3 => device_type::ANDROID,
+                4 => device_type::IOS,
+                5 => device_type::BOT,
+                6 => device_type::OTHER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DeviceType {
         fn default() -> Self {
-            device_type::DEVICE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1086,20 +1203,8 @@ pub mod compensation_info {
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.description]: crate::model::compensation_info::CompensationEntry::description
     /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry.range]: crate::model::compensation_info::CompensationEntry::compensation_amount
     /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED]: crate::model::compensation_info::compensation_unit::COMPENSATION_UNIT_UNSPECIFIED
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompensationType(std::borrow::Cow<'static, str>);
-
-    impl CompensationType {
-        /// Creates a new CompensationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CompensationType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CompensationType](CompensationType)
     pub mod compensation_type {
@@ -1107,64 +1212,122 @@ pub mod compensation_info {
 
         /// Default value.
         pub const COMPENSATION_TYPE_UNSPECIFIED: CompensationType =
-            CompensationType::new("COMPENSATION_TYPE_UNSPECIFIED");
+            CompensationType::known("COMPENSATION_TYPE_UNSPECIFIED", 0);
 
         /// Base compensation: Refers to the fixed amount of money paid to an
         /// employee by an employer in return for work performed. Base compensation
         /// does not include benefits, bonuses or any other potential compensation
         /// from an employer.
-        pub const BASE: CompensationType = CompensationType::new("BASE");
+        pub const BASE: CompensationType = CompensationType::known("BASE", 1);
 
         /// Bonus.
-        pub const BONUS: CompensationType = CompensationType::new("BONUS");
+        pub const BONUS: CompensationType = CompensationType::known("BONUS", 2);
 
         /// Signing bonus.
-        pub const SIGNING_BONUS: CompensationType = CompensationType::new("SIGNING_BONUS");
+        pub const SIGNING_BONUS: CompensationType = CompensationType::known("SIGNING_BONUS", 3);
 
         /// Equity.
-        pub const EQUITY: CompensationType = CompensationType::new("EQUITY");
+        pub const EQUITY: CompensationType = CompensationType::known("EQUITY", 4);
 
         /// Profit sharing.
-        pub const PROFIT_SHARING: CompensationType = CompensationType::new("PROFIT_SHARING");
+        pub const PROFIT_SHARING: CompensationType = CompensationType::known("PROFIT_SHARING", 5);
 
         /// Commission.
-        pub const COMMISSIONS: CompensationType = CompensationType::new("COMMISSIONS");
+        pub const COMMISSIONS: CompensationType = CompensationType::known("COMMISSIONS", 6);
 
         /// Tips.
-        pub const TIPS: CompensationType = CompensationType::new("TIPS");
+        pub const TIPS: CompensationType = CompensationType::known("TIPS", 7);
 
         /// Other compensation type.
         pub const OTHER_COMPENSATION_TYPE: CompensationType =
-            CompensationType::new("OTHER_COMPENSATION_TYPE");
+            CompensationType::known("OTHER_COMPENSATION_TYPE", 8);
+    }
+
+    impl CompensationType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CompensationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompensationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CompensationType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CompensationType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CompensationType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CompensationType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMPENSATION_TYPE_UNSPECIFIED" => compensation_type::COMPENSATION_TYPE_UNSPECIFIED,
+                "BASE" => compensation_type::BASE,
+                "BONUS" => compensation_type::BONUS,
+                "SIGNING_BONUS" => compensation_type::SIGNING_BONUS,
+                "EQUITY" => compensation_type::EQUITY,
+                "PROFIT_SHARING" => compensation_type::PROFIT_SHARING,
+                "COMMISSIONS" => compensation_type::COMMISSIONS,
+                "TIPS" => compensation_type::TIPS,
+                "OTHER_COMPENSATION_TYPE" => compensation_type::OTHER_COMPENSATION_TYPE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CompensationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => compensation_type::COMPENSATION_TYPE_UNSPECIFIED,
+                1 => compensation_type::BASE,
+                2 => compensation_type::BONUS,
+                3 => compensation_type::SIGNING_BONUS,
+                4 => compensation_type::EQUITY,
+                5 => compensation_type::PROFIT_SHARING,
+                6 => compensation_type::COMMISSIONS,
+                7 => compensation_type::TIPS,
+                8 => compensation_type::OTHER_COMPENSATION_TYPE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CompensationType {
         fn default() -> Self {
-            compensation_type::COMPENSATION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Pay frequency.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompensationUnit(std::borrow::Cow<'static, str>);
-
-    impl CompensationUnit {
-        /// Creates a new CompensationUnit instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CompensationUnit(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CompensationUnit](CompensationUnit)
     pub mod compensation_unit {
@@ -1172,40 +1335,108 @@ pub mod compensation_info {
 
         /// Default value.
         pub const COMPENSATION_UNIT_UNSPECIFIED: CompensationUnit =
-            CompensationUnit::new("COMPENSATION_UNIT_UNSPECIFIED");
+            CompensationUnit::known("COMPENSATION_UNIT_UNSPECIFIED", 0);
 
         /// Hourly.
-        pub const HOURLY: CompensationUnit = CompensationUnit::new("HOURLY");
+        pub const HOURLY: CompensationUnit = CompensationUnit::known("HOURLY", 1);
 
         /// Daily.
-        pub const DAILY: CompensationUnit = CompensationUnit::new("DAILY");
+        pub const DAILY: CompensationUnit = CompensationUnit::known("DAILY", 2);
 
         /// Weekly
-        pub const WEEKLY: CompensationUnit = CompensationUnit::new("WEEKLY");
+        pub const WEEKLY: CompensationUnit = CompensationUnit::known("WEEKLY", 3);
 
         /// Monthly.
-        pub const MONTHLY: CompensationUnit = CompensationUnit::new("MONTHLY");
+        pub const MONTHLY: CompensationUnit = CompensationUnit::known("MONTHLY", 4);
 
         /// Yearly.
-        pub const YEARLY: CompensationUnit = CompensationUnit::new("YEARLY");
+        pub const YEARLY: CompensationUnit = CompensationUnit::known("YEARLY", 5);
 
         /// One time.
-        pub const ONE_TIME: CompensationUnit = CompensationUnit::new("ONE_TIME");
+        pub const ONE_TIME: CompensationUnit = CompensationUnit::known("ONE_TIME", 6);
 
         /// Other compensation units.
         pub const OTHER_COMPENSATION_UNIT: CompensationUnit =
-            CompensationUnit::new("OTHER_COMPENSATION_UNIT");
+            CompensationUnit::known("OTHER_COMPENSATION_UNIT", 7);
+    }
+
+    impl CompensationUnit {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CompensationUnit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompensationUnit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CompensationUnit::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CompensationUnit::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CompensationUnit::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CompensationUnit {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMPENSATION_UNIT_UNSPECIFIED" => compensation_unit::COMPENSATION_UNIT_UNSPECIFIED,
+                "HOURLY" => compensation_unit::HOURLY,
+                "DAILY" => compensation_unit::DAILY,
+                "WEEKLY" => compensation_unit::WEEKLY,
+                "MONTHLY" => compensation_unit::MONTHLY,
+                "YEARLY" => compensation_unit::YEARLY,
+                "ONE_TIME" => compensation_unit::ONE_TIME,
+                "OTHER_COMPENSATION_UNIT" => compensation_unit::OTHER_COMPENSATION_UNIT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CompensationUnit {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => compensation_unit::COMPENSATION_UNIT_UNSPECIFIED,
+                1 => compensation_unit::HOURLY,
+                2 => compensation_unit::DAILY,
+                3 => compensation_unit::WEEKLY,
+                4 => compensation_unit::MONTHLY,
+                5 => compensation_unit::YEARLY,
+                6 => compensation_unit::ONE_TIME,
+                7 => compensation_unit::OTHER_COMPENSATION_UNIT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CompensationUnit {
         fn default() -> Self {
-            compensation_unit::COMPENSATION_UNIT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1337,62 +1568,116 @@ pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The batch operation is being prepared for processing.
-        pub const INITIALIZING: State = State::new("INITIALIZING");
+        pub const INITIALIZING: State = State::known("INITIALIZING", 1);
 
         /// The batch operation is actively being processed.
-        pub const PROCESSING: State = State::new("PROCESSING");
+        pub const PROCESSING: State = State::known("PROCESSING", 2);
 
         /// The batch operation is processed, and at least one item has been
         /// successfully processed.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The batch operation is done and no item has been successfully processed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// The batch operation is in the process of cancelling after
         /// [google.longrunning.Operations.CancelOperation][google.longrunning.Operations.CancelOperation]
         /// is called.
-        pub const CANCELLING: State = State::new("CANCELLING");
+        pub const CANCELLING: State = State::known("CANCELLING", 5);
 
         /// The batch operation is done after
         /// [google.longrunning.Operations.CancelOperation][google.longrunning.Operations.CancelOperation]
         /// is called. Any items processed before cancelling are returned in the
         /// response.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "INITIALIZING" => state::INITIALIZING,
+                "PROCESSING" => state::PROCESSING,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "CANCELLING" => state::CANCELLING,
+                "CANCELLED" => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::INITIALIZING,
+                2 => state::PROCESSING,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::CANCELLING,
+                6 => state::CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2084,20 +2369,8 @@ pub mod complete_query_request {
     use super::*;
 
     /// Enum to specify the scope of completion.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompletionScope(std::borrow::Cow<'static, str>);
-
-    impl CompletionScope {
-        /// Creates a new CompletionScope instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CompletionScope(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CompletionScope](CompletionScope)
     pub mod completion_scope {
@@ -2105,43 +2378,89 @@ pub mod complete_query_request {
 
         /// Default value.
         pub const COMPLETION_SCOPE_UNSPECIFIED: CompletionScope =
-            CompletionScope::new("COMPLETION_SCOPE_UNSPECIFIED");
+            CompletionScope::known("COMPLETION_SCOPE_UNSPECIFIED", 0);
 
         /// Suggestions are based only on the data provided by the client.
-        pub const TENANT: CompletionScope = CompletionScope::new("TENANT");
+        pub const TENANT: CompletionScope = CompletionScope::known("TENANT", 1);
 
         /// Suggestions are based on all jobs data in the system that's visible to
         /// the client
-        pub const PUBLIC: CompletionScope = CompletionScope::new("PUBLIC");
+        pub const PUBLIC: CompletionScope = CompletionScope::known("PUBLIC", 2);
+    }
+
+    impl CompletionScope {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CompletionScope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompletionScope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CompletionScope::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CompletionScope::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CompletionScope::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CompletionScope {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMPLETION_SCOPE_UNSPECIFIED" => completion_scope::COMPLETION_SCOPE_UNSPECIFIED,
+                "TENANT" => completion_scope::TENANT,
+                "PUBLIC" => completion_scope::PUBLIC,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CompletionScope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => completion_scope::COMPLETION_SCOPE_UNSPECIFIED,
+                1 => completion_scope::TENANT,
+                2 => completion_scope::PUBLIC,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CompletionScope {
         fn default() -> Self {
-            completion_scope::COMPLETION_SCOPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Enum to specify auto-completion topics.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompletionType(std::borrow::Cow<'static, str>);
-
-    impl CompletionType {
-        /// Creates a new CompletionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CompletionType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CompletionType](CompletionType)
     pub mod completion_type {
@@ -2149,7 +2468,7 @@ pub mod complete_query_request {
 
         /// Default value.
         pub const COMPLETION_TYPE_UNSPECIFIED: CompletionType =
-            CompletionType::new("COMPLETION_TYPE_UNSPECIFIED");
+            CompletionType::known("COMPLETION_TYPE_UNSPECIFIED", 0);
 
         /// Suggest job titles for jobs autocomplete.
         ///
@@ -2161,7 +2480,7 @@ pub mod complete_query_request {
         ///
         /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.JOB_TITLE]: crate::model::complete_query_request::completion_type::JOB_TITLE
         /// [google.cloud.talent.v4.CompleteQueryRequest.language_codes]: crate::model::CompleteQueryRequest::language_codes
-        pub const JOB_TITLE: CompletionType = CompletionType::new("JOB_TITLE");
+        pub const JOB_TITLE: CompletionType = CompletionType::known("JOB_TITLE", 1);
 
         /// Suggest company names for jobs autocomplete.
         ///
@@ -2173,7 +2492,7 @@ pub mod complete_query_request {
         ///
         /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMPANY_NAME]: crate::model::complete_query_request::completion_type::COMPANY_NAME
         /// [google.cloud.talent.v4.CompleteQueryRequest.language_codes]: crate::model::CompleteQueryRequest::language_codes
-        pub const COMPANY_NAME: CompletionType = CompletionType::new("COMPANY_NAME");
+        pub const COMPANY_NAME: CompletionType = CompletionType::known("COMPANY_NAME", 2);
 
         /// Suggest both job titles and company names for jobs autocomplete.
         ///
@@ -2187,18 +2506,78 @@ pub mod complete_query_request {
         ///
         /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMBINED]: crate::model::complete_query_request::completion_type::COMBINED
         /// [google.cloud.talent.v4.CompleteQueryRequest.language_codes]: crate::model::CompleteQueryRequest::language_codes
-        pub const COMBINED: CompletionType = CompletionType::new("COMBINED");
+        pub const COMBINED: CompletionType = CompletionType::known("COMBINED", 3);
+    }
+
+    impl CompletionType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CompletionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompletionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CompletionType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CompletionType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CompletionType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CompletionType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMPLETION_TYPE_UNSPECIFIED" => completion_type::COMPLETION_TYPE_UNSPECIFIED,
+                "JOB_TITLE" => completion_type::JOB_TITLE,
+                "COMPANY_NAME" => completion_type::COMPANY_NAME,
+                "COMBINED" => completion_type::COMBINED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CompletionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => completion_type::COMPLETION_TYPE_UNSPECIFIED,
+                1 => completion_type::JOB_TITLE,
+                2 => completion_type::COMPANY_NAME,
+                3 => completion_type::COMBINED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CompletionType {
         fn default() -> Self {
-            completion_type::COMPLETION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2520,20 +2899,8 @@ pub mod job_event {
 
     /// An enumeration of an event attributed to the behavior of the end user,
     /// such as a job seeker.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JobEventType(std::borrow::Cow<'static, str>);
-
-    impl JobEventType {
-        /// Creates a new JobEventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct JobEventType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [JobEventType](JobEventType)
     pub mod job_event_type {
@@ -2541,13 +2908,13 @@ pub mod job_event {
 
         /// The event is unspecified by other provided values.
         pub const JOB_EVENT_TYPE_UNSPECIFIED: JobEventType =
-            JobEventType::new("JOB_EVENT_TYPE_UNSPECIFIED");
+            JobEventType::known("JOB_EVENT_TYPE_UNSPECIFIED", 0);
 
         /// The job seeker or other entity interacting with the service has
         /// had a job rendered in their view, such as in a list of search results in
         /// a compressed or clipped format. This event is typically associated with
         /// the viewing of a jobs list on a single page by a job seeker.
-        pub const IMPRESSION: JobEventType = JobEventType::new("IMPRESSION");
+        pub const IMPRESSION: JobEventType = JobEventType::known("IMPRESSION", 1);
 
         /// The job seeker, or other entity interacting with the service, has
         /// viewed the details of a job, including the full description. This
@@ -2556,20 +2923,20 @@ pub mod job_event {
         /// [impression][google.cloud.talent.v4.JobEvent.JobEventType.IMPRESSION]).
         ///
         /// [google.cloud.talent.v4.JobEvent.JobEventType.IMPRESSION]: crate::model::job_event::job_event_type::IMPRESSION
-        pub const VIEW: JobEventType = JobEventType::new("VIEW");
+        pub const VIEW: JobEventType = JobEventType::known("VIEW", 2);
 
         /// The job seeker or other entity interacting with the service
         /// performed an action to view a job and was redirected to a different
         /// website for job.
-        pub const VIEW_REDIRECT: JobEventType = JobEventType::new("VIEW_REDIRECT");
+        pub const VIEW_REDIRECT: JobEventType = JobEventType::known("VIEW_REDIRECT", 3);
 
         /// The job seeker or other entity interacting with the service
         /// began the process or demonstrated the intention of applying for a job.
-        pub const APPLICATION_START: JobEventType = JobEventType::new("APPLICATION_START");
+        pub const APPLICATION_START: JobEventType = JobEventType::known("APPLICATION_START", 4);
 
         /// The job seeker or other entity interacting with the service
         /// submitted an application for a job.
-        pub const APPLICATION_FINISH: JobEventType = JobEventType::new("APPLICATION_FINISH");
+        pub const APPLICATION_FINISH: JobEventType = JobEventType::known("APPLICATION_FINISH", 5);
 
         /// The job seeker or other entity interacting with the service
         /// submitted an application for a job with a single click without
@@ -2583,19 +2950,20 @@ pub mod job_event {
         /// [google.cloud.talent.v4.JobEvent.JobEventType.APPLICATION_FINISH]: crate::model::job_event::job_event_type::APPLICATION_FINISH
         /// [google.cloud.talent.v4.JobEvent.JobEventType.APPLICATION_START]: crate::model::job_event::job_event_type::APPLICATION_START
         pub const APPLICATION_QUICK_SUBMISSION: JobEventType =
-            JobEventType::new("APPLICATION_QUICK_SUBMISSION");
+            JobEventType::known("APPLICATION_QUICK_SUBMISSION", 6);
 
         /// The job seeker or other entity interacting with the service
         /// performed an action to apply to a job and was redirected to a different
         /// website to complete the application.
-        pub const APPLICATION_REDIRECT: JobEventType = JobEventType::new("APPLICATION_REDIRECT");
+        pub const APPLICATION_REDIRECT: JobEventType =
+            JobEventType::known("APPLICATION_REDIRECT", 7);
 
         /// The job seeker or other entity interacting with the service began the
         /// process or demonstrated the intention of applying for a job from the
         /// search results page without viewing the details of the job posting.
         /// If sending this event, JobEventType.VIEW event shouldn't be sent.
         pub const APPLICATION_START_FROM_SEARCH: JobEventType =
-            JobEventType::new("APPLICATION_START_FROM_SEARCH");
+            JobEventType::known("APPLICATION_START_FROM_SEARCH", 8);
 
         /// The job seeker, or other entity interacting with the service, performs an
         /// action with a single click from the search results page to apply to a job
@@ -2612,52 +2980,138 @@ pub mod job_event {
         /// [google.cloud.talent.v4.JobEvent.JobEventType.APPLICATION_START]: crate::model::job_event::job_event_type::APPLICATION_START
         /// [google.cloud.talent.v4.JobEvent.JobEventType.VIEW]: crate::model::job_event::job_event_type::VIEW
         pub const APPLICATION_REDIRECT_FROM_SEARCH: JobEventType =
-            JobEventType::new("APPLICATION_REDIRECT_FROM_SEARCH");
+            JobEventType::known("APPLICATION_REDIRECT_FROM_SEARCH", 9);
 
         /// This event should be used when a company submits an application
         /// on behalf of a job seeker. This event is intended for use by staffing
         /// agencies attempting to place candidates.
         pub const APPLICATION_COMPANY_SUBMIT: JobEventType =
-            JobEventType::new("APPLICATION_COMPANY_SUBMIT");
+            JobEventType::known("APPLICATION_COMPANY_SUBMIT", 10);
 
         /// The job seeker or other entity interacting with the service demonstrated
         /// an interest in a job by bookmarking or saving it.
-        pub const BOOKMARK: JobEventType = JobEventType::new("BOOKMARK");
+        pub const BOOKMARK: JobEventType = JobEventType::known("BOOKMARK", 11);
 
         /// The job seeker or other entity interacting with the service was
         /// sent a notification, such as an email alert or device notification,
         /// containing one or more jobs listings generated by the service.
-        pub const NOTIFICATION: JobEventType = JobEventType::new("NOTIFICATION");
+        pub const NOTIFICATION: JobEventType = JobEventType::known("NOTIFICATION", 12);
 
         /// The job seeker or other entity interacting with the service was
         /// employed by the hiring entity (employer). Send this event
         /// only if the job seeker was hired through an application that was
         /// initiated by a search conducted through the Cloud Talent Solution
         /// service.
-        pub const HIRED: JobEventType = JobEventType::new("HIRED");
+        pub const HIRED: JobEventType = JobEventType::known("HIRED", 13);
 
         /// A recruiter or staffing agency submitted an application on behalf of the
         /// candidate after interacting with the service to identify a suitable job
         /// posting.
-        pub const SENT_CV: JobEventType = JobEventType::new("SENT_CV");
+        pub const SENT_CV: JobEventType = JobEventType::known("SENT_CV", 14);
 
         /// The entity interacting with the service (for example, the job seeker),
         /// was granted an initial interview by the hiring entity (employer). This
         /// event should only be sent if the job seeker was granted an interview as
         /// part of an application that was initiated by a search conducted through /
         /// recommendation provided by the Cloud Talent Solution service.
-        pub const INTERVIEW_GRANTED: JobEventType = JobEventType::new("INTERVIEW_GRANTED");
+        pub const INTERVIEW_GRANTED: JobEventType = JobEventType::known("INTERVIEW_GRANTED", 15);
+    }
+
+    impl JobEventType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for JobEventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for JobEventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(JobEventType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(JobEventType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(JobEventType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for JobEventType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "JOB_EVENT_TYPE_UNSPECIFIED" => job_event_type::JOB_EVENT_TYPE_UNSPECIFIED,
+                "IMPRESSION" => job_event_type::IMPRESSION,
+                "VIEW" => job_event_type::VIEW,
+                "VIEW_REDIRECT" => job_event_type::VIEW_REDIRECT,
+                "APPLICATION_START" => job_event_type::APPLICATION_START,
+                "APPLICATION_FINISH" => job_event_type::APPLICATION_FINISH,
+                "APPLICATION_QUICK_SUBMISSION" => job_event_type::APPLICATION_QUICK_SUBMISSION,
+                "APPLICATION_REDIRECT" => job_event_type::APPLICATION_REDIRECT,
+                "APPLICATION_START_FROM_SEARCH" => job_event_type::APPLICATION_START_FROM_SEARCH,
+                "APPLICATION_REDIRECT_FROM_SEARCH" => {
+                    job_event_type::APPLICATION_REDIRECT_FROM_SEARCH
+                }
+                "APPLICATION_COMPANY_SUBMIT" => job_event_type::APPLICATION_COMPANY_SUBMIT,
+                "BOOKMARK" => job_event_type::BOOKMARK,
+                "NOTIFICATION" => job_event_type::NOTIFICATION,
+                "HIRED" => job_event_type::HIRED,
+                "SENT_CV" => job_event_type::SENT_CV,
+                "INTERVIEW_GRANTED" => job_event_type::INTERVIEW_GRANTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for JobEventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => job_event_type::JOB_EVENT_TYPE_UNSPECIFIED,
+                1 => job_event_type::IMPRESSION,
+                2 => job_event_type::VIEW,
+                3 => job_event_type::VIEW_REDIRECT,
+                4 => job_event_type::APPLICATION_START,
+                5 => job_event_type::APPLICATION_FINISH,
+                6 => job_event_type::APPLICATION_QUICK_SUBMISSION,
+                7 => job_event_type::APPLICATION_REDIRECT,
+                8 => job_event_type::APPLICATION_START_FROM_SEARCH,
+                9 => job_event_type::APPLICATION_REDIRECT_FROM_SEARCH,
+                10 => job_event_type::APPLICATION_COMPANY_SUBMIT,
+                11 => job_event_type::BOOKMARK,
+                12 => job_event_type::NOTIFICATION,
+                13 => job_event_type::HIRED,
+                14 => job_event_type::SENT_CV,
+                15 => job_event_type::INTERVIEW_GRANTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for JobEventType {
         fn default() -> Self {
-            job_event_type::JOB_EVENT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3199,20 +3653,8 @@ pub mod location_filter {
     use super::*;
 
     /// Specify whether to include telecommute jobs.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TelecommutePreference(std::borrow::Cow<'static, str>);
-
-    impl TelecommutePreference {
-        /// Creates a new TelecommutePreference instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TelecommutePreference(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TelecommutePreference](TelecommutePreference)
     pub mod telecommute_preference {
@@ -3220,31 +3662,93 @@ pub mod location_filter {
 
         /// Default value if the telecommute preference isn't specified.
         pub const TELECOMMUTE_PREFERENCE_UNSPECIFIED: TelecommutePreference =
-            TelecommutePreference::new("TELECOMMUTE_PREFERENCE_UNSPECIFIED");
+            TelecommutePreference::known("TELECOMMUTE_PREFERENCE_UNSPECIFIED", 0);
 
         /// Deprecated: Ignore telecommute status of jobs. Use
         /// TELECOMMUTE_JOBS_EXCLUDED if want to exclude telecommute jobs.
         pub const TELECOMMUTE_EXCLUDED: TelecommutePreference =
-            TelecommutePreference::new("TELECOMMUTE_EXCLUDED");
+            TelecommutePreference::known("TELECOMMUTE_EXCLUDED", 1);
 
         /// Allow telecommute jobs.
         pub const TELECOMMUTE_ALLOWED: TelecommutePreference =
-            TelecommutePreference::new("TELECOMMUTE_ALLOWED");
+            TelecommutePreference::known("TELECOMMUTE_ALLOWED", 2);
 
         /// Exclude telecommute jobs.
         pub const TELECOMMUTE_JOBS_EXCLUDED: TelecommutePreference =
-            TelecommutePreference::new("TELECOMMUTE_JOBS_EXCLUDED");
+            TelecommutePreference::known("TELECOMMUTE_JOBS_EXCLUDED", 3);
+    }
+
+    impl TelecommutePreference {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TelecommutePreference {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TelecommutePreference {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TelecommutePreference::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TelecommutePreference::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TelecommutePreference::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TelecommutePreference {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TELECOMMUTE_PREFERENCE_UNSPECIFIED" => {
+                    telecommute_preference::TELECOMMUTE_PREFERENCE_UNSPECIFIED
+                }
+                "TELECOMMUTE_EXCLUDED" => telecommute_preference::TELECOMMUTE_EXCLUDED,
+                "TELECOMMUTE_ALLOWED" => telecommute_preference::TELECOMMUTE_ALLOWED,
+                "TELECOMMUTE_JOBS_EXCLUDED" => telecommute_preference::TELECOMMUTE_JOBS_EXCLUDED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TelecommutePreference {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => telecommute_preference::TELECOMMUTE_PREFERENCE_UNSPECIFIED,
+                1 => telecommute_preference::TELECOMMUTE_EXCLUDED,
+                2 => telecommute_preference::TELECOMMUTE_ALLOWED,
+                3 => telecommute_preference::TELECOMMUTE_JOBS_EXCLUDED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TelecommutePreference {
         fn default() -> Self {
-            telecommute_preference::TELECOMMUTE_PREFERENCE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3333,27 +3837,16 @@ pub mod compensation_filter {
     use super::*;
 
     /// Specify the type of filtering.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FilterType(std::borrow::Cow<'static, str>);
-
-    impl FilterType {
-        /// Creates a new FilterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FilterType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FilterType](FilterType)
     pub mod filter_type {
         use super::FilterType;
 
         /// Filter type unspecified. Position holder, INVALID, should never be used.
-        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new("FILTER_TYPE_UNSPECIFIED");
+        pub const FILTER_TYPE_UNSPECIFIED: FilterType =
+            FilterType::known("FILTER_TYPE_UNSPECIFIED", 0);
 
         /// Filter by `base compensation entry's` unit. A job is a match if and
         /// only if the job contains a base CompensationEntry and the base
@@ -3367,7 +3860,7 @@ pub mod compensation_filter {
         ///
         /// [google.cloud.talent.v4.CompensationFilter.units]: crate::model::CompensationFilter::units
         /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry]: crate::model::compensation_info::CompensationEntry
-        pub const UNIT_ONLY: FilterType = FilterType::new("UNIT_ONLY");
+        pub const UNIT_ONLY: FilterType = FilterType::known("UNIT_ONLY", 1);
 
         /// Filter by `base compensation entry's` unit and amount / range. A job
         /// is a match if and only if the job contains a base CompensationEntry, and
@@ -3388,7 +3881,7 @@ pub mod compensation_filter {
         /// [google.cloud.talent.v4.CompensationInfo.CompensationEntry]: crate::model::compensation_info::CompensationEntry
         /// [google.cloud.talent.v4.CompensationInfo.CompensationRange]: crate::model::compensation_info::CompensationRange
         /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit]: crate::model::compensation_info::CompensationUnit
-        pub const UNIT_AND_AMOUNT: FilterType = FilterType::new("UNIT_AND_AMOUNT");
+        pub const UNIT_AND_AMOUNT: FilterType = FilterType::known("UNIT_AND_AMOUNT", 2);
 
         /// Filter by annualized base compensation amount and `base compensation
         /// entry's` unit. Populate
@@ -3397,7 +3890,8 @@ pub mod compensation_filter {
         ///
         /// [google.cloud.talent.v4.CompensationFilter.range]: crate::model::CompensationFilter::range
         /// [google.cloud.talent.v4.CompensationFilter.units]: crate::model::CompensationFilter::units
-        pub const ANNUALIZED_BASE_AMOUNT: FilterType = FilterType::new("ANNUALIZED_BASE_AMOUNT");
+        pub const ANNUALIZED_BASE_AMOUNT: FilterType =
+            FilterType::known("ANNUALIZED_BASE_AMOUNT", 3);
 
         /// Filter by annualized total compensation amount and `base compensation
         /// entry's` unit . Populate
@@ -3406,18 +3900,81 @@ pub mod compensation_filter {
         ///
         /// [google.cloud.talent.v4.CompensationFilter.range]: crate::model::CompensationFilter::range
         /// [google.cloud.talent.v4.CompensationFilter.units]: crate::model::CompensationFilter::units
-        pub const ANNUALIZED_TOTAL_AMOUNT: FilterType = FilterType::new("ANNUALIZED_TOTAL_AMOUNT");
+        pub const ANNUALIZED_TOTAL_AMOUNT: FilterType =
+            FilterType::known("ANNUALIZED_TOTAL_AMOUNT", 4);
+    }
+
+    impl FilterType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FilterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FilterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FilterType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FilterType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FilterType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FilterType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FILTER_TYPE_UNSPECIFIED" => filter_type::FILTER_TYPE_UNSPECIFIED,
+                "UNIT_ONLY" => filter_type::UNIT_ONLY,
+                "UNIT_AND_AMOUNT" => filter_type::UNIT_AND_AMOUNT,
+                "ANNUALIZED_BASE_AMOUNT" => filter_type::ANNUALIZED_BASE_AMOUNT,
+                "ANNUALIZED_TOTAL_AMOUNT" => filter_type::ANNUALIZED_TOTAL_AMOUNT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FilterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => filter_type::FILTER_TYPE_UNSPECIFIED,
+                1 => filter_type::UNIT_ONLY,
+                2 => filter_type::UNIT_AND_AMOUNT,
+                3 => filter_type::ANNUALIZED_BASE_AMOUNT,
+                4 => filter_type::ANNUALIZED_TOTAL_AMOUNT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FilterType {
         fn default() -> Self {
-            filter_type::FILTER_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3577,20 +4134,8 @@ pub mod commute_filter {
     use super::*;
 
     /// The traffic density to use when calculating commute time.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoadTraffic(std::borrow::Cow<'static, str>);
-
-    impl RoadTraffic {
-        /// Creates a new RoadTraffic instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RoadTraffic(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RoadTraffic](RoadTraffic)
     pub mod road_traffic {
@@ -3598,24 +4143,82 @@ pub mod commute_filter {
 
         /// Road traffic situation isn't specified.
         pub const ROAD_TRAFFIC_UNSPECIFIED: RoadTraffic =
-            RoadTraffic::new("ROAD_TRAFFIC_UNSPECIFIED");
+            RoadTraffic::known("ROAD_TRAFFIC_UNSPECIFIED", 0);
 
         /// Optimal commute time without considering any traffic impact.
-        pub const TRAFFIC_FREE: RoadTraffic = RoadTraffic::new("TRAFFIC_FREE");
+        pub const TRAFFIC_FREE: RoadTraffic = RoadTraffic::known("TRAFFIC_FREE", 1);
 
         /// Commute time calculation takes in account the peak traffic impact.
-        pub const BUSY_HOUR: RoadTraffic = RoadTraffic::new("BUSY_HOUR");
+        pub const BUSY_HOUR: RoadTraffic = RoadTraffic::known("BUSY_HOUR", 2);
+    }
+
+    impl RoadTraffic {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RoadTraffic {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoadTraffic {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RoadTraffic::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RoadTraffic::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RoadTraffic::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RoadTraffic {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ROAD_TRAFFIC_UNSPECIFIED" => road_traffic::ROAD_TRAFFIC_UNSPECIFIED,
+                "TRAFFIC_FREE" => road_traffic::TRAFFIC_FREE,
+                "BUSY_HOUR" => road_traffic::BUSY_HOUR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RoadTraffic {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => road_traffic::ROAD_TRAFFIC_UNSPECIFIED,
+                1 => road_traffic::TRAFFIC_FREE,
+                2 => road_traffic::BUSY_HOUR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RoadTraffic {
         fn default() -> Self {
-            road_traffic::ROAD_TRAFFIC_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -5499,20 +6102,8 @@ pub mod search_jobs_request {
         /// [CustomRankingInfo.ranking_expression][google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression].
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ImportanceLevel(std::borrow::Cow<'static, str>);
-
-        impl ImportanceLevel {
-            /// Creates a new ImportanceLevel instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct ImportanceLevel(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [ImportanceLevel](ImportanceLevel)
         pub mod importance_level {
@@ -5520,68 +6111,124 @@ pub mod search_jobs_request {
 
             /// Default value if the importance level isn't specified.
             pub const IMPORTANCE_LEVEL_UNSPECIFIED: ImportanceLevel =
-                ImportanceLevel::new("IMPORTANCE_LEVEL_UNSPECIFIED");
+                ImportanceLevel::known("IMPORTANCE_LEVEL_UNSPECIFIED", 0);
 
             /// The given ranking expression is of None importance, existing relevance
             /// score (determined by API algorithm) dominates job's final ranking
             /// position.
-            pub const NONE: ImportanceLevel = ImportanceLevel::new("NONE");
+            pub const NONE: ImportanceLevel = ImportanceLevel::known("NONE", 1);
 
             /// The given ranking expression is of Low importance in terms of job's
             /// final ranking position compared to existing relevance
             /// score (determined by API algorithm).
-            pub const LOW: ImportanceLevel = ImportanceLevel::new("LOW");
+            pub const LOW: ImportanceLevel = ImportanceLevel::known("LOW", 2);
 
             /// The given ranking expression is of Mild importance in terms of job's
             /// final ranking position compared to existing relevance
             /// score (determined by API algorithm).
-            pub const MILD: ImportanceLevel = ImportanceLevel::new("MILD");
+            pub const MILD: ImportanceLevel = ImportanceLevel::known("MILD", 3);
 
             /// The given ranking expression is of Medium importance in terms of job's
             /// final ranking position compared to existing relevance
             /// score (determined by API algorithm).
-            pub const MEDIUM: ImportanceLevel = ImportanceLevel::new("MEDIUM");
+            pub const MEDIUM: ImportanceLevel = ImportanceLevel::known("MEDIUM", 4);
 
             /// The given ranking expression is of High importance in terms of job's
             /// final ranking position compared to existing relevance
             /// score (determined by API algorithm).
-            pub const HIGH: ImportanceLevel = ImportanceLevel::new("HIGH");
+            pub const HIGH: ImportanceLevel = ImportanceLevel::known("HIGH", 5);
 
             /// The given ranking expression is of Extreme importance, and dominates
             /// job's final ranking position with existing relevance
             /// score (determined by API algorithm) ignored.
-            pub const EXTREME: ImportanceLevel = ImportanceLevel::new("EXTREME");
+            pub const EXTREME: ImportanceLevel = ImportanceLevel::known("EXTREME", 6);
+        }
+
+        impl ImportanceLevel {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for ImportanceLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ImportanceLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(ImportanceLevel::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(ImportanceLevel::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(ImportanceLevel::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for ImportanceLevel {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "IMPORTANCE_LEVEL_UNSPECIFIED" => {
+                        importance_level::IMPORTANCE_LEVEL_UNSPECIFIED
+                    }
+                    "NONE" => importance_level::NONE,
+                    "LOW" => importance_level::LOW,
+                    "MILD" => importance_level::MILD,
+                    "MEDIUM" => importance_level::MEDIUM,
+                    "HIGH" => importance_level::HIGH,
+                    "EXTREME" => importance_level::EXTREME,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for ImportanceLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => importance_level::IMPORTANCE_LEVEL_UNSPECIFIED,
+                    1 => importance_level::NONE,
+                    2 => importance_level::LOW,
+                    3 => importance_level::MILD,
+                    4 => importance_level::MEDIUM,
+                    5 => importance_level::HIGH,
+                    6 => importance_level::EXTREME,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for ImportanceLevel {
             fn default() -> Self {
-                importance_level::IMPORTANCE_LEVEL_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
 
     /// A string-represented enumeration of the job search mode. The service
     /// operate differently for different modes of service.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SearchMode(std::borrow::Cow<'static, str>);
-
-    impl SearchMode {
-        /// Creates a new SearchMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SearchMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SearchMode](SearchMode)
     pub mod search_mode {
@@ -5589,29 +6236,88 @@ pub mod search_jobs_request {
 
         /// The mode of the search method isn't specified. The default search
         /// behavior is identical to JOB_SEARCH search behavior.
-        pub const SEARCH_MODE_UNSPECIFIED: SearchMode = SearchMode::new("SEARCH_MODE_UNSPECIFIED");
+        pub const SEARCH_MODE_UNSPECIFIED: SearchMode =
+            SearchMode::known("SEARCH_MODE_UNSPECIFIED", 0);
 
         /// The job search matches against all jobs, and featured jobs
         /// (jobs with promotionValue > 0) are not specially handled.
-        pub const JOB_SEARCH: SearchMode = SearchMode::new("JOB_SEARCH");
+        pub const JOB_SEARCH: SearchMode = SearchMode::known("JOB_SEARCH", 1);
 
         /// The job search matches only against featured jobs (jobs with a
         /// promotionValue > 0). This method doesn't return any jobs having a
         /// promotionValue <= 0. The search results order is determined by the
         /// promotionValue (jobs with a higher promotionValue are returned higher up
         /// in the search results), with relevance being used as a tiebreaker.
-        pub const FEATURED_JOB_SEARCH: SearchMode = SearchMode::new("FEATURED_JOB_SEARCH");
+        pub const FEATURED_JOB_SEARCH: SearchMode = SearchMode::known("FEATURED_JOB_SEARCH", 2);
+    }
+
+    impl SearchMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SearchMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SearchMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SearchMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SearchMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SearchMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SearchMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEARCH_MODE_UNSPECIFIED" => search_mode::SEARCH_MODE_UNSPECIFIED,
+                "JOB_SEARCH" => search_mode::JOB_SEARCH,
+                "FEATURED_JOB_SEARCH" => search_mode::FEATURED_JOB_SEARCH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SearchMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => search_mode::SEARCH_MODE_UNSPECIFIED,
+                1 => search_mode::JOB_SEARCH,
+                2 => search_mode::FEATURED_JOB_SEARCH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SearchMode {
         fn default() -> Self {
-            search_mode::SEARCH_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -5626,20 +6332,8 @@ pub mod search_jobs_request {
     /// latency might be lower but we can't guarantee that all results are
     /// returned. If you are using page offset, latency might be higher but all
     /// results are returned.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DiversificationLevel(std::borrow::Cow<'static, str>);
-
-    impl DiversificationLevel {
-        /// Creates a new DiversificationLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DiversificationLevel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DiversificationLevel](DiversificationLevel)
     pub mod diversification_level {
@@ -5647,52 +6341,122 @@ pub mod search_jobs_request {
 
         /// The diversification level isn't specified.
         pub const DIVERSIFICATION_LEVEL_UNSPECIFIED: DiversificationLevel =
-            DiversificationLevel::new("DIVERSIFICATION_LEVEL_UNSPECIFIED");
+            DiversificationLevel::known("DIVERSIFICATION_LEVEL_UNSPECIFIED", 0);
 
         /// Disables diversification. Jobs that would normally be pushed to the last
         /// page would not have their positions altered. This may result in highly
         /// similar jobs appearing in sequence in the search results.
-        pub const DISABLED: DiversificationLevel = DiversificationLevel::new("DISABLED");
+        pub const DISABLED: DiversificationLevel = DiversificationLevel::known("DISABLED", 1);
 
         /// Default diversifying behavior. The result list is ordered so that
         /// highly similar results are pushed to the end of the last page of search
         /// results.
-        pub const SIMPLE: DiversificationLevel = DiversificationLevel::new("SIMPLE");
+        pub const SIMPLE: DiversificationLevel = DiversificationLevel::known("SIMPLE", 2);
 
         /// Only one job from the same company will be shown at once, other jobs
         /// under same company are pushed to the end of the last page of search
         /// result.
         pub const ONE_PER_COMPANY: DiversificationLevel =
-            DiversificationLevel::new("ONE_PER_COMPANY");
+            DiversificationLevel::known("ONE_PER_COMPANY", 3);
 
         /// Similar to ONE_PER_COMPANY, but it allows at most two jobs in the
         /// same company to be shown at once, the other jobs under same company are
         /// pushed to the end of the last page of search result.
         pub const TWO_PER_COMPANY: DiversificationLevel =
-            DiversificationLevel::new("TWO_PER_COMPANY");
+            DiversificationLevel::known("TWO_PER_COMPANY", 4);
 
         /// Similar to ONE_PER_COMPANY, but it allows at most three jobs in the
         /// same company to be shown at once, the other jobs under same company are
         /// dropped.
         pub const MAX_THREE_PER_COMPANY: DiversificationLevel =
-            DiversificationLevel::new("MAX_THREE_PER_COMPANY");
+            DiversificationLevel::known("MAX_THREE_PER_COMPANY", 6);
 
         /// The result list is ordered such that somewhat similar results are pushed
         /// to the end of the last page of the search results. This option is
         /// recommended if SIMPLE diversification does not diversify enough.
         pub const DIVERSIFY_BY_LOOSER_SIMILARITY: DiversificationLevel =
-            DiversificationLevel::new("DIVERSIFY_BY_LOOSER_SIMILARITY");
+            DiversificationLevel::known("DIVERSIFY_BY_LOOSER_SIMILARITY", 5);
+    }
+
+    impl DiversificationLevel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DiversificationLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DiversificationLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DiversificationLevel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DiversificationLevel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DiversificationLevel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DiversificationLevel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DIVERSIFICATION_LEVEL_UNSPECIFIED" => {
+                    diversification_level::DIVERSIFICATION_LEVEL_UNSPECIFIED
+                }
+                "DISABLED" => diversification_level::DISABLED,
+                "SIMPLE" => diversification_level::SIMPLE,
+                "ONE_PER_COMPANY" => diversification_level::ONE_PER_COMPANY,
+                "TWO_PER_COMPANY" => diversification_level::TWO_PER_COMPANY,
+                "MAX_THREE_PER_COMPANY" => diversification_level::MAX_THREE_PER_COMPANY,
+                "DIVERSIFY_BY_LOOSER_SIMILARITY" => {
+                    diversification_level::DIVERSIFY_BY_LOOSER_SIMILARITY
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DiversificationLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => diversification_level::DIVERSIFICATION_LEVEL_UNSPECIFIED,
+                1 => diversification_level::DISABLED,
+                2 => diversification_level::SIMPLE,
+                3 => diversification_level::ONE_PER_COMPANY,
+                4 => diversification_level::TWO_PER_COMPANY,
+                5 => diversification_level::DIVERSIFY_BY_LOOSER_SIMILARITY,
+                6 => diversification_level::MAX_THREE_PER_COMPANY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DiversificationLevel {
         fn default() -> Self {
-            diversification_level::DIVERSIFICATION_LEVEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -5715,20 +6479,8 @@ pub mod search_jobs_request {
     /// requests.
     ///
     /// [google.cloud.talent.v4.Company.keyword_searchable_job_custom_attributes]: crate::model::Company::keyword_searchable_job_custom_attributes
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeywordMatchMode(std::borrow::Cow<'static, str>);
-
-    impl KeywordMatchMode {
-        /// Creates a new KeywordMatchMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct KeywordMatchMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [KeywordMatchMode](KeywordMatchMode)
     pub mod keyword_match_mode {
@@ -5740,11 +6492,11 @@ pub mod search_jobs_request {
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_ALL]: crate::model::search_jobs_request::keyword_match_mode::KEYWORD_MATCH_ALL
         pub const KEYWORD_MATCH_MODE_UNSPECIFIED: KeywordMatchMode =
-            KeywordMatchMode::new("KEYWORD_MATCH_MODE_UNSPECIFIED");
+            KeywordMatchMode::known("KEYWORD_MATCH_MODE_UNSPECIFIED", 0);
 
         /// Disables keyword matching.
         pub const KEYWORD_MATCH_DISABLED: KeywordMatchMode =
-            KeywordMatchMode::new("KEYWORD_MATCH_DISABLED");
+            KeywordMatchMode::known("KEYWORD_MATCH_DISABLED", 1);
 
         /// Enable keyword matching over
         /// [Job.title][google.cloud.talent.v4.Job.title],
@@ -5762,45 +6514,96 @@ pub mod search_jobs_request {
         /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
         /// [google.cloud.talent.v4.Job.qualifications]: crate::model::Job::qualifications
         /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
-        pub const KEYWORD_MATCH_ALL: KeywordMatchMode = KeywordMatchMode::new("KEYWORD_MATCH_ALL");
+        pub const KEYWORD_MATCH_ALL: KeywordMatchMode =
+            KeywordMatchMode::known("KEYWORD_MATCH_ALL", 2);
 
         /// Only enable keyword matching over
         /// [Job.title][google.cloud.talent.v4.Job.title].
         ///
         /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
         pub const KEYWORD_MATCH_TITLE_ONLY: KeywordMatchMode =
-            KeywordMatchMode::new("KEYWORD_MATCH_TITLE_ONLY");
+            KeywordMatchMode::known("KEYWORD_MATCH_TITLE_ONLY", 3);
+    }
+
+    impl KeywordMatchMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for KeywordMatchMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeywordMatchMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(KeywordMatchMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(KeywordMatchMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(KeywordMatchMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for KeywordMatchMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "KEYWORD_MATCH_MODE_UNSPECIFIED" => {
+                    keyword_match_mode::KEYWORD_MATCH_MODE_UNSPECIFIED
+                }
+                "KEYWORD_MATCH_DISABLED" => keyword_match_mode::KEYWORD_MATCH_DISABLED,
+                "KEYWORD_MATCH_ALL" => keyword_match_mode::KEYWORD_MATCH_ALL,
+                "KEYWORD_MATCH_TITLE_ONLY" => keyword_match_mode::KEYWORD_MATCH_TITLE_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for KeywordMatchMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => keyword_match_mode::KEYWORD_MATCH_MODE_UNSPECIFIED,
+                1 => keyword_match_mode::KEYWORD_MATCH_DISABLED,
+                2 => keyword_match_mode::KEYWORD_MATCH_ALL,
+                3 => keyword_match_mode::KEYWORD_MATCH_TITLE_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for KeywordMatchMode {
         fn default() -> Self {
-            keyword_match_mode::KEYWORD_MATCH_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The relevance threshold of the search results. The higher relevance
     /// threshold is, the higher relevant results are shown and the less number of
     /// results are returned.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RelevanceThreshold(std::borrow::Cow<'static, str>);
-
-    impl RelevanceThreshold {
-        /// Creates a new RelevanceThreshold instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RelevanceThreshold(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RelevanceThreshold](RelevanceThreshold)
     pub mod relevance_threshold {
@@ -5809,30 +6612,94 @@ pub mod search_jobs_request {
         /// Default value. In this case, server behavior defaults to Google defined
         /// threshold.
         pub const RELEVANCE_THRESHOLD_UNSPECIFIED: RelevanceThreshold =
-            RelevanceThreshold::new("RELEVANCE_THRESHOLD_UNSPECIFIED");
+            RelevanceThreshold::known("RELEVANCE_THRESHOLD_UNSPECIFIED", 0);
 
         /// Lowest relevance threshold.
-        pub const LOWEST: RelevanceThreshold = RelevanceThreshold::new("LOWEST");
+        pub const LOWEST: RelevanceThreshold = RelevanceThreshold::known("LOWEST", 1);
 
         /// Low relevance threshold.
-        pub const LOW: RelevanceThreshold = RelevanceThreshold::new("LOW");
+        pub const LOW: RelevanceThreshold = RelevanceThreshold::known("LOW", 2);
 
         /// Medium relevance threshold.
-        pub const MEDIUM: RelevanceThreshold = RelevanceThreshold::new("MEDIUM");
+        pub const MEDIUM: RelevanceThreshold = RelevanceThreshold::known("MEDIUM", 3);
 
         /// High relevance threshold.
-        pub const HIGH: RelevanceThreshold = RelevanceThreshold::new("HIGH");
+        pub const HIGH: RelevanceThreshold = RelevanceThreshold::known("HIGH", 4);
+    }
+
+    impl RelevanceThreshold {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RelevanceThreshold {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RelevanceThreshold {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RelevanceThreshold::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RelevanceThreshold::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RelevanceThreshold::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RelevanceThreshold {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RELEVANCE_THRESHOLD_UNSPECIFIED" => {
+                    relevance_threshold::RELEVANCE_THRESHOLD_UNSPECIFIED
+                }
+                "LOWEST" => relevance_threshold::LOWEST,
+                "LOW" => relevance_threshold::LOW,
+                "MEDIUM" => relevance_threshold::MEDIUM,
+                "HIGH" => relevance_threshold::HIGH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RelevanceThreshold {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => relevance_threshold::RELEVANCE_THRESHOLD_UNSPECIFIED,
+                1 => relevance_threshold::LOWEST,
+                2 => relevance_threshold::LOW,
+                3 => relevance_threshold::MEDIUM,
+                4 => relevance_threshold::HIGH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RelevanceThreshold {
         fn default() -> Self {
-            relevance_threshold::RELEVANCE_THRESHOLD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6854,153 +7721,262 @@ impl gax::paginator::PageableResponse for ListTenantsResponse {
 }
 
 /// An enum that represents the size of the company.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CompanySize(std::borrow::Cow<'static, str>);
-
-impl CompanySize {
-    /// Creates a new CompanySize instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct CompanySize(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [CompanySize](CompanySize)
 pub mod company_size {
     use super::CompanySize;
 
     /// Default value if the size isn't specified.
-    pub const COMPANY_SIZE_UNSPECIFIED: CompanySize = CompanySize::new("COMPANY_SIZE_UNSPECIFIED");
+    pub const COMPANY_SIZE_UNSPECIFIED: CompanySize =
+        CompanySize::known("COMPANY_SIZE_UNSPECIFIED", 0);
 
     /// The company has less than 50 employees.
-    pub const MINI: CompanySize = CompanySize::new("MINI");
+    pub const MINI: CompanySize = CompanySize::known("MINI", 1);
 
     /// The company has between 50 and 99 employees.
-    pub const SMALL: CompanySize = CompanySize::new("SMALL");
+    pub const SMALL: CompanySize = CompanySize::known("SMALL", 2);
 
     /// The company has between 100 and 499 employees.
-    pub const SMEDIUM: CompanySize = CompanySize::new("SMEDIUM");
+    pub const SMEDIUM: CompanySize = CompanySize::known("SMEDIUM", 3);
 
     /// The company has between 500 and 999 employees.
-    pub const MEDIUM: CompanySize = CompanySize::new("MEDIUM");
+    pub const MEDIUM: CompanySize = CompanySize::known("MEDIUM", 4);
 
     /// The company has between 1,000 and 4,999 employees.
-    pub const BIG: CompanySize = CompanySize::new("BIG");
+    pub const BIG: CompanySize = CompanySize::known("BIG", 5);
 
     /// The company has between 5,000 and 9,999 employees.
-    pub const BIGGER: CompanySize = CompanySize::new("BIGGER");
+    pub const BIGGER: CompanySize = CompanySize::known("BIGGER", 6);
 
     /// The company has 10,000 or more employees.
-    pub const GIANT: CompanySize = CompanySize::new("GIANT");
+    pub const GIANT: CompanySize = CompanySize::known("GIANT", 7);
+}
+
+impl CompanySize {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for CompanySize {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CompanySize {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(CompanySize::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(CompanySize::from(val)),
+            Enumeration::UnknownNum { str } => Ok(CompanySize::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for CompanySize {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "COMPANY_SIZE_UNSPECIFIED" => company_size::COMPANY_SIZE_UNSPECIFIED,
+            "MINI" => company_size::MINI,
+            "SMALL" => company_size::SMALL,
+            "SMEDIUM" => company_size::SMEDIUM,
+            "MEDIUM" => company_size::MEDIUM,
+            "BIG" => company_size::BIG,
+            "BIGGER" => company_size::BIGGER,
+            "GIANT" => company_size::GIANT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for CompanySize {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => company_size::COMPANY_SIZE_UNSPECIFIED,
+            1 => company_size::MINI,
+            2 => company_size::SMALL,
+            3 => company_size::SMEDIUM,
+            4 => company_size::MEDIUM,
+            5 => company_size::BIG,
+            6 => company_size::BIGGER,
+            7 => company_size::GIANT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for CompanySize {
     fn default() -> Self {
-        company_size::COMPANY_SIZE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// An enum that represents employee benefits included with the job.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct JobBenefit(std::borrow::Cow<'static, str>);
-
-impl JobBenefit {
-    /// Creates a new JobBenefit instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct JobBenefit(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [JobBenefit](JobBenefit)
 pub mod job_benefit {
     use super::JobBenefit;
 
     /// Default value if the type isn't specified.
-    pub const JOB_BENEFIT_UNSPECIFIED: JobBenefit = JobBenefit::new("JOB_BENEFIT_UNSPECIFIED");
+    pub const JOB_BENEFIT_UNSPECIFIED: JobBenefit = JobBenefit::known("JOB_BENEFIT_UNSPECIFIED", 0);
 
     /// The job includes access to programs that support child care, such
     /// as daycare.
-    pub const CHILD_CARE: JobBenefit = JobBenefit::new("CHILD_CARE");
+    pub const CHILD_CARE: JobBenefit = JobBenefit::known("CHILD_CARE", 1);
 
     /// The job includes dental services covered by a dental
     /// insurance plan.
-    pub const DENTAL: JobBenefit = JobBenefit::new("DENTAL");
+    pub const DENTAL: JobBenefit = JobBenefit::known("DENTAL", 2);
 
     /// The job offers specific benefits to domestic partners.
-    pub const DOMESTIC_PARTNER: JobBenefit = JobBenefit::new("DOMESTIC_PARTNER");
+    pub const DOMESTIC_PARTNER: JobBenefit = JobBenefit::known("DOMESTIC_PARTNER", 3);
 
     /// The job allows for a flexible work schedule.
-    pub const FLEXIBLE_HOURS: JobBenefit = JobBenefit::new("FLEXIBLE_HOURS");
+    pub const FLEXIBLE_HOURS: JobBenefit = JobBenefit::known("FLEXIBLE_HOURS", 4);
 
     /// The job includes health services covered by a medical insurance plan.
-    pub const MEDICAL: JobBenefit = JobBenefit::new("MEDICAL");
+    pub const MEDICAL: JobBenefit = JobBenefit::known("MEDICAL", 5);
 
     /// The job includes a life insurance plan provided by the employer or
     /// available for purchase by the employee.
-    pub const LIFE_INSURANCE: JobBenefit = JobBenefit::new("LIFE_INSURANCE");
+    pub const LIFE_INSURANCE: JobBenefit = JobBenefit::known("LIFE_INSURANCE", 6);
 
     /// The job allows for a leave of absence to a parent to care for a newborn
     /// child.
-    pub const PARENTAL_LEAVE: JobBenefit = JobBenefit::new("PARENTAL_LEAVE");
+    pub const PARENTAL_LEAVE: JobBenefit = JobBenefit::known("PARENTAL_LEAVE", 7);
 
     /// The job includes a workplace retirement plan provided by the
     /// employer or available for purchase by the employee.
-    pub const RETIREMENT_PLAN: JobBenefit = JobBenefit::new("RETIREMENT_PLAN");
+    pub const RETIREMENT_PLAN: JobBenefit = JobBenefit::known("RETIREMENT_PLAN", 8);
 
     /// The job allows for paid time off due to illness.
-    pub const SICK_DAYS: JobBenefit = JobBenefit::new("SICK_DAYS");
+    pub const SICK_DAYS: JobBenefit = JobBenefit::known("SICK_DAYS", 9);
 
     /// The job includes paid time off for vacation.
-    pub const VACATION: JobBenefit = JobBenefit::new("VACATION");
+    pub const VACATION: JobBenefit = JobBenefit::known("VACATION", 10);
 
     /// The job includes vision services covered by a vision
     /// insurance plan.
-    pub const VISION: JobBenefit = JobBenefit::new("VISION");
+    pub const VISION: JobBenefit = JobBenefit::known("VISION", 11);
+}
+
+impl JobBenefit {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for JobBenefit {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for JobBenefit {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(JobBenefit::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(JobBenefit::from(val)),
+            Enumeration::UnknownNum { str } => Ok(JobBenefit::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for JobBenefit {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "JOB_BENEFIT_UNSPECIFIED" => job_benefit::JOB_BENEFIT_UNSPECIFIED,
+            "CHILD_CARE" => job_benefit::CHILD_CARE,
+            "DENTAL" => job_benefit::DENTAL,
+            "DOMESTIC_PARTNER" => job_benefit::DOMESTIC_PARTNER,
+            "FLEXIBLE_HOURS" => job_benefit::FLEXIBLE_HOURS,
+            "MEDICAL" => job_benefit::MEDICAL,
+            "LIFE_INSURANCE" => job_benefit::LIFE_INSURANCE,
+            "PARENTAL_LEAVE" => job_benefit::PARENTAL_LEAVE,
+            "RETIREMENT_PLAN" => job_benefit::RETIREMENT_PLAN,
+            "SICK_DAYS" => job_benefit::SICK_DAYS,
+            "VACATION" => job_benefit::VACATION,
+            "VISION" => job_benefit::VISION,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for JobBenefit {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => job_benefit::JOB_BENEFIT_UNSPECIFIED,
+            1 => job_benefit::CHILD_CARE,
+            2 => job_benefit::DENTAL,
+            3 => job_benefit::DOMESTIC_PARTNER,
+            4 => job_benefit::FLEXIBLE_HOURS,
+            5 => job_benefit::MEDICAL,
+            6 => job_benefit::LIFE_INSURANCE,
+            7 => job_benefit::PARENTAL_LEAVE,
+            8 => job_benefit::RETIREMENT_PLAN,
+            9 => job_benefit::SICK_DAYS,
+            10 => job_benefit::VACATION,
+            11 => job_benefit::VISION,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for JobBenefit {
     fn default() -> Self {
-        job_benefit::JOB_BENEFIT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Educational degree level defined in International Standard Classification
 /// of Education (ISCED).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DegreeType(std::borrow::Cow<'static, str>);
-
-impl DegreeType {
-    /// Creates a new DegreeType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DegreeType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DegreeType](DegreeType)
 pub mod degree_type {
@@ -7009,82 +7985,144 @@ pub mod degree_type {
     /// Default value. Represents no degree, or early childhood education.
     /// Maps to ISCED code 0.
     /// Ex) Kindergarten
-    pub const DEGREE_TYPE_UNSPECIFIED: DegreeType = DegreeType::new("DEGREE_TYPE_UNSPECIFIED");
+    pub const DEGREE_TYPE_UNSPECIFIED: DegreeType = DegreeType::known("DEGREE_TYPE_UNSPECIFIED", 0);
 
     /// Primary education which is typically the first stage of compulsory
     /// education. ISCED code 1.
     /// Ex) Elementary school
-    pub const PRIMARY_EDUCATION: DegreeType = DegreeType::new("PRIMARY_EDUCATION");
+    pub const PRIMARY_EDUCATION: DegreeType = DegreeType::known("PRIMARY_EDUCATION", 1);
 
     /// Lower secondary education; First stage of secondary education building on
     /// primary education, typically with a more subject-oriented curriculum.
     /// ISCED code 2.
     /// Ex) Middle school
-    pub const LOWER_SECONDARY_EDUCATION: DegreeType = DegreeType::new("LOWER_SECONDARY_EDUCATION");
+    pub const LOWER_SECONDARY_EDUCATION: DegreeType =
+        DegreeType::known("LOWER_SECONDARY_EDUCATION", 2);
 
     /// Middle education; Second/final stage of secondary education preparing for
     /// tertiary education and/or providing skills relevant to employment.
     /// Usually with an increased range of subject options and streams. ISCED
     /// code 3.
     /// Ex) High school
-    pub const UPPER_SECONDARY_EDUCATION: DegreeType = DegreeType::new("UPPER_SECONDARY_EDUCATION");
+    pub const UPPER_SECONDARY_EDUCATION: DegreeType =
+        DegreeType::known("UPPER_SECONDARY_EDUCATION", 3);
 
     /// Adult Remedial Education; Programmes providing learning experiences that
     /// build on secondary education and prepare for labour market entry and/or
     /// tertiary education. The content is broader than secondary but not as
     /// complex as tertiary education. ISCED code 4.
-    pub const ADULT_REMEDIAL_EDUCATION: DegreeType = DegreeType::new("ADULT_REMEDIAL_EDUCATION");
+    pub const ADULT_REMEDIAL_EDUCATION: DegreeType =
+        DegreeType::known("ADULT_REMEDIAL_EDUCATION", 4);
 
     /// Associate's or equivalent; Short first tertiary programmes that are
     /// typically practically-based, occupationally-specific and prepare for
     /// labour market entry. These programmes may also provide a pathway to other
     /// tertiary programmes. ISCED code 5.
-    pub const ASSOCIATES_OR_EQUIVALENT: DegreeType = DegreeType::new("ASSOCIATES_OR_EQUIVALENT");
+    pub const ASSOCIATES_OR_EQUIVALENT: DegreeType =
+        DegreeType::known("ASSOCIATES_OR_EQUIVALENT", 5);
 
     /// Bachelor's or equivalent; Programmes designed to provide intermediate
     /// academic and/or professional knowledge, skills and competencies leading
     /// to a first tertiary degree or equivalent qualification. ISCED code 6.
-    pub const BACHELORS_OR_EQUIVALENT: DegreeType = DegreeType::new("BACHELORS_OR_EQUIVALENT");
+    pub const BACHELORS_OR_EQUIVALENT: DegreeType = DegreeType::known("BACHELORS_OR_EQUIVALENT", 6);
 
     /// Master's or equivalent; Programmes designed to provide advanced academic
     /// and/or professional knowledge, skills and competencies leading to a
     /// second tertiary degree or equivalent qualification. ISCED code 7.
-    pub const MASTERS_OR_EQUIVALENT: DegreeType = DegreeType::new("MASTERS_OR_EQUIVALENT");
+    pub const MASTERS_OR_EQUIVALENT: DegreeType = DegreeType::known("MASTERS_OR_EQUIVALENT", 7);
 
     /// Doctoral or equivalent; Programmes designed primarily to lead to an
     /// advanced research qualification, usually concluding with the submission
     /// and defense of a substantive dissertation of publishable quality based on
     /// original research. ISCED code 8.
-    pub const DOCTORAL_OR_EQUIVALENT: DegreeType = DegreeType::new("DOCTORAL_OR_EQUIVALENT");
+    pub const DOCTORAL_OR_EQUIVALENT: DegreeType = DegreeType::known("DOCTORAL_OR_EQUIVALENT", 8);
+}
+
+impl DegreeType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DegreeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DegreeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DegreeType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DegreeType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DegreeType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DegreeType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DEGREE_TYPE_UNSPECIFIED" => degree_type::DEGREE_TYPE_UNSPECIFIED,
+            "PRIMARY_EDUCATION" => degree_type::PRIMARY_EDUCATION,
+            "LOWER_SECONDARY_EDUCATION" => degree_type::LOWER_SECONDARY_EDUCATION,
+            "UPPER_SECONDARY_EDUCATION" => degree_type::UPPER_SECONDARY_EDUCATION,
+            "ADULT_REMEDIAL_EDUCATION" => degree_type::ADULT_REMEDIAL_EDUCATION,
+            "ASSOCIATES_OR_EQUIVALENT" => degree_type::ASSOCIATES_OR_EQUIVALENT,
+            "BACHELORS_OR_EQUIVALENT" => degree_type::BACHELORS_OR_EQUIVALENT,
+            "MASTERS_OR_EQUIVALENT" => degree_type::MASTERS_OR_EQUIVALENT,
+            "DOCTORAL_OR_EQUIVALENT" => degree_type::DOCTORAL_OR_EQUIVALENT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DegreeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => degree_type::DEGREE_TYPE_UNSPECIFIED,
+            1 => degree_type::PRIMARY_EDUCATION,
+            2 => degree_type::LOWER_SECONDARY_EDUCATION,
+            3 => degree_type::UPPER_SECONDARY_EDUCATION,
+            4 => degree_type::ADULT_REMEDIAL_EDUCATION,
+            5 => degree_type::ASSOCIATES_OR_EQUIVALENT,
+            6 => degree_type::BACHELORS_OR_EQUIVALENT,
+            7 => degree_type::MASTERS_OR_EQUIVALENT,
+            8 => degree_type::DOCTORAL_OR_EQUIVALENT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DegreeType {
     fn default() -> Self {
-        degree_type::DEGREE_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// An enum that represents the employment type of a job.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EmploymentType(std::borrow::Cow<'static, str>);
-
-impl EmploymentType {
-    /// Creates a new EmploymentType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct EmploymentType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [EmploymentType](EmploymentType)
 pub mod employment_type {
@@ -7092,19 +8130,19 @@ pub mod employment_type {
 
     /// The default value if the employment type isn't specified.
     pub const EMPLOYMENT_TYPE_UNSPECIFIED: EmploymentType =
-        EmploymentType::new("EMPLOYMENT_TYPE_UNSPECIFIED");
+        EmploymentType::known("EMPLOYMENT_TYPE_UNSPECIFIED", 0);
 
     /// The job requires working a number of hours that constitute full
     /// time employment, typically 40 or more hours per week.
-    pub const FULL_TIME: EmploymentType = EmploymentType::new("FULL_TIME");
+    pub const FULL_TIME: EmploymentType = EmploymentType::known("FULL_TIME", 1);
 
     /// The job entails working fewer hours than a full time job,
     /// typically less than 40 hours a week.
-    pub const PART_TIME: EmploymentType = EmploymentType::new("PART_TIME");
+    pub const PART_TIME: EmploymentType = EmploymentType::known("PART_TIME", 2);
 
     /// The job is offered as a contracted, as opposed to a salaried employee,
     /// position.
-    pub const CONTRACTOR: EmploymentType = EmploymentType::new("CONTRACTOR");
+    pub const CONTRACTOR: EmploymentType = EmploymentType::known("CONTRACTOR", 3);
 
     /// The job is offered as a contracted position with the understanding
     /// that it's converted into a full-time position at the end of the
@@ -7113,255 +8151,478 @@ pub mod employment_type {
     /// jobs.
     ///
     /// [google.cloud.talent.v4.EmploymentType.CONTRACTOR]: crate::model::employment_type::CONTRACTOR
-    pub const CONTRACT_TO_HIRE: EmploymentType = EmploymentType::new("CONTRACT_TO_HIRE");
+    pub const CONTRACT_TO_HIRE: EmploymentType = EmploymentType::known("CONTRACT_TO_HIRE", 4);
 
     /// The job is offered as a temporary employment opportunity, usually
     /// a short-term engagement.
-    pub const TEMPORARY: EmploymentType = EmploymentType::new("TEMPORARY");
+    pub const TEMPORARY: EmploymentType = EmploymentType::known("TEMPORARY", 5);
 
     /// The job is a fixed-term opportunity for students or entry-level job
     /// seekers to obtain on-the-job training, typically offered as a summer
     /// position.
-    pub const INTERN: EmploymentType = EmploymentType::new("INTERN");
+    pub const INTERN: EmploymentType = EmploymentType::known("INTERN", 6);
 
     /// The is an opportunity for an individual to volunteer, where there's no
     /// expectation of compensation for the provided services.
-    pub const VOLUNTEER: EmploymentType = EmploymentType::new("VOLUNTEER");
+    pub const VOLUNTEER: EmploymentType = EmploymentType::known("VOLUNTEER", 7);
 
     /// The job requires an employee to work on an as-needed basis with a
     /// flexible schedule.
-    pub const PER_DIEM: EmploymentType = EmploymentType::new("PER_DIEM");
+    pub const PER_DIEM: EmploymentType = EmploymentType::known("PER_DIEM", 8);
 
     /// The job involves employing people in remote areas and flying them
     /// temporarily to the work site instead of relocating employees and their
     /// families permanently.
-    pub const FLY_IN_FLY_OUT: EmploymentType = EmploymentType::new("FLY_IN_FLY_OUT");
+    pub const FLY_IN_FLY_OUT: EmploymentType = EmploymentType::known("FLY_IN_FLY_OUT", 9);
 
     /// The job does not fit any of the other listed types.
-    pub const OTHER_EMPLOYMENT_TYPE: EmploymentType = EmploymentType::new("OTHER_EMPLOYMENT_TYPE");
+    pub const OTHER_EMPLOYMENT_TYPE: EmploymentType =
+        EmploymentType::known("OTHER_EMPLOYMENT_TYPE", 10);
+}
+
+impl EmploymentType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for EmploymentType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EmploymentType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(EmploymentType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(EmploymentType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(EmploymentType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for EmploymentType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "EMPLOYMENT_TYPE_UNSPECIFIED" => employment_type::EMPLOYMENT_TYPE_UNSPECIFIED,
+            "FULL_TIME" => employment_type::FULL_TIME,
+            "PART_TIME" => employment_type::PART_TIME,
+            "CONTRACTOR" => employment_type::CONTRACTOR,
+            "CONTRACT_TO_HIRE" => employment_type::CONTRACT_TO_HIRE,
+            "TEMPORARY" => employment_type::TEMPORARY,
+            "INTERN" => employment_type::INTERN,
+            "VOLUNTEER" => employment_type::VOLUNTEER,
+            "PER_DIEM" => employment_type::PER_DIEM,
+            "FLY_IN_FLY_OUT" => employment_type::FLY_IN_FLY_OUT,
+            "OTHER_EMPLOYMENT_TYPE" => employment_type::OTHER_EMPLOYMENT_TYPE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for EmploymentType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => employment_type::EMPLOYMENT_TYPE_UNSPECIFIED,
+            1 => employment_type::FULL_TIME,
+            2 => employment_type::PART_TIME,
+            3 => employment_type::CONTRACTOR,
+            4 => employment_type::CONTRACT_TO_HIRE,
+            5 => employment_type::TEMPORARY,
+            6 => employment_type::INTERN,
+            7 => employment_type::VOLUNTEER,
+            8 => employment_type::PER_DIEM,
+            9 => employment_type::FLY_IN_FLY_OUT,
+            10 => employment_type::OTHER_EMPLOYMENT_TYPE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for EmploymentType {
     fn default() -> Self {
-        employment_type::EMPLOYMENT_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// An enum that represents the required experience level required for the job.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct JobLevel(std::borrow::Cow<'static, str>);
-
-impl JobLevel {
-    /// Creates a new JobLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct JobLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [JobLevel](JobLevel)
 pub mod job_level {
     use super::JobLevel;
 
     /// The default value if the level isn't specified.
-    pub const JOB_LEVEL_UNSPECIFIED: JobLevel = JobLevel::new("JOB_LEVEL_UNSPECIFIED");
+    pub const JOB_LEVEL_UNSPECIFIED: JobLevel = JobLevel::known("JOB_LEVEL_UNSPECIFIED", 0);
 
     /// Entry-level individual contributors, typically with less than 2 years of
     /// experience in a similar role. Includes interns.
-    pub const ENTRY_LEVEL: JobLevel = JobLevel::new("ENTRY_LEVEL");
+    pub const ENTRY_LEVEL: JobLevel = JobLevel::known("ENTRY_LEVEL", 1);
 
     /// Experienced individual contributors, typically with 2+ years of
     /// experience in a similar role.
-    pub const EXPERIENCED: JobLevel = JobLevel::new("EXPERIENCED");
+    pub const EXPERIENCED: JobLevel = JobLevel::known("EXPERIENCED", 2);
 
     /// Entry- to mid-level managers responsible for managing a team of people.
-    pub const MANAGER: JobLevel = JobLevel::new("MANAGER");
+    pub const MANAGER: JobLevel = JobLevel::known("MANAGER", 3);
 
     /// Senior-level managers responsible for managing teams of managers.
-    pub const DIRECTOR: JobLevel = JobLevel::new("DIRECTOR");
+    pub const DIRECTOR: JobLevel = JobLevel::known("DIRECTOR", 4);
 
     /// Executive-level managers and above, including C-level positions.
-    pub const EXECUTIVE: JobLevel = JobLevel::new("EXECUTIVE");
+    pub const EXECUTIVE: JobLevel = JobLevel::known("EXECUTIVE", 5);
+}
+
+impl JobLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for JobLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for JobLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(JobLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(JobLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(JobLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for JobLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "JOB_LEVEL_UNSPECIFIED" => job_level::JOB_LEVEL_UNSPECIFIED,
+            "ENTRY_LEVEL" => job_level::ENTRY_LEVEL,
+            "EXPERIENCED" => job_level::EXPERIENCED,
+            "MANAGER" => job_level::MANAGER,
+            "DIRECTOR" => job_level::DIRECTOR,
+            "EXECUTIVE" => job_level::EXECUTIVE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for JobLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => job_level::JOB_LEVEL_UNSPECIFIED,
+            1 => job_level::ENTRY_LEVEL,
+            2 => job_level::EXPERIENCED,
+            3 => job_level::MANAGER,
+            4 => job_level::DIRECTOR,
+            5 => job_level::EXECUTIVE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for JobLevel {
     fn default() -> Self {
-        job_level::JOB_LEVEL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// An enum that represents the categorization or primary focus of specific
 /// role. This value is different than the "industry" associated with a role,
 /// which is related to the categorization of the company listing the job.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct JobCategory(std::borrow::Cow<'static, str>);
-
-impl JobCategory {
-    /// Creates a new JobCategory instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct JobCategory(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [JobCategory](JobCategory)
 pub mod job_category {
     use super::JobCategory;
 
     /// The default value if the category isn't specified.
-    pub const JOB_CATEGORY_UNSPECIFIED: JobCategory = JobCategory::new("JOB_CATEGORY_UNSPECIFIED");
+    pub const JOB_CATEGORY_UNSPECIFIED: JobCategory =
+        JobCategory::known("JOB_CATEGORY_UNSPECIFIED", 0);
 
     /// An accounting and finance job, such as an Accountant.
-    pub const ACCOUNTING_AND_FINANCE: JobCategory = JobCategory::new("ACCOUNTING_AND_FINANCE");
+    pub const ACCOUNTING_AND_FINANCE: JobCategory = JobCategory::known("ACCOUNTING_AND_FINANCE", 1);
 
     /// An administrative and office job, such as an Administrative Assistant.
     pub const ADMINISTRATIVE_AND_OFFICE: JobCategory =
-        JobCategory::new("ADMINISTRATIVE_AND_OFFICE");
+        JobCategory::known("ADMINISTRATIVE_AND_OFFICE", 2);
 
     /// An advertising and marketing job, such as Marketing Manager.
     pub const ADVERTISING_AND_MARKETING: JobCategory =
-        JobCategory::new("ADVERTISING_AND_MARKETING");
+        JobCategory::known("ADVERTISING_AND_MARKETING", 3);
 
     /// An animal care job, such as Veterinarian.
-    pub const ANIMAL_CARE: JobCategory = JobCategory::new("ANIMAL_CARE");
+    pub const ANIMAL_CARE: JobCategory = JobCategory::known("ANIMAL_CARE", 4);
 
     /// An art, fashion, or design job, such as Designer.
-    pub const ART_FASHION_AND_DESIGN: JobCategory = JobCategory::new("ART_FASHION_AND_DESIGN");
+    pub const ART_FASHION_AND_DESIGN: JobCategory = JobCategory::known("ART_FASHION_AND_DESIGN", 5);
 
     /// A business operations job, such as Business Operations Manager.
-    pub const BUSINESS_OPERATIONS: JobCategory = JobCategory::new("BUSINESS_OPERATIONS");
+    pub const BUSINESS_OPERATIONS: JobCategory = JobCategory::known("BUSINESS_OPERATIONS", 6);
 
     /// A cleaning and facilities job, such as Custodial Staff.
-    pub const CLEANING_AND_FACILITIES: JobCategory = JobCategory::new("CLEANING_AND_FACILITIES");
+    pub const CLEANING_AND_FACILITIES: JobCategory =
+        JobCategory::known("CLEANING_AND_FACILITIES", 7);
 
     /// A computer and IT job, such as Systems Administrator.
-    pub const COMPUTER_AND_IT: JobCategory = JobCategory::new("COMPUTER_AND_IT");
+    pub const COMPUTER_AND_IT: JobCategory = JobCategory::known("COMPUTER_AND_IT", 8);
 
     /// A construction job, such as General Laborer.
-    pub const CONSTRUCTION: JobCategory = JobCategory::new("CONSTRUCTION");
+    pub const CONSTRUCTION: JobCategory = JobCategory::known("CONSTRUCTION", 9);
 
     /// A customer service job, such s Cashier.
-    pub const CUSTOMER_SERVICE: JobCategory = JobCategory::new("CUSTOMER_SERVICE");
+    pub const CUSTOMER_SERVICE: JobCategory = JobCategory::known("CUSTOMER_SERVICE", 10);
 
     /// An education job, such as School Teacher.
-    pub const EDUCATION: JobCategory = JobCategory::new("EDUCATION");
+    pub const EDUCATION: JobCategory = JobCategory::known("EDUCATION", 11);
 
     /// An entertainment and travel job, such as Flight Attendant.
-    pub const ENTERTAINMENT_AND_TRAVEL: JobCategory = JobCategory::new("ENTERTAINMENT_AND_TRAVEL");
+    pub const ENTERTAINMENT_AND_TRAVEL: JobCategory =
+        JobCategory::known("ENTERTAINMENT_AND_TRAVEL", 12);
 
     /// A farming or outdoor job, such as Park Ranger.
-    pub const FARMING_AND_OUTDOORS: JobCategory = JobCategory::new("FARMING_AND_OUTDOORS");
+    pub const FARMING_AND_OUTDOORS: JobCategory = JobCategory::known("FARMING_AND_OUTDOORS", 13);
 
     /// A healthcare job, such as Registered Nurse.
-    pub const HEALTHCARE: JobCategory = JobCategory::new("HEALTHCARE");
+    pub const HEALTHCARE: JobCategory = JobCategory::known("HEALTHCARE", 14);
 
     /// A human resources job, such as Human Resources Director.
-    pub const HUMAN_RESOURCES: JobCategory = JobCategory::new("HUMAN_RESOURCES");
+    pub const HUMAN_RESOURCES: JobCategory = JobCategory::known("HUMAN_RESOURCES", 15);
 
     /// An installation, maintenance, or repair job, such as Electrician.
     pub const INSTALLATION_MAINTENANCE_AND_REPAIR: JobCategory =
-        JobCategory::new("INSTALLATION_MAINTENANCE_AND_REPAIR");
+        JobCategory::known("INSTALLATION_MAINTENANCE_AND_REPAIR", 16);
 
     /// A legal job, such as Law Clerk.
-    pub const LEGAL: JobCategory = JobCategory::new("LEGAL");
+    pub const LEGAL: JobCategory = JobCategory::known("LEGAL", 17);
 
     /// A management job, often used in conjunction with another category,
     /// such as Store Manager.
-    pub const MANAGEMENT: JobCategory = JobCategory::new("MANAGEMENT");
+    pub const MANAGEMENT: JobCategory = JobCategory::known("MANAGEMENT", 18);
 
     /// A manufacturing or warehouse job, such as Assembly Technician.
     pub const MANUFACTURING_AND_WAREHOUSE: JobCategory =
-        JobCategory::new("MANUFACTURING_AND_WAREHOUSE");
+        JobCategory::known("MANUFACTURING_AND_WAREHOUSE", 19);
 
     /// A media, communications, or writing job, such as Media Relations.
     pub const MEDIA_COMMUNICATIONS_AND_WRITING: JobCategory =
-        JobCategory::new("MEDIA_COMMUNICATIONS_AND_WRITING");
+        JobCategory::known("MEDIA_COMMUNICATIONS_AND_WRITING", 20);
 
     /// An oil, gas or mining job, such as Offshore Driller.
-    pub const OIL_GAS_AND_MINING: JobCategory = JobCategory::new("OIL_GAS_AND_MINING");
+    pub const OIL_GAS_AND_MINING: JobCategory = JobCategory::known("OIL_GAS_AND_MINING", 21);
 
     /// A personal care and services job, such as Hair Stylist.
     pub const PERSONAL_CARE_AND_SERVICES: JobCategory =
-        JobCategory::new("PERSONAL_CARE_AND_SERVICES");
+        JobCategory::known("PERSONAL_CARE_AND_SERVICES", 22);
 
     /// A protective services job, such as Security Guard.
-    pub const PROTECTIVE_SERVICES: JobCategory = JobCategory::new("PROTECTIVE_SERVICES");
+    pub const PROTECTIVE_SERVICES: JobCategory = JobCategory::known("PROTECTIVE_SERVICES", 23);
 
     /// A real estate job, such as Buyer's Agent.
-    pub const REAL_ESTATE: JobCategory = JobCategory::new("REAL_ESTATE");
+    pub const REAL_ESTATE: JobCategory = JobCategory::known("REAL_ESTATE", 24);
 
     /// A restaurant and hospitality job, such as Restaurant Server.
     pub const RESTAURANT_AND_HOSPITALITY: JobCategory =
-        JobCategory::new("RESTAURANT_AND_HOSPITALITY");
+        JobCategory::known("RESTAURANT_AND_HOSPITALITY", 25);
 
     /// A sales and/or retail job, such Sales Associate.
-    pub const SALES_AND_RETAIL: JobCategory = JobCategory::new("SALES_AND_RETAIL");
+    pub const SALES_AND_RETAIL: JobCategory = JobCategory::known("SALES_AND_RETAIL", 26);
 
     /// A science and engineering job, such as Lab Technician.
-    pub const SCIENCE_AND_ENGINEERING: JobCategory = JobCategory::new("SCIENCE_AND_ENGINEERING");
+    pub const SCIENCE_AND_ENGINEERING: JobCategory =
+        JobCategory::known("SCIENCE_AND_ENGINEERING", 27);
 
     /// A social services or non-profit job, such as Case Worker.
     pub const SOCIAL_SERVICES_AND_NON_PROFIT: JobCategory =
-        JobCategory::new("SOCIAL_SERVICES_AND_NON_PROFIT");
+        JobCategory::known("SOCIAL_SERVICES_AND_NON_PROFIT", 28);
 
     /// A sports, fitness, or recreation job, such as Personal Trainer.
     pub const SPORTS_FITNESS_AND_RECREATION: JobCategory =
-        JobCategory::new("SPORTS_FITNESS_AND_RECREATION");
+        JobCategory::known("SPORTS_FITNESS_AND_RECREATION", 29);
 
     /// A transportation or logistics job, such as Truck Driver.
     pub const TRANSPORTATION_AND_LOGISTICS: JobCategory =
-        JobCategory::new("TRANSPORTATION_AND_LOGISTICS");
+        JobCategory::known("TRANSPORTATION_AND_LOGISTICS", 30);
+}
+
+impl JobCategory {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for JobCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for JobCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(JobCategory::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(JobCategory::from(val)),
+            Enumeration::UnknownNum { str } => Ok(JobCategory::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for JobCategory {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "JOB_CATEGORY_UNSPECIFIED" => job_category::JOB_CATEGORY_UNSPECIFIED,
+            "ACCOUNTING_AND_FINANCE" => job_category::ACCOUNTING_AND_FINANCE,
+            "ADMINISTRATIVE_AND_OFFICE" => job_category::ADMINISTRATIVE_AND_OFFICE,
+            "ADVERTISING_AND_MARKETING" => job_category::ADVERTISING_AND_MARKETING,
+            "ANIMAL_CARE" => job_category::ANIMAL_CARE,
+            "ART_FASHION_AND_DESIGN" => job_category::ART_FASHION_AND_DESIGN,
+            "BUSINESS_OPERATIONS" => job_category::BUSINESS_OPERATIONS,
+            "CLEANING_AND_FACILITIES" => job_category::CLEANING_AND_FACILITIES,
+            "COMPUTER_AND_IT" => job_category::COMPUTER_AND_IT,
+            "CONSTRUCTION" => job_category::CONSTRUCTION,
+            "CUSTOMER_SERVICE" => job_category::CUSTOMER_SERVICE,
+            "EDUCATION" => job_category::EDUCATION,
+            "ENTERTAINMENT_AND_TRAVEL" => job_category::ENTERTAINMENT_AND_TRAVEL,
+            "FARMING_AND_OUTDOORS" => job_category::FARMING_AND_OUTDOORS,
+            "HEALTHCARE" => job_category::HEALTHCARE,
+            "HUMAN_RESOURCES" => job_category::HUMAN_RESOURCES,
+            "INSTALLATION_MAINTENANCE_AND_REPAIR" => {
+                job_category::INSTALLATION_MAINTENANCE_AND_REPAIR
+            }
+            "LEGAL" => job_category::LEGAL,
+            "MANAGEMENT" => job_category::MANAGEMENT,
+            "MANUFACTURING_AND_WAREHOUSE" => job_category::MANUFACTURING_AND_WAREHOUSE,
+            "MEDIA_COMMUNICATIONS_AND_WRITING" => job_category::MEDIA_COMMUNICATIONS_AND_WRITING,
+            "OIL_GAS_AND_MINING" => job_category::OIL_GAS_AND_MINING,
+            "PERSONAL_CARE_AND_SERVICES" => job_category::PERSONAL_CARE_AND_SERVICES,
+            "PROTECTIVE_SERVICES" => job_category::PROTECTIVE_SERVICES,
+            "REAL_ESTATE" => job_category::REAL_ESTATE,
+            "RESTAURANT_AND_HOSPITALITY" => job_category::RESTAURANT_AND_HOSPITALITY,
+            "SALES_AND_RETAIL" => job_category::SALES_AND_RETAIL,
+            "SCIENCE_AND_ENGINEERING" => job_category::SCIENCE_AND_ENGINEERING,
+            "SOCIAL_SERVICES_AND_NON_PROFIT" => job_category::SOCIAL_SERVICES_AND_NON_PROFIT,
+            "SPORTS_FITNESS_AND_RECREATION" => job_category::SPORTS_FITNESS_AND_RECREATION,
+            "TRANSPORTATION_AND_LOGISTICS" => job_category::TRANSPORTATION_AND_LOGISTICS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for JobCategory {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => job_category::JOB_CATEGORY_UNSPECIFIED,
+            1 => job_category::ACCOUNTING_AND_FINANCE,
+            2 => job_category::ADMINISTRATIVE_AND_OFFICE,
+            3 => job_category::ADVERTISING_AND_MARKETING,
+            4 => job_category::ANIMAL_CARE,
+            5 => job_category::ART_FASHION_AND_DESIGN,
+            6 => job_category::BUSINESS_OPERATIONS,
+            7 => job_category::CLEANING_AND_FACILITIES,
+            8 => job_category::COMPUTER_AND_IT,
+            9 => job_category::CONSTRUCTION,
+            10 => job_category::CUSTOMER_SERVICE,
+            11 => job_category::EDUCATION,
+            12 => job_category::ENTERTAINMENT_AND_TRAVEL,
+            13 => job_category::FARMING_AND_OUTDOORS,
+            14 => job_category::HEALTHCARE,
+            15 => job_category::HUMAN_RESOURCES,
+            16 => job_category::INSTALLATION_MAINTENANCE_AND_REPAIR,
+            17 => job_category::LEGAL,
+            18 => job_category::MANAGEMENT,
+            19 => job_category::MANUFACTURING_AND_WAREHOUSE,
+            20 => job_category::MEDIA_COMMUNICATIONS_AND_WRITING,
+            21 => job_category::OIL_GAS_AND_MINING,
+            22 => job_category::PERSONAL_CARE_AND_SERVICES,
+            23 => job_category::PROTECTIVE_SERVICES,
+            24 => job_category::REAL_ESTATE,
+            25 => job_category::RESTAURANT_AND_HOSPITALITY,
+            26 => job_category::SALES_AND_RETAIL,
+            27 => job_category::SCIENCE_AND_ENGINEERING,
+            28 => job_category::SOCIAL_SERVICES_AND_NON_PROFIT,
+            29 => job_category::SPORTS_FITNESS_AND_RECREATION,
+            30 => job_category::TRANSPORTATION_AND_LOGISTICS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for JobCategory {
     fn default() -> Self {
-        job_category::JOB_CATEGORY_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// An enum that represents the job posting region. In most cases, job postings
 /// don't need to specify a region. If a region is given, jobs are
 /// eligible for searches in the specified region.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PostingRegion(std::borrow::Cow<'static, str>);
-
-impl PostingRegion {
-    /// Creates a new PostingRegion instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct PostingRegion(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [PostingRegion](PostingRegion)
 pub mod posting_region {
@@ -7372,7 +8633,7 @@ pub mod posting_region {
     ///
     /// [google.cloud.talent.v4.LocationFilter]: crate::model::LocationFilter
     pub const POSTING_REGION_UNSPECIFIED: PostingRegion =
-        PostingRegion::new("POSTING_REGION_UNSPECIFIED");
+        PostingRegion::known("POSTING_REGION_UNSPECIFIED", 0);
 
     /// In addition to exact location matching, job posting is returned when the
     /// [LocationFilter][google.cloud.talent.v4.LocationFilter] in the search query
@@ -7386,7 +8647,7 @@ pub mod posting_region {
     /// JP prefecture.
     ///
     /// [google.cloud.talent.v4.LocationFilter]: crate::model::LocationFilter
-    pub const ADMINISTRATIVE_AREA: PostingRegion = PostingRegion::new("ADMINISTRATIVE_AREA");
+    pub const ADMINISTRATIVE_AREA: PostingRegion = PostingRegion::known("ADMINISTRATIVE_AREA", 1);
 
     /// In addition to exact location matching, job is returned when
     /// [LocationFilter][google.cloud.talent.v4.LocationFilter] in search query is
@@ -7396,92 +8657,188 @@ pub mod posting_region {
     /// View'.
     ///
     /// [google.cloud.talent.v4.LocationFilter]: crate::model::LocationFilter
-    pub const NATION: PostingRegion = PostingRegion::new("NATION");
+    pub const NATION: PostingRegion = PostingRegion::known("NATION", 2);
 
     /// Job allows employees to work remotely (telecommute).
     /// If locations are provided with this value, the job is
     /// considered as having a location, but telecommuting is allowed.
-    pub const TELECOMMUTE: PostingRegion = PostingRegion::new("TELECOMMUTE");
+    pub const TELECOMMUTE: PostingRegion = PostingRegion::known("TELECOMMUTE", 3);
+}
+
+impl PostingRegion {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for PostingRegion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PostingRegion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(PostingRegion::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(PostingRegion::from(val)),
+            Enumeration::UnknownNum { str } => Ok(PostingRegion::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for PostingRegion {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "POSTING_REGION_UNSPECIFIED" => posting_region::POSTING_REGION_UNSPECIFIED,
+            "ADMINISTRATIVE_AREA" => posting_region::ADMINISTRATIVE_AREA,
+            "NATION" => posting_region::NATION,
+            "TELECOMMUTE" => posting_region::TELECOMMUTE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for PostingRegion {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => posting_region::POSTING_REGION_UNSPECIFIED,
+            1 => posting_region::ADMINISTRATIVE_AREA,
+            2 => posting_region::NATION,
+            3 => posting_region::TELECOMMUTE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for PostingRegion {
     fn default() -> Self {
-        posting_region::POSTING_REGION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Deprecated. All resources are only visible to the owner.
 ///
 /// An enum that represents who has view access to the resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Visibility(std::borrow::Cow<'static, str>);
-
-impl Visibility {
-    /// Creates a new Visibility instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Visibility(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Visibility](Visibility)
 pub mod visibility {
     use super::Visibility;
 
     /// Default value.
-    pub const VISIBILITY_UNSPECIFIED: Visibility = Visibility::new("VISIBILITY_UNSPECIFIED");
+    pub const VISIBILITY_UNSPECIFIED: Visibility = Visibility::known("VISIBILITY_UNSPECIFIED", 0);
 
     /// The resource is only visible to the GCP account who owns it.
-    pub const ACCOUNT_ONLY: Visibility = Visibility::new("ACCOUNT_ONLY");
+    pub const ACCOUNT_ONLY: Visibility = Visibility::known("ACCOUNT_ONLY", 1);
 
     /// The resource is visible to the owner and may be visible to other
     /// applications and processes at Google.
-    pub const SHARED_WITH_GOOGLE: Visibility = Visibility::new("SHARED_WITH_GOOGLE");
+    pub const SHARED_WITH_GOOGLE: Visibility = Visibility::known("SHARED_WITH_GOOGLE", 2);
 
     /// The resource is visible to the owner and may be visible to all other API
     /// clients.
-    pub const SHARED_WITH_PUBLIC: Visibility = Visibility::new("SHARED_WITH_PUBLIC");
+    pub const SHARED_WITH_PUBLIC: Visibility = Visibility::known("SHARED_WITH_PUBLIC", 3);
+}
+
+impl Visibility {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Visibility {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Visibility {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Visibility::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Visibility::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Visibility::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Visibility {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "VISIBILITY_UNSPECIFIED" => visibility::VISIBILITY_UNSPECIFIED,
+            "ACCOUNT_ONLY" => visibility::ACCOUNT_ONLY,
+            "SHARED_WITH_GOOGLE" => visibility::SHARED_WITH_GOOGLE,
+            "SHARED_WITH_PUBLIC" => visibility::SHARED_WITH_PUBLIC,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Visibility {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => visibility::VISIBILITY_UNSPECIFIED,
+            1 => visibility::ACCOUNT_ONLY,
+            2 => visibility::SHARED_WITH_GOOGLE,
+            3 => visibility::SHARED_WITH_PUBLIC,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Visibility {
     fn default() -> Self {
-        visibility::VISIBILITY_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Option for HTML content sanitization on user input fields, for example, job
 /// description. By setting this option, user can determine whether and how
 /// sanitization is performed on these fields.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HtmlSanitization(std::borrow::Cow<'static, str>);
-
-impl HtmlSanitization {
-    /// Creates a new HtmlSanitization instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HtmlSanitization(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [HtmlSanitization](HtmlSanitization)
 pub mod html_sanitization {
@@ -7489,46 +8846,92 @@ pub mod html_sanitization {
 
     /// Default value.
     pub const HTML_SANITIZATION_UNSPECIFIED: HtmlSanitization =
-        HtmlSanitization::new("HTML_SANITIZATION_UNSPECIFIED");
+        HtmlSanitization::known("HTML_SANITIZATION_UNSPECIFIED", 0);
 
     /// Disables sanitization on HTML input.
     pub const HTML_SANITIZATION_DISABLED: HtmlSanitization =
-        HtmlSanitization::new("HTML_SANITIZATION_DISABLED");
+        HtmlSanitization::known("HTML_SANITIZATION_DISABLED", 1);
 
     /// Sanitizes HTML input, only accepts bold, italic, ordered list, and
     /// unordered list markup tags.
     pub const SIMPLE_FORMATTING_ONLY: HtmlSanitization =
-        HtmlSanitization::new("SIMPLE_FORMATTING_ONLY");
+        HtmlSanitization::known("SIMPLE_FORMATTING_ONLY", 2);
+}
+
+impl HtmlSanitization {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for HtmlSanitization {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HtmlSanitization {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(HtmlSanitization::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(HtmlSanitization::from(val)),
+            Enumeration::UnknownNum { str } => Ok(HtmlSanitization::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for HtmlSanitization {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "HTML_SANITIZATION_UNSPECIFIED" => html_sanitization::HTML_SANITIZATION_UNSPECIFIED,
+            "HTML_SANITIZATION_DISABLED" => html_sanitization::HTML_SANITIZATION_DISABLED,
+            "SIMPLE_FORMATTING_ONLY" => html_sanitization::SIMPLE_FORMATTING_ONLY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for HtmlSanitization {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => html_sanitization::HTML_SANITIZATION_UNSPECIFIED,
+            1 => html_sanitization::HTML_SANITIZATION_DISABLED,
+            2 => html_sanitization::SIMPLE_FORMATTING_ONLY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for HtmlSanitization {
     fn default() -> Self {
-        html_sanitization::HTML_SANITIZATION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Method for commute. Walking, biking and wheelchair accessible transit is
 /// still in the Preview stage.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CommuteMethod(std::borrow::Cow<'static, str>);
-
-impl CommuteMethod {
-    /// Creates a new CommuteMethod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct CommuteMethod(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [CommuteMethod](CommuteMethod)
 pub mod commute_method {
@@ -7536,35 +8939,99 @@ pub mod commute_method {
 
     /// Commute method isn't specified.
     pub const COMMUTE_METHOD_UNSPECIFIED: CommuteMethod =
-        CommuteMethod::new("COMMUTE_METHOD_UNSPECIFIED");
+        CommuteMethod::known("COMMUTE_METHOD_UNSPECIFIED", 0);
 
     /// Commute time is calculated based on driving time.
-    pub const DRIVING: CommuteMethod = CommuteMethod::new("DRIVING");
+    pub const DRIVING: CommuteMethod = CommuteMethod::known("DRIVING", 1);
 
     /// Commute time is calculated based on public transit including bus, metro,
     /// subway, and so on.
-    pub const TRANSIT: CommuteMethod = CommuteMethod::new("TRANSIT");
+    pub const TRANSIT: CommuteMethod = CommuteMethod::known("TRANSIT", 2);
 
     /// Commute time is calculated based on walking time.
-    pub const WALKING: CommuteMethod = CommuteMethod::new("WALKING");
+    pub const WALKING: CommuteMethod = CommuteMethod::known("WALKING", 3);
 
     /// Commute time is calculated based on biking time.
-    pub const CYCLING: CommuteMethod = CommuteMethod::new("CYCLING");
+    pub const CYCLING: CommuteMethod = CommuteMethod::known("CYCLING", 4);
 
     /// Commute time is calculated based on public transit that is wheelchair
     /// accessible.
-    pub const TRANSIT_ACCESSIBLE: CommuteMethod = CommuteMethod::new("TRANSIT_ACCESSIBLE");
+    pub const TRANSIT_ACCESSIBLE: CommuteMethod = CommuteMethod::known("TRANSIT_ACCESSIBLE", 5);
+}
+
+impl CommuteMethod {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for CommuteMethod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CommuteMethod {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(CommuteMethod::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(CommuteMethod::from(val)),
+            Enumeration::UnknownNum { str } => Ok(CommuteMethod::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for CommuteMethod {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "COMMUTE_METHOD_UNSPECIFIED" => commute_method::COMMUTE_METHOD_UNSPECIFIED,
+            "DRIVING" => commute_method::DRIVING,
+            "TRANSIT" => commute_method::TRANSIT,
+            "WALKING" => commute_method::WALKING,
+            "CYCLING" => commute_method::CYCLING,
+            "TRANSIT_ACCESSIBLE" => commute_method::TRANSIT_ACCESSIBLE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for CommuteMethod {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => commute_method::COMMUTE_METHOD_UNSPECIFIED,
+            1 => commute_method::DRIVING,
+            2 => commute_method::TRANSIT,
+            3 => commute_method::WALKING,
+            4 => commute_method::CYCLING,
+            5 => commute_method::TRANSIT_ACCESSIBLE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for CommuteMethod {
     fn default() -> Self {
-        commute_method::COMMUTE_METHOD_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
@@ -7575,27 +9042,15 @@ impl std::default::Default for CommuteMethod {
 ///
 /// [google.cloud.talent.v4.ListJobsResponse.jobs]: crate::model::ListJobsResponse::jobs
 /// [google.cloud.talent.v4.SearchJobsResponse.MatchingJob.job]: crate::model::search_jobs_response::MatchingJob::job
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct JobView(std::borrow::Cow<'static, str>);
-
-impl JobView {
-    /// Creates a new JobView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct JobView(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [JobView](JobView)
 pub mod job_view {
     use super::JobView;
 
     /// Default value.
-    pub const JOB_VIEW_UNSPECIFIED: JobView = JobView::new("JOB_VIEW_UNSPECIFIED");
+    pub const JOB_VIEW_UNSPECIFIED: JobView = JobView::known("JOB_VIEW_UNSPECIFIED", 0);
 
     /// A ID only view of job, with following attributes:
     /// [Job.name][google.cloud.talent.v4.Job.name],
@@ -7605,7 +9060,7 @@ pub mod job_view {
     /// [google.cloud.talent.v4.Job.language_code]: crate::model::Job::language_code
     /// [google.cloud.talent.v4.Job.name]: crate::model::Job::name
     /// [google.cloud.talent.v4.Job.requisition_id]: crate::model::Job::requisition_id
-    pub const JOB_VIEW_ID_ONLY: JobView = JobView::new("JOB_VIEW_ID_ONLY");
+    pub const JOB_VIEW_ID_ONLY: JobView = JobView::known("JOB_VIEW_ID_ONLY", 1);
 
     /// A minimal view of the job, with the following attributes:
     /// [Job.name][google.cloud.talent.v4.Job.name],
@@ -7621,7 +9076,7 @@ pub mod job_view {
     /// [google.cloud.talent.v4.Job.name]: crate::model::Job::name
     /// [google.cloud.talent.v4.Job.requisition_id]: crate::model::Job::requisition_id
     /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
-    pub const JOB_VIEW_MINIMAL: JobView = JobView::new("JOB_VIEW_MINIMAL");
+    pub const JOB_VIEW_MINIMAL: JobView = JobView::known("JOB_VIEW_MINIMAL", 2);
 
     /// A small view of the job, with the following attributes in the search
     /// results: [Job.name][google.cloud.talent.v4.Job.name],
@@ -7641,20 +9096,82 @@ pub mod job_view {
     /// [google.cloud.talent.v4.Job.requisition_id]: crate::model::Job::requisition_id
     /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
-    pub const JOB_VIEW_SMALL: JobView = JobView::new("JOB_VIEW_SMALL");
+    pub const JOB_VIEW_SMALL: JobView = JobView::known("JOB_VIEW_SMALL", 3);
 
     /// All available attributes are included in the search results.
-    pub const JOB_VIEW_FULL: JobView = JobView::new("JOB_VIEW_FULL");
+    pub const JOB_VIEW_FULL: JobView = JobView::known("JOB_VIEW_FULL", 4);
+}
+
+impl JobView {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for JobView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for JobView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(JobView::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(JobView::from(val)),
+            Enumeration::UnknownNum { str } => Ok(JobView::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for JobView {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "JOB_VIEW_UNSPECIFIED" => job_view::JOB_VIEW_UNSPECIFIED,
+            "JOB_VIEW_ID_ONLY" => job_view::JOB_VIEW_ID_ONLY,
+            "JOB_VIEW_MINIMAL" => job_view::JOB_VIEW_MINIMAL,
+            "JOB_VIEW_SMALL" => job_view::JOB_VIEW_SMALL,
+            "JOB_VIEW_FULL" => job_view::JOB_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for JobView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => job_view::JOB_VIEW_UNSPECIFIED,
+            1 => job_view::JOB_VIEW_ID_ONLY,
+            2 => job_view::JOB_VIEW_MINIMAL,
+            3 => job_view::JOB_VIEW_SMALL,
+            4 => job_view::JOB_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for JobView {
     fn default() -> Self {
-        job_view::JOB_VIEW_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -339,20 +339,8 @@ pub mod client_connector_service {
             }
 
             /// The protocol used to connect to the server.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct TransportProtocol(std::borrow::Cow<'static, str>);
-
-            impl TransportProtocol {
-                /// Creates a new TransportProtocol instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct TransportProtocol(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [TransportProtocol](TransportProtocol)
             pub mod transport_protocol {
@@ -360,21 +348,79 @@ pub mod client_connector_service {
 
                 /// Default value. This value is unused.
                 pub const TRANSPORT_PROTOCOL_UNSPECIFIED: TransportProtocol =
-                    TransportProtocol::new("TRANSPORT_PROTOCOL_UNSPECIFIED");
+                    TransportProtocol::known("TRANSPORT_PROTOCOL_UNSPECIFIED", 0);
 
                 /// TCP protocol.
-                pub const TCP: TransportProtocol = TransportProtocol::new("TCP");
+                pub const TCP: TransportProtocol = TransportProtocol::known("TCP", 1);
+            }
+
+            impl TransportProtocol {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for TransportProtocol {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for TransportProtocol {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(TransportProtocol::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(TransportProtocol::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(TransportProtocol::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for TransportProtocol {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "TRANSPORT_PROTOCOL_UNSPECIFIED" => {
+                            transport_protocol::TRANSPORT_PROTOCOL_UNSPECIFIED
+                        }
+                        "TCP" => transport_protocol::TCP,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for TransportProtocol {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => transport_protocol::TRANSPORT_PROTOCOL_UNSPECIFIED,
+                        1 => transport_protocol::TCP,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for TransportProtocol {
                 fn default() -> Self {
-                    transport_protocol::TRANSPORT_PROTOCOL_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -511,58 +557,112 @@ pub mod client_connector_service {
     }
 
     /// Represents the different states of a ClientConnectorService.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// ClientConnectorService is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// ClientConnectorService is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 2);
 
         /// ClientConnectorService is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// ClientConnectorService is running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 4);
 
         /// ClientConnectorService is down and may be restored in the future.
         /// This happens when CCFE sends ProjectState = OFF.
-        pub const DOWN: State = State::new("DOWN");
+        pub const DOWN: State = State::known("DOWN", 5);
 
         /// ClientConnectorService encountered an error and is in an indeterministic
         /// state.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::known("ERROR", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                "RUNNING" => state::RUNNING,
+                "DOWN" => state::DOWN,
+                "ERROR" => state::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::UPDATING,
+                3 => state::DELETING,
+                4 => state::RUNNING,
+                5 => state::DOWN,
+                6 => state::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

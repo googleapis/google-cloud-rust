@@ -1579,20 +1579,8 @@ impl wkt::message::Message for TimeOfDay {
 /// A `CalendarPeriod` represents the abstract concept of a time period that has
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CalendarPeriod(std::borrow::Cow<'static, str>);
-
-impl CalendarPeriod {
-    /// Creates a new CalendarPeriod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct CalendarPeriod(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [CalendarPeriod](CalendarPeriod)
 pub mod calendar_period {
@@ -1600,171 +1588,361 @@ pub mod calendar_period {
 
     /// Undefined period, raises an error.
     pub const CALENDAR_PERIOD_UNSPECIFIED: CalendarPeriod =
-        CalendarPeriod::new("CALENDAR_PERIOD_UNSPECIFIED");
+        CalendarPeriod::known("CALENDAR_PERIOD_UNSPECIFIED", 0);
 
     /// A day.
-    pub const DAY: CalendarPeriod = CalendarPeriod::new("DAY");
+    pub const DAY: CalendarPeriod = CalendarPeriod::known("DAY", 1);
 
     /// A week. Weeks begin on Monday, following
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const WEEK: CalendarPeriod = CalendarPeriod::new("WEEK");
+    pub const WEEK: CalendarPeriod = CalendarPeriod::known("WEEK", 2);
 
     /// A fortnight. The first calendar fortnight of the year begins at the start
     /// of week 1 according to
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const FORTNIGHT: CalendarPeriod = CalendarPeriod::new("FORTNIGHT");
+    pub const FORTNIGHT: CalendarPeriod = CalendarPeriod::known("FORTNIGHT", 3);
 
     /// A month.
-    pub const MONTH: CalendarPeriod = CalendarPeriod::new("MONTH");
+    pub const MONTH: CalendarPeriod = CalendarPeriod::known("MONTH", 4);
 
     /// A quarter. Quarters start on dates 1-Jan, 1-Apr, 1-Jul, and 1-Oct of each
     /// year.
-    pub const QUARTER: CalendarPeriod = CalendarPeriod::new("QUARTER");
+    pub const QUARTER: CalendarPeriod = CalendarPeriod::known("QUARTER", 5);
 
     /// A half-year. Half-years start on dates 1-Jan and 1-Jul.
-    pub const HALF: CalendarPeriod = CalendarPeriod::new("HALF");
+    pub const HALF: CalendarPeriod = CalendarPeriod::known("HALF", 6);
 
     /// A year.
-    pub const YEAR: CalendarPeriod = CalendarPeriod::new("YEAR");
+    pub const YEAR: CalendarPeriod = CalendarPeriod::known("YEAR", 7);
+}
+
+impl CalendarPeriod {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for CalendarPeriod {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CalendarPeriod {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(CalendarPeriod::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(CalendarPeriod::from(val)),
+            Enumeration::UnknownNum { str } => Ok(CalendarPeriod::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for CalendarPeriod {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CALENDAR_PERIOD_UNSPECIFIED" => calendar_period::CALENDAR_PERIOD_UNSPECIFIED,
+            "DAY" => calendar_period::DAY,
+            "WEEK" => calendar_period::WEEK,
+            "FORTNIGHT" => calendar_period::FORTNIGHT,
+            "MONTH" => calendar_period::MONTH,
+            "QUARTER" => calendar_period::QUARTER,
+            "HALF" => calendar_period::HALF,
+            "YEAR" => calendar_period::YEAR,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for CalendarPeriod {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => calendar_period::CALENDAR_PERIOD_UNSPECIFIED,
+            1 => calendar_period::DAY,
+            2 => calendar_period::WEEK,
+            3 => calendar_period::FORTNIGHT,
+            4 => calendar_period::MONTH,
+            5 => calendar_period::QUARTER,
+            6 => calendar_period::HALF,
+            7 => calendar_period::YEAR,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for CalendarPeriod {
     fn default() -> Self {
-        calendar_period::CALENDAR_PERIOD_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Represents a day of the week.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DayOfWeek(std::borrow::Cow<'static, str>);
-
-impl DayOfWeek {
-    /// Creates a new DayOfWeek instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DayOfWeek(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DayOfWeek](DayOfWeek)
 pub mod day_of_week {
     use super::DayOfWeek;
 
     /// The day of the week is unspecified.
-    pub const DAY_OF_WEEK_UNSPECIFIED: DayOfWeek = DayOfWeek::new("DAY_OF_WEEK_UNSPECIFIED");
+    pub const DAY_OF_WEEK_UNSPECIFIED: DayOfWeek = DayOfWeek::known("DAY_OF_WEEK_UNSPECIFIED", 0);
 
     /// Monday
-    pub const MONDAY: DayOfWeek = DayOfWeek::new("MONDAY");
+    pub const MONDAY: DayOfWeek = DayOfWeek::known("MONDAY", 1);
 
     /// Tuesday
-    pub const TUESDAY: DayOfWeek = DayOfWeek::new("TUESDAY");
+    pub const TUESDAY: DayOfWeek = DayOfWeek::known("TUESDAY", 2);
 
     /// Wednesday
-    pub const WEDNESDAY: DayOfWeek = DayOfWeek::new("WEDNESDAY");
+    pub const WEDNESDAY: DayOfWeek = DayOfWeek::known("WEDNESDAY", 3);
 
     /// Thursday
-    pub const THURSDAY: DayOfWeek = DayOfWeek::new("THURSDAY");
+    pub const THURSDAY: DayOfWeek = DayOfWeek::known("THURSDAY", 4);
 
     /// Friday
-    pub const FRIDAY: DayOfWeek = DayOfWeek::new("FRIDAY");
+    pub const FRIDAY: DayOfWeek = DayOfWeek::known("FRIDAY", 5);
 
     /// Saturday
-    pub const SATURDAY: DayOfWeek = DayOfWeek::new("SATURDAY");
+    pub const SATURDAY: DayOfWeek = DayOfWeek::known("SATURDAY", 6);
 
     /// Sunday
-    pub const SUNDAY: DayOfWeek = DayOfWeek::new("SUNDAY");
+    pub const SUNDAY: DayOfWeek = DayOfWeek::known("SUNDAY", 7);
+}
+
+impl DayOfWeek {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DayOfWeek {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DayOfWeek {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DayOfWeek::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DayOfWeek::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DayOfWeek::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DayOfWeek {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DAY_OF_WEEK_UNSPECIFIED" => day_of_week::DAY_OF_WEEK_UNSPECIFIED,
+            "MONDAY" => day_of_week::MONDAY,
+            "TUESDAY" => day_of_week::TUESDAY,
+            "WEDNESDAY" => day_of_week::WEDNESDAY,
+            "THURSDAY" => day_of_week::THURSDAY,
+            "FRIDAY" => day_of_week::FRIDAY,
+            "SATURDAY" => day_of_week::SATURDAY,
+            "SUNDAY" => day_of_week::SUNDAY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DayOfWeek {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => day_of_week::DAY_OF_WEEK_UNSPECIFIED,
+            1 => day_of_week::MONDAY,
+            2 => day_of_week::TUESDAY,
+            3 => day_of_week::WEDNESDAY,
+            4 => day_of_week::THURSDAY,
+            5 => day_of_week::FRIDAY,
+            6 => day_of_week::SATURDAY,
+            7 => day_of_week::SUNDAY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DayOfWeek {
     fn default() -> Self {
-        day_of_week::DAY_OF_WEEK_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Represents a month in the Gregorian calendar.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Month(std::borrow::Cow<'static, str>);
-
-impl Month {
-    /// Creates a new Month instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Month(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Month](Month)
 pub mod month {
     use super::Month;
 
     /// The unspecified month.
-    pub const MONTH_UNSPECIFIED: Month = Month::new("MONTH_UNSPECIFIED");
+    pub const MONTH_UNSPECIFIED: Month = Month::known("MONTH_UNSPECIFIED", 0);
 
     /// The month of January.
-    pub const JANUARY: Month = Month::new("JANUARY");
+    pub const JANUARY: Month = Month::known("JANUARY", 1);
 
     /// The month of February.
-    pub const FEBRUARY: Month = Month::new("FEBRUARY");
+    pub const FEBRUARY: Month = Month::known("FEBRUARY", 2);
 
     /// The month of March.
-    pub const MARCH: Month = Month::new("MARCH");
+    pub const MARCH: Month = Month::known("MARCH", 3);
 
     /// The month of April.
-    pub const APRIL: Month = Month::new("APRIL");
+    pub const APRIL: Month = Month::known("APRIL", 4);
 
     /// The month of May.
-    pub const MAY: Month = Month::new("MAY");
+    pub const MAY: Month = Month::known("MAY", 5);
 
     /// The month of June.
-    pub const JUNE: Month = Month::new("JUNE");
+    pub const JUNE: Month = Month::known("JUNE", 6);
 
     /// The month of July.
-    pub const JULY: Month = Month::new("JULY");
+    pub const JULY: Month = Month::known("JULY", 7);
 
     /// The month of August.
-    pub const AUGUST: Month = Month::new("AUGUST");
+    pub const AUGUST: Month = Month::known("AUGUST", 8);
 
     /// The month of September.
-    pub const SEPTEMBER: Month = Month::new("SEPTEMBER");
+    pub const SEPTEMBER: Month = Month::known("SEPTEMBER", 9);
 
     /// The month of October.
-    pub const OCTOBER: Month = Month::new("OCTOBER");
+    pub const OCTOBER: Month = Month::known("OCTOBER", 10);
 
     /// The month of November.
-    pub const NOVEMBER: Month = Month::new("NOVEMBER");
+    pub const NOVEMBER: Month = Month::known("NOVEMBER", 11);
 
     /// The month of December.
-    pub const DECEMBER: Month = Month::new("DECEMBER");
+    pub const DECEMBER: Month = Month::known("DECEMBER", 12);
+}
+
+impl Month {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Month {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Month {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Month::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Month::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Month::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Month {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "MONTH_UNSPECIFIED" => month::MONTH_UNSPECIFIED,
+            "JANUARY" => month::JANUARY,
+            "FEBRUARY" => month::FEBRUARY,
+            "MARCH" => month::MARCH,
+            "APRIL" => month::APRIL,
+            "MAY" => month::MAY,
+            "JUNE" => month::JUNE,
+            "JULY" => month::JULY,
+            "AUGUST" => month::AUGUST,
+            "SEPTEMBER" => month::SEPTEMBER,
+            "OCTOBER" => month::OCTOBER,
+            "NOVEMBER" => month::NOVEMBER,
+            "DECEMBER" => month::DECEMBER,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Month {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => month::MONTH_UNSPECIFIED,
+            1 => month::JANUARY,
+            2 => month::FEBRUARY,
+            3 => month::MARCH,
+            4 => month::APRIL,
+            5 => month::MAY,
+            6 => month::JUNE,
+            7 => month::JULY,
+            8 => month::AUGUST,
+            9 => month::SEPTEMBER,
+            10 => month::OCTOBER,
+            11 => month::NOVEMBER,
+            12 => month::DECEMBER,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Month {
     fn default() -> Self {
-        month::MONTH_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -223,20 +223,8 @@ pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GlobalPolicyEvaluationMode(std::borrow::Cow<'static, str>);
-
-    impl GlobalPolicyEvaluationMode {
-        /// Creates a new GlobalPolicyEvaluationMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct GlobalPolicyEvaluationMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [GlobalPolicyEvaluationMode](GlobalPolicyEvaluationMode)
     pub mod global_policy_evaluation_mode {
@@ -244,24 +232,88 @@ pub mod policy {
 
         /// Not specified: DISABLE is assumed.
         pub const GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED: GlobalPolicyEvaluationMode =
-            GlobalPolicyEvaluationMode::new("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED");
+            GlobalPolicyEvaluationMode::known("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED", 0);
 
         /// Enables system policy evaluation.
-        pub const ENABLE: GlobalPolicyEvaluationMode = GlobalPolicyEvaluationMode::new("ENABLE");
+        pub const ENABLE: GlobalPolicyEvaluationMode =
+            GlobalPolicyEvaluationMode::known("ENABLE", 1);
 
         /// Disables system policy evaluation.
-        pub const DISABLE: GlobalPolicyEvaluationMode = GlobalPolicyEvaluationMode::new("DISABLE");
+        pub const DISABLE: GlobalPolicyEvaluationMode =
+            GlobalPolicyEvaluationMode::known("DISABLE", 2);
+    }
+
+    impl GlobalPolicyEvaluationMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for GlobalPolicyEvaluationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GlobalPolicyEvaluationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(GlobalPolicyEvaluationMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(GlobalPolicyEvaluationMode::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(GlobalPolicyEvaluationMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for GlobalPolicyEvaluationMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED" => {
+                    global_policy_evaluation_mode::GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED
+                }
+                "ENABLE" => global_policy_evaluation_mode::ENABLE,
+                "DISABLE" => global_policy_evaluation_mode::DISABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for GlobalPolicyEvaluationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => global_policy_evaluation_mode::GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED,
+                1 => global_policy_evaluation_mode::ENABLE,
+                2 => global_policy_evaluation_mode::DISABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for GlobalPolicyEvaluationMode {
         fn default() -> Self {
-            global_policy_evaluation_mode::GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -386,20 +438,8 @@ pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EvaluationMode(std::borrow::Cow<'static, str>);
-
-    impl EvaluationMode {
-        /// Creates a new EvaluationMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EvaluationMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EvaluationMode](EvaluationMode)
     pub mod evaluation_mode {
@@ -407,48 +447,97 @@ pub mod admission_rule {
 
         /// Do not use.
         pub const EVALUATION_MODE_UNSPECIFIED: EvaluationMode =
-            EvaluationMode::new("EVALUATION_MODE_UNSPECIFIED");
+            EvaluationMode::known("EVALUATION_MODE_UNSPECIFIED", 0);
 
         /// This rule allows all all pod creations.
-        pub const ALWAYS_ALLOW: EvaluationMode = EvaluationMode::new("ALWAYS_ALLOW");
+        pub const ALWAYS_ALLOW: EvaluationMode = EvaluationMode::known("ALWAYS_ALLOW", 1);
 
         /// This rule allows a pod creation if all the attestors listed in
         /// 'require_attestations_by' have valid attestations for all of the
         /// images in the pod spec.
-        pub const REQUIRE_ATTESTATION: EvaluationMode = EvaluationMode::new("REQUIRE_ATTESTATION");
+        pub const REQUIRE_ATTESTATION: EvaluationMode =
+            EvaluationMode::known("REQUIRE_ATTESTATION", 2);
 
         /// This rule denies all pod creations.
-        pub const ALWAYS_DENY: EvaluationMode = EvaluationMode::new("ALWAYS_DENY");
+        pub const ALWAYS_DENY: EvaluationMode = EvaluationMode::known("ALWAYS_DENY", 3);
+    }
+
+    impl EvaluationMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EvaluationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EvaluationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EvaluationMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EvaluationMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EvaluationMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EvaluationMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EVALUATION_MODE_UNSPECIFIED" => evaluation_mode::EVALUATION_MODE_UNSPECIFIED,
+                "ALWAYS_ALLOW" => evaluation_mode::ALWAYS_ALLOW,
+                "REQUIRE_ATTESTATION" => evaluation_mode::REQUIRE_ATTESTATION,
+                "ALWAYS_DENY" => evaluation_mode::ALWAYS_DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EvaluationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => evaluation_mode::EVALUATION_MODE_UNSPECIFIED,
+                1 => evaluation_mode::ALWAYS_ALLOW,
+                2 => evaluation_mode::REQUIRE_ATTESTATION,
+                3 => evaluation_mode::ALWAYS_DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EvaluationMode {
         fn default() -> Self {
-            evaluation_mode::EVALUATION_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Defines the possible actions when a pod creation is denied by an admission
     /// rule.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EnforcementMode(std::borrow::Cow<'static, str>);
-
-    impl EnforcementMode {
-        /// Creates a new EnforcementMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EnforcementMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EnforcementMode](EnforcementMode)
     pub mod enforcement_mode {
@@ -456,27 +545,85 @@ pub mod admission_rule {
 
         /// Do not use.
         pub const ENFORCEMENT_MODE_UNSPECIFIED: EnforcementMode =
-            EnforcementMode::new("ENFORCEMENT_MODE_UNSPECIFIED");
+            EnforcementMode::known("ENFORCEMENT_MODE_UNSPECIFIED", 0);
 
         /// Enforce the admission rule by blocking the pod creation.
         pub const ENFORCED_BLOCK_AND_AUDIT_LOG: EnforcementMode =
-            EnforcementMode::new("ENFORCED_BLOCK_AND_AUDIT_LOG");
+            EnforcementMode::known("ENFORCED_BLOCK_AND_AUDIT_LOG", 1);
 
         /// Dryrun mode: Audit logging only.  This will allow the pod creation as if
         /// the admission request had specified break-glass.
         pub const DRYRUN_AUDIT_LOG_ONLY: EnforcementMode =
-            EnforcementMode::new("DRYRUN_AUDIT_LOG_ONLY");
+            EnforcementMode::known("DRYRUN_AUDIT_LOG_ONLY", 2);
+    }
+
+    impl EnforcementMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EnforcementMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EnforcementMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EnforcementMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EnforcementMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EnforcementMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EnforcementMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENFORCEMENT_MODE_UNSPECIFIED" => enforcement_mode::ENFORCEMENT_MODE_UNSPECIFIED,
+                "ENFORCED_BLOCK_AND_AUDIT_LOG" => enforcement_mode::ENFORCED_BLOCK_AND_AUDIT_LOG,
+                "DRYRUN_AUDIT_LOG_ONLY" => enforcement_mode::DRYRUN_AUDIT_LOG_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EnforcementMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => enforcement_mode::ENFORCEMENT_MODE_UNSPECIFIED,
+                1 => enforcement_mode::ENFORCED_BLOCK_AND_AUDIT_LOG,
+                2 => enforcement_mode::DRYRUN_AUDIT_LOG_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EnforcementMode {
         fn default() -> Self {
-            enforcement_mode::ENFORCEMENT_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -744,20 +891,8 @@ pub mod pkix_public_key {
     /// PemKeyType, which is in turn based on KMS's supported signing algorithms.
     /// See <https://cloud.google.com/kms/docs/algorithms>. In the future, BinAuthz
     /// might support additional public key types independently of Tink and/or KMS.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SignatureAlgorithm(std::borrow::Cow<'static, str>);
-
-    impl SignatureAlgorithm {
-        /// Creates a new SignatureAlgorithm instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SignatureAlgorithm(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SignatureAlgorithm](SignatureAlgorithm)
     pub mod signature_algorithm {
@@ -765,74 +900,155 @@ pub mod pkix_public_key {
 
         /// Not specified.
         pub const SIGNATURE_ALGORITHM_UNSPECIFIED: SignatureAlgorithm =
-            SignatureAlgorithm::new("SIGNATURE_ALGORITHM_UNSPECIFIED");
+            SignatureAlgorithm::known("SIGNATURE_ALGORITHM_UNSPECIFIED", 0);
 
         /// RSASSA-PSS 2048 bit key with a SHA256 digest.
         pub const RSA_PSS_2048_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_PSS_2048_SHA256");
+            SignatureAlgorithm::known("RSA_PSS_2048_SHA256", 1);
 
         /// RSASSA-PSS 3072 bit key with a SHA256 digest.
         pub const RSA_PSS_3072_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_PSS_3072_SHA256");
+            SignatureAlgorithm::known("RSA_PSS_3072_SHA256", 2);
 
         /// RSASSA-PSS 4096 bit key with a SHA256 digest.
         pub const RSA_PSS_4096_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_PSS_4096_SHA256");
+            SignatureAlgorithm::known("RSA_PSS_4096_SHA256", 3);
 
         /// RSASSA-PSS 4096 bit key with a SHA512 digest.
         pub const RSA_PSS_4096_SHA512: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_PSS_4096_SHA512");
+            SignatureAlgorithm::known("RSA_PSS_4096_SHA512", 4);
 
         /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
         pub const RSA_SIGN_PKCS1_2048_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_SIGN_PKCS1_2048_SHA256");
+            SignatureAlgorithm::known("RSA_SIGN_PKCS1_2048_SHA256", 5);
 
         /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
         pub const RSA_SIGN_PKCS1_3072_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_SIGN_PKCS1_3072_SHA256");
+            SignatureAlgorithm::known("RSA_SIGN_PKCS1_3072_SHA256", 6);
 
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA256 digest.
         pub const RSA_SIGN_PKCS1_4096_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_SIGN_PKCS1_4096_SHA256");
+            SignatureAlgorithm::known("RSA_SIGN_PKCS1_4096_SHA256", 7);
 
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA512 digest.
         pub const RSA_SIGN_PKCS1_4096_SHA512: SignatureAlgorithm =
-            SignatureAlgorithm::new("RSA_SIGN_PKCS1_4096_SHA512");
+            SignatureAlgorithm::known("RSA_SIGN_PKCS1_4096_SHA512", 8);
 
         /// ECDSA on the NIST P-256 curve with a SHA256 digest.
         pub const ECDSA_P256_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("ECDSA_P256_SHA256");
+            SignatureAlgorithm::known("ECDSA_P256_SHA256", 9);
 
         /// ECDSA on the NIST P-256 curve with a SHA256 digest.
         pub const EC_SIGN_P256_SHA256: SignatureAlgorithm =
-            SignatureAlgorithm::new("EC_SIGN_P256_SHA256");
+            SignatureAlgorithm::known("EC_SIGN_P256_SHA256", 9);
 
         /// ECDSA on the NIST P-384 curve with a SHA384 digest.
         pub const ECDSA_P384_SHA384: SignatureAlgorithm =
-            SignatureAlgorithm::new("ECDSA_P384_SHA384");
+            SignatureAlgorithm::known("ECDSA_P384_SHA384", 10);
 
         /// ECDSA on the NIST P-384 curve with a SHA384 digest.
         pub const EC_SIGN_P384_SHA384: SignatureAlgorithm =
-            SignatureAlgorithm::new("EC_SIGN_P384_SHA384");
+            SignatureAlgorithm::known("EC_SIGN_P384_SHA384", 10);
 
         /// ECDSA on the NIST P-521 curve with a SHA512 digest.
         pub const ECDSA_P521_SHA512: SignatureAlgorithm =
-            SignatureAlgorithm::new("ECDSA_P521_SHA512");
+            SignatureAlgorithm::known("ECDSA_P521_SHA512", 11);
 
         /// ECDSA on the NIST P-521 curve with a SHA512 digest.
         pub const EC_SIGN_P521_SHA512: SignatureAlgorithm =
-            SignatureAlgorithm::new("EC_SIGN_P521_SHA512");
+            SignatureAlgorithm::known("EC_SIGN_P521_SHA512", 11);
+    }
+
+    impl SignatureAlgorithm {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SignatureAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SignatureAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SignatureAlgorithm::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SignatureAlgorithm::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SignatureAlgorithm::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SignatureAlgorithm {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SIGNATURE_ALGORITHM_UNSPECIFIED" => {
+                    signature_algorithm::SIGNATURE_ALGORITHM_UNSPECIFIED
+                }
+                "RSA_PSS_2048_SHA256" => signature_algorithm::RSA_PSS_2048_SHA256,
+                "RSA_PSS_3072_SHA256" => signature_algorithm::RSA_PSS_3072_SHA256,
+                "RSA_PSS_4096_SHA256" => signature_algorithm::RSA_PSS_4096_SHA256,
+                "RSA_PSS_4096_SHA512" => signature_algorithm::RSA_PSS_4096_SHA512,
+                "RSA_SIGN_PKCS1_2048_SHA256" => signature_algorithm::RSA_SIGN_PKCS1_2048_SHA256,
+                "RSA_SIGN_PKCS1_3072_SHA256" => signature_algorithm::RSA_SIGN_PKCS1_3072_SHA256,
+                "RSA_SIGN_PKCS1_4096_SHA256" => signature_algorithm::RSA_SIGN_PKCS1_4096_SHA256,
+                "RSA_SIGN_PKCS1_4096_SHA512" => signature_algorithm::RSA_SIGN_PKCS1_4096_SHA512,
+                "ECDSA_P256_SHA256" => signature_algorithm::ECDSA_P256_SHA256,
+                "EC_SIGN_P256_SHA256" => signature_algorithm::EC_SIGN_P256_SHA256,
+                "ECDSA_P384_SHA384" => signature_algorithm::ECDSA_P384_SHA384,
+                "EC_SIGN_P384_SHA384" => signature_algorithm::EC_SIGN_P384_SHA384,
+                "ECDSA_P521_SHA512" => signature_algorithm::ECDSA_P521_SHA512,
+                "EC_SIGN_P521_SHA512" => signature_algorithm::EC_SIGN_P521_SHA512,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SignatureAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => signature_algorithm::SIGNATURE_ALGORITHM_UNSPECIFIED,
+                1 => signature_algorithm::RSA_PSS_2048_SHA256,
+                2 => signature_algorithm::RSA_PSS_3072_SHA256,
+                3 => signature_algorithm::RSA_PSS_4096_SHA256,
+                4 => signature_algorithm::RSA_PSS_4096_SHA512,
+                5 => signature_algorithm::RSA_SIGN_PKCS1_2048_SHA256,
+                6 => signature_algorithm::RSA_SIGN_PKCS1_3072_SHA256,
+                7 => signature_algorithm::RSA_SIGN_PKCS1_4096_SHA256,
+                8 => signature_algorithm::RSA_SIGN_PKCS1_4096_SHA512,
+                9 => signature_algorithm::ECDSA_P256_SHA256,
+                10 => signature_algorithm::ECDSA_P384_SHA384,
+                11 => signature_algorithm::ECDSA_P521_SHA512,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SignatureAlgorithm {
         fn default() -> Self {
-            signature_algorithm::SIGNATURE_ALGORITHM_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1500,44 +1716,91 @@ pub mod validate_attestation_occurrence_response {
     use super::*;
 
     /// The enum returned in the "result" field.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(std::borrow::Cow<'static, str>);
-
-    impl Result {
-        /// Creates a new Result instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Result(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Result](Result)
     pub mod result {
         use super::Result;
 
         /// Unspecified.
-        pub const RESULT_UNSPECIFIED: Result = Result::new("RESULT_UNSPECIFIED");
+        pub const RESULT_UNSPECIFIED: Result = Result::known("RESULT_UNSPECIFIED", 0);
 
         /// The Attestation was able to verified by the Attestor.
-        pub const VERIFIED: Result = Result::new("VERIFIED");
+        pub const VERIFIED: Result = Result::known("VERIFIED", 1);
 
         /// The Attestation was not able to verified by the Attestor.
-        pub const ATTESTATION_NOT_VERIFIABLE: Result = Result::new("ATTESTATION_NOT_VERIFIABLE");
+        pub const ATTESTATION_NOT_VERIFIABLE: Result =
+            Result::known("ATTESTATION_NOT_VERIFIABLE", 2);
+    }
+
+    impl Result {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Result {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Result {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Result::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Result::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Result::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Result {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RESULT_UNSPECIFIED" => result::RESULT_UNSPECIFIED,
+                "VERIFIED" => result::VERIFIED,
+                "ATTESTATION_NOT_VERIFIABLE" => result::ATTESTATION_NOT_VERIFIABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => result::RESULT_UNSPECIFIED,
+                1 => result::VERIFIED,
+                2 => result::ATTESTATION_NOT_VERIFIABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Result {
         fn default() -> Self {
-            result::RESULT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

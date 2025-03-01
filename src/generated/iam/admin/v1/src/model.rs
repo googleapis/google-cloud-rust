@@ -758,20 +758,8 @@ pub mod list_service_account_keys_request {
 
     /// `KeyType` filters to selectively retrieve certain varieties
     /// of keys.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyType(std::borrow::Cow<'static, str>);
-
-    impl KeyType {
-        /// Creates a new KeyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct KeyType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [KeyType](KeyType)
     pub mod key_type {
@@ -779,24 +767,82 @@ pub mod list_service_account_keys_request {
 
         /// Unspecified key type. The presence of this in the
         /// message will immediately result in an error.
-        pub const KEY_TYPE_UNSPECIFIED: KeyType = KeyType::new("KEY_TYPE_UNSPECIFIED");
+        pub const KEY_TYPE_UNSPECIFIED: KeyType = KeyType::known("KEY_TYPE_UNSPECIFIED", 0);
 
         /// User-managed keys (managed and rotated by the user).
-        pub const USER_MANAGED: KeyType = KeyType::new("USER_MANAGED");
+        pub const USER_MANAGED: KeyType = KeyType::known("USER_MANAGED", 1);
 
         /// System-managed keys (managed and rotated by Google).
-        pub const SYSTEM_MANAGED: KeyType = KeyType::new("SYSTEM_MANAGED");
+        pub const SYSTEM_MANAGED: KeyType = KeyType::known("SYSTEM_MANAGED", 2);
+    }
+
+    impl KeyType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for KeyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(KeyType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(KeyType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(KeyType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for KeyType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "KEY_TYPE_UNSPECIFIED" => key_type::KEY_TYPE_UNSPECIFIED,
+                "USER_MANAGED" => key_type::USER_MANAGED,
+                "SYSTEM_MANAGED" => key_type::SYSTEM_MANAGED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for KeyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => key_type::KEY_TYPE_UNSPECIFIED,
+                1 => key_type::USER_MANAGED,
+                2 => key_type::SYSTEM_MANAGED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for KeyType {
         fn default() -> Self {
-            key_type::KEY_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1592,20 +1638,8 @@ pub mod role {
     use super::*;
 
     /// A stage representing a role's lifecycle phase.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoleLaunchStage(std::borrow::Cow<'static, str>);
-
-    impl RoleLaunchStage {
-        /// Creates a new RoleLaunchStage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RoleLaunchStage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RoleLaunchStage](RoleLaunchStage)
     pub mod role_launch_stage {
@@ -1614,34 +1648,98 @@ pub mod role {
         /// The user has indicated this role is currently in an Alpha phase. If this
         /// launch stage is selected, the `stage` field will not be included when
         /// requesting the definition for a given role.
-        pub const ALPHA: RoleLaunchStage = RoleLaunchStage::new("ALPHA");
+        pub const ALPHA: RoleLaunchStage = RoleLaunchStage::known("ALPHA", 0);
 
         /// The user has indicated this role is currently in a Beta phase.
-        pub const BETA: RoleLaunchStage = RoleLaunchStage::new("BETA");
+        pub const BETA: RoleLaunchStage = RoleLaunchStage::known("BETA", 1);
 
         /// The user has indicated this role is generally available.
-        pub const GA: RoleLaunchStage = RoleLaunchStage::new("GA");
+        pub const GA: RoleLaunchStage = RoleLaunchStage::known("GA", 2);
 
         /// The user has indicated this role is being deprecated.
-        pub const DEPRECATED: RoleLaunchStage = RoleLaunchStage::new("DEPRECATED");
+        pub const DEPRECATED: RoleLaunchStage = RoleLaunchStage::known("DEPRECATED", 4);
 
         /// This role is disabled and will not contribute permissions to any
         /// principals it is granted to in policies.
-        pub const DISABLED: RoleLaunchStage = RoleLaunchStage::new("DISABLED");
+        pub const DISABLED: RoleLaunchStage = RoleLaunchStage::known("DISABLED", 5);
 
         /// The user has indicated this role is currently in an EAP phase.
-        pub const EAP: RoleLaunchStage = RoleLaunchStage::new("EAP");
+        pub const EAP: RoleLaunchStage = RoleLaunchStage::known("EAP", 6);
+    }
+
+    impl RoleLaunchStage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RoleLaunchStage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoleLaunchStage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RoleLaunchStage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RoleLaunchStage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RoleLaunchStage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RoleLaunchStage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ALPHA" => role_launch_stage::ALPHA,
+                "BETA" => role_launch_stage::BETA,
+                "GA" => role_launch_stage::GA,
+                "DEPRECATED" => role_launch_stage::DEPRECATED,
+                "DISABLED" => role_launch_stage::DISABLED,
+                "EAP" => role_launch_stage::EAP,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RoleLaunchStage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => role_launch_stage::ALPHA,
+                1 => role_launch_stage::BETA,
+                2 => role_launch_stage::GA,
+                4 => role_launch_stage::DEPRECATED,
+                5 => role_launch_stage::DISABLED,
+                6 => role_launch_stage::EAP,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RoleLaunchStage {
         fn default() -> Self {
-            role_launch_stage::ALPHA
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2385,90 +2483,185 @@ pub mod permission {
     use super::*;
 
     /// A stage representing a permission's lifecycle phase.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PermissionLaunchStage(std::borrow::Cow<'static, str>);
-
-    impl PermissionLaunchStage {
-        /// Creates a new PermissionLaunchStage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PermissionLaunchStage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PermissionLaunchStage](PermissionLaunchStage)
     pub mod permission_launch_stage {
         use super::PermissionLaunchStage;
 
         /// The permission is currently in an alpha phase.
-        pub const ALPHA: PermissionLaunchStage = PermissionLaunchStage::new("ALPHA");
+        pub const ALPHA: PermissionLaunchStage = PermissionLaunchStage::known("ALPHA", 0);
 
         /// The permission is currently in a beta phase.
-        pub const BETA: PermissionLaunchStage = PermissionLaunchStage::new("BETA");
+        pub const BETA: PermissionLaunchStage = PermissionLaunchStage::known("BETA", 1);
 
         /// The permission is generally available.
-        pub const GA: PermissionLaunchStage = PermissionLaunchStage::new("GA");
+        pub const GA: PermissionLaunchStage = PermissionLaunchStage::known("GA", 2);
 
         /// The permission is being deprecated.
-        pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::new("DEPRECATED");
+        pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::known("DEPRECATED", 3);
+    }
+
+    impl PermissionLaunchStage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PermissionLaunchStage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PermissionLaunchStage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PermissionLaunchStage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PermissionLaunchStage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PermissionLaunchStage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PermissionLaunchStage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ALPHA" => permission_launch_stage::ALPHA,
+                "BETA" => permission_launch_stage::BETA,
+                "GA" => permission_launch_stage::GA,
+                "DEPRECATED" => permission_launch_stage::DEPRECATED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PermissionLaunchStage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => permission_launch_stage::ALPHA,
+                1 => permission_launch_stage::BETA,
+                2 => permission_launch_stage::GA,
+                3 => permission_launch_stage::DEPRECATED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PermissionLaunchStage {
         fn default() -> Self {
-            permission_launch_stage::ALPHA
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The state of the permission with regards to custom roles.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CustomRolesSupportLevel(std::borrow::Cow<'static, str>);
-
-    impl CustomRolesSupportLevel {
-        /// Creates a new CustomRolesSupportLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CustomRolesSupportLevel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CustomRolesSupportLevel](CustomRolesSupportLevel)
     pub mod custom_roles_support_level {
         use super::CustomRolesSupportLevel;
 
         /// Default state. Permission is fully supported for custom role use.
-        pub const SUPPORTED: CustomRolesSupportLevel = CustomRolesSupportLevel::new("SUPPORTED");
+        pub const SUPPORTED: CustomRolesSupportLevel =
+            CustomRolesSupportLevel::known("SUPPORTED", 0);
 
         /// Permission is being tested to check custom role compatibility.
-        pub const TESTING: CustomRolesSupportLevel = CustomRolesSupportLevel::new("TESTING");
+        pub const TESTING: CustomRolesSupportLevel = CustomRolesSupportLevel::known("TESTING", 1);
 
         /// Permission is not supported for custom role use.
         pub const NOT_SUPPORTED: CustomRolesSupportLevel =
-            CustomRolesSupportLevel::new("NOT_SUPPORTED");
+            CustomRolesSupportLevel::known("NOT_SUPPORTED", 2);
+    }
+
+    impl CustomRolesSupportLevel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CustomRolesSupportLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CustomRolesSupportLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CustomRolesSupportLevel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CustomRolesSupportLevel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CustomRolesSupportLevel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CustomRolesSupportLevel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SUPPORTED" => custom_roles_support_level::SUPPORTED,
+                "TESTING" => custom_roles_support_level::TESTING,
+                "NOT_SUPPORTED" => custom_roles_support_level::NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CustomRolesSupportLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => custom_roles_support_level::SUPPORTED,
+                1 => custom_roles_support_level::TESTING,
+                2 => custom_roles_support_level::NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CustomRolesSupportLevel {
         fn default() -> Self {
-            custom_roles_support_level::SUPPORTED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2896,72 +3089,104 @@ pub mod lint_result {
 
     /// Possible Level values of a validation unit corresponding to its domain
     /// of discourse.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(std::borrow::Cow<'static, str>);
-
-    impl Level {
-        /// Creates a new Level instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Level(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Level](Level)
     pub mod level {
         use super::Level;
 
         /// Level is unspecified.
-        pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
+        pub const LEVEL_UNSPECIFIED: Level = Level::known("LEVEL_UNSPECIFIED", 0);
 
         /// A validation unit which operates on an individual condition within a
         /// binding.
-        pub const CONDITION: Level = Level::new("CONDITION");
+        pub const CONDITION: Level = Level::known("CONDITION", 3);
+    }
+
+    impl Level {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Level {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Level {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Level::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Level::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Level::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Level {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "LEVEL_UNSPECIFIED" => level::LEVEL_UNSPECIFIED,
+                "CONDITION" => level::CONDITION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Level {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => level::LEVEL_UNSPECIFIED,
+                3 => level::CONDITION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Level {
         fn default() -> Self {
-            level::LEVEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Possible Severity values of an issued result.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
-
-    impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Severity(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
         use super::Severity;
 
         /// Severity is unspecified.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::known("SEVERITY_UNSPECIFIED", 0);
 
         /// A validation unit returns an error only for critical issues. If an
         /// attempt is made to set the problematic policy without rectifying the
         /// critical issue, it causes the `setPolicy` operation to fail.
-        pub const ERROR: Severity = Severity::new("ERROR");
+        pub const ERROR: Severity = Severity::known("ERROR", 1);
 
         /// Any issue which is severe enough but does not cause an error.
         /// For example, suspicious constructs in the input object will not
@@ -2972,32 +3197,96 @@ pub mod lint_result {
         /// - Unsatisfiable condition: Expired timestamp in date/time condition.
         /// - Ineffective condition: Condition on a <principal, role> pair which is
         ///   granted unconditionally in another binding of the same policy.
-        pub const WARNING: Severity = Severity::new("WARNING");
+        pub const WARNING: Severity = Severity::known("WARNING", 2);
 
         /// Reserved for the issues that are not severe as `ERROR`/`WARNING`, but
         /// need special handling. For instance, messages about skipped validation
         /// units are issued as `NOTICE`.
-        pub const NOTICE: Severity = Severity::new("NOTICE");
+        pub const NOTICE: Severity = Severity::known("NOTICE", 3);
 
         /// Any informative statement which is not severe enough to raise
         /// `ERROR`/`WARNING`/`NOTICE`, like auto-correction recommendations on the
         /// input content. Note that current version of the linter does not utilize
         /// `INFO`.
-        pub const INFO: Severity = Severity::new("INFO");
+        pub const INFO: Severity = Severity::known("INFO", 4);
 
         /// Deprecated severity level.
-        pub const DEPRECATED: Severity = Severity::new("DEPRECATED");
+        pub const DEPRECATED: Severity = Severity::known("DEPRECATED", 5);
+    }
+
+    impl Severity {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Severity::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Severity::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Severity::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEVERITY_UNSPECIFIED" => severity::SEVERITY_UNSPECIFIED,
+                "ERROR" => severity::ERROR,
+                "WARNING" => severity::WARNING,
+                "NOTICE" => severity::NOTICE,
+                "INFO" => severity::INFO,
+                "DEPRECATED" => severity::DEPRECATED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => severity::SEVERITY_UNSPECIFIED,
+                1 => severity::ERROR,
+                2 => severity::WARNING,
+                3 => severity::NOTICE,
+                4 => severity::INFO,
+                5 => severity::DEPRECATED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3038,20 +3327,8 @@ impl wkt::message::Message for LintPolicyResponse {
 }
 
 /// Supported key algorithms.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyAlgorithm(std::borrow::Cow<'static, str>);
-
-impl ServiceAccountKeyAlgorithm {
-    /// Creates a new ServiceAccountKeyAlgorithm instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ServiceAccountKeyAlgorithm(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ServiceAccountKeyAlgorithm](ServiceAccountKeyAlgorithm)
 pub mod service_account_key_algorithm {
@@ -3059,44 +3336,90 @@ pub mod service_account_key_algorithm {
 
     /// An unspecified key algorithm.
     pub const KEY_ALG_UNSPECIFIED: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_UNSPECIFIED");
+        ServiceAccountKeyAlgorithm::known("KEY_ALG_UNSPECIFIED", 0);
 
     /// 1k RSA Key.
     pub const KEY_ALG_RSA_1024: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_1024");
+        ServiceAccountKeyAlgorithm::known("KEY_ALG_RSA_1024", 1);
 
     /// 2k RSA Key.
     pub const KEY_ALG_RSA_2048: ServiceAccountKeyAlgorithm =
-        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_2048");
+        ServiceAccountKeyAlgorithm::known("KEY_ALG_RSA_2048", 2);
+}
+
+impl ServiceAccountKeyAlgorithm {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ServiceAccountKeyAlgorithm {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ServiceAccountKeyAlgorithm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ServiceAccountKeyAlgorithm::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ServiceAccountKeyAlgorithm::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ServiceAccountKeyAlgorithm::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ServiceAccountKeyAlgorithm {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "KEY_ALG_UNSPECIFIED" => service_account_key_algorithm::KEY_ALG_UNSPECIFIED,
+            "KEY_ALG_RSA_1024" => service_account_key_algorithm::KEY_ALG_RSA_1024,
+            "KEY_ALG_RSA_2048" => service_account_key_algorithm::KEY_ALG_RSA_2048,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ServiceAccountKeyAlgorithm {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => service_account_key_algorithm::KEY_ALG_UNSPECIFIED,
+            1 => service_account_key_algorithm::KEY_ALG_RSA_1024,
+            2 => service_account_key_algorithm::KEY_ALG_RSA_2048,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ServiceAccountKeyAlgorithm {
     fn default() -> Self {
-        service_account_key_algorithm::KEY_ALG_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Supported private key output formats.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPrivateKeyType(std::borrow::Cow<'static, str>);
-
-impl ServiceAccountPrivateKeyType {
-    /// Creates a new ServiceAccountPrivateKeyType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ServiceAccountPrivateKeyType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ServiceAccountPrivateKeyType](ServiceAccountPrivateKeyType)
 pub mod service_account_private_key_type {
@@ -3104,46 +3427,94 @@ pub mod service_account_private_key_type {
 
     /// Unspecified. Equivalent to `TYPE_GOOGLE_CREDENTIALS_FILE`.
     pub const TYPE_UNSPECIFIED: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_UNSPECIFIED");
+        ServiceAccountPrivateKeyType::known("TYPE_UNSPECIFIED", 0);
 
     /// PKCS12 format.
     /// The password for the PKCS12 file is `notasecret`.
     /// For more information, see <https://tools.ietf.org/html/rfc7292>.
     pub const TYPE_PKCS12_FILE: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_PKCS12_FILE");
+        ServiceAccountPrivateKeyType::known("TYPE_PKCS12_FILE", 1);
 
     /// Google Credentials File format.
     pub const TYPE_GOOGLE_CREDENTIALS_FILE: ServiceAccountPrivateKeyType =
-        ServiceAccountPrivateKeyType::new("TYPE_GOOGLE_CREDENTIALS_FILE");
+        ServiceAccountPrivateKeyType::known("TYPE_GOOGLE_CREDENTIALS_FILE", 2);
+}
+
+impl ServiceAccountPrivateKeyType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ServiceAccountPrivateKeyType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ServiceAccountPrivateKeyType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ServiceAccountPrivateKeyType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ServiceAccountPrivateKeyType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ServiceAccountPrivateKeyType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ServiceAccountPrivateKeyType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TYPE_UNSPECIFIED" => service_account_private_key_type::TYPE_UNSPECIFIED,
+            "TYPE_PKCS12_FILE" => service_account_private_key_type::TYPE_PKCS12_FILE,
+            "TYPE_GOOGLE_CREDENTIALS_FILE" => {
+                service_account_private_key_type::TYPE_GOOGLE_CREDENTIALS_FILE
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ServiceAccountPrivateKeyType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => service_account_private_key_type::TYPE_UNSPECIFIED,
+            1 => service_account_private_key_type::TYPE_PKCS12_FILE,
+            2 => service_account_private_key_type::TYPE_GOOGLE_CREDENTIALS_FILE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ServiceAccountPrivateKeyType {
     fn default() -> Self {
-        service_account_private_key_type::TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Supported public key output formats.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPublicKeyType(std::borrow::Cow<'static, str>);
-
-impl ServiceAccountPublicKeyType {
-    /// Creates a new ServiceAccountPublicKeyType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ServiceAccountPublicKeyType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ServiceAccountPublicKeyType](ServiceAccountPublicKeyType)
 pub mod service_account_public_key_type {
@@ -3151,44 +3522,90 @@ pub mod service_account_public_key_type {
 
     /// Do not return the public key.
     pub const TYPE_NONE: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_NONE");
+        ServiceAccountPublicKeyType::known("TYPE_NONE", 0);
 
     /// X509 PEM format.
     pub const TYPE_X509_PEM_FILE: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_X509_PEM_FILE");
+        ServiceAccountPublicKeyType::known("TYPE_X509_PEM_FILE", 1);
 
     /// Raw public key.
     pub const TYPE_RAW_PUBLIC_KEY: ServiceAccountPublicKeyType =
-        ServiceAccountPublicKeyType::new("TYPE_RAW_PUBLIC_KEY");
+        ServiceAccountPublicKeyType::known("TYPE_RAW_PUBLIC_KEY", 2);
+}
+
+impl ServiceAccountPublicKeyType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ServiceAccountPublicKeyType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ServiceAccountPublicKeyType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ServiceAccountPublicKeyType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ServiceAccountPublicKeyType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ServiceAccountPublicKeyType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ServiceAccountPublicKeyType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TYPE_NONE" => service_account_public_key_type::TYPE_NONE,
+            "TYPE_X509_PEM_FILE" => service_account_public_key_type::TYPE_X509_PEM_FILE,
+            "TYPE_RAW_PUBLIC_KEY" => service_account_public_key_type::TYPE_RAW_PUBLIC_KEY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ServiceAccountPublicKeyType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => service_account_public_key_type::TYPE_NONE,
+            1 => service_account_public_key_type::TYPE_X509_PEM_FILE,
+            2 => service_account_public_key_type::TYPE_RAW_PUBLIC_KEY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ServiceAccountPublicKeyType {
     fn default() -> Self {
-        service_account_public_key_type::TYPE_NONE
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Service Account Key Origin.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyOrigin(std::borrow::Cow<'static, str>);
-
-impl ServiceAccountKeyOrigin {
-    /// Creates a new ServiceAccountKeyOrigin instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ServiceAccountKeyOrigin(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ServiceAccountKeyOrigin](ServiceAccountKeyOrigin)
 pub mod service_account_key_origin {
@@ -3196,44 +3613,90 @@ pub mod service_account_key_origin {
 
     /// Unspecified key origin.
     pub const ORIGIN_UNSPECIFIED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("ORIGIN_UNSPECIFIED");
+        ServiceAccountKeyOrigin::known("ORIGIN_UNSPECIFIED", 0);
 
     /// Key is provided by user.
     pub const USER_PROVIDED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("USER_PROVIDED");
+        ServiceAccountKeyOrigin::known("USER_PROVIDED", 1);
 
     /// Key is provided by Google.
     pub const GOOGLE_PROVIDED: ServiceAccountKeyOrigin =
-        ServiceAccountKeyOrigin::new("GOOGLE_PROVIDED");
+        ServiceAccountKeyOrigin::known("GOOGLE_PROVIDED", 2);
+}
+
+impl ServiceAccountKeyOrigin {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ServiceAccountKeyOrigin {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ServiceAccountKeyOrigin {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ServiceAccountKeyOrigin::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ServiceAccountKeyOrigin::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ServiceAccountKeyOrigin::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ServiceAccountKeyOrigin {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ORIGIN_UNSPECIFIED" => service_account_key_origin::ORIGIN_UNSPECIFIED,
+            "USER_PROVIDED" => service_account_key_origin::USER_PROVIDED,
+            "GOOGLE_PROVIDED" => service_account_key_origin::GOOGLE_PROVIDED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ServiceAccountKeyOrigin {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => service_account_key_origin::ORIGIN_UNSPECIFIED,
+            1 => service_account_key_origin::USER_PROVIDED,
+            2 => service_account_key_origin::GOOGLE_PROVIDED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ServiceAccountKeyOrigin {
     fn default() -> Self {
-        service_account_key_origin::ORIGIN_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// A view for Role objects.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RoleView(std::borrow::Cow<'static, str>);
-
-impl RoleView {
-    /// Creates a new RoleView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct RoleView(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [RoleView](RoleView)
 pub mod role_view {
@@ -3241,20 +3704,76 @@ pub mod role_view {
 
     /// Omits the `included_permissions` field.
     /// This is the default value.
-    pub const BASIC: RoleView = RoleView::new("BASIC");
+    pub const BASIC: RoleView = RoleView::known("BASIC", 0);
 
     /// Returns all fields.
-    pub const FULL: RoleView = RoleView::new("FULL");
+    pub const FULL: RoleView = RoleView::known("FULL", 1);
+}
+
+impl RoleView {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for RoleView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RoleView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(RoleView::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(RoleView::from(val)),
+            Enumeration::UnknownNum { str } => Ok(RoleView::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for RoleView {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "BASIC" => role_view::BASIC,
+            "FULL" => role_view::FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for RoleView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => role_view::BASIC,
+            1 => role_view::FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for RoleView {
     fn default() -> Self {
-        role_view::BASIC
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

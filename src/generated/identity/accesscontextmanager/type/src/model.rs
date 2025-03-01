@@ -24,20 +24,8 @@ extern crate std;
 extern crate wkt;
 
 /// The encryption state of the device.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceEncryptionStatus(std::borrow::Cow<'static, str>);
-
-impl DeviceEncryptionStatus {
-    /// Creates a new DeviceEncryptionStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DeviceEncryptionStatus(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DeviceEncryptionStatus](DeviceEncryptionStatus)
 pub mod device_encryption_status {
@@ -45,101 +33,203 @@ pub mod device_encryption_status {
 
     /// The encryption status of the device is not specified or not known.
     pub const ENCRYPTION_UNSPECIFIED: DeviceEncryptionStatus =
-        DeviceEncryptionStatus::new("ENCRYPTION_UNSPECIFIED");
+        DeviceEncryptionStatus::known("ENCRYPTION_UNSPECIFIED", 0);
 
     /// The device does not support encryption.
     pub const ENCRYPTION_UNSUPPORTED: DeviceEncryptionStatus =
-        DeviceEncryptionStatus::new("ENCRYPTION_UNSUPPORTED");
+        DeviceEncryptionStatus::known("ENCRYPTION_UNSUPPORTED", 1);
 
     /// The device supports encryption, but is currently unencrypted.
-    pub const UNENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new("UNENCRYPTED");
+    pub const UNENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::known("UNENCRYPTED", 2);
 
     /// The device is encrypted.
-    pub const ENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new("ENCRYPTED");
+    pub const ENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::known("ENCRYPTED", 3);
+}
+
+impl DeviceEncryptionStatus {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DeviceEncryptionStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeviceEncryptionStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DeviceEncryptionStatus::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DeviceEncryptionStatus::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DeviceEncryptionStatus::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DeviceEncryptionStatus {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ENCRYPTION_UNSPECIFIED" => device_encryption_status::ENCRYPTION_UNSPECIFIED,
+            "ENCRYPTION_UNSUPPORTED" => device_encryption_status::ENCRYPTION_UNSUPPORTED,
+            "UNENCRYPTED" => device_encryption_status::UNENCRYPTED,
+            "ENCRYPTED" => device_encryption_status::ENCRYPTED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DeviceEncryptionStatus {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => device_encryption_status::ENCRYPTION_UNSPECIFIED,
+            1 => device_encryption_status::ENCRYPTION_UNSUPPORTED,
+            2 => device_encryption_status::UNENCRYPTED,
+            3 => device_encryption_status::ENCRYPTED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DeviceEncryptionStatus {
     fn default() -> Self {
-        device_encryption_status::ENCRYPTION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The operating system type of the device.
 /// Next id: 7
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OsType(std::borrow::Cow<'static, str>);
-
-impl OsType {
-    /// Creates a new OsType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct OsType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [OsType](OsType)
 pub mod os_type {
     use super::OsType;
 
     /// The operating system of the device is not specified or not known.
-    pub const OS_UNSPECIFIED: OsType = OsType::new("OS_UNSPECIFIED");
+    pub const OS_UNSPECIFIED: OsType = OsType::known("OS_UNSPECIFIED", 0);
 
     /// A desktop Mac operating system.
-    pub const DESKTOP_MAC: OsType = OsType::new("DESKTOP_MAC");
+    pub const DESKTOP_MAC: OsType = OsType::known("DESKTOP_MAC", 1);
 
     /// A desktop Windows operating system.
-    pub const DESKTOP_WINDOWS: OsType = OsType::new("DESKTOP_WINDOWS");
+    pub const DESKTOP_WINDOWS: OsType = OsType::known("DESKTOP_WINDOWS", 2);
 
     /// A desktop Linux operating system.
-    pub const DESKTOP_LINUX: OsType = OsType::new("DESKTOP_LINUX");
+    pub const DESKTOP_LINUX: OsType = OsType::known("DESKTOP_LINUX", 3);
 
     /// A desktop ChromeOS operating system.
-    pub const DESKTOP_CHROME_OS: OsType = OsType::new("DESKTOP_CHROME_OS");
+    pub const DESKTOP_CHROME_OS: OsType = OsType::known("DESKTOP_CHROME_OS", 6);
 
     /// An Android operating system.
-    pub const ANDROID: OsType = OsType::new("ANDROID");
+    pub const ANDROID: OsType = OsType::known("ANDROID", 4);
 
     /// An iOS operating system.
-    pub const IOS: OsType = OsType::new("IOS");
+    pub const IOS: OsType = OsType::known("IOS", 5);
+}
+
+impl OsType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for OsType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OsType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(OsType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(OsType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(OsType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for OsType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "OS_UNSPECIFIED" => os_type::OS_UNSPECIFIED,
+            "DESKTOP_MAC" => os_type::DESKTOP_MAC,
+            "DESKTOP_WINDOWS" => os_type::DESKTOP_WINDOWS,
+            "DESKTOP_LINUX" => os_type::DESKTOP_LINUX,
+            "DESKTOP_CHROME_OS" => os_type::DESKTOP_CHROME_OS,
+            "ANDROID" => os_type::ANDROID,
+            "IOS" => os_type::IOS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for OsType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => os_type::OS_UNSPECIFIED,
+            1 => os_type::DESKTOP_MAC,
+            2 => os_type::DESKTOP_WINDOWS,
+            3 => os_type::DESKTOP_LINUX,
+            4 => os_type::ANDROID,
+            5 => os_type::IOS,
+            6 => os_type::DESKTOP_CHROME_OS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for OsType {
     fn default() -> Self {
-        os_type::OS_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The degree to which the device is managed by the Cloud organization.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceManagementLevel(std::borrow::Cow<'static, str>);
-
-impl DeviceManagementLevel {
-    /// Creates a new DeviceManagementLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DeviceManagementLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DeviceManagementLevel](DeviceManagementLevel)
 pub mod device_management_level {
@@ -147,29 +237,89 @@ pub mod device_management_level {
 
     /// The device's management level is not specified or not known.
     pub const MANAGEMENT_UNSPECIFIED: DeviceManagementLevel =
-        DeviceManagementLevel::new("MANAGEMENT_UNSPECIFIED");
+        DeviceManagementLevel::known("MANAGEMENT_UNSPECIFIED", 0);
 
     /// The device is not managed.
-    pub const NONE: DeviceManagementLevel = DeviceManagementLevel::new("NONE");
+    pub const NONE: DeviceManagementLevel = DeviceManagementLevel::known("NONE", 1);
 
     /// Basic management is enabled, which is generally limited to monitoring and
     /// wiping the corporate account.
-    pub const BASIC: DeviceManagementLevel = DeviceManagementLevel::new("BASIC");
+    pub const BASIC: DeviceManagementLevel = DeviceManagementLevel::known("BASIC", 2);
 
     /// Complete device management. This includes more thorough monitoring and the
     /// ability to directly manage the device (such as remote wiping). This can be
     /// enabled through the Android Enterprise Platform.
-    pub const COMPLETE: DeviceManagementLevel = DeviceManagementLevel::new("COMPLETE");
+    pub const COMPLETE: DeviceManagementLevel = DeviceManagementLevel::known("COMPLETE", 3);
+}
+
+impl DeviceManagementLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DeviceManagementLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeviceManagementLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DeviceManagementLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DeviceManagementLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DeviceManagementLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DeviceManagementLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "MANAGEMENT_UNSPECIFIED" => device_management_level::MANAGEMENT_UNSPECIFIED,
+            "NONE" => device_management_level::NONE,
+            "BASIC" => device_management_level::BASIC,
+            "COMPLETE" => device_management_level::COMPLETE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DeviceManagementLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => device_management_level::MANAGEMENT_UNSPECIFIED,
+            1 => device_management_level::NONE,
+            2 => device_management_level::BASIC,
+            3 => device_management_level::COMPLETE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DeviceManagementLevel {
     fn default() -> Self {
-        device_management_level::MANAGEMENT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

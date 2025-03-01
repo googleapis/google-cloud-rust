@@ -502,20 +502,8 @@ pub mod data_policy {
     use super::*;
 
     /// A list of supported data policy types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataPolicyType(std::borrow::Cow<'static, str>);
-
-    impl DataPolicyType {
-        /// Creates a new DataPolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DataPolicyType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DataPolicyType](DataPolicyType)
     pub mod data_policy_type {
@@ -523,26 +511,85 @@ pub mod data_policy {
 
         /// Default value for the data policy type. This should not be used.
         pub const DATA_POLICY_TYPE_UNSPECIFIED: DataPolicyType =
-            DataPolicyType::new("DATA_POLICY_TYPE_UNSPECIFIED");
+            DataPolicyType::known("DATA_POLICY_TYPE_UNSPECIFIED", 0);
 
         /// Used to create a data policy for column-level security, without data
         /// masking.
         pub const COLUMN_LEVEL_SECURITY_POLICY: DataPolicyType =
-            DataPolicyType::new("COLUMN_LEVEL_SECURITY_POLICY");
+            DataPolicyType::known("COLUMN_LEVEL_SECURITY_POLICY", 3);
 
         /// Used to create a data policy for data masking.
-        pub const DATA_MASKING_POLICY: DataPolicyType = DataPolicyType::new("DATA_MASKING_POLICY");
+        pub const DATA_MASKING_POLICY: DataPolicyType =
+            DataPolicyType::known("DATA_MASKING_POLICY", 2);
+    }
+
+    impl DataPolicyType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DataPolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataPolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DataPolicyType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DataPolicyType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DataPolicyType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DataPolicyType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DATA_POLICY_TYPE_UNSPECIFIED" => data_policy_type::DATA_POLICY_TYPE_UNSPECIFIED,
+                "COLUMN_LEVEL_SECURITY_POLICY" => data_policy_type::COLUMN_LEVEL_SECURITY_POLICY,
+                "DATA_MASKING_POLICY" => data_policy_type::DATA_MASKING_POLICY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DataPolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => data_policy_type::DATA_POLICY_TYPE_UNSPECIFIED,
+                2 => data_policy_type::DATA_MASKING_POLICY,
+                3 => data_policy_type::COLUMN_LEVEL_SECURITY_POLICY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DataPolicyType {
         fn default() -> Self {
-            data_policy_type::DATA_POLICY_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -667,20 +714,8 @@ pub mod data_masking_policy {
 
     /// The available masking rules. Learn more here:
     /// <https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PredefinedExpression(std::borrow::Cow<'static, str>);
-
-    impl PredefinedExpression {
-        /// Creates a new PredefinedExpression instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PredefinedExpression(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PredefinedExpression](PredefinedExpression)
     pub mod predefined_expression {
@@ -689,13 +724,13 @@ pub mod data_masking_policy {
         /// Default, unspecified predefined expression. No masking will take place
         /// since no expression is specified.
         pub const PREDEFINED_EXPRESSION_UNSPECIFIED: PredefinedExpression =
-            PredefinedExpression::new("PREDEFINED_EXPRESSION_UNSPECIFIED");
+            PredefinedExpression::known("PREDEFINED_EXPRESSION_UNSPECIFIED", 0);
 
         /// Masking expression to replace data with SHA-256 hash.
-        pub const SHA256: PredefinedExpression = PredefinedExpression::new("SHA256");
+        pub const SHA256: PredefinedExpression = PredefinedExpression::known("SHA256", 3);
 
         /// Masking expression to replace data with NULLs.
-        pub const ALWAYS_NULL: PredefinedExpression = PredefinedExpression::new("ALWAYS_NULL");
+        pub const ALWAYS_NULL: PredefinedExpression = PredefinedExpression::known("ALWAYS_NULL", 5);
 
         /// Masking expression to replace data with their default masking values.
         /// The default masking values for each type listed as below:
@@ -716,7 +751,7 @@ pub mod data_masking_policy {
         /// * STRUCT: NOT_APPLICABLE
         /// * JSON: NULL
         pub const DEFAULT_MASKING_VALUE: PredefinedExpression =
-            PredefinedExpression::new("DEFAULT_MASKING_VALUE");
+            PredefinedExpression::known("DEFAULT_MASKING_VALUE", 7);
 
         /// Masking expression shows the last four characters of text.
         /// The masking behavior is as follows:
@@ -725,7 +760,7 @@ pub mod data_masking_policy {
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
         pub const LAST_FOUR_CHARACTERS: PredefinedExpression =
-            PredefinedExpression::new("LAST_FOUR_CHARACTERS");
+            PredefinedExpression::known("LAST_FOUR_CHARACTERS", 9);
 
         /// Masking expression shows the first four characters of text.
         /// The masking behavior is as follows:
@@ -734,7 +769,7 @@ pub mod data_masking_policy {
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
         pub const FIRST_FOUR_CHARACTERS: PredefinedExpression =
-            PredefinedExpression::new("FIRST_FOUR_CHARACTERS");
+            PredefinedExpression::known("FIRST_FOUR_CHARACTERS", 10);
 
         /// Masking expression for email addresses.
         /// The masking behavior is as follows:
@@ -745,7 +780,7 @@ pub mod data_masking_policy {
         ///
         /// For more information, see [Email
         /// mask](https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options).
-        pub const EMAIL_MASK: PredefinedExpression = PredefinedExpression::new("EMAIL_MASK");
+        pub const EMAIL_MASK: PredefinedExpression = PredefinedExpression::known("EMAIL_MASK", 12);
 
         /// Masking expression to only show the year of `Date`,
         /// `DateTime` and `TimeStamp`. For example, with the
@@ -761,18 +796,88 @@ pub mod data_masking_policy {
         /// href="https://cloud.google.com/bigquery/docs/reference/system-variables">System
         /// variables reference</a>.
         pub const DATE_YEAR_MASK: PredefinedExpression =
-            PredefinedExpression::new("DATE_YEAR_MASK");
+            PredefinedExpression::known("DATE_YEAR_MASK", 13);
+    }
+
+    impl PredefinedExpression {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PredefinedExpression {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PredefinedExpression {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PredefinedExpression::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PredefinedExpression::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PredefinedExpression::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PredefinedExpression {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PREDEFINED_EXPRESSION_UNSPECIFIED" => {
+                    predefined_expression::PREDEFINED_EXPRESSION_UNSPECIFIED
+                }
+                "SHA256" => predefined_expression::SHA256,
+                "ALWAYS_NULL" => predefined_expression::ALWAYS_NULL,
+                "DEFAULT_MASKING_VALUE" => predefined_expression::DEFAULT_MASKING_VALUE,
+                "LAST_FOUR_CHARACTERS" => predefined_expression::LAST_FOUR_CHARACTERS,
+                "FIRST_FOUR_CHARACTERS" => predefined_expression::FIRST_FOUR_CHARACTERS,
+                "EMAIL_MASK" => predefined_expression::EMAIL_MASK,
+                "DATE_YEAR_MASK" => predefined_expression::DATE_YEAR_MASK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PredefinedExpression {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => predefined_expression::PREDEFINED_EXPRESSION_UNSPECIFIED,
+                3 => predefined_expression::SHA256,
+                5 => predefined_expression::ALWAYS_NULL,
+                7 => predefined_expression::DEFAULT_MASKING_VALUE,
+                9 => predefined_expression::LAST_FOUR_CHARACTERS,
+                10 => predefined_expression::FIRST_FOUR_CHARACTERS,
+                12 => predefined_expression::EMAIL_MASK,
+                13 => predefined_expression::DATE_YEAR_MASK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PredefinedExpression {
         fn default() -> Self {
-            predefined_expression::PREDEFINED_EXPRESSION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 

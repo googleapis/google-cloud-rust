@@ -920,20 +920,8 @@ pub mod pi_and_jailbreak_filter_settings {
 
     /// Option to specify the state of Prompt Injection and Jailbreak filter
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PiAndJailbreakFilterEnforcement(std::borrow::Cow<'static, str>);
-
-    impl PiAndJailbreakFilterEnforcement {
-        /// Creates a new PiAndJailbreakFilterEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PiAndJailbreakFilterEnforcement(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PiAndJailbreakFilterEnforcement](PiAndJailbreakFilterEnforcement)
     pub mod pi_and_jailbreak_filter_enforcement {
@@ -941,26 +929,91 @@ pub mod pi_and_jailbreak_filter_settings {
 
         /// Same as Disabled
         pub const PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED");
+            PiAndJailbreakFilterEnforcement::known(
+                "PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED",
+                0,
+            );
 
         /// Enabled
         pub const ENABLED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("ENABLED");
+            PiAndJailbreakFilterEnforcement::known("ENABLED", 1);
 
         /// Enabled
         pub const DISABLED: PiAndJailbreakFilterEnforcement =
-            PiAndJailbreakFilterEnforcement::new("DISABLED");
+            PiAndJailbreakFilterEnforcement::known("DISABLED", 2);
+    }
+
+    impl PiAndJailbreakFilterEnforcement {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PiAndJailbreakFilterEnforcement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PiAndJailbreakFilterEnforcement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => {
+                    Ok(PiAndJailbreakFilterEnforcement::from(val))
+                }
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(PiAndJailbreakFilterEnforcement::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(PiAndJailbreakFilterEnforcement::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PiAndJailbreakFilterEnforcement {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED" => pi_and_jailbreak_filter_enforcement::PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED,
+                "ENABLED" => pi_and_jailbreak_filter_enforcement::ENABLED,
+                "DISABLED" => pi_and_jailbreak_filter_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PiAndJailbreakFilterEnforcement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => pi_and_jailbreak_filter_enforcement::PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED,
+                1 => pi_and_jailbreak_filter_enforcement::ENABLED,
+                2 => pi_and_jailbreak_filter_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PiAndJailbreakFilterEnforcement {
         fn default() -> Self {
-            pi_and_jailbreak_filter_enforcement::PI_AND_JAILBREAK_FILTER_ENFORCEMENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1007,20 +1060,8 @@ pub mod malicious_uri_filter_settings {
     use super::*;
 
     /// Option to specify the state of Malicious URI filter (ENABLED/DISABLED).
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MaliciousUriFilterEnforcement(std::borrow::Cow<'static, str>);
-
-    impl MaliciousUriFilterEnforcement {
-        /// Creates a new MaliciousUriFilterEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MaliciousUriFilterEnforcement(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MaliciousUriFilterEnforcement](MaliciousUriFilterEnforcement)
     pub mod malicious_uri_filter_enforcement {
@@ -1028,26 +1069,88 @@ pub mod malicious_uri_filter_settings {
 
         /// Same as Disabled
         pub const MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED");
+            MaliciousUriFilterEnforcement::known("MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED", 0);
 
         /// Enabled
         pub const ENABLED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("ENABLED");
+            MaliciousUriFilterEnforcement::known("ENABLED", 1);
 
         /// Disabled
         pub const DISABLED: MaliciousUriFilterEnforcement =
-            MaliciousUriFilterEnforcement::new("DISABLED");
+            MaliciousUriFilterEnforcement::known("DISABLED", 2);
+    }
+
+    impl MaliciousUriFilterEnforcement {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MaliciousUriFilterEnforcement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MaliciousUriFilterEnforcement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MaliciousUriFilterEnforcement::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(MaliciousUriFilterEnforcement::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(MaliciousUriFilterEnforcement::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MaliciousUriFilterEnforcement {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED" => {
+                    malicious_uri_filter_enforcement::MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED
+                }
+                "ENABLED" => malicious_uri_filter_enforcement::ENABLED,
+                "DISABLED" => malicious_uri_filter_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MaliciousUriFilterEnforcement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => malicious_uri_filter_enforcement::MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED,
+                1 => malicious_uri_filter_enforcement::ENABLED,
+                2 => malicious_uri_filter_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MaliciousUriFilterEnforcement {
         fn default() -> Self {
-            malicious_uri_filter_enforcement::MALICIOUS_URI_FILTER_ENFORCEMENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1305,20 +1408,8 @@ pub mod sdp_basic_config {
 
     /// Option to specify the state of Sensitive Data Protection basic config
     /// (ENABLED/DISABLED).
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SdpBasicConfigEnforcement(std::borrow::Cow<'static, str>);
-
-    impl SdpBasicConfigEnforcement {
-        /// Creates a new SdpBasicConfigEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SdpBasicConfigEnforcement(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SdpBasicConfigEnforcement](SdpBasicConfigEnforcement)
     pub mod sdp_basic_config_enforcement {
@@ -1326,24 +1417,86 @@ pub mod sdp_basic_config {
 
         /// Same as Disabled
         pub const SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED: SdpBasicConfigEnforcement =
-            SdpBasicConfigEnforcement::new("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED");
+            SdpBasicConfigEnforcement::known("SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED", 0);
 
         /// Enabled
-        pub const ENABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new("ENABLED");
+        pub const ENABLED: SdpBasicConfigEnforcement =
+            SdpBasicConfigEnforcement::known("ENABLED", 1);
 
         /// Disabled
-        pub const DISABLED: SdpBasicConfigEnforcement = SdpBasicConfigEnforcement::new("DISABLED");
+        pub const DISABLED: SdpBasicConfigEnforcement =
+            SdpBasicConfigEnforcement::known("DISABLED", 2);
+    }
+
+    impl SdpBasicConfigEnforcement {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SdpBasicConfigEnforcement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SdpBasicConfigEnforcement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SdpBasicConfigEnforcement::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SdpBasicConfigEnforcement::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SdpBasicConfigEnforcement::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SdpBasicConfigEnforcement {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED" => {
+                    sdp_basic_config_enforcement::SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED
+                }
+                "ENABLED" => sdp_basic_config_enforcement::ENABLED,
+                "DISABLED" => sdp_basic_config_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SdpBasicConfigEnforcement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => sdp_basic_config_enforcement::SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED,
+                1 => sdp_basic_config_enforcement::ENABLED,
+                2 => sdp_basic_config_enforcement::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SdpBasicConfigEnforcement {
         fn default() -> Self {
-            sdp_basic_config_enforcement::SDP_BASIC_CONFIG_ENFORCEMENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2474,20 +2627,8 @@ pub mod byte_data_item {
     use super::*;
 
     /// Option to specify the type of byte data.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ByteItemType(std::borrow::Cow<'static, str>);
-
-    impl ByteItemType {
-        /// Creates a new ByteItemType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ByteItemType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ByteItemType](ByteItemType)
     pub mod byte_item_type {
@@ -2495,24 +2636,82 @@ pub mod byte_data_item {
 
         /// Unused
         pub const BYTE_ITEM_TYPE_UNSPECIFIED: ByteItemType =
-            ByteItemType::new("BYTE_ITEM_TYPE_UNSPECIFIED");
+            ByteItemType::known("BYTE_ITEM_TYPE_UNSPECIFIED", 0);
 
         /// plain text
-        pub const PLAINTEXT_UTF8: ByteItemType = ByteItemType::new("PLAINTEXT_UTF8");
+        pub const PLAINTEXT_UTF8: ByteItemType = ByteItemType::known("PLAINTEXT_UTF8", 1);
 
         /// PDF
-        pub const PDF: ByteItemType = ByteItemType::new("PDF");
+        pub const PDF: ByteItemType = ByteItemType::known("PDF", 2);
+    }
+
+    impl ByteItemType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ByteItemType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ByteItemType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ByteItemType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ByteItemType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ByteItemType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ByteItemType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "BYTE_ITEM_TYPE_UNSPECIFIED" => byte_item_type::BYTE_ITEM_TYPE_UNSPECIFIED,
+                "PLAINTEXT_UTF8" => byte_item_type::PLAINTEXT_UTF8,
+                "PDF" => byte_item_type::PDF,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ByteItemType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => byte_item_type::BYTE_ITEM_TYPE_UNSPECIFIED,
+                1 => byte_item_type::PLAINTEXT_UTF8,
+                2 => byte_item_type::PDF,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ByteItemType {
         fn default() -> Self {
-            byte_item_type::BYTE_ITEM_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3052,20 +3251,8 @@ pub mod virus_scan_filter_result {
     use super::*;
 
     /// Type of content scanned.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ScannedContentType(std::borrow::Cow<'static, str>);
-
-    impl ScannedContentType {
-        /// Creates a new ScannedContentType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ScannedContentType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ScannedContentType](ScannedContentType)
     pub mod scanned_content_type {
@@ -3073,28 +3260,90 @@ pub mod virus_scan_filter_result {
 
         /// Unused
         pub const SCANNED_CONTENT_TYPE_UNSPECIFIED: ScannedContentType =
-            ScannedContentType::new("SCANNED_CONTENT_TYPE_UNSPECIFIED");
+            ScannedContentType::known("SCANNED_CONTENT_TYPE_UNSPECIFIED", 0);
 
         /// Unknown content
-        pub const UNKNOWN: ScannedContentType = ScannedContentType::new("UNKNOWN");
+        pub const UNKNOWN: ScannedContentType = ScannedContentType::known("UNKNOWN", 1);
 
         /// Plaintext
-        pub const PLAINTEXT: ScannedContentType = ScannedContentType::new("PLAINTEXT");
+        pub const PLAINTEXT: ScannedContentType = ScannedContentType::known("PLAINTEXT", 2);
 
         /// PDF
         /// Scanning for only PDF is supported.
-        pub const PDF: ScannedContentType = ScannedContentType::new("PDF");
+        pub const PDF: ScannedContentType = ScannedContentType::known("PDF", 3);
+    }
+
+    impl ScannedContentType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ScannedContentType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ScannedContentType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ScannedContentType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ScannedContentType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ScannedContentType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ScannedContentType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SCANNED_CONTENT_TYPE_UNSPECIFIED" => {
+                    scanned_content_type::SCANNED_CONTENT_TYPE_UNSPECIFIED
+                }
+                "UNKNOWN" => scanned_content_type::UNKNOWN,
+                "PLAINTEXT" => scanned_content_type::PLAINTEXT,
+                "PDF" => scanned_content_type::PDF,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ScannedContentType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => scanned_content_type::SCANNED_CONTENT_TYPE_UNSPECIFIED,
+                1 => scanned_content_type::UNKNOWN,
+                2 => scanned_content_type::PLAINTEXT,
+                3 => scanned_content_type::PDF,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ScannedContentType {
         fn default() -> Self {
-            scanned_content_type::SCANNED_CONTENT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3161,55 +3410,108 @@ pub mod virus_detail {
     use super::*;
 
     /// Defines all the threat types of a virus
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ThreatType(std::borrow::Cow<'static, str>);
-
-    impl ThreatType {
-        /// Creates a new ThreatType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ThreatType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ThreatType](ThreatType)
     pub mod threat_type {
         use super::ThreatType;
 
         /// Unused
-        pub const THREAT_TYPE_UNSPECIFIED: ThreatType = ThreatType::new("THREAT_TYPE_UNSPECIFIED");
+        pub const THREAT_TYPE_UNSPECIFIED: ThreatType =
+            ThreatType::known("THREAT_TYPE_UNSPECIFIED", 0);
 
         /// Unable to categorize threat
-        pub const UNKNOWN: ThreatType = ThreatType::new("UNKNOWN");
+        pub const UNKNOWN: ThreatType = ThreatType::known("UNKNOWN", 1);
 
         /// Virus or Worm threat.
-        pub const VIRUS_OR_WORM: ThreatType = ThreatType::new("VIRUS_OR_WORM");
+        pub const VIRUS_OR_WORM: ThreatType = ThreatType::known("VIRUS_OR_WORM", 2);
 
         /// Malicious program. E.g. Spyware, Trojan.
-        pub const MALICIOUS_PROGRAM: ThreatType = ThreatType::new("MALICIOUS_PROGRAM");
+        pub const MALICIOUS_PROGRAM: ThreatType = ThreatType::known("MALICIOUS_PROGRAM", 3);
 
         /// Potentially harmful content. E.g. Injected code, Macro
         pub const POTENTIALLY_HARMFUL_CONTENT: ThreatType =
-            ThreatType::new("POTENTIALLY_HARMFUL_CONTENT");
+            ThreatType::known("POTENTIALLY_HARMFUL_CONTENT", 4);
 
         /// Potentially unwanted content. E.g. Adware.
         pub const POTENTIALLY_UNWANTED_CONTENT: ThreatType =
-            ThreatType::new("POTENTIALLY_UNWANTED_CONTENT");
+            ThreatType::known("POTENTIALLY_UNWANTED_CONTENT", 5);
+    }
+
+    impl ThreatType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ThreatType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ThreatType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ThreatType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ThreatType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ThreatType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ThreatType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "THREAT_TYPE_UNSPECIFIED" => threat_type::THREAT_TYPE_UNSPECIFIED,
+                "UNKNOWN" => threat_type::UNKNOWN,
+                "VIRUS_OR_WORM" => threat_type::VIRUS_OR_WORM,
+                "MALICIOUS_PROGRAM" => threat_type::MALICIOUS_PROGRAM,
+                "POTENTIALLY_HARMFUL_CONTENT" => threat_type::POTENTIALLY_HARMFUL_CONTENT,
+                "POTENTIALLY_UNWANTED_CONTENT" => threat_type::POTENTIALLY_UNWANTED_CONTENT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ThreatType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => threat_type::THREAT_TYPE_UNSPECIFIED,
+                1 => threat_type::UNKNOWN,
+                2 => threat_type::VIRUS_OR_WORM,
+                3 => threat_type::MALICIOUS_PROGRAM,
+                4 => threat_type::POTENTIALLY_HARMFUL_CONTENT,
+                5 => threat_type::POTENTIALLY_UNWANTED_CONTENT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ThreatType {
         fn default() -> Self {
-            threat_type::THREAT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3323,20 +3625,8 @@ pub mod message_item {
     use super::*;
 
     /// Option to specify the type of message.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MessageType(std::borrow::Cow<'static, str>);
-
-    impl MessageType {
-        /// Creates a new MessageType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MessageType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MessageType](MessageType)
     pub mod message_type {
@@ -3344,27 +3634,87 @@ pub mod message_item {
 
         /// Unused
         pub const MESSAGE_TYPE_UNSPECIFIED: MessageType =
-            MessageType::new("MESSAGE_TYPE_UNSPECIFIED");
+            MessageType::known("MESSAGE_TYPE_UNSPECIFIED", 0);
 
         /// Information related message.
-        pub const INFO: MessageType = MessageType::new("INFO");
+        pub const INFO: MessageType = MessageType::known("INFO", 1);
 
         /// Warning related message.
-        pub const WARNING: MessageType = MessageType::new("WARNING");
+        pub const WARNING: MessageType = MessageType::known("WARNING", 2);
 
         /// Error message.
-        pub const ERROR: MessageType = MessageType::new("ERROR");
+        pub const ERROR: MessageType = MessageType::known("ERROR", 3);
+    }
+
+    impl MessageType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MessageType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MessageType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MessageType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MessageType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MessageType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MessageType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MESSAGE_TYPE_UNSPECIFIED" => message_type::MESSAGE_TYPE_UNSPECIFIED,
+                "INFO" => message_type::INFO,
+                "WARNING" => message_type::WARNING,
+                "ERROR" => message_type::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MessageType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => message_type::MESSAGE_TYPE_UNSPECIFIED,
+                1 => message_type::INFO,
+                2 => message_type::WARNING,
+                3 => message_type::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MessageType {
         fn default() -> Self {
-            message_type::MESSAGE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3413,20 +3763,8 @@ impl wkt::message::Message for RangeInfo {
 }
 
 /// Option to specify filter match state.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FilterMatchState(std::borrow::Cow<'static, str>);
-
-impl FilterMatchState {
-    /// Creates a new FilterMatchState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct FilterMatchState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [FilterMatchState](FilterMatchState)
 pub mod filter_match_state {
@@ -3434,42 +3772,88 @@ pub mod filter_match_state {
 
     /// Unused
     pub const FILTER_MATCH_STATE_UNSPECIFIED: FilterMatchState =
-        FilterMatchState::new("FILTER_MATCH_STATE_UNSPECIFIED");
+        FilterMatchState::known("FILTER_MATCH_STATE_UNSPECIFIED", 0);
 
     /// Matching criteria is not achieved for filters.
-    pub const NO_MATCH_FOUND: FilterMatchState = FilterMatchState::new("NO_MATCH_FOUND");
+    pub const NO_MATCH_FOUND: FilterMatchState = FilterMatchState::known("NO_MATCH_FOUND", 1);
 
     /// Matching criteria is achieved for the filter.
-    pub const MATCH_FOUND: FilterMatchState = FilterMatchState::new("MATCH_FOUND");
+    pub const MATCH_FOUND: FilterMatchState = FilterMatchState::known("MATCH_FOUND", 2);
+}
+
+impl FilterMatchState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for FilterMatchState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FilterMatchState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(FilterMatchState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(FilterMatchState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(FilterMatchState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for FilterMatchState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "FILTER_MATCH_STATE_UNSPECIFIED" => filter_match_state::FILTER_MATCH_STATE_UNSPECIFIED,
+            "NO_MATCH_FOUND" => filter_match_state::NO_MATCH_FOUND,
+            "MATCH_FOUND" => filter_match_state::MATCH_FOUND,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for FilterMatchState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => filter_match_state::FILTER_MATCH_STATE_UNSPECIFIED,
+            1 => filter_match_state::NO_MATCH_FOUND,
+            2 => filter_match_state::MATCH_FOUND,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for FilterMatchState {
     fn default() -> Self {
-        filter_match_state::FILTER_MATCH_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Enum which reports whether a specific filter executed successfully or not.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FilterExecutionState(std::borrow::Cow<'static, str>);
-
-impl FilterExecutionState {
-    /// Creates a new FilterExecutionState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct FilterExecutionState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [FilterExecutionState](FilterExecutionState)
 pub mod filter_execution_state {
@@ -3477,45 +3861,93 @@ pub mod filter_execution_state {
 
     /// Unused
     pub const FILTER_EXECUTION_STATE_UNSPECIFIED: FilterExecutionState =
-        FilterExecutionState::new("FILTER_EXECUTION_STATE_UNSPECIFIED");
+        FilterExecutionState::known("FILTER_EXECUTION_STATE_UNSPECIFIED", 0);
 
     /// Filter executed successfully
     pub const EXECUTION_SUCCESS: FilterExecutionState =
-        FilterExecutionState::new("EXECUTION_SUCCESS");
+        FilterExecutionState::known("EXECUTION_SUCCESS", 1);
 
     /// Filter execution was skipped. This can happen due to server-side error
     /// or permission issue.
     pub const EXECUTION_SKIPPED: FilterExecutionState =
-        FilterExecutionState::new("EXECUTION_SKIPPED");
+        FilterExecutionState::known("EXECUTION_SKIPPED", 2);
+}
+
+impl FilterExecutionState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for FilterExecutionState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FilterExecutionState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(FilterExecutionState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(FilterExecutionState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(FilterExecutionState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for FilterExecutionState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "FILTER_EXECUTION_STATE_UNSPECIFIED" => {
+                filter_execution_state::FILTER_EXECUTION_STATE_UNSPECIFIED
+            }
+            "EXECUTION_SUCCESS" => filter_execution_state::EXECUTION_SUCCESS,
+            "EXECUTION_SKIPPED" => filter_execution_state::EXECUTION_SKIPPED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for FilterExecutionState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => filter_execution_state::FILTER_EXECUTION_STATE_UNSPECIFIED,
+            1 => filter_execution_state::EXECUTION_SUCCESS,
+            2 => filter_execution_state::EXECUTION_SKIPPED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for FilterExecutionState {
     fn default() -> Self {
-        filter_execution_state::FILTER_EXECUTION_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Options for responsible AI Filter Types.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RaiFilterType(std::borrow::Cow<'static, str>);
-
-impl RaiFilterType {
-    /// Creates a new RaiFilterType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct RaiFilterType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [RaiFilterType](RaiFilterType)
 pub mod rai_filter_type {
@@ -3523,50 +3955,100 @@ pub mod rai_filter_type {
 
     /// Unspecified filter type.
     pub const RAI_FILTER_TYPE_UNSPECIFIED: RaiFilterType =
-        RaiFilterType::new("RAI_FILTER_TYPE_UNSPECIFIED");
+        RaiFilterType::known("RAI_FILTER_TYPE_UNSPECIFIED", 0);
 
     /// Sexually Explicit.
-    pub const SEXUALLY_EXPLICIT: RaiFilterType = RaiFilterType::new("SEXUALLY_EXPLICIT");
+    pub const SEXUALLY_EXPLICIT: RaiFilterType = RaiFilterType::known("SEXUALLY_EXPLICIT", 2);
 
     /// Hate Speech.
-    pub const HATE_SPEECH: RaiFilterType = RaiFilterType::new("HATE_SPEECH");
+    pub const HATE_SPEECH: RaiFilterType = RaiFilterType::known("HATE_SPEECH", 3);
 
     /// Harassment.
-    pub const HARASSMENT: RaiFilterType = RaiFilterType::new("HARASSMENT");
+    pub const HARASSMENT: RaiFilterType = RaiFilterType::known("HARASSMENT", 6);
 
     /// Danger
-    pub const DANGEROUS: RaiFilterType = RaiFilterType::new("DANGEROUS");
+    pub const DANGEROUS: RaiFilterType = RaiFilterType::known("DANGEROUS", 17);
+}
+
+impl RaiFilterType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for RaiFilterType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RaiFilterType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(RaiFilterType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(RaiFilterType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(RaiFilterType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for RaiFilterType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "RAI_FILTER_TYPE_UNSPECIFIED" => rai_filter_type::RAI_FILTER_TYPE_UNSPECIFIED,
+            "SEXUALLY_EXPLICIT" => rai_filter_type::SEXUALLY_EXPLICIT,
+            "HATE_SPEECH" => rai_filter_type::HATE_SPEECH,
+            "HARASSMENT" => rai_filter_type::HARASSMENT,
+            "DANGEROUS" => rai_filter_type::DANGEROUS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for RaiFilterType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => rai_filter_type::RAI_FILTER_TYPE_UNSPECIFIED,
+            2 => rai_filter_type::SEXUALLY_EXPLICIT,
+            3 => rai_filter_type::HATE_SPEECH,
+            6 => rai_filter_type::HARASSMENT,
+            17 => rai_filter_type::DANGEROUS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for RaiFilterType {
     fn default() -> Self {
-        rai_filter_type::RAI_FILTER_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Confidence levels for detectors.
 /// Higher value maps to a greater confidence level. To enforce stricter level a
 /// lower value should be used.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DetectionConfidenceLevel(std::borrow::Cow<'static, str>);
-
-impl DetectionConfidenceLevel {
-    /// Creates a new DetectionConfidenceLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DetectionConfidenceLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DetectionConfidenceLevel](DetectionConfidenceLevel)
 pub mod detection_confidence_level {
@@ -3574,48 +4056,98 @@ pub mod detection_confidence_level {
 
     /// Same as LOW_AND_ABOVE.
     pub const DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED");
+        DetectionConfidenceLevel::known("DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED", 0);
 
     /// Highest chance of a false positive.
     pub const LOW_AND_ABOVE: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("LOW_AND_ABOVE");
+        DetectionConfidenceLevel::known("LOW_AND_ABOVE", 1);
 
     /// Some chance of false positives.
     pub const MEDIUM_AND_ABOVE: DetectionConfidenceLevel =
-        DetectionConfidenceLevel::new("MEDIUM_AND_ABOVE");
+        DetectionConfidenceLevel::known("MEDIUM_AND_ABOVE", 2);
 
     /// Low chance of false positives.
-    pub const HIGH: DetectionConfidenceLevel = DetectionConfidenceLevel::new("HIGH");
+    pub const HIGH: DetectionConfidenceLevel = DetectionConfidenceLevel::known("HIGH", 3);
+}
+
+impl DetectionConfidenceLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DetectionConfidenceLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DetectionConfidenceLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DetectionConfidenceLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DetectionConfidenceLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DetectionConfidenceLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DetectionConfidenceLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED" => {
+                detection_confidence_level::DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED
+            }
+            "LOW_AND_ABOVE" => detection_confidence_level::LOW_AND_ABOVE,
+            "MEDIUM_AND_ABOVE" => detection_confidence_level::MEDIUM_AND_ABOVE,
+            "HIGH" => detection_confidence_level::HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DetectionConfidenceLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => detection_confidence_level::DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED,
+            1 => detection_confidence_level::LOW_AND_ABOVE,
+            2 => detection_confidence_level::MEDIUM_AND_ABOVE,
+            3 => detection_confidence_level::HIGH,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DetectionConfidenceLevel {
     fn default() -> Self {
-        detection_confidence_level::DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// For more information about each Sensitive Data Protection likelihood level,
 /// see <https://cloud.google.com/sensitive-data-protection/docs/likelihood>.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SdpFindingLikelihood(std::borrow::Cow<'static, str>);
-
-impl SdpFindingLikelihood {
-    /// Creates a new SdpFindingLikelihood instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SdpFindingLikelihood(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SdpFindingLikelihood](SdpFindingLikelihood)
 pub mod sdp_finding_likelihood {
@@ -3623,52 +4155,106 @@ pub mod sdp_finding_likelihood {
 
     /// Default value; same as POSSIBLE.
     pub const SDP_FINDING_LIKELIHOOD_UNSPECIFIED: SdpFindingLikelihood =
-        SdpFindingLikelihood::new("SDP_FINDING_LIKELIHOOD_UNSPECIFIED");
+        SdpFindingLikelihood::known("SDP_FINDING_LIKELIHOOD_UNSPECIFIED", 0);
 
     /// Highest chance of a false positive.
-    pub const VERY_UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("VERY_UNLIKELY");
+    pub const VERY_UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::known("VERY_UNLIKELY", 1);
 
     /// High chance of a false positive.
-    pub const UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("UNLIKELY");
+    pub const UNLIKELY: SdpFindingLikelihood = SdpFindingLikelihood::known("UNLIKELY", 2);
 
     /// Some matching signals. The default value.
-    pub const POSSIBLE: SdpFindingLikelihood = SdpFindingLikelihood::new("POSSIBLE");
+    pub const POSSIBLE: SdpFindingLikelihood = SdpFindingLikelihood::known("POSSIBLE", 3);
 
     /// Low chance of a false positive.
-    pub const LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("LIKELY");
+    pub const LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::known("LIKELY", 4);
 
     /// Confidence level is high. Lowest chance of a false positive.
-    pub const VERY_LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::new("VERY_LIKELY");
+    pub const VERY_LIKELY: SdpFindingLikelihood = SdpFindingLikelihood::known("VERY_LIKELY", 5);
+}
+
+impl SdpFindingLikelihood {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SdpFindingLikelihood {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SdpFindingLikelihood {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SdpFindingLikelihood::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SdpFindingLikelihood::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SdpFindingLikelihood::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SdpFindingLikelihood {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SDP_FINDING_LIKELIHOOD_UNSPECIFIED" => {
+                sdp_finding_likelihood::SDP_FINDING_LIKELIHOOD_UNSPECIFIED
+            }
+            "VERY_UNLIKELY" => sdp_finding_likelihood::VERY_UNLIKELY,
+            "UNLIKELY" => sdp_finding_likelihood::UNLIKELY,
+            "POSSIBLE" => sdp_finding_likelihood::POSSIBLE,
+            "LIKELY" => sdp_finding_likelihood::LIKELY,
+            "VERY_LIKELY" => sdp_finding_likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SdpFindingLikelihood {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => sdp_finding_likelihood::SDP_FINDING_LIKELIHOOD_UNSPECIFIED,
+            1 => sdp_finding_likelihood::VERY_UNLIKELY,
+            2 => sdp_finding_likelihood::UNLIKELY,
+            3 => sdp_finding_likelihood::POSSIBLE,
+            4 => sdp_finding_likelihood::LIKELY,
+            5 => sdp_finding_likelihood::VERY_LIKELY,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SdpFindingLikelihood {
     fn default() -> Self {
-        sdp_finding_likelihood::SDP_FINDING_LIKELIHOOD_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// A field indicating the outcome of the invocation, irrespective of match
 /// status.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct InvocationResult(std::borrow::Cow<'static, str>);
-
-impl InvocationResult {
-    /// Creates a new InvocationResult instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct InvocationResult(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [InvocationResult](InvocationResult)
 pub mod invocation_result {
@@ -3676,26 +4262,86 @@ pub mod invocation_result {
 
     /// Unused. Default value.
     pub const INVOCATION_RESULT_UNSPECIFIED: InvocationResult =
-        InvocationResult::new("INVOCATION_RESULT_UNSPECIFIED");
+        InvocationResult::known("INVOCATION_RESULT_UNSPECIFIED", 0);
 
     /// All filters were invoked successfully.
-    pub const SUCCESS: InvocationResult = InvocationResult::new("SUCCESS");
+    pub const SUCCESS: InvocationResult = InvocationResult::known("SUCCESS", 1);
 
     /// Some filters were skipped or failed.
-    pub const PARTIAL: InvocationResult = InvocationResult::new("PARTIAL");
+    pub const PARTIAL: InvocationResult = InvocationResult::known("PARTIAL", 2);
 
     /// All filters were skipped or failed.
-    pub const FAILURE: InvocationResult = InvocationResult::new("FAILURE");
+    pub const FAILURE: InvocationResult = InvocationResult::known("FAILURE", 3);
+}
+
+impl InvocationResult {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for InvocationResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for InvocationResult {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(InvocationResult::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(InvocationResult::from(val)),
+            Enumeration::UnknownNum { str } => Ok(InvocationResult::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for InvocationResult {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "INVOCATION_RESULT_UNSPECIFIED" => invocation_result::INVOCATION_RESULT_UNSPECIFIED,
+            "SUCCESS" => invocation_result::SUCCESS,
+            "PARTIAL" => invocation_result::PARTIAL,
+            "FAILURE" => invocation_result::FAILURE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for InvocationResult {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => invocation_result::INVOCATION_RESULT_UNSPECIFIED,
+            1 => invocation_result::SUCCESS,
+            2 => invocation_result::PARTIAL,
+            3 => invocation_result::FAILURE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for InvocationResult {
     fn default() -> Self {
-        invocation_result::INVOCATION_RESULT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

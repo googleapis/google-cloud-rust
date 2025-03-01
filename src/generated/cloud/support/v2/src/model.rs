@@ -490,107 +490,211 @@ pub mod case {
     use super::*;
 
     /// The status of a support case.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Case is in an unknown state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The case has been created but no one is assigned to work on it yet.
-        pub const NEW: State = State::new("NEW");
+        pub const NEW: State = State::known("NEW", 1);
 
         /// The case is currently being handled by Google support.
-        pub const IN_PROGRESS_GOOGLE_SUPPORT: State = State::new("IN_PROGRESS_GOOGLE_SUPPORT");
+        pub const IN_PROGRESS_GOOGLE_SUPPORT: State = State::known("IN_PROGRESS_GOOGLE_SUPPORT", 2);
 
         /// Google is waiting for a response.
-        pub const ACTION_REQUIRED: State = State::new("ACTION_REQUIRED");
+        pub const ACTION_REQUIRED: State = State::known("ACTION_REQUIRED", 3);
 
         /// A solution has been offered for the case, but it isn't yet closed.
-        pub const SOLUTION_PROVIDED: State = State::new("SOLUTION_PROVIDED");
+        pub const SOLUTION_PROVIDED: State = State::known("SOLUTION_PROVIDED", 4);
 
         /// The case has been resolved.
-        pub const CLOSED: State = State::new("CLOSED");
+        pub const CLOSED: State = State::known("CLOSED", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "NEW" => state::NEW,
+                "IN_PROGRESS_GOOGLE_SUPPORT" => state::IN_PROGRESS_GOOGLE_SUPPORT,
+                "ACTION_REQUIRED" => state::ACTION_REQUIRED,
+                "SOLUTION_PROVIDED" => state::SOLUTION_PROVIDED,
+                "CLOSED" => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::NEW,
+                2 => state::IN_PROGRESS_GOOGLE_SUPPORT,
+                3 => state::ACTION_REQUIRED,
+                4 => state::SOLUTION_PROVIDED,
+                5 => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The case Priority. P0 is most urgent and P4 the least.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::borrow::Cow<'static, str>);
-
-    impl Priority {
-        /// Creates a new Priority instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Priority(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Priority](Priority)
     pub mod priority {
         use super::Priority;
 
         /// Priority is undefined or has not been set yet.
-        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::known("PRIORITY_UNSPECIFIED", 0);
 
         /// Extreme impact on a production service. Service is hard down.
-        pub const P0: Priority = Priority::new("P0");
+        pub const P0: Priority = Priority::known("P0", 1);
 
         /// Critical impact on a production service. Service is currently unusable.
-        pub const P1: Priority = Priority::new("P1");
+        pub const P1: Priority = Priority::known("P1", 2);
 
         /// Severe impact on a production service. Service is usable but greatly
         /// impaired.
-        pub const P2: Priority = Priority::new("P2");
+        pub const P2: Priority = Priority::known("P2", 3);
 
         /// Medium impact on a production service.  Service is available, but
         /// moderately impaired.
-        pub const P3: Priority = Priority::new("P3");
+        pub const P3: Priority = Priority::known("P3", 4);
 
         /// General questions or minor issues.  Production service is fully
         /// available.
-        pub const P4: Priority = Priority::new("P4");
+        pub const P4: Priority = Priority::known("P4", 5);
+    }
+
+    impl Priority {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Priority {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Priority {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Priority::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Priority::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Priority::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Priority {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PRIORITY_UNSPECIFIED" => priority::PRIORITY_UNSPECIFIED,
+                "P0" => priority::P0,
+                "P1" => priority::P1,
+                "P2" => priority::P2,
+                "P3" => priority::P3,
+                "P4" => priority::P4,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Priority {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => priority::PRIORITY_UNSPECIFIED,
+                1 => priority::P0,
+                2 => priority::P1,
+                3 => priority::P2,
+                4 => priority::P3,
+                5 => priority::P4,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Priority {
         fn default() -> Self {
-            priority::PRIORITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1508,48 +1612,96 @@ pub mod escalation {
     use super::*;
 
     /// An enum detailing the possible reasons a case may be escalated.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reason(std::borrow::Cow<'static, str>);
-
-    impl Reason {
-        /// Creates a new Reason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Reason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Reason](Reason)
     pub mod reason {
         use super::Reason;
 
         /// The escalation reason is in an unknown state or has not been specified.
-        pub const REASON_UNSPECIFIED: Reason = Reason::new("REASON_UNSPECIFIED");
+        pub const REASON_UNSPECIFIED: Reason = Reason::known("REASON_UNSPECIFIED", 0);
 
         /// The case is taking too long to resolve.
-        pub const RESOLUTION_TIME: Reason = Reason::new("RESOLUTION_TIME");
+        pub const RESOLUTION_TIME: Reason = Reason::known("RESOLUTION_TIME", 1);
 
         /// The support agent does not have the expertise required to successfully
         /// resolve the issue.
-        pub const TECHNICAL_EXPERTISE: Reason = Reason::new("TECHNICAL_EXPERTISE");
+        pub const TECHNICAL_EXPERTISE: Reason = Reason::known("TECHNICAL_EXPERTISE", 2);
 
         /// The issue is having a significant business impact.
-        pub const BUSINESS_IMPACT: Reason = Reason::new("BUSINESS_IMPACT");
+        pub const BUSINESS_IMPACT: Reason = Reason::known("BUSINESS_IMPACT", 3);
+    }
+
+    impl Reason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Reason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Reason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Reason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Reason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REASON_UNSPECIFIED" => reason::REASON_UNSPECIFIED,
+                "RESOLUTION_TIME" => reason::RESOLUTION_TIME,
+                "TECHNICAL_EXPERTISE" => reason::TECHNICAL_EXPERTISE,
+                "BUSINESS_IMPACT" => reason::BUSINESS_IMPACT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reason::REASON_UNSPECIFIED,
+                1 => reason::RESOLUTION_TIME,
+                2 => reason::TECHNICAL_EXPERTISE,
+                3 => reason::BUSINESS_IMPACT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Reason {
         fn default() -> Self {
-            reason::REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

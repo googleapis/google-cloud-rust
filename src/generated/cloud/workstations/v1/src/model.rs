@@ -1330,20 +1330,8 @@ pub mod workstation_config {
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct ReclaimPolicy(std::borrow::Cow<'static, str>);
-
-            impl ReclaimPolicy {
-                /// Creates a new ReclaimPolicy instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct ReclaimPolicy(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [ReclaimPolicy](ReclaimPolicy)
             pub mod reclaim_policy {
@@ -1351,25 +1339,83 @@ pub mod workstation_config {
 
                 /// Do not use.
                 pub const RECLAIM_POLICY_UNSPECIFIED: ReclaimPolicy =
-                    ReclaimPolicy::new("RECLAIM_POLICY_UNSPECIFIED");
+                    ReclaimPolicy::known("RECLAIM_POLICY_UNSPECIFIED", 0);
 
                 /// Delete the persistent disk when deleting the workstation.
-                pub const DELETE: ReclaimPolicy = ReclaimPolicy::new("DELETE");
+                pub const DELETE: ReclaimPolicy = ReclaimPolicy::known("DELETE", 1);
 
                 /// Keep the persistent disk when deleting the workstation.
                 /// An administrator must manually delete the disk.
-                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::new("RETAIN");
+                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::known("RETAIN", 2);
+            }
+
+            impl ReclaimPolicy {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for ReclaimPolicy {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReclaimPolicy {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(ReclaimPolicy::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(ReclaimPolicy::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(ReclaimPolicy::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for ReclaimPolicy {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "RECLAIM_POLICY_UNSPECIFIED" => reclaim_policy::RECLAIM_POLICY_UNSPECIFIED,
+                        "DELETE" => reclaim_policy::DELETE,
+                        "RETAIN" => reclaim_policy::RETAIN,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for ReclaimPolicy {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => reclaim_policy::RECLAIM_POLICY_UNSPECIFIED,
+                        1 => reclaim_policy::DELETE,
+                        2 => reclaim_policy::RETAIN,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for ReclaimPolicy {
                 fn default() -> Self {
-                    reclaim_policy::RECLAIM_POLICY_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -1776,52 +1822,102 @@ pub mod workstation {
     use super::*;
 
     /// Whether a workstation is running and ready to receive user requests.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Do not use.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The workstation is not yet ready to accept requests from users but will
         /// be soon.
-        pub const STATE_STARTING: State = State::new("STATE_STARTING");
+        pub const STATE_STARTING: State = State::known("STATE_STARTING", 1);
 
         /// The workstation is ready to accept requests from users.
-        pub const STATE_RUNNING: State = State::new("STATE_RUNNING");
+        pub const STATE_RUNNING: State = State::known("STATE_RUNNING", 2);
 
         /// The workstation is being stopped.
-        pub const STATE_STOPPING: State = State::new("STATE_STOPPING");
+        pub const STATE_STOPPING: State = State::known("STATE_STOPPING", 3);
 
         /// The workstation is stopped and will not be able to receive requests until
         /// it is started.
-        pub const STATE_STOPPED: State = State::new("STATE_STOPPED");
+        pub const STATE_STOPPED: State = State::known("STATE_STOPPED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "STATE_STARTING" => state::STATE_STARTING,
+                "STATE_RUNNING" => state::STATE_RUNNING,
+                "STATE_STOPPING" => state::STATE_STOPPING,
+                "STATE_STOPPED" => state::STATE_STOPPED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::STATE_STARTING,
+                2 => state::STATE_RUNNING,
+                3 => state::STATE_STOPPING,
+                4 => state::STATE_STOPPED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

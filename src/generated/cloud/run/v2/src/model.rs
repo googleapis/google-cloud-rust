@@ -700,113 +700,199 @@ pub mod condition {
     use super::*;
 
     /// Represents the possible Condition states.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Transient state: Reconciliation has not started yet.
-        pub const CONDITION_PENDING: State = State::new("CONDITION_PENDING");
+        pub const CONDITION_PENDING: State = State::known("CONDITION_PENDING", 1);
 
         /// Transient state: reconciliation is still in progress.
-        pub const CONDITION_RECONCILING: State = State::new("CONDITION_RECONCILING");
+        pub const CONDITION_RECONCILING: State = State::known("CONDITION_RECONCILING", 2);
 
         /// Terminal state: Reconciliation did not succeed.
-        pub const CONDITION_FAILED: State = State::new("CONDITION_FAILED");
+        pub const CONDITION_FAILED: State = State::known("CONDITION_FAILED", 3);
 
         /// Terminal state: Reconciliation completed successfully.
-        pub const CONDITION_SUCCEEDED: State = State::new("CONDITION_SUCCEEDED");
+        pub const CONDITION_SUCCEEDED: State = State::known("CONDITION_SUCCEEDED", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CONDITION_PENDING" => state::CONDITION_PENDING,
+                "CONDITION_RECONCILING" => state::CONDITION_RECONCILING,
+                "CONDITION_FAILED" => state::CONDITION_FAILED,
+                "CONDITION_SUCCEEDED" => state::CONDITION_SUCCEEDED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CONDITION_PENDING,
+                2 => state::CONDITION_RECONCILING,
+                3 => state::CONDITION_FAILED,
+                4 => state::CONDITION_SUCCEEDED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Represents the severity of the condition failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
-
-    impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Severity(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
         use super::Severity;
 
         /// Unspecified severity
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::known("SEVERITY_UNSPECIFIED", 0);
 
         /// Error severity.
-        pub const ERROR: Severity = Severity::new("ERROR");
+        pub const ERROR: Severity = Severity::known("ERROR", 1);
 
         /// Warning severity.
-        pub const WARNING: Severity = Severity::new("WARNING");
+        pub const WARNING: Severity = Severity::known("WARNING", 2);
 
         /// Info severity.
-        pub const INFO: Severity = Severity::new("INFO");
+        pub const INFO: Severity = Severity::known("INFO", 3);
+    }
+
+    impl Severity {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Severity::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Severity::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Severity::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEVERITY_UNSPECIFIED" => severity::SEVERITY_UNSPECIFIED,
+                "ERROR" => severity::ERROR,
+                "WARNING" => severity::WARNING,
+                "INFO" => severity::INFO,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => severity::SEVERITY_UNSPECIFIED,
+                1 => severity::ERROR,
+                2 => severity::WARNING,
+                3 => severity::INFO,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Reasons common to all types of conditions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommonReason(std::borrow::Cow<'static, str>);
-
-    impl CommonReason {
-        /// Creates a new CommonReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CommonReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CommonReason](CommonReason)
     pub mod common_reason {
@@ -814,85 +900,160 @@ pub mod condition {
 
         /// Default value.
         pub const COMMON_REASON_UNDEFINED: CommonReason =
-            CommonReason::new("COMMON_REASON_UNDEFINED");
+            CommonReason::known("COMMON_REASON_UNDEFINED", 0);
 
         /// Reason unknown. Further details will be in message.
-        pub const UNKNOWN: CommonReason = CommonReason::new("UNKNOWN");
+        pub const UNKNOWN: CommonReason = CommonReason::known("UNKNOWN", 1);
 
         /// Revision creation process failed.
-        pub const REVISION_FAILED: CommonReason = CommonReason::new("REVISION_FAILED");
+        pub const REVISION_FAILED: CommonReason = CommonReason::known("REVISION_FAILED", 3);
 
         /// Timed out waiting for completion.
         pub const PROGRESS_DEADLINE_EXCEEDED: CommonReason =
-            CommonReason::new("PROGRESS_DEADLINE_EXCEEDED");
+            CommonReason::known("PROGRESS_DEADLINE_EXCEEDED", 4);
 
         /// The container image path is incorrect.
-        pub const CONTAINER_MISSING: CommonReason = CommonReason::new("CONTAINER_MISSING");
+        pub const CONTAINER_MISSING: CommonReason = CommonReason::known("CONTAINER_MISSING", 6);
 
         /// Insufficient permissions on the container image.
         pub const CONTAINER_PERMISSION_DENIED: CommonReason =
-            CommonReason::new("CONTAINER_PERMISSION_DENIED");
+            CommonReason::known("CONTAINER_PERMISSION_DENIED", 7);
 
         /// Container image is not authorized by policy.
         pub const CONTAINER_IMAGE_UNAUTHORIZED: CommonReason =
-            CommonReason::new("CONTAINER_IMAGE_UNAUTHORIZED");
+            CommonReason::known("CONTAINER_IMAGE_UNAUTHORIZED", 8);
 
         /// Container image policy authorization check failed.
         pub const CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED: CommonReason =
-            CommonReason::new("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED");
+            CommonReason::known("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", 9);
 
         /// Insufficient permissions on encryption key.
         pub const ENCRYPTION_KEY_PERMISSION_DENIED: CommonReason =
-            CommonReason::new("ENCRYPTION_KEY_PERMISSION_DENIED");
+            CommonReason::known("ENCRYPTION_KEY_PERMISSION_DENIED", 10);
 
         /// Permission check on encryption key failed.
         pub const ENCRYPTION_KEY_CHECK_FAILED: CommonReason =
-            CommonReason::new("ENCRYPTION_KEY_CHECK_FAILED");
+            CommonReason::known("ENCRYPTION_KEY_CHECK_FAILED", 11);
 
         /// At least one Access check on secrets failed.
         pub const SECRETS_ACCESS_CHECK_FAILED: CommonReason =
-            CommonReason::new("SECRETS_ACCESS_CHECK_FAILED");
+            CommonReason::known("SECRETS_ACCESS_CHECK_FAILED", 12);
 
         /// Waiting for operation to complete.
-        pub const WAITING_FOR_OPERATION: CommonReason = CommonReason::new("WAITING_FOR_OPERATION");
+        pub const WAITING_FOR_OPERATION: CommonReason =
+            CommonReason::known("WAITING_FOR_OPERATION", 13);
 
         /// System will retry immediately.
-        pub const IMMEDIATE_RETRY: CommonReason = CommonReason::new("IMMEDIATE_RETRY");
+        pub const IMMEDIATE_RETRY: CommonReason = CommonReason::known("IMMEDIATE_RETRY", 14);
 
         /// System will retry later; current attempt failed.
-        pub const POSTPONED_RETRY: CommonReason = CommonReason::new("POSTPONED_RETRY");
+        pub const POSTPONED_RETRY: CommonReason = CommonReason::known("POSTPONED_RETRY", 15);
 
         /// An internal error occurred. Further information may be in the message.
-        pub const INTERNAL: CommonReason = CommonReason::new("INTERNAL");
+        pub const INTERNAL: CommonReason = CommonReason::known("INTERNAL", 16);
+    }
+
+    impl CommonReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CommonReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CommonReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CommonReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CommonReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CommonReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CommonReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMMON_REASON_UNDEFINED" => common_reason::COMMON_REASON_UNDEFINED,
+                "UNKNOWN" => common_reason::UNKNOWN,
+                "REVISION_FAILED" => common_reason::REVISION_FAILED,
+                "PROGRESS_DEADLINE_EXCEEDED" => common_reason::PROGRESS_DEADLINE_EXCEEDED,
+                "CONTAINER_MISSING" => common_reason::CONTAINER_MISSING,
+                "CONTAINER_PERMISSION_DENIED" => common_reason::CONTAINER_PERMISSION_DENIED,
+                "CONTAINER_IMAGE_UNAUTHORIZED" => common_reason::CONTAINER_IMAGE_UNAUTHORIZED,
+                "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED" => {
+                    common_reason::CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED
+                }
+                "ENCRYPTION_KEY_PERMISSION_DENIED" => {
+                    common_reason::ENCRYPTION_KEY_PERMISSION_DENIED
+                }
+                "ENCRYPTION_KEY_CHECK_FAILED" => common_reason::ENCRYPTION_KEY_CHECK_FAILED,
+                "SECRETS_ACCESS_CHECK_FAILED" => common_reason::SECRETS_ACCESS_CHECK_FAILED,
+                "WAITING_FOR_OPERATION" => common_reason::WAITING_FOR_OPERATION,
+                "IMMEDIATE_RETRY" => common_reason::IMMEDIATE_RETRY,
+                "POSTPONED_RETRY" => common_reason::POSTPONED_RETRY,
+                "INTERNAL" => common_reason::INTERNAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CommonReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => common_reason::COMMON_REASON_UNDEFINED,
+                1 => common_reason::UNKNOWN,
+                3 => common_reason::REVISION_FAILED,
+                4 => common_reason::PROGRESS_DEADLINE_EXCEEDED,
+                6 => common_reason::CONTAINER_MISSING,
+                7 => common_reason::CONTAINER_PERMISSION_DENIED,
+                8 => common_reason::CONTAINER_IMAGE_UNAUTHORIZED,
+                9 => common_reason::CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
+                10 => common_reason::ENCRYPTION_KEY_PERMISSION_DENIED,
+                11 => common_reason::ENCRYPTION_KEY_CHECK_FAILED,
+                12 => common_reason::SECRETS_ACCESS_CHECK_FAILED,
+                13 => common_reason::WAITING_FOR_OPERATION,
+                14 => common_reason::IMMEDIATE_RETRY,
+                15 => common_reason::POSTPONED_RETRY,
+                16 => common_reason::INTERNAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CommonReason {
         fn default() -> Self {
-            common_reason::COMMON_REASON_UNDEFINED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Reasons specific to Revision resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RevisionReason(std::borrow::Cow<'static, str>);
-
-    impl RevisionReason {
-        /// Creates a new RevisionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RevisionReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RevisionReason](RevisionReason)
     pub mod revision_reason {
@@ -900,85 +1061,153 @@ pub mod condition {
 
         /// Default value.
         pub const REVISION_REASON_UNDEFINED: RevisionReason =
-            RevisionReason::new("REVISION_REASON_UNDEFINED");
+            RevisionReason::known("REVISION_REASON_UNDEFINED", 0);
 
         /// Revision in Pending state.
-        pub const PENDING: RevisionReason = RevisionReason::new("PENDING");
+        pub const PENDING: RevisionReason = RevisionReason::known("PENDING", 1);
 
         /// Revision is in Reserve state.
-        pub const RESERVE: RevisionReason = RevisionReason::new("RESERVE");
+        pub const RESERVE: RevisionReason = RevisionReason::known("RESERVE", 2);
 
         /// Revision is Retired.
-        pub const RETIRED: RevisionReason = RevisionReason::new("RETIRED");
+        pub const RETIRED: RevisionReason = RevisionReason::known("RETIRED", 3);
 
         /// Revision is being retired.
-        pub const RETIRING: RevisionReason = RevisionReason::new("RETIRING");
+        pub const RETIRING: RevisionReason = RevisionReason::known("RETIRING", 4);
 
         /// Revision is being recreated.
-        pub const RECREATING: RevisionReason = RevisionReason::new("RECREATING");
+        pub const RECREATING: RevisionReason = RevisionReason::known("RECREATING", 5);
 
         /// There was a health check error.
         pub const HEALTH_CHECK_CONTAINER_ERROR: RevisionReason =
-            RevisionReason::new("HEALTH_CHECK_CONTAINER_ERROR");
+            RevisionReason::known("HEALTH_CHECK_CONTAINER_ERROR", 6);
 
         /// Health check failed due to user error from customized path of the
         /// container. System will retry.
         pub const CUSTOMIZED_PATH_RESPONSE_PENDING: RevisionReason =
-            RevisionReason::new("CUSTOMIZED_PATH_RESPONSE_PENDING");
+            RevisionReason::known("CUSTOMIZED_PATH_RESPONSE_PENDING", 7);
 
         /// A revision with min_instance_count > 0 was created and is reserved, but
         /// it was not configured to serve traffic, so it's not live. This can also
         /// happen momentarily during traffic migration.
         pub const MIN_INSTANCES_NOT_PROVISIONED: RevisionReason =
-            RevisionReason::new("MIN_INSTANCES_NOT_PROVISIONED");
+            RevisionReason::known("MIN_INSTANCES_NOT_PROVISIONED", 8);
 
         /// The maximum allowed number of active revisions has been reached.
         pub const ACTIVE_REVISION_LIMIT_REACHED: RevisionReason =
-            RevisionReason::new("ACTIVE_REVISION_LIMIT_REACHED");
+            RevisionReason::known("ACTIVE_REVISION_LIMIT_REACHED", 9);
 
         /// There was no deployment defined.
         /// This value is no longer used, but Services created in older versions of
         /// the API might contain this value.
-        pub const NO_DEPLOYMENT: RevisionReason = RevisionReason::new("NO_DEPLOYMENT");
+        pub const NO_DEPLOYMENT: RevisionReason = RevisionReason::known("NO_DEPLOYMENT", 10);
 
         /// A revision's container has no port specified since the revision is of a
         /// manually scaled service with 0 instance count
         pub const HEALTH_CHECK_SKIPPED: RevisionReason =
-            RevisionReason::new("HEALTH_CHECK_SKIPPED");
+            RevisionReason::known("HEALTH_CHECK_SKIPPED", 11);
 
         /// A revision with min_instance_count > 0 was created and is waiting for
         /// enough instances to begin a traffic migration.
         pub const MIN_INSTANCES_WARMING: RevisionReason =
-            RevisionReason::new("MIN_INSTANCES_WARMING");
+            RevisionReason::known("MIN_INSTANCES_WARMING", 12);
+    }
+
+    impl RevisionReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RevisionReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RevisionReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RevisionReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RevisionReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RevisionReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RevisionReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REVISION_REASON_UNDEFINED" => revision_reason::REVISION_REASON_UNDEFINED,
+                "PENDING" => revision_reason::PENDING,
+                "RESERVE" => revision_reason::RESERVE,
+                "RETIRED" => revision_reason::RETIRED,
+                "RETIRING" => revision_reason::RETIRING,
+                "RECREATING" => revision_reason::RECREATING,
+                "HEALTH_CHECK_CONTAINER_ERROR" => revision_reason::HEALTH_CHECK_CONTAINER_ERROR,
+                "CUSTOMIZED_PATH_RESPONSE_PENDING" => {
+                    revision_reason::CUSTOMIZED_PATH_RESPONSE_PENDING
+                }
+                "MIN_INSTANCES_NOT_PROVISIONED" => revision_reason::MIN_INSTANCES_NOT_PROVISIONED,
+                "ACTIVE_REVISION_LIMIT_REACHED" => revision_reason::ACTIVE_REVISION_LIMIT_REACHED,
+                "NO_DEPLOYMENT" => revision_reason::NO_DEPLOYMENT,
+                "HEALTH_CHECK_SKIPPED" => revision_reason::HEALTH_CHECK_SKIPPED,
+                "MIN_INSTANCES_WARMING" => revision_reason::MIN_INSTANCES_WARMING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RevisionReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => revision_reason::REVISION_REASON_UNDEFINED,
+                1 => revision_reason::PENDING,
+                2 => revision_reason::RESERVE,
+                3 => revision_reason::RETIRED,
+                4 => revision_reason::RETIRING,
+                5 => revision_reason::RECREATING,
+                6 => revision_reason::HEALTH_CHECK_CONTAINER_ERROR,
+                7 => revision_reason::CUSTOMIZED_PATH_RESPONSE_PENDING,
+                8 => revision_reason::MIN_INSTANCES_NOT_PROVISIONED,
+                9 => revision_reason::ACTIVE_REVISION_LIMIT_REACHED,
+                10 => revision_reason::NO_DEPLOYMENT,
+                11 => revision_reason::HEALTH_CHECK_SKIPPED,
+                12 => revision_reason::MIN_INSTANCES_WARMING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RevisionReason {
         fn default() -> Self {
-            revision_reason::REVISION_REASON_UNDEFINED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Reasons specific to Execution resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionReason(std::borrow::Cow<'static, str>);
-
-    impl ExecutionReason {
-        /// Creates a new ExecutionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ExecutionReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ExecutionReason](ExecutionReason)
     pub mod execution_reason {
@@ -986,35 +1215,102 @@ pub mod condition {
 
         /// Default value.
         pub const EXECUTION_REASON_UNDEFINED: ExecutionReason =
-            ExecutionReason::new("EXECUTION_REASON_UNDEFINED");
+            ExecutionReason::known("EXECUTION_REASON_UNDEFINED", 0);
 
         /// Internal system error getting execution status. System will retry.
         pub const JOB_STATUS_SERVICE_POLLING_ERROR: ExecutionReason =
-            ExecutionReason::new("JOB_STATUS_SERVICE_POLLING_ERROR");
+            ExecutionReason::known("JOB_STATUS_SERVICE_POLLING_ERROR", 1);
 
         /// A task reached its retry limit and the last attempt failed due to the
         /// user container exiting with a non-zero exit code.
-        pub const NON_ZERO_EXIT_CODE: ExecutionReason = ExecutionReason::new("NON_ZERO_EXIT_CODE");
+        pub const NON_ZERO_EXIT_CODE: ExecutionReason =
+            ExecutionReason::known("NON_ZERO_EXIT_CODE", 2);
 
         /// The execution was cancelled by users.
-        pub const CANCELLED: ExecutionReason = ExecutionReason::new("CANCELLED");
+        pub const CANCELLED: ExecutionReason = ExecutionReason::known("CANCELLED", 3);
 
         /// The execution is in the process of being cancelled.
-        pub const CANCELLING: ExecutionReason = ExecutionReason::new("CANCELLING");
+        pub const CANCELLING: ExecutionReason = ExecutionReason::known("CANCELLING", 4);
 
         /// The execution was deleted.
-        pub const DELETED: ExecutionReason = ExecutionReason::new("DELETED");
+        pub const DELETED: ExecutionReason = ExecutionReason::known("DELETED", 5);
+    }
+
+    impl ExecutionReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ExecutionReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ExecutionReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ExecutionReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ExecutionReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EXECUTION_REASON_UNDEFINED" => execution_reason::EXECUTION_REASON_UNDEFINED,
+                "JOB_STATUS_SERVICE_POLLING_ERROR" => {
+                    execution_reason::JOB_STATUS_SERVICE_POLLING_ERROR
+                }
+                "NON_ZERO_EXIT_CODE" => execution_reason::NON_ZERO_EXIT_CODE,
+                "CANCELLED" => execution_reason::CANCELLED,
+                "CANCELLING" => execution_reason::CANCELLING,
+                "DELETED" => execution_reason::DELETED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => execution_reason::EXECUTION_REASON_UNDEFINED,
+                1 => execution_reason::JOB_STATUS_SERVICE_POLLING_ERROR,
+                2 => execution_reason::NON_ZERO_EXIT_CODE,
+                3 => execution_reason::CANCELLED,
+                4 => execution_reason::CANCELLING,
+                5 => execution_reason::DELETED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ExecutionReason {
         fn default() -> Self {
-            execution_reason::EXECUTION_REASON_UNDEFINED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2833,20 +3129,8 @@ pub mod execution_reference {
     use super::*;
 
     /// Possible execution completion status.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CompletionStatus(std::borrow::Cow<'static, str>);
-
-    impl CompletionStatus {
-        /// Creates a new CompletionStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CompletionStatus(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CompletionStatus](CompletionStatus)
     pub mod completion_status {
@@ -2854,35 +3138,102 @@ pub mod execution_reference {
 
         /// The default value. This value is used if the state is omitted.
         pub const COMPLETION_STATUS_UNSPECIFIED: CompletionStatus =
-            CompletionStatus::new("COMPLETION_STATUS_UNSPECIFIED");
+            CompletionStatus::known("COMPLETION_STATUS_UNSPECIFIED", 0);
 
         /// Job execution has succeeded.
         pub const EXECUTION_SUCCEEDED: CompletionStatus =
-            CompletionStatus::new("EXECUTION_SUCCEEDED");
+            CompletionStatus::known("EXECUTION_SUCCEEDED", 1);
 
         /// Job execution has failed.
-        pub const EXECUTION_FAILED: CompletionStatus = CompletionStatus::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: CompletionStatus =
+            CompletionStatus::known("EXECUTION_FAILED", 2);
 
         /// Job execution is running normally.
-        pub const EXECUTION_RUNNING: CompletionStatus = CompletionStatus::new("EXECUTION_RUNNING");
+        pub const EXECUTION_RUNNING: CompletionStatus =
+            CompletionStatus::known("EXECUTION_RUNNING", 3);
 
         /// Waiting for backing resources to be provisioned.
-        pub const EXECUTION_PENDING: CompletionStatus = CompletionStatus::new("EXECUTION_PENDING");
+        pub const EXECUTION_PENDING: CompletionStatus =
+            CompletionStatus::known("EXECUTION_PENDING", 4);
 
         /// Job execution has been cancelled by the user.
         pub const EXECUTION_CANCELLED: CompletionStatus =
-            CompletionStatus::new("EXECUTION_CANCELLED");
+            CompletionStatus::known("EXECUTION_CANCELLED", 5);
+    }
+
+    impl CompletionStatus {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CompletionStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompletionStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CompletionStatus::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CompletionStatus::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CompletionStatus::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CompletionStatus {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMPLETION_STATUS_UNSPECIFIED" => completion_status::COMPLETION_STATUS_UNSPECIFIED,
+                "EXECUTION_SUCCEEDED" => completion_status::EXECUTION_SUCCEEDED,
+                "EXECUTION_FAILED" => completion_status::EXECUTION_FAILED,
+                "EXECUTION_RUNNING" => completion_status::EXECUTION_RUNNING,
+                "EXECUTION_PENDING" => completion_status::EXECUTION_PENDING,
+                "EXECUTION_CANCELLED" => completion_status::EXECUTION_CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CompletionStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => completion_status::COMPLETION_STATUS_UNSPECIFIED,
+                1 => completion_status::EXECUTION_SUCCEEDED,
+                2 => completion_status::EXECUTION_FAILED,
+                3 => completion_status::EXECUTION_RUNNING,
+                4 => completion_status::EXECUTION_PENDING,
+                5 => completion_status::EXECUTION_CANCELLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CompletionStatus {
         fn default() -> Self {
-            completion_status::COMPLETION_STATUS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3880,20 +4231,8 @@ pub mod empty_dir_volume_source {
     use super::*;
 
     /// The different types of medium supported for EmptyDir.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Medium(std::borrow::Cow<'static, str>);
-
-    impl Medium {
-        /// Creates a new Medium instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Medium(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Medium](Medium)
     pub mod medium {
@@ -3901,21 +4240,77 @@ pub mod empty_dir_volume_source {
 
         /// When not specified, falls back to the default implementation which
         /// is currently in memory (this may change over time).
-        pub const MEDIUM_UNSPECIFIED: Medium = Medium::new("MEDIUM_UNSPECIFIED");
+        pub const MEDIUM_UNSPECIFIED: Medium = Medium::known("MEDIUM_UNSPECIFIED", 0);
 
         /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
-        pub const MEMORY: Medium = Medium::new("MEMORY");
+        pub const MEMORY: Medium = Medium::known("MEMORY", 1);
+    }
+
+    impl Medium {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Medium {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Medium {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Medium::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Medium::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Medium::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Medium {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MEDIUM_UNSPECIFIED" => medium::MEDIUM_UNSPECIFIED,
+                "MEMORY" => medium::MEMORY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Medium {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => medium::MEDIUM_UNSPECIFIED,
+                1 => medium::MEMORY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Medium {
         fn default() -> Self {
-            medium::MEDIUM_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -7285,44 +7680,90 @@ pub mod vpc_access {
     }
 
     /// Egress options for VPC access.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VpcEgress(std::borrow::Cow<'static, str>);
-
-    impl VpcEgress {
-        /// Creates a new VpcEgress instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct VpcEgress(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [VpcEgress](VpcEgress)
     pub mod vpc_egress {
         use super::VpcEgress;
 
         /// Unspecified
-        pub const VPC_EGRESS_UNSPECIFIED: VpcEgress = VpcEgress::new("VPC_EGRESS_UNSPECIFIED");
+        pub const VPC_EGRESS_UNSPECIFIED: VpcEgress = VpcEgress::known("VPC_EGRESS_UNSPECIFIED", 0);
 
         /// All outbound traffic is routed through the VPC connector.
-        pub const ALL_TRAFFIC: VpcEgress = VpcEgress::new("ALL_TRAFFIC");
+        pub const ALL_TRAFFIC: VpcEgress = VpcEgress::known("ALL_TRAFFIC", 1);
 
         /// Only private IP ranges are routed through the VPC connector.
-        pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::new("PRIVATE_RANGES_ONLY");
+        pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::known("PRIVATE_RANGES_ONLY", 2);
+    }
+
+    impl VpcEgress {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for VpcEgress {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for VpcEgress {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(VpcEgress::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(VpcEgress::from(val)),
+                Enumeration::UnknownNum { str } => Ok(VpcEgress::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for VpcEgress {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VPC_EGRESS_UNSPECIFIED" => vpc_egress::VPC_EGRESS_UNSPECIFIED,
+                "ALL_TRAFFIC" => vpc_egress::ALL_TRAFFIC,
+                "PRIVATE_RANGES_ONLY" => vpc_egress::PRIVATE_RANGES_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for VpcEgress {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => vpc_egress::VPC_EGRESS_UNSPECIFIED,
+                1 => vpc_egress::ALL_TRAFFIC,
+                2 => vpc_egress::PRIVATE_RANGES_ONLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for VpcEgress {
         fn default() -> Self {
-            vpc_egress::VPC_EGRESS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -7582,20 +8023,8 @@ pub mod service_scaling {
 
     /// The scaling mode for the service. If not provided, it defaults to
     /// AUTOMATIC.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ScalingMode(std::borrow::Cow<'static, str>);
-
-    impl ScalingMode {
-        /// Creates a new ScalingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ScalingMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ScalingMode](ScalingMode)
     pub mod scaling_mode {
@@ -7603,24 +8032,82 @@ pub mod service_scaling {
 
         /// Unspecified.
         pub const SCALING_MODE_UNSPECIFIED: ScalingMode =
-            ScalingMode::new("SCALING_MODE_UNSPECIFIED");
+            ScalingMode::known("SCALING_MODE_UNSPECIFIED", 0);
 
         /// Scale based on traffic between min and max instances.
-        pub const AUTOMATIC: ScalingMode = ScalingMode::new("AUTOMATIC");
+        pub const AUTOMATIC: ScalingMode = ScalingMode::known("AUTOMATIC", 1);
 
         /// Scale to exactly min instances and ignore max instances.
-        pub const MANUAL: ScalingMode = ScalingMode::new("MANUAL");
+        pub const MANUAL: ScalingMode = ScalingMode::known("MANUAL", 2);
+    }
+
+    impl ScalingMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ScalingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ScalingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ScalingMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ScalingMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ScalingMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ScalingMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SCALING_MODE_UNSPECIFIED" => scaling_mode::SCALING_MODE_UNSPECIFIED,
+                "AUTOMATIC" => scaling_mode::AUTOMATIC,
+                "MANUAL" => scaling_mode::MANUAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ScalingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => scaling_mode::SCALING_MODE_UNSPECIFIED,
+                1 => scaling_mode::AUTOMATIC,
+                2 => scaling_mode::MANUAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ScalingMode {
         fn default() -> Self {
-            scaling_mode::SCALING_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -7782,20 +8269,8 @@ impl wkt::message::Message for BuildConfig {
 }
 
 /// The type of instance allocation.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TrafficTargetAllocationType(std::borrow::Cow<'static, str>);
-
-impl TrafficTargetAllocationType {
-    /// Creates a new TrafficTargetAllocationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct TrafficTargetAllocationType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [TrafficTargetAllocationType](TrafficTargetAllocationType)
 pub mod traffic_target_allocation_type {
@@ -7803,44 +8278,96 @@ pub mod traffic_target_allocation_type {
 
     /// Unspecified instance allocation type.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED");
+        TrafficTargetAllocationType::known("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED", 0);
 
     /// Allocates instances to the Service's latest ready Revision.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST");
+        TrafficTargetAllocationType::known("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST", 1);
 
     /// Allocates instances to a Revision by name.
     pub const TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION: TrafficTargetAllocationType =
-        TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION");
+        TrafficTargetAllocationType::known("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION", 2);
+}
+
+impl TrafficTargetAllocationType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for TrafficTargetAllocationType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TrafficTargetAllocationType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(TrafficTargetAllocationType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(TrafficTargetAllocationType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(TrafficTargetAllocationType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for TrafficTargetAllocationType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED" => {
+                traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED
+            }
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST" => {
+                traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST
+            }
+            "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" => {
+                traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for TrafficTargetAllocationType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED,
+            1 => traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST,
+            2 => traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for TrafficTargetAllocationType {
     fn default() -> Self {
-        traffic_target_allocation_type::TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Allowed ingress traffic for the Container.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IngressTraffic(std::borrow::Cow<'static, str>);
-
-impl IngressTraffic {
-    /// Creates a new IngressTraffic instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct IngressTraffic(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [IngressTraffic](IngressTraffic)
 pub mod ingress_traffic {
@@ -7848,50 +8375,103 @@ pub mod ingress_traffic {
 
     /// Unspecified
     pub const INGRESS_TRAFFIC_UNSPECIFIED: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_UNSPECIFIED");
+        IngressTraffic::known("INGRESS_TRAFFIC_UNSPECIFIED", 0);
 
     /// All inbound traffic is allowed.
-    pub const INGRESS_TRAFFIC_ALL: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_ALL");
+    pub const INGRESS_TRAFFIC_ALL: IngressTraffic = IngressTraffic::known("INGRESS_TRAFFIC_ALL", 1);
 
     /// Only internal traffic is allowed.
     pub const INGRESS_TRAFFIC_INTERNAL_ONLY: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_ONLY");
+        IngressTraffic::known("INGRESS_TRAFFIC_INTERNAL_ONLY", 2);
 
     /// Both internal and Google Cloud Load Balancer traffic is allowed.
     pub const INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER: IngressTraffic =
-        IngressTraffic::new("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER");
+        IngressTraffic::known("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER", 3);
 
     /// No ingress traffic is allowed.
-    pub const INGRESS_TRAFFIC_NONE: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_NONE");
+    pub const INGRESS_TRAFFIC_NONE: IngressTraffic =
+        IngressTraffic::known("INGRESS_TRAFFIC_NONE", 4);
+}
+
+impl IngressTraffic {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for IngressTraffic {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for IngressTraffic {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(IngressTraffic::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(IngressTraffic::from(val)),
+            Enumeration::UnknownNum { str } => Ok(IngressTraffic::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for IngressTraffic {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "INGRESS_TRAFFIC_UNSPECIFIED" => ingress_traffic::INGRESS_TRAFFIC_UNSPECIFIED,
+            "INGRESS_TRAFFIC_ALL" => ingress_traffic::INGRESS_TRAFFIC_ALL,
+            "INGRESS_TRAFFIC_INTERNAL_ONLY" => ingress_traffic::INGRESS_TRAFFIC_INTERNAL_ONLY,
+            "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER" => {
+                ingress_traffic::INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER
+            }
+            "INGRESS_TRAFFIC_NONE" => ingress_traffic::INGRESS_TRAFFIC_NONE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for IngressTraffic {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => ingress_traffic::INGRESS_TRAFFIC_UNSPECIFIED,
+            1 => ingress_traffic::INGRESS_TRAFFIC_ALL,
+            2 => ingress_traffic::INGRESS_TRAFFIC_INTERNAL_ONLY,
+            3 => ingress_traffic::INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER,
+            4 => ingress_traffic::INGRESS_TRAFFIC_NONE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for IngressTraffic {
     fn default() -> Self {
-        ingress_traffic::INGRESS_TRAFFIC_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Alternatives for execution environments.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExecutionEnvironment(std::borrow::Cow<'static, str>);
-
-impl ExecutionEnvironment {
-    /// Creates a new ExecutionEnvironment instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ExecutionEnvironment(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ExecutionEnvironment](ExecutionEnvironment)
 pub mod execution_environment {
@@ -7899,44 +8479,92 @@ pub mod execution_environment {
 
     /// Unspecified
     pub const EXECUTION_ENVIRONMENT_UNSPECIFIED: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_UNSPECIFIED");
+        ExecutionEnvironment::known("EXECUTION_ENVIRONMENT_UNSPECIFIED", 0);
 
     /// Uses the First Generation environment.
     pub const EXECUTION_ENVIRONMENT_GEN1: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN1");
+        ExecutionEnvironment::known("EXECUTION_ENVIRONMENT_GEN1", 1);
 
     /// Uses Second Generation environment.
     pub const EXECUTION_ENVIRONMENT_GEN2: ExecutionEnvironment =
-        ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN2");
+        ExecutionEnvironment::known("EXECUTION_ENVIRONMENT_GEN2", 2);
+}
+
+impl ExecutionEnvironment {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ExecutionEnvironment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ExecutionEnvironment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ExecutionEnvironment::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ExecutionEnvironment::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ExecutionEnvironment::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ExecutionEnvironment {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "EXECUTION_ENVIRONMENT_UNSPECIFIED" => {
+                execution_environment::EXECUTION_ENVIRONMENT_UNSPECIFIED
+            }
+            "EXECUTION_ENVIRONMENT_GEN1" => execution_environment::EXECUTION_ENVIRONMENT_GEN1,
+            "EXECUTION_ENVIRONMENT_GEN2" => execution_environment::EXECUTION_ENVIRONMENT_GEN2,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ExecutionEnvironment {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => execution_environment::EXECUTION_ENVIRONMENT_UNSPECIFIED,
+            1 => execution_environment::EXECUTION_ENVIRONMENT_GEN1,
+            2 => execution_environment::EXECUTION_ENVIRONMENT_GEN2,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ExecutionEnvironment {
     fn default() -> Self {
-        execution_environment::EXECUTION_ENVIRONMENT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Specifies behavior if an encryption key used by a resource is revoked.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncryptionKeyRevocationAction(std::borrow::Cow<'static, str>);
-
-impl EncryptionKeyRevocationAction {
-    /// Creates a new EncryptionKeyRevocationAction instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct EncryptionKeyRevocationAction(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [EncryptionKeyRevocationAction](EncryptionKeyRevocationAction)
 pub mod encryption_key_revocation_action {
@@ -7944,25 +8572,85 @@ pub mod encryption_key_revocation_action {
 
     /// Unspecified
     pub const ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED");
+        EncryptionKeyRevocationAction::known("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED", 0);
 
     /// Prevents the creation of new instances.
     pub const PREVENT_NEW: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("PREVENT_NEW");
+        EncryptionKeyRevocationAction::known("PREVENT_NEW", 1);
 
     /// Shuts down existing instances, and prevents creation of new ones.
     pub const SHUTDOWN: EncryptionKeyRevocationAction =
-        EncryptionKeyRevocationAction::new("SHUTDOWN");
+        EncryptionKeyRevocationAction::known("SHUTDOWN", 2);
+}
+
+impl EncryptionKeyRevocationAction {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for EncryptionKeyRevocationAction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EncryptionKeyRevocationAction {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(EncryptionKeyRevocationAction::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(EncryptionKeyRevocationAction::from(val)),
+            Enumeration::UnknownNum { str } => Ok(EncryptionKeyRevocationAction::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for EncryptionKeyRevocationAction {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED" => {
+                encryption_key_revocation_action::ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED
+            }
+            "PREVENT_NEW" => encryption_key_revocation_action::PREVENT_NEW,
+            "SHUTDOWN" => encryption_key_revocation_action::SHUTDOWN,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for EncryptionKeyRevocationAction {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => encryption_key_revocation_action::ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED,
+            1 => encryption_key_revocation_action::PREVENT_NEW,
+            2 => encryption_key_revocation_action::SHUTDOWN,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for EncryptionKeyRevocationAction {
     fn default() -> Self {
-        encryption_key_revocation_action::ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

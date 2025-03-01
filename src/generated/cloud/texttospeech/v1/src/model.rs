@@ -350,20 +350,8 @@ pub mod custom_pronunciation_params {
     use super::*;
 
     /// The phonetic encoding of the phrase.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PhoneticEncoding(std::borrow::Cow<'static, str>);
-
-    impl PhoneticEncoding {
-        /// Creates a new PhoneticEncoding instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PhoneticEncoding(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PhoneticEncoding](PhoneticEncoding)
     pub mod phonetic_encoding {
@@ -371,28 +359,86 @@ pub mod custom_pronunciation_params {
 
         /// Not specified.
         pub const PHONETIC_ENCODING_UNSPECIFIED: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_UNSPECIFIED");
+            PhoneticEncoding::known("PHONETIC_ENCODING_UNSPECIFIED", 0);
 
         /// IPA. (e.g. apple -> ˈæpəl )
         /// <https://en.wikipedia.org/wiki/International_Phonetic_Alphabet>
         pub const PHONETIC_ENCODING_IPA: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_IPA");
+            PhoneticEncoding::known("PHONETIC_ENCODING_IPA", 1);
 
         /// X-SAMPA (e.g. apple -> "{p@l" )
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
         pub const PHONETIC_ENCODING_X_SAMPA: PhoneticEncoding =
-            PhoneticEncoding::new("PHONETIC_ENCODING_X_SAMPA");
+            PhoneticEncoding::known("PHONETIC_ENCODING_X_SAMPA", 2);
+    }
+
+    impl PhoneticEncoding {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PhoneticEncoding {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PhoneticEncoding {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PhoneticEncoding::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PhoneticEncoding::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PhoneticEncoding::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PhoneticEncoding {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PHONETIC_ENCODING_UNSPECIFIED" => phonetic_encoding::PHONETIC_ENCODING_UNSPECIFIED,
+                "PHONETIC_ENCODING_IPA" => phonetic_encoding::PHONETIC_ENCODING_IPA,
+                "PHONETIC_ENCODING_X_SAMPA" => phonetic_encoding::PHONETIC_ENCODING_X_SAMPA,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PhoneticEncoding {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => phonetic_encoding::PHONETIC_ENCODING_UNSPECIFIED,
+                1 => phonetic_encoding::PHONETIC_ENCODING_IPA,
+                2 => phonetic_encoding::PHONETIC_ENCODING_X_SAMPA,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PhoneticEncoding {
         fn default() -> Self {
-            phonetic_encoding::PHONETIC_ENCODING_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -930,20 +976,8 @@ pub mod custom_voice_params {
 
     /// Deprecated. The usage of the synthesized audio. Usage does not affect
     /// billing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReportedUsage(std::borrow::Cow<'static, str>);
-
-    impl ReportedUsage {
-        /// Creates a new ReportedUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ReportedUsage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ReportedUsage](ReportedUsage)
     pub mod reported_usage {
@@ -951,27 +985,85 @@ pub mod custom_voice_params {
 
         /// Request with reported usage unspecified will be rejected.
         pub const REPORTED_USAGE_UNSPECIFIED: ReportedUsage =
-            ReportedUsage::new("REPORTED_USAGE_UNSPECIFIED");
+            ReportedUsage::known("REPORTED_USAGE_UNSPECIFIED", 0);
 
         /// For scenarios where the synthesized audio is not downloadable and can
         /// only be used once. For example, real-time request in IVR system.
-        pub const REALTIME: ReportedUsage = ReportedUsage::new("REALTIME");
+        pub const REALTIME: ReportedUsage = ReportedUsage::known("REALTIME", 1);
 
         /// For scenarios where the synthesized audio is downloadable and can be
         /// reused. For example, the synthesized audio is downloaded, stored in
         /// customer service system and played repeatedly.
-        pub const OFFLINE: ReportedUsage = ReportedUsage::new("OFFLINE");
+        pub const OFFLINE: ReportedUsage = ReportedUsage::known("OFFLINE", 2);
+    }
+
+    impl ReportedUsage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ReportedUsage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ReportedUsage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ReportedUsage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ReportedUsage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ReportedUsage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ReportedUsage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REPORTED_USAGE_UNSPECIFIED" => reported_usage::REPORTED_USAGE_UNSPECIFIED,
+                "REALTIME" => reported_usage::REALTIME,
+                "OFFLINE" => reported_usage::OFFLINE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ReportedUsage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reported_usage::REPORTED_USAGE_UNSPECIFIED,
+                1 => reported_usage::REALTIME,
+                2 => reported_usage::OFFLINE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ReportedUsage {
         fn default() -> Self {
-            reported_usage::REPORTED_USAGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1530,20 +1622,8 @@ impl wkt::message::Message for SynthesizeLongAudioMetadata {
 
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SsmlVoiceGender(std::borrow::Cow<'static, str>);
-
-impl SsmlVoiceGender {
-    /// Creates a new SsmlVoiceGender instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SsmlVoiceGender(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SsmlVoiceGender](SsmlVoiceGender)
 pub mod ssml_voice_gender {
@@ -1555,46 +1635,94 @@ pub mod ssml_voice_gender {
     /// ListVoicesResponse, this may mean that the voice doesn't fit any of the
     /// other categories in this enum, or that the gender of the voice isn't known.
     pub const SSML_VOICE_GENDER_UNSPECIFIED: SsmlVoiceGender =
-        SsmlVoiceGender::new("SSML_VOICE_GENDER_UNSPECIFIED");
+        SsmlVoiceGender::known("SSML_VOICE_GENDER_UNSPECIFIED", 0);
 
     /// A male voice.
-    pub const MALE: SsmlVoiceGender = SsmlVoiceGender::new("MALE");
+    pub const MALE: SsmlVoiceGender = SsmlVoiceGender::known("MALE", 1);
 
     /// A female voice.
-    pub const FEMALE: SsmlVoiceGender = SsmlVoiceGender::new("FEMALE");
+    pub const FEMALE: SsmlVoiceGender = SsmlVoiceGender::known("FEMALE", 2);
 
     /// A gender-neutral voice. This voice is not yet supported.
-    pub const NEUTRAL: SsmlVoiceGender = SsmlVoiceGender::new("NEUTRAL");
+    pub const NEUTRAL: SsmlVoiceGender = SsmlVoiceGender::known("NEUTRAL", 3);
+}
+
+impl SsmlVoiceGender {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SsmlVoiceGender {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SsmlVoiceGender::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SsmlVoiceGender::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SsmlVoiceGender::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SsmlVoiceGender {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SSML_VOICE_GENDER_UNSPECIFIED" => ssml_voice_gender::SSML_VOICE_GENDER_UNSPECIFIED,
+            "MALE" => ssml_voice_gender::MALE,
+            "FEMALE" => ssml_voice_gender::FEMALE,
+            "NEUTRAL" => ssml_voice_gender::NEUTRAL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SsmlVoiceGender {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => ssml_voice_gender::SSML_VOICE_GENDER_UNSPECIFIED,
+            1 => ssml_voice_gender::MALE,
+            2 => ssml_voice_gender::FEMALE,
+            3 => ssml_voice_gender::NEUTRAL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SsmlVoiceGender {
     fn default() -> Self {
-        ssml_voice_gender::SSML_VOICE_GENDER_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Configuration to set up audio encoder. The encoding determines the output
 /// audio format that we'd like.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AudioEncoding(std::borrow::Cow<'static, str>);
-
-impl AudioEncoding {
-    /// Creates a new AudioEncoding instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct AudioEncoding(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [AudioEncoding](AudioEncoding)
 pub mod audio_encoding {
@@ -1603,43 +1731,109 @@ pub mod audio_encoding {
     /// Not specified. Will return result
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     pub const AUDIO_ENCODING_UNSPECIFIED: AudioEncoding =
-        AudioEncoding::new("AUDIO_ENCODING_UNSPECIFIED");
+        AudioEncoding::known("AUDIO_ENCODING_UNSPECIFIED", 0);
 
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Audio content returned as LINEAR16 also contains a WAV header.
-    pub const LINEAR16: AudioEncoding = AudioEncoding::new("LINEAR16");
+    pub const LINEAR16: AudioEncoding = AudioEncoding::known("LINEAR16", 1);
 
     /// MP3 audio at 32kbps.
-    pub const MP3: AudioEncoding = AudioEncoding::new("MP3");
+    pub const MP3: AudioEncoding = AudioEncoding::known("MP3", 2);
 
     /// Opus encoded audio wrapped in an ogg container. The result will be a
     /// file which can be played natively on Android, and in browsers (at least
     /// Chrome and Firefox). The quality of the encoding is considerably higher
     /// than MP3 while using approximately the same bitrate.
-    pub const OGG_OPUS: AudioEncoding = AudioEncoding::new("OGG_OPUS");
+    pub const OGG_OPUS: AudioEncoding = AudioEncoding::known("OGG_OPUS", 3);
 
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/mu-law.
     /// Audio content returned as MULAW also contains a WAV header.
-    pub const MULAW: AudioEncoding = AudioEncoding::new("MULAW");
+    pub const MULAW: AudioEncoding = AudioEncoding::known("MULAW", 5);
 
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/A-law.
     /// Audio content returned as ALAW also contains a WAV header.
-    pub const ALAW: AudioEncoding = AudioEncoding::new("ALAW");
+    pub const ALAW: AudioEncoding = AudioEncoding::known("ALAW", 6);
 
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Note that as opposed to LINEAR16, audio will not be wrapped in a WAV (or
     /// any other) header.
-    pub const PCM: AudioEncoding = AudioEncoding::new("PCM");
+    pub const PCM: AudioEncoding = AudioEncoding::known("PCM", 7);
+}
+
+impl AudioEncoding {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for AudioEncoding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(AudioEncoding::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(AudioEncoding::from(val)),
+            Enumeration::UnknownNum { str } => Ok(AudioEncoding::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for AudioEncoding {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "AUDIO_ENCODING_UNSPECIFIED" => audio_encoding::AUDIO_ENCODING_UNSPECIFIED,
+            "LINEAR16" => audio_encoding::LINEAR16,
+            "MP3" => audio_encoding::MP3,
+            "OGG_OPUS" => audio_encoding::OGG_OPUS,
+            "MULAW" => audio_encoding::MULAW,
+            "ALAW" => audio_encoding::ALAW,
+            "PCM" => audio_encoding::PCM,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for AudioEncoding {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => audio_encoding::AUDIO_ENCODING_UNSPECIFIED,
+            1 => audio_encoding::LINEAR16,
+            2 => audio_encoding::MP3,
+            3 => audio_encoding::OGG_OPUS,
+            5 => audio_encoding::MULAW,
+            6 => audio_encoding::ALAW,
+            7 => audio_encoding::PCM,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for AudioEncoding {
     fn default() -> Self {
-        audio_encoding::AUDIO_ENCODING_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

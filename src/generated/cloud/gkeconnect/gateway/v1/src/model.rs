@@ -121,20 +121,8 @@ pub mod generate_credentials_request {
     use super::*;
 
     /// Operating systems requiring specialized kubeconfigs.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OperatingSystem(std::borrow::Cow<'static, str>);
-
-    impl OperatingSystem {
-        /// Creates a new OperatingSystem instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OperatingSystem(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OperatingSystem](OperatingSystem)
     pub mod operating_system {
@@ -143,23 +131,79 @@ pub mod generate_credentials_request {
         /// Generates a kubeconfig that works for all operating systems not defined
         /// below.
         pub const OPERATING_SYSTEM_UNSPECIFIED: OperatingSystem =
-            OperatingSystem::new("OPERATING_SYSTEM_UNSPECIFIED");
+            OperatingSystem::known("OPERATING_SYSTEM_UNSPECIFIED", 0);
 
         /// Generates a kubeconfig that is specifically designed to work with
         /// Windows.
         pub const OPERATING_SYSTEM_WINDOWS: OperatingSystem =
-            OperatingSystem::new("OPERATING_SYSTEM_WINDOWS");
+            OperatingSystem::known("OPERATING_SYSTEM_WINDOWS", 1);
+    }
+
+    impl OperatingSystem {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OperatingSystem {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OperatingSystem {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OperatingSystem::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OperatingSystem::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OperatingSystem::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OperatingSystem {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "OPERATING_SYSTEM_UNSPECIFIED" => operating_system::OPERATING_SYSTEM_UNSPECIFIED,
+                "OPERATING_SYSTEM_WINDOWS" => operating_system::OPERATING_SYSTEM_WINDOWS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OperatingSystem {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => operating_system::OPERATING_SYSTEM_UNSPECIFIED,
+                1 => operating_system::OPERATING_SYSTEM_WINDOWS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OperatingSystem {
         fn default() -> Self {
-            operating_system::OPERATING_SYSTEM_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

@@ -453,50 +453,100 @@ pub mod instance {
         use super::*;
 
         /// Different states of a Memcached node.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
-
-        impl State {
-            /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct State(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [State](State)
         pub mod state {
             use super::State;
 
             /// Node state is not set.
-            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+            pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
             /// Node is being created.
-            pub const CREATING: State = State::new("CREATING");
+            pub const CREATING: State = State::known("CREATING", 1);
 
             /// Node has been created and ready to be used.
-            pub const READY: State = State::new("READY");
+            pub const READY: State = State::known("READY", 2);
 
             /// Node is being deleted.
-            pub const DELETING: State = State::new("DELETING");
+            pub const DELETING: State = State::known("DELETING", 3);
 
             /// Node is being updated.
-            pub const UPDATING: State = State::new("UPDATING");
+            pub const UPDATING: State = State::known("UPDATING", 4);
+        }
+
+        impl State {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(State::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                    "CREATING" => state::CREATING,
+                    "READY" => state::READY,
+                    "DELETING" => state::DELETING,
+                    "UPDATING" => state::UPDATING,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => state::STATE_UNSPECIFIED,
+                    1 => state::CREATING,
+                    2 => state::READY,
+                    3 => state::DELETING,
+                    4 => state::UPDATING,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for State {
             fn default() -> Self {
-                state::STATE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -546,95 +596,191 @@ pub mod instance {
         #[allow(unused_imports)]
         use super::*;
 
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Code(std::borrow::Cow<'static, str>);
-
-        impl Code {
-            /// Creates a new Code instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Code(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Code](Code)
         pub mod code {
             use super::Code;
 
             /// Message Code not set.
-            pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+            pub const CODE_UNSPECIFIED: Code = Code::known("CODE_UNSPECIFIED", 0);
 
             /// Memcached nodes are distributed unevenly.
             pub const ZONE_DISTRIBUTION_UNBALANCED: Code =
-                Code::new("ZONE_DISTRIBUTION_UNBALANCED");
+                Code::known("ZONE_DISTRIBUTION_UNBALANCED", 1);
+        }
+
+        impl Code {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Code {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Code {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Code::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Code::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Code::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Code {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CODE_UNSPECIFIED" => code::CODE_UNSPECIFIED,
+                    "ZONE_DISTRIBUTION_UNBALANCED" => code::ZONE_DISTRIBUTION_UNBALANCED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Code {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => code::CODE_UNSPECIFIED,
+                    1 => code::ZONE_DISTRIBUTION_UNBALANCED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Code {
             fn default() -> Self {
-                code::CODE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
 
     /// Different states of a Memcached instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Memcached instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// Memcached instance has been created and ready to be used.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// Memcached instance is updating configuration such as maintenance policy
         /// and schedule.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 3);
 
         /// Memcached instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
 
         /// Memcached instance is going through maintenance, e.g. data plane rollout.
-        pub const PERFORMING_MAINTENANCE: State = State::new("PERFORMING_MAINTENANCE");
+        pub const PERFORMING_MAINTENANCE: State = State::known("PERFORMING_MAINTENANCE", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                "PERFORMING_MAINTENANCE" => state::PERFORMING_MAINTENANCE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::UPDATING,
+                4 => state::DELETING,
+                5 => state::PERFORMING_MAINTENANCE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -895,20 +1041,8 @@ pub mod reschedule_maintenance_request {
     use super::*;
 
     /// Reschedule options.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(std::borrow::Cow<'static, str>);
-
-    impl RescheduleType {
-        /// Creates a new RescheduleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RescheduleType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RescheduleType](RescheduleType)
     pub mod reschedule_type {
@@ -916,29 +1050,89 @@ pub mod reschedule_maintenance_request {
 
         /// Not set.
         pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType =
-            RescheduleType::new("RESCHEDULE_TYPE_UNSPECIFIED");
+            RescheduleType::known("RESCHEDULE_TYPE_UNSPECIFIED", 0);
 
         /// If the user wants to schedule the maintenance to happen now.
-        pub const IMMEDIATE: RescheduleType = RescheduleType::new("IMMEDIATE");
+        pub const IMMEDIATE: RescheduleType = RescheduleType::known("IMMEDIATE", 1);
 
         /// If the user wants to use the existing maintenance policy to find the
         /// next available window.
         pub const NEXT_AVAILABLE_WINDOW: RescheduleType =
-            RescheduleType::new("NEXT_AVAILABLE_WINDOW");
+            RescheduleType::known("NEXT_AVAILABLE_WINDOW", 2);
 
         /// If the user wants to reschedule the maintenance to a specific time.
-        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::known("SPECIFIC_TIME", 3);
+    }
+
+    impl RescheduleType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RescheduleType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RescheduleType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RescheduleType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RescheduleType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RescheduleType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RescheduleType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED,
+                "IMMEDIATE" => reschedule_type::IMMEDIATE,
+                "NEXT_AVAILABLE_WINDOW" => reschedule_type::NEXT_AVAILABLE_WINDOW,
+                "SPECIFIC_TIME" => reschedule_type::SPECIFIC_TIME,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED,
+                1 => reschedule_type::IMMEDIATE,
+                2 => reschedule_type::NEXT_AVAILABLE_WINDOW,
+                3 => reschedule_type::SPECIFIC_TIME,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RescheduleType {
         fn default() -> Self {
-            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1607,40 +1801,84 @@ impl wkt::message::Message for ZoneMetadata {
 }
 
 /// Memcached versions supported by our service.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct MemcacheVersion(std::borrow::Cow<'static, str>);
-
-impl MemcacheVersion {
-    /// Creates a new MemcacheVersion instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct MemcacheVersion(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [MemcacheVersion](MemcacheVersion)
 pub mod memcache_version {
     use super::MemcacheVersion;
 
     pub const MEMCACHE_VERSION_UNSPECIFIED: MemcacheVersion =
-        MemcacheVersion::new("MEMCACHE_VERSION_UNSPECIFIED");
+        MemcacheVersion::known("MEMCACHE_VERSION_UNSPECIFIED", 0);
 
     /// Memcached 1.5 version.
-    pub const MEMCACHE_1_5: MemcacheVersion = MemcacheVersion::new("MEMCACHE_1_5");
+    pub const MEMCACHE_1_5: MemcacheVersion = MemcacheVersion::known("MEMCACHE_1_5", 1);
+}
+
+impl MemcacheVersion {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for MemcacheVersion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MemcacheVersion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(MemcacheVersion::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(MemcacheVersion::from(val)),
+            Enumeration::UnknownNum { str } => Ok(MemcacheVersion::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for MemcacheVersion {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "MEMCACHE_VERSION_UNSPECIFIED" => memcache_version::MEMCACHE_VERSION_UNSPECIFIED,
+            "MEMCACHE_1_5" => memcache_version::MEMCACHE_1_5,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for MemcacheVersion {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => memcache_version::MEMCACHE_VERSION_UNSPECIFIED,
+            1 => memcache_version::MEMCACHE_1_5,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for MemcacheVersion {
     fn default() -> Self {
-        memcache_version::MEMCACHE_VERSION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

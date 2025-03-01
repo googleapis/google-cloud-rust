@@ -603,20 +603,8 @@ impl wkt::message::Message for SendTestMessageRequest {
 /// Each notification will be categorized by the sender into one of the following
 /// categories. All contacts that are subscribed to that category will receive
 /// the notification.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationCategory(std::borrow::Cow<'static, str>);
-
-impl NotificationCategory {
-    /// Creates a new NotificationCategory instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct NotificationCategory(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [NotificationCategory](NotificationCategory)
 pub mod notification_category {
@@ -624,69 +612,130 @@ pub mod notification_category {
 
     /// Notification category is unrecognized or unspecified.
     pub const NOTIFICATION_CATEGORY_UNSPECIFIED: NotificationCategory =
-        NotificationCategory::new("NOTIFICATION_CATEGORY_UNSPECIFIED");
+        NotificationCategory::known("NOTIFICATION_CATEGORY_UNSPECIFIED", 0);
 
     /// All notifications related to the resource, including notifications
     /// pertaining to categories added in the future.
-    pub const ALL: NotificationCategory = NotificationCategory::new("ALL");
+    pub const ALL: NotificationCategory = NotificationCategory::known("ALL", 2);
 
     /// Notifications related to imminent account suspension.
-    pub const SUSPENSION: NotificationCategory = NotificationCategory::new("SUSPENSION");
+    pub const SUSPENSION: NotificationCategory = NotificationCategory::known("SUSPENSION", 3);
 
     /// Notifications related to security/privacy incidents, notifications, and
     /// vulnerabilities.
-    pub const SECURITY: NotificationCategory = NotificationCategory::new("SECURITY");
+    pub const SECURITY: NotificationCategory = NotificationCategory::known("SECURITY", 5);
 
     /// Notifications related to technical events and issues such as outages,
     /// errors, or bugs.
-    pub const TECHNICAL: NotificationCategory = NotificationCategory::new("TECHNICAL");
+    pub const TECHNICAL: NotificationCategory = NotificationCategory::known("TECHNICAL", 6);
 
     /// Notifications related to billing and payments notifications, price updates,
     /// errors, or credits.
-    pub const BILLING: NotificationCategory = NotificationCategory::new("BILLING");
+    pub const BILLING: NotificationCategory = NotificationCategory::known("BILLING", 7);
 
     /// Notifications related to enforcement actions, regulatory compliance, or
     /// government notices.
-    pub const LEGAL: NotificationCategory = NotificationCategory::new("LEGAL");
+    pub const LEGAL: NotificationCategory = NotificationCategory::known("LEGAL", 8);
 
     /// Notifications related to new versions, product terms updates, or
     /// deprecations.
-    pub const PRODUCT_UPDATES: NotificationCategory = NotificationCategory::new("PRODUCT_UPDATES");
+    pub const PRODUCT_UPDATES: NotificationCategory =
+        NotificationCategory::known("PRODUCT_UPDATES", 9);
 
     /// Child category of TECHNICAL. If assigned, technical incident notifications
     /// will go to these contacts instead of TECHNICAL.
     pub const TECHNICAL_INCIDENTS: NotificationCategory =
-        NotificationCategory::new("TECHNICAL_INCIDENTS");
+        NotificationCategory::known("TECHNICAL_INCIDENTS", 10);
+}
+
+impl NotificationCategory {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for NotificationCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(NotificationCategory::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(NotificationCategory::from(val)),
+            Enumeration::UnknownNum { str } => Ok(NotificationCategory::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for NotificationCategory {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "NOTIFICATION_CATEGORY_UNSPECIFIED" => {
+                notification_category::NOTIFICATION_CATEGORY_UNSPECIFIED
+            }
+            "ALL" => notification_category::ALL,
+            "SUSPENSION" => notification_category::SUSPENSION,
+            "SECURITY" => notification_category::SECURITY,
+            "TECHNICAL" => notification_category::TECHNICAL,
+            "BILLING" => notification_category::BILLING,
+            "LEGAL" => notification_category::LEGAL,
+            "PRODUCT_UPDATES" => notification_category::PRODUCT_UPDATES,
+            "TECHNICAL_INCIDENTS" => notification_category::TECHNICAL_INCIDENTS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for NotificationCategory {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => notification_category::NOTIFICATION_CATEGORY_UNSPECIFIED,
+            2 => notification_category::ALL,
+            3 => notification_category::SUSPENSION,
+            5 => notification_category::SECURITY,
+            6 => notification_category::TECHNICAL,
+            7 => notification_category::BILLING,
+            8 => notification_category::LEGAL,
+            9 => notification_category::PRODUCT_UPDATES,
+            10 => notification_category::TECHNICAL_INCIDENTS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for NotificationCategory {
     fn default() -> Self {
-        notification_category::NOTIFICATION_CATEGORY_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// A contact's validation state indicates whether or not it is the correct
 /// contact to be receiving notifications for a particular resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ValidationState(std::borrow::Cow<'static, str>);
-
-impl ValidationState {
-    /// Creates a new ValidationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ValidationState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ValidationState](ValidationState)
 pub mod validation_state {
@@ -694,25 +743,83 @@ pub mod validation_state {
 
     /// The validation state is unknown or unspecified.
     pub const VALIDATION_STATE_UNSPECIFIED: ValidationState =
-        ValidationState::new("VALIDATION_STATE_UNSPECIFIED");
+        ValidationState::known("VALIDATION_STATE_UNSPECIFIED", 0);
 
     /// The contact is marked as valid. This is usually done manually by the
     /// contact admin. All new contacts begin in the valid state.
-    pub const VALID: ValidationState = ValidationState::new("VALID");
+    pub const VALID: ValidationState = ValidationState::known("VALID", 1);
 
     /// The contact is considered invalid. This may become the state if the
     /// contact's email is found to be unreachable.
-    pub const INVALID: ValidationState = ValidationState::new("INVALID");
+    pub const INVALID: ValidationState = ValidationState::known("INVALID", 2);
+}
+
+impl ValidationState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ValidationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ValidationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ValidationState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ValidationState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ValidationState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ValidationState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "VALIDATION_STATE_UNSPECIFIED" => validation_state::VALIDATION_STATE_UNSPECIFIED,
+            "VALID" => validation_state::VALID,
+            "INVALID" => validation_state::INVALID,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ValidationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => validation_state::VALIDATION_STATE_UNSPECIFIED,
+            1 => validation_state::VALID,
+            2 => validation_state::INVALID,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ValidationState {
     fn default() -> Self {
-        validation_state::VALIDATION_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

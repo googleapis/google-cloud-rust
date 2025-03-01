@@ -903,60 +903,116 @@ pub mod domain {
     use super::*;
 
     /// Represents the different states of a managed domain.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The domain is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The domain has been created and is fully usable.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// The domain's configuration is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 3);
 
         /// The domain is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
 
         /// The domain is being repaired and may be unusable. Details
         /// can be found in the `status_message` field.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::known("REPAIRING", 5);
 
         /// The domain is undergoing maintenance.
-        pub const PERFORMING_MAINTENANCE: State = State::new("PERFORMING_MAINTENANCE");
+        pub const PERFORMING_MAINTENANCE: State = State::known("PERFORMING_MAINTENANCE", 6);
 
         /// The domain is not serving requests.
-        pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
+        pub const UNAVAILABLE: State = State::known("UNAVAILABLE", 7);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                "REPAIRING" => state::REPAIRING,
+                "PERFORMING_MAINTENANCE" => state::PERFORMING_MAINTENANCE,
+                "UNAVAILABLE" => state::UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::UPDATING,
+                4 => state::DELETING,
+                5 => state::REPAIRING,
+                6 => state::PERFORMING_MAINTENANCE,
+                7 => state::UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1130,95 +1186,193 @@ pub mod trust {
     use super::*;
 
     /// Represents the different states of a domain trust.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The domain trust is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// The domain trust is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::known("UPDATING", 2);
 
         /// The domain trust is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// The domain trust is connected.
-        pub const CONNECTED: State = State::new("CONNECTED");
+        pub const CONNECTED: State = State::known("CONNECTED", 4);
 
         /// The domain trust is disconnected.
-        pub const DISCONNECTED: State = State::new("DISCONNECTED");
+        pub const DISCONNECTED: State = State::known("DISCONNECTED", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "UPDATING" => state::UPDATING,
+                "DELETING" => state::DELETING,
+                "CONNECTED" => state::CONNECTED,
+                "DISCONNECTED" => state::DISCONNECTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::UPDATING,
+                3 => state::DELETING,
+                4 => state::CONNECTED,
+                5 => state::DISCONNECTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Represents the different inter-forest trust types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustType(std::borrow::Cow<'static, str>);
-
-    impl TrustType {
-        /// Creates a new TrustType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TrustType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TrustType](TrustType)
     pub mod trust_type {
         use super::TrustType;
 
         /// Not set.
-        pub const TRUST_TYPE_UNSPECIFIED: TrustType = TrustType::new("TRUST_TYPE_UNSPECIFIED");
+        pub const TRUST_TYPE_UNSPECIFIED: TrustType = TrustType::known("TRUST_TYPE_UNSPECIFIED", 0);
 
         /// The forest trust.
-        pub const FOREST: TrustType = TrustType::new("FOREST");
+        pub const FOREST: TrustType = TrustType::known("FOREST", 1);
 
         /// The external domain trust.
-        pub const EXTERNAL: TrustType = TrustType::new("EXTERNAL");
+        pub const EXTERNAL: TrustType = TrustType::known("EXTERNAL", 2);
+    }
+
+    impl TrustType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TrustType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TrustType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TrustType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TrustType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TrustType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TrustType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TRUST_TYPE_UNSPECIFIED" => trust_type::TRUST_TYPE_UNSPECIFIED,
+                "FOREST" => trust_type::FOREST,
+                "EXTERNAL" => trust_type::EXTERNAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TrustType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => trust_type::TRUST_TYPE_UNSPECIFIED,
+                1 => trust_type::FOREST,
+                2 => trust_type::EXTERNAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TrustType {
         fn default() -> Self {
-            trust_type::TRUST_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -1226,20 +1380,8 @@ pub mod trust {
     /// See
     /// [System.DirectoryServices.ActiveDirectory.TrustDirection](https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectory.trustdirection?view=netframework-4.7.2)
     /// for more information.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TrustDirection(std::borrow::Cow<'static, str>);
-
-    impl TrustDirection {
-        /// Creates a new TrustDirection instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TrustDirection(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TrustDirection](TrustDirection)
     pub mod trust_direction {
@@ -1247,27 +1389,87 @@ pub mod trust {
 
         /// Not set.
         pub const TRUST_DIRECTION_UNSPECIFIED: TrustDirection =
-            TrustDirection::new("TRUST_DIRECTION_UNSPECIFIED");
+            TrustDirection::known("TRUST_DIRECTION_UNSPECIFIED", 0);
 
         /// The inbound direction represents the trusting side.
-        pub const INBOUND: TrustDirection = TrustDirection::new("INBOUND");
+        pub const INBOUND: TrustDirection = TrustDirection::known("INBOUND", 1);
 
         /// The outboud direction represents the trusted side.
-        pub const OUTBOUND: TrustDirection = TrustDirection::new("OUTBOUND");
+        pub const OUTBOUND: TrustDirection = TrustDirection::known("OUTBOUND", 2);
 
         /// The bidirectional direction represents the trusted / trusting side.
-        pub const BIDIRECTIONAL: TrustDirection = TrustDirection::new("BIDIRECTIONAL");
+        pub const BIDIRECTIONAL: TrustDirection = TrustDirection::known("BIDIRECTIONAL", 3);
+    }
+
+    impl TrustDirection {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TrustDirection {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TrustDirection {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TrustDirection::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TrustDirection::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TrustDirection::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TrustDirection {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TRUST_DIRECTION_UNSPECIFIED" => trust_direction::TRUST_DIRECTION_UNSPECIFIED,
+                "INBOUND" => trust_direction::INBOUND,
+                "OUTBOUND" => trust_direction::OUTBOUND,
+                "BIDIRECTIONAL" => trust_direction::BIDIRECTIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TrustDirection {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => trust_direction::TRUST_DIRECTION_UNSPECIFIED,
+                1 => trust_direction::INBOUND,
+                2 => trust_direction::OUTBOUND,
+                3 => trust_direction::BIDIRECTIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TrustDirection {
         fn default() -> Self {
-            trust_direction::TRUST_DIRECTION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

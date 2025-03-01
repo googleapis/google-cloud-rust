@@ -720,20 +720,8 @@ pub mod audit_log_config {
 
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogType(std::borrow::Cow<'static, str>);
-
-    impl LogType {
-        /// Creates a new LogType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct LogType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [LogType](LogType)
     pub mod log_type {
@@ -741,27 +729,84 @@ pub mod audit_log_config {
         
 
         /// Default case. Should never be this.
-        pub const LOG_TYPE_UNSPECIFIED: LogType = LogType::new("LOG_TYPE_UNSPECIFIED");
+        pub const LOG_TYPE_UNSPECIFIED: LogType = LogType::known("LOG_TYPE_UNSPECIFIED", 0);
 
         /// Admin reads. Example: CloudIAM getIamPolicy
-        pub const ADMIN_READ: LogType = LogType::new("ADMIN_READ");
+        pub const ADMIN_READ: LogType = LogType::known("ADMIN_READ", 1);
 
         /// Data writes. Example: CloudSQL Users create
-        pub const DATA_WRITE: LogType = LogType::new("DATA_WRITE");
+        pub const DATA_WRITE: LogType = LogType::known("DATA_WRITE", 2);
 
         /// Data reads. Example: CloudSQL Users list
-        pub const DATA_READ: LogType = LogType::new("DATA_READ");
+        pub const DATA_READ: LogType = LogType::known("DATA_READ", 3);
+    }
+
+    impl LogType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for LogType {
+        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LogType {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(LogType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(LogType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(LogType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for LogType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+        fn from(value: std::string::String) -> Self {
+            match value.as_str() {
+                "LOG_TYPE_UNSPECIFIED" => log_type::LOG_TYPE_UNSPECIFIED,
+                "ADMIN_READ" => log_type::ADMIN_READ,
+                "DATA_WRITE" => log_type::DATA_WRITE,
+                "DATA_READ" => log_type::DATA_READ,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for LogType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => log_type::LOG_TYPE_UNSPECIFIED,
+                1 => log_type::ADMIN_READ,
+                2 => log_type::DATA_WRITE,
+                3 => log_type::DATA_READ,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
+        }
     }
 
     impl std::default::Default for LogType {
         fn default() -> Self {
-            log_type::LOG_TYPE_UNSPECIFIED
+            Self::from(0)
         }
     }
 }
@@ -888,20 +933,8 @@ pub mod binding_delta {
 
 
     /// The type of action performed on a Binding in a policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
-
-    impl Action {
-        /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Action(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
@@ -909,24 +942,79 @@ pub mod binding_delta {
         
 
         /// Unspecified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
+        pub const ACTION_UNSPECIFIED: Action = Action::known("ACTION_UNSPECIFIED", 0);
 
         /// Addition of a Binding.
-        pub const ADD: Action = Action::new("ADD");
+        pub const ADD: Action = Action::known("ADD", 1);
 
         /// Removal of a Binding.
-        pub const REMOVE: Action = Action::new("REMOVE");
+        pub const REMOVE: Action = Action::known("REMOVE", 2);
+    }
+
+    impl Action {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Action::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Action::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Action::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Action {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+        fn from(value: std::string::String) -> Self {
+            match value.as_str() {
+                "ACTION_UNSPECIFIED" => action::ACTION_UNSPECIFIED,
+                "ADD" => action::ADD,
+                "REMOVE" => action::REMOVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => action::ACTION_UNSPECIFIED,
+                1 => action::ADD,
+                2 => action::REMOVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
+        }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::from(0)
         }
     }
 }
@@ -1006,20 +1094,8 @@ pub mod audit_config_delta {
 
 
     /// The type of action performed on an audit configuration in a policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
-
-    impl Action {
-        /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Action(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
@@ -1027,24 +1103,79 @@ pub mod audit_config_delta {
         
 
         /// Unspecified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
+        pub const ACTION_UNSPECIFIED: Action = Action::known("ACTION_UNSPECIFIED", 0);
 
         /// Addition of an audit configuration.
-        pub const ADD: Action = Action::new("ADD");
+        pub const ADD: Action = Action::known("ADD", 1);
 
         /// Removal of an audit configuration.
-        pub const REMOVE: Action = Action::new("REMOVE");
+        pub const REMOVE: Action = Action::known("REMOVE", 2);
+    }
+
+    impl Action {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Action::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Action::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Action::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Action {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+        fn from(value: std::string::String) -> Self {
+            match value.as_str() {
+                "ACTION_UNSPECIFIED" => action::ACTION_UNSPECIFIED,
+                "ADD" => action::ADD,
+                "REMOVE" => action::REMOVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => action::ACTION_UNSPECIFIED,
+                1 => action::ADD,
+                2 => action::REMOVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
+        }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::from(0)
         }
     }
 }

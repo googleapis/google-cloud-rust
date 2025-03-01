@@ -149,20 +149,8 @@ pub mod transaction_event {
     use super::*;
 
     /// Enum that represents an event in the payment transaction lifecycle.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionEventType(std::borrow::Cow<'static, str>);
-
-    impl TransactionEventType {
-        /// Creates a new TransactionEventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TransactionEventType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TransactionEventType](TransactionEventType)
     pub mod transaction_event_type {
@@ -170,58 +158,61 @@ pub mod transaction_event {
 
         /// Default, unspecified event type.
         pub const TRANSACTION_EVENT_TYPE_UNSPECIFIED: TransactionEventType =
-            TransactionEventType::new("TRANSACTION_EVENT_TYPE_UNSPECIFIED");
+            TransactionEventType::known("TRANSACTION_EVENT_TYPE_UNSPECIFIED", 0);
 
         /// Indicates that the transaction is approved by the merchant. The
         /// accompanying reasons can include terms such as 'INHOUSE', 'ACCERTIFY',
         /// 'CYBERSOURCE', or 'MANUAL_REVIEW'.
         pub const MERCHANT_APPROVE: TransactionEventType =
-            TransactionEventType::new("MERCHANT_APPROVE");
+            TransactionEventType::known("MERCHANT_APPROVE", 1);
 
         /// Indicates that the transaction is denied and concluded due to risks
         /// detected by the merchant. The accompanying reasons can include terms such
         /// as 'INHOUSE',  'ACCERTIFY',  'CYBERSOURCE', or 'MANUAL_REVIEW'.
-        pub const MERCHANT_DENY: TransactionEventType = TransactionEventType::new("MERCHANT_DENY");
+        pub const MERCHANT_DENY: TransactionEventType =
+            TransactionEventType::known("MERCHANT_DENY", 2);
 
         /// Indicates that the transaction is being evaluated by a human, due to
         /// suspicion or risk.
-        pub const MANUAL_REVIEW: TransactionEventType = TransactionEventType::new("MANUAL_REVIEW");
+        pub const MANUAL_REVIEW: TransactionEventType =
+            TransactionEventType::known("MANUAL_REVIEW", 3);
 
         /// Indicates that the authorization attempt with the card issuer succeeded.
-        pub const AUTHORIZATION: TransactionEventType = TransactionEventType::new("AUTHORIZATION");
+        pub const AUTHORIZATION: TransactionEventType =
+            TransactionEventType::known("AUTHORIZATION", 4);
 
         /// Indicates that the authorization attempt with the card issuer failed.
         /// The accompanying reasons can include Visa's '54' indicating that the card
         /// is expired, or '82' indicating that the CVV is incorrect.
         pub const AUTHORIZATION_DECLINE: TransactionEventType =
-            TransactionEventType::new("AUTHORIZATION_DECLINE");
+            TransactionEventType::known("AUTHORIZATION_DECLINE", 5);
 
         /// Indicates that the transaction is completed because the funds were
         /// settled.
         pub const PAYMENT_CAPTURE: TransactionEventType =
-            TransactionEventType::new("PAYMENT_CAPTURE");
+            TransactionEventType::known("PAYMENT_CAPTURE", 6);
 
         /// Indicates that the transaction could not be completed because the funds
         /// were not settled.
         pub const PAYMENT_CAPTURE_DECLINE: TransactionEventType =
-            TransactionEventType::new("PAYMENT_CAPTURE_DECLINE");
+            TransactionEventType::known("PAYMENT_CAPTURE_DECLINE", 7);
 
         /// Indicates that the transaction has been canceled. Specify the reason
         /// for the cancellation. For example, 'INSUFFICIENT_INVENTORY'.
-        pub const CANCEL: TransactionEventType = TransactionEventType::new("CANCEL");
+        pub const CANCEL: TransactionEventType = TransactionEventType::known("CANCEL", 8);
 
         /// Indicates that the merchant has received a chargeback inquiry due to
         /// fraud for the transaction, requesting additional information before a
         /// fraud chargeback is officially issued and a formal chargeback
         /// notification is sent.
         pub const CHARGEBACK_INQUIRY: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_INQUIRY");
+            TransactionEventType::known("CHARGEBACK_INQUIRY", 9);
 
         /// Indicates that the merchant has received a chargeback alert due to fraud
         /// for the transaction. The process of resolving the dispute without
         /// involving the payment network is started.
         pub const CHARGEBACK_ALERT: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_ALERT");
+            TransactionEventType::known("CHARGEBACK_ALERT", 10);
 
         /// Indicates that a fraud notification is issued for the transaction, sent
         /// by the payment instrument's issuing bank because the transaction appears
@@ -229,63 +220,155 @@ pub mod transaction_event {
         /// `reason` field for this event type. For partial chargebacks, we recommend
         /// that you include an amount in the `value` field.
         pub const FRAUD_NOTIFICATION: TransactionEventType =
-            TransactionEventType::new("FRAUD_NOTIFICATION");
+            TransactionEventType::known("FRAUD_NOTIFICATION", 11);
 
         /// Indicates that the merchant is informed by the payment network that the
         /// transaction has entered the chargeback process due to fraud. Reason code
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK: TransactionEventType = TransactionEventType::new("CHARGEBACK");
+        pub const CHARGEBACK: TransactionEventType = TransactionEventType::known("CHARGEBACK", 12);
 
         /// Indicates that the transaction has entered the chargeback process due to
         /// fraud, and that the merchant has chosen to enter representment. Reason
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
         pub const CHARGEBACK_REPRESENTMENT: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_REPRESENTMENT");
+            TransactionEventType::known("CHARGEBACK_REPRESENTMENT", 13);
 
         /// Indicates that the transaction has had a fraud chargeback which was
         /// illegitimate and was reversed as a result. For partial chargebacks, we
         /// recommend that you include an amount in the `value` field.
         pub const CHARGEBACK_REVERSE: TransactionEventType =
-            TransactionEventType::new("CHARGEBACK_REVERSE");
+            TransactionEventType::known("CHARGEBACK_REVERSE", 14);
 
         /// Indicates that the merchant has received a refund for a completed
         /// transaction. For partial refunds, we recommend that you include an amount
         /// in the `value` field. Reason example: 'TAX_EXEMPT' (partial refund of
         /// exempt tax)
         pub const REFUND_REQUEST: TransactionEventType =
-            TransactionEventType::new("REFUND_REQUEST");
+            TransactionEventType::known("REFUND_REQUEST", 15);
 
         /// Indicates that the merchant has received a refund request for this
         /// transaction, but that they have declined it. For partial refunds, we
         /// recommend that you include an amount in the `value` field. Reason
         /// example: 'TAX_EXEMPT' (partial refund of exempt tax)
         pub const REFUND_DECLINE: TransactionEventType =
-            TransactionEventType::new("REFUND_DECLINE");
+            TransactionEventType::known("REFUND_DECLINE", 16);
 
         /// Indicates that the completed transaction was refunded by the merchant.
         /// For partial refunds, we recommend that you include an amount in the
         /// `value` field. Reason example: 'TAX_EXEMPT' (partial refund of exempt
         /// tax)
-        pub const REFUND: TransactionEventType = TransactionEventType::new("REFUND");
+        pub const REFUND: TransactionEventType = TransactionEventType::known("REFUND", 17);
 
         /// Indicates that the completed transaction was refunded by the merchant,
         /// and that this refund was reversed. For partial refunds, we recommend that
         /// you include an amount in the `value` field.
         pub const REFUND_REVERSE: TransactionEventType =
-            TransactionEventType::new("REFUND_REVERSE");
+            TransactionEventType::known("REFUND_REVERSE", 18);
+    }
+
+    impl TransactionEventType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TransactionEventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransactionEventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TransactionEventType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TransactionEventType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TransactionEventType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TransactionEventType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TRANSACTION_EVENT_TYPE_UNSPECIFIED" => {
+                    transaction_event_type::TRANSACTION_EVENT_TYPE_UNSPECIFIED
+                }
+                "MERCHANT_APPROVE" => transaction_event_type::MERCHANT_APPROVE,
+                "MERCHANT_DENY" => transaction_event_type::MERCHANT_DENY,
+                "MANUAL_REVIEW" => transaction_event_type::MANUAL_REVIEW,
+                "AUTHORIZATION" => transaction_event_type::AUTHORIZATION,
+                "AUTHORIZATION_DECLINE" => transaction_event_type::AUTHORIZATION_DECLINE,
+                "PAYMENT_CAPTURE" => transaction_event_type::PAYMENT_CAPTURE,
+                "PAYMENT_CAPTURE_DECLINE" => transaction_event_type::PAYMENT_CAPTURE_DECLINE,
+                "CANCEL" => transaction_event_type::CANCEL,
+                "CHARGEBACK_INQUIRY" => transaction_event_type::CHARGEBACK_INQUIRY,
+                "CHARGEBACK_ALERT" => transaction_event_type::CHARGEBACK_ALERT,
+                "FRAUD_NOTIFICATION" => transaction_event_type::FRAUD_NOTIFICATION,
+                "CHARGEBACK" => transaction_event_type::CHARGEBACK,
+                "CHARGEBACK_REPRESENTMENT" => transaction_event_type::CHARGEBACK_REPRESENTMENT,
+                "CHARGEBACK_REVERSE" => transaction_event_type::CHARGEBACK_REVERSE,
+                "REFUND_REQUEST" => transaction_event_type::REFUND_REQUEST,
+                "REFUND_DECLINE" => transaction_event_type::REFUND_DECLINE,
+                "REFUND" => transaction_event_type::REFUND,
+                "REFUND_REVERSE" => transaction_event_type::REFUND_REVERSE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TransactionEventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => transaction_event_type::TRANSACTION_EVENT_TYPE_UNSPECIFIED,
+                1 => transaction_event_type::MERCHANT_APPROVE,
+                2 => transaction_event_type::MERCHANT_DENY,
+                3 => transaction_event_type::MANUAL_REVIEW,
+                4 => transaction_event_type::AUTHORIZATION,
+                5 => transaction_event_type::AUTHORIZATION_DECLINE,
+                6 => transaction_event_type::PAYMENT_CAPTURE,
+                7 => transaction_event_type::PAYMENT_CAPTURE_DECLINE,
+                8 => transaction_event_type::CANCEL,
+                9 => transaction_event_type::CHARGEBACK_INQUIRY,
+                10 => transaction_event_type::CHARGEBACK_ALERT,
+                11 => transaction_event_type::FRAUD_NOTIFICATION,
+                12 => transaction_event_type::CHARGEBACK,
+                13 => transaction_event_type::CHARGEBACK_REPRESENTMENT,
+                14 => transaction_event_type::CHARGEBACK_REVERSE,
+                15 => transaction_event_type::REFUND_REQUEST,
+                16 => transaction_event_type::REFUND_DECLINE,
+                17 => transaction_event_type::REFUND,
+                18 => transaction_event_type::REFUND_REVERSE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TransactionEventType {
         fn default() -> Self {
-            transaction_event_type::TRANSACTION_EVENT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -399,149 +482,270 @@ pub mod annotate_assessment_request {
     use super::*;
 
     /// Enum that represents the types of annotations.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Annotation(std::borrow::Cow<'static, str>);
-
-    impl Annotation {
-        /// Creates a new Annotation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Annotation(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Annotation](Annotation)
     pub mod annotation {
         use super::Annotation;
 
         /// Default unspecified type.
-        pub const ANNOTATION_UNSPECIFIED: Annotation = Annotation::new("ANNOTATION_UNSPECIFIED");
+        pub const ANNOTATION_UNSPECIFIED: Annotation =
+            Annotation::known("ANNOTATION_UNSPECIFIED", 0);
 
         /// Provides information that the event turned out to be legitimate.
-        pub const LEGITIMATE: Annotation = Annotation::new("LEGITIMATE");
+        pub const LEGITIMATE: Annotation = Annotation::known("LEGITIMATE", 1);
 
         /// Provides information that the event turned out to be fraudulent.
-        pub const FRAUDULENT: Annotation = Annotation::new("FRAUDULENT");
+        pub const FRAUDULENT: Annotation = Annotation::known("FRAUDULENT", 2);
 
         /// Provides information that the event was related to a login event in which
         /// the user typed the correct password. Deprecated, prefer indicating
         /// CORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_CORRECT: Annotation = Annotation::new("PASSWORD_CORRECT");
+        pub const PASSWORD_CORRECT: Annotation = Annotation::known("PASSWORD_CORRECT", 3);
 
         /// Provides information that the event was related to a login event in which
         /// the user typed the incorrect password. Deprecated, prefer indicating
         /// INCORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_INCORRECT: Annotation = Annotation::new("PASSWORD_INCORRECT");
+        pub const PASSWORD_INCORRECT: Annotation = Annotation::known("PASSWORD_INCORRECT", 4);
+    }
+
+    impl Annotation {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Annotation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Annotation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Annotation::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Annotation::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Annotation::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Annotation {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ANNOTATION_UNSPECIFIED" => annotation::ANNOTATION_UNSPECIFIED,
+                "LEGITIMATE" => annotation::LEGITIMATE,
+                "FRAUDULENT" => annotation::FRAUDULENT,
+                "PASSWORD_CORRECT" => annotation::PASSWORD_CORRECT,
+                "PASSWORD_INCORRECT" => annotation::PASSWORD_INCORRECT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Annotation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => annotation::ANNOTATION_UNSPECIFIED,
+                1 => annotation::LEGITIMATE,
+                2 => annotation::FRAUDULENT,
+                3 => annotation::PASSWORD_CORRECT,
+                4 => annotation::PASSWORD_INCORRECT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Annotation {
         fn default() -> Self {
-            annotation::ANNOTATION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Enum that represents potential reasons for annotating an assessment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reason(std::borrow::Cow<'static, str>);
-
-    impl Reason {
-        /// Creates a new Reason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Reason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Reason](Reason)
     pub mod reason {
         use super::Reason;
 
         /// Default unspecified reason.
-        pub const REASON_UNSPECIFIED: Reason = Reason::new("REASON_UNSPECIFIED");
+        pub const REASON_UNSPECIFIED: Reason = Reason::known("REASON_UNSPECIFIED", 0);
 
         /// Indicates that the transaction had a chargeback issued with no other
         /// details. When possible, specify the type by using CHARGEBACK_FRAUD or
         /// CHARGEBACK_DISPUTE instead.
-        pub const CHARGEBACK: Reason = Reason::new("CHARGEBACK");
+        pub const CHARGEBACK: Reason = Reason::known("CHARGEBACK", 1);
 
         /// Indicates that the transaction had a chargeback issued related to an
         /// alleged unauthorized transaction from the cardholder's perspective (for
         /// example, the card number was stolen).
-        pub const CHARGEBACK_FRAUD: Reason = Reason::new("CHARGEBACK_FRAUD");
+        pub const CHARGEBACK_FRAUD: Reason = Reason::known("CHARGEBACK_FRAUD", 8);
 
         /// Indicates that the transaction had a chargeback issued related to the
         /// cardholder having provided their card details but allegedly not being
         /// satisfied with the purchase (for example, misrepresentation, attempted
         /// cancellation).
-        pub const CHARGEBACK_DISPUTE: Reason = Reason::new("CHARGEBACK_DISPUTE");
+        pub const CHARGEBACK_DISPUTE: Reason = Reason::known("CHARGEBACK_DISPUTE", 9);
 
         /// Indicates that the completed payment transaction was refunded by the
         /// seller.
-        pub const REFUND: Reason = Reason::new("REFUND");
+        pub const REFUND: Reason = Reason::known("REFUND", 10);
 
         /// Indicates that the completed payment transaction was determined to be
         /// fraudulent by the seller, and was cancelled and refunded as a result.
-        pub const REFUND_FRAUD: Reason = Reason::new("REFUND_FRAUD");
+        pub const REFUND_FRAUD: Reason = Reason::known("REFUND_FRAUD", 11);
 
         /// Indicates that the payment transaction was accepted, and the user was
         /// charged.
-        pub const TRANSACTION_ACCEPTED: Reason = Reason::new("TRANSACTION_ACCEPTED");
+        pub const TRANSACTION_ACCEPTED: Reason = Reason::known("TRANSACTION_ACCEPTED", 12);
 
         /// Indicates that the payment transaction was declined, for example due to
         /// invalid card details.
-        pub const TRANSACTION_DECLINED: Reason = Reason::new("TRANSACTION_DECLINED");
+        pub const TRANSACTION_DECLINED: Reason = Reason::known("TRANSACTION_DECLINED", 13);
 
         /// Indicates the transaction associated with the assessment is suspected of
         /// being fraudulent based on the payment method, billing details, shipping
         /// address or other transaction information.
-        pub const PAYMENT_HEURISTICS: Reason = Reason::new("PAYMENT_HEURISTICS");
+        pub const PAYMENT_HEURISTICS: Reason = Reason::known("PAYMENT_HEURISTICS", 2);
 
         /// Indicates that the user was served a 2FA challenge. An old assessment
         /// with `ENUM_VALUES.INITIATED_TWO_FACTOR` reason that has not been
         /// overwritten with `PASSED_TWO_FACTOR` is treated as an abandoned 2FA flow.
         /// This is equivalent to `FAILED_TWO_FACTOR`.
-        pub const INITIATED_TWO_FACTOR: Reason = Reason::new("INITIATED_TWO_FACTOR");
+        pub const INITIATED_TWO_FACTOR: Reason = Reason::known("INITIATED_TWO_FACTOR", 7);
 
         /// Indicates that the user passed a 2FA challenge.
-        pub const PASSED_TWO_FACTOR: Reason = Reason::new("PASSED_TWO_FACTOR");
+        pub const PASSED_TWO_FACTOR: Reason = Reason::known("PASSED_TWO_FACTOR", 3);
 
         /// Indicates that the user failed a 2FA challenge.
-        pub const FAILED_TWO_FACTOR: Reason = Reason::new("FAILED_TWO_FACTOR");
+        pub const FAILED_TWO_FACTOR: Reason = Reason::known("FAILED_TWO_FACTOR", 4);
 
         /// Indicates the user provided the correct password.
-        pub const CORRECT_PASSWORD: Reason = Reason::new("CORRECT_PASSWORD");
+        pub const CORRECT_PASSWORD: Reason = Reason::known("CORRECT_PASSWORD", 5);
 
         /// Indicates the user provided an incorrect password.
-        pub const INCORRECT_PASSWORD: Reason = Reason::new("INCORRECT_PASSWORD");
+        pub const INCORRECT_PASSWORD: Reason = Reason::known("INCORRECT_PASSWORD", 6);
 
         /// Indicates that the user sent unwanted and abusive messages to other users
         /// of the platform, such as spam, scams, phishing, or social engineering.
-        pub const SOCIAL_SPAM: Reason = Reason::new("SOCIAL_SPAM");
+        pub const SOCIAL_SPAM: Reason = Reason::known("SOCIAL_SPAM", 14);
+    }
+
+    impl Reason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Reason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Reason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Reason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Reason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REASON_UNSPECIFIED" => reason::REASON_UNSPECIFIED,
+                "CHARGEBACK" => reason::CHARGEBACK,
+                "CHARGEBACK_FRAUD" => reason::CHARGEBACK_FRAUD,
+                "CHARGEBACK_DISPUTE" => reason::CHARGEBACK_DISPUTE,
+                "REFUND" => reason::REFUND,
+                "REFUND_FRAUD" => reason::REFUND_FRAUD,
+                "TRANSACTION_ACCEPTED" => reason::TRANSACTION_ACCEPTED,
+                "TRANSACTION_DECLINED" => reason::TRANSACTION_DECLINED,
+                "PAYMENT_HEURISTICS" => reason::PAYMENT_HEURISTICS,
+                "INITIATED_TWO_FACTOR" => reason::INITIATED_TWO_FACTOR,
+                "PASSED_TWO_FACTOR" => reason::PASSED_TWO_FACTOR,
+                "FAILED_TWO_FACTOR" => reason::FAILED_TWO_FACTOR,
+                "CORRECT_PASSWORD" => reason::CORRECT_PASSWORD,
+                "INCORRECT_PASSWORD" => reason::INCORRECT_PASSWORD,
+                "SOCIAL_SPAM" => reason::SOCIAL_SPAM,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reason::REASON_UNSPECIFIED,
+                1 => reason::CHARGEBACK,
+                2 => reason::PAYMENT_HEURISTICS,
+                3 => reason::PASSED_TWO_FACTOR,
+                4 => reason::FAILED_TWO_FACTOR,
+                5 => reason::CORRECT_PASSWORD,
+                6 => reason::INCORRECT_PASSWORD,
+                7 => reason::INITIATED_TWO_FACTOR,
+                8 => reason::CHARGEBACK_FRAUD,
+                9 => reason::CHARGEBACK_DISPUTE,
+                10 => reason::REFUND,
+                11 => reason::REFUND_FRAUD,
+                12 => reason::TRANSACTION_ACCEPTED,
+                13 => reason::TRANSACTION_DECLINED,
+                14 => reason::SOCIAL_SPAM,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Reason {
         fn default() -> Self {
-            reason::REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -769,77 +973,141 @@ pub mod account_verification_info {
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(std::borrow::Cow<'static, str>);
-
-    impl Result {
-        /// Creates a new Result instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Result(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Result](Result)
     pub mod result {
         use super::Result;
 
         /// No information about the latest account verification.
-        pub const RESULT_UNSPECIFIED: Result = Result::new("RESULT_UNSPECIFIED");
+        pub const RESULT_UNSPECIFIED: Result = Result::known("RESULT_UNSPECIFIED", 0);
 
         /// The user was successfully verified. This means the account verification
         /// challenge was successfully completed.
-        pub const SUCCESS_USER_VERIFIED: Result = Result::new("SUCCESS_USER_VERIFIED");
+        pub const SUCCESS_USER_VERIFIED: Result = Result::known("SUCCESS_USER_VERIFIED", 1);
 
         /// The user failed the verification challenge.
-        pub const ERROR_USER_NOT_VERIFIED: Result = Result::new("ERROR_USER_NOT_VERIFIED");
+        pub const ERROR_USER_NOT_VERIFIED: Result = Result::known("ERROR_USER_NOT_VERIFIED", 2);
 
         /// The site is not properly onboarded to use the account verification
         /// feature.
         pub const ERROR_SITE_ONBOARDING_INCOMPLETE: Result =
-            Result::new("ERROR_SITE_ONBOARDING_INCOMPLETE");
+            Result::known("ERROR_SITE_ONBOARDING_INCOMPLETE", 3);
 
         /// The recipient is not allowed for account verification. This can occur
         /// during integration but should not occur in production.
-        pub const ERROR_RECIPIENT_NOT_ALLOWED: Result = Result::new("ERROR_RECIPIENT_NOT_ALLOWED");
+        pub const ERROR_RECIPIENT_NOT_ALLOWED: Result =
+            Result::known("ERROR_RECIPIENT_NOT_ALLOWED", 4);
 
         /// The recipient has already been sent too many verification codes in a
         /// short amount of time.
         pub const ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED: Result =
-            Result::new("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED");
+            Result::known("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED", 5);
 
         /// The verification flow could not be completed due to a critical internal
         /// error.
-        pub const ERROR_CRITICAL_INTERNAL: Result = Result::new("ERROR_CRITICAL_INTERNAL");
+        pub const ERROR_CRITICAL_INTERNAL: Result = Result::known("ERROR_CRITICAL_INTERNAL", 6);
 
         /// The client has exceeded their two factor request quota for this period of
         /// time.
         pub const ERROR_CUSTOMER_QUOTA_EXHAUSTED: Result =
-            Result::new("ERROR_CUSTOMER_QUOTA_EXHAUSTED");
+            Result::known("ERROR_CUSTOMER_QUOTA_EXHAUSTED", 7);
 
         /// The request cannot be processed at the time because of an incident. This
         /// bypass can be restricted to a problematic destination email domain, a
         /// customer, or could affect the entire service.
-        pub const ERROR_VERIFICATION_BYPASSED: Result = Result::new("ERROR_VERIFICATION_BYPASSED");
+        pub const ERROR_VERIFICATION_BYPASSED: Result =
+            Result::known("ERROR_VERIFICATION_BYPASSED", 8);
 
         /// The request parameters do not match with the token provided and cannot be
         /// processed.
-        pub const ERROR_VERDICT_MISMATCH: Result = Result::new("ERROR_VERDICT_MISMATCH");
+        pub const ERROR_VERDICT_MISMATCH: Result = Result::known("ERROR_VERDICT_MISMATCH", 9);
+    }
+
+    impl Result {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Result {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Result {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Result::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Result::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Result::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Result {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RESULT_UNSPECIFIED" => result::RESULT_UNSPECIFIED,
+                "SUCCESS_USER_VERIFIED" => result::SUCCESS_USER_VERIFIED,
+                "ERROR_USER_NOT_VERIFIED" => result::ERROR_USER_NOT_VERIFIED,
+                "ERROR_SITE_ONBOARDING_INCOMPLETE" => result::ERROR_SITE_ONBOARDING_INCOMPLETE,
+                "ERROR_RECIPIENT_NOT_ALLOWED" => result::ERROR_RECIPIENT_NOT_ALLOWED,
+                "ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED" => {
+                    result::ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED
+                }
+                "ERROR_CRITICAL_INTERNAL" => result::ERROR_CRITICAL_INTERNAL,
+                "ERROR_CUSTOMER_QUOTA_EXHAUSTED" => result::ERROR_CUSTOMER_QUOTA_EXHAUSTED,
+                "ERROR_VERIFICATION_BYPASSED" => result::ERROR_VERIFICATION_BYPASSED,
+                "ERROR_VERDICT_MISMATCH" => result::ERROR_VERDICT_MISMATCH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => result::RESULT_UNSPECIFIED,
+                1 => result::SUCCESS_USER_VERIFIED,
+                2 => result::ERROR_USER_NOT_VERIFIED,
+                3 => result::ERROR_SITE_ONBOARDING_INCOMPLETE,
+                4 => result::ERROR_RECIPIENT_NOT_ALLOWED,
+                5 => result::ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED,
+                6 => result::ERROR_CRITICAL_INTERNAL,
+                7 => result::ERROR_CUSTOMER_QUOTA_EXHAUSTED,
+                8 => result::ERROR_VERIFICATION_BYPASSED,
+                9 => result::ERROR_VERDICT_MISMATCH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Result {
         fn default() -> Self {
-            result::RESULT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1337,20 +1605,8 @@ pub mod event {
     use super::*;
 
     /// Setting that controls Fraud Prevention assessments.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FraudPrevention(std::borrow::Cow<'static, str>);
-
-    impl FraudPrevention {
-        /// Creates a new FraudPrevention instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FraudPrevention(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FraudPrevention](FraudPrevention)
     pub mod fraud_prevention {
@@ -1360,26 +1616,84 @@ pub mod event {
         /// if `transaction_data` is present in `Event` and Fraud Prevention is
         /// enabled in the Google Cloud console.
         pub const FRAUD_PREVENTION_UNSPECIFIED: FraudPrevention =
-            FraudPrevention::new("FRAUD_PREVENTION_UNSPECIFIED");
+            FraudPrevention::known("FRAUD_PREVENTION_UNSPECIFIED", 0);
 
         /// Enable Fraud Prevention for this assessment, if Fraud Prevention is
         /// enabled in the Google Cloud console.
-        pub const ENABLED: FraudPrevention = FraudPrevention::new("ENABLED");
+        pub const ENABLED: FraudPrevention = FraudPrevention::known("ENABLED", 1);
 
         /// Disable Fraud Prevention for this assessment, regardless of Google Cloud
         /// console settings.
-        pub const DISABLED: FraudPrevention = FraudPrevention::new("DISABLED");
+        pub const DISABLED: FraudPrevention = FraudPrevention::known("DISABLED", 2);
+    }
+
+    impl FraudPrevention {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FraudPrevention {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FraudPrevention {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FraudPrevention::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FraudPrevention::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FraudPrevention::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FraudPrevention {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FRAUD_PREVENTION_UNSPECIFIED" => fraud_prevention::FRAUD_PREVENTION_UNSPECIFIED,
+                "ENABLED" => fraud_prevention::ENABLED,
+                "DISABLED" => fraud_prevention::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FraudPrevention {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => fraud_prevention::FRAUD_PREVENTION_UNSPECIFIED,
+                1 => fraud_prevention::ENABLED,
+                2 => fraud_prevention::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FraudPrevention {
         fn default() -> Self {
-            fraud_prevention::FRAUD_PREVENTION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2155,20 +2469,8 @@ pub mod risk_analysis {
     use super::*;
 
     /// Reasons contributing to the risk analysis verdict.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClassificationReason(std::borrow::Cow<'static, str>);
-
-    impl ClassificationReason {
-        /// Creates a new ClassificationReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ClassificationReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ClassificationReason](ClassificationReason)
     pub mod classification_reason {
@@ -2176,93 +2478,211 @@ pub mod risk_analysis {
 
         /// Default unspecified type.
         pub const CLASSIFICATION_REASON_UNSPECIFIED: ClassificationReason =
-            ClassificationReason::new("CLASSIFICATION_REASON_UNSPECIFIED");
+            ClassificationReason::known("CLASSIFICATION_REASON_UNSPECIFIED", 0);
 
         /// Interactions matched the behavior of an automated agent.
-        pub const AUTOMATION: ClassificationReason = ClassificationReason::new("AUTOMATION");
+        pub const AUTOMATION: ClassificationReason = ClassificationReason::known("AUTOMATION", 1);
 
         /// The event originated from an illegitimate environment.
         pub const UNEXPECTED_ENVIRONMENT: ClassificationReason =
-            ClassificationReason::new("UNEXPECTED_ENVIRONMENT");
+            ClassificationReason::known("UNEXPECTED_ENVIRONMENT", 2);
 
         /// Traffic volume from the event source is higher than normal.
         pub const TOO_MUCH_TRAFFIC: ClassificationReason =
-            ClassificationReason::new("TOO_MUCH_TRAFFIC");
+            ClassificationReason::known("TOO_MUCH_TRAFFIC", 3);
 
         /// Interactions with the site were significantly different than expected
         /// patterns.
         pub const UNEXPECTED_USAGE_PATTERNS: ClassificationReason =
-            ClassificationReason::new("UNEXPECTED_USAGE_PATTERNS");
+            ClassificationReason::known("UNEXPECTED_USAGE_PATTERNS", 4);
 
         /// Too little traffic has been received from this site thus far to generate
         /// quality risk analysis.
         pub const LOW_CONFIDENCE_SCORE: ClassificationReason =
-            ClassificationReason::new("LOW_CONFIDENCE_SCORE");
+            ClassificationReason::known("LOW_CONFIDENCE_SCORE", 5);
 
         /// The request matches behavioral characteristics of a carding attack.
         pub const SUSPECTED_CARDING: ClassificationReason =
-            ClassificationReason::new("SUSPECTED_CARDING");
+            ClassificationReason::known("SUSPECTED_CARDING", 6);
 
         /// The request matches behavioral characteristics of chargebacks for fraud.
         pub const SUSPECTED_CHARGEBACK: ClassificationReason =
-            ClassificationReason::new("SUSPECTED_CHARGEBACK");
+            ClassificationReason::known("SUSPECTED_CHARGEBACK", 7);
+    }
+
+    impl ClassificationReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ClassificationReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClassificationReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ClassificationReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ClassificationReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ClassificationReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ClassificationReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CLASSIFICATION_REASON_UNSPECIFIED" => {
+                    classification_reason::CLASSIFICATION_REASON_UNSPECIFIED
+                }
+                "AUTOMATION" => classification_reason::AUTOMATION,
+                "UNEXPECTED_ENVIRONMENT" => classification_reason::UNEXPECTED_ENVIRONMENT,
+                "TOO_MUCH_TRAFFIC" => classification_reason::TOO_MUCH_TRAFFIC,
+                "UNEXPECTED_USAGE_PATTERNS" => classification_reason::UNEXPECTED_USAGE_PATTERNS,
+                "LOW_CONFIDENCE_SCORE" => classification_reason::LOW_CONFIDENCE_SCORE,
+                "SUSPECTED_CARDING" => classification_reason::SUSPECTED_CARDING,
+                "SUSPECTED_CHARGEBACK" => classification_reason::SUSPECTED_CHARGEBACK,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ClassificationReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => classification_reason::CLASSIFICATION_REASON_UNSPECIFIED,
+                1 => classification_reason::AUTOMATION,
+                2 => classification_reason::UNEXPECTED_ENVIRONMENT,
+                3 => classification_reason::TOO_MUCH_TRAFFIC,
+                4 => classification_reason::UNEXPECTED_USAGE_PATTERNS,
+                5 => classification_reason::LOW_CONFIDENCE_SCORE,
+                6 => classification_reason::SUSPECTED_CARDING,
+                7 => classification_reason::SUSPECTED_CHARGEBACK,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ClassificationReason {
         fn default() -> Self {
-            classification_reason::CLASSIFICATION_REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Challenge information for SCORE_AND_CHALLENGE and INVISIBLE keys
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Challenge(std::borrow::Cow<'static, str>);
-
-    impl Challenge {
-        /// Creates a new Challenge instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Challenge(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Challenge](Challenge)
     pub mod challenge {
         use super::Challenge;
 
         /// Default unspecified type.
-        pub const CHALLENGE_UNSPECIFIED: Challenge = Challenge::new("CHALLENGE_UNSPECIFIED");
+        pub const CHALLENGE_UNSPECIFIED: Challenge = Challenge::known("CHALLENGE_UNSPECIFIED", 0);
 
         /// No challenge was presented for solving.
-        pub const NOCAPTCHA: Challenge = Challenge::new("NOCAPTCHA");
+        pub const NOCAPTCHA: Challenge = Challenge::known("NOCAPTCHA", 1);
 
         /// A solution was submitted that was correct.
-        pub const PASSED: Challenge = Challenge::new("PASSED");
+        pub const PASSED: Challenge = Challenge::known("PASSED", 2);
 
         /// A solution was submitted that was incorrect or otherwise
         /// deemed suspicious.
-        pub const FAILED: Challenge = Challenge::new("FAILED");
+        pub const FAILED: Challenge = Challenge::known("FAILED", 3);
+    }
+
+    impl Challenge {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Challenge {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Challenge {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Challenge::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Challenge::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Challenge::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Challenge {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CHALLENGE_UNSPECIFIED" => challenge::CHALLENGE_UNSPECIFIED,
+                "NOCAPTCHA" => challenge::NOCAPTCHA,
+                "PASSED" => challenge::PASSED,
+                "FAILED" => challenge::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Challenge {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => challenge::CHALLENGE_UNSPECIFIED,
+                1 => challenge::NOCAPTCHA,
+                2 => challenge::PASSED,
+                3 => challenge::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Challenge {
         fn default() -> Self {
-            challenge::CHALLENGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2378,20 +2798,8 @@ pub mod token_properties {
     use super::*;
 
     /// Enum that represents the types of invalid token reasons.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InvalidReason(std::borrow::Cow<'static, str>);
-
-    impl InvalidReason {
-        /// Creates a new InvalidReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct InvalidReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [InvalidReason](InvalidReason)
     pub mod invalid_reason {
@@ -2399,38 +2807,104 @@ pub mod token_properties {
 
         /// Default unspecified type.
         pub const INVALID_REASON_UNSPECIFIED: InvalidReason =
-            InvalidReason::new("INVALID_REASON_UNSPECIFIED");
+            InvalidReason::known("INVALID_REASON_UNSPECIFIED", 0);
 
         /// If the failure reason was not accounted for.
         pub const UNKNOWN_INVALID_REASON: InvalidReason =
-            InvalidReason::new("UNKNOWN_INVALID_REASON");
+            InvalidReason::known("UNKNOWN_INVALID_REASON", 1);
 
         /// The provided user verification token was malformed.
-        pub const MALFORMED: InvalidReason = InvalidReason::new("MALFORMED");
+        pub const MALFORMED: InvalidReason = InvalidReason::known("MALFORMED", 2);
 
         /// The user verification token had expired.
-        pub const EXPIRED: InvalidReason = InvalidReason::new("EXPIRED");
+        pub const EXPIRED: InvalidReason = InvalidReason::known("EXPIRED", 3);
 
         /// The user verification had already been seen.
-        pub const DUPE: InvalidReason = InvalidReason::new("DUPE");
+        pub const DUPE: InvalidReason = InvalidReason::known("DUPE", 4);
 
         /// The user verification token was not present.
-        pub const MISSING: InvalidReason = InvalidReason::new("MISSING");
+        pub const MISSING: InvalidReason = InvalidReason::known("MISSING", 5);
 
         /// A retriable error (such as network failure) occurred on the browser.
         /// Could easily be simulated by an attacker.
-        pub const BROWSER_ERROR: InvalidReason = InvalidReason::new("BROWSER_ERROR");
+        pub const BROWSER_ERROR: InvalidReason = InvalidReason::known("BROWSER_ERROR", 6);
+    }
+
+    impl InvalidReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for InvalidReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for InvalidReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(InvalidReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(InvalidReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(InvalidReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for InvalidReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "INVALID_REASON_UNSPECIFIED" => invalid_reason::INVALID_REASON_UNSPECIFIED,
+                "UNKNOWN_INVALID_REASON" => invalid_reason::UNKNOWN_INVALID_REASON,
+                "MALFORMED" => invalid_reason::MALFORMED,
+                "EXPIRED" => invalid_reason::EXPIRED,
+                "DUPE" => invalid_reason::DUPE,
+                "MISSING" => invalid_reason::MISSING,
+                "BROWSER_ERROR" => invalid_reason::BROWSER_ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for InvalidReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => invalid_reason::INVALID_REASON_UNSPECIFIED,
+                1 => invalid_reason::UNKNOWN_INVALID_REASON,
+                2 => invalid_reason::MALFORMED,
+                3 => invalid_reason::EXPIRED,
+                4 => invalid_reason::DUPE,
+                5 => invalid_reason::MISSING,
+                6 => invalid_reason::BROWSER_ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for InvalidReason {
         fn default() -> Self {
-            invalid_reason::INVALID_REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2753,49 +3227,98 @@ pub mod fraud_signals {
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct CardLabel(std::borrow::Cow<'static, str>);
-
-        impl CardLabel {
-            /// Creates a new CardLabel instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct CardLabel(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [CardLabel](CardLabel)
         pub mod card_label {
             use super::CardLabel;
 
             /// No label specified.
-            pub const CARD_LABEL_UNSPECIFIED: CardLabel = CardLabel::new("CARD_LABEL_UNSPECIFIED");
+            pub const CARD_LABEL_UNSPECIFIED: CardLabel =
+                CardLabel::known("CARD_LABEL_UNSPECIFIED", 0);
 
             /// This card has been detected as prepaid.
-            pub const PREPAID: CardLabel = CardLabel::new("PREPAID");
+            pub const PREPAID: CardLabel = CardLabel::known("PREPAID", 1);
 
             /// This card has been detected as virtual, such as a card number generated
             /// for a single transaction or merchant.
-            pub const VIRTUAL: CardLabel = CardLabel::new("VIRTUAL");
+            pub const VIRTUAL: CardLabel = CardLabel::known("VIRTUAL", 2);
 
             /// This card has been detected as being used in an unexpected geographic
             /// location.
-            pub const UNEXPECTED_LOCATION: CardLabel = CardLabel::new("UNEXPECTED_LOCATION");
+            pub const UNEXPECTED_LOCATION: CardLabel = CardLabel::known("UNEXPECTED_LOCATION", 3);
+        }
+
+        impl CardLabel {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for CardLabel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for CardLabel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(CardLabel::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(CardLabel::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(CardLabel::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for CardLabel {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CARD_LABEL_UNSPECIFIED" => card_label::CARD_LABEL_UNSPECIFIED,
+                    "PREPAID" => card_label::PREPAID,
+                    "VIRTUAL" => card_label::VIRTUAL,
+                    "UNEXPECTED_LOCATION" => card_label::UNEXPECTED_LOCATION,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for CardLabel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => card_label::CARD_LABEL_UNSPECIFIED,
+                    1 => card_label::PREPAID,
+                    2 => card_label::VIRTUAL,
+                    3 => card_label::UNEXPECTED_LOCATION,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for CardLabel {
             fn default() -> Self {
-                card_label::CARD_LABEL_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -2851,20 +3374,8 @@ pub mod sms_toll_fraud_verdict {
     use super::*;
 
     /// Reasons contributing to the SMS toll fraud verdict.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SmsTollFraudReason(std::borrow::Cow<'static, str>);
-
-    impl SmsTollFraudReason {
-        /// Creates a new SmsTollFraudReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SmsTollFraudReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SmsTollFraudReason](SmsTollFraudReason)
     pub mod sms_toll_fraud_reason {
@@ -2872,22 +3383,80 @@ pub mod sms_toll_fraud_verdict {
 
         /// Default unspecified reason
         pub const SMS_TOLL_FRAUD_REASON_UNSPECIFIED: SmsTollFraudReason =
-            SmsTollFraudReason::new("SMS_TOLL_FRAUD_REASON_UNSPECIFIED");
+            SmsTollFraudReason::known("SMS_TOLL_FRAUD_REASON_UNSPECIFIED", 0);
 
         /// The provided phone number was invalid
         pub const INVALID_PHONE_NUMBER: SmsTollFraudReason =
-            SmsTollFraudReason::new("INVALID_PHONE_NUMBER");
+            SmsTollFraudReason::known("INVALID_PHONE_NUMBER", 1);
+    }
+
+    impl SmsTollFraudReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SmsTollFraudReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SmsTollFraudReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SmsTollFraudReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SmsTollFraudReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SmsTollFraudReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SmsTollFraudReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SMS_TOLL_FRAUD_REASON_UNSPECIFIED" => {
+                    sms_toll_fraud_reason::SMS_TOLL_FRAUD_REASON_UNSPECIFIED
+                }
+                "INVALID_PHONE_NUMBER" => sms_toll_fraud_reason::INVALID_PHONE_NUMBER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SmsTollFraudReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => sms_toll_fraud_reason::SMS_TOLL_FRAUD_REASON_UNSPECIFIED,
+                1 => sms_toll_fraud_reason::INVALID_PHONE_NUMBER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SmsTollFraudReason {
         fn default() -> Self {
-            sms_toll_fraud_reason::SMS_TOLL_FRAUD_REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2966,20 +3535,8 @@ pub mod account_defender_assessment {
     use super::*;
 
     /// Labels returned by account defender for this request.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccountDefenderLabel(std::borrow::Cow<'static, str>);
-
-    impl AccountDefenderLabel {
-        /// Creates a new AccountDefenderLabel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AccountDefenderLabel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AccountDefenderLabel](AccountDefenderLabel)
     pub mod account_defender_label {
@@ -2987,37 +3544,106 @@ pub mod account_defender_assessment {
 
         /// Default unspecified type.
         pub const ACCOUNT_DEFENDER_LABEL_UNSPECIFIED: AccountDefenderLabel =
-            AccountDefenderLabel::new("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED");
+            AccountDefenderLabel::known("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED", 0);
 
         /// The request matches a known good profile for the user.
-        pub const PROFILE_MATCH: AccountDefenderLabel = AccountDefenderLabel::new("PROFILE_MATCH");
+        pub const PROFILE_MATCH: AccountDefenderLabel =
+            AccountDefenderLabel::known("PROFILE_MATCH", 1);
 
         /// The request is potentially a suspicious login event and must be further
         /// verified either through multi-factor authentication or another system.
         pub const SUSPICIOUS_LOGIN_ACTIVITY: AccountDefenderLabel =
-            AccountDefenderLabel::new("SUSPICIOUS_LOGIN_ACTIVITY");
+            AccountDefenderLabel::known("SUSPICIOUS_LOGIN_ACTIVITY", 2);
 
         /// The request matched a profile that previously had suspicious account
         /// creation behavior. This can mean that this is a fake account.
         pub const SUSPICIOUS_ACCOUNT_CREATION: AccountDefenderLabel =
-            AccountDefenderLabel::new("SUSPICIOUS_ACCOUNT_CREATION");
+            AccountDefenderLabel::known("SUSPICIOUS_ACCOUNT_CREATION", 3);
 
         /// The account in the request has a high number of related accounts. It does
         /// not necessarily imply that the account is bad but can require further
         /// investigation.
         pub const RELATED_ACCOUNTS_NUMBER_HIGH: AccountDefenderLabel =
-            AccountDefenderLabel::new("RELATED_ACCOUNTS_NUMBER_HIGH");
+            AccountDefenderLabel::known("RELATED_ACCOUNTS_NUMBER_HIGH", 4);
+    }
+
+    impl AccountDefenderLabel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AccountDefenderLabel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AccountDefenderLabel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AccountDefenderLabel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AccountDefenderLabel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AccountDefenderLabel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AccountDefenderLabel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED" => {
+                    account_defender_label::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED
+                }
+                "PROFILE_MATCH" => account_defender_label::PROFILE_MATCH,
+                "SUSPICIOUS_LOGIN_ACTIVITY" => account_defender_label::SUSPICIOUS_LOGIN_ACTIVITY,
+                "SUSPICIOUS_ACCOUNT_CREATION" => {
+                    account_defender_label::SUSPICIOUS_ACCOUNT_CREATION
+                }
+                "RELATED_ACCOUNTS_NUMBER_HIGH" => {
+                    account_defender_label::RELATED_ACCOUNTS_NUMBER_HIGH
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AccountDefenderLabel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => account_defender_label::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED,
+                1 => account_defender_label::PROFILE_MATCH,
+                2 => account_defender_label::SUSPICIOUS_LOGIN_ACTIVITY,
+                3 => account_defender_label::SUSPICIOUS_ACCOUNT_CREATION,
+                4 => account_defender_label::RELATED_ACCOUNTS_NUMBER_HIGH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AccountDefenderLabel {
         fn default() -> Self {
-            account_defender_label::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4134,20 +4760,8 @@ pub mod testing_options {
 
     /// Enum that represents the challenge option for challenge-based (CHECKBOX,
     /// INVISIBLE) testing keys.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TestingChallenge(std::borrow::Cow<'static, str>);
-
-    impl TestingChallenge {
-        /// Creates a new TestingChallenge instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TestingChallenge(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TestingChallenge](TestingChallenge)
     pub mod testing_challenge {
@@ -4156,27 +4770,85 @@ pub mod testing_options {
         /// Perform the normal risk analysis and return either nocaptcha or a
         /// challenge depending on risk and trust factors.
         pub const TESTING_CHALLENGE_UNSPECIFIED: TestingChallenge =
-            TestingChallenge::new("TESTING_CHALLENGE_UNSPECIFIED");
+            TestingChallenge::known("TESTING_CHALLENGE_UNSPECIFIED", 0);
 
         /// Challenge requests for this key always return a nocaptcha, which
         /// does not require a solution.
-        pub const NOCAPTCHA: TestingChallenge = TestingChallenge::new("NOCAPTCHA");
+        pub const NOCAPTCHA: TestingChallenge = TestingChallenge::known("NOCAPTCHA", 1);
 
         /// Challenge requests for this key always return an unsolvable
         /// challenge.
         pub const UNSOLVABLE_CHALLENGE: TestingChallenge =
-            TestingChallenge::new("UNSOLVABLE_CHALLENGE");
+            TestingChallenge::known("UNSOLVABLE_CHALLENGE", 2);
+    }
+
+    impl TestingChallenge {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TestingChallenge {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TestingChallenge {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TestingChallenge::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TestingChallenge::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TestingChallenge::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TestingChallenge {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TESTING_CHALLENGE_UNSPECIFIED" => testing_challenge::TESTING_CHALLENGE_UNSPECIFIED,
+                "NOCAPTCHA" => testing_challenge::NOCAPTCHA,
+                "UNSOLVABLE_CHALLENGE" => testing_challenge::UNSOLVABLE_CHALLENGE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TestingChallenge {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => testing_challenge::TESTING_CHALLENGE_UNSPECIFIED,
+                1 => testing_challenge::NOCAPTCHA,
+                2 => testing_challenge::UNSOLVABLE_CHALLENGE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TestingChallenge {
         fn default() -> Self {
-            testing_challenge::TESTING_CHALLENGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4273,20 +4945,8 @@ pub mod web_key_settings {
     use super::*;
 
     /// Enum that represents the integration types for web keys.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IntegrationType(std::borrow::Cow<'static, str>);
-
-    impl IntegrationType {
-        /// Creates a new IntegrationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct IntegrationType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [IntegrationType](IntegrationType)
     pub mod integration_type {
@@ -4296,49 +4956,97 @@ pub mod web_key_settings {
         /// a valid IntegrationType, one of the other types must be specified
         /// instead.
         pub const INTEGRATION_TYPE_UNSPECIFIED: IntegrationType =
-            IntegrationType::new("INTEGRATION_TYPE_UNSPECIFIED");
+            IntegrationType::known("INTEGRATION_TYPE_UNSPECIFIED", 0);
 
         /// Only used to produce scores. It doesn't display the "I'm not a robot"
         /// checkbox and never shows captcha challenges.
-        pub const SCORE: IntegrationType = IntegrationType::new("SCORE");
+        pub const SCORE: IntegrationType = IntegrationType::known("SCORE", 1);
 
         /// Displays the "I'm not a robot" checkbox and may show captcha challenges
         /// after it is checked.
-        pub const CHECKBOX: IntegrationType = IntegrationType::new("CHECKBOX");
+        pub const CHECKBOX: IntegrationType = IntegrationType::known("CHECKBOX", 2);
 
         /// Doesn't display the "I'm not a robot" checkbox, but may show captcha
         /// challenges after risk analysis.
-        pub const INVISIBLE: IntegrationType = IntegrationType::new("INVISIBLE");
+        pub const INVISIBLE: IntegrationType = IntegrationType::known("INVISIBLE", 3);
+    }
+
+    impl IntegrationType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for IntegrationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IntegrationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(IntegrationType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(IntegrationType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(IntegrationType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for IntegrationType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "INTEGRATION_TYPE_UNSPECIFIED" => integration_type::INTEGRATION_TYPE_UNSPECIFIED,
+                "SCORE" => integration_type::SCORE,
+                "CHECKBOX" => integration_type::CHECKBOX,
+                "INVISIBLE" => integration_type::INVISIBLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IntegrationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => integration_type::INTEGRATION_TYPE_UNSPECIFIED,
+                1 => integration_type::SCORE,
+                2 => integration_type::CHECKBOX,
+                3 => integration_type::INVISIBLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for IntegrationType {
         fn default() -> Self {
-            integration_type::INTEGRATION_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Enum that represents the possible challenge frequency and difficulty
     /// configurations for a web key.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ChallengeSecurityPreference(std::borrow::Cow<'static, str>);
-
-    impl ChallengeSecurityPreference {
-        /// Creates a new ChallengeSecurityPreference instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ChallengeSecurityPreference(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ChallengeSecurityPreference](ChallengeSecurityPreference)
     pub mod challenge_security_preference {
@@ -4346,30 +5054,94 @@ pub mod web_key_settings {
 
         /// Default type that indicates this enum hasn't been specified.
         pub const CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED");
+            ChallengeSecurityPreference::known("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED", 0);
 
         /// Key tends to show fewer and easier challenges.
         pub const USABILITY: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("USABILITY");
+            ChallengeSecurityPreference::known("USABILITY", 1);
 
         /// Key tends to show balanced (in amount and difficulty) challenges.
         pub const BALANCE: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("BALANCE");
+            ChallengeSecurityPreference::known("BALANCE", 2);
 
         /// Key tends to show more and harder challenges.
         pub const SECURITY: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new("SECURITY");
+            ChallengeSecurityPreference::known("SECURITY", 3);
+    }
+
+    impl ChallengeSecurityPreference {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ChallengeSecurityPreference {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ChallengeSecurityPreference {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ChallengeSecurityPreference::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(ChallengeSecurityPreference::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(ChallengeSecurityPreference::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ChallengeSecurityPreference {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED" => {
+                    challenge_security_preference::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED
+                }
+                "USABILITY" => challenge_security_preference::USABILITY,
+                "BALANCE" => challenge_security_preference::BALANCE,
+                "SECURITY" => challenge_security_preference::SECURITY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ChallengeSecurityPreference {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => challenge_security_preference::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED,
+                1 => challenge_security_preference::USABILITY,
+                2 => challenge_security_preference::BALANCE,
+                3 => challenge_security_preference::SECURITY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ChallengeSecurityPreference {
         fn default() -> Self {
-            challenge_security_preference::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6032,100 +6804,202 @@ pub mod waf_settings {
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafFeature(std::borrow::Cow<'static, str>);
-
-    impl WafFeature {
-        /// Creates a new WafFeature instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct WafFeature(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [WafFeature](WafFeature)
     pub mod waf_feature {
         use super::WafFeature;
 
         /// Undefined feature.
-        pub const WAF_FEATURE_UNSPECIFIED: WafFeature = WafFeature::new("WAF_FEATURE_UNSPECIFIED");
+        pub const WAF_FEATURE_UNSPECIFIED: WafFeature =
+            WafFeature::known("WAF_FEATURE_UNSPECIFIED", 0);
 
         /// Redirects suspicious traffic to reCAPTCHA.
-        pub const CHALLENGE_PAGE: WafFeature = WafFeature::new("CHALLENGE_PAGE");
+        pub const CHALLENGE_PAGE: WafFeature = WafFeature::known("CHALLENGE_PAGE", 1);
 
         /// Use reCAPTCHA session-tokens to protect the whole user session on the
         /// site's domain.
-        pub const SESSION_TOKEN: WafFeature = WafFeature::new("SESSION_TOKEN");
+        pub const SESSION_TOKEN: WafFeature = WafFeature::known("SESSION_TOKEN", 2);
 
         /// Use reCAPTCHA action-tokens to protect user actions.
-        pub const ACTION_TOKEN: WafFeature = WafFeature::new("ACTION_TOKEN");
+        pub const ACTION_TOKEN: WafFeature = WafFeature::known("ACTION_TOKEN", 3);
 
         /// Use reCAPTCHA WAF express protection to protect any content other than
         /// web pages, like APIs and IoT devices.
-        pub const EXPRESS: WafFeature = WafFeature::new("EXPRESS");
+        pub const EXPRESS: WafFeature = WafFeature::known("EXPRESS", 5);
+    }
+
+    impl WafFeature {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for WafFeature {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WafFeature {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(WafFeature::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(WafFeature::from(val)),
+                Enumeration::UnknownNum { str } => Ok(WafFeature::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for WafFeature {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "WAF_FEATURE_UNSPECIFIED" => waf_feature::WAF_FEATURE_UNSPECIFIED,
+                "CHALLENGE_PAGE" => waf_feature::CHALLENGE_PAGE,
+                "SESSION_TOKEN" => waf_feature::SESSION_TOKEN,
+                "ACTION_TOKEN" => waf_feature::ACTION_TOKEN,
+                "EXPRESS" => waf_feature::EXPRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for WafFeature {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => waf_feature::WAF_FEATURE_UNSPECIFIED,
+                1 => waf_feature::CHALLENGE_PAGE,
+                2 => waf_feature::SESSION_TOKEN,
+                3 => waf_feature::ACTION_TOKEN,
+                5 => waf_feature::EXPRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for WafFeature {
         fn default() -> Self {
-            waf_feature::WAF_FEATURE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Web Application Firewalls supported by reCAPTCHA.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafService(std::borrow::Cow<'static, str>);
-
-    impl WafService {
-        /// Creates a new WafService instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct WafService(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [WafService](WafService)
     pub mod waf_service {
         use super::WafService;
 
         /// Undefined WAF
-        pub const WAF_SERVICE_UNSPECIFIED: WafService = WafService::new("WAF_SERVICE_UNSPECIFIED");
+        pub const WAF_SERVICE_UNSPECIFIED: WafService =
+            WafService::known("WAF_SERVICE_UNSPECIFIED", 0);
 
         /// Cloud Armor
-        pub const CA: WafService = WafService::new("CA");
+        pub const CA: WafService = WafService::known("CA", 1);
 
         /// Fastly
-        pub const FASTLY: WafService = WafService::new("FASTLY");
+        pub const FASTLY: WafService = WafService::known("FASTLY", 3);
 
         /// Cloudflare
-        pub const CLOUDFLARE: WafService = WafService::new("CLOUDFLARE");
+        pub const CLOUDFLARE: WafService = WafService::known("CLOUDFLARE", 4);
 
         /// Akamai
-        pub const AKAMAI: WafService = WafService::new("AKAMAI");
+        pub const AKAMAI: WafService = WafService::known("AKAMAI", 5);
+    }
+
+    impl WafService {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for WafService {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WafService {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(WafService::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(WafService::from(val)),
+                Enumeration::UnknownNum { str } => Ok(WafService::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for WafService {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "WAF_SERVICE_UNSPECIFIED" => waf_service::WAF_SERVICE_UNSPECIFIED,
+                "CA" => waf_service::CA,
+                "FASTLY" => waf_service::FASTLY,
+                "CLOUDFLARE" => waf_service::CLOUDFLARE,
+                "AKAMAI" => waf_service::AKAMAI,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for WafService {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => waf_service::WAF_SERVICE_UNSPECIFIED,
+                1 => waf_service::CA,
+                3 => waf_service::FASTLY,
+                4 => waf_service::CLOUDFLARE,
+                5 => waf_service::AKAMAI,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for WafService {
         fn default() -> Self {
-            waf_service::WAF_SERVICE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6232,20 +7106,8 @@ pub mod ip_override_data {
     use super::*;
 
     /// Enum that represents the type of IP override.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OverrideType(std::borrow::Cow<'static, str>);
-
-    impl OverrideType {
-        /// Creates a new OverrideType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OverrideType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OverrideType](OverrideType)
     pub mod override_type {
@@ -6253,22 +7115,78 @@ pub mod ip_override_data {
 
         /// Default override type that indicates this enum hasn't been specified.
         pub const OVERRIDE_TYPE_UNSPECIFIED: OverrideType =
-            OverrideType::new("OVERRIDE_TYPE_UNSPECIFIED");
+            OverrideType::known("OVERRIDE_TYPE_UNSPECIFIED", 0);
 
         /// Allowlist the IP address; i.e. give a `risk_analysis.score` of 0.9 for
         /// all valid assessments.
-        pub const ALLOW: OverrideType = OverrideType::new("ALLOW");
+        pub const ALLOW: OverrideType = OverrideType::known("ALLOW", 1);
+    }
+
+    impl OverrideType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OverrideType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OverrideType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OverrideType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OverrideType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OverrideType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OverrideType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "OVERRIDE_TYPE_UNSPECIFIED" => override_type::OVERRIDE_TYPE_UNSPECIFIED,
+                "ALLOW" => override_type::ALLOW,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OverrideType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => override_type::OVERRIDE_TYPE_UNSPECIFIED,
+                1 => override_type::ALLOW,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OverrideType {
         fn default() -> Self {
-            override_type::OVERRIDE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

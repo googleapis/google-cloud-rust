@@ -500,46 +500,35 @@ impl gax::paginator::PageableResponse for ListProfilesResponse {
 /// ProfileType is type of profiling data.
 /// NOTE: the enumeration member names are used (in lowercase) as unique string
 /// identifiers of profile types, so they must not be renamed.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ProfileType(std::borrow::Cow<'static, str>);
-
-impl ProfileType {
-    /// Creates a new ProfileType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ProfileType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ProfileType](ProfileType)
 pub mod profile_type {
     use super::ProfileType;
 
     /// Unspecified profile type.
-    pub const PROFILE_TYPE_UNSPECIFIED: ProfileType = ProfileType::new("PROFILE_TYPE_UNSPECIFIED");
+    pub const PROFILE_TYPE_UNSPECIFIED: ProfileType =
+        ProfileType::known("PROFILE_TYPE_UNSPECIFIED", 0);
 
     /// Thread CPU time sampling.
-    pub const CPU: ProfileType = ProfileType::new("CPU");
+    pub const CPU: ProfileType = ProfileType::known("CPU", 1);
 
     /// Wallclock time sampling. More expensive as stops all threads.
-    pub const WALL: ProfileType = ProfileType::new("WALL");
+    pub const WALL: ProfileType = ProfileType::known("WALL", 2);
 
     /// In-use heap profile. Represents a snapshot of the allocations that are
     /// live at the time of the profiling.
-    pub const HEAP: ProfileType = ProfileType::new("HEAP");
+    pub const HEAP: ProfileType = ProfileType::known("HEAP", 3);
 
     /// Single-shot collection of all thread stacks.
-    pub const THREADS: ProfileType = ProfileType::new("THREADS");
+    pub const THREADS: ProfileType = ProfileType::known("THREADS", 4);
 
     /// Synchronization contention profile.
-    pub const CONTENTION: ProfileType = ProfileType::new("CONTENTION");
+    pub const CONTENTION: ProfileType = ProfileType::known("CONTENTION", 5);
 
     /// Peak heap profile.
-    pub const PEAK_HEAP: ProfileType = ProfileType::new("PEAK_HEAP");
+    pub const PEAK_HEAP: ProfileType = ProfileType::known("PEAK_HEAP", 6);
 
     /// Heap allocation profile. It represents the aggregation of all allocations
     /// made over the duration of the profile. All allocations are included,
@@ -547,17 +536,85 @@ pub mod profile_type {
     /// interval. The profile is in particular useful for garbage collecting
     /// languages to understand which parts of the code create most of the garbage
     /// collection pressure to see if those can be optimized.
-    pub const HEAP_ALLOC: ProfileType = ProfileType::new("HEAP_ALLOC");
+    pub const HEAP_ALLOC: ProfileType = ProfileType::known("HEAP_ALLOC", 7);
+}
+
+impl ProfileType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ProfileType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ProfileType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ProfileType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ProfileType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ProfileType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ProfileType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "PROFILE_TYPE_UNSPECIFIED" => profile_type::PROFILE_TYPE_UNSPECIFIED,
+            "CPU" => profile_type::CPU,
+            "WALL" => profile_type::WALL,
+            "HEAP" => profile_type::HEAP,
+            "THREADS" => profile_type::THREADS,
+            "CONTENTION" => profile_type::CONTENTION,
+            "PEAK_HEAP" => profile_type::PEAK_HEAP,
+            "HEAP_ALLOC" => profile_type::HEAP_ALLOC,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ProfileType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => profile_type::PROFILE_TYPE_UNSPECIFIED,
+            1 => profile_type::CPU,
+            2 => profile_type::WALL,
+            3 => profile_type::HEAP,
+            4 => profile_type::THREADS,
+            5 => profile_type::CONTENTION,
+            6 => profile_type::PEAK_HEAP,
+            7 => profile_type::HEAP_ALLOC,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ProfileType {
     fn default() -> Self {
-        profile_type::PROFILE_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

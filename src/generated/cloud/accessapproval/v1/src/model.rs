@@ -147,27 +147,15 @@ pub mod access_reason {
     use super::*;
 
     /// Type of access justification.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Default value for proto, shouldn't be used.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Customer made a request or raised an issue that required the principal to
         /// access customer data. `detail` is of the form ("#####" is the issue ID):
@@ -178,38 +166,104 @@ pub mod access_reason {
         /// * "E-PIN Reference: #####"
         /// * "Google-#####"
         /// * "T-#####"
-        pub const CUSTOMER_INITIATED_SUPPORT: Type = Type::new("CUSTOMER_INITIATED_SUPPORT");
+        pub const CUSTOMER_INITIATED_SUPPORT: Type = Type::known("CUSTOMER_INITIATED_SUPPORT", 1);
 
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services. Often this access is used to confirm that
         /// customers are not affected by a suspected service issue or to remediate a
         /// reversible system issue.
-        pub const GOOGLE_INITIATED_SERVICE: Type = Type::new("GOOGLE_INITIATED_SERVICE");
+        pub const GOOGLE_INITIATED_SERVICE: Type = Type::known("GOOGLE_INITIATED_SERVICE", 2);
 
         /// Google initiated service for security, fraud, abuse, or compliance
         /// purposes.
-        pub const GOOGLE_INITIATED_REVIEW: Type = Type::new("GOOGLE_INITIATED_REVIEW");
+        pub const GOOGLE_INITIATED_REVIEW: Type = Type::known("GOOGLE_INITIATED_REVIEW", 3);
 
         /// The principal was compelled to access customer data in order to respond
         /// to a legal third party data request or process, including legal processes
         /// from customers themselves.
-        pub const THIRD_PARTY_DATA_REQUEST: Type = Type::new("THIRD_PARTY_DATA_REQUEST");
+        pub const THIRD_PARTY_DATA_REQUEST: Type = Type::known("THIRD_PARTY_DATA_REQUEST", 4);
 
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services or a known outage.
         pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: Type =
-            Type::new("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT");
+            Type::known("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT", 5);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "CUSTOMER_INITIATED_SUPPORT" => r#type::CUSTOMER_INITIATED_SUPPORT,
+                "GOOGLE_INITIATED_SERVICE" => r#type::GOOGLE_INITIATED_SERVICE,
+                "GOOGLE_INITIATED_REVIEW" => r#type::GOOGLE_INITIATED_REVIEW,
+                "THIRD_PARTY_DATA_REQUEST" => r#type::THIRD_PARTY_DATA_REQUEST,
+                "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => {
+                    r#type::GOOGLE_RESPONSE_TO_PRODUCTION_ALERT
+                }
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::CUSTOMER_INITIATED_SUPPORT,
+                2 => r#type::GOOGLE_INITIATED_SERVICE,
+                3 => r#type::GOOGLE_INITIATED_REVIEW,
+                4 => r#type::THIRD_PARTY_DATA_REQUEST,
+                5 => r#type::GOOGLE_RESPONSE_TO_PRODUCTION_ALERT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1378,20 +1432,8 @@ impl wkt::message::Message for GetAccessApprovalServiceAccountMessage {
 }
 
 /// Represents the type of enrollment for a given service to Access Approval.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EnrollmentLevel(std::borrow::Cow<'static, str>);
-
-impl EnrollmentLevel {
-    /// Creates a new EnrollmentLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct EnrollmentLevel(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [EnrollmentLevel](EnrollmentLevel)
 pub mod enrollment_level {
@@ -1399,20 +1441,76 @@ pub mod enrollment_level {
 
     /// Default value for proto, shouldn't be used.
     pub const ENROLLMENT_LEVEL_UNSPECIFIED: EnrollmentLevel =
-        EnrollmentLevel::new("ENROLLMENT_LEVEL_UNSPECIFIED");
+        EnrollmentLevel::known("ENROLLMENT_LEVEL_UNSPECIFIED", 0);
 
     /// Service is enrolled in Access Approval for all requests
-    pub const BLOCK_ALL: EnrollmentLevel = EnrollmentLevel::new("BLOCK_ALL");
+    pub const BLOCK_ALL: EnrollmentLevel = EnrollmentLevel::known("BLOCK_ALL", 1);
+}
+
+impl EnrollmentLevel {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for EnrollmentLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EnrollmentLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(EnrollmentLevel::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(EnrollmentLevel::from(val)),
+            Enumeration::UnknownNum { str } => Ok(EnrollmentLevel::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for EnrollmentLevel {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ENROLLMENT_LEVEL_UNSPECIFIED" => enrollment_level::ENROLLMENT_LEVEL_UNSPECIFIED,
+            "BLOCK_ALL" => enrollment_level::BLOCK_ALL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for EnrollmentLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => enrollment_level::ENROLLMENT_LEVEL_UNSPECIFIED,
+            1 => enrollment_level::BLOCK_ALL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for EnrollmentLevel {
     fn default() -> Self {
-        enrollment_level::ENROLLMENT_LEVEL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

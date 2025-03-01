@@ -242,104 +242,208 @@ pub mod insight {
     }
 
     /// Insight category.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
-
-    impl Category {
-        /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Category(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Category](Category)
     pub mod category {
         use super::Category;
 
         /// Unspecified category.
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
+        pub const CATEGORY_UNSPECIFIED: Category = Category::known("CATEGORY_UNSPECIFIED", 0);
 
         /// The insight is related to cost.
-        pub const COST: Category = Category::new("COST");
+        pub const COST: Category = Category::known("COST", 1);
 
         /// The insight is related to security.
-        pub const SECURITY: Category = Category::new("SECURITY");
+        pub const SECURITY: Category = Category::known("SECURITY", 2);
 
         /// The insight is related to performance.
-        pub const PERFORMANCE: Category = Category::new("PERFORMANCE");
+        pub const PERFORMANCE: Category = Category::known("PERFORMANCE", 3);
 
         /// This insight is related to manageability.
-        pub const MANAGEABILITY: Category = Category::new("MANAGEABILITY");
+        pub const MANAGEABILITY: Category = Category::known("MANAGEABILITY", 4);
 
         /// The insight is related to sustainability.
-        pub const SUSTAINABILITY: Category = Category::new("SUSTAINABILITY");
+        pub const SUSTAINABILITY: Category = Category::known("SUSTAINABILITY", 5);
 
         /// This insight is related to reliability.
-        pub const RELIABILITY: Category = Category::new("RELIABILITY");
+        pub const RELIABILITY: Category = Category::known("RELIABILITY", 6);
+    }
+
+    impl Category {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Category::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Category::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Category::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Category {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CATEGORY_UNSPECIFIED" => category::CATEGORY_UNSPECIFIED,
+                "COST" => category::COST,
+                "SECURITY" => category::SECURITY,
+                "PERFORMANCE" => category::PERFORMANCE,
+                "MANAGEABILITY" => category::MANAGEABILITY,
+                "SUSTAINABILITY" => category::SUSTAINABILITY,
+                "RELIABILITY" => category::RELIABILITY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => category::CATEGORY_UNSPECIFIED,
+                1 => category::COST,
+                2 => category::SECURITY,
+                3 => category::PERFORMANCE,
+                4 => category::MANAGEABILITY,
+                5 => category::SUSTAINABILITY,
+                6 => category::RELIABILITY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Category {
         fn default() -> Self {
-            category::CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Insight severity levels.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
-
-    impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Severity(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
         use super::Severity;
 
         /// Insight has unspecified severity.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::known("SEVERITY_UNSPECIFIED", 0);
 
         /// Insight has low severity.
-        pub const LOW: Severity = Severity::new("LOW");
+        pub const LOW: Severity = Severity::known("LOW", 1);
 
         /// Insight has medium severity.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
+        pub const MEDIUM: Severity = Severity::known("MEDIUM", 2);
 
         /// Insight has high severity.
-        pub const HIGH: Severity = Severity::new("HIGH");
+        pub const HIGH: Severity = Severity::known("HIGH", 3);
 
         /// Insight has critical severity.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+        pub const CRITICAL: Severity = Severity::known("CRITICAL", 4);
+    }
+
+    impl Severity {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Severity::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Severity::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Severity::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Severity {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SEVERITY_UNSPECIFIED" => severity::SEVERITY_UNSPECIFIED,
+                "LOW" => severity::LOW,
+                "MEDIUM" => severity::MEDIUM,
+                "HIGH" => severity::HIGH,
+                "CRITICAL" => severity::CRITICAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => severity::SEVERITY_UNSPECIFIED,
+                1 => severity::LOW,
+                2 => severity::MEDIUM,
+                3 => severity::HIGH,
+                4 => severity::CRITICAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -397,53 +501,101 @@ pub mod insight_state_info {
     use super::*;
 
     /// Represents insight state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Insight is active. Content for ACTIVE insights can be updated by Google.
         /// ACTIVE insights can be marked DISMISSED OR ACCEPTED.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
 
         /// Some action has been taken based on this insight. Insights become
         /// accepted when a recommendation derived from the insight has been marked
         /// CLAIMED, SUCCEEDED, or FAILED. ACTIVE insights can also be marked
         /// ACCEPTED explicitly. Content for ACCEPTED insights is immutable. ACCEPTED
         /// insights can only be marked ACCEPTED (which may update state metadata).
-        pub const ACCEPTED: State = State::new("ACCEPTED");
+        pub const ACCEPTED: State = State::known("ACCEPTED", 2);
 
         /// Insight is dismissed. Content for DISMISSED insights can be updated by
         /// Google. DISMISSED insights can be marked as ACTIVE.
-        pub const DISMISSED: State = State::new("DISMISSED");
+        pub const DISMISSED: State = State::known("DISMISSED", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                "ACCEPTED" => state::ACCEPTED,
+                "DISMISSED" => state::DISMISSED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                2 => state::ACCEPTED,
+                3 => state::DISMISSED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -825,50 +977,100 @@ pub mod recommendation {
     }
 
     /// Recommendation priority levels.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Priority(std::borrow::Cow<'static, str>);
-
-    impl Priority {
-        /// Creates a new Priority instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Priority(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Priority](Priority)
     pub mod priority {
         use super::Priority;
 
         /// Recommendation has unspecified priority.
-        pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
+        pub const PRIORITY_UNSPECIFIED: Priority = Priority::known("PRIORITY_UNSPECIFIED", 0);
 
         /// Recommendation has P4 priority (lowest priority).
-        pub const P4: Priority = Priority::new("P4");
+        pub const P4: Priority = Priority::known("P4", 1);
 
         /// Recommendation has P3 priority (second lowest priority).
-        pub const P3: Priority = Priority::new("P3");
+        pub const P3: Priority = Priority::known("P3", 2);
 
         /// Recommendation has P2 priority (second highest priority).
-        pub const P2: Priority = Priority::new("P2");
+        pub const P2: Priority = Priority::known("P2", 3);
 
         /// Recommendation has P1 priority (highest priority).
-        pub const P1: Priority = Priority::new("P1");
+        pub const P1: Priority = Priority::known("P1", 4);
+    }
+
+    impl Priority {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Priority {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Priority {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Priority::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Priority::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Priority::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Priority {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PRIORITY_UNSPECIFIED" => priority::PRIORITY_UNSPECIFIED,
+                "P4" => priority::P4,
+                "P3" => priority::P3,
+                "P2" => priority::P2,
+                "P1" => priority::P1,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Priority {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => priority::PRIORITY_UNSPECIFIED,
+                1 => priority::P4,
+                2 => priority::P3,
+                3 => priority::P2,
+                4 => priority::P1,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Priority {
         fn default() -> Self {
-            priority::PRIORITY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1480,48 +1682,96 @@ pub mod reliability_projection {
     use super::*;
 
     /// The risk associated with the reliability issue.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskType(std::borrow::Cow<'static, str>);
-
-    impl RiskType {
-        /// Creates a new RiskType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RiskType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RiskType](RiskType)
     pub mod risk_type {
         use super::RiskType;
 
         /// Default unspecified risk. Don't use directly.
-        pub const RISK_TYPE_UNSPECIFIED: RiskType = RiskType::new("RISK_TYPE_UNSPECIFIED");
+        pub const RISK_TYPE_UNSPECIFIED: RiskType = RiskType::known("RISK_TYPE_UNSPECIFIED", 0);
 
         /// Potential service downtime.
-        pub const SERVICE_DISRUPTION: RiskType = RiskType::new("SERVICE_DISRUPTION");
+        pub const SERVICE_DISRUPTION: RiskType = RiskType::known("SERVICE_DISRUPTION", 1);
 
         /// Potential data loss.
-        pub const DATA_LOSS: RiskType = RiskType::new("DATA_LOSS");
+        pub const DATA_LOSS: RiskType = RiskType::known("DATA_LOSS", 2);
 
         /// Potential access denial. The service is still up but some or all clients
         /// can't access it.
-        pub const ACCESS_DENY: RiskType = RiskType::new("ACCESS_DENY");
+        pub const ACCESS_DENY: RiskType = RiskType::known("ACCESS_DENY", 3);
+    }
+
+    impl RiskType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RiskType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RiskType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RiskType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RiskType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RiskType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RiskType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RISK_TYPE_UNSPECIFIED" => risk_type::RISK_TYPE_UNSPECIFIED,
+                "SERVICE_DISRUPTION" => risk_type::SERVICE_DISRUPTION,
+                "DATA_LOSS" => risk_type::DATA_LOSS,
+                "ACCESS_DENY" => risk_type::ACCESS_DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RiskType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => risk_type::RISK_TYPE_UNSPECIFIED,
+                1 => risk_type::SERVICE_DISRUPTION,
+                2 => risk_type::DATA_LOSS,
+                3 => risk_type::ACCESS_DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RiskType {
         fn default() -> Self {
-            risk_type::RISK_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1701,56 +1951,110 @@ pub mod impact {
     use super::*;
 
     /// The category of the impact.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
-
-    impl Category {
-        /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Category(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Category](Category)
     pub mod category {
         use super::Category;
 
         /// Default unspecified category. Don't use directly.
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
+        pub const CATEGORY_UNSPECIFIED: Category = Category::known("CATEGORY_UNSPECIFIED", 0);
 
         /// Indicates a potential increase or decrease in cost.
-        pub const COST: Category = Category::new("COST");
+        pub const COST: Category = Category::known("COST", 1);
 
         /// Indicates a potential increase or decrease in security.
-        pub const SECURITY: Category = Category::new("SECURITY");
+        pub const SECURITY: Category = Category::known("SECURITY", 2);
 
         /// Indicates a potential increase or decrease in performance.
-        pub const PERFORMANCE: Category = Category::new("PERFORMANCE");
+        pub const PERFORMANCE: Category = Category::known("PERFORMANCE", 3);
 
         /// Indicates a potential increase or decrease in manageability.
-        pub const MANAGEABILITY: Category = Category::new("MANAGEABILITY");
+        pub const MANAGEABILITY: Category = Category::known("MANAGEABILITY", 4);
 
         /// Indicates a potential increase or decrease in sustainability.
-        pub const SUSTAINABILITY: Category = Category::new("SUSTAINABILITY");
+        pub const SUSTAINABILITY: Category = Category::known("SUSTAINABILITY", 5);
 
         /// Indicates a potential increase or decrease in reliability.
-        pub const RELIABILITY: Category = Category::new("RELIABILITY");
+        pub const RELIABILITY: Category = Category::known("RELIABILITY", 6);
+    }
+
+    impl Category {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Category::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Category::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Category::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Category {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CATEGORY_UNSPECIFIED" => category::CATEGORY_UNSPECIFIED,
+                "COST" => category::COST,
+                "SECURITY" => category::SECURITY,
+                "PERFORMANCE" => category::PERFORMANCE,
+                "MANAGEABILITY" => category::MANAGEABILITY,
+                "SUSTAINABILITY" => category::SUSTAINABILITY,
+                "RELIABILITY" => category::RELIABILITY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => category::CATEGORY_UNSPECIFIED,
+                1 => category::COST,
+                2 => category::SECURITY,
+                3 => category::PERFORMANCE,
+                4 => category::MANAGEABILITY,
+                5 => category::SUSTAINABILITY,
+                6 => category::RELIABILITY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Category {
         fn default() -> Self {
-            category::CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -1823,68 +2127,120 @@ pub mod recommendation_state_info {
     use super::*;
 
     /// Represents Recommendation State.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default state. Don't use directly.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Recommendation is active and can be applied. Recommendations content can
         /// be updated by Google.
         ///
         /// ACTIVE recommendations can be marked as CLAIMED, SUCCEEDED, or FAILED.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
 
         /// Recommendation is in claimed state. Recommendations content is
         /// immutable and cannot be updated by Google.
         ///
         /// CLAIMED recommendations can be marked as CLAIMED, SUCCEEDED, or FAILED.
-        pub const CLAIMED: State = State::new("CLAIMED");
+        pub const CLAIMED: State = State::known("CLAIMED", 6);
 
         /// Recommendation is in succeeded state. Recommendations content is
         /// immutable and cannot be updated by Google.
         ///
         /// SUCCEEDED recommendations can be marked as SUCCEEDED, or FAILED.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// Recommendation is in failed state. Recommendations content is immutable
         /// and cannot be updated by Google.
         ///
         /// FAILED recommendations can be marked as SUCCEEDED, or FAILED.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// Recommendation is in dismissed state. Recommendation content can be
         /// updated by Google.
         ///
         /// DISMISSED recommendations can be marked as ACTIVE.
-        pub const DISMISSED: State = State::new("DISMISSED");
+        pub const DISMISSED: State = State::known("DISMISSED", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                "CLAIMED" => state::CLAIMED,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "DISMISSED" => state::DISMISSED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::DISMISSED,
+                6 => state::CLAIMED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

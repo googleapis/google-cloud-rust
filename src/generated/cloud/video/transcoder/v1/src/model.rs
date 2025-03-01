@@ -290,20 +290,8 @@ pub mod job {
     use super::*;
 
     /// The current state of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingState(std::borrow::Cow<'static, str>);
-
-    impl ProcessingState {
-        /// Creates a new ProcessingState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ProcessingState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ProcessingState](ProcessingState)
     pub mod processing_state {
@@ -311,49 +299,99 @@ pub mod job {
 
         /// The processing state is not specified.
         pub const PROCESSING_STATE_UNSPECIFIED: ProcessingState =
-            ProcessingState::new("PROCESSING_STATE_UNSPECIFIED");
+            ProcessingState::known("PROCESSING_STATE_UNSPECIFIED", 0);
 
         /// The job is enqueued and will be picked up for processing soon.
-        pub const PENDING: ProcessingState = ProcessingState::new("PENDING");
+        pub const PENDING: ProcessingState = ProcessingState::known("PENDING", 1);
 
         /// The job is being processed.
-        pub const RUNNING: ProcessingState = ProcessingState::new("RUNNING");
+        pub const RUNNING: ProcessingState = ProcessingState::known("RUNNING", 2);
 
         /// The job has been completed successfully.
-        pub const SUCCEEDED: ProcessingState = ProcessingState::new("SUCCEEDED");
+        pub const SUCCEEDED: ProcessingState = ProcessingState::known("SUCCEEDED", 3);
 
         /// The job has failed. For additional information, see `failure_reason` and
         /// `failure_details`
-        pub const FAILED: ProcessingState = ProcessingState::new("FAILED");
+        pub const FAILED: ProcessingState = ProcessingState::known("FAILED", 4);
+    }
+
+    impl ProcessingState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ProcessingState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProcessingState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ProcessingState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ProcessingState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ProcessingState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ProcessingState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PROCESSING_STATE_UNSPECIFIED" => processing_state::PROCESSING_STATE_UNSPECIFIED,
+                "PENDING" => processing_state::PENDING,
+                "RUNNING" => processing_state::RUNNING,
+                "SUCCEEDED" => processing_state::SUCCEEDED,
+                "FAILED" => processing_state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ProcessingState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => processing_state::PROCESSING_STATE_UNSPECIFIED,
+                1 => processing_state::PENDING,
+                2 => processing_state::RUNNING,
+                3 => processing_state::SUCCEEDED,
+                4 => processing_state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ProcessingState {
         fn default() -> Self {
-            processing_state::PROCESSING_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The processing mode of the job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingMode(std::borrow::Cow<'static, str>);
-
-    impl ProcessingMode {
-        /// Creates a new ProcessingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ProcessingMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ProcessingMode](ProcessingMode)
     pub mod processing_mode {
@@ -361,47 +399,93 @@ pub mod job {
 
         /// The job processing mode is not specified.
         pub const PROCESSING_MODE_UNSPECIFIED: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_UNSPECIFIED");
+            ProcessingMode::known("PROCESSING_MODE_UNSPECIFIED", 0);
 
         /// The job processing mode is interactive mode.
         /// Interactive job will either be ran or rejected if quota does not allow
         /// for it.
         pub const PROCESSING_MODE_INTERACTIVE: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_INTERACTIVE");
+            ProcessingMode::known("PROCESSING_MODE_INTERACTIVE", 1);
 
         /// The job processing mode is batch mode.
         /// Batch mode allows queuing of jobs.
         pub const PROCESSING_MODE_BATCH: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_BATCH");
+            ProcessingMode::known("PROCESSING_MODE_BATCH", 2);
+    }
+
+    impl ProcessingMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ProcessingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProcessingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ProcessingMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ProcessingMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ProcessingMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ProcessingMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PROCESSING_MODE_UNSPECIFIED" => processing_mode::PROCESSING_MODE_UNSPECIFIED,
+                "PROCESSING_MODE_INTERACTIVE" => processing_mode::PROCESSING_MODE_INTERACTIVE,
+                "PROCESSING_MODE_BATCH" => processing_mode::PROCESSING_MODE_BATCH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ProcessingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => processing_mode::PROCESSING_MODE_UNSPECIFIED,
+                1 => processing_mode::PROCESSING_MODE_INTERACTIVE,
+                2 => processing_mode::PROCESSING_MODE_BATCH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ProcessingMode {
         fn default() -> Self {
-            processing_mode::PROCESSING_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The optimization strategy of the job. The default is `AUTODETECT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptimizationStrategy(std::borrow::Cow<'static, str>);
-
-    impl OptimizationStrategy {
-        /// Creates a new OptimizationStrategy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OptimizationStrategy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OptimizationStrategy](OptimizationStrategy)
     pub mod optimization_strategy {
@@ -409,24 +493,84 @@ pub mod job {
 
         /// The optimization strategy is not specified.
         pub const OPTIMIZATION_STRATEGY_UNSPECIFIED: OptimizationStrategy =
-            OptimizationStrategy::new("OPTIMIZATION_STRATEGY_UNSPECIFIED");
+            OptimizationStrategy::known("OPTIMIZATION_STRATEGY_UNSPECIFIED", 0);
 
         /// Prioritize job processing speed.
-        pub const AUTODETECT: OptimizationStrategy = OptimizationStrategy::new("AUTODETECT");
+        pub const AUTODETECT: OptimizationStrategy = OptimizationStrategy::known("AUTODETECT", 1);
 
         /// Disable all optimizations.
-        pub const DISABLED: OptimizationStrategy = OptimizationStrategy::new("DISABLED");
+        pub const DISABLED: OptimizationStrategy = OptimizationStrategy::known("DISABLED", 2);
+    }
+
+    impl OptimizationStrategy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OptimizationStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OptimizationStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OptimizationStrategy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OptimizationStrategy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OptimizationStrategy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OptimizationStrategy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "OPTIMIZATION_STRATEGY_UNSPECIFIED" => {
+                    optimization_strategy::OPTIMIZATION_STRATEGY_UNSPECIFIED
+                }
+                "AUTODETECT" => optimization_strategy::AUTODETECT,
+                "DISABLED" => optimization_strategy::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OptimizationStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => optimization_strategy::OPTIMIZATION_STRATEGY_UNSPECIFIED,
+                1 => optimization_strategy::AUTODETECT,
+                2 => optimization_strategy::DISABLED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OptimizationStrategy {
         fn default() -> Self {
-            optimization_strategy::OPTIMIZATION_STRATEGY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -1309,20 +1453,8 @@ pub mod manifest {
         use super::*;
 
         /// The segment reference scheme for a `DASH` manifest.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SegmentReferenceScheme(std::borrow::Cow<'static, str>);
-
-        impl SegmentReferenceScheme {
-            /// Creates a new SegmentReferenceScheme instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct SegmentReferenceScheme(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [SegmentReferenceScheme](SegmentReferenceScheme)
         pub mod segment_reference_scheme {
@@ -1330,45 +1462,95 @@ pub mod manifest {
 
             /// The segment reference scheme is not specified.
             pub const SEGMENT_REFERENCE_SCHEME_UNSPECIFIED: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED");
+                SegmentReferenceScheme::known("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED", 0);
 
             /// Lists the URLs of media files for each segment.
             pub const SEGMENT_LIST: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_LIST");
+                SegmentReferenceScheme::known("SEGMENT_LIST", 1);
 
             /// Lists each segment from a template with $Number$ variable.
             pub const SEGMENT_TEMPLATE_NUMBER: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_TEMPLATE_NUMBER");
+                SegmentReferenceScheme::known("SEGMENT_TEMPLATE_NUMBER", 2);
+        }
+
+        impl SegmentReferenceScheme {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for SegmentReferenceScheme {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SegmentReferenceScheme {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(SegmentReferenceScheme::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => {
+                        Ok(SegmentReferenceScheme::from(val))
+                    }
+                    Enumeration::UnknownNum { str } => Ok(SegmentReferenceScheme::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for SegmentReferenceScheme {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED" => {
+                        segment_reference_scheme::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED
+                    }
+                    "SEGMENT_LIST" => segment_reference_scheme::SEGMENT_LIST,
+                    "SEGMENT_TEMPLATE_NUMBER" => segment_reference_scheme::SEGMENT_TEMPLATE_NUMBER,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for SegmentReferenceScheme {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => segment_reference_scheme::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED,
+                    1 => segment_reference_scheme::SEGMENT_LIST,
+                    2 => segment_reference_scheme::SEGMENT_TEMPLATE_NUMBER,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for SegmentReferenceScheme {
             fn default() -> Self {
-                segment_reference_scheme::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
 
     /// The manifest type, which corresponds to the adaptive streaming format used.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ManifestType(std::borrow::Cow<'static, str>);
-
-    impl ManifestType {
-        /// Creates a new ManifestType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ManifestType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ManifestType](ManifestType)
     pub mod manifest_type {
@@ -1376,24 +1558,82 @@ pub mod manifest {
 
         /// The manifest type is not specified.
         pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType =
-            ManifestType::new("MANIFEST_TYPE_UNSPECIFIED");
+            ManifestType::known("MANIFEST_TYPE_UNSPECIFIED", 0);
 
         /// Create an HLS manifest. The corresponding file extension is `.m3u8`.
-        pub const HLS: ManifestType = ManifestType::new("HLS");
+        pub const HLS: ManifestType = ManifestType::known("HLS", 1);
 
         /// Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
-        pub const DASH: ManifestType = ManifestType::new("DASH");
+        pub const DASH: ManifestType = ManifestType::known("DASH", 2);
+    }
+
+    impl ManifestType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ManifestType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ManifestType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ManifestType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ManifestType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ManifestType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ManifestType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MANIFEST_TYPE_UNSPECIFIED" => manifest_type::MANIFEST_TYPE_UNSPECIFIED,
+                "HLS" => manifest_type::HLS,
+                "DASH" => manifest_type::DASH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ManifestType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => manifest_type::MANIFEST_TYPE_UNSPECIFIED,
+                1 => manifest_type::HLS,
+                2 => manifest_type::DASH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ManifestType {
         fn default() -> Self {
-            manifest_type::MANIFEST_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2141,44 +2381,90 @@ pub mod overlay {
     }
 
     /// Fade type for the overlay: `FADE_IN` or `FADE_OUT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FadeType(std::borrow::Cow<'static, str>);
-
-    impl FadeType {
-        /// Creates a new FadeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FadeType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FadeType](FadeType)
     pub mod fade_type {
         use super::FadeType;
 
         /// The fade type is not specified.
-        pub const FADE_TYPE_UNSPECIFIED: FadeType = FadeType::new("FADE_TYPE_UNSPECIFIED");
+        pub const FADE_TYPE_UNSPECIFIED: FadeType = FadeType::known("FADE_TYPE_UNSPECIFIED", 0);
 
         /// Fade the overlay object into view.
-        pub const FADE_IN: FadeType = FadeType::new("FADE_IN");
+        pub const FADE_IN: FadeType = FadeType::known("FADE_IN", 1);
 
         /// Fade the overlay object out of view.
-        pub const FADE_OUT: FadeType = FadeType::new("FADE_OUT");
+        pub const FADE_OUT: FadeType = FadeType::known("FADE_OUT", 2);
+    }
+
+    impl FadeType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FadeType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FadeType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FadeType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FadeType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FadeType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FadeType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FADE_TYPE_UNSPECIFIED" => fade_type::FADE_TYPE_UNSPECIFIED,
+                "FADE_IN" => fade_type::FADE_IN,
+                "FADE_OUT" => fade_type::FADE_OUT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FadeType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => fade_type::FADE_TYPE_UNSPECIFIED,
+                1 => fade_type::FADE_IN,
+                2 => fade_type::FADE_OUT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FadeType {
         fn default() -> Self {
-            fade_type::FADE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

@@ -216,20 +216,8 @@ impl wkt::message::Message for SshPublicKey {
 }
 
 /// The operating system options for account entries.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperatingSystemType(std::borrow::Cow<'static, str>);
-
-impl OperatingSystemType {
-    /// Creates a new OperatingSystemType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct OperatingSystemType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [OperatingSystemType](OperatingSystemType)
 pub mod operating_system_type {
@@ -238,23 +226,83 @@ pub mod operating_system_type {
     /// The operating system type associated with the user account information is
     /// unspecified.
     pub const OPERATING_SYSTEM_TYPE_UNSPECIFIED: OperatingSystemType =
-        OperatingSystemType::new("OPERATING_SYSTEM_TYPE_UNSPECIFIED");
+        OperatingSystemType::known("OPERATING_SYSTEM_TYPE_UNSPECIFIED", 0);
 
     /// Linux user account information.
-    pub const LINUX: OperatingSystemType = OperatingSystemType::new("LINUX");
+    pub const LINUX: OperatingSystemType = OperatingSystemType::known("LINUX", 1);
 
     /// Windows user account information.
-    pub const WINDOWS: OperatingSystemType = OperatingSystemType::new("WINDOWS");
+    pub const WINDOWS: OperatingSystemType = OperatingSystemType::known("WINDOWS", 2);
+}
+
+impl OperatingSystemType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for OperatingSystemType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OperatingSystemType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(OperatingSystemType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(OperatingSystemType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(OperatingSystemType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for OperatingSystemType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "OPERATING_SYSTEM_TYPE_UNSPECIFIED" => {
+                operating_system_type::OPERATING_SYSTEM_TYPE_UNSPECIFIED
+            }
+            "LINUX" => operating_system_type::LINUX,
+            "WINDOWS" => operating_system_type::WINDOWS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for OperatingSystemType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => operating_system_type::OPERATING_SYSTEM_TYPE_UNSPECIFIED,
+            1 => operating_system_type::LINUX,
+            2 => operating_system_type::WINDOWS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for OperatingSystemType {
     fn default() -> Self {
-        operating_system_type::OPERATING_SYSTEM_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

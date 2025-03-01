@@ -687,20 +687,8 @@ pub mod companion_ads {
     use super::*;
 
     /// Indicates how many of the companions should be displayed with the ad.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DisplayRequirement(std::borrow::Cow<'static, str>);
-
-    impl DisplayRequirement {
-        /// Creates a new DisplayRequirement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DisplayRequirement(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DisplayRequirement](DisplayRequirement)
     pub mod display_requirement {
@@ -708,27 +696,89 @@ pub mod companion_ads {
 
         /// Required companions are not specified. The default is ALL.
         pub const DISPLAY_REQUIREMENT_UNSPECIFIED: DisplayRequirement =
-            DisplayRequirement::new("DISPLAY_REQUIREMENT_UNSPECIFIED");
+            DisplayRequirement::known("DISPLAY_REQUIREMENT_UNSPECIFIED", 0);
 
         /// All companions are required to be displayed.
-        pub const ALL: DisplayRequirement = DisplayRequirement::new("ALL");
+        pub const ALL: DisplayRequirement = DisplayRequirement::known("ALL", 1);
 
         /// At least one of companions needs to be displayed.
-        pub const ANY: DisplayRequirement = DisplayRequirement::new("ANY");
+        pub const ANY: DisplayRequirement = DisplayRequirement::known("ANY", 2);
 
         /// All companions are optional for display.
-        pub const NONE: DisplayRequirement = DisplayRequirement::new("NONE");
+        pub const NONE: DisplayRequirement = DisplayRequirement::known("NONE", 3);
+    }
+
+    impl DisplayRequirement {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DisplayRequirement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DisplayRequirement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DisplayRequirement::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DisplayRequirement::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DisplayRequirement::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DisplayRequirement {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DISPLAY_REQUIREMENT_UNSPECIFIED" => {
+                    display_requirement::DISPLAY_REQUIREMENT_UNSPECIFIED
+                }
+                "ALL" => display_requirement::ALL,
+                "ANY" => display_requirement::ANY,
+                "NONE" => display_requirement::NONE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DisplayRequirement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => display_requirement::DISPLAY_REQUIREMENT_UNSPECIFIED,
+                1 => display_requirement::ALL,
+                2 => display_requirement::ANY,
+                3 => display_requirement::NONE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DisplayRequirement {
         fn default() -> Self {
-            display_requirement::DISPLAY_REQUIREMENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1136,110 +1186,200 @@ pub mod event {
     use super::*;
 
     /// Describes the event that occurred.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(std::borrow::Cow<'static, str>);
-
-    impl EventType {
-        /// Creates a new EventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EventType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EventType](EventType)
     pub mod event_type {
         use super::EventType;
 
         /// The event type is unspecified.
-        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::known("EVENT_TYPE_UNSPECIFIED", 0);
 
         /// First frame of creative ad viewed.
-        pub const CREATIVE_VIEW: EventType = EventType::new("CREATIVE_VIEW");
+        pub const CREATIVE_VIEW: EventType = EventType::known("CREATIVE_VIEW", 1);
 
         /// Creative ad started.
-        pub const START: EventType = EventType::new("START");
+        pub const START: EventType = EventType::known("START", 2);
 
         /// Start of an ad break.
-        pub const BREAK_START: EventType = EventType::new("BREAK_START");
+        pub const BREAK_START: EventType = EventType::known("BREAK_START", 3);
 
         /// End of an ad break.
-        pub const BREAK_END: EventType = EventType::new("BREAK_END");
+        pub const BREAK_END: EventType = EventType::known("BREAK_END", 4);
 
         /// Impression.
-        pub const IMPRESSION: EventType = EventType::new("IMPRESSION");
+        pub const IMPRESSION: EventType = EventType::known("IMPRESSION", 5);
 
         /// First quartile progress.
-        pub const FIRST_QUARTILE: EventType = EventType::new("FIRST_QUARTILE");
+        pub const FIRST_QUARTILE: EventType = EventType::known("FIRST_QUARTILE", 6);
 
         /// Midpoint progress.
-        pub const MIDPOINT: EventType = EventType::new("MIDPOINT");
+        pub const MIDPOINT: EventType = EventType::known("MIDPOINT", 7);
 
         /// Third quartile progress.
-        pub const THIRD_QUARTILE: EventType = EventType::new("THIRD_QUARTILE");
+        pub const THIRD_QUARTILE: EventType = EventType::known("THIRD_QUARTILE", 8);
 
         /// Ad progress completed.
-        pub const COMPLETE: EventType = EventType::new("COMPLETE");
+        pub const COMPLETE: EventType = EventType::known("COMPLETE", 9);
 
         /// Specific progress event with an offset.
-        pub const PROGRESS: EventType = EventType::new("PROGRESS");
+        pub const PROGRESS: EventType = EventType::known("PROGRESS", 10);
 
         /// Player muted.
-        pub const MUTE: EventType = EventType::new("MUTE");
+        pub const MUTE: EventType = EventType::known("MUTE", 11);
 
         /// Player unmuted.
-        pub const UNMUTE: EventType = EventType::new("UNMUTE");
+        pub const UNMUTE: EventType = EventType::known("UNMUTE", 12);
 
         /// Player paused.
-        pub const PAUSE: EventType = EventType::new("PAUSE");
+        pub const PAUSE: EventType = EventType::known("PAUSE", 13);
 
         /// Click event.
-        pub const CLICK: EventType = EventType::new("CLICK");
+        pub const CLICK: EventType = EventType::known("CLICK", 14);
 
         /// Click-through event.
-        pub const CLICK_THROUGH: EventType = EventType::new("CLICK_THROUGH");
+        pub const CLICK_THROUGH: EventType = EventType::known("CLICK_THROUGH", 15);
 
         /// Player rewinding.
-        pub const REWIND: EventType = EventType::new("REWIND");
+        pub const REWIND: EventType = EventType::known("REWIND", 16);
 
         /// Player resumed.
-        pub const RESUME: EventType = EventType::new("RESUME");
+        pub const RESUME: EventType = EventType::known("RESUME", 17);
 
         /// Error event.
-        pub const ERROR: EventType = EventType::new("ERROR");
+        pub const ERROR: EventType = EventType::known("ERROR", 18);
 
         /// Ad expanded to a larger size.
-        pub const EXPAND: EventType = EventType::new("EXPAND");
+        pub const EXPAND: EventType = EventType::known("EXPAND", 21);
 
         /// Ad collapsed to a smaller size.
-        pub const COLLAPSE: EventType = EventType::new("COLLAPSE");
+        pub const COLLAPSE: EventType = EventType::known("COLLAPSE", 22);
 
         /// Non-linear ad closed.
-        pub const CLOSE: EventType = EventType::new("CLOSE");
+        pub const CLOSE: EventType = EventType::known("CLOSE", 24);
 
         /// Linear ad closed.
-        pub const CLOSE_LINEAR: EventType = EventType::new("CLOSE_LINEAR");
+        pub const CLOSE_LINEAR: EventType = EventType::known("CLOSE_LINEAR", 25);
 
         /// Ad skipped.
-        pub const SKIP: EventType = EventType::new("SKIP");
+        pub const SKIP: EventType = EventType::known("SKIP", 26);
 
         /// Accept invitation event.
-        pub const ACCEPT_INVITATION: EventType = EventType::new("ACCEPT_INVITATION");
+        pub const ACCEPT_INVITATION: EventType = EventType::known("ACCEPT_INVITATION", 27);
+    }
+
+    impl EventType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EventType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EventType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EventType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EventType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EVENT_TYPE_UNSPECIFIED" => event_type::EVENT_TYPE_UNSPECIFIED,
+                "CREATIVE_VIEW" => event_type::CREATIVE_VIEW,
+                "START" => event_type::START,
+                "BREAK_START" => event_type::BREAK_START,
+                "BREAK_END" => event_type::BREAK_END,
+                "IMPRESSION" => event_type::IMPRESSION,
+                "FIRST_QUARTILE" => event_type::FIRST_QUARTILE,
+                "MIDPOINT" => event_type::MIDPOINT,
+                "THIRD_QUARTILE" => event_type::THIRD_QUARTILE,
+                "COMPLETE" => event_type::COMPLETE,
+                "PROGRESS" => event_type::PROGRESS,
+                "MUTE" => event_type::MUTE,
+                "UNMUTE" => event_type::UNMUTE,
+                "PAUSE" => event_type::PAUSE,
+                "CLICK" => event_type::CLICK,
+                "CLICK_THROUGH" => event_type::CLICK_THROUGH,
+                "REWIND" => event_type::REWIND,
+                "RESUME" => event_type::RESUME,
+                "ERROR" => event_type::ERROR,
+                "EXPAND" => event_type::EXPAND,
+                "COLLAPSE" => event_type::COLLAPSE,
+                "CLOSE" => event_type::CLOSE,
+                "CLOSE_LINEAR" => event_type::CLOSE_LINEAR,
+                "SKIP" => event_type::SKIP,
+                "ACCEPT_INVITATION" => event_type::ACCEPT_INVITATION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => event_type::EVENT_TYPE_UNSPECIFIED,
+                1 => event_type::CREATIVE_VIEW,
+                2 => event_type::START,
+                3 => event_type::BREAK_START,
+                4 => event_type::BREAK_END,
+                5 => event_type::IMPRESSION,
+                6 => event_type::FIRST_QUARTILE,
+                7 => event_type::MIDPOINT,
+                8 => event_type::THIRD_QUARTILE,
+                9 => event_type::COMPLETE,
+                10 => event_type::PROGRESS,
+                11 => event_type::MUTE,
+                12 => event_type::UNMUTE,
+                13 => event_type::PAUSE,
+                14 => event_type::CLICK,
+                15 => event_type::CLICK_THROUGH,
+                16 => event_type::REWIND,
+                17 => event_type::RESUME,
+                18 => event_type::ERROR,
+                21 => event_type::EXPAND,
+                22 => event_type::COLLAPSE,
+                24 => event_type::CLOSE,
+                25 => event_type::CLOSE_LINEAR,
+                26 => event_type::SKIP,
+                27 => event_type::ACCEPT_INVITATION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EventType {
         fn default() -> Self {
-            event_type::EVENT_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1488,67 +1628,103 @@ pub mod live_config {
     use super::*;
 
     /// State of the live config.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Live config is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// Live config is ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// Live config is queued up for deletion.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Defines the ad stitching behavior in case the ad duration does not align
     /// exactly with the ad break boundaries. If not specified, the default is
     /// `CUT_CURRENT`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StitchingPolicy(std::borrow::Cow<'static, str>);
-
-    impl StitchingPolicy {
-        /// Creates a new StitchingPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct StitchingPolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [StitchingPolicy](StitchingPolicy)
     pub mod stitching_policy {
@@ -1556,24 +1732,82 @@ pub mod live_config {
 
         /// Stitching policy is not specified.
         pub const STITCHING_POLICY_UNSPECIFIED: StitchingPolicy =
-            StitchingPolicy::new("STITCHING_POLICY_UNSPECIFIED");
+            StitchingPolicy::known("STITCHING_POLICY_UNSPECIFIED", 0);
 
         /// Cuts an ad short and returns to content in the middle of the ad.
-        pub const CUT_CURRENT: StitchingPolicy = StitchingPolicy::new("CUT_CURRENT");
+        pub const CUT_CURRENT: StitchingPolicy = StitchingPolicy::known("CUT_CURRENT", 1);
 
         /// Finishes stitching the current ad before returning to content.
-        pub const COMPLETE_AD: StitchingPolicy = StitchingPolicy::new("COMPLETE_AD");
+        pub const COMPLETE_AD: StitchingPolicy = StitchingPolicy::known("COMPLETE_AD", 2);
+    }
+
+    impl StitchingPolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for StitchingPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StitchingPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(StitchingPolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(StitchingPolicy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(StitchingPolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for StitchingPolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STITCHING_POLICY_UNSPECIFIED" => stitching_policy::STITCHING_POLICY_UNSPECIFIED,
+                "CUT_CURRENT" => stitching_policy::CUT_CURRENT,
+                "COMPLETE_AD" => stitching_policy::COMPLETE_AD,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StitchingPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => stitching_policy::STITCHING_POLICY_UNSPECIFIED,
+                1 => stitching_policy::CUT_CURRENT,
+                2 => stitching_policy::COMPLETE_AD,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for StitchingPolicy {
         fn default() -> Self {
-            stitching_policy::STITCHING_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2359,20 +2593,8 @@ pub mod manifest_options {
     use super::*;
 
     /// Defines the ordering policy during manifest generation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OrderPolicy(std::borrow::Cow<'static, str>);
-
-    impl OrderPolicy {
-        /// Creates a new OrderPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OrderPolicy(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OrderPolicy](OrderPolicy)
     pub mod order_policy {
@@ -2380,24 +2602,82 @@ pub mod manifest_options {
 
         /// Ordering policy is not specified.
         pub const ORDER_POLICY_UNSPECIFIED: OrderPolicy =
-            OrderPolicy::new("ORDER_POLICY_UNSPECIFIED");
+            OrderPolicy::known("ORDER_POLICY_UNSPECIFIED", 0);
 
         /// Order by ascending.
-        pub const ASCENDING: OrderPolicy = OrderPolicy::new("ASCENDING");
+        pub const ASCENDING: OrderPolicy = OrderPolicy::known("ASCENDING", 1);
 
         /// Order by descending.
-        pub const DESCENDING: OrderPolicy = OrderPolicy::new("DESCENDING");
+        pub const DESCENDING: OrderPolicy = OrderPolicy::known("DESCENDING", 2);
+    }
+
+    impl OrderPolicy {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OrderPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OrderPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OrderPolicy::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OrderPolicy::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OrderPolicy::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OrderPolicy {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ORDER_POLICY_UNSPECIFIED" => order_policy::ORDER_POLICY_UNSPECIFIED,
+                "ASCENDING" => order_policy::ASCENDING,
+                "DESCENDING" => order_policy::DESCENDING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OrderPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => order_policy::ORDER_POLICY_UNSPECIFIED,
+                1 => order_policy::ASCENDING,
+                2 => order_policy::DESCENDING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OrderPolicy {
         fn default() -> Self {
-            order_policy::ORDER_POLICY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4681,47 +4961,95 @@ pub mod vod_config {
     use super::*;
 
     /// State of the VOD config.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// VOD config is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// VOD config is ready for use.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::known("READY", 2);
 
         /// VOD config is queued up for deletion.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "READY" => state::READY,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::READY,
+                3 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4756,45 +5084,91 @@ impl wkt::message::Message for GamVodConfig {
 }
 
 /// Determines the ad tracking policy.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AdTracking(std::borrow::Cow<'static, str>);
-
-impl AdTracking {
-    /// Creates a new AdTracking instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct AdTracking(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [AdTracking](AdTracking)
 pub mod ad_tracking {
     use super::AdTracking;
 
     /// The ad tracking policy is not specified.
-    pub const AD_TRACKING_UNSPECIFIED: AdTracking = AdTracking::new("AD_TRACKING_UNSPECIFIED");
+    pub const AD_TRACKING_UNSPECIFIED: AdTracking = AdTracking::known("AD_TRACKING_UNSPECIFIED", 0);
 
     /// Client-side ad tracking is specified. The client player is expected to
     /// trigger playback and activity events itself.
-    pub const CLIENT: AdTracking = AdTracking::new("CLIENT");
+    pub const CLIENT: AdTracking = AdTracking::known("CLIENT", 1);
 
     /// The Video Stitcher API will trigger playback events on behalf of
     /// the client player.
-    pub const SERVER: AdTracking = AdTracking::new("SERVER");
+    pub const SERVER: AdTracking = AdTracking::known("SERVER", 2);
+}
+
+impl AdTracking {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for AdTracking {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AdTracking {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(AdTracking::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(AdTracking::from(val)),
+            Enumeration::UnknownNum { str } => Ok(AdTracking::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for AdTracking {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "AD_TRACKING_UNSPECIFIED" => ad_tracking::AD_TRACKING_UNSPECIFIED,
+            "CLIENT" => ad_tracking::CLIENT,
+            "SERVER" => ad_tracking::SERVER,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for AdTracking {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => ad_tracking::AD_TRACKING_UNSPECIFIED,
+            1 => ad_tracking::CLIENT,
+            2 => ad_tracking::SERVER,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for AdTracking {
     fn default() -> Self {
-        ad_tracking::AD_TRACKING_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

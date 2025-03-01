@@ -1100,121 +1100,251 @@ pub mod listing {
     }
 
     /// State of the listing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Subscribable state. Users with dataexchange.listings.subscribe permission
         /// can subscribe to this listing.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Listing categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(std::borrow::Cow<'static, str>);
-
-    impl Category {
-        /// Creates a new Category instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Category(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Category](Category)
     pub mod category {
         use super::Category;
 
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new("CATEGORY_UNSPECIFIED");
+        pub const CATEGORY_UNSPECIFIED: Category = Category::known("CATEGORY_UNSPECIFIED", 0);
 
-        pub const CATEGORY_OTHERS: Category = Category::new("CATEGORY_OTHERS");
+        pub const CATEGORY_OTHERS: Category = Category::known("CATEGORY_OTHERS", 1);
 
         pub const CATEGORY_ADVERTISING_AND_MARKETING: Category =
-            Category::new("CATEGORY_ADVERTISING_AND_MARKETING");
+            Category::known("CATEGORY_ADVERTISING_AND_MARKETING", 2);
 
-        pub const CATEGORY_COMMERCE: Category = Category::new("CATEGORY_COMMERCE");
+        pub const CATEGORY_COMMERCE: Category = Category::known("CATEGORY_COMMERCE", 3);
 
         pub const CATEGORY_CLIMATE_AND_ENVIRONMENT: Category =
-            Category::new("CATEGORY_CLIMATE_AND_ENVIRONMENT");
+            Category::known("CATEGORY_CLIMATE_AND_ENVIRONMENT", 4);
 
-        pub const CATEGORY_DEMOGRAPHICS: Category = Category::new("CATEGORY_DEMOGRAPHICS");
+        pub const CATEGORY_DEMOGRAPHICS: Category = Category::known("CATEGORY_DEMOGRAPHICS", 5);
 
-        pub const CATEGORY_ECONOMICS: Category = Category::new("CATEGORY_ECONOMICS");
+        pub const CATEGORY_ECONOMICS: Category = Category::known("CATEGORY_ECONOMICS", 6);
 
-        pub const CATEGORY_EDUCATION: Category = Category::new("CATEGORY_EDUCATION");
+        pub const CATEGORY_EDUCATION: Category = Category::known("CATEGORY_EDUCATION", 7);
 
-        pub const CATEGORY_ENERGY: Category = Category::new("CATEGORY_ENERGY");
+        pub const CATEGORY_ENERGY: Category = Category::known("CATEGORY_ENERGY", 8);
 
-        pub const CATEGORY_FINANCIAL: Category = Category::new("CATEGORY_FINANCIAL");
+        pub const CATEGORY_FINANCIAL: Category = Category::known("CATEGORY_FINANCIAL", 9);
 
-        pub const CATEGORY_GAMING: Category = Category::new("CATEGORY_GAMING");
+        pub const CATEGORY_GAMING: Category = Category::known("CATEGORY_GAMING", 10);
 
-        pub const CATEGORY_GEOSPATIAL: Category = Category::new("CATEGORY_GEOSPATIAL");
+        pub const CATEGORY_GEOSPATIAL: Category = Category::known("CATEGORY_GEOSPATIAL", 11);
 
         pub const CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE: Category =
-            Category::new("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE");
+            Category::known("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE", 12);
 
-        pub const CATEGORY_MEDIA: Category = Category::new("CATEGORY_MEDIA");
+        pub const CATEGORY_MEDIA: Category = Category::known("CATEGORY_MEDIA", 13);
 
-        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::new("CATEGORY_PUBLIC_SECTOR");
+        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::known("CATEGORY_PUBLIC_SECTOR", 14);
 
-        pub const CATEGORY_RETAIL: Category = Category::new("CATEGORY_RETAIL");
+        pub const CATEGORY_RETAIL: Category = Category::known("CATEGORY_RETAIL", 15);
 
-        pub const CATEGORY_SPORTS: Category = Category::new("CATEGORY_SPORTS");
+        pub const CATEGORY_SPORTS: Category = Category::known("CATEGORY_SPORTS", 16);
 
         pub const CATEGORY_SCIENCE_AND_RESEARCH: Category =
-            Category::new("CATEGORY_SCIENCE_AND_RESEARCH");
+            Category::known("CATEGORY_SCIENCE_AND_RESEARCH", 17);
 
         pub const CATEGORY_TRANSPORTATION_AND_LOGISTICS: Category =
-            Category::new("CATEGORY_TRANSPORTATION_AND_LOGISTICS");
+            Category::known("CATEGORY_TRANSPORTATION_AND_LOGISTICS", 18);
 
         pub const CATEGORY_TRAVEL_AND_TOURISM: Category =
-            Category::new("CATEGORY_TRAVEL_AND_TOURISM");
+            Category::known("CATEGORY_TRAVEL_AND_TOURISM", 19);
+    }
+
+    impl Category {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Category::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Category::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Category::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Category {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CATEGORY_UNSPECIFIED" => category::CATEGORY_UNSPECIFIED,
+                "CATEGORY_OTHERS" => category::CATEGORY_OTHERS,
+                "CATEGORY_ADVERTISING_AND_MARKETING" => {
+                    category::CATEGORY_ADVERTISING_AND_MARKETING
+                }
+                "CATEGORY_COMMERCE" => category::CATEGORY_COMMERCE,
+                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => category::CATEGORY_CLIMATE_AND_ENVIRONMENT,
+                "CATEGORY_DEMOGRAPHICS" => category::CATEGORY_DEMOGRAPHICS,
+                "CATEGORY_ECONOMICS" => category::CATEGORY_ECONOMICS,
+                "CATEGORY_EDUCATION" => category::CATEGORY_EDUCATION,
+                "CATEGORY_ENERGY" => category::CATEGORY_ENERGY,
+                "CATEGORY_FINANCIAL" => category::CATEGORY_FINANCIAL,
+                "CATEGORY_GAMING" => category::CATEGORY_GAMING,
+                "CATEGORY_GEOSPATIAL" => category::CATEGORY_GEOSPATIAL,
+                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => {
+                    category::CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE
+                }
+                "CATEGORY_MEDIA" => category::CATEGORY_MEDIA,
+                "CATEGORY_PUBLIC_SECTOR" => category::CATEGORY_PUBLIC_SECTOR,
+                "CATEGORY_RETAIL" => category::CATEGORY_RETAIL,
+                "CATEGORY_SPORTS" => category::CATEGORY_SPORTS,
+                "CATEGORY_SCIENCE_AND_RESEARCH" => category::CATEGORY_SCIENCE_AND_RESEARCH,
+                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => {
+                    category::CATEGORY_TRANSPORTATION_AND_LOGISTICS
+                }
+                "CATEGORY_TRAVEL_AND_TOURISM" => category::CATEGORY_TRAVEL_AND_TOURISM,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => category::CATEGORY_UNSPECIFIED,
+                1 => category::CATEGORY_OTHERS,
+                2 => category::CATEGORY_ADVERTISING_AND_MARKETING,
+                3 => category::CATEGORY_COMMERCE,
+                4 => category::CATEGORY_CLIMATE_AND_ENVIRONMENT,
+                5 => category::CATEGORY_DEMOGRAPHICS,
+                6 => category::CATEGORY_ECONOMICS,
+                7 => category::CATEGORY_EDUCATION,
+                8 => category::CATEGORY_ENERGY,
+                9 => category::CATEGORY_FINANCIAL,
+                10 => category::CATEGORY_GAMING,
+                11 => category::CATEGORY_GEOSPATIAL,
+                12 => category::CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE,
+                13 => category::CATEGORY_MEDIA,
+                14 => category::CATEGORY_PUBLIC_SECTOR,
+                15 => category::CATEGORY_RETAIL,
+                16 => category::CATEGORY_SPORTS,
+                17 => category::CATEGORY_SCIENCE_AND_RESEARCH,
+                18 => category::CATEGORY_TRANSPORTATION_AND_LOGISTICS,
+                19 => category::CATEGORY_TRAVEL_AND_TOURISM,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Category {
         fn default() -> Self {
-            category::CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -1502,49 +1632,97 @@ pub mod subscription {
     }
 
     /// State of the subscription.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// This subscription is active and the data is accessible.
-        pub const STATE_ACTIVE: State = State::new("STATE_ACTIVE");
+        pub const STATE_ACTIVE: State = State::known("STATE_ACTIVE", 1);
 
         /// The data referenced by this subscription is out of date and should be
         /// refreshed. This can happen when a data provider adds or removes datasets.
-        pub const STATE_STALE: State = State::new("STATE_STALE");
+        pub const STATE_STALE: State = State::known("STATE_STALE", 2);
 
         /// This subscription has been cancelled or revoked and the data is no longer
         /// accessible.
-        pub const STATE_INACTIVE: State = State::new("STATE_INACTIVE");
+        pub const STATE_INACTIVE: State = State::known("STATE_INACTIVE", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "STATE_ACTIVE" => state::STATE_ACTIVE,
+                "STATE_STALE" => state::STATE_STALE,
+                "STATE_INACTIVE" => state::STATE_INACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::STATE_ACTIVE,
+                2 => state::STATE_STALE,
+                3 => state::STATE_INACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2973,20 +3151,8 @@ impl wkt::message::Message for OperationMetadata {
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiscoveryType(std::borrow::Cow<'static, str>);
-
-impl DiscoveryType {
-    /// Creates a new DiscoveryType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DiscoveryType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DiscoveryType](DiscoveryType)
 pub mod discovery_type {
@@ -2994,25 +3160,85 @@ pub mod discovery_type {
 
     /// Unspecified. Defaults to DISCOVERY_TYPE_PRIVATE.
     pub const DISCOVERY_TYPE_UNSPECIFIED: DiscoveryType =
-        DiscoveryType::new("DISCOVERY_TYPE_UNSPECIFIED");
+        DiscoveryType::known("DISCOVERY_TYPE_UNSPECIFIED", 0);
 
     /// The Data exchange/listing can be discovered in the 'Private' results
     /// list.
-    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType = DiscoveryType::new("DISCOVERY_TYPE_PRIVATE");
+    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType =
+        DiscoveryType::known("DISCOVERY_TYPE_PRIVATE", 1);
 
     /// The Data exchange/listing can be discovered in the 'Public' results
     /// list.
-    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType = DiscoveryType::new("DISCOVERY_TYPE_PUBLIC");
+    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType =
+        DiscoveryType::known("DISCOVERY_TYPE_PUBLIC", 2);
+}
+
+impl DiscoveryType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DiscoveryType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DiscoveryType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DiscoveryType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DiscoveryType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DiscoveryType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DiscoveryType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DISCOVERY_TYPE_UNSPECIFIED" => discovery_type::DISCOVERY_TYPE_UNSPECIFIED,
+            "DISCOVERY_TYPE_PRIVATE" => discovery_type::DISCOVERY_TYPE_PRIVATE,
+            "DISCOVERY_TYPE_PUBLIC" => discovery_type::DISCOVERY_TYPE_PUBLIC,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DiscoveryType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => discovery_type::DISCOVERY_TYPE_UNSPECIFIED,
+            1 => discovery_type::DISCOVERY_TYPE_PRIVATE,
+            2 => discovery_type::DISCOVERY_TYPE_PUBLIC,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DiscoveryType {
     fn default() -> Self {
-        discovery_type::DISCOVERY_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
