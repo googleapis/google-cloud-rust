@@ -132,12 +132,6 @@ mod test {
             pub(crate) const fn known(str: &'static str, val: i32) -> Self {
                 Self(wkt::enumerations::Enumeration::known(str, val))
             }
-            pub(crate) fn unknown_str(str: String) -> Self {
-                Self(wkt::enumerations::Enumeration::unknown_str(str))
-            }
-            pub(crate) fn unknown_i32(val: i32) -> Self {
-                Self(wkt::enumerations::Enumeration::unknown_i32(val))
-            }
             pub fn value(&self) -> &str {
                 self.0.value()
             }
@@ -176,7 +170,7 @@ mod test {
                     "SYNTAX_PROTO2" => syntax::SYNTAX_PROTO2,
                     "SYNTAX_PROTO3" => syntax::SYNTAX_PROTO3,
                     "SYNTAX_EDITIONS" => syntax::SYNTAX_EDITIONS,
-                    _ => Self::unknown_str(value),
+                    _ => Self(wkt::enumerations::Enumeration::unknown_str(value)),
                 }
             }
         }
@@ -187,7 +181,7 @@ mod test {
                     0 => syntax::SYNTAX_PROTO2,
                     1 => syntax::SYNTAX_PROTO3,
                     2 => syntax::SYNTAX_EDITIONS,
-                    _ => Self::unknown_i32(value),
+                    _ => Self(wkt::enumerations::Enumeration::unknown_i32(value)),
                 }
             }
         }
