@@ -66,47 +66,48 @@ impl<'de> serde::de::Deserialize<'de> for Enumeration {
     where
         D: serde::Deserializer<'de>,
     {
-        struct Visitor;
-        impl serde::de::Visitor<'_> for Visitor {
-            type Value = Enumeration;
-
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("integer or a string")
-            }
-
-            fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                Ok(Enumeration::known_str(value.to_string()))
-            }
-            fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                if value >= i32::MAX as u64 {
-                    return Err(serde::de::Error::invalid_value(
-                        serde::de::Unexpected::Unsigned(value),
-                        &"an integer",
-                    ));
-                }
-                Ok(Enumeration::known_num(value as i32))
-            }
-            fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                if value >= i32::MAX as i64 || value <= i32::MIN as i64 {
-                    return Err(serde::de::Error::invalid_value(
-                        serde::de::Unexpected::Signed(value),
-                        &"an integer",
-                    ));
-                }
-                Ok(Enumeration::known_num(value as i32))
-            }
-        }
-
         deserializer.deserialize_any(Visitor)
+    }
+}
+
+const EXPECTED_MSG: &str = "an integer in the i32 range";
+struct Visitor;
+impl serde::de::Visitor<'_> for Visitor {
+    type Value = Enumeration;
+
+    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+        formatter.write_str("integer or a string")
+    }
+
+    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        Ok(Enumeration::known_str(value.to_string()))
+    }
+    fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        if value >= i32::MAX as u64 {
+            return Err(serde::de::Error::invalid_value(
+                serde::de::Unexpected::Unsigned(value),
+                &EXPECTED_MSG,
+            ));
+        }
+        Ok(Enumeration::known_num(value as i32))
+    }
+    fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        if value >= i32::MAX as i64 || value <= i32::MIN as i64 {
+            return Err(serde::de::Error::invalid_value(
+                serde::de::Unexpected::Signed(value),
+                &EXPECTED_MSG,
+            ));
+        }
+        Ok(Enumeration::known_num(value as i32))
     }
 }
 
