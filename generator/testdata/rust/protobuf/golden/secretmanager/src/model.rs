@@ -582,7 +582,7 @@ pub mod secret_version {
     }
 
     impl serde::ser::Serialize for State {
-        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
         {
@@ -591,10 +591,12 @@ pub mod secret_version {
     }
 
     impl<'de> serde::de::Deserialize<'de> for State {
-        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
             D: serde::Deserializer<'de>,
         {
+            use std::convert::From;
+            use std::result::Result::Ok;
             use wkt::enumerations::Enumeration;
             match Enumeration::deserialize(deserializer)? {
                 Enumeration::Known { str: _, val } => Ok(State::from(val)),
@@ -630,7 +632,8 @@ pub mod secret_version {
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::from(0)
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

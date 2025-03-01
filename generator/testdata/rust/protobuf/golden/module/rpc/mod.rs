@@ -1027,7 +1027,7 @@ impl Code {
 }
 
 impl serde::ser::Serialize for Code {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
@@ -1036,10 +1036,12 @@ impl serde::ser::Serialize for Code {
 }
 
 impl<'de> serde::de::Deserialize<'de> for Code {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
+        use std::convert::From;
+        use std::result::Result::Ok;
         use wkt::enumerations::Enumeration;
         match Enumeration::deserialize(deserializer)? {
             Enumeration::Known { str: _, val } => Ok(Code::from(val)),
@@ -1085,7 +1087,6 @@ impl std::convert::From<i32> for Code {
             5 => code::NOT_FOUND,
             6 => code::ALREADY_EXISTS,
             7 => code::PERMISSION_DENIED,
-            16 => code::UNAUTHENTICATED,
             8 => code::RESOURCE_EXHAUSTED,
             9 => code::FAILED_PRECONDITION,
             10 => code::ABORTED,
@@ -1094,6 +1095,7 @@ impl std::convert::From<i32> for Code {
             13 => code::INTERNAL,
             14 => code::UNAVAILABLE,
             15 => code::DATA_LOSS,
+            16 => code::UNAUTHENTICATED,
             _ => Self(wkt::enumerations::Enumeration::known_num(value)),
         }
     }
@@ -1101,6 +1103,7 @@ impl std::convert::From<i32> for Code {
 
 impl std::default::Default for Code {
     fn default() -> Self {
-        Self::from(0)
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

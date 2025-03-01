@@ -758,7 +758,7 @@ pub mod audit_log_config {
     }
 
     impl serde::ser::Serialize for LogType {
-        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
         {
@@ -767,10 +767,12 @@ pub mod audit_log_config {
     }
 
     impl<'de> serde::de::Deserialize<'de> for LogType {
-        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
             D: serde::Deserializer<'de>,
         {
+            use std::convert::From;
+            use std::result::Result::Ok;
             use wkt::enumerations::Enumeration;
             match Enumeration::deserialize(deserializer)? {
                 Enumeration::Known { str: _, val } => Ok(LogType::from(val)),
@@ -806,7 +808,8 @@ pub mod audit_log_config {
 
     impl std::default::Default for LogType {
         fn default() -> Self {
-            Self::from(0)
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -968,7 +971,7 @@ pub mod binding_delta {
     }
 
     impl serde::ser::Serialize for Action {
-        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
         {
@@ -977,10 +980,12 @@ pub mod binding_delta {
     }
 
     impl<'de> serde::de::Deserialize<'de> for Action {
-        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
             D: serde::Deserializer<'de>,
         {
+            use std::convert::From;
+            use std::result::Result::Ok;
             use wkt::enumerations::Enumeration;
             match Enumeration::deserialize(deserializer)? {
                 Enumeration::Known { str: _, val } => Ok(Action::from(val)),
@@ -1014,7 +1019,8 @@ pub mod binding_delta {
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            Self::from(0)
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1129,7 +1135,7 @@ pub mod audit_config_delta {
     }
 
     impl serde::ser::Serialize for Action {
-        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
             S: serde::ser::Serializer,
         {
@@ -1138,10 +1144,12 @@ pub mod audit_config_delta {
     }
 
     impl<'de> serde::de::Deserialize<'de> for Action {
-        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
             D: serde::Deserializer<'de>,
         {
+            use std::convert::From;
+            use std::result::Result::Ok;
             use wkt::enumerations::Enumeration;
             match Enumeration::deserialize(deserializer)? {
                 Enumeration::Known { str: _, val } => Ok(Action::from(val)),
@@ -1175,7 +1183,8 @@ pub mod audit_config_delta {
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            Self::from(0)
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
