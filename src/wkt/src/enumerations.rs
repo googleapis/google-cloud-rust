@@ -12,8 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Implements common code for enumerations.
+//! Implements common code for generated enumerations.
+//!
+//! This is only used as an implementation detail. Applications should never
+//! need to use these types. The generator hides them in types that are more
+//! usable.
 
+/// Implementation details for sidekick-generated enumerations.
+///
+/// Google services use enumerations as part of their interface. These
+/// enumerations are open: the service may send new values at any time, as the
+/// client libraries and applications should be ready to receive them.
+///
+/// Depending on the transport, the unknown enumeration values may be received
+/// as integers or strings. The client libraries must be able to handle both,
+/// and send back the same value it received if using the same transport.
 #[derive(Clone, Debug, PartialEq)]
 pub enum Enumeration {
     Known { str: &'static str, val: i32 },
@@ -61,7 +74,18 @@ impl serde::ser::Serialize for Enumeration {
     }
 }
 
-impl<'de> serde::de::Deserialize<'de> for Enumeration {
+/// Hold a deserialized enumeration value.
+///
+/// Deserialized enumeration values are either in string form or integer form.
+/// They never contain both. This is a case where using a Rust lifetime makes
+/// sense: we can avoid memory allocations if the string is known.
+#[derive(Debug, PartialEq)]
+pub enum EnumerationValue<'de> {
+    Integer(i32),
+    String(std::borrow::Cow<'de, str>),
+}
+
+impl<'de> serde::de::Deserialize<'de> for EnumerationValue<'de> {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -72,8 +96,8 @@ impl<'de> serde::de::Deserialize<'de> for Enumeration {
 
 const EXPECTED_MSG: &str = "an integer in the i32 range";
 struct Visitor;
-impl serde::de::Visitor<'_> for Visitor {
-    type Value = Enumeration;
+impl<'de> serde::de::Visitor<'de> for Visitor {
+    type Value = EnumerationValue<'de>;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str("integer or a string")
@@ -83,7 +107,15 @@ impl serde::de::Visitor<'_> for Visitor {
     where
         E: serde::de::Error,
     {
-        Ok(Enumeration::known_str(value.to_string()))
+        Ok(EnumerationValue::String(std::borrow::Cow::Owned(
+            value.to_string(),
+        )))
+    }
+    fn visit_borrowed_str<E>(self, value: &'de str) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        Ok(EnumerationValue::String(std::borrow::Cow::Borrowed(value)))
     }
     fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
     where
@@ -95,7 +127,7 @@ impl serde::de::Visitor<'_> for Visitor {
                 &EXPECTED_MSG,
             ));
         }
-        Ok(Enumeration::known_num(value as i32))
+        Ok(EnumerationValue::Integer(value as i32))
     }
     fn visit_i64<E>(self, value: i64) -> Result<Self::Value, E>
     where
@@ -107,7 +139,7 @@ impl serde::de::Visitor<'_> for Visitor {
                 &EXPECTED_MSG,
             ));
         }
-        Ok(Enumeration::known_num(value as i32))
+        Ok(EnumerationValue::Integer(value as i32))
     }
 }
 
@@ -156,28 +188,18 @@ mod test {
 
     #[test]
     fn deserialize() -> TestResult {
-        let input = json!("BLAH");
-        let got = serde_json::from_value::<Enumeration>(input)?;
-        assert_eq!(got.value(), "BLAH");
-        assert_eq!(got.numeric_value(), None);
+        use serde_test::assert_de_tokens;
+        let want = EnumerationValue::String(std::borrow::Cow::Borrowed("BLAH"));
+        assert_de_tokens(&want, &[serde_test::Token::Str("BLAH")]);
 
-        let input = json!(123);
-        let got = serde_json::from_value::<Enumeration>(input)?;
-        assert!(
-            got.value().contains("123"),
-            "got={got:?}, got.value()={}",
-            got.value()
-        );
-        assert_eq!(got.numeric_value(), Some(123));
+        let want = EnumerationValue::String(std::borrow::Cow::Borrowed("BLAH"));
+        assert_de_tokens(&want, &[serde_test::Token::BorrowedStr("BLAH")]);
 
-        let input = json!(-123);
-        let got = serde_json::from_value::<Enumeration>(input)?;
-        assert!(
-            got.value().contains("-123"),
-            "got={got:?}, got.value()={}",
-            got.value()
-        );
-        assert_eq!(got.numeric_value(), Some(-123));
+        let want = EnumerationValue::Integer(123);
+        assert_de_tokens(&want, &[serde_test::Token::I32(123)]);
+
+        let want = EnumerationValue::Integer(-123);
+        assert_de_tokens(&want, &[serde_test::Token::I32(-123)]);
 
         Ok(())
     }
@@ -186,15 +208,49 @@ mod test {
     #[test_case(i64::MIN)]
     #[test_case(u32::MAX as i64)]
     fn deserialize_out_of_range(value: i64) {
-        let input = json!(value);
-        let got = serde_json::from_value::<Enumeration>(input);
-        assert!(got.is_err(), "{got:?}")
+        serde_test::assert_de_tokens_error::<EnumerationValue>(
+            &[serde_test::Token::I64(value)],
+            &format!("invalid value: integer `{value}`, expected an integer in the i32 range"),
+        );
     }
 
     #[test]
     fn deserialize_invalid_type() {
-        let input = json!({ "name": 123 });
-        let got = serde_json::from_value::<Enumeration>(input);
-        assert!(got.is_err(), "{got:?}")
+        serde_test::assert_de_tokens_error::<EnumerationValue>(
+            &[serde_test::Token::Struct {
+                name: "Unused",
+                len: 2,
+            }],
+            "invalid type: map, expected integer or a string",
+        );
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TestEnum(Enumeration);
+
+    impl<'de> serde::de::Deserialize<'de> for TestEnum {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = EnumerationValue::deserialize(deserializer)?;
+            match value {
+                EnumerationValue::Integer(val) => Ok(TestEnum(Enumeration::known_num(val))),
+                EnumerationValue::String(val) => Ok(TestEnum(Enumeration::known_str(val))),
+            }
+        }
+    }
+
+    #[test]
+    fn test_deserialize_wrapped() -> TestResult {
+        let input = json!("BLAH");
+        let got = serde_json::from_str::<TestEnum>(&input.to_string())?;
+        assert_eq!(got.0, Enumeration::known_str("BLAH"));
+
+        let input = json!(123);
+        let got = serde_json::from_str::<TestEnum>(&input.to_string())?;
+        assert_eq!(got.0, Enumeration::known_num(123));
+
+        Ok(())
     }
 }
