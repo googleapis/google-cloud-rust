@@ -452,13 +452,13 @@ var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
 }
 
 func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, field *api.Field) {
-	typ := in.GetType()
+	typez := in.GetType()
 	field.Typez = api.UNDEFINED_TYPE
-	if tz, ok := descriptorpbToTypez[typ]; ok {
+	if tz, ok := descriptorpbToTypez[typez]; ok {
 		field.Typez = tz
 	}
 
-	switch typ {
+	switch typez {
 	case descriptorpb.FieldDescriptorProto_TYPE_GROUP:
 		field.TypezID = in.GetTypeName()
 	case descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:
