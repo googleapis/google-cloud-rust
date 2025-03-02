@@ -63,7 +63,7 @@ impl CredentialError {
     /// # Arguments
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `message` - The underlying error that caused the auth failure.
-    pub(crate) fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
+    pub fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
         CredentialError::new(
             is_retryable,
             CredentialErrorImpl::SimpleMessage(message.into()),
