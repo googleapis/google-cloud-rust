@@ -40,7 +40,7 @@ mod test {
         let got = serde_json::to_value(&input)?;
         assert_eq!(got.as_str(), Some("SYNTAX_PROTO2"));
 
-        let input = Syntax::from("UNKNOWN".to_string());
+        let input = Syntax::from("UNKNOWN");
         assert_eq!(input.value(), "UNKNOWN");
         assert_eq!(input.numeric_value(), None);
         let got = serde_json::to_value(&input)?;
@@ -154,19 +154,17 @@ mod test {
             where
                 D: serde::Deserializer<'de>,
             {
-                use wkt::enumerations::Enumeration;
-                let enumeration = Enumeration::deserialize(deserializer)?;
-                match enumeration {
-                    Enumeration::Known { str: _, val } => Ok(Syntax::from(val)),
-                    Enumeration::UnknownStr { val, str: _ } => Ok(Syntax::from(val)),
-                    Enumeration::UnknownNum { str } => Ok(Syntax::from(str)),
+                use wkt::enumerations::EnumerationValue;
+                match EnumerationValue::deserialize(deserializer)? {
+                    EnumerationValue::Integer(val) => Ok(Syntax::from(val)),
+                    EnumerationValue::String(val) => Ok(Syntax::from(val.as_ref())),
                 }
             }
         }
 
-        impl std::convert::From<std::string::String> for Syntax {
-            fn from(value: std::string::String) -> Self {
-                match value.as_str() {
+        impl std::convert::From<&str> for Syntax {
+            fn from(value: &str) -> Self {
+                match value {
                     "SYNTAX_PROTO2" => syntax::SYNTAX_PROTO2,
                     "SYNTAX_PROTO3" => syntax::SYNTAX_PROTO3,
                     "SYNTAX_EDITIONS" => syntax::SYNTAX_EDITIONS,
