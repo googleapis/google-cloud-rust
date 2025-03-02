@@ -40,3 +40,6 @@ pub use crate::rstruct::*;
 mod wrappers;
 pub use crate::wrappers::*;
 pub mod message;
+
+#[doc(hidden)]
+pub mod enumerations;
