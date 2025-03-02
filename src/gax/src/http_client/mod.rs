@@ -26,8 +26,6 @@ use crate::retry_policy::RetryPolicy;
 use crate::retry_throttler::RetryThrottlerWrapped;
 use crate::Result;
 use auth::credentials::{create_access_token_credential, Credential};
-use http::HeaderName;
-use http::HeaderValue;
 use std::sync::Arc;
 
 #[derive(Clone, Debug)]
@@ -78,19 +76,6 @@ impl ReqwestClient {
         body: Option<I>,
         options: crate::options::RequestOptions,
     ) -> Result<O> {
-        let retry_policy = self.get_retry_policy(&options);
-        let auth_headers = match &retry_policy {
-            None => self
-                .cred
-                .get_headers()
-                .await
-                .map_err(Error::authentication)?,
-            Some(policy) => self.auth_retry_loop(&options, &policy).await?,
-        };
-
-        for header in auth_headers.into_iter() {
-            builder = builder.header(header.0, header.1);
-        }
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -100,74 +85,9 @@ impl ReqwestClient {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        match &retry_policy {
+        match self.get_retry_policy(&options) {
             None => self.request_attempt::<O>(builder, &options, None).await,
-            Some(policy) => {
-                self.retry_loop::<O>(builder, &options, Arc::clone(policy))
-                    .await
-            }
-        }
-    }
-
-    async fn auth_retry_loop(
-        &self,
-        options: &crate::options::RequestOptions,
-        retry_policy: &Arc<dyn RetryPolicy>,
-    ) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let loop_start = std::time::Instant::now();
-        let backoff = self.get_backoff_policy(options);
-        let throttler = self.get_retry_throttler(options);
-        let mut attempt_count = 0;
-
-        loop {
-            if attempt_count > 0 {
-                let do_throttle = {
-                    let t = throttler.lock().expect("retry_throttler lock poisoned");
-                    t.throttle_retry_attempt()
-                };
-                if do_throttle {
-                    if let Some(err) = retry_policy.on_throttle(loop_start, attempt_count) {
-                        return Err(err);
-                    }
-                    let delay = backoff.on_failure(loop_start, attempt_count);
-                    tokio::time::sleep(delay).await;
-                }
-            }
-
-            attempt_count += 1;
-            match self.cred.get_headers().await {
-                Ok(hdrs) => {
-                    {
-                        let mut t = throttler.lock().expect("retry_throttler lock poisoned");
-                        t.on_success();
-                    }
-                    return Ok(hdrs);
-                }
-                Err(cred_err) => {
-                    let gax_err = Error::authentication(cred_err);
-                    let flow = retry_policy.on_error(
-                        loop_start,
-                        attempt_count,
-                        options.idempotent.unwrap_or(false),
-                        gax_err,
-                    );
-                    let delay = backoff.on_failure(loop_start, attempt_count);
-
-                    {
-                        let mut t = throttler.lock().expect("retry_throttler lock poisoned");
-                        t.on_retry_failure(&flow);
-                    }
-
-                    match flow {
-                        LoopState::Permanent(e) | LoopState::Exhausted(e) => {
-                            return Err(e);
-                        }
-                        LoopState::Continue(_) => {
-                            tokio::time::sleep(delay).await;
-                        }
-                    }
-                }
-            }
+            Some(policy) => self.retry_loop::<O>(builder, &options, policy).await,
         }
     }
 
@@ -257,6 +177,14 @@ impl ReqwestClient {
             .map(|t| remaining_time.map(|r| std::cmp::min(t, r)).unwrap_or(t))
         {
             builder = builder.timeout(timeout);
+        }
+        let auth_headers = self
+            .cred
+            .get_headers()
+            .await
+            .map_err(Error::authentication)?;
+        for header in auth_headers.into_iter() {
+            builder = builder.header(header.0, header.1);
         }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
