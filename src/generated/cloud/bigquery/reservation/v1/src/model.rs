@@ -546,20 +546,8 @@ pub mod capacity_commitment {
 
     /// Commitment plan defines the current committed period. Capacity commitment
     /// cannot be deleted during it's committed period.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommitmentPlan(std::borrow::Cow<'static, str>);
-
-    impl CommitmentPlan {
-        /// Creates a new CommitmentPlan instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CommitmentPlan(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CommitmentPlan](CommitmentPlan)
     pub mod commitment_plan {
@@ -568,45 +556,45 @@ pub mod capacity_commitment {
         /// Invalid plan value. Requests with this value will be rejected with
         /// error code `google.rpc.Code.INVALID_ARGUMENT`.
         pub const COMMITMENT_PLAN_UNSPECIFIED: CommitmentPlan =
-            CommitmentPlan::new("COMMITMENT_PLAN_UNSPECIFIED");
+            CommitmentPlan::known("COMMITMENT_PLAN_UNSPECIFIED", 0);
 
         /// Flex commitments have committed period of 1 minute after becoming ACTIVE.
         /// After that, they are not in a committed period anymore and can be removed
         /// any time.
-        pub const FLEX: CommitmentPlan = CommitmentPlan::new("FLEX");
+        pub const FLEX: CommitmentPlan = CommitmentPlan::known("FLEX", 3);
 
         /// Same as FLEX, should only be used if flat-rate commitments are still
         /// available.
-        pub const FLEX_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("FLEX_FLAT_RATE");
+        pub const FLEX_FLAT_RATE: CommitmentPlan = CommitmentPlan::known("FLEX_FLAT_RATE", 7);
 
         /// Trial commitments have a committed period of 182 days after becoming
         /// ACTIVE. After that, they are converted to a new commitment based on the
         /// `renewal_plan`. Default `renewal_plan` for Trial commitment is Flex so
         /// that it can be deleted right after committed period ends.
-        pub const TRIAL: CommitmentPlan = CommitmentPlan::new("TRIAL");
+        pub const TRIAL: CommitmentPlan = CommitmentPlan::known("TRIAL", 5);
 
         /// Monthly commitments have a committed period of 30 days after becoming
         /// ACTIVE. After that, they are not in a committed period anymore and can be
         /// removed any time.
-        pub const MONTHLY: CommitmentPlan = CommitmentPlan::new("MONTHLY");
+        pub const MONTHLY: CommitmentPlan = CommitmentPlan::known("MONTHLY", 2);
 
         /// Same as MONTHLY, should only be used if flat-rate commitments are still
         /// available.
-        pub const MONTHLY_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("MONTHLY_FLAT_RATE");
+        pub const MONTHLY_FLAT_RATE: CommitmentPlan = CommitmentPlan::known("MONTHLY_FLAT_RATE", 8);
 
         /// Annual commitments have a committed period of 365 days after becoming
         /// ACTIVE. After that they are converted to a new commitment based on the
         /// renewal_plan.
-        pub const ANNUAL: CommitmentPlan = CommitmentPlan::new("ANNUAL");
+        pub const ANNUAL: CommitmentPlan = CommitmentPlan::known("ANNUAL", 4);
 
         /// Same as ANNUAL, should only be used if flat-rate commitments are still
         /// available.
-        pub const ANNUAL_FLAT_RATE: CommitmentPlan = CommitmentPlan::new("ANNUAL_FLAT_RATE");
+        pub const ANNUAL_FLAT_RATE: CommitmentPlan = CommitmentPlan::known("ANNUAL_FLAT_RATE", 9);
 
         /// 3-year commitments have a committed period of 1095(3 * 365) days after
         /// becoming ACTIVE. After that they are converted to a new commitment based
         /// on the renewal_plan.
-        pub const THREE_YEAR: CommitmentPlan = CommitmentPlan::new("THREE_YEAR");
+        pub const THREE_YEAR: CommitmentPlan = CommitmentPlan::known("THREE_YEAR", 10);
 
         /// Should only be used for `renewal_plan` and is only meaningful if
         /// edition is specified to values other than EDITION_UNSPECIFIED. Otherwise
@@ -614,66 +602,186 @@ pub mod capacity_commitment {
         /// be rejected with error code `google.rpc.Code.INVALID_ARGUMENT`. If the
         /// renewal_plan is NONE, capacity commitment will be removed at the end of
         /// its commitment period.
-        pub const NONE: CommitmentPlan = CommitmentPlan::new("NONE");
+        pub const NONE: CommitmentPlan = CommitmentPlan::known("NONE", 6);
+    }
+
+    impl CommitmentPlan {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CommitmentPlan {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CommitmentPlan {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CommitmentPlan::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CommitmentPlan::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CommitmentPlan::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CommitmentPlan {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COMMITMENT_PLAN_UNSPECIFIED" => commitment_plan::COMMITMENT_PLAN_UNSPECIFIED,
+                "FLEX" => commitment_plan::FLEX,
+                "FLEX_FLAT_RATE" => commitment_plan::FLEX_FLAT_RATE,
+                "TRIAL" => commitment_plan::TRIAL,
+                "MONTHLY" => commitment_plan::MONTHLY,
+                "MONTHLY_FLAT_RATE" => commitment_plan::MONTHLY_FLAT_RATE,
+                "ANNUAL" => commitment_plan::ANNUAL,
+                "ANNUAL_FLAT_RATE" => commitment_plan::ANNUAL_FLAT_RATE,
+                "THREE_YEAR" => commitment_plan::THREE_YEAR,
+                "NONE" => commitment_plan::NONE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CommitmentPlan {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => commitment_plan::COMMITMENT_PLAN_UNSPECIFIED,
+                2 => commitment_plan::MONTHLY,
+                3 => commitment_plan::FLEX,
+                4 => commitment_plan::ANNUAL,
+                5 => commitment_plan::TRIAL,
+                6 => commitment_plan::NONE,
+                7 => commitment_plan::FLEX_FLAT_RATE,
+                8 => commitment_plan::MONTHLY_FLAT_RATE,
+                9 => commitment_plan::ANNUAL_FLAT_RATE,
+                10 => commitment_plan::THREE_YEAR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CommitmentPlan {
         fn default() -> Self {
-            commitment_plan::COMMITMENT_PLAN_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Capacity commitment can either become ACTIVE right away or transition
     /// from PENDING to ACTIVE or FAILED.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Invalid state value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Capacity commitment is pending provisioning. Pending capacity commitment
         /// does not contribute to the project's slot_capacity.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// Once slots are provisioned, capacity commitment becomes active.
         /// slot_count is added to the project's slot_capacity.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
 
         /// Capacity commitment is failed to be activated by the backend.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "ACTIVE" => state::ACTIVE,
+                "FAILED" => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::ACTIVE,
+                3 => state::FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1552,20 +1660,8 @@ pub mod assignment {
     use super::*;
 
     /// Types of job, which could be specified when using the reservation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JobType(std::borrow::Cow<'static, str>);
-
-    impl JobType {
-        /// Creates a new JobType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct JobType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [JobType](JobType)
     pub mod job_type {
@@ -1573,80 +1669,190 @@ pub mod assignment {
 
         /// Invalid type. Requests with this value will be rejected with
         /// error code `google.rpc.Code.INVALID_ARGUMENT`.
-        pub const JOB_TYPE_UNSPECIFIED: JobType = JobType::new("JOB_TYPE_UNSPECIFIED");
+        pub const JOB_TYPE_UNSPECIFIED: JobType = JobType::known("JOB_TYPE_UNSPECIFIED", 0);
 
         /// Pipeline (load/export) jobs from the project will use the reservation.
-        pub const PIPELINE: JobType = JobType::new("PIPELINE");
+        pub const PIPELINE: JobType = JobType::known("PIPELINE", 1);
 
         /// Query jobs from the project will use the reservation.
-        pub const QUERY: JobType = JobType::new("QUERY");
+        pub const QUERY: JobType = JobType::known("QUERY", 2);
 
         /// BigQuery ML jobs that use services external to BigQuery for model
         /// training. These jobs will not utilize idle slots from other reservations.
-        pub const ML_EXTERNAL: JobType = JobType::new("ML_EXTERNAL");
+        pub const ML_EXTERNAL: JobType = JobType::known("ML_EXTERNAL", 3);
 
         /// Background jobs that BigQuery runs for the customers in the background.
-        pub const BACKGROUND: JobType = JobType::new("BACKGROUND");
+        pub const BACKGROUND: JobType = JobType::known("BACKGROUND", 4);
 
         /// Continuous SQL jobs will use this reservation. Reservations with
         /// continuous assignments cannot be mixed with non-continuous assignments.
-        pub const CONTINUOUS: JobType = JobType::new("CONTINUOUS");
+        pub const CONTINUOUS: JobType = JobType::known("CONTINUOUS", 6);
+    }
+
+    impl JobType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for JobType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for JobType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(JobType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(JobType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(JobType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for JobType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "JOB_TYPE_UNSPECIFIED" => job_type::JOB_TYPE_UNSPECIFIED,
+                "PIPELINE" => job_type::PIPELINE,
+                "QUERY" => job_type::QUERY,
+                "ML_EXTERNAL" => job_type::ML_EXTERNAL,
+                "BACKGROUND" => job_type::BACKGROUND,
+                "CONTINUOUS" => job_type::CONTINUOUS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for JobType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => job_type::JOB_TYPE_UNSPECIFIED,
+                1 => job_type::PIPELINE,
+                2 => job_type::QUERY,
+                3 => job_type::ML_EXTERNAL,
+                4 => job_type::BACKGROUND,
+                6 => job_type::CONTINUOUS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for JobType {
         fn default() -> Self {
-            job_type::JOB_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Assignment will remain in PENDING state if no active capacity commitment is
     /// present. It will become ACTIVE when some capacity commitment becomes
     /// active.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Invalid state value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Queries from assignee will be executed as on-demand, if related
         /// assignment is pending.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// Assignment is ready.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "ACTIVE" => state::ACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::ACTIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2442,46 +2648,94 @@ impl wkt::message::Message for UpdateBiReservationRequest {
 /// The type of editions.
 /// Different features and behaviors are provided to different editions
 /// Capacity commitments and reservations are linked to editions.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Edition(std::borrow::Cow<'static, str>);
-
-impl Edition {
-    /// Creates a new Edition instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Edition(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Edition](Edition)
 pub mod edition {
     use super::Edition;
 
     /// Default value, which will be treated as ENTERPRISE.
-    pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
+    pub const EDITION_UNSPECIFIED: Edition = Edition::known("EDITION_UNSPECIFIED", 0);
 
     /// Standard edition.
-    pub const STANDARD: Edition = Edition::new("STANDARD");
+    pub const STANDARD: Edition = Edition::known("STANDARD", 1);
 
     /// Enterprise edition.
-    pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
+    pub const ENTERPRISE: Edition = Edition::known("ENTERPRISE", 2);
 
     /// Enterprise Plus edition.
-    pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    pub const ENTERPRISE_PLUS: Edition = Edition::known("ENTERPRISE_PLUS", 3);
+}
+
+impl Edition {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Edition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Edition {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Edition::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Edition::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Edition::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Edition {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "EDITION_UNSPECIFIED" => edition::EDITION_UNSPECIFIED,
+            "STANDARD" => edition::STANDARD,
+            "ENTERPRISE" => edition::ENTERPRISE,
+            "ENTERPRISE_PLUS" => edition::ENTERPRISE_PLUS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Edition {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => edition::EDITION_UNSPECIFIED,
+            1 => edition::STANDARD,
+            2 => edition::ENTERPRISE,
+            3 => edition::ENTERPRISE_PLUS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Edition {
     fn default() -> Self {
-        edition::EDITION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

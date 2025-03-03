@@ -824,92 +824,189 @@ pub mod reauth_settings {
     use super::*;
 
     /// Types of reauthentication methods supported by IAP.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
-
-    impl Method {
-        /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Method(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Method](Method)
     pub mod method {
         use super::Method;
 
         /// Reauthentication disabled.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
+        pub const METHOD_UNSPECIFIED: Method = Method::known("METHOD_UNSPECIFIED", 0);
 
         /// Prompts the user to log in again.
-        pub const LOGIN: Method = Method::new("LOGIN");
+        pub const LOGIN: Method = Method::known("LOGIN", 1);
 
-        pub const PASSWORD: Method = Method::new("PASSWORD");
+        pub const PASSWORD: Method = Method::known("PASSWORD", 2);
 
         /// User must use their secure key 2nd factor device.
-        pub const SECURE_KEY: Method = Method::new("SECURE_KEY");
+        pub const SECURE_KEY: Method = Method::known("SECURE_KEY", 3);
 
         /// User can use any enabled 2nd factor.
-        pub const ENROLLED_SECOND_FACTORS: Method = Method::new("ENROLLED_SECOND_FACTORS");
+        pub const ENROLLED_SECOND_FACTORS: Method = Method::known("ENROLLED_SECOND_FACTORS", 4);
+    }
+
+    impl Method {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Method::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Method::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Method::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Method {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METHOD_UNSPECIFIED" => method::METHOD_UNSPECIFIED,
+                "LOGIN" => method::LOGIN,
+                "PASSWORD" => method::PASSWORD,
+                "SECURE_KEY" => method::SECURE_KEY,
+                "ENROLLED_SECOND_FACTORS" => method::ENROLLED_SECOND_FACTORS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => method::METHOD_UNSPECIFIED,
+                1 => method::LOGIN,
+                2 => method::PASSWORD,
+                3 => method::SECURE_KEY,
+                4 => method::ENROLLED_SECOND_FACTORS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            method::METHOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Type of policy in the case of hierarchial policies.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyType(std::borrow::Cow<'static, str>);
-
-    impl PolicyType {
-        /// Creates a new PolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PolicyType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PolicyType](PolicyType)
     pub mod policy_type {
         use super::PolicyType;
 
         /// Default value. This value is unused.
-        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new("POLICY_TYPE_UNSPECIFIED");
+        pub const POLICY_TYPE_UNSPECIFIED: PolicyType =
+            PolicyType::known("POLICY_TYPE_UNSPECIFIED", 0);
 
         /// This policy acts as a minimum to other policies, lower in the hierarchy.
         /// Effective policy may only be the same or stricter.
-        pub const MINIMUM: PolicyType = PolicyType::new("MINIMUM");
+        pub const MINIMUM: PolicyType = PolicyType::known("MINIMUM", 1);
 
         /// This policy acts as a default if no other reauth policy is set.
-        pub const DEFAULT: PolicyType = PolicyType::new("DEFAULT");
+        pub const DEFAULT: PolicyType = PolicyType::known("DEFAULT", 2);
+    }
+
+    impl PolicyType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PolicyType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PolicyType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PolicyType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PolicyType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "POLICY_TYPE_UNSPECIFIED" => policy_type::POLICY_TYPE_UNSPECIFIED,
+                "MINIMUM" => policy_type::MINIMUM,
+                "DEFAULT" => policy_type::DEFAULT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => policy_type::POLICY_TYPE_UNSPECIFIED,
+                1 => policy_type::MINIMUM,
+                2 => policy_type::DEFAULT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PolicyType {
         fn default() -> Self {
-            policy_type::POLICY_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1242,20 +1339,8 @@ pub mod attribute_propagation_settings {
     /// Supported output credentials for attribute propagation. Each output
     /// credential maps to a "field" in the response. For example, selecting JWT
     /// will propagate all attributes in the IAP JWT, header in the headers, etc.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OutputCredentials(std::borrow::Cow<'static, str>);
-
-    impl OutputCredentials {
-        /// Creates a new OutputCredentials instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct OutputCredentials(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [OutputCredentials](OutputCredentials)
     pub mod output_credentials {
@@ -1263,29 +1348,91 @@ pub mod attribute_propagation_settings {
 
         /// An output credential is required.
         pub const OUTPUT_CREDENTIALS_UNSPECIFIED: OutputCredentials =
-            OutputCredentials::new("OUTPUT_CREDENTIALS_UNSPECIFIED");
+            OutputCredentials::known("OUTPUT_CREDENTIALS_UNSPECIFIED", 0);
 
         /// Propagate attributes in the headers with "x-goog-iap-attr-" prefix.
-        pub const HEADER: OutputCredentials = OutputCredentials::new("HEADER");
+        pub const HEADER: OutputCredentials = OutputCredentials::known("HEADER", 1);
 
         /// Propagate attributes in the JWT of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const JWT: OutputCredentials = OutputCredentials::new("JWT");
+        pub const JWT: OutputCredentials = OutputCredentials::known("JWT", 2);
 
         /// Propagate attributes in the RCToken of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const RCTOKEN: OutputCredentials = OutputCredentials::new("RCTOKEN");
+        pub const RCTOKEN: OutputCredentials = OutputCredentials::known("RCTOKEN", 3);
+    }
+
+    impl OutputCredentials {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for OutputCredentials {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OutputCredentials {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(OutputCredentials::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(OutputCredentials::from(val)),
+                Enumeration::UnknownNum { str } => Ok(OutputCredentials::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for OutputCredentials {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "OUTPUT_CREDENTIALS_UNSPECIFIED" => {
+                    output_credentials::OUTPUT_CREDENTIALS_UNSPECIFIED
+                }
+                "HEADER" => output_credentials::HEADER,
+                "JWT" => output_credentials::JWT,
+                "RCTOKEN" => output_credentials::RCTOKEN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for OutputCredentials {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => output_credentials::OUTPUT_CREDENTIALS_UNSPECIFIED,
+                1 => output_credentials::HEADER,
+                2 => output_credentials::JWT,
+                3 => output_credentials::RCTOKEN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for OutputCredentials {
         fn default() -> Self {
-            output_credentials::OUTPUT_CREDENTIALS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

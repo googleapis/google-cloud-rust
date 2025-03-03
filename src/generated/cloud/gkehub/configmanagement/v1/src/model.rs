@@ -237,44 +237,91 @@ pub mod membership_spec {
     use super::*;
 
     /// Whether to automatically manage the Feature.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Management(std::borrow::Cow<'static, str>);
-
-    impl Management {
-        /// Creates a new Management instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Management(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Management](Management)
     pub mod management {
         use super::Management;
 
         /// Unspecified
-        pub const MANAGEMENT_UNSPECIFIED: Management = Management::new("MANAGEMENT_UNSPECIFIED");
+        pub const MANAGEMENT_UNSPECIFIED: Management =
+            Management::known("MANAGEMENT_UNSPECIFIED", 0);
 
         /// Google will manage the Feature for the cluster.
-        pub const MANAGEMENT_AUTOMATIC: Management = Management::new("MANAGEMENT_AUTOMATIC");
+        pub const MANAGEMENT_AUTOMATIC: Management = Management::known("MANAGEMENT_AUTOMATIC", 1);
 
         /// User will manually manage the Feature for the cluster.
-        pub const MANAGEMENT_MANUAL: Management = Management::new("MANAGEMENT_MANUAL");
+        pub const MANAGEMENT_MANUAL: Management = Management::known("MANAGEMENT_MANUAL", 2);
+    }
+
+    impl Management {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Management {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Management {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Management::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Management::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Management::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Management {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MANAGEMENT_UNSPECIFIED" => management::MANAGEMENT_UNSPECIFIED,
+                "MANAGEMENT_AUTOMATIC" => management::MANAGEMENT_AUTOMATIC,
+                "MANAGEMENT_MANUAL" => management::MANAGEMENT_MANUAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Management {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => management::MANAGEMENT_UNSPECIFIED,
+                1 => management::MANAGEMENT_AUTOMATIC,
+                2 => management::MANAGEMENT_MANUAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Management {
         fn default() -> Self {
-            management::MANAGEMENT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1037,97 +1084,197 @@ pub mod config_sync_state {
     use super::*;
 
     /// CRDState representing the state of a CRD
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CRDState(std::borrow::Cow<'static, str>);
-
-    impl CRDState {
-        /// Creates a new CRDState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CRDState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CRDState](CRDState)
     pub mod crd_state {
         use super::CRDState;
 
         /// CRD's state cannot be determined
-        pub const CRD_STATE_UNSPECIFIED: CRDState = CRDState::new("CRD_STATE_UNSPECIFIED");
+        pub const CRD_STATE_UNSPECIFIED: CRDState = CRDState::known("CRD_STATE_UNSPECIFIED", 0);
 
         /// CRD is not installed
-        pub const NOT_INSTALLED: CRDState = CRDState::new("NOT_INSTALLED");
+        pub const NOT_INSTALLED: CRDState = CRDState::known("NOT_INSTALLED", 1);
 
         /// CRD is installed
-        pub const INSTALLED: CRDState = CRDState::new("INSTALLED");
+        pub const INSTALLED: CRDState = CRDState::known("INSTALLED", 2);
 
         /// CRD is terminating (i.e., it has been deleted and is cleaning up)
-        pub const TERMINATING: CRDState = CRDState::new("TERMINATING");
+        pub const TERMINATING: CRDState = CRDState::known("TERMINATING", 3);
 
         /// CRD is installing
-        pub const INSTALLING: CRDState = CRDState::new("INSTALLING");
+        pub const INSTALLING: CRDState = CRDState::known("INSTALLING", 4);
+    }
+
+    impl CRDState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CRDState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CRDState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CRDState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CRDState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CRDState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CRDState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CRD_STATE_UNSPECIFIED" => crd_state::CRD_STATE_UNSPECIFIED,
+                "NOT_INSTALLED" => crd_state::NOT_INSTALLED,
+                "INSTALLED" => crd_state::INSTALLED,
+                "TERMINATING" => crd_state::TERMINATING,
+                "INSTALLING" => crd_state::INSTALLING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CRDState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => crd_state::CRD_STATE_UNSPECIFIED,
+                1 => crd_state::NOT_INSTALLED,
+                2 => crd_state::INSTALLED,
+                3 => crd_state::TERMINATING,
+                4 => crd_state::INSTALLING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CRDState {
         fn default() -> Self {
-            crd_state::CRD_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// CS's state cannot be determined.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// CS is not installed.
-        pub const CONFIG_SYNC_NOT_INSTALLED: State = State::new("CONFIG_SYNC_NOT_INSTALLED");
+        pub const CONFIG_SYNC_NOT_INSTALLED: State = State::known("CONFIG_SYNC_NOT_INSTALLED", 1);
 
         /// The expected CS version is installed successfully.
-        pub const CONFIG_SYNC_INSTALLED: State = State::new("CONFIG_SYNC_INSTALLED");
+        pub const CONFIG_SYNC_INSTALLED: State = State::known("CONFIG_SYNC_INSTALLED", 2);
 
         /// CS encounters errors.
-        pub const CONFIG_SYNC_ERROR: State = State::new("CONFIG_SYNC_ERROR");
+        pub const CONFIG_SYNC_ERROR: State = State::known("CONFIG_SYNC_ERROR", 3);
 
         /// CS is installing or terminating.
-        pub const CONFIG_SYNC_PENDING: State = State::new("CONFIG_SYNC_PENDING");
+        pub const CONFIG_SYNC_PENDING: State = State::known("CONFIG_SYNC_PENDING", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CONFIG_SYNC_NOT_INSTALLED" => state::CONFIG_SYNC_NOT_INSTALLED,
+                "CONFIG_SYNC_INSTALLED" => state::CONFIG_SYNC_INSTALLED,
+                "CONFIG_SYNC_ERROR" => state::CONFIG_SYNC_ERROR,
+                "CONFIG_SYNC_PENDING" => state::CONFIG_SYNC_PENDING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CONFIG_SYNC_NOT_INSTALLED,
+                2 => state::CONFIG_SYNC_INSTALLED,
+                3 => state::CONFIG_SYNC_ERROR,
+                4 => state::CONFIG_SYNC_PENDING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1468,59 +1615,115 @@ pub mod sync_state {
     use super::*;
 
     /// An enum representing Config Sync's status of syncing configs to a cluster.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SyncCode(std::borrow::Cow<'static, str>);
-
-    impl SyncCode {
-        /// Creates a new SyncCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SyncCode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SyncCode](SyncCode)
     pub mod sync_code {
         use super::SyncCode;
 
         /// Config Sync cannot determine a sync code
-        pub const SYNC_CODE_UNSPECIFIED: SyncCode = SyncCode::new("SYNC_CODE_UNSPECIFIED");
+        pub const SYNC_CODE_UNSPECIFIED: SyncCode = SyncCode::known("SYNC_CODE_UNSPECIFIED", 0);
 
         /// Config Sync successfully synced the git Repo with the cluster
-        pub const SYNCED: SyncCode = SyncCode::new("SYNCED");
+        pub const SYNCED: SyncCode = SyncCode::known("SYNCED", 1);
 
         /// Config Sync is in the progress of syncing a new change
-        pub const PENDING: SyncCode = SyncCode::new("PENDING");
+        pub const PENDING: SyncCode = SyncCode::known("PENDING", 2);
 
         /// Indicates an error configuring Config Sync, and user action is required
-        pub const ERROR: SyncCode = SyncCode::new("ERROR");
+        pub const ERROR: SyncCode = SyncCode::known("ERROR", 3);
 
         /// Config Sync has been installed but not configured
-        pub const NOT_CONFIGURED: SyncCode = SyncCode::new("NOT_CONFIGURED");
+        pub const NOT_CONFIGURED: SyncCode = SyncCode::known("NOT_CONFIGURED", 4);
 
         /// Config Sync has not been installed
-        pub const NOT_INSTALLED: SyncCode = SyncCode::new("NOT_INSTALLED");
+        pub const NOT_INSTALLED: SyncCode = SyncCode::known("NOT_INSTALLED", 5);
 
         /// Error authorizing with the cluster
-        pub const UNAUTHORIZED: SyncCode = SyncCode::new("UNAUTHORIZED");
+        pub const UNAUTHORIZED: SyncCode = SyncCode::known("UNAUTHORIZED", 6);
 
         /// Cluster could not be reached
-        pub const UNREACHABLE: SyncCode = SyncCode::new("UNREACHABLE");
+        pub const UNREACHABLE: SyncCode = SyncCode::known("UNREACHABLE", 7);
+    }
+
+    impl SyncCode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SyncCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SyncCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SyncCode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SyncCode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SyncCode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SyncCode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SYNC_CODE_UNSPECIFIED" => sync_code::SYNC_CODE_UNSPECIFIED,
+                "SYNCED" => sync_code::SYNCED,
+                "PENDING" => sync_code::PENDING,
+                "ERROR" => sync_code::ERROR,
+                "NOT_CONFIGURED" => sync_code::NOT_CONFIGURED,
+                "NOT_INSTALLED" => sync_code::NOT_INSTALLED,
+                "UNAUTHORIZED" => sync_code::UNAUTHORIZED,
+                "UNREACHABLE" => sync_code::UNREACHABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SyncCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => sync_code::SYNC_CODE_UNSPECIFIED,
+                1 => sync_code::SYNCED,
+                2 => sync_code::PENDING,
+                3 => sync_code::ERROR,
+                4 => sync_code::NOT_CONFIGURED,
+                5 => sync_code::NOT_INSTALLED,
+                6 => sync_code::UNAUTHORIZED,
+                7 => sync_code::UNREACHABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SyncCode {
         fn default() -> Self {
-            sync_code::SYNC_CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1820,20 +2023,8 @@ impl wkt::message::Message for GatekeeperDeploymentState {
 }
 
 /// Enum representing the state of an ACM's deployment on a cluster
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentState(std::borrow::Cow<'static, str>);
-
-impl DeploymentState {
-    /// Creates a new DeploymentState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct DeploymentState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [DeploymentState](DeploymentState)
 pub mod deployment_state {
@@ -1841,29 +2032,91 @@ pub mod deployment_state {
 
     /// Deployment's state cannot be determined
     pub const DEPLOYMENT_STATE_UNSPECIFIED: DeploymentState =
-        DeploymentState::new("DEPLOYMENT_STATE_UNSPECIFIED");
+        DeploymentState::known("DEPLOYMENT_STATE_UNSPECIFIED", 0);
 
     /// Deployment is not installed
-    pub const NOT_INSTALLED: DeploymentState = DeploymentState::new("NOT_INSTALLED");
+    pub const NOT_INSTALLED: DeploymentState = DeploymentState::known("NOT_INSTALLED", 1);
 
     /// Deployment is installed
-    pub const INSTALLED: DeploymentState = DeploymentState::new("INSTALLED");
+    pub const INSTALLED: DeploymentState = DeploymentState::known("INSTALLED", 2);
 
     /// Deployment was attempted to be installed, but has errors
-    pub const ERROR: DeploymentState = DeploymentState::new("ERROR");
+    pub const ERROR: DeploymentState = DeploymentState::known("ERROR", 3);
 
     /// Deployment is installing or terminating
-    pub const PENDING: DeploymentState = DeploymentState::new("PENDING");
+    pub const PENDING: DeploymentState = DeploymentState::known("PENDING", 4);
+}
+
+impl DeploymentState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for DeploymentState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeploymentState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(DeploymentState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(DeploymentState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(DeploymentState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for DeploymentState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "DEPLOYMENT_STATE_UNSPECIFIED" => deployment_state::DEPLOYMENT_STATE_UNSPECIFIED,
+            "NOT_INSTALLED" => deployment_state::NOT_INSTALLED,
+            "INSTALLED" => deployment_state::INSTALLED,
+            "ERROR" => deployment_state::ERROR,
+            "PENDING" => deployment_state::PENDING,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for DeploymentState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => deployment_state::DEPLOYMENT_STATE_UNSPECIFIED,
+            1 => deployment_state::NOT_INSTALLED,
+            2 => deployment_state::INSTALLED,
+            3 => deployment_state::ERROR,
+            4 => deployment_state::PENDING,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for DeploymentState {
     fn default() -> Self {
-        deployment_state::DEPLOYMENT_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

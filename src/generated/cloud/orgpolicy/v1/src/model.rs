@@ -444,44 +444,91 @@ pub mod policy {
         /// set to either `ALLOW` or `DENY,  `allowed_values` and `denied_values`
         /// must be unset. Setting this to `ALL_VALUES_UNSPECIFIED` allows for
         /// setting `allowed_values` and `denied_values`.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct AllValues(std::borrow::Cow<'static, str>);
-
-        impl AllValues {
-            /// Creates a new AllValues instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct AllValues(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [AllValues](AllValues)
         pub mod all_values {
             use super::AllValues;
 
             /// Indicates that allowed_values or denied_values must be set.
-            pub const ALL_VALUES_UNSPECIFIED: AllValues = AllValues::new("ALL_VALUES_UNSPECIFIED");
+            pub const ALL_VALUES_UNSPECIFIED: AllValues =
+                AllValues::known("ALL_VALUES_UNSPECIFIED", 0);
 
             /// A policy with this set allows all values.
-            pub const ALLOW: AllValues = AllValues::new("ALLOW");
+            pub const ALLOW: AllValues = AllValues::known("ALLOW", 1);
 
             /// A policy with this set denies all values.
-            pub const DENY: AllValues = AllValues::new("DENY");
+            pub const DENY: AllValues = AllValues::known("DENY", 2);
+        }
+
+        impl AllValues {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for AllValues {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for AllValues {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(AllValues::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(AllValues::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(AllValues::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for AllValues {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "ALL_VALUES_UNSPECIFIED" => all_values::ALL_VALUES_UNSPECIFIED,
+                    "ALLOW" => all_values::ALLOW,
+                    "DENY" => all_values::DENY,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for AllValues {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => all_values::ALL_VALUES_UNSPECIFIED,
+                    1 => all_values::ALLOW,
+                    2 => all_values::DENY,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for AllValues {
             fn default() -> Self {
-                all_values::ALL_VALUES_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }

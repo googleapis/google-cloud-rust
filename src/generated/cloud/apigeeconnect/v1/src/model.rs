@@ -838,59 +838,91 @@ impl wkt::message::Message for HttpResponse {
 }
 
 /// The action taken by agent.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Action(std::borrow::Cow<'static, str>);
-
-impl Action {
-    /// Creates a new Action instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Action(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Action](Action)
 pub mod action {
     use super::Action;
 
     /// Unspecified Action.
-    pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
+    pub const ACTION_UNSPECIFIED: Action = Action::known("ACTION_UNSPECIFIED", 0);
 
     /// Indicates that agent should open a new stream.
-    pub const OPEN_NEW_STREAM: Action = Action::new("OPEN_NEW_STREAM");
+    pub const OPEN_NEW_STREAM: Action = Action::known("OPEN_NEW_STREAM", 1);
+}
+
+impl Action {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Action {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Action {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Action::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Action::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Action::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Action {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ACTION_UNSPECIFIED" => action::ACTION_UNSPECIFIED,
+            "OPEN_NEW_STREAM" => action::OPEN_NEW_STREAM,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Action {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => action::ACTION_UNSPECIFIED,
+            1 => action::OPEN_NEW_STREAM,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Action {
     fn default() -> Self {
-        action::ACTION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Endpoint indicates where the messages will be delivered.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TetherEndpoint(std::borrow::Cow<'static, str>);
-
-impl TetherEndpoint {
-    /// Creates a new TetherEndpoint instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct TetherEndpoint(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [TetherEndpoint](TetherEndpoint)
 pub mod tether_endpoint {
@@ -898,65 +930,169 @@ pub mod tether_endpoint {
 
     /// Unspecified tether endpoint.
     pub const TETHER_ENDPOINT_UNSPECIFIED: TetherEndpoint =
-        TetherEndpoint::new("TETHER_ENDPOINT_UNSPECIFIED");
+        TetherEndpoint::known("TETHER_ENDPOINT_UNSPECIFIED", 0);
 
     /// Apigee MART endpoint.
-    pub const APIGEE_MART: TetherEndpoint = TetherEndpoint::new("APIGEE_MART");
+    pub const APIGEE_MART: TetherEndpoint = TetherEndpoint::known("APIGEE_MART", 1);
 
     /// Apigee Runtime endpoint.
-    pub const APIGEE_RUNTIME: TetherEndpoint = TetherEndpoint::new("APIGEE_RUNTIME");
+    pub const APIGEE_RUNTIME: TetherEndpoint = TetherEndpoint::known("APIGEE_RUNTIME", 2);
 
     /// Apigee Mint Rating endpoint.
-    pub const APIGEE_MINT_RATING: TetherEndpoint = TetherEndpoint::new("APIGEE_MINT_RATING");
+    pub const APIGEE_MINT_RATING: TetherEndpoint = TetherEndpoint::known("APIGEE_MINT_RATING", 3);
+}
+
+impl TetherEndpoint {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for TetherEndpoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TetherEndpoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(TetherEndpoint::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(TetherEndpoint::from(val)),
+            Enumeration::UnknownNum { str } => Ok(TetherEndpoint::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for TetherEndpoint {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TETHER_ENDPOINT_UNSPECIFIED" => tether_endpoint::TETHER_ENDPOINT_UNSPECIFIED,
+            "APIGEE_MART" => tether_endpoint::APIGEE_MART,
+            "APIGEE_RUNTIME" => tether_endpoint::APIGEE_RUNTIME,
+            "APIGEE_MINT_RATING" => tether_endpoint::APIGEE_MINT_RATING,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for TetherEndpoint {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => tether_endpoint::TETHER_ENDPOINT_UNSPECIFIED,
+            1 => tether_endpoint::APIGEE_MART,
+            2 => tether_endpoint::APIGEE_RUNTIME,
+            3 => tether_endpoint::APIGEE_MINT_RATING,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for TetherEndpoint {
     fn default() -> Self {
-        tether_endpoint::TETHER_ENDPOINT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// HTTP Scheme.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Scheme(std::borrow::Cow<'static, str>);
-
-impl Scheme {
-    /// Creates a new Scheme instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Scheme(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Scheme](Scheme)
 pub mod scheme {
     use super::Scheme;
 
     /// Unspecified scheme.
-    pub const SCHEME_UNSPECIFIED: Scheme = Scheme::new("SCHEME_UNSPECIFIED");
+    pub const SCHEME_UNSPECIFIED: Scheme = Scheme::known("SCHEME_UNSPECIFIED", 0);
 
     /// HTTPS protocol.
-    pub const HTTPS: Scheme = Scheme::new("HTTPS");
+    pub const HTTPS: Scheme = Scheme::known("HTTPS", 1);
+}
+
+impl Scheme {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Scheme {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Scheme {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Scheme::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Scheme::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Scheme::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Scheme {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SCHEME_UNSPECIFIED" => scheme::SCHEME_UNSPECIFIED,
+            "HTTPS" => scheme::HTTPS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Scheme {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => scheme::SCHEME_UNSPECIFIED,
+            1 => scheme::HTTPS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Scheme {
     fn default() -> Self {
-        scheme::SCHEME_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

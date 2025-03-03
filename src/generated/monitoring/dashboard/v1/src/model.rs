@@ -258,20 +258,8 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Aligner(std::borrow::Cow<'static, str>);
-
-    impl Aligner {
-        /// Creates a new Aligner instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Aligner(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Aligner](Aligner)
     pub mod aligner {
@@ -280,7 +268,7 @@ pub mod aggregation {
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
         /// is requested. The `value_type` of the result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_NONE: Aligner = Aligner::new("ALIGN_NONE");
+        pub const ALIGN_NONE: Aligner = Aligner::known("ALIGN_NONE", 0);
 
         /// Align and convert to
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA].
@@ -292,7 +280,7 @@ pub mod aggregation {
         /// with no data, then the aligned value for such a period is created by
         /// interpolation. The `value_type`  of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_DELTA: Aligner = Aligner::new("ALIGN_DELTA");
+        pub const ALIGN_DELTA: Aligner = Aligner::known("ALIGN_DELTA", 1);
 
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
@@ -307,70 +295,70 @@ pub mod aggregation {
         ///
         /// If, by "rate", you mean "percentage change", see the
         /// `ALIGN_PERCENT_CHANGE` aligner instead.
-        pub const ALIGN_RATE: Aligner = Aligner::new("ALIGN_RATE");
+        pub const ALIGN_RATE: Aligner = Aligner::known("ALIGN_RATE", 2);
 
         /// Align by interpolating between adjacent points around the alignment
         /// period boundary. This aligner is valid for `GAUGE` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new("ALIGN_INTERPOLATE");
+        pub const ALIGN_INTERPOLATE: Aligner = Aligner::known("ALIGN_INTERPOLATE", 3);
 
         /// Align by moving the most recent data point before the end of the
         /// alignment period to the boundary at the end of the alignment
         /// period. This aligner is valid for `GAUGE` metrics. The `value_type` of
         /// the aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new("ALIGN_NEXT_OLDER");
+        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::known("ALIGN_NEXT_OLDER", 4);
 
         /// Align the time series by returning the minimum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MIN: Aligner = Aligner::new("ALIGN_MIN");
+        pub const ALIGN_MIN: Aligner = Aligner::known("ALIGN_MIN", 10);
 
         /// Align the time series by returning the maximum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MAX: Aligner = Aligner::new("ALIGN_MAX");
+        pub const ALIGN_MAX: Aligner = Aligner::known("ALIGN_MAX", 11);
 
         /// Align the time series by returning the mean value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is `DOUBLE`.
-        pub const ALIGN_MEAN: Aligner = Aligner::new("ALIGN_MEAN");
+        pub const ALIGN_MEAN: Aligner = Aligner::known("ALIGN_MEAN", 12);
 
         /// Align the time series by returning the number of values in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric or Boolean values. The `value_type` of the aligned result is
         /// `INT64`.
-        pub const ALIGN_COUNT: Aligner = Aligner::new("ALIGN_COUNT");
+        pub const ALIGN_COUNT: Aligner = Aligner::known("ALIGN_COUNT", 13);
 
         /// Align the time series by returning the sum of the values in each
         /// alignment period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with numeric and distribution values. The `value_type` of the
         /// aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_SUM: Aligner = Aligner::new("ALIGN_SUM");
+        pub const ALIGN_SUM: Aligner = Aligner::known("ALIGN_SUM", 14);
 
         /// Align the time series by returning the standard deviation of the values
         /// in each alignment period. This aligner is valid for `GAUGE` and
         /// `DELTA` metrics with numeric values. The `value_type` of the output is
         /// `DOUBLE`.
-        pub const ALIGN_STDDEV: Aligner = Aligner::new("ALIGN_STDDEV");
+        pub const ALIGN_STDDEV: Aligner = Aligner::known("ALIGN_STDDEV", 15);
 
         /// Align the time series by returning the number of `True` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new("ALIGN_COUNT_TRUE");
+        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::known("ALIGN_COUNT_TRUE", 16);
 
         /// Align the time series by returning the number of `False` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new("ALIGN_COUNT_FALSE");
+        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::known("ALIGN_COUNT_FALSE", 24);
 
         /// Align the time series by returning the ratio of the number of `True`
         /// values to the total number of values in each alignment period. This
         /// aligner is valid for `GAUGE` metrics with Boolean values. The output
         /// value is in the range [0.0, 1.0] and has `value_type` `DOUBLE`.
-        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new("ALIGN_FRACTION_TRUE");
+        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::known("ALIGN_FRACTION_TRUE", 17);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -378,7 +366,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new("ALIGN_PERCENTILE_99");
+        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::known("ALIGN_PERCENTILE_99", 18);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -386,7 +374,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new("ALIGN_PERCENTILE_95");
+        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::known("ALIGN_PERCENTILE_95", 19);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -394,7 +382,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new("ALIGN_PERCENTILE_50");
+        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::known("ALIGN_PERCENTILE_50", 20);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -402,7 +390,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new("ALIGN_PERCENTILE_05");
+        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::known("ALIGN_PERCENTILE_05", 21);
 
         /// Align and convert to a percentage change. This aligner is valid for
         /// `GAUGE` and `DELTA` metrics with numeric values. This alignment returns
@@ -420,18 +408,108 @@ pub mod aggregation {
         /// metrics are accepted by this alignment, special care should be taken that
         /// the values for the metric will always be positive. The output is a
         /// `GAUGE` metric with `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new("ALIGN_PERCENT_CHANGE");
+        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::known("ALIGN_PERCENT_CHANGE", 23);
+    }
+
+    impl Aligner {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Aligner {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Aligner {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Aligner::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Aligner::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Aligner::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Aligner {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ALIGN_NONE" => aligner::ALIGN_NONE,
+                "ALIGN_DELTA" => aligner::ALIGN_DELTA,
+                "ALIGN_RATE" => aligner::ALIGN_RATE,
+                "ALIGN_INTERPOLATE" => aligner::ALIGN_INTERPOLATE,
+                "ALIGN_NEXT_OLDER" => aligner::ALIGN_NEXT_OLDER,
+                "ALIGN_MIN" => aligner::ALIGN_MIN,
+                "ALIGN_MAX" => aligner::ALIGN_MAX,
+                "ALIGN_MEAN" => aligner::ALIGN_MEAN,
+                "ALIGN_COUNT" => aligner::ALIGN_COUNT,
+                "ALIGN_SUM" => aligner::ALIGN_SUM,
+                "ALIGN_STDDEV" => aligner::ALIGN_STDDEV,
+                "ALIGN_COUNT_TRUE" => aligner::ALIGN_COUNT_TRUE,
+                "ALIGN_COUNT_FALSE" => aligner::ALIGN_COUNT_FALSE,
+                "ALIGN_FRACTION_TRUE" => aligner::ALIGN_FRACTION_TRUE,
+                "ALIGN_PERCENTILE_99" => aligner::ALIGN_PERCENTILE_99,
+                "ALIGN_PERCENTILE_95" => aligner::ALIGN_PERCENTILE_95,
+                "ALIGN_PERCENTILE_50" => aligner::ALIGN_PERCENTILE_50,
+                "ALIGN_PERCENTILE_05" => aligner::ALIGN_PERCENTILE_05,
+                "ALIGN_PERCENT_CHANGE" => aligner::ALIGN_PERCENT_CHANGE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Aligner {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => aligner::ALIGN_NONE,
+                1 => aligner::ALIGN_DELTA,
+                2 => aligner::ALIGN_RATE,
+                3 => aligner::ALIGN_INTERPOLATE,
+                4 => aligner::ALIGN_NEXT_OLDER,
+                10 => aligner::ALIGN_MIN,
+                11 => aligner::ALIGN_MAX,
+                12 => aligner::ALIGN_MEAN,
+                13 => aligner::ALIGN_COUNT,
+                14 => aligner::ALIGN_SUM,
+                15 => aligner::ALIGN_STDDEV,
+                16 => aligner::ALIGN_COUNT_TRUE,
+                17 => aligner::ALIGN_FRACTION_TRUE,
+                18 => aligner::ALIGN_PERCENTILE_99,
+                19 => aligner::ALIGN_PERCENTILE_95,
+                20 => aligner::ALIGN_PERCENTILE_50,
+                21 => aligner::ALIGN_PERCENTILE_05,
+                23 => aligner::ALIGN_PERCENT_CHANGE,
+                24 => aligner::ALIGN_COUNT_FALSE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Aligner {
         fn default() -> Self {
-            aligner::ALIGN_NONE
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -439,20 +517,8 @@ pub mod aggregation {
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reducer(std::borrow::Cow<'static, str>);
-
-    impl Reducer {
-        /// Creates a new Reducer instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Reducer(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Reducer](Reducer)
     pub mod reducer {
@@ -460,7 +526,7 @@ pub mod aggregation {
 
         /// No cross-time series reduction. The output of the `Aligner` is
         /// returned.
-        pub const REDUCE_NONE: Reducer = Reducer::new("REDUCE_NONE");
+        pub const REDUCE_NONE: Reducer = Reducer::known("REDUCE_NONE", 0);
 
         /// Reduce by computing the mean value across time series for each
         /// alignment period. This reducer is valid for
@@ -468,95 +534,175 @@ pub mod aggregation {
         /// [GAUGE][google.api.MetricDescriptor.MetricKind.GAUGE] metrics with
         /// numeric or distribution values. The `value_type` of the output is
         /// [DOUBLE][google.api.MetricDescriptor.ValueType.DOUBLE].
-        pub const REDUCE_MEAN: Reducer = Reducer::new("REDUCE_MEAN");
+        pub const REDUCE_MEAN: Reducer = Reducer::known("REDUCE_MEAN", 1);
 
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MIN: Reducer = Reducer::new("REDUCE_MIN");
+        pub const REDUCE_MIN: Reducer = Reducer::known("REDUCE_MIN", 2);
 
         /// Reduce by computing the maximum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MAX: Reducer = Reducer::new("REDUCE_MAX");
+        pub const REDUCE_MAX: Reducer = Reducer::known("REDUCE_MAX", 3);
 
         /// Reduce by computing the sum across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric and distribution values. The `value_type` of the output is
         /// the same as the `value_type` of the input.
-        pub const REDUCE_SUM: Reducer = Reducer::new("REDUCE_SUM");
+        pub const REDUCE_SUM: Reducer = Reducer::known("REDUCE_SUM", 4);
 
         /// Reduce by computing the standard deviation across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics with numeric or distribution values. The `value_type`
         /// of the output is `DOUBLE`.
-        pub const REDUCE_STDDEV: Reducer = Reducer::new("REDUCE_STDDEV");
+        pub const REDUCE_STDDEV: Reducer = Reducer::known("REDUCE_STDDEV", 5);
 
         /// Reduce by computing the number of data points across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of numeric, Boolean, distribution, and string
         /// `value_type`. The `value_type` of the output is `INT64`.
-        pub const REDUCE_COUNT: Reducer = Reducer::new("REDUCE_COUNT");
+        pub const REDUCE_COUNT: Reducer = Reducer::known("REDUCE_COUNT", 6);
 
         /// Reduce by computing the number of `True`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new("REDUCE_COUNT_TRUE");
+        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::known("REDUCE_COUNT_TRUE", 7);
 
         /// Reduce by computing the number of `False`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new("REDUCE_COUNT_FALSE");
+        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::known("REDUCE_COUNT_FALSE", 15);
 
         /// Reduce by computing the ratio of the number of `True`-valued data points
         /// to the total number of data points for each alignment period. This
         /// reducer is valid for `DELTA` and `GAUGE` metrics of Boolean `value_type`.
         /// The output value is in the range [0.0, 1.0] and has `value_type`
         /// `DOUBLE`.
-        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new("REDUCE_FRACTION_TRUE");
+        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::known("REDUCE_FRACTION_TRUE", 8);
 
         /// Reduce by computing the [99th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new("REDUCE_PERCENTILE_99");
+        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::known("REDUCE_PERCENTILE_99", 9);
 
         /// Reduce by computing the [95th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new("REDUCE_PERCENTILE_95");
+        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::known("REDUCE_PERCENTILE_95", 10);
 
         /// Reduce by computing the [50th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new("REDUCE_PERCENTILE_50");
+        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::known("REDUCE_PERCENTILE_50", 11);
 
         /// Reduce by computing the [5th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new("REDUCE_PERCENTILE_05");
+        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::known("REDUCE_PERCENTILE_05", 12);
+    }
+
+    impl Reducer {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Reducer {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reducer {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Reducer::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Reducer::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Reducer::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Reducer {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REDUCE_NONE" => reducer::REDUCE_NONE,
+                "REDUCE_MEAN" => reducer::REDUCE_MEAN,
+                "REDUCE_MIN" => reducer::REDUCE_MIN,
+                "REDUCE_MAX" => reducer::REDUCE_MAX,
+                "REDUCE_SUM" => reducer::REDUCE_SUM,
+                "REDUCE_STDDEV" => reducer::REDUCE_STDDEV,
+                "REDUCE_COUNT" => reducer::REDUCE_COUNT,
+                "REDUCE_COUNT_TRUE" => reducer::REDUCE_COUNT_TRUE,
+                "REDUCE_COUNT_FALSE" => reducer::REDUCE_COUNT_FALSE,
+                "REDUCE_FRACTION_TRUE" => reducer::REDUCE_FRACTION_TRUE,
+                "REDUCE_PERCENTILE_99" => reducer::REDUCE_PERCENTILE_99,
+                "REDUCE_PERCENTILE_95" => reducer::REDUCE_PERCENTILE_95,
+                "REDUCE_PERCENTILE_50" => reducer::REDUCE_PERCENTILE_50,
+                "REDUCE_PERCENTILE_05" => reducer::REDUCE_PERCENTILE_05,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Reducer {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reducer::REDUCE_NONE,
+                1 => reducer::REDUCE_MEAN,
+                2 => reducer::REDUCE_MIN,
+                3 => reducer::REDUCE_MAX,
+                4 => reducer::REDUCE_SUM,
+                5 => reducer::REDUCE_STDDEV,
+                6 => reducer::REDUCE_COUNT,
+                7 => reducer::REDUCE_COUNT_TRUE,
+                8 => reducer::REDUCE_FRACTION_TRUE,
+                9 => reducer::REDUCE_PERCENTILE_99,
+                10 => reducer::REDUCE_PERCENTILE_95,
+                11 => reducer::REDUCE_PERCENTILE_50,
+                12 => reducer::REDUCE_PERCENTILE_05,
+                15 => reducer::REDUCE_COUNT_FALSE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Reducer {
         fn default() -> Self {
-            reducer::REDUCE_NONE
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -644,20 +790,8 @@ pub mod pick_time_series_filter {
     use super::*;
 
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
-
-    impl Method {
-        /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Method(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Method](Method)
     pub mod method {
@@ -665,51 +799,103 @@ pub mod pick_time_series_filter {
 
         /// Not allowed. You must specify a different `Method` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
+        pub const METHOD_UNSPECIFIED: Method = Method::known("METHOD_UNSPECIFIED", 0);
 
         /// Select the mean of all values.
-        pub const METHOD_MEAN: Method = Method::new("METHOD_MEAN");
+        pub const METHOD_MEAN: Method = Method::known("METHOD_MEAN", 1);
 
         /// Select the maximum value.
-        pub const METHOD_MAX: Method = Method::new("METHOD_MAX");
+        pub const METHOD_MAX: Method = Method::known("METHOD_MAX", 2);
 
         /// Select the minimum value.
-        pub const METHOD_MIN: Method = Method::new("METHOD_MIN");
+        pub const METHOD_MIN: Method = Method::known("METHOD_MIN", 3);
 
         /// Compute the sum of all values.
-        pub const METHOD_SUM: Method = Method::new("METHOD_SUM");
+        pub const METHOD_SUM: Method = Method::known("METHOD_SUM", 4);
 
         /// Select the most recent value.
-        pub const METHOD_LATEST: Method = Method::new("METHOD_LATEST");
+        pub const METHOD_LATEST: Method = Method::known("METHOD_LATEST", 5);
+    }
+
+    impl Method {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Method::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Method::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Method::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Method {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METHOD_UNSPECIFIED" => method::METHOD_UNSPECIFIED,
+                "METHOD_MEAN" => method::METHOD_MEAN,
+                "METHOD_MAX" => method::METHOD_MAX,
+                "METHOD_MIN" => method::METHOD_MIN,
+                "METHOD_SUM" => method::METHOD_SUM,
+                "METHOD_LATEST" => method::METHOD_LATEST,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => method::METHOD_UNSPECIFIED,
+                1 => method::METHOD_MEAN,
+                2 => method::METHOD_MAX,
+                3 => method::METHOD_MIN,
+                4 => method::METHOD_SUM,
+                5 => method::METHOD_LATEST,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            method::METHOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Describes the ranking directions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
-
-    impl Direction {
-        /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Direction(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Direction](Direction)
     pub mod direction {
@@ -717,24 +903,82 @@ pub mod pick_time_series_filter {
 
         /// Not allowed. You must specify a different `Direction` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::known("DIRECTION_UNSPECIFIED", 0);
 
         /// Pass the highest `num_time_series` ranking inputs.
-        pub const TOP: Direction = Direction::new("TOP");
+        pub const TOP: Direction = Direction::known("TOP", 1);
 
         /// Pass the lowest `num_time_series` ranking inputs.
-        pub const BOTTOM: Direction = Direction::new("BOTTOM");
+        pub const BOTTOM: Direction = Direction::known("BOTTOM", 2);
+    }
+
+    impl Direction {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Direction::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Direction::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Direction::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Direction {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DIRECTION_UNSPECIFIED" => direction::DIRECTION_UNSPECIFIED,
+                "TOP" => direction::TOP,
+                "BOTTOM" => direction::BOTTOM,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => direction::DIRECTION_UNSPECIFIED,
+                1 => direction::TOP,
+                2 => direction::BOTTOM,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            direction::DIRECTION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -793,41 +1037,85 @@ pub mod statistical_time_series_filter {
     use super::*;
 
     /// The filter methods that can be applied to a stream.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
-
-    impl Method {
-        /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Method(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Method](Method)
     pub mod method {
         use super::Method;
 
         /// Not allowed in well-formed requests.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
+        pub const METHOD_UNSPECIFIED: Method = Method::known("METHOD_UNSPECIFIED", 0);
 
         /// Compute the outlier score of each stream.
-        pub const METHOD_CLUSTER_OUTLIER: Method = Method::new("METHOD_CLUSTER_OUTLIER");
+        pub const METHOD_CLUSTER_OUTLIER: Method = Method::known("METHOD_CLUSTER_OUTLIER", 1);
+    }
+
+    impl Method {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Method::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Method::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Method::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Method {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METHOD_UNSPECIFIED" => method::METHOD_UNSPECIFIED,
+                "METHOD_CLUSTER_OUTLIER" => method::METHOD_CLUSTER_OUTLIER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => method::METHOD_UNSPECIFIED,
+                1 => method::METHOD_CLUSTER_OUTLIER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            method::METHOD_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1167,53 +1455,106 @@ pub mod dashboard_filter {
     use super::*;
 
     /// The type for the dashboard filter
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FilterType(std::borrow::Cow<'static, str>);
-
-    impl FilterType {
-        /// Creates a new FilterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FilterType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FilterType](FilterType)
     pub mod filter_type {
         use super::FilterType;
 
         /// Filter type is unspecified. This is not valid in a well-formed request.
-        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new("FILTER_TYPE_UNSPECIFIED");
+        pub const FILTER_TYPE_UNSPECIFIED: FilterType =
+            FilterType::known("FILTER_TYPE_UNSPECIFIED", 0);
 
         /// Filter on a resource label value
-        pub const RESOURCE_LABEL: FilterType = FilterType::new("RESOURCE_LABEL");
+        pub const RESOURCE_LABEL: FilterType = FilterType::known("RESOURCE_LABEL", 1);
 
         /// Filter on a metrics label value
-        pub const METRIC_LABEL: FilterType = FilterType::new("METRIC_LABEL");
+        pub const METRIC_LABEL: FilterType = FilterType::known("METRIC_LABEL", 2);
 
         /// Filter on a user metadata label value
-        pub const USER_METADATA_LABEL: FilterType = FilterType::new("USER_METADATA_LABEL");
+        pub const USER_METADATA_LABEL: FilterType = FilterType::known("USER_METADATA_LABEL", 3);
 
         /// Filter on a system metadata label value
-        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::new("SYSTEM_METADATA_LABEL");
+        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::known("SYSTEM_METADATA_LABEL", 4);
 
         /// Filter on a group id
-        pub const GROUP: FilterType = FilterType::new("GROUP");
+        pub const GROUP: FilterType = FilterType::known("GROUP", 5);
+    }
+
+    impl FilterType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FilterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FilterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FilterType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FilterType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FilterType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FilterType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FILTER_TYPE_UNSPECIFIED" => filter_type::FILTER_TYPE_UNSPECIFIED,
+                "RESOURCE_LABEL" => filter_type::RESOURCE_LABEL,
+                "METRIC_LABEL" => filter_type::METRIC_LABEL,
+                "USER_METADATA_LABEL" => filter_type::USER_METADATA_LABEL,
+                "SYSTEM_METADATA_LABEL" => filter_type::SYSTEM_METADATA_LABEL,
+                "GROUP" => filter_type::GROUP,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FilterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => filter_type::FILTER_TYPE_UNSPECIFIED,
+                1 => filter_type::RESOURCE_LABEL,
+                2 => filter_type::METRIC_LABEL,
+                3 => filter_type::USER_METADATA_LABEL,
+                4 => filter_type::SYSTEM_METADATA_LABEL,
+                5 => filter_type::GROUP,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FilterType {
         fn default() -> Self {
-            filter_type::FILTER_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2708,131 +3049,270 @@ pub mod threshold {
     /// The color suggests an interpretation to the viewer when actual values cross
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Color(std::borrow::Cow<'static, str>);
-
-    impl Color {
-        /// Creates a new Color instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Color(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Color](Color)
     pub mod color {
         use super::Color;
 
         /// Color is unspecified. Not allowed in well-formed requests.
-        pub const COLOR_UNSPECIFIED: Color = Color::new("COLOR_UNSPECIFIED");
+        pub const COLOR_UNSPECIFIED: Color = Color::known("COLOR_UNSPECIFIED", 0);
 
         /// Crossing the threshold is "concerning" behavior.
-        pub const YELLOW: Color = Color::new("YELLOW");
+        pub const YELLOW: Color = Color::known("YELLOW", 4);
 
         /// Crossing the threshold is "emergency" behavior.
-        pub const RED: Color = Color::new("RED");
+        pub const RED: Color = Color::known("RED", 6);
+    }
+
+    impl Color {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Color {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Color {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Color::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Color::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Color::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Color {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "COLOR_UNSPECIFIED" => color::COLOR_UNSPECIFIED,
+                "YELLOW" => color::YELLOW,
+                "RED" => color::RED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Color {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => color::COLOR_UNSPECIFIED,
+                4 => color::YELLOW,
+                6 => color::RED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Color {
         fn default() -> Self {
-            color::COLOR_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
-
-    impl Direction {
-        /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Direction(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Direction](Direction)
     pub mod direction {
         use super::Direction;
 
         /// Not allowed in well-formed requests.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::known("DIRECTION_UNSPECIFIED", 0);
 
         /// The threshold will be considered crossed if the actual value is above
         /// the threshold value.
-        pub const ABOVE: Direction = Direction::new("ABOVE");
+        pub const ABOVE: Direction = Direction::known("ABOVE", 1);
 
         /// The threshold will be considered crossed if the actual value is below
         /// the threshold value.
-        pub const BELOW: Direction = Direction::new("BELOW");
+        pub const BELOW: Direction = Direction::known("BELOW", 2);
+    }
+
+    impl Direction {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Direction::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Direction::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Direction::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Direction {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DIRECTION_UNSPECIFIED" => direction::DIRECTION_UNSPECIFIED,
+                "ABOVE" => direction::ABOVE,
+                "BELOW" => direction::BELOW,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => direction::DIRECTION_UNSPECIFIED,
+                1 => direction::ABOVE,
+                2 => direction::BELOW,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            direction::DIRECTION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// An axis identifier.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetAxis(std::borrow::Cow<'static, str>);
-
-    impl TargetAxis {
-        /// Creates a new TargetAxis instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct TargetAxis(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [TargetAxis](TargetAxis)
     pub mod target_axis {
         use super::TargetAxis;
 
         /// The target axis was not specified. Defaults to Y1.
-        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
+        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis =
+            TargetAxis::known("TARGET_AXIS_UNSPECIFIED", 0);
 
         /// The y_axis (the right axis of chart).
-        pub const Y1: TargetAxis = TargetAxis::new("Y1");
+        pub const Y1: TargetAxis = TargetAxis::known("Y1", 1);
 
         /// The y2_axis (the left axis of chart).
-        pub const Y2: TargetAxis = TargetAxis::new("Y2");
+        pub const Y2: TargetAxis = TargetAxis::known("Y2", 2);
+    }
+
+    impl TargetAxis {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for TargetAxis {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetAxis {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(TargetAxis::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(TargetAxis::from(val)),
+                Enumeration::UnknownNum { str } => Ok(TargetAxis::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for TargetAxis {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TARGET_AXIS_UNSPECIFIED" => target_axis::TARGET_AXIS_UNSPECIFIED,
+                "Y1" => target_axis::Y1,
+                "Y2" => target_axis::Y2,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for TargetAxis {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => target_axis::TARGET_AXIS_UNSPECIFIED,
+                1 => target_axis::Y1,
+                2 => target_axis::Y2,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for TargetAxis {
         fn default() -> Self {
-            target_axis::TARGET_AXIS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2970,20 +3450,8 @@ pub mod pie_chart {
     }
 
     /// Types for the pie chart.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PieChartType(std::borrow::Cow<'static, str>);
-
-    impl PieChartType {
-        /// Creates a new PieChartType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PieChartType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PieChartType](PieChartType)
     pub mod pie_chart_type {
@@ -2991,24 +3459,82 @@ pub mod pie_chart {
 
         /// The zero value. No type specified. Do not use.
         pub const PIE_CHART_TYPE_UNSPECIFIED: PieChartType =
-            PieChartType::new("PIE_CHART_TYPE_UNSPECIFIED");
+            PieChartType::known("PIE_CHART_TYPE_UNSPECIFIED", 0);
 
         /// A Pie type PieChart.
-        pub const PIE: PieChartType = PieChartType::new("PIE");
+        pub const PIE: PieChartType = PieChartType::known("PIE", 1);
 
         /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
-        pub const DONUT: PieChartType = PieChartType::new("DONUT");
+        pub const DONUT: PieChartType = PieChartType::known("DONUT", 2);
+    }
+
+    impl PieChartType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PieChartType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PieChartType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PieChartType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PieChartType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PieChartType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PieChartType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PIE_CHART_TYPE_UNSPECIFIED" => pie_chart_type::PIE_CHART_TYPE_UNSPECIFIED,
+                "PIE" => pie_chart_type::PIE,
+                "DONUT" => pie_chart_type::DONUT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PieChartType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => pie_chart_type::PIE_CHART_TYPE_UNSPECIFIED,
+                1 => pie_chart_type::PIE,
+                2 => pie_chart_type::DONUT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PieChartType {
         fn default() -> Self {
-            pie_chart_type::PIE_CHART_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3568,20 +4094,8 @@ pub mod time_series_table {
     }
 
     /// Enum for metric metric_visualization
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricVisualization(std::borrow::Cow<'static, str>);
-
-    impl MetricVisualization {
-        /// Creates a new MetricVisualization instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MetricVisualization(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MetricVisualization](MetricVisualization)
     pub mod metric_visualization {
@@ -3589,24 +4103,84 @@ pub mod time_series_table {
 
         /// Unspecified state
         pub const METRIC_VISUALIZATION_UNSPECIFIED: MetricVisualization =
-            MetricVisualization::new("METRIC_VISUALIZATION_UNSPECIFIED");
+            MetricVisualization::known("METRIC_VISUALIZATION_UNSPECIFIED", 0);
 
         /// Default text rendering
-        pub const NUMBER: MetricVisualization = MetricVisualization::new("NUMBER");
+        pub const NUMBER: MetricVisualization = MetricVisualization::known("NUMBER", 1);
 
         /// Horizontal bar rendering
-        pub const BAR: MetricVisualization = MetricVisualization::new("BAR");
+        pub const BAR: MetricVisualization = MetricVisualization::known("BAR", 2);
+    }
+
+    impl MetricVisualization {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MetricVisualization {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MetricVisualization {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MetricVisualization::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MetricVisualization::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MetricVisualization::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MetricVisualization {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METRIC_VISUALIZATION_UNSPECIFIED" => {
+                    metric_visualization::METRIC_VISUALIZATION_UNSPECIFIED
+                }
+                "NUMBER" => metric_visualization::NUMBER,
+                "BAR" => metric_visualization::BAR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MetricVisualization {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => metric_visualization::METRIC_VISUALIZATION_UNSPECIFIED,
+                1 => metric_visualization::NUMBER,
+                2 => metric_visualization::BAR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MetricVisualization {
         fn default() -> Self {
-            metric_visualization::METRIC_VISUALIZATION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3817,20 +4391,8 @@ pub mod text {
         use super::*;
 
         /// The horizontal alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct HorizontalAlignment(std::borrow::Cow<'static, str>);
-
-        impl HorizontalAlignment {
-            /// Creates a new HorizontalAlignment instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct HorizontalAlignment(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [HorizontalAlignment](HorizontalAlignment)
         pub mod horizontal_alignment {
@@ -3838,45 +4400,95 @@ pub mod text {
 
             /// No horizontal alignment specified, will default to H_LEFT
             pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: HorizontalAlignment =
-                HorizontalAlignment::new("HORIZONTAL_ALIGNMENT_UNSPECIFIED");
+                HorizontalAlignment::known("HORIZONTAL_ALIGNMENT_UNSPECIFIED", 0);
 
             /// Left-align
-            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::new("H_LEFT");
+            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::known("H_LEFT", 1);
 
             /// Center-align
-            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::new("H_CENTER");
+            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::known("H_CENTER", 2);
 
             /// Right-align
-            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new("H_RIGHT");
+            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::known("H_RIGHT", 3);
+        }
+
+        impl HorizontalAlignment {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for HorizontalAlignment {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for HorizontalAlignment {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(HorizontalAlignment::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(HorizontalAlignment::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(HorizontalAlignment::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for HorizontalAlignment {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "HORIZONTAL_ALIGNMENT_UNSPECIFIED" => {
+                        horizontal_alignment::HORIZONTAL_ALIGNMENT_UNSPECIFIED
+                    }
+                    "H_LEFT" => horizontal_alignment::H_LEFT,
+                    "H_CENTER" => horizontal_alignment::H_CENTER,
+                    "H_RIGHT" => horizontal_alignment::H_RIGHT,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for HorizontalAlignment {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => horizontal_alignment::HORIZONTAL_ALIGNMENT_UNSPECIFIED,
+                    1 => horizontal_alignment::H_LEFT,
+                    2 => horizontal_alignment::H_CENTER,
+                    3 => horizontal_alignment::H_RIGHT,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for HorizontalAlignment {
             fn default() -> Self {
-                horizontal_alignment::HORIZONTAL_ALIGNMENT_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// The vertical alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct VerticalAlignment(std::borrow::Cow<'static, str>);
-
-        impl VerticalAlignment {
-            /// Creates a new VerticalAlignment instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct VerticalAlignment(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [VerticalAlignment](VerticalAlignment)
         pub mod vertical_alignment {
@@ -3884,45 +4496,95 @@ pub mod text {
 
             /// No vertical alignment specified, will default to V_TOP
             pub const VERTICAL_ALIGNMENT_UNSPECIFIED: VerticalAlignment =
-                VerticalAlignment::new("VERTICAL_ALIGNMENT_UNSPECIFIED");
+                VerticalAlignment::known("VERTICAL_ALIGNMENT_UNSPECIFIED", 0);
 
             /// Top-align
-            pub const V_TOP: VerticalAlignment = VerticalAlignment::new("V_TOP");
+            pub const V_TOP: VerticalAlignment = VerticalAlignment::known("V_TOP", 1);
 
             /// Center-align
-            pub const V_CENTER: VerticalAlignment = VerticalAlignment::new("V_CENTER");
+            pub const V_CENTER: VerticalAlignment = VerticalAlignment::known("V_CENTER", 2);
 
             /// Bottom-align
-            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new("V_BOTTOM");
+            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::known("V_BOTTOM", 3);
+        }
+
+        impl VerticalAlignment {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for VerticalAlignment {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for VerticalAlignment {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(VerticalAlignment::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(VerticalAlignment::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(VerticalAlignment::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for VerticalAlignment {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "VERTICAL_ALIGNMENT_UNSPECIFIED" => {
+                        vertical_alignment::VERTICAL_ALIGNMENT_UNSPECIFIED
+                    }
+                    "V_TOP" => vertical_alignment::V_TOP,
+                    "V_CENTER" => vertical_alignment::V_CENTER,
+                    "V_BOTTOM" => vertical_alignment::V_BOTTOM,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for VerticalAlignment {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => vertical_alignment::VERTICAL_ALIGNMENT_UNSPECIFIED,
+                    1 => vertical_alignment::V_TOP,
+                    2 => vertical_alignment::V_CENTER,
+                    3 => vertical_alignment::V_BOTTOM,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for VerticalAlignment {
             fn default() -> Self {
-                vertical_alignment::VERTICAL_ALIGNMENT_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// Specifies padding size around a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PaddingSize(std::borrow::Cow<'static, str>);
-
-        impl PaddingSize {
-            /// Creates a new PaddingSize instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct PaddingSize(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [PaddingSize](PaddingSize)
         pub mod padding_size {
@@ -3930,103 +4592,207 @@ pub mod text {
 
             /// No padding size specified, will default to P_EXTRA_SMALL
             pub const PADDING_SIZE_UNSPECIFIED: PaddingSize =
-                PaddingSize::new("PADDING_SIZE_UNSPECIFIED");
+                PaddingSize::known("PADDING_SIZE_UNSPECIFIED", 0);
 
             /// Extra small padding
-            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::new("P_EXTRA_SMALL");
+            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::known("P_EXTRA_SMALL", 1);
 
             /// Small padding
-            pub const P_SMALL: PaddingSize = PaddingSize::new("P_SMALL");
+            pub const P_SMALL: PaddingSize = PaddingSize::known("P_SMALL", 2);
 
             /// Medium padding
-            pub const P_MEDIUM: PaddingSize = PaddingSize::new("P_MEDIUM");
+            pub const P_MEDIUM: PaddingSize = PaddingSize::known("P_MEDIUM", 3);
 
             /// Large padding
-            pub const P_LARGE: PaddingSize = PaddingSize::new("P_LARGE");
+            pub const P_LARGE: PaddingSize = PaddingSize::known("P_LARGE", 4);
 
             /// Extra large padding
-            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new("P_EXTRA_LARGE");
+            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::known("P_EXTRA_LARGE", 5);
+        }
+
+        impl PaddingSize {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for PaddingSize {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PaddingSize {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(PaddingSize::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(PaddingSize::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(PaddingSize::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for PaddingSize {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "PADDING_SIZE_UNSPECIFIED" => padding_size::PADDING_SIZE_UNSPECIFIED,
+                    "P_EXTRA_SMALL" => padding_size::P_EXTRA_SMALL,
+                    "P_SMALL" => padding_size::P_SMALL,
+                    "P_MEDIUM" => padding_size::P_MEDIUM,
+                    "P_LARGE" => padding_size::P_LARGE,
+                    "P_EXTRA_LARGE" => padding_size::P_EXTRA_LARGE,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for PaddingSize {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => padding_size::PADDING_SIZE_UNSPECIFIED,
+                    1 => padding_size::P_EXTRA_SMALL,
+                    2 => padding_size::P_SMALL,
+                    3 => padding_size::P_MEDIUM,
+                    4 => padding_size::P_LARGE,
+                    5 => padding_size::P_EXTRA_LARGE,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for PaddingSize {
             fn default() -> Self {
-                padding_size::PADDING_SIZE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// Specifies a font size for the title and content of a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FontSize(std::borrow::Cow<'static, str>);
-
-        impl FontSize {
-            /// Creates a new FontSize instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct FontSize(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [FontSize](FontSize)
         pub mod font_size {
             use super::FontSize;
 
             /// No font size specified, will default to FS_LARGE
-            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::new("FONT_SIZE_UNSPECIFIED");
+            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::known("FONT_SIZE_UNSPECIFIED", 0);
 
             /// Extra small font size
-            pub const FS_EXTRA_SMALL: FontSize = FontSize::new("FS_EXTRA_SMALL");
+            pub const FS_EXTRA_SMALL: FontSize = FontSize::known("FS_EXTRA_SMALL", 1);
 
             /// Small font size
-            pub const FS_SMALL: FontSize = FontSize::new("FS_SMALL");
+            pub const FS_SMALL: FontSize = FontSize::known("FS_SMALL", 2);
 
             /// Medium font size
-            pub const FS_MEDIUM: FontSize = FontSize::new("FS_MEDIUM");
+            pub const FS_MEDIUM: FontSize = FontSize::known("FS_MEDIUM", 3);
 
             /// Large font size
-            pub const FS_LARGE: FontSize = FontSize::new("FS_LARGE");
+            pub const FS_LARGE: FontSize = FontSize::known("FS_LARGE", 4);
 
             /// Extra large font size
-            pub const FS_EXTRA_LARGE: FontSize = FontSize::new("FS_EXTRA_LARGE");
+            pub const FS_EXTRA_LARGE: FontSize = FontSize::known("FS_EXTRA_LARGE", 5);
+        }
+
+        impl FontSize {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for FontSize {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for FontSize {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(FontSize::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(FontSize::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(FontSize::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for FontSize {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "FONT_SIZE_UNSPECIFIED" => font_size::FONT_SIZE_UNSPECIFIED,
+                    "FS_EXTRA_SMALL" => font_size::FS_EXTRA_SMALL,
+                    "FS_SMALL" => font_size::FS_SMALL,
+                    "FS_MEDIUM" => font_size::FS_MEDIUM,
+                    "FS_LARGE" => font_size::FS_LARGE,
+                    "FS_EXTRA_LARGE" => font_size::FS_EXTRA_LARGE,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for FontSize {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => font_size::FONT_SIZE_UNSPECIFIED,
+                    1 => font_size::FS_EXTRA_SMALL,
+                    2 => font_size::FS_SMALL,
+                    3 => font_size::FS_MEDIUM,
+                    4 => font_size::FS_LARGE,
+                    5 => font_size::FS_EXTRA_LARGE,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for FontSize {
             fn default() -> Self {
-                font_size::FONT_SIZE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// Specifies where a visual pointer is placed on a text widget (also
         /// sometimes called a "tail")
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PointerLocation(std::borrow::Cow<'static, str>);
-
-        impl PointerLocation {
-            /// Creates a new PointerLocation instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct PointerLocation(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [PointerLocation](PointerLocation)
         pub mod pointer_location {
@@ -4034,97 +4800,227 @@ pub mod text {
 
             /// No visual pointer
             pub const POINTER_LOCATION_UNSPECIFIED: PointerLocation =
-                PointerLocation::new("POINTER_LOCATION_UNSPECIFIED");
+                PointerLocation::known("POINTER_LOCATION_UNSPECIFIED", 0);
 
             /// Placed in the middle of the top of the widget
-            pub const PL_TOP: PointerLocation = PointerLocation::new("PL_TOP");
+            pub const PL_TOP: PointerLocation = PointerLocation::known("PL_TOP", 1);
 
             /// Placed in the middle of the right side of the widget
-            pub const PL_RIGHT: PointerLocation = PointerLocation::new("PL_RIGHT");
+            pub const PL_RIGHT: PointerLocation = PointerLocation::known("PL_RIGHT", 2);
 
             /// Placed in the middle of the bottom of the widget
-            pub const PL_BOTTOM: PointerLocation = PointerLocation::new("PL_BOTTOM");
+            pub const PL_BOTTOM: PointerLocation = PointerLocation::known("PL_BOTTOM", 3);
 
             /// Placed in the middle of the left side of the widget
-            pub const PL_LEFT: PointerLocation = PointerLocation::new("PL_LEFT");
+            pub const PL_LEFT: PointerLocation = PointerLocation::known("PL_LEFT", 4);
 
             /// Placed on the left side of the top of the widget
-            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::new("PL_TOP_LEFT");
+            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::known("PL_TOP_LEFT", 5);
 
             /// Placed on the right side of the top of the widget
-            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::new("PL_TOP_RIGHT");
+            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::known("PL_TOP_RIGHT", 6);
 
             /// Placed on the top of the right side of the widget
-            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::new("PL_RIGHT_TOP");
+            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::known("PL_RIGHT_TOP", 7);
 
             /// Placed on the bottom of the right side of the widget
-            pub const PL_RIGHT_BOTTOM: PointerLocation = PointerLocation::new("PL_RIGHT_BOTTOM");
+            pub const PL_RIGHT_BOTTOM: PointerLocation =
+                PointerLocation::known("PL_RIGHT_BOTTOM", 8);
 
             /// Placed on the right side of the bottom of the widget
-            pub const PL_BOTTOM_RIGHT: PointerLocation = PointerLocation::new("PL_BOTTOM_RIGHT");
+            pub const PL_BOTTOM_RIGHT: PointerLocation =
+                PointerLocation::known("PL_BOTTOM_RIGHT", 9);
 
             /// Placed on the left side of the bottom of the widget
-            pub const PL_BOTTOM_LEFT: PointerLocation = PointerLocation::new("PL_BOTTOM_LEFT");
+            pub const PL_BOTTOM_LEFT: PointerLocation =
+                PointerLocation::known("PL_BOTTOM_LEFT", 10);
 
             /// Placed on the bottom of the left side of the widget
-            pub const PL_LEFT_BOTTOM: PointerLocation = PointerLocation::new("PL_LEFT_BOTTOM");
+            pub const PL_LEFT_BOTTOM: PointerLocation =
+                PointerLocation::known("PL_LEFT_BOTTOM", 11);
 
             /// Placed on the top of the left side of the widget
-            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new("PL_LEFT_TOP");
+            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::known("PL_LEFT_TOP", 12);
+        }
+
+        impl PointerLocation {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for PointerLocation {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PointerLocation {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(PointerLocation::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(PointerLocation::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(PointerLocation::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for PointerLocation {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "POINTER_LOCATION_UNSPECIFIED" => {
+                        pointer_location::POINTER_LOCATION_UNSPECIFIED
+                    }
+                    "PL_TOP" => pointer_location::PL_TOP,
+                    "PL_RIGHT" => pointer_location::PL_RIGHT,
+                    "PL_BOTTOM" => pointer_location::PL_BOTTOM,
+                    "PL_LEFT" => pointer_location::PL_LEFT,
+                    "PL_TOP_LEFT" => pointer_location::PL_TOP_LEFT,
+                    "PL_TOP_RIGHT" => pointer_location::PL_TOP_RIGHT,
+                    "PL_RIGHT_TOP" => pointer_location::PL_RIGHT_TOP,
+                    "PL_RIGHT_BOTTOM" => pointer_location::PL_RIGHT_BOTTOM,
+                    "PL_BOTTOM_RIGHT" => pointer_location::PL_BOTTOM_RIGHT,
+                    "PL_BOTTOM_LEFT" => pointer_location::PL_BOTTOM_LEFT,
+                    "PL_LEFT_BOTTOM" => pointer_location::PL_LEFT_BOTTOM,
+                    "PL_LEFT_TOP" => pointer_location::PL_LEFT_TOP,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for PointerLocation {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => pointer_location::POINTER_LOCATION_UNSPECIFIED,
+                    1 => pointer_location::PL_TOP,
+                    2 => pointer_location::PL_RIGHT,
+                    3 => pointer_location::PL_BOTTOM,
+                    4 => pointer_location::PL_LEFT,
+                    5 => pointer_location::PL_TOP_LEFT,
+                    6 => pointer_location::PL_TOP_RIGHT,
+                    7 => pointer_location::PL_RIGHT_TOP,
+                    8 => pointer_location::PL_RIGHT_BOTTOM,
+                    9 => pointer_location::PL_BOTTOM_RIGHT,
+                    10 => pointer_location::PL_BOTTOM_LEFT,
+                    11 => pointer_location::PL_LEFT_BOTTOM,
+                    12 => pointer_location::PL_LEFT_TOP,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for PointerLocation {
             fn default() -> Self {
-                pointer_location::POINTER_LOCATION_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
 
     /// The format type of the text content.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(std::borrow::Cow<'static, str>);
-
-    impl Format {
-        /// Creates a new Format instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Format(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Format](Format)
     pub mod format {
         use super::Format;
 
         /// Format is unspecified. Defaults to MARKDOWN.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
+        pub const FORMAT_UNSPECIFIED: Format = Format::known("FORMAT_UNSPECIFIED", 0);
 
         /// The text contains Markdown formatting.
-        pub const MARKDOWN: Format = Format::new("MARKDOWN");
+        pub const MARKDOWN: Format = Format::known("MARKDOWN", 1);
 
         /// The text contains no special formatting.
-        pub const RAW: Format = Format::new("RAW");
+        pub const RAW: Format = Format::known("RAW", 2);
+    }
+
+    impl Format {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Format::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Format::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Format::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Format {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FORMAT_UNSPECIFIED" => format::FORMAT_UNSPECIFIED,
+                "MARKDOWN" => format::MARKDOWN,
+                "RAW" => format::RAW,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => format::FORMAT_UNSPECIFIED,
+                1 => format::MARKDOWN,
+                2 => format::RAW,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Format {
         fn default() -> Self {
-            format::FORMAT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4794,77 +5690,115 @@ pub mod xy_chart {
         use super::*;
 
         /// The types of plotting strategies for data sets.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PlotType(std::borrow::Cow<'static, str>);
-
-        impl PlotType {
-            /// Creates a new PlotType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct PlotType(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [PlotType](PlotType)
         pub mod plot_type {
             use super::PlotType;
 
             /// Plot type is unspecified. The view will default to `LINE`.
-            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::new("PLOT_TYPE_UNSPECIFIED");
+            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::known("PLOT_TYPE_UNSPECIFIED", 0);
 
             /// The data is plotted as a set of lines (one line per series).
-            pub const LINE: PlotType = PlotType::new("LINE");
+            pub const LINE: PlotType = PlotType::known("LINE", 1);
 
             /// The data is plotted as a set of filled areas (one area per series),
             /// with the areas stacked vertically (the base of each area is the top of
             /// its predecessor, and the base of the first area is the x-axis). Since
             /// the areas do not overlap, each is filled with a different opaque color.
-            pub const STACKED_AREA: PlotType = PlotType::new("STACKED_AREA");
+            pub const STACKED_AREA: PlotType = PlotType::known("STACKED_AREA", 2);
 
             /// The data is plotted as a set of rectangular boxes (one box per series),
             /// with the boxes stacked vertically (the base of each box is the top of
             /// its predecessor, and the base of the first box is the x-axis). Since
             /// the boxes do not overlap, each is filled with a different opaque color.
-            pub const STACKED_BAR: PlotType = PlotType::new("STACKED_BAR");
+            pub const STACKED_BAR: PlotType = PlotType::known("STACKED_BAR", 3);
 
             /// The data is plotted as a heatmap. The series being plotted must have a
             /// `DISTRIBUTION` value type. The value of each bucket in the distribution
             /// is displayed as a color. This type is not currently available in the
             /// Stackdriver Monitoring application.
-            pub const HEATMAP: PlotType = PlotType::new("HEATMAP");
+            pub const HEATMAP: PlotType = PlotType::known("HEATMAP", 4);
+        }
+
+        impl PlotType {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for PlotType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PlotType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(PlotType::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(PlotType::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(PlotType::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for PlotType {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "PLOT_TYPE_UNSPECIFIED" => plot_type::PLOT_TYPE_UNSPECIFIED,
+                    "LINE" => plot_type::LINE,
+                    "STACKED_AREA" => plot_type::STACKED_AREA,
+                    "STACKED_BAR" => plot_type::STACKED_BAR,
+                    "HEATMAP" => plot_type::HEATMAP,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for PlotType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => plot_type::PLOT_TYPE_UNSPECIFIED,
+                    1 => plot_type::LINE,
+                    2 => plot_type::STACKED_AREA,
+                    3 => plot_type::STACKED_BAR,
+                    4 => plot_type::HEATMAP,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for PlotType {
             fn default() -> Self {
-                plot_type::PLOT_TYPE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// An axis identifier.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetAxis(std::borrow::Cow<'static, str>);
-
-        impl TargetAxis {
-            /// Creates a new TargetAxis instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct TargetAxis(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [TargetAxis](TargetAxis)
         pub mod target_axis {
@@ -4872,24 +5806,82 @@ pub mod xy_chart {
 
             /// The target axis was not specified. Defaults to Y1.
             pub const TARGET_AXIS_UNSPECIFIED: TargetAxis =
-                TargetAxis::new("TARGET_AXIS_UNSPECIFIED");
+                TargetAxis::known("TARGET_AXIS_UNSPECIFIED", 0);
 
             /// The y_axis (the right axis of chart).
-            pub const Y1: TargetAxis = TargetAxis::new("Y1");
+            pub const Y1: TargetAxis = TargetAxis::known("Y1", 1);
 
             /// The y2_axis (the left axis of chart).
-            pub const Y2: TargetAxis = TargetAxis::new("Y2");
+            pub const Y2: TargetAxis = TargetAxis::known("Y2", 2);
+        }
+
+        impl TargetAxis {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for TargetAxis {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TargetAxis {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(TargetAxis::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(TargetAxis::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(TargetAxis::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for TargetAxis {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TARGET_AXIS_UNSPECIFIED" => target_axis::TARGET_AXIS_UNSPECIFIED,
+                    "Y1" => target_axis::Y1,
+                    "Y2" => target_axis::Y2,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for TargetAxis {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => target_axis::TARGET_AXIS_UNSPECIFIED,
+                    1 => target_axis::Y1,
+                    2 => target_axis::Y2,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for TargetAxis {
             fn default() -> Self {
-                target_axis::TARGET_AXIS_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -4941,44 +5933,90 @@ pub mod xy_chart {
         use super::*;
 
         /// Types of scales used in axes.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Scale(std::borrow::Cow<'static, str>);
-
-        impl Scale {
-            /// Creates a new Scale instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Scale(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Scale](Scale)
         pub mod scale {
             use super::Scale;
 
             /// Scale is unspecified. The view will default to `LINEAR`.
-            pub const SCALE_UNSPECIFIED: Scale = Scale::new("SCALE_UNSPECIFIED");
+            pub const SCALE_UNSPECIFIED: Scale = Scale::known("SCALE_UNSPECIFIED", 0);
 
             /// Linear scale.
-            pub const LINEAR: Scale = Scale::new("LINEAR");
+            pub const LINEAR: Scale = Scale::known("LINEAR", 1);
 
             /// Logarithmic scale (base 10).
-            pub const LOG10: Scale = Scale::new("LOG10");
+            pub const LOG10: Scale = Scale::known("LOG10", 2);
+        }
+
+        impl Scale {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Scale {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Scale {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Scale::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Scale::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Scale::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Scale {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "SCALE_UNSPECIFIED" => scale::SCALE_UNSPECIFIED,
+                    "LINEAR" => scale::LINEAR,
+                    "LOG10" => scale::LOG10,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Scale {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => scale::SCALE_UNSPECIFIED,
+                    1 => scale::LINEAR,
+                    2 => scale::LOG10,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Scale {
             fn default() -> Self {
-                scale::SCALE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -5021,69 +6059,105 @@ pub mod chart_options {
     use super::*;
 
     /// Chart mode options.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::borrow::Cow<'static, str>);
-
-    impl Mode {
-        /// Creates a new Mode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Mode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
         use super::Mode;
 
         /// Mode is unspecified. The view will default to `COLOR`.
-        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
+        pub const MODE_UNSPECIFIED: Mode = Mode::known("MODE_UNSPECIFIED", 0);
 
         /// The chart distinguishes data series using different color. Line
         /// colors may get reused when there are many lines in the chart.
-        pub const COLOR: Mode = Mode::new("COLOR");
+        pub const COLOR: Mode = Mode::known("COLOR", 1);
 
         /// The chart uses the Stackdriver x-ray mode, in which each
         /// data set is plotted using the same semi-transparent color.
-        pub const X_RAY: Mode = Mode::new("X_RAY");
+        pub const X_RAY: Mode = Mode::known("X_RAY", 2);
 
         /// The chart displays statistics such as average, median, 95th percentile,
         /// and more.
-        pub const STATS: Mode = Mode::new("STATS");
+        pub const STATS: Mode = Mode::known("STATS", 3);
+    }
+
+    impl Mode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Mode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Mode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Mode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Mode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MODE_UNSPECIFIED" => mode::MODE_UNSPECIFIED,
+                "COLOR" => mode::COLOR,
+                "X_RAY" => mode::X_RAY,
+                "STATS" => mode::STATS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => mode::MODE_UNSPECIFIED,
+                1 => mode::COLOR,
+                2 => mode::X_RAY,
+                3 => mode::STATS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Mode {
         fn default() -> Self {
-            mode::MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SparkChartType(std::borrow::Cow<'static, str>);
-
-impl SparkChartType {
-    /// Creates a new SparkChartType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SparkChartType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SparkChartType](SparkChartType)
 pub mod spark_chart_type {
@@ -5091,23 +6165,81 @@ pub mod spark_chart_type {
 
     /// Not allowed in well-formed requests.
     pub const SPARK_CHART_TYPE_UNSPECIFIED: SparkChartType =
-        SparkChartType::new("SPARK_CHART_TYPE_UNSPECIFIED");
+        SparkChartType::known("SPARK_CHART_TYPE_UNSPECIFIED", 0);
 
     /// The sparkline will be rendered as a small line chart.
-    pub const SPARK_LINE: SparkChartType = SparkChartType::new("SPARK_LINE");
+    pub const SPARK_LINE: SparkChartType = SparkChartType::known("SPARK_LINE", 1);
 
     /// The sparkbar will be rendered as a small bar chart.
-    pub const SPARK_BAR: SparkChartType = SparkChartType::new("SPARK_BAR");
+    pub const SPARK_BAR: SparkChartType = SparkChartType::known("SPARK_BAR", 2);
+}
+
+impl SparkChartType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SparkChartType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SparkChartType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SparkChartType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SparkChartType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SparkChartType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SparkChartType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SPARK_CHART_TYPE_UNSPECIFIED" => spark_chart_type::SPARK_CHART_TYPE_UNSPECIFIED,
+            "SPARK_LINE" => spark_chart_type::SPARK_LINE,
+            "SPARK_BAR" => spark_chart_type::SPARK_BAR,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SparkChartType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => spark_chart_type::SPARK_CHART_TYPE_UNSPECIFIED,
+            1 => spark_chart_type::SPARK_LINE,
+            2 => spark_chart_type::SPARK_BAR,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SparkChartType {
     fn default() -> Self {
-        spark_chart_type::SPARK_CHART_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

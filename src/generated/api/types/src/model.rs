@@ -863,27 +863,15 @@ pub mod backend_rule {
     /// Path Translation is applicable only to HTTP-based backends. Backends which
     /// do not accept requests over HTTP/HTTPS should leave `path_translation`
     /// unspecified.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PathTranslation(std::borrow::Cow<'static, str>);
-
-    impl PathTranslation {
-        /// Creates a new PathTranslation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PathTranslation(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PathTranslation](PathTranslation)
     pub mod path_translation {
         use super::PathTranslation;
 
         pub const PATH_TRANSLATION_UNSPECIFIED: PathTranslation =
-            PathTranslation::new("PATH_TRANSLATION_UNSPECIFIED");
+            PathTranslation::known("PATH_TRANSLATION_UNSPECIFIED", 0);
 
         /// Use the backend address as-is, with no modification to the path. If the
         /// URL pattern contains variables, the variable names and values will be
@@ -912,7 +900,7 @@ pub mod backend_rule {
         /// Translated:
         /// https://example.cloudfunctions.net/getUser?timezone=EST&cid=widgetworks&uid=johndoe
         /// ```
-        pub const CONSTANT_ADDRESS: PathTranslation = PathTranslation::new("CONSTANT_ADDRESS");
+        pub const CONSTANT_ADDRESS: PathTranslation = PathTranslation::known("CONSTANT_ADDRESS", 1);
 
         /// The request path will be appended to the backend address.
         ///
@@ -938,18 +926,76 @@ pub mod backend_rule {
         /// https://example.appspot.com/api/company/widgetworks/user/johndoe?timezone=EST
         /// ```
         pub const APPEND_PATH_TO_ADDRESS: PathTranslation =
-            PathTranslation::new("APPEND_PATH_TO_ADDRESS");
+            PathTranslation::known("APPEND_PATH_TO_ADDRESS", 2);
+    }
+
+    impl PathTranslation {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PathTranslation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PathTranslation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PathTranslation::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PathTranslation::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PathTranslation::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PathTranslation {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PATH_TRANSLATION_UNSPECIFIED" => path_translation::PATH_TRANSLATION_UNSPECIFIED,
+                "CONSTANT_ADDRESS" => path_translation::CONSTANT_ADDRESS,
+                "APPEND_PATH_TO_ADDRESS" => path_translation::APPEND_PATH_TO_ADDRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PathTranslation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => path_translation::PATH_TRANSLATION_UNSPECIFIED,
+                1 => path_translation::CONSTANT_ADDRESS,
+                2 => path_translation::APPEND_PATH_TO_ADDRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PathTranslation {
         fn default() -> Self {
-            path_translation::PATH_TRANSLATION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -2501,50 +2547,100 @@ pub mod property {
     use super::*;
 
     /// Supported data type of the property values
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PropertyType(std::borrow::Cow<'static, str>);
-
-    impl PropertyType {
-        /// Creates a new PropertyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PropertyType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PropertyType](PropertyType)
     pub mod property_type {
         use super::PropertyType;
 
         /// The type is unspecified, and will result in an error.
-        pub const UNSPECIFIED: PropertyType = PropertyType::new("UNSPECIFIED");
+        pub const UNSPECIFIED: PropertyType = PropertyType::known("UNSPECIFIED", 0);
 
         /// The type is `int64`.
-        pub const INT64: PropertyType = PropertyType::new("INT64");
+        pub const INT64: PropertyType = PropertyType::known("INT64", 1);
 
         /// The type is `bool`.
-        pub const BOOL: PropertyType = PropertyType::new("BOOL");
+        pub const BOOL: PropertyType = PropertyType::known("BOOL", 2);
 
         /// The type is `string`.
-        pub const STRING: PropertyType = PropertyType::new("STRING");
+        pub const STRING: PropertyType = PropertyType::known("STRING", 3);
 
         /// The type is 'double'.
-        pub const DOUBLE: PropertyType = PropertyType::new("DOUBLE");
+        pub const DOUBLE: PropertyType = PropertyType::known("DOUBLE", 4);
+    }
+
+    impl PropertyType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PropertyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PropertyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PropertyType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PropertyType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PropertyType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PropertyType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNSPECIFIED" => property_type::UNSPECIFIED,
+                "INT64" => property_type::INT64,
+                "BOOL" => property_type::BOOL,
+                "STRING" => property_type::STRING,
+                "DOUBLE" => property_type::DOUBLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PropertyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => property_type::UNSPECIFIED,
+                1 => property_type::INT64,
+                2 => property_type::BOOL,
+                3 => property_type::STRING,
+                4 => property_type::DOUBLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PropertyType {
         fn default() -> Self {
-            property_type::UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3791,63 +3887,113 @@ pub mod field_info {
 
     /// The standard format of a field value. The supported formats are all backed
     /// by either an RFC defined by the IETF or a Google-defined AIP.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(std::borrow::Cow<'static, str>);
-
-    impl Format {
-        /// Creates a new Format instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Format(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Format](Format)
     pub mod format {
         use super::Format;
 
         /// Default, unspecified value.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
+        pub const FORMAT_UNSPECIFIED: Format = Format::known("FORMAT_UNSPECIFIED", 0);
 
         /// Universally Unique Identifier, version 4, value as defined by
         /// <https://datatracker.ietf.org/doc/html/rfc4122>. The value may be
         /// normalized to entirely lowercase letters. For example, the value
         /// `F47AC10B-58CC-0372-8567-0E02B2C3D479` would be normalized to
         /// `f47ac10b-58cc-0372-8567-0e02b2c3d479`.
-        pub const UUID4: Format = Format::new("UUID4");
+        pub const UUID4: Format = Format::known("UUID4", 1);
 
         /// Internet Protocol v4 value as defined by [RFC
         /// 791](https://datatracker.ietf.org/doc/html/rfc791). The value may be
         /// condensed, with leading zeros in each octet stripped. For example,
         /// `001.022.233.040` would be condensed to `1.22.233.40`.
-        pub const IPV4: Format = Format::new("IPV4");
+        pub const IPV4: Format = Format::known("IPV4", 2);
 
         /// Internet Protocol v6 value as defined by [RFC
         /// 2460](https://datatracker.ietf.org/doc/html/rfc2460). The value may be
         /// normalized to entirely lowercase letters with zeros compressed, following
         /// [RFC 5952](https://datatracker.ietf.org/doc/html/rfc5952). For example,
         /// the value `2001:0DB8:0::0` would be normalized to `2001:db8::`.
-        pub const IPV6: Format = Format::new("IPV6");
+        pub const IPV6: Format = Format::known("IPV6", 3);
 
         /// An IP address in either v4 or v6 format as described by the individual
         /// values defined herein. See the comments on the IPV4 and IPV6 types for
         /// allowed normalizations of each.
-        pub const IPV4_OR_IPV6: Format = Format::new("IPV4_OR_IPV6");
+        pub const IPV4_OR_IPV6: Format = Format::known("IPV4_OR_IPV6", 4);
+    }
+
+    impl Format {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Format::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Format::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Format::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Format {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FORMAT_UNSPECIFIED" => format::FORMAT_UNSPECIFIED,
+                "UUID4" => format::UUID4,
+                "IPV4" => format::IPV4,
+                "IPV6" => format::IPV6,
+                "IPV4_OR_IPV6" => format::IPV4_OR_IPV6,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => format::FORMAT_UNSPECIFIED,
+                1 => format::UUID4,
+                2 => format::IPV4,
+                3 => format::IPV6,
+                4 => format::IPV4_OR_IPV6,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Format {
         fn default() -> Self {
-            format::FORMAT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -4688,44 +4834,90 @@ pub mod label_descriptor {
     use super::*;
 
     /// Value types that can be used as label values.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ValueType(std::borrow::Cow<'static, str>);
-
-    impl ValueType {
-        /// Creates a new ValueType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ValueType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ValueType](ValueType)
     pub mod value_type {
         use super::ValueType;
 
         /// A variable-length string. This is the default.
-        pub const STRING: ValueType = ValueType::new("STRING");
+        pub const STRING: ValueType = ValueType::known("STRING", 0);
 
         /// Boolean; true or false.
-        pub const BOOL: ValueType = ValueType::new("BOOL");
+        pub const BOOL: ValueType = ValueType::known("BOOL", 1);
 
         /// A 64-bit signed integer.
-        pub const INT64: ValueType = ValueType::new("INT64");
+        pub const INT64: ValueType = ValueType::known("INT64", 2);
+    }
+
+    impl ValueType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ValueType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ValueType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ValueType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ValueType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ValueType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ValueType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STRING" => value_type::STRING,
+                "BOOL" => value_type::BOOL,
+                "INT64" => value_type::INT64,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ValueType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => value_type::STRING,
+                1 => value_type::BOOL,
+                2 => value_type::INT64,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ValueType {
         fn default() -> Self {
-            value_type::STRING
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5354,20 +5546,8 @@ pub mod metric_descriptor {
         use super::*;
 
         /// The resource hierarchy level of the timeseries data of a metric.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TimeSeriesResourceHierarchyLevel(std::borrow::Cow<'static, str>);
-
-        impl TimeSeriesResourceHierarchyLevel {
-            /// Creates a new TimeSeriesResourceHierarchyLevel instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct TimeSeriesResourceHierarchyLevel(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [TimeSeriesResourceHierarchyLevel](TimeSeriesResourceHierarchyLevel)
         pub mod time_series_resource_hierarchy_level {
@@ -5375,32 +5555,99 @@ pub mod metric_descriptor {
 
             /// Do not use this default value.
             pub const TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED:
-                TimeSeriesResourceHierarchyLevel = TimeSeriesResourceHierarchyLevel::new(
+                TimeSeriesResourceHierarchyLevel = TimeSeriesResourceHierarchyLevel::known(
                 "TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED",
+                0,
             );
 
             /// Scopes a metric to a project.
             pub const PROJECT: TimeSeriesResourceHierarchyLevel =
-                TimeSeriesResourceHierarchyLevel::new("PROJECT");
+                TimeSeriesResourceHierarchyLevel::known("PROJECT", 1);
 
             /// Scopes a metric to an organization.
             pub const ORGANIZATION: TimeSeriesResourceHierarchyLevel =
-                TimeSeriesResourceHierarchyLevel::new("ORGANIZATION");
+                TimeSeriesResourceHierarchyLevel::known("ORGANIZATION", 2);
 
             /// Scopes a metric to a folder.
             pub const FOLDER: TimeSeriesResourceHierarchyLevel =
-                TimeSeriesResourceHierarchyLevel::new("FOLDER");
+                TimeSeriesResourceHierarchyLevel::known("FOLDER", 3);
+        }
+
+        impl TimeSeriesResourceHierarchyLevel {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for TimeSeriesResourceHierarchyLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TimeSeriesResourceHierarchyLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => {
+                        Ok(TimeSeriesResourceHierarchyLevel::from(val))
+                    }
+                    Enumeration::UnknownStr { val, str: _ } => {
+                        Ok(TimeSeriesResourceHierarchyLevel::from(val))
+                    }
+                    Enumeration::UnknownNum { str } => {
+                        Ok(TimeSeriesResourceHierarchyLevel::from(str))
+                    }
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for TimeSeriesResourceHierarchyLevel {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED" => time_series_resource_hierarchy_level::TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED,
+                    "PROJECT" => time_series_resource_hierarchy_level::PROJECT,
+                    "ORGANIZATION" => time_series_resource_hierarchy_level::ORGANIZATION,
+                    "FOLDER" => time_series_resource_hierarchy_level::FOLDER,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for TimeSeriesResourceHierarchyLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => time_series_resource_hierarchy_level::TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED,
+                    1 => time_series_resource_hierarchy_level::PROJECT,
+                    2 => time_series_resource_hierarchy_level::ORGANIZATION,
+                    3 => time_series_resource_hierarchy_level::FOLDER,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for TimeSeriesResourceHierarchyLevel {
             fn default() -> Self {
-                time_series_resource_hierarchy_level::TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -5408,109 +5655,212 @@ pub mod metric_descriptor {
     /// The kind of measurement. It describes how the data is reported.
     /// For information on setting the start time and end time based on
     /// the MetricKind, see [TimeInterval][google.monitoring.v3.TimeInterval].
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricKind(std::borrow::Cow<'static, str>);
-
-    impl MetricKind {
-        /// Creates a new MetricKind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MetricKind(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MetricKind](MetricKind)
     pub mod metric_kind {
         use super::MetricKind;
 
         /// Do not use this default value.
-        pub const METRIC_KIND_UNSPECIFIED: MetricKind = MetricKind::new("METRIC_KIND_UNSPECIFIED");
+        pub const METRIC_KIND_UNSPECIFIED: MetricKind =
+            MetricKind::known("METRIC_KIND_UNSPECIFIED", 0);
 
         /// An instantaneous measurement of a value.
-        pub const GAUGE: MetricKind = MetricKind::new("GAUGE");
+        pub const GAUGE: MetricKind = MetricKind::known("GAUGE", 1);
 
         /// The change in a value during a time interval.
-        pub const DELTA: MetricKind = MetricKind::new("DELTA");
+        pub const DELTA: MetricKind = MetricKind::known("DELTA", 2);
 
         /// A value accumulated over a time interval.  Cumulative
         /// measurements in a time series should have the same start time
         /// and increasing end times, until an event resets the cumulative
         /// value to zero and sets a new start time for the following
         /// points.
-        pub const CUMULATIVE: MetricKind = MetricKind::new("CUMULATIVE");
+        pub const CUMULATIVE: MetricKind = MetricKind::known("CUMULATIVE", 3);
+    }
+
+    impl MetricKind {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MetricKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MetricKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MetricKind::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MetricKind::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MetricKind::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MetricKind {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "METRIC_KIND_UNSPECIFIED" => metric_kind::METRIC_KIND_UNSPECIFIED,
+                "GAUGE" => metric_kind::GAUGE,
+                "DELTA" => metric_kind::DELTA,
+                "CUMULATIVE" => metric_kind::CUMULATIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MetricKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => metric_kind::METRIC_KIND_UNSPECIFIED,
+                1 => metric_kind::GAUGE,
+                2 => metric_kind::DELTA,
+                3 => metric_kind::CUMULATIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MetricKind {
         fn default() -> Self {
-            metric_kind::METRIC_KIND_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The value type of a metric.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ValueType(std::borrow::Cow<'static, str>);
-
-    impl ValueType {
-        /// Creates a new ValueType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ValueType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ValueType](ValueType)
     pub mod value_type {
         use super::ValueType;
 
         /// Do not use this default value.
-        pub const VALUE_TYPE_UNSPECIFIED: ValueType = ValueType::new("VALUE_TYPE_UNSPECIFIED");
+        pub const VALUE_TYPE_UNSPECIFIED: ValueType = ValueType::known("VALUE_TYPE_UNSPECIFIED", 0);
 
         /// The value is a boolean.
         /// This value type can be used only if the metric kind is `GAUGE`.
-        pub const BOOL: ValueType = ValueType::new("BOOL");
+        pub const BOOL: ValueType = ValueType::known("BOOL", 1);
 
         /// The value is a signed 64-bit integer.
-        pub const INT64: ValueType = ValueType::new("INT64");
+        pub const INT64: ValueType = ValueType::known("INT64", 2);
 
         /// The value is a double precision floating point number.
-        pub const DOUBLE: ValueType = ValueType::new("DOUBLE");
+        pub const DOUBLE: ValueType = ValueType::known("DOUBLE", 3);
 
         /// The value is a text string.
         /// This value type can be used only if the metric kind is `GAUGE`.
-        pub const STRING: ValueType = ValueType::new("STRING");
+        pub const STRING: ValueType = ValueType::known("STRING", 4);
 
         /// The value is a [`Distribution`][google.api.Distribution].
         ///
         /// [google.api.Distribution]: crate::model::Distribution
-        pub const DISTRIBUTION: ValueType = ValueType::new("DISTRIBUTION");
+        pub const DISTRIBUTION: ValueType = ValueType::known("DISTRIBUTION", 5);
 
         /// The value is money.
-        pub const MONEY: ValueType = ValueType::new("MONEY");
+        pub const MONEY: ValueType = ValueType::known("MONEY", 6);
+    }
+
+    impl ValueType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ValueType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ValueType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ValueType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ValueType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ValueType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ValueType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "VALUE_TYPE_UNSPECIFIED" => value_type::VALUE_TYPE_UNSPECIFIED,
+                "BOOL" => value_type::BOOL,
+                "INT64" => value_type::INT64,
+                "DOUBLE" => value_type::DOUBLE,
+                "STRING" => value_type::STRING,
+                "DISTRIBUTION" => value_type::DISTRIBUTION,
+                "MONEY" => value_type::MONEY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ValueType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => value_type::VALUE_TYPE_UNSPECIFIED,
+                1 => value_type::BOOL,
+                2 => value_type::INT64,
+                3 => value_type::DOUBLE,
+                4 => value_type::STRING,
+                5 => value_type::DISTRIBUTION,
+                6 => value_type::MONEY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ValueType {
         fn default() -> Self {
-            value_type::VALUE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6688,72 +7038,107 @@ pub mod resource_descriptor {
 
     /// A description of the historical or future-looking state of the
     /// resource pattern.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct History(std::borrow::Cow<'static, str>);
-
-    impl History {
-        /// Creates a new History instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct History(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [History](History)
     pub mod history {
         use super::History;
 
         /// The "unset" value.
-        pub const HISTORY_UNSPECIFIED: History = History::new("HISTORY_UNSPECIFIED");
+        pub const HISTORY_UNSPECIFIED: History = History::known("HISTORY_UNSPECIFIED", 0);
 
         /// The resource originally had one pattern and launched as such, and
         /// additional patterns were added later.
-        pub const ORIGINALLY_SINGLE_PATTERN: History = History::new("ORIGINALLY_SINGLE_PATTERN");
+        pub const ORIGINALLY_SINGLE_PATTERN: History =
+            History::known("ORIGINALLY_SINGLE_PATTERN", 1);
 
         /// The resource has one pattern, but the API owner expects to add more
         /// later. (This is the inverse of ORIGINALLY_SINGLE_PATTERN, and prevents
         /// that from being necessary once there are multiple patterns.)
-        pub const FUTURE_MULTI_PATTERN: History = History::new("FUTURE_MULTI_PATTERN");
+        pub const FUTURE_MULTI_PATTERN: History = History::known("FUTURE_MULTI_PATTERN", 2);
+    }
+
+    impl History {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for History {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for History {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(History::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(History::from(val)),
+                Enumeration::UnknownNum { str } => Ok(History::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for History {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "HISTORY_UNSPECIFIED" => history::HISTORY_UNSPECIFIED,
+                "ORIGINALLY_SINGLE_PATTERN" => history::ORIGINALLY_SINGLE_PATTERN,
+                "FUTURE_MULTI_PATTERN" => history::FUTURE_MULTI_PATTERN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for History {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => history::HISTORY_UNSPECIFIED,
+                1 => history::ORIGINALLY_SINGLE_PATTERN,
+                2 => history::FUTURE_MULTI_PATTERN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for History {
         fn default() -> Self {
-            history::HISTORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// A flag representing a specific style that a resource claims to conform to.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Style(std::borrow::Cow<'static, str>);
-
-    impl Style {
-        /// Creates a new Style instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Style(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Style](Style)
     pub mod style {
         use super::Style;
 
         /// The unspecified value. Do not use.
-        pub const STYLE_UNSPECIFIED: Style = Style::new("STYLE_UNSPECIFIED");
+        pub const STYLE_UNSPECIFIED: Style = Style::known("STYLE_UNSPECIFIED", 0);
 
         /// This resource is intended to be "declarative-friendly".
         ///
@@ -6763,18 +7148,74 @@ pub mod resource_descriptor {
         ///
         /// Note: This is used by the API linter (linter.aip.dev) to enable
         /// additional checks.
-        pub const DECLARATIVE_FRIENDLY: Style = Style::new("DECLARATIVE_FRIENDLY");
+        pub const DECLARATIVE_FRIENDLY: Style = Style::known("DECLARATIVE_FRIENDLY", 1);
+    }
+
+    impl Style {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Style {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Style {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Style::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Style::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Style::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Style {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STYLE_UNSPECIFIED" => style::STYLE_UNSPECIFIED,
+                "DECLARATIVE_FRIENDLY" => style::DECLARATIVE_FRIENDLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Style {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => style::STYLE_UNSPECIFIED,
+                1 => style::DECLARATIVE_FRIENDLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Style {
         fn default() -> Self {
-            style::STYLE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -8349,20 +8790,8 @@ impl wkt::message::Message for VisibilityRule {
 
 /// The organization for which the client libraries are being published.
 /// Affects the url where generated docs are published, etc.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ClientLibraryOrganization(std::borrow::Cow<'static, str>);
-
-impl ClientLibraryOrganization {
-    /// Creates a new ClientLibraryOrganization instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ClientLibraryOrganization(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ClientLibraryOrganization](ClientLibraryOrganization)
 pub mod client_library_organization {
@@ -8370,59 +8799,117 @@ pub mod client_library_organization {
 
     /// Not useful.
     pub const CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED: ClientLibraryOrganization =
-        ClientLibraryOrganization::new("CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED");
+        ClientLibraryOrganization::known("CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED", 0);
 
     /// Google Cloud Platform Org.
-    pub const CLOUD: ClientLibraryOrganization = ClientLibraryOrganization::new("CLOUD");
+    pub const CLOUD: ClientLibraryOrganization = ClientLibraryOrganization::known("CLOUD", 1);
 
     /// Ads (Advertising) Org.
-    pub const ADS: ClientLibraryOrganization = ClientLibraryOrganization::new("ADS");
+    pub const ADS: ClientLibraryOrganization = ClientLibraryOrganization::known("ADS", 2);
 
     /// Photos Org.
-    pub const PHOTOS: ClientLibraryOrganization = ClientLibraryOrganization::new("PHOTOS");
+    pub const PHOTOS: ClientLibraryOrganization = ClientLibraryOrganization::known("PHOTOS", 3);
 
     /// Street View Org.
     pub const STREET_VIEW: ClientLibraryOrganization =
-        ClientLibraryOrganization::new("STREET_VIEW");
+        ClientLibraryOrganization::known("STREET_VIEW", 4);
 
     /// Shopping Org.
-    pub const SHOPPING: ClientLibraryOrganization = ClientLibraryOrganization::new("SHOPPING");
+    pub const SHOPPING: ClientLibraryOrganization = ClientLibraryOrganization::known("SHOPPING", 5);
 
     /// Geo Org.
-    pub const GEO: ClientLibraryOrganization = ClientLibraryOrganization::new("GEO");
+    pub const GEO: ClientLibraryOrganization = ClientLibraryOrganization::known("GEO", 6);
 
     /// Generative AI - <https://developers.generativeai.google>
     pub const GENERATIVE_AI: ClientLibraryOrganization =
-        ClientLibraryOrganization::new("GENERATIVE_AI");
+        ClientLibraryOrganization::known("GENERATIVE_AI", 7);
+}
+
+impl ClientLibraryOrganization {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ClientLibraryOrganization {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ClientLibraryOrganization {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ClientLibraryOrganization::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ClientLibraryOrganization::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ClientLibraryOrganization::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ClientLibraryOrganization {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED" => {
+                client_library_organization::CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED
+            }
+            "CLOUD" => client_library_organization::CLOUD,
+            "ADS" => client_library_organization::ADS,
+            "PHOTOS" => client_library_organization::PHOTOS,
+            "STREET_VIEW" => client_library_organization::STREET_VIEW,
+            "SHOPPING" => client_library_organization::SHOPPING,
+            "GEO" => client_library_organization::GEO,
+            "GENERATIVE_AI" => client_library_organization::GENERATIVE_AI,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ClientLibraryOrganization {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => client_library_organization::CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED,
+            1 => client_library_organization::CLOUD,
+            2 => client_library_organization::ADS,
+            3 => client_library_organization::PHOTOS,
+            4 => client_library_organization::STREET_VIEW,
+            5 => client_library_organization::SHOPPING,
+            6 => client_library_organization::GEO,
+            7 => client_library_organization::GENERATIVE_AI,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ClientLibraryOrganization {
     fn default() -> Self {
-        client_library_organization::CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// To where should client libraries be published?
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ClientLibraryDestination(std::borrow::Cow<'static, str>);
-
-impl ClientLibraryDestination {
-    /// Creates a new ClientLibraryDestination instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ClientLibraryDestination(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ClientLibraryDestination](ClientLibraryDestination)
 pub mod client_library_destination {
@@ -8431,75 +8918,183 @@ pub mod client_library_destination {
     /// Client libraries will neither be generated nor published to package
     /// managers.
     pub const CLIENT_LIBRARY_DESTINATION_UNSPECIFIED: ClientLibraryDestination =
-        ClientLibraryDestination::new("CLIENT_LIBRARY_DESTINATION_UNSPECIFIED");
+        ClientLibraryDestination::known("CLIENT_LIBRARY_DESTINATION_UNSPECIFIED", 0);
 
     /// Generate the client library in a repo under github.com/googleapis,
     /// but don't publish it to package managers.
-    pub const GITHUB: ClientLibraryDestination = ClientLibraryDestination::new("GITHUB");
+    pub const GITHUB: ClientLibraryDestination = ClientLibraryDestination::known("GITHUB", 10);
 
     /// Publish the library to package managers like nuget.org and npmjs.com.
     pub const PACKAGE_MANAGER: ClientLibraryDestination =
-        ClientLibraryDestination::new("PACKAGE_MANAGER");
+        ClientLibraryDestination::known("PACKAGE_MANAGER", 20);
+}
+
+impl ClientLibraryDestination {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ClientLibraryDestination {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ClientLibraryDestination {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ClientLibraryDestination::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ClientLibraryDestination::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ClientLibraryDestination::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ClientLibraryDestination {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CLIENT_LIBRARY_DESTINATION_UNSPECIFIED" => {
+                client_library_destination::CLIENT_LIBRARY_DESTINATION_UNSPECIFIED
+            }
+            "GITHUB" => client_library_destination::GITHUB,
+            "PACKAGE_MANAGER" => client_library_destination::PACKAGE_MANAGER,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ClientLibraryDestination {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => client_library_destination::CLIENT_LIBRARY_DESTINATION_UNSPECIFIED,
+            10 => client_library_destination::GITHUB,
+            20 => client_library_destination::PACKAGE_MANAGER,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ClientLibraryDestination {
     fn default() -> Self {
-        client_library_destination::CLIENT_LIBRARY_DESTINATION_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Classifies set of possible modifications to an object in the service
 /// configuration.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ChangeType(std::borrow::Cow<'static, str>);
-
-impl ChangeType {
-    /// Creates a new ChangeType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ChangeType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ChangeType](ChangeType)
 pub mod change_type {
     use super::ChangeType;
 
     /// No value was provided.
-    pub const CHANGE_TYPE_UNSPECIFIED: ChangeType = ChangeType::new("CHANGE_TYPE_UNSPECIFIED");
+    pub const CHANGE_TYPE_UNSPECIFIED: ChangeType = ChangeType::known("CHANGE_TYPE_UNSPECIFIED", 0);
 
     /// The changed object exists in the 'new' service configuration, but not
     /// in the 'old' service configuration.
-    pub const ADDED: ChangeType = ChangeType::new("ADDED");
+    pub const ADDED: ChangeType = ChangeType::known("ADDED", 1);
 
     /// The changed object exists in the 'old' service configuration, but not
     /// in the 'new' service configuration.
-    pub const REMOVED: ChangeType = ChangeType::new("REMOVED");
+    pub const REMOVED: ChangeType = ChangeType::known("REMOVED", 2);
 
     /// The changed object exists in both service configurations, but its value
     /// is different.
-    pub const MODIFIED: ChangeType = ChangeType::new("MODIFIED");
+    pub const MODIFIED: ChangeType = ChangeType::known("MODIFIED", 3);
+}
+
+impl ChangeType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ChangeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ChangeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ChangeType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ChangeType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ChangeType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ChangeType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "CHANGE_TYPE_UNSPECIFIED" => change_type::CHANGE_TYPE_UNSPECIFIED,
+            "ADDED" => change_type::ADDED,
+            "REMOVED" => change_type::REMOVED,
+            "MODIFIED" => change_type::MODIFIED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ChangeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => change_type::CHANGE_TYPE_UNSPECIFIED,
+            1 => change_type::ADDED,
+            2 => change_type::REMOVED,
+            3 => change_type::MODIFIED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ChangeType {
     fn default() -> Self {
-        change_type::CHANGE_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
@@ -8513,27 +9108,16 @@ impl std::default::Default for ChangeType {
 /// such as "projects/123". Other metadata keys are specific to each error
 /// reason. For more information, see the definition of the specific error
 /// reason.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ErrorReason(std::borrow::Cow<'static, str>);
-
-impl ErrorReason {
-    /// Creates a new ErrorReason instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct ErrorReason(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [ErrorReason](ErrorReason)
 pub mod error_reason {
     use super::ErrorReason;
 
     /// Do not use this default value.
-    pub const ERROR_REASON_UNSPECIFIED: ErrorReason = ErrorReason::new("ERROR_REASON_UNSPECIFIED");
+    pub const ERROR_REASON_UNSPECIFIED: ErrorReason =
+        ErrorReason::known("ERROR_REASON_UNSPECIFIED", 0);
 
     /// The request is calling a disabled service for a consumer.
     ///
@@ -8552,7 +9136,7 @@ pub mod error_reason {
     ///
     /// This response indicates the "pubsub.googleapis.com" has been disabled in
     /// "projects/123".
-    pub const SERVICE_DISABLED: ErrorReason = ErrorReason::new("SERVICE_DISABLED");
+    pub const SERVICE_DISABLED: ErrorReason = ErrorReason::known("SERVICE_DISABLED", 1);
 
     /// The request whose associated billing account is disabled.
     ///
@@ -8571,7 +9155,7 @@ pub mod error_reason {
     /// ```
     ///
     /// This response indicates the billing account associated has been disabled.
-    pub const BILLING_DISABLED: ErrorReason = ErrorReason::new("BILLING_DISABLED");
+    pub const BILLING_DISABLED: ErrorReason = ErrorReason::known("BILLING_DISABLED", 2);
 
     /// The request is denied because the provided [API
     /// key](https://cloud.google.com/docs/authentication/api-keys) is invalid. It
@@ -8588,7 +9172,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_INVALID: ErrorReason = ErrorReason::new("API_KEY_INVALID");
+    pub const API_KEY_INVALID: ErrorReason = ErrorReason::known("API_KEY_INVALID", 3);
 
     /// The request is denied because it violates [API key API
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_api_restrictions).
@@ -8606,7 +9190,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_SERVICE_BLOCKED: ErrorReason = ErrorReason::new("API_KEY_SERVICE_BLOCKED");
+    pub const API_KEY_SERVICE_BLOCKED: ErrorReason =
+        ErrorReason::known("API_KEY_SERVICE_BLOCKED", 4);
 
     /// The request is denied because it violates [API key HTTP
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_http_restrictions).
@@ -8625,7 +9210,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const API_KEY_HTTP_REFERRER_BLOCKED: ErrorReason =
-        ErrorReason::new("API_KEY_HTTP_REFERRER_BLOCKED");
+        ErrorReason::known("API_KEY_HTTP_REFERRER_BLOCKED", 7);
 
     /// The request is denied because it violates [API key IP address
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -8644,7 +9229,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const API_KEY_IP_ADDRESS_BLOCKED: ErrorReason =
-        ErrorReason::new("API_KEY_IP_ADDRESS_BLOCKED");
+        ErrorReason::known("API_KEY_IP_ADDRESS_BLOCKED", 8);
 
     /// The request is denied because it violates [API key Android application
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -8663,7 +9248,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const API_KEY_ANDROID_APP_BLOCKED: ErrorReason =
-        ErrorReason::new("API_KEY_ANDROID_APP_BLOCKED");
+        ErrorReason::known("API_KEY_ANDROID_APP_BLOCKED", 9);
 
     /// The request is denied because it violates [API key iOS application
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -8681,7 +9266,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_IOS_APP_BLOCKED: ErrorReason = ErrorReason::new("API_KEY_IOS_APP_BLOCKED");
+    pub const API_KEY_IOS_APP_BLOCKED: ErrorReason =
+        ErrorReason::known("API_KEY_IOS_APP_BLOCKED", 13);
 
     /// The request is denied because there is not enough rate quota for the
     /// consumer.
@@ -8720,7 +9306,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RATE_LIMIT_EXCEEDED: ErrorReason = ErrorReason::new("RATE_LIMIT_EXCEEDED");
+    pub const RATE_LIMIT_EXCEEDED: ErrorReason = ErrorReason::known("RATE_LIMIT_EXCEEDED", 5);
 
     /// The request is denied because there is not enough resource quota for the
     /// consumer.
@@ -8758,7 +9344,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RESOURCE_QUOTA_EXCEEDED: ErrorReason = ErrorReason::new("RESOURCE_QUOTA_EXCEEDED");
+    pub const RESOURCE_QUOTA_EXCEEDED: ErrorReason =
+        ErrorReason::known("RESOURCE_QUOTA_EXCEEDED", 6);
 
     /// The request whose associated billing account address is in a tax restricted
     /// location, violates the local tax restrictions when creating resources in
@@ -8782,7 +9369,7 @@ pub mod error_reason {
     /// This response indicates creating the Cloud Storage Bucket in
     /// "locations/asia-northeast3" violates the location tax restriction.
     pub const LOCATION_TAX_POLICY_VIOLATED: ErrorReason =
-        ErrorReason::new("LOCATION_TAX_POLICY_VIOLATED");
+        ErrorReason::known("LOCATION_TAX_POLICY_VIOLATED", 10);
 
     /// The request is denied because the caller does not have required permission
     /// on the user project "projects/123" or the user project is invalid. For more
@@ -8801,7 +9388,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const USER_PROJECT_DENIED: ErrorReason = ErrorReason::new("USER_PROJECT_DENIED");
+    pub const USER_PROJECT_DENIED: ErrorReason = ErrorReason::known("USER_PROJECT_DENIED", 11);
 
     /// The request is denied because the consumer "projects/123" is suspended due
     /// to Terms of Service(Tos) violations. Check [Project suspension
@@ -8820,7 +9407,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CONSUMER_SUSPENDED: ErrorReason = ErrorReason::new("CONSUMER_SUSPENDED");
+    pub const CONSUMER_SUSPENDED: ErrorReason = ErrorReason::known("CONSUMER_SUSPENDED", 12);
 
     /// The request is denied because the associated consumer is invalid. It may be
     /// in a bad format, cannot be found, or have been deleted.
@@ -8837,7 +9424,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CONSUMER_INVALID: ErrorReason = ErrorReason::new("CONSUMER_INVALID");
+    pub const CONSUMER_INVALID: ErrorReason = ErrorReason::known("CONSUMER_INVALID", 14);
 
     /// The request is denied because it violates [VPC Service
     /// Controls](https://cloud.google.com/vpc-service-controls/docs/overview).
@@ -8860,7 +9447,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const SECURITY_POLICY_VIOLATED: ErrorReason = ErrorReason::new("SECURITY_POLICY_VIOLATED");
+    pub const SECURITY_POLICY_VIOLATED: ErrorReason =
+        ErrorReason::known("SECURITY_POLICY_VIOLATED", 15);
 
     /// The request is denied because the provided access token has expired.
     ///
@@ -8876,7 +9464,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCESS_TOKEN_EXPIRED: ErrorReason = ErrorReason::new("ACCESS_TOKEN_EXPIRED");
+    pub const ACCESS_TOKEN_EXPIRED: ErrorReason = ErrorReason::known("ACCESS_TOKEN_EXPIRED", 16);
 
     /// The request is denied because the provided access token doesn't have at
     /// least one of the acceptable scopes required for the API. Please check
@@ -8898,7 +9486,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const ACCESS_TOKEN_SCOPE_INSUFFICIENT: ErrorReason =
-        ErrorReason::new("ACCESS_TOKEN_SCOPE_INSUFFICIENT");
+        ErrorReason::known("ACCESS_TOKEN_SCOPE_INSUFFICIENT", 17);
 
     /// The request is denied because the account associated with the provided
     /// access token is in an invalid state, such as disabled or deleted.
@@ -8922,7 +9510,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCOUNT_STATE_INVALID: ErrorReason = ErrorReason::new("ACCOUNT_STATE_INVALID");
+    pub const ACCOUNT_STATE_INVALID: ErrorReason = ErrorReason::known("ACCOUNT_STATE_INVALID", 18);
 
     /// The request is denied because the type of the provided access token is not
     /// supported by the API being called.
@@ -8940,7 +9528,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const ACCESS_TOKEN_TYPE_UNSUPPORTED: ErrorReason =
-        ErrorReason::new("ACCESS_TOKEN_TYPE_UNSUPPORTED");
+        ErrorReason::known("ACCESS_TOKEN_TYPE_UNSUPPORTED", 19);
 
     /// The request is denied because the request doesn't have any authentication
     /// credentials. For more information regarding the supported authentication
@@ -8959,7 +9547,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CREDENTIALS_MISSING: ErrorReason = ErrorReason::new("CREDENTIALS_MISSING");
+    pub const CREDENTIALS_MISSING: ErrorReason = ErrorReason::known("CREDENTIALS_MISSING", 20);
 
     /// The request is denied because the provided project owning the resource
     /// which acts as the [API
@@ -8980,7 +9568,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RESOURCE_PROJECT_INVALID: ErrorReason = ErrorReason::new("RESOURCE_PROJECT_INVALID");
+    pub const RESOURCE_PROJECT_INVALID: ErrorReason =
+        ErrorReason::known("RESOURCE_PROJECT_INVALID", 21);
 
     /// The request is denied because the provided session cookie is missing,
     /// invalid or failed to decode.
@@ -8998,7 +9587,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const SESSION_COOKIE_INVALID: ErrorReason = ErrorReason::new("SESSION_COOKIE_INVALID");
+    pub const SESSION_COOKIE_INVALID: ErrorReason =
+        ErrorReason::known("SESSION_COOKIE_INVALID", 23);
 
     /// The request is denied because the user is from a Google Workspace customer
     /// that blocks their users from accessing a particular service.
@@ -9017,7 +9607,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const USER_BLOCKED_BY_ADMIN: ErrorReason = ErrorReason::new("USER_BLOCKED_BY_ADMIN");
+    pub const USER_BLOCKED_BY_ADMIN: ErrorReason = ErrorReason::known("USER_BLOCKED_BY_ADMIN", 24);
 
     /// The request is denied because the resource service usage is restricted
     /// by administrators according to the organization policy constraint.
@@ -9037,7 +9627,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const RESOURCE_USAGE_RESTRICTION_VIOLATED: ErrorReason =
-        ErrorReason::new("RESOURCE_USAGE_RESTRICTION_VIOLATED");
+        ErrorReason::known("RESOURCE_USAGE_RESTRICTION_VIOLATED", 25);
 
     /// Unimplemented. Do not use.
     ///
@@ -9058,7 +9648,7 @@ pub mod error_reason {
     /// }
     /// ```
     pub const SYSTEM_PARAMETER_UNSUPPORTED: ErrorReason =
-        ErrorReason::new("SYSTEM_PARAMETER_UNSUPPORTED");
+        ErrorReason::known("SYSTEM_PARAMETER_UNSUPPORTED", 26);
 
     /// The request is denied because it violates Org Restriction: the requested
     /// resource does not belong to allowed organizations specified in
@@ -9076,7 +9666,7 @@ pub mod error_reason {
     /// }
     /// }
     pub const ORG_RESTRICTION_VIOLATION: ErrorReason =
-        ErrorReason::new("ORG_RESTRICTION_VIOLATION");
+        ErrorReason::known("ORG_RESTRICTION_VIOLATION", 27);
 
     /// The request is denied because "X-Goog-Allowed-Resources" header is in a bad
     /// format.
@@ -9094,7 +9684,7 @@ pub mod error_reason {
     /// }
     /// }
     pub const ORG_RESTRICTION_HEADER_INVALID: ErrorReason =
-        ErrorReason::new("ORG_RESTRICTION_HEADER_INVALID");
+        ErrorReason::known("ORG_RESTRICTION_HEADER_INVALID", 28);
 
     /// Unimplemented. Do not use.
     ///
@@ -9115,7 +9705,7 @@ pub mod error_reason {
     ///
     /// This response indicates the "pubsub.googleapis.com" is not visible to
     /// "projects/123" (or it may not exist).
-    pub const SERVICE_NOT_VISIBLE: ErrorReason = ErrorReason::new("SERVICE_NOT_VISIBLE");
+    pub const SERVICE_NOT_VISIBLE: ErrorReason = ErrorReason::known("SERVICE_NOT_VISIBLE", 29);
 
     /// The request is related to a project for which GCP access is suspended.
     ///
@@ -9133,7 +9723,7 @@ pub mod error_reason {
     /// ```
     ///
     /// This response indicates the associated GCP account has been suspended.
-    pub const GCP_SUSPENDED: ErrorReason = ErrorReason::new("GCP_SUSPENDED");
+    pub const GCP_SUSPENDED: ErrorReason = ErrorReason::known("GCP_SUSPENDED", 30);
 
     /// The request violates the location policies when creating resources in
     /// the restricted region.
@@ -9154,7 +9744,8 @@ pub mod error_reason {
     /// This response indicates creating the Cloud Storage Bucket in
     /// "locations/asia-northeast3" violates at least one location policy.
     /// The troubleshooting guidance is provided in the Help links.
-    pub const LOCATION_POLICY_VIOLATED: ErrorReason = ErrorReason::new("LOCATION_POLICY_VIOLATED");
+    pub const LOCATION_POLICY_VIOLATED: ErrorReason =
+        ErrorReason::known("LOCATION_POLICY_VIOLATED", 31);
 
     /// The request is denied because origin request header is missing.
     ///
@@ -9170,7 +9761,7 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const MISSING_ORIGIN: ErrorReason = ErrorReason::new("MISSING_ORIGIN");
+    pub const MISSING_ORIGIN: ErrorReason = ErrorReason::known("MISSING_ORIGIN", 33);
 
     /// The request is denied because the request contains more than one credential
     /// type that are individually acceptable, but not together. The customer
@@ -9187,18 +9778,139 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const OVERLOADED_CREDENTIALS: ErrorReason = ErrorReason::new("OVERLOADED_CREDENTIALS");
+    pub const OVERLOADED_CREDENTIALS: ErrorReason =
+        ErrorReason::known("OVERLOADED_CREDENTIALS", 34);
+}
+
+impl ErrorReason {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for ErrorReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ErrorReason {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(ErrorReason::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(ErrorReason::from(val)),
+            Enumeration::UnknownNum { str } => Ok(ErrorReason::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for ErrorReason {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ERROR_REASON_UNSPECIFIED" => error_reason::ERROR_REASON_UNSPECIFIED,
+            "SERVICE_DISABLED" => error_reason::SERVICE_DISABLED,
+            "BILLING_DISABLED" => error_reason::BILLING_DISABLED,
+            "API_KEY_INVALID" => error_reason::API_KEY_INVALID,
+            "API_KEY_SERVICE_BLOCKED" => error_reason::API_KEY_SERVICE_BLOCKED,
+            "API_KEY_HTTP_REFERRER_BLOCKED" => error_reason::API_KEY_HTTP_REFERRER_BLOCKED,
+            "API_KEY_IP_ADDRESS_BLOCKED" => error_reason::API_KEY_IP_ADDRESS_BLOCKED,
+            "API_KEY_ANDROID_APP_BLOCKED" => error_reason::API_KEY_ANDROID_APP_BLOCKED,
+            "API_KEY_IOS_APP_BLOCKED" => error_reason::API_KEY_IOS_APP_BLOCKED,
+            "RATE_LIMIT_EXCEEDED" => error_reason::RATE_LIMIT_EXCEEDED,
+            "RESOURCE_QUOTA_EXCEEDED" => error_reason::RESOURCE_QUOTA_EXCEEDED,
+            "LOCATION_TAX_POLICY_VIOLATED" => error_reason::LOCATION_TAX_POLICY_VIOLATED,
+            "USER_PROJECT_DENIED" => error_reason::USER_PROJECT_DENIED,
+            "CONSUMER_SUSPENDED" => error_reason::CONSUMER_SUSPENDED,
+            "CONSUMER_INVALID" => error_reason::CONSUMER_INVALID,
+            "SECURITY_POLICY_VIOLATED" => error_reason::SECURITY_POLICY_VIOLATED,
+            "ACCESS_TOKEN_EXPIRED" => error_reason::ACCESS_TOKEN_EXPIRED,
+            "ACCESS_TOKEN_SCOPE_INSUFFICIENT" => error_reason::ACCESS_TOKEN_SCOPE_INSUFFICIENT,
+            "ACCOUNT_STATE_INVALID" => error_reason::ACCOUNT_STATE_INVALID,
+            "ACCESS_TOKEN_TYPE_UNSUPPORTED" => error_reason::ACCESS_TOKEN_TYPE_UNSUPPORTED,
+            "CREDENTIALS_MISSING" => error_reason::CREDENTIALS_MISSING,
+            "RESOURCE_PROJECT_INVALID" => error_reason::RESOURCE_PROJECT_INVALID,
+            "SESSION_COOKIE_INVALID" => error_reason::SESSION_COOKIE_INVALID,
+            "USER_BLOCKED_BY_ADMIN" => error_reason::USER_BLOCKED_BY_ADMIN,
+            "RESOURCE_USAGE_RESTRICTION_VIOLATED" => {
+                error_reason::RESOURCE_USAGE_RESTRICTION_VIOLATED
+            }
+            "SYSTEM_PARAMETER_UNSUPPORTED" => error_reason::SYSTEM_PARAMETER_UNSUPPORTED,
+            "ORG_RESTRICTION_VIOLATION" => error_reason::ORG_RESTRICTION_VIOLATION,
+            "ORG_RESTRICTION_HEADER_INVALID" => error_reason::ORG_RESTRICTION_HEADER_INVALID,
+            "SERVICE_NOT_VISIBLE" => error_reason::SERVICE_NOT_VISIBLE,
+            "GCP_SUSPENDED" => error_reason::GCP_SUSPENDED,
+            "LOCATION_POLICY_VIOLATED" => error_reason::LOCATION_POLICY_VIOLATED,
+            "MISSING_ORIGIN" => error_reason::MISSING_ORIGIN,
+            "OVERLOADED_CREDENTIALS" => error_reason::OVERLOADED_CREDENTIALS,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for ErrorReason {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => error_reason::ERROR_REASON_UNSPECIFIED,
+            1 => error_reason::SERVICE_DISABLED,
+            2 => error_reason::BILLING_DISABLED,
+            3 => error_reason::API_KEY_INVALID,
+            4 => error_reason::API_KEY_SERVICE_BLOCKED,
+            5 => error_reason::RATE_LIMIT_EXCEEDED,
+            6 => error_reason::RESOURCE_QUOTA_EXCEEDED,
+            7 => error_reason::API_KEY_HTTP_REFERRER_BLOCKED,
+            8 => error_reason::API_KEY_IP_ADDRESS_BLOCKED,
+            9 => error_reason::API_KEY_ANDROID_APP_BLOCKED,
+            10 => error_reason::LOCATION_TAX_POLICY_VIOLATED,
+            11 => error_reason::USER_PROJECT_DENIED,
+            12 => error_reason::CONSUMER_SUSPENDED,
+            13 => error_reason::API_KEY_IOS_APP_BLOCKED,
+            14 => error_reason::CONSUMER_INVALID,
+            15 => error_reason::SECURITY_POLICY_VIOLATED,
+            16 => error_reason::ACCESS_TOKEN_EXPIRED,
+            17 => error_reason::ACCESS_TOKEN_SCOPE_INSUFFICIENT,
+            18 => error_reason::ACCOUNT_STATE_INVALID,
+            19 => error_reason::ACCESS_TOKEN_TYPE_UNSUPPORTED,
+            20 => error_reason::CREDENTIALS_MISSING,
+            21 => error_reason::RESOURCE_PROJECT_INVALID,
+            23 => error_reason::SESSION_COOKIE_INVALID,
+            24 => error_reason::USER_BLOCKED_BY_ADMIN,
+            25 => error_reason::RESOURCE_USAGE_RESTRICTION_VIOLATED,
+            26 => error_reason::SYSTEM_PARAMETER_UNSUPPORTED,
+            27 => error_reason::ORG_RESTRICTION_VIOLATION,
+            28 => error_reason::ORG_RESTRICTION_HEADER_INVALID,
+            29 => error_reason::SERVICE_NOT_VISIBLE,
+            30 => error_reason::GCP_SUSPENDED,
+            31 => error_reason::LOCATION_POLICY_VIOLATED,
+            33 => error_reason::MISSING_ORIGIN,
+            34 => error_reason::OVERLOADED_CREDENTIALS,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for ErrorReason {
     fn default() -> Self {
-        error_reason::ERROR_REASON_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
@@ -9208,20 +9920,8 @@ impl std::default::Default for ErrorReason {
 /// denotes the behavior and may affect how API tooling handles the field.
 ///
 /// Note: This enum **may** receive new values in the future.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FieldBehavior(std::borrow::Cow<'static, str>);
-
-impl FieldBehavior {
-    /// Creates a new FieldBehavior instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct FieldBehavior(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [FieldBehavior](FieldBehavior)
 pub mod field_behavior {
@@ -9229,45 +9929,45 @@ pub mod field_behavior {
 
     /// Conventional default for enums. Do not use this.
     pub const FIELD_BEHAVIOR_UNSPECIFIED: FieldBehavior =
-        FieldBehavior::new("FIELD_BEHAVIOR_UNSPECIFIED");
+        FieldBehavior::known("FIELD_BEHAVIOR_UNSPECIFIED", 0);
 
     /// Specifically denotes a field as optional.
     /// While all fields in protocol buffers are optional, this may be specified
     /// for emphasis if appropriate.
-    pub const OPTIONAL: FieldBehavior = FieldBehavior::new("OPTIONAL");
+    pub const OPTIONAL: FieldBehavior = FieldBehavior::known("OPTIONAL", 1);
 
     /// Denotes a field as required.
     /// This indicates that the field **must** be provided as part of the request,
     /// and failure to do so will cause an error (usually `INVALID_ARGUMENT`).
-    pub const REQUIRED: FieldBehavior = FieldBehavior::new("REQUIRED");
+    pub const REQUIRED: FieldBehavior = FieldBehavior::known("REQUIRED", 2);
 
     /// Denotes a field as output only.
     /// This indicates that the field is provided in responses, but including the
     /// field in a request does nothing (the server *must* ignore it and
     /// *must not* throw an error as a result of the field's presence).
-    pub const OUTPUT_ONLY: FieldBehavior = FieldBehavior::new("OUTPUT_ONLY");
+    pub const OUTPUT_ONLY: FieldBehavior = FieldBehavior::known("OUTPUT_ONLY", 3);
 
     /// Denotes a field as input only.
     /// This indicates that the field is provided in requests, and the
     /// corresponding field is not included in output.
-    pub const INPUT_ONLY: FieldBehavior = FieldBehavior::new("INPUT_ONLY");
+    pub const INPUT_ONLY: FieldBehavior = FieldBehavior::known("INPUT_ONLY", 4);
 
     /// Denotes a field as immutable.
     /// This indicates that the field may be set once in a request to create a
     /// resource, but may not be changed thereafter.
-    pub const IMMUTABLE: FieldBehavior = FieldBehavior::new("IMMUTABLE");
+    pub const IMMUTABLE: FieldBehavior = FieldBehavior::known("IMMUTABLE", 5);
 
     /// Denotes that a (repeated) field is an unordered list.
     /// This indicates that the service may provide the elements of the list
     /// in any arbitrary  order, rather than the order the user originally
     /// provided. Additionally, the list's order may or may not be stable.
-    pub const UNORDERED_LIST: FieldBehavior = FieldBehavior::new("UNORDERED_LIST");
+    pub const UNORDERED_LIST: FieldBehavior = FieldBehavior::known("UNORDERED_LIST", 6);
 
     /// Denotes that this field returns a non-empty default value if not set.
     /// This indicates that if the user provides the empty value in a request,
     /// a non-empty value will be returned. The user will not be aware of what
     /// non-empty value to expect.
-    pub const NON_EMPTY_DEFAULT: FieldBehavior = FieldBehavior::new("NON_EMPTY_DEFAULT");
+    pub const NON_EMPTY_DEFAULT: FieldBehavior = FieldBehavior::known("NON_EMPTY_DEFAULT", 7);
 
     /// Denotes that the field in a resource (a message annotated with
     /// google.api.resource) is used in the resource name to uniquely identify the
@@ -9281,57 +9981,116 @@ pub mod field_behavior {
     /// depending on the request it is embedded in (e.g. for Create methods name
     /// is optional and unused, while for Update methods it is required). Instead
     /// of method-specific annotations, only `IDENTIFIER` is required.
-    pub const IDENTIFIER: FieldBehavior = FieldBehavior::new("IDENTIFIER");
+    pub const IDENTIFIER: FieldBehavior = FieldBehavior::known("IDENTIFIER", 8);
+}
+
+impl FieldBehavior {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for FieldBehavior {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FieldBehavior {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(FieldBehavior::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(FieldBehavior::from(val)),
+            Enumeration::UnknownNum { str } => Ok(FieldBehavior::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for FieldBehavior {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "FIELD_BEHAVIOR_UNSPECIFIED" => field_behavior::FIELD_BEHAVIOR_UNSPECIFIED,
+            "OPTIONAL" => field_behavior::OPTIONAL,
+            "REQUIRED" => field_behavior::REQUIRED,
+            "OUTPUT_ONLY" => field_behavior::OUTPUT_ONLY,
+            "INPUT_ONLY" => field_behavior::INPUT_ONLY,
+            "IMMUTABLE" => field_behavior::IMMUTABLE,
+            "UNORDERED_LIST" => field_behavior::UNORDERED_LIST,
+            "NON_EMPTY_DEFAULT" => field_behavior::NON_EMPTY_DEFAULT,
+            "IDENTIFIER" => field_behavior::IDENTIFIER,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for FieldBehavior {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => field_behavior::FIELD_BEHAVIOR_UNSPECIFIED,
+            1 => field_behavior::OPTIONAL,
+            2 => field_behavior::REQUIRED,
+            3 => field_behavior::OUTPUT_ONLY,
+            4 => field_behavior::INPUT_ONLY,
+            5 => field_behavior::IMMUTABLE,
+            6 => field_behavior::UNORDERED_LIST,
+            7 => field_behavior::NON_EMPTY_DEFAULT,
+            8 => field_behavior::IDENTIFIER,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for FieldBehavior {
     fn default() -> Self {
-        field_behavior::FIELD_BEHAVIOR_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The launch stage as defined by [Google Cloud Platform
 /// Launch Stages](https://cloud.google.com/terms/launch-stages).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LaunchStage(std::borrow::Cow<'static, str>);
-
-impl LaunchStage {
-    /// Creates a new LaunchStage instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LaunchStage(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LaunchStage](LaunchStage)
 pub mod launch_stage {
     use super::LaunchStage;
 
     /// Do not use this default value.
-    pub const LAUNCH_STAGE_UNSPECIFIED: LaunchStage = LaunchStage::new("LAUNCH_STAGE_UNSPECIFIED");
+    pub const LAUNCH_STAGE_UNSPECIFIED: LaunchStage =
+        LaunchStage::known("LAUNCH_STAGE_UNSPECIFIED", 0);
 
     /// The feature is not yet implemented. Users can not use it.
-    pub const UNIMPLEMENTED: LaunchStage = LaunchStage::new("UNIMPLEMENTED");
+    pub const UNIMPLEMENTED: LaunchStage = LaunchStage::known("UNIMPLEMENTED", 6);
 
     /// Prelaunch features are hidden from users and are only visible internally.
-    pub const PRELAUNCH: LaunchStage = LaunchStage::new("PRELAUNCH");
+    pub const PRELAUNCH: LaunchStage = LaunchStage::known("PRELAUNCH", 7);
 
     /// Early Access features are limited to a closed group of testers. To use
     /// these features, you must sign up in advance and sign a Trusted Tester
     /// agreement (which includes confidentiality provisions). These features may
     /// be unstable, changed in backward-incompatible ways, and are not
     /// guaranteed to be released.
-    pub const EARLY_ACCESS: LaunchStage = LaunchStage::new("EARLY_ACCESS");
+    pub const EARLY_ACCESS: LaunchStage = LaunchStage::known("EARLY_ACCESS", 1);
 
     /// Alpha is a limited availability test for releases before they are cleared
     /// for widespread use. By Alpha, all significant design issues are resolved
@@ -9342,35 +10101,103 @@ pub mod launch_stage {
     /// they will be far enough along that customers can actually use them in
     /// test environments or for limited-use tests -- just like they would in
     /// normal production cases.
-    pub const ALPHA: LaunchStage = LaunchStage::new("ALPHA");
+    pub const ALPHA: LaunchStage = LaunchStage::known("ALPHA", 2);
 
     /// Beta is the point at which we are ready to open a release for any
     /// customer to use. There are no SLA or technical support obligations in a
     /// Beta release. Products will be complete from a feature perspective, but
     /// may have some open outstanding issues. Beta releases are suitable for
     /// limited production use cases.
-    pub const BETA: LaunchStage = LaunchStage::new("BETA");
+    pub const BETA: LaunchStage = LaunchStage::known("BETA", 3);
 
     /// GA features are open to all developers and are considered stable and
     /// fully qualified for production use.
-    pub const GA: LaunchStage = LaunchStage::new("GA");
+    pub const GA: LaunchStage = LaunchStage::known("GA", 4);
 
     /// Deprecated features are scheduled to be shut down and removed. For more
     /// information, see the "Deprecation Policy" section of our [Terms of
     /// Service](https://cloud.google.com/terms/)
     /// and the [Google Cloud Platform Subject to the Deprecation
     /// Policy](https://cloud.google.com/terms/deprecation) documentation.
-    pub const DEPRECATED: LaunchStage = LaunchStage::new("DEPRECATED");
+    pub const DEPRECATED: LaunchStage = LaunchStage::known("DEPRECATED", 5);
+}
+
+impl LaunchStage {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LaunchStage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LaunchStage {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LaunchStage::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LaunchStage::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LaunchStage::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LaunchStage {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LAUNCH_STAGE_UNSPECIFIED" => launch_stage::LAUNCH_STAGE_UNSPECIFIED,
+            "UNIMPLEMENTED" => launch_stage::UNIMPLEMENTED,
+            "PRELAUNCH" => launch_stage::PRELAUNCH,
+            "EARLY_ACCESS" => launch_stage::EARLY_ACCESS,
+            "ALPHA" => launch_stage::ALPHA,
+            "BETA" => launch_stage::BETA,
+            "GA" => launch_stage::GA,
+            "DEPRECATED" => launch_stage::DEPRECATED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LaunchStage {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => launch_stage::LAUNCH_STAGE_UNSPECIFIED,
+            1 => launch_stage::EARLY_ACCESS,
+            2 => launch_stage::ALPHA,
+            3 => launch_stage::BETA,
+            4 => launch_stage::GA,
+            5 => launch_stage::DEPRECATED,
+            6 => launch_stage::UNIMPLEMENTED,
+            7 => launch_stage::PRELAUNCH,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LaunchStage {
     fn default() -> Self {
-        launch_stage::LAUNCH_STAGE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

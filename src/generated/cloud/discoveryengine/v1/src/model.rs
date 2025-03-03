@@ -1298,47 +1298,95 @@ pub mod answer {
         }
 
         /// Enumeration of the state of the step.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
-
-        impl State {
-            /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct State(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [State](State)
         pub mod state {
             use super::State;
 
             /// Unknown.
-            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+            pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
             /// Step is currently in progress.
-            pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+            pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 1);
 
             /// Step currently failed.
-            pub const FAILED: State = State::new("FAILED");
+            pub const FAILED: State = State::known("FAILED", 2);
 
             /// Step has succeeded.
-            pub const SUCCEEDED: State = State::new("SUCCEEDED");
+            pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
+        }
+
+        impl State {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(State::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                    "IN_PROGRESS" => state::IN_PROGRESS,
+                    "FAILED" => state::FAILED,
+                    "SUCCEEDED" => state::SUCCEEDED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => state::STATE_UNSPECIFIED,
+                    1 => state::IN_PROGRESS,
+                    2 => state::FAILED,
+                    3 => state::SUCCEEDED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for State {
             fn default() -> Self {
-                state::STATE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -1437,116 +1485,203 @@ pub mod answer {
             use super::*;
 
             /// Query classification types.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(std::borrow::Cow<'static, str>);
-
-            impl Type {
-                /// Creates a new Type instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct Type(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [Type](Type)
             pub mod r#type {
                 use super::Type;
 
                 /// Unspecified query classification type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+                pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
                 /// Adversarial query classification type.
-                pub const ADVERSARIAL_QUERY: Type = Type::new("ADVERSARIAL_QUERY");
+                pub const ADVERSARIAL_QUERY: Type = Type::known("ADVERSARIAL_QUERY", 1);
 
                 /// Non-answer-seeking query classification type, for chit chat.
-                pub const NON_ANSWER_SEEKING_QUERY: Type = Type::new("NON_ANSWER_SEEKING_QUERY");
+                pub const NON_ANSWER_SEEKING_QUERY: Type =
+                    Type::known("NON_ANSWER_SEEKING_QUERY", 2);
 
                 /// Jail-breaking query classification type.
-                pub const JAIL_BREAKING_QUERY: Type = Type::new("JAIL_BREAKING_QUERY");
+                pub const JAIL_BREAKING_QUERY: Type = Type::known("JAIL_BREAKING_QUERY", 3);
 
                 /// Non-answer-seeking query classification type, for no clear intent.
                 pub const NON_ANSWER_SEEKING_QUERY_V2: Type =
-                    Type::new("NON_ANSWER_SEEKING_QUERY_V2");
+                    Type::known("NON_ANSWER_SEEKING_QUERY_V2", 4);
+            }
+
+            impl Type {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for Type {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                        "ADVERSARIAL_QUERY" => r#type::ADVERSARIAL_QUERY,
+                        "NON_ANSWER_SEEKING_QUERY" => r#type::NON_ANSWER_SEEKING_QUERY,
+                        "JAIL_BREAKING_QUERY" => r#type::JAIL_BREAKING_QUERY,
+                        "NON_ANSWER_SEEKING_QUERY_V2" => r#type::NON_ANSWER_SEEKING_QUERY_V2,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => r#type::TYPE_UNSPECIFIED,
+                        1 => r#type::ADVERSARIAL_QUERY,
+                        2 => r#type::NON_ANSWER_SEEKING_QUERY,
+                        3 => r#type::JAIL_BREAKING_QUERY,
+                        4 => r#type::NON_ANSWER_SEEKING_QUERY_V2,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    r#type::TYPE_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
     }
 
     /// Enumeration of the state of the answer generation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Answer generation is currently in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 1);
 
         /// Answer generation currently failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 2);
 
         /// Answer generation has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "FAILED" => state::FAILED,
+                "SUCCEEDED" => state::SUCCEEDED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::IN_PROGRESS,
+                2 => state::FAILED,
+                3 => state::SUCCEEDED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// An enum for answer skipped reasons.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AnswerSkippedReason(std::borrow::Cow<'static, str>);
-
-    impl AnswerSkippedReason {
-        /// Creates a new AnswerSkippedReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AnswerSkippedReason(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AnswerSkippedReason](AnswerSkippedReason)
     pub mod answer_skipped_reason {
@@ -1554,37 +1689,37 @@ pub mod answer {
 
         /// Default value. The answer skipped reason is not specified.
         pub const ANSWER_SKIPPED_REASON_UNSPECIFIED: AnswerSkippedReason =
-            AnswerSkippedReason::new("ANSWER_SKIPPED_REASON_UNSPECIFIED");
+            AnswerSkippedReason::known("ANSWER_SKIPPED_REASON_UNSPECIFIED", 0);
 
         /// The adversarial query ignored case.
         pub const ADVERSARIAL_QUERY_IGNORED: AnswerSkippedReason =
-            AnswerSkippedReason::new("ADVERSARIAL_QUERY_IGNORED");
+            AnswerSkippedReason::known("ADVERSARIAL_QUERY_IGNORED", 1);
 
         /// The non-answer seeking query ignored case
         ///
         /// Google skips the answer if the query is chit chat.
         pub const NON_ANSWER_SEEKING_QUERY_IGNORED: AnswerSkippedReason =
-            AnswerSkippedReason::new("NON_ANSWER_SEEKING_QUERY_IGNORED");
+            AnswerSkippedReason::known("NON_ANSWER_SEEKING_QUERY_IGNORED", 2);
 
         /// The out-of-domain query ignored case.
         ///
         /// Google skips the answer if there are no high-relevance search results.
         pub const OUT_OF_DOMAIN_QUERY_IGNORED: AnswerSkippedReason =
-            AnswerSkippedReason::new("OUT_OF_DOMAIN_QUERY_IGNORED");
+            AnswerSkippedReason::known("OUT_OF_DOMAIN_QUERY_IGNORED", 3);
 
         /// The potential policy violation case.
         ///
         /// Google skips the answer if there is a potential policy violation
         /// detected. This includes content that may be violent or toxic.
         pub const POTENTIAL_POLICY_VIOLATION: AnswerSkippedReason =
-            AnswerSkippedReason::new("POTENTIAL_POLICY_VIOLATION");
+            AnswerSkippedReason::known("POTENTIAL_POLICY_VIOLATION", 4);
 
         /// The no relevant content case.
         ///
         /// Google skips the answer if there is no relevant content in the
         /// retrieved search results.
         pub const NO_RELEVANT_CONTENT: AnswerSkippedReason =
-            AnswerSkippedReason::new("NO_RELEVANT_CONTENT");
+            AnswerSkippedReason::known("NO_RELEVANT_CONTENT", 5);
 
         /// The jail-breaking query ignored case.
         ///
@@ -1592,38 +1727,116 @@ pub mod answer {
         /// Google skips the answer if the query is classified as a jail-breaking
         /// query.
         pub const JAIL_BREAKING_QUERY_IGNORED: AnswerSkippedReason =
-            AnswerSkippedReason::new("JAIL_BREAKING_QUERY_IGNORED");
+            AnswerSkippedReason::known("JAIL_BREAKING_QUERY_IGNORED", 6);
 
         /// The customer policy violation case.
         ///
         /// Google skips the summary if there is a customer policy violation
         /// detected. The policy is defined by the customer.
         pub const CUSTOMER_POLICY_VIOLATION: AnswerSkippedReason =
-            AnswerSkippedReason::new("CUSTOMER_POLICY_VIOLATION");
+            AnswerSkippedReason::known("CUSTOMER_POLICY_VIOLATION", 7);
 
         /// The non-answer seeking query ignored case.
         ///
         /// Google skips the answer if the query doesn't have clear intent.
         pub const NON_ANSWER_SEEKING_QUERY_IGNORED_V2: AnswerSkippedReason =
-            AnswerSkippedReason::new("NON_ANSWER_SEEKING_QUERY_IGNORED_V2");
+            AnswerSkippedReason::known("NON_ANSWER_SEEKING_QUERY_IGNORED_V2", 8);
 
         /// The low-grounded answer case.
         ///
         /// Google skips the answer if a well grounded answer was unable to be
         /// generated.
         pub const LOW_GROUNDED_ANSWER: AnswerSkippedReason =
-            AnswerSkippedReason::new("LOW_GROUNDED_ANSWER");
+            AnswerSkippedReason::known("LOW_GROUNDED_ANSWER", 9);
+    }
+
+    impl AnswerSkippedReason {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AnswerSkippedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AnswerSkippedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AnswerSkippedReason::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AnswerSkippedReason::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AnswerSkippedReason::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AnswerSkippedReason {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ANSWER_SKIPPED_REASON_UNSPECIFIED" => {
+                    answer_skipped_reason::ANSWER_SKIPPED_REASON_UNSPECIFIED
+                }
+                "ADVERSARIAL_QUERY_IGNORED" => answer_skipped_reason::ADVERSARIAL_QUERY_IGNORED,
+                "NON_ANSWER_SEEKING_QUERY_IGNORED" => {
+                    answer_skipped_reason::NON_ANSWER_SEEKING_QUERY_IGNORED
+                }
+                "OUT_OF_DOMAIN_QUERY_IGNORED" => answer_skipped_reason::OUT_OF_DOMAIN_QUERY_IGNORED,
+                "POTENTIAL_POLICY_VIOLATION" => answer_skipped_reason::POTENTIAL_POLICY_VIOLATION,
+                "NO_RELEVANT_CONTENT" => answer_skipped_reason::NO_RELEVANT_CONTENT,
+                "JAIL_BREAKING_QUERY_IGNORED" => answer_skipped_reason::JAIL_BREAKING_QUERY_IGNORED,
+                "CUSTOMER_POLICY_VIOLATION" => answer_skipped_reason::CUSTOMER_POLICY_VIOLATION,
+                "NON_ANSWER_SEEKING_QUERY_IGNORED_V2" => {
+                    answer_skipped_reason::NON_ANSWER_SEEKING_QUERY_IGNORED_V2
+                }
+                "LOW_GROUNDED_ANSWER" => answer_skipped_reason::LOW_GROUNDED_ANSWER,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AnswerSkippedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => answer_skipped_reason::ANSWER_SKIPPED_REASON_UNSPECIFIED,
+                1 => answer_skipped_reason::ADVERSARIAL_QUERY_IGNORED,
+                2 => answer_skipped_reason::NON_ANSWER_SEEKING_QUERY_IGNORED,
+                3 => answer_skipped_reason::OUT_OF_DOMAIN_QUERY_IGNORED,
+                4 => answer_skipped_reason::POTENTIAL_POLICY_VIOLATION,
+                5 => answer_skipped_reason::NO_RELEVANT_CONTENT,
+                6 => answer_skipped_reason::JAIL_BREAKING_QUERY_IGNORED,
+                7 => answer_skipped_reason::CUSTOMER_POLICY_VIOLATION,
+                8 => answer_skipped_reason::NON_ANSWER_SEEKING_QUERY_IGNORED_V2,
+                9 => answer_skipped_reason::LOW_GROUNDED_ANSWER,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AnswerSkippedReason {
         fn default() -> Self {
-            answer_skipped_reason::ANSWER_SKIPPED_REASON_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2292,20 +2505,8 @@ pub mod suggestion_deny_list_entry {
     use super::*;
 
     /// Operator for matching with the generated suggestions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MatchOperator(std::borrow::Cow<'static, str>);
-
-    impl MatchOperator {
-        /// Creates a new MatchOperator instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct MatchOperator(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [MatchOperator](MatchOperator)
     pub mod match_operator {
@@ -2313,24 +2514,82 @@ pub mod suggestion_deny_list_entry {
 
         /// Default value. Should not be used
         pub const MATCH_OPERATOR_UNSPECIFIED: MatchOperator =
-            MatchOperator::new("MATCH_OPERATOR_UNSPECIFIED");
+            MatchOperator::known("MATCH_OPERATOR_UNSPECIFIED", 0);
 
         /// If the suggestion is an exact match to the block_phrase, then block it.
-        pub const EXACT_MATCH: MatchOperator = MatchOperator::new("EXACT_MATCH");
+        pub const EXACT_MATCH: MatchOperator = MatchOperator::known("EXACT_MATCH", 1);
 
         /// If the suggestion contains the block_phrase, then block it.
-        pub const CONTAINS: MatchOperator = MatchOperator::new("CONTAINS");
+        pub const CONTAINS: MatchOperator = MatchOperator::known("CONTAINS", 2);
+    }
+
+    impl MatchOperator {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for MatchOperator {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MatchOperator {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(MatchOperator::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(MatchOperator::from(val)),
+                Enumeration::UnknownNum { str } => Ok(MatchOperator::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for MatchOperator {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MATCH_OPERATOR_UNSPECIFIED" => match_operator::MATCH_OPERATOR_UNSPECIFIED,
+                "EXACT_MATCH" => match_operator::EXACT_MATCH,
+                "CONTAINS" => match_operator::CONTAINS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for MatchOperator {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => match_operator::MATCH_OPERATOR_UNSPECIFIED,
+                1 => match_operator::EXACT_MATCH,
+                2 => match_operator::CONTAINS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for MatchOperator {
         fn default() -> Self {
-            match_operator::MATCH_OPERATOR_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3741,44 +4000,90 @@ pub mod conversation {
     use super::*;
 
     /// Enumeration of the state of the conversation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Conversation is currently open.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 1);
 
         /// Conversation has been completed.
-        pub const COMPLETED: State = State::new("COMPLETED");
+        pub const COMPLETED: State = State::known("COMPLETED", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "COMPLETED" => state::COMPLETED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::IN_PROGRESS,
+                2 => state::COMPLETED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5952,51 +6257,102 @@ pub mod answer_query_request {
             use super::*;
 
             /// Query classification types.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(std::borrow::Cow<'static, str>);
-
-            impl Type {
-                /// Creates a new Type instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct Type(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [Type](Type)
             pub mod r#type {
                 use super::Type;
 
                 /// Unspecified query classification type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+                pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
                 /// Adversarial query classification type.
-                pub const ADVERSARIAL_QUERY: Type = Type::new("ADVERSARIAL_QUERY");
+                pub const ADVERSARIAL_QUERY: Type = Type::known("ADVERSARIAL_QUERY", 1);
 
                 /// Non-answer-seeking query classification type, for chit chat.
-                pub const NON_ANSWER_SEEKING_QUERY: Type = Type::new("NON_ANSWER_SEEKING_QUERY");
+                pub const NON_ANSWER_SEEKING_QUERY: Type =
+                    Type::known("NON_ANSWER_SEEKING_QUERY", 2);
 
                 /// Jail-breaking query classification type.
-                pub const JAIL_BREAKING_QUERY: Type = Type::new("JAIL_BREAKING_QUERY");
+                pub const JAIL_BREAKING_QUERY: Type = Type::known("JAIL_BREAKING_QUERY", 3);
 
                 /// Non-answer-seeking query classification type, for no clear intent.
                 pub const NON_ANSWER_SEEKING_QUERY_V2: Type =
-                    Type::new("NON_ANSWER_SEEKING_QUERY_V2");
+                    Type::known("NON_ANSWER_SEEKING_QUERY_V2", 4);
+            }
+
+            impl Type {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for Type {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                        "ADVERSARIAL_QUERY" => r#type::ADVERSARIAL_QUERY,
+                        "NON_ANSWER_SEEKING_QUERY" => r#type::NON_ANSWER_SEEKING_QUERY,
+                        "JAIL_BREAKING_QUERY" => r#type::JAIL_BREAKING_QUERY,
+                        "NON_ANSWER_SEEKING_QUERY_V2" => r#type::NON_ANSWER_SEEKING_QUERY_V2,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => r#type::TYPE_UNSPECIFIED,
+                        1 => r#type::ADVERSARIAL_QUERY,
+                        2 => r#type::NON_ANSWER_SEEKING_QUERY,
+                        3 => r#type::JAIL_BREAKING_QUERY,
+                        4 => r#type::NON_ANSWER_SEEKING_QUERY_V2,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    r#type::TYPE_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -6574,59 +6930,117 @@ pub mod custom_tuning_model {
     use super::*;
 
     /// The state of the model.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelState(std::borrow::Cow<'static, str>);
-
-    impl ModelState {
-        /// Creates a new ModelState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ModelState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ModelState](ModelState)
     pub mod model_state {
         use super::ModelState;
 
         /// Default value.
-        pub const MODEL_STATE_UNSPECIFIED: ModelState = ModelState::new("MODEL_STATE_UNSPECIFIED");
+        pub const MODEL_STATE_UNSPECIFIED: ModelState =
+            ModelState::known("MODEL_STATE_UNSPECIFIED", 0);
 
         /// The model is in a paused training state.
-        pub const TRAINING_PAUSED: ModelState = ModelState::new("TRAINING_PAUSED");
+        pub const TRAINING_PAUSED: ModelState = ModelState::known("TRAINING_PAUSED", 1);
 
         /// The model is currently training.
-        pub const TRAINING: ModelState = ModelState::new("TRAINING");
+        pub const TRAINING: ModelState = ModelState::known("TRAINING", 2);
 
         /// The model has successfully completed training.
-        pub const TRAINING_COMPLETE: ModelState = ModelState::new("TRAINING_COMPLETE");
+        pub const TRAINING_COMPLETE: ModelState = ModelState::known("TRAINING_COMPLETE", 3);
 
         /// The model is ready for serving.
-        pub const READY_FOR_SERVING: ModelState = ModelState::new("READY_FOR_SERVING");
+        pub const READY_FOR_SERVING: ModelState = ModelState::known("READY_FOR_SERVING", 4);
 
         /// The model training failed.
-        pub const TRAINING_FAILED: ModelState = ModelState::new("TRAINING_FAILED");
+        pub const TRAINING_FAILED: ModelState = ModelState::known("TRAINING_FAILED", 5);
 
         /// The model training finished successfully but metrics did not improve.
-        pub const NO_IMPROVEMENT: ModelState = ModelState::new("NO_IMPROVEMENT");
+        pub const NO_IMPROVEMENT: ModelState = ModelState::known("NO_IMPROVEMENT", 6);
 
         /// Input data validation failed. Model training didn't start.
-        pub const INPUT_VALIDATION_FAILED: ModelState = ModelState::new("INPUT_VALIDATION_FAILED");
+        pub const INPUT_VALIDATION_FAILED: ModelState =
+            ModelState::known("INPUT_VALIDATION_FAILED", 7);
+    }
+
+    impl ModelState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ModelState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ModelState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ModelState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ModelState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ModelState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ModelState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "MODEL_STATE_UNSPECIFIED" => model_state::MODEL_STATE_UNSPECIFIED,
+                "TRAINING_PAUSED" => model_state::TRAINING_PAUSED,
+                "TRAINING" => model_state::TRAINING,
+                "TRAINING_COMPLETE" => model_state::TRAINING_COMPLETE,
+                "READY_FOR_SERVING" => model_state::READY_FOR_SERVING,
+                "TRAINING_FAILED" => model_state::TRAINING_FAILED,
+                "NO_IMPROVEMENT" => model_state::NO_IMPROVEMENT,
+                "INPUT_VALIDATION_FAILED" => model_state::INPUT_VALIDATION_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ModelState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => model_state::MODEL_STATE_UNSPECIFIED,
+                1 => model_state::TRAINING_PAUSED,
+                2 => model_state::TRAINING,
+                3 => model_state::TRAINING_COMPLETE,
+                4 => model_state::READY_FOR_SERVING,
+                5 => model_state::TRAINING_FAILED,
+                6 => model_state::NO_IMPROVEMENT,
+                7 => model_state::INPUT_VALIDATION_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ModelState {
         fn default() -> Self {
-            model_state::MODEL_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6942,20 +7356,8 @@ pub mod data_store {
     }
 
     /// Content config of the data store.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ContentConfig(std::borrow::Cow<'static, str>);
-
-    impl ContentConfig {
-        /// Creates a new ContentConfig instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ContentConfig(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ContentConfig](ContentConfig)
     pub mod content_config {
@@ -6963,40 +7365,102 @@ pub mod data_store {
 
         /// Default value.
         pub const CONTENT_CONFIG_UNSPECIFIED: ContentConfig =
-            ContentConfig::new("CONTENT_CONFIG_UNSPECIFIED");
+            ContentConfig::known("CONTENT_CONFIG_UNSPECIFIED", 0);
 
         /// Only contains documents without any
         /// [Document.content][google.cloud.discoveryengine.v1.Document.content].
         ///
         /// [google.cloud.discoveryengine.v1.Document.content]: crate::model::Document::content
-        pub const NO_CONTENT: ContentConfig = ContentConfig::new("NO_CONTENT");
+        pub const NO_CONTENT: ContentConfig = ContentConfig::known("NO_CONTENT", 1);
 
         /// Only contains documents with
         /// [Document.content][google.cloud.discoveryengine.v1.Document.content].
         ///
         /// [google.cloud.discoveryengine.v1.Document.content]: crate::model::Document::content
-        pub const CONTENT_REQUIRED: ContentConfig = ContentConfig::new("CONTENT_REQUIRED");
+        pub const CONTENT_REQUIRED: ContentConfig = ContentConfig::known("CONTENT_REQUIRED", 2);
 
         /// The data store is used for public website search.
-        pub const PUBLIC_WEBSITE: ContentConfig = ContentConfig::new("PUBLIC_WEBSITE");
+        pub const PUBLIC_WEBSITE: ContentConfig = ContentConfig::known("PUBLIC_WEBSITE", 3);
 
         /// The data store is used for workspace search. Details of workspace
         /// data store are specified in the
         /// [WorkspaceConfig][google.cloud.discoveryengine.v1.WorkspaceConfig].
         ///
         /// [google.cloud.discoveryengine.v1.WorkspaceConfig]: crate::model::WorkspaceConfig
-        pub const GOOGLE_WORKSPACE: ContentConfig = ContentConfig::new("GOOGLE_WORKSPACE");
+        pub const GOOGLE_WORKSPACE: ContentConfig = ContentConfig::known("GOOGLE_WORKSPACE", 4);
+    }
+
+    impl ContentConfig {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ContentConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ContentConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ContentConfig::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ContentConfig::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ContentConfig::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ContentConfig {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CONTENT_CONFIG_UNSPECIFIED" => content_config::CONTENT_CONFIG_UNSPECIFIED,
+                "NO_CONTENT" => content_config::NO_CONTENT,
+                "CONTENT_REQUIRED" => content_config::CONTENT_REQUIRED,
+                "PUBLIC_WEBSITE" => content_config::PUBLIC_WEBSITE,
+                "GOOGLE_WORKSPACE" => content_config::GOOGLE_WORKSPACE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ContentConfig {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => content_config::CONTENT_CONFIG_UNSPECIFIED,
+                1 => content_config::NO_CONTENT,
+                2 => content_config::CONTENT_REQUIRED,
+                3 => content_config::PUBLIC_WEBSITE,
+                4 => content_config::GOOGLE_WORKSPACE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ContentConfig {
         fn default() -> Self {
-            content_config::CONTENT_CONFIG_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -7082,59 +7546,115 @@ pub mod workspace_config {
     use super::*;
 
     /// Specifies the type of Workspace App supported by this DataStore
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// Defaults to an unspecified Workspace type.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Workspace Data Store contains Drive data
-        pub const GOOGLE_DRIVE: Type = Type::new("GOOGLE_DRIVE");
+        pub const GOOGLE_DRIVE: Type = Type::known("GOOGLE_DRIVE", 1);
 
         /// Workspace Data Store contains Mail data
-        pub const GOOGLE_MAIL: Type = Type::new("GOOGLE_MAIL");
+        pub const GOOGLE_MAIL: Type = Type::known("GOOGLE_MAIL", 2);
 
         /// Workspace Data Store contains Sites data
-        pub const GOOGLE_SITES: Type = Type::new("GOOGLE_SITES");
+        pub const GOOGLE_SITES: Type = Type::known("GOOGLE_SITES", 3);
 
         /// Workspace Data Store contains Calendar data
-        pub const GOOGLE_CALENDAR: Type = Type::new("GOOGLE_CALENDAR");
+        pub const GOOGLE_CALENDAR: Type = Type::known("GOOGLE_CALENDAR", 4);
 
         /// Workspace Data Store contains Chat data
-        pub const GOOGLE_CHAT: Type = Type::new("GOOGLE_CHAT");
+        pub const GOOGLE_CHAT: Type = Type::known("GOOGLE_CHAT", 5);
 
         /// Workspace Data Store contains Groups data
-        pub const GOOGLE_GROUPS: Type = Type::new("GOOGLE_GROUPS");
+        pub const GOOGLE_GROUPS: Type = Type::known("GOOGLE_GROUPS", 6);
 
         /// Workspace Data Store contains Keep data
-        pub const GOOGLE_KEEP: Type = Type::new("GOOGLE_KEEP");
+        pub const GOOGLE_KEEP: Type = Type::known("GOOGLE_KEEP", 7);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "GOOGLE_DRIVE" => r#type::GOOGLE_DRIVE,
+                "GOOGLE_MAIL" => r#type::GOOGLE_MAIL,
+                "GOOGLE_SITES" => r#type::GOOGLE_SITES,
+                "GOOGLE_CALENDAR" => r#type::GOOGLE_CALENDAR,
+                "GOOGLE_CHAT" => r#type::GOOGLE_CHAT,
+                "GOOGLE_GROUPS" => r#type::GOOGLE_GROUPS,
+                "GOOGLE_KEEP" => r#type::GOOGLE_KEEP,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::GOOGLE_DRIVE,
+                2 => r#type::GOOGLE_MAIL,
+                3 => r#type::GOOGLE_SITES,
+                4 => r#type::GOOGLE_CALENDAR,
+                5 => r#type::GOOGLE_CHAT,
+                6 => r#type::GOOGLE_GROUPS,
+                7 => r#type::GOOGLE_KEEP,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -9504,32 +10024,20 @@ pub mod batch_get_documents_metadata_response {
     /// The state of the [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Should never be set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The [Document][google.cloud.discoveryengine.v1.Document] is indexed.
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-        pub const INDEXED: State = State::new("INDEXED");
+        pub const INDEXED: State = State::known("INDEXED", 1);
 
         /// The [Document][google.cloud.discoveryengine.v1.Document] is not indexed
         /// because its URI is not in the
@@ -9537,23 +10045,83 @@ pub mod batch_get_documents_metadata_response {
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
         /// [google.cloud.discoveryengine.v1.TargetSite]: crate::model::TargetSite
-        pub const NOT_IN_TARGET_SITE: State = State::new("NOT_IN_TARGET_SITE");
+        pub const NOT_IN_TARGET_SITE: State = State::known("NOT_IN_TARGET_SITE", 2);
 
         /// The [Document][google.cloud.discoveryengine.v1.Document] is not indexed.
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
-        pub const NOT_IN_INDEX: State = State::new("NOT_IN_INDEX");
+        pub const NOT_IN_INDEX: State = State::known("NOT_IN_INDEX", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "INDEXED" => state::INDEXED,
+                "NOT_IN_TARGET_SITE" => state::NOT_IN_TARGET_SITE,
+                "NOT_IN_INDEX" => state::NOT_IN_INDEX,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::INDEXED,
+                2 => state::NOT_IN_TARGET_SITE,
+                3 => state::NOT_IN_INDEX,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -11109,41 +11677,85 @@ pub mod generate_grounded_content_request {
             use super::*;
 
             /// The version of the predictor to be used in dynamic retrieval.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Version(std::borrow::Cow<'static, str>);
-
-            impl Version {
-                /// Creates a new Version instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct Version(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [Version](Version)
             pub mod version {
                 use super::Version;
 
                 /// Automatically choose the best version of the retrieval predictor.
-                pub const VERSION_UNSPECIFIED: Version = Version::new("VERSION_UNSPECIFIED");
+                pub const VERSION_UNSPECIFIED: Version = Version::known("VERSION_UNSPECIFIED", 0);
 
                 /// The V1 model which is evaluating each source independently.
-                pub const V1_INDEPENDENT: Version = Version::new("V1_INDEPENDENT");
+                pub const V1_INDEPENDENT: Version = Version::known("V1_INDEPENDENT", 1);
+            }
+
+            impl Version {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for Version {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Version {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(Version::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(Version::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(Version::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for Version {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "VERSION_UNSPECIFIED" => version::VERSION_UNSPECIFIED,
+                        "V1_INDEPENDENT" => version::V1_INDEPENDENT,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Version {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => version::VERSION_UNSPECIFIED,
+                        1 => version::V1_INDEPENDENT,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for Version {
                 fn default() -> Self {
-                    version::VERSION_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -11770,50 +12382,100 @@ pub mod generate_grounded_content_response {
                 use super::*;
 
                 /// Describes the source to which the metadata is associated to.
-                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-                pub struct Source(std::borrow::Cow<'static, str>);
-
-                impl Source {
-                    /// Creates a new Source instance.
-                    pub const fn new(v: &'static str) -> Self {
-                        Self(std::borrow::Cow::Borrowed(v))
-                    }
-
-                    /// Gets the enum value.
-                    pub fn value(&self) -> &str {
-                        &self.0
-                    }
-                }
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct Source(wkt::enumerations::Enumeration);
 
                 /// Useful constants to work with [Source](Source)
                 pub mod source {
                     use super::Source;
 
                     /// Unspecified source.
-                    pub const SOURCE_UNSPECIFIED: Source = Source::new("SOURCE_UNSPECIFIED");
+                    pub const SOURCE_UNSPECIFIED: Source = Source::known("SOURCE_UNSPECIFIED", 0);
 
                     /// Vertex AI search.
-                    pub const VERTEX_AI_SEARCH: Source = Source::new("VERTEX_AI_SEARCH");
+                    pub const VERTEX_AI_SEARCH: Source = Source::known("VERTEX_AI_SEARCH", 1);
 
                     /// Google Search.
-                    pub const GOOGLE_SEARCH: Source = Source::new("GOOGLE_SEARCH");
+                    pub const GOOGLE_SEARCH: Source = Source::known("GOOGLE_SEARCH", 3);
 
                     /// User inline provided content.
-                    pub const INLINE_CONTENT: Source = Source::new("INLINE_CONTENT");
+                    pub const INLINE_CONTENT: Source = Source::known("INLINE_CONTENT", 2);
 
                     /// Google Maps.
-                    pub const GOOGLE_MAPS: Source = Source::new("GOOGLE_MAPS");
+                    pub const GOOGLE_MAPS: Source = Source::known("GOOGLE_MAPS", 4);
+                }
+
+                impl Source {
+                    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                        Self(wkt::enumerations::Enumeration::known(str, val))
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> &str {
+                        self.0.value()
+                    }
+
+                    /// Gets the numeric value of the enum (if available).
+                    pub fn numeric_value(&self) -> std::option::Option<i32> {
+                        self.0.numeric_value()
+                    }
+                }
+
+                impl serde::ser::Serialize for Source {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        self.0.serialize(serializer)
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for Source {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        use std::convert::From;
+                        use std::result::Result::Ok;
+                        use wkt::enumerations::Enumeration;
+                        match Enumeration::deserialize(deserializer)? {
+                            Enumeration::Known { str: _, val } => Ok(Source::from(val)),
+                            Enumeration::UnknownStr { val, str: _ } => Ok(Source::from(val)),
+                            Enumeration::UnknownNum { str } => Ok(Source::from(str)),
+                        }
+                    }
                 }
 
                 impl std::convert::From<std::string::String> for Source {
                     fn from(value: std::string::String) -> Self {
-                        Self(std::borrow::Cow::Owned(value))
+                        match value.as_str() {
+                            "SOURCE_UNSPECIFIED" => source::SOURCE_UNSPECIFIED,
+                            "VERTEX_AI_SEARCH" => source::VERTEX_AI_SEARCH,
+                            "GOOGLE_SEARCH" => source::GOOGLE_SEARCH,
+                            "INLINE_CONTENT" => source::INLINE_CONTENT,
+                            "GOOGLE_MAPS" => source::GOOGLE_MAPS,
+                            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                        }
+                    }
+                }
+
+                impl std::convert::From<i32> for Source {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => source::SOURCE_UNSPECIFIED,
+                            1 => source::VERTEX_AI_SEARCH,
+                            2 => source::INLINE_CONTENT,
+                            3 => source::GOOGLE_SEARCH,
+                            4 => source::GOOGLE_MAPS,
+                            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                        }
                     }
                 }
 
                 impl std::default::Default for Source {
                     fn default() -> Self {
-                        source::SOURCE_UNSPECIFIED
+                        use std::convert::From;
+                        Self::from(0_i32)
                     }
                 }
             }
@@ -11900,41 +12562,86 @@ pub mod generate_grounded_content_response {
                 use super::*;
 
                 /// The version of the predictor which was used in dynamic retrieval.
-                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-                pub struct Version(std::borrow::Cow<'static, str>);
-
-                impl Version {
-                    /// Creates a new Version instance.
-                    pub const fn new(v: &'static str) -> Self {
-                        Self(std::borrow::Cow::Borrowed(v))
-                    }
-
-                    /// Gets the enum value.
-                    pub fn value(&self) -> &str {
-                        &self.0
-                    }
-                }
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct Version(wkt::enumerations::Enumeration);
 
                 /// Useful constants to work with [Version](Version)
                 pub mod version {
                     use super::Version;
 
                     /// Unspecified version, should never be used.
-                    pub const VERSION_UNSPECIFIED: Version = Version::new("VERSION_UNSPECIFIED");
+                    pub const VERSION_UNSPECIFIED: Version =
+                        Version::known("VERSION_UNSPECIFIED", 0);
 
                     /// The V1 model which is evaluating each source independently.
-                    pub const V1_INDEPENDENT: Version = Version::new("V1_INDEPENDENT");
+                    pub const V1_INDEPENDENT: Version = Version::known("V1_INDEPENDENT", 1);
+                }
+
+                impl Version {
+                    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                        Self(wkt::enumerations::Enumeration::known(str, val))
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> &str {
+                        self.0.value()
+                    }
+
+                    /// Gets the numeric value of the enum (if available).
+                    pub fn numeric_value(&self) -> std::option::Option<i32> {
+                        self.0.numeric_value()
+                    }
+                }
+
+                impl serde::ser::Serialize for Version {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        self.0.serialize(serializer)
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for Version {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        use std::convert::From;
+                        use std::result::Result::Ok;
+                        use wkt::enumerations::Enumeration;
+                        match Enumeration::deserialize(deserializer)? {
+                            Enumeration::Known { str: _, val } => Ok(Version::from(val)),
+                            Enumeration::UnknownStr { val, str: _ } => Ok(Version::from(val)),
+                            Enumeration::UnknownNum { str } => Ok(Version::from(str)),
+                        }
+                    }
                 }
 
                 impl std::convert::From<std::string::String> for Version {
                     fn from(value: std::string::String) -> Self {
-                        Self(std::borrow::Cow::Owned(value))
+                        match value.as_str() {
+                            "VERSION_UNSPECIFIED" => version::VERSION_UNSPECIFIED,
+                            "V1_INDEPENDENT" => version::V1_INDEPENDENT,
+                            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                        }
+                    }
+                }
+
+                impl std::convert::From<i32> for Version {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => version::VERSION_UNSPECIFIED,
+                            1 => version::V1_INDEPENDENT,
+                            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                        }
                     }
                 }
 
                 impl std::default::Default for Version {
                     fn default() -> Self {
-                        version::VERSION_UNSPECIFIED
+                        use std::convert::From;
+                        Self::from(0_i32)
                     }
                 }
             }
@@ -13023,101 +13730,203 @@ pub mod bigtable_options {
     /// [HBase
     /// Bytes.toBytes](https://hbase.apache.org/apidocs/org/apache/hadoop/hbase/util/Bytes.html)
     /// function when the encoding value is set to `BINARY`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// The type is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// String type.
-        pub const STRING: Type = Type::new("STRING");
+        pub const STRING: Type = Type::known("STRING", 1);
 
         /// Numerical type.
-        pub const NUMBER: Type = Type::new("NUMBER");
+        pub const NUMBER: Type = Type::known("NUMBER", 2);
 
         /// Integer type.
-        pub const INTEGER: Type = Type::new("INTEGER");
+        pub const INTEGER: Type = Type::known("INTEGER", 3);
 
         /// Variable length integer type.
-        pub const VAR_INTEGER: Type = Type::new("VAR_INTEGER");
+        pub const VAR_INTEGER: Type = Type::known("VAR_INTEGER", 4);
 
         /// BigDecimal type.
-        pub const BIG_NUMERIC: Type = Type::new("BIG_NUMERIC");
+        pub const BIG_NUMERIC: Type = Type::known("BIG_NUMERIC", 5);
 
         /// Boolean type.
-        pub const BOOLEAN: Type = Type::new("BOOLEAN");
+        pub const BOOLEAN: Type = Type::known("BOOLEAN", 6);
 
         /// JSON type.
-        pub const JSON: Type = Type::new("JSON");
+        pub const JSON: Type = Type::known("JSON", 7);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "STRING" => r#type::STRING,
+                "NUMBER" => r#type::NUMBER,
+                "INTEGER" => r#type::INTEGER,
+                "VAR_INTEGER" => r#type::VAR_INTEGER,
+                "BIG_NUMERIC" => r#type::BIG_NUMERIC,
+                "BOOLEAN" => r#type::BOOLEAN,
+                "JSON" => r#type::JSON,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::STRING,
+                2 => r#type::NUMBER,
+                3 => r#type::INTEGER,
+                4 => r#type::VAR_INTEGER,
+                5 => r#type::BIG_NUMERIC,
+                6 => r#type::BOOLEAN,
+                7 => r#type::JSON,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The encoding mode of a Bigtable column or column family.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Encoding(std::borrow::Cow<'static, str>);
-
-    impl Encoding {
-        /// Creates a new Encoding instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Encoding(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Encoding](Encoding)
     pub mod encoding {
         use super::Encoding;
 
         /// The encoding is unspecified.
-        pub const ENCODING_UNSPECIFIED: Encoding = Encoding::new("ENCODING_UNSPECIFIED");
+        pub const ENCODING_UNSPECIFIED: Encoding = Encoding::known("ENCODING_UNSPECIFIED", 0);
 
         /// Text encoding.
-        pub const TEXT: Encoding = Encoding::new("TEXT");
+        pub const TEXT: Encoding = Encoding::known("TEXT", 1);
 
         /// Binary encoding.
-        pub const BINARY: Encoding = Encoding::new("BINARY");
+        pub const BINARY: Encoding = Encoding::known("BINARY", 2);
+    }
+
+    impl Encoding {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Encoding {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Encoding {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Encoding::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Encoding::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Encoding::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Encoding {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ENCODING_UNSPECIFIED" => encoding::ENCODING_UNSPECIFIED,
+                "TEXT" => encoding::TEXT,
+                "BINARY" => encoding::BINARY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Encoding {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => encoding::ENCODING_UNSPECIFIED,
+                1 => encoding::TEXT,
+                2 => encoding::BINARY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Encoding {
         fn default() -> Self {
-            encoding::ENCODING_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -14521,20 +15330,8 @@ pub mod import_documents_request {
 
     /// Indicates how imported documents are reconciled with the existing documents
     /// created or imported before.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReconciliationMode(std::borrow::Cow<'static, str>);
-
-    impl ReconciliationMode {
-        /// Creates a new ReconciliationMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ReconciliationMode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ReconciliationMode](ReconciliationMode)
     pub mod reconciliation_mode {
@@ -14542,25 +15339,85 @@ pub mod import_documents_request {
 
         /// Defaults to `INCREMENTAL`.
         pub const RECONCILIATION_MODE_UNSPECIFIED: ReconciliationMode =
-            ReconciliationMode::new("RECONCILIATION_MODE_UNSPECIFIED");
+            ReconciliationMode::known("RECONCILIATION_MODE_UNSPECIFIED", 0);
 
         /// Inserts new documents or updates existing documents.
-        pub const INCREMENTAL: ReconciliationMode = ReconciliationMode::new("INCREMENTAL");
+        pub const INCREMENTAL: ReconciliationMode = ReconciliationMode::known("INCREMENTAL", 1);
 
         /// Calculates diff and replaces the entire document dataset. Existing
         /// documents may be deleted if they are not present in the source location.
-        pub const FULL: ReconciliationMode = ReconciliationMode::new("FULL");
+        pub const FULL: ReconciliationMode = ReconciliationMode::known("FULL", 2);
+    }
+
+    impl ReconciliationMode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ReconciliationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ReconciliationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ReconciliationMode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ReconciliationMode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ReconciliationMode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ReconciliationMode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RECONCILIATION_MODE_UNSPECIFIED" => {
+                    reconciliation_mode::RECONCILIATION_MODE_UNSPECIFIED
+                }
+                "INCREMENTAL" => reconciliation_mode::INCREMENTAL,
+                "FULL" => reconciliation_mode::FULL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ReconciliationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => reconciliation_mode::RECONCILIATION_MODE_UNSPECIFIED,
+                1 => reconciliation_mode::INCREMENTAL,
+                2 => reconciliation_mode::FULL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ReconciliationMode {
         fn default() -> Self {
-            reconciliation_mode::RECONCILIATION_MODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -15467,47 +16324,95 @@ pub mod project {
         use super::*;
 
         /// The agreement states this terms of service.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(std::borrow::Cow<'static, str>);
-
-        impl State {
-            /// Creates a new State instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct State(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [State](State)
         pub mod state {
             use super::State;
 
             /// The default value of the enum. This value is not actually used.
-            pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+            pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
             /// The project has given consent to the terms of service.
-            pub const TERMS_ACCEPTED: State = State::new("TERMS_ACCEPTED");
+            pub const TERMS_ACCEPTED: State = State::known("TERMS_ACCEPTED", 1);
 
             /// The project is pending to review and accept the terms of service.
-            pub const TERMS_PENDING: State = State::new("TERMS_PENDING");
+            pub const TERMS_PENDING: State = State::known("TERMS_PENDING", 2);
 
             /// The project has declined or revoked the agreement to terms of service.
-            pub const TERMS_DECLINED: State = State::new("TERMS_DECLINED");
+            pub const TERMS_DECLINED: State = State::known("TERMS_DECLINED", 3);
+        }
+
+        impl State {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(State::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for State {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                    "TERMS_ACCEPTED" => state::TERMS_ACCEPTED,
+                    "TERMS_PENDING" => state::TERMS_PENDING,
+                    "TERMS_DECLINED" => state::TERMS_DECLINED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => state::STATE_UNSPECIFIED,
+                    1 => state::TERMS_ACCEPTED,
+                    2 => state::TERMS_PENDING,
+                    3 => state::TERMS_DECLINED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for State {
             fn default() -> Self {
-                state::STATE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -18855,20 +19760,8 @@ pub mod search_request {
 
                 /// The attribute(or function) for which the custom ranking is to be
                 /// applied.
-                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-                pub struct AttributeType(std::borrow::Cow<'static, str>);
-
-                impl AttributeType {
-                    /// Creates a new AttributeType instance.
-                    pub const fn new(v: &'static str) -> Self {
-                        Self(std::borrow::Cow::Borrowed(v))
-                    }
-
-                    /// Gets the enum value.
-                    pub fn value(&self) -> &str {
-                        &self.0
-                    }
-                }
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct AttributeType(wkt::enumerations::Enumeration);
 
                 /// Useful constants to work with [AttributeType](AttributeType)
                 pub mod attribute_type {
@@ -18876,13 +19769,13 @@ pub mod search_request {
 
                     /// Unspecified AttributeType.
                     pub const ATTRIBUTE_TYPE_UNSPECIFIED: AttributeType =
-                        AttributeType::new("ATTRIBUTE_TYPE_UNSPECIFIED");
+                        AttributeType::known("ATTRIBUTE_TYPE_UNSPECIFIED", 0);
 
                     /// The value of the numerical field will be used to dynamically update
                     /// the boost amount. In this case, the attribute_value (the x value)
                     /// of the control point will be the actual value of the numerical
                     /// field for which the boost_amount is specified.
-                    pub const NUMERICAL: AttributeType = AttributeType::new("NUMERICAL");
+                    pub const NUMERICAL: AttributeType = AttributeType::known("NUMERICAL", 1);
 
                     /// For the freshness use case the attribute value will be the duration
                     /// between the current time and the date in the datetime field
@@ -18890,37 +19783,85 @@ pub mod search_request {
                     /// value (a restricted subset of an ISO 8601 duration value). The
                     /// pattern for this is: `[nD][T[nH][nM][nS]]`.
                     /// For example, `5D`, `3DT12H30M`, `T24H`.
-                    pub const FRESHNESS: AttributeType = AttributeType::new("FRESHNESS");
+                    pub const FRESHNESS: AttributeType = AttributeType::known("FRESHNESS", 2);
+                }
+
+                impl AttributeType {
+                    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                        Self(wkt::enumerations::Enumeration::known(str, val))
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> &str {
+                        self.0.value()
+                    }
+
+                    /// Gets the numeric value of the enum (if available).
+                    pub fn numeric_value(&self) -> std::option::Option<i32> {
+                        self.0.numeric_value()
+                    }
+                }
+
+                impl serde::ser::Serialize for AttributeType {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        self.0.serialize(serializer)
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for AttributeType {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        use std::convert::From;
+                        use std::result::Result::Ok;
+                        use wkt::enumerations::Enumeration;
+                        match Enumeration::deserialize(deserializer)? {
+                            Enumeration::Known { str: _, val } => Ok(AttributeType::from(val)),
+                            Enumeration::UnknownStr { val, str: _ } => Ok(AttributeType::from(val)),
+                            Enumeration::UnknownNum { str } => Ok(AttributeType::from(str)),
+                        }
+                    }
                 }
 
                 impl std::convert::From<std::string::String> for AttributeType {
                     fn from(value: std::string::String) -> Self {
-                        Self(std::borrow::Cow::Owned(value))
+                        match value.as_str() {
+                            "ATTRIBUTE_TYPE_UNSPECIFIED" => {
+                                attribute_type::ATTRIBUTE_TYPE_UNSPECIFIED
+                            }
+                            "NUMERICAL" => attribute_type::NUMERICAL,
+                            "FRESHNESS" => attribute_type::FRESHNESS,
+                            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                        }
+                    }
+                }
+
+                impl std::convert::From<i32> for AttributeType {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => attribute_type::ATTRIBUTE_TYPE_UNSPECIFIED,
+                            1 => attribute_type::NUMERICAL,
+                            2 => attribute_type::FRESHNESS,
+                            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                        }
                     }
                 }
 
                 impl std::default::Default for AttributeType {
                     fn default() -> Self {
-                        attribute_type::ATTRIBUTE_TYPE_UNSPECIFIED
+                        use std::convert::From;
+                        Self::from(0_i32)
                     }
                 }
 
                 /// The interpolation type to be applied. Default will be linear
                 /// (Piecewise Linear).
-                #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-                pub struct InterpolationType(std::borrow::Cow<'static, str>);
-
-                impl InterpolationType {
-                    /// Creates a new InterpolationType instance.
-                    pub const fn new(v: &'static str) -> Self {
-                        Self(std::borrow::Cow::Borrowed(v))
-                    }
-
-                    /// Gets the enum value.
-                    pub fn value(&self) -> &str {
-                        &self.0
-                    }
-                }
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct InterpolationType(wkt::enumerations::Enumeration);
 
                 /// Useful constants to work with [InterpolationType](InterpolationType)
                 pub mod interpolation_type {
@@ -18929,21 +19870,81 @@ pub mod search_request {
                     /// Interpolation type is unspecified. In this case, it defaults to
                     /// Linear.
                     pub const INTERPOLATION_TYPE_UNSPECIFIED: InterpolationType =
-                        InterpolationType::new("INTERPOLATION_TYPE_UNSPECIFIED");
+                        InterpolationType::known("INTERPOLATION_TYPE_UNSPECIFIED", 0);
 
                     /// Piecewise linear interpolation will be applied.
-                    pub const LINEAR: InterpolationType = InterpolationType::new("LINEAR");
+                    pub const LINEAR: InterpolationType = InterpolationType::known("LINEAR", 1);
+                }
+
+                impl InterpolationType {
+                    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                        Self(wkt::enumerations::Enumeration::known(str, val))
+                    }
+
+                    /// Gets the enum value.
+                    pub fn value(&self) -> &str {
+                        self.0.value()
+                    }
+
+                    /// Gets the numeric value of the enum (if available).
+                    pub fn numeric_value(&self) -> std::option::Option<i32> {
+                        self.0.numeric_value()
+                    }
+                }
+
+                impl serde::ser::Serialize for InterpolationType {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        self.0.serialize(serializer)
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for InterpolationType {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        use std::convert::From;
+                        use std::result::Result::Ok;
+                        use wkt::enumerations::Enumeration;
+                        match Enumeration::deserialize(deserializer)? {
+                            Enumeration::Known { str: _, val } => Ok(InterpolationType::from(val)),
+                            Enumeration::UnknownStr { val, str: _ } => {
+                                Ok(InterpolationType::from(val))
+                            }
+                            Enumeration::UnknownNum { str } => Ok(InterpolationType::from(str)),
+                        }
+                    }
                 }
 
                 impl std::convert::From<std::string::String> for InterpolationType {
                     fn from(value: std::string::String) -> Self {
-                        Self(std::borrow::Cow::Owned(value))
+                        match value.as_str() {
+                            "INTERPOLATION_TYPE_UNSPECIFIED" => {
+                                interpolation_type::INTERPOLATION_TYPE_UNSPECIFIED
+                            }
+                            "LINEAR" => interpolation_type::LINEAR,
+                            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                        }
+                    }
+                }
+
+                impl std::convert::From<i32> for InterpolationType {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => interpolation_type::INTERPOLATION_TYPE_UNSPECIFIED,
+                            1 => interpolation_type::LINEAR,
+                            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                        }
                     }
                 }
 
                 impl std::default::Default for InterpolationType {
                     fn default() -> Self {
-                        interpolation_type::INTERPOLATION_TYPE_UNSPECIFIED
+                        use std::convert::From;
+                        Self::from(0_i32)
                     }
                 }
             }
@@ -19004,20 +20005,8 @@ pub mod search_request {
         use super::*;
 
         /// Enum describing under which condition query expansion should occur.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Condition(std::borrow::Cow<'static, str>);
-
-        impl Condition {
-            /// Creates a new Condition instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Condition(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Condition](Condition)
         pub mod condition {
@@ -19028,28 +20017,87 @@ pub mod search_request {
             /// [Condition.DISABLED][google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.Condition.DISABLED].
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.Condition.DISABLED]: crate::model::search_request::query_expansion_spec::condition::DISABLED
-            pub const CONDITION_UNSPECIFIED: Condition = Condition::new("CONDITION_UNSPECIFIED");
+            pub const CONDITION_UNSPECIFIED: Condition =
+                Condition::known("CONDITION_UNSPECIFIED", 0);
 
             /// Disabled query expansion. Only the exact search query is used, even if
             /// [SearchResponse.total_size][google.cloud.discoveryengine.v1.SearchResponse.total_size]
             /// is zero.
             ///
             /// [google.cloud.discoveryengine.v1.SearchResponse.total_size]: crate::model::SearchResponse::total_size
-            pub const DISABLED: Condition = Condition::new("DISABLED");
+            pub const DISABLED: Condition = Condition::known("DISABLED", 1);
 
             /// Automatic query expansion built by the Search API.
-            pub const AUTO: Condition = Condition::new("AUTO");
+            pub const AUTO: Condition = Condition::known("AUTO", 2);
+        }
+
+        impl Condition {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Condition {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Condition {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Condition::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Condition::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Condition::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Condition {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CONDITION_UNSPECIFIED" => condition::CONDITION_UNSPECIFIED,
+                    "DISABLED" => condition::DISABLED,
+                    "AUTO" => condition::AUTO,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Condition {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => condition::CONDITION_UNSPECIFIED,
+                    1 => condition::DISABLED,
+                    2 => condition::AUTO,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Condition {
             fn default() -> Self {
-                condition::CONDITION_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -19097,20 +20145,8 @@ pub mod search_request {
         use super::*;
 
         /// Enum describing under which mode spell correction should occur.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Mode(std::borrow::Cow<'static, str>);
-
-        impl Mode {
-            /// Creates a new Mode instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Mode(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Mode](Mode)
         pub mod mode {
@@ -19121,7 +20157,7 @@ pub mod search_request {
             /// [Mode.AUTO][google.cloud.discoveryengine.v1.SearchRequest.SpellCorrectionSpec.Mode.AUTO].
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.SpellCorrectionSpec.Mode.AUTO]: crate::model::search_request::spell_correction_spec::mode::AUTO
-            pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
+            pub const MODE_UNSPECIFIED: Mode = Mode::known("MODE_UNSPECIFIED", 0);
 
             /// Search API tries to find a spelling suggestion. If a suggestion is
             /// found, it is put in the
@@ -19129,22 +20165,80 @@ pub mod search_request {
             /// The spelling suggestion won't be used as the search query.
             ///
             /// [google.cloud.discoveryengine.v1.SearchResponse.corrected_query]: crate::model::SearchResponse::corrected_query
-            pub const SUGGESTION_ONLY: Mode = Mode::new("SUGGESTION_ONLY");
+            pub const SUGGESTION_ONLY: Mode = Mode::known("SUGGESTION_ONLY", 1);
 
             /// Automatic spell correction built by the Search API. Search will
             /// be based on the corrected query if found.
-            pub const AUTO: Mode = Mode::new("AUTO");
+            pub const AUTO: Mode = Mode::known("AUTO", 2);
+        }
+
+        impl Mode {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Mode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Mode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Mode::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Mode::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Mode::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Mode {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "MODE_UNSPECIFIED" => mode::MODE_UNSPECIFIED,
+                    "SUGGESTION_ONLY" => mode::SUGGESTION_ONLY,
+                    "AUTO" => mode::AUTO,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Mode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => mode::MODE_UNSPECIFIED,
+                    1 => mode::SUGGESTION_ONLY,
+                    2 => mode::AUTO,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Mode {
             fn default() -> Self {
-                mode::MODE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -19783,20 +20877,8 @@ pub mod search_request {
 
         /// Specifies the search result mode. If unspecified, the
         /// search result mode defaults to `DOCUMENTS`.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SearchResultMode(std::borrow::Cow<'static, str>);
-
-        impl SearchResultMode {
-            /// Creates a new SearchResultMode instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct SearchResultMode(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [SearchResultMode](SearchResultMode)
         pub mod search_result_mode {
@@ -19804,25 +20886,85 @@ pub mod search_request {
 
             /// Default value.
             pub const SEARCH_RESULT_MODE_UNSPECIFIED: SearchResultMode =
-                SearchResultMode::new("SEARCH_RESULT_MODE_UNSPECIFIED");
+                SearchResultMode::known("SEARCH_RESULT_MODE_UNSPECIFIED", 0);
 
             /// Returns documents in the search result.
-            pub const DOCUMENTS: SearchResultMode = SearchResultMode::new("DOCUMENTS");
+            pub const DOCUMENTS: SearchResultMode = SearchResultMode::known("DOCUMENTS", 1);
 
             /// Returns chunks in the search result. Only available if the
             /// [DataStore.DocumentProcessingConfig.chunking_config][] is specified.
-            pub const CHUNKS: SearchResultMode = SearchResultMode::new("CHUNKS");
+            pub const CHUNKS: SearchResultMode = SearchResultMode::known("CHUNKS", 2);
+        }
+
+        impl SearchResultMode {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for SearchResultMode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SearchResultMode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(SearchResultMode::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(SearchResultMode::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(SearchResultMode::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for SearchResultMode {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "SEARCH_RESULT_MODE_UNSPECIFIED" => {
+                        search_result_mode::SEARCH_RESULT_MODE_UNSPECIFIED
+                    }
+                    "DOCUMENTS" => search_result_mode::DOCUMENTS,
+                    "CHUNKS" => search_result_mode::CHUNKS,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for SearchResultMode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => search_result_mode::SEARCH_RESULT_MODE_UNSPECIFIED,
+                    1 => search_result_mode::DOCUMENTS,
+                    2 => search_result_mode::CHUNKS,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for SearchResultMode {
             fn default() -> Self {
-                search_result_mode::SEARCH_RESULT_MODE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -19870,20 +21012,8 @@ pub mod search_request {
         use super::*;
 
         /// Enum describing under which condition search as you type should occur.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Condition(std::borrow::Cow<'static, str>);
-
-        impl Condition {
-            /// Creates a new Condition instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct Condition(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [Condition](Condition)
         pub mod condition {
@@ -19893,24 +21023,83 @@ pub mod search_request {
             /// [Condition.DISABLED][google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Condition.DISABLED].
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Condition.DISABLED]: crate::model::search_request::search_as_you_type_spec::condition::DISABLED
-            pub const CONDITION_UNSPECIFIED: Condition = Condition::new("CONDITION_UNSPECIFIED");
+            pub const CONDITION_UNSPECIFIED: Condition =
+                Condition::known("CONDITION_UNSPECIFIED", 0);
 
             /// Disables Search As You Type.
-            pub const DISABLED: Condition = Condition::new("DISABLED");
+            pub const DISABLED: Condition = Condition::known("DISABLED", 1);
 
             /// Enables Search As You Type.
-            pub const ENABLED: Condition = Condition::new("ENABLED");
+            pub const ENABLED: Condition = Condition::known("ENABLED", 2);
+        }
+
+        impl Condition {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for Condition {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Condition {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(Condition::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(Condition::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(Condition::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for Condition {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "CONDITION_UNSPECIFIED" => condition::CONDITION_UNSPECIFIED,
+                    "DISABLED" => condition::DISABLED,
+                    "ENABLED" => condition::ENABLED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for Condition {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => condition::CONDITION_UNSPECIFIED,
+                    1 => condition::DISABLED,
+                    2 => condition::ENABLED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for Condition {
             fn default() -> Self {
-                condition::CONDITION_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -20909,20 +22098,8 @@ pub mod search_response {
         }
 
         /// An Enum for summary-skipped reasons.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SummarySkippedReason(std::borrow::Cow<'static, str>);
-
-        impl SummarySkippedReason {
-            /// Creates a new SummarySkippedReason instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct SummarySkippedReason(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [SummarySkippedReason](SummarySkippedReason)
         pub mod summary_skipped_reason {
@@ -20930,7 +22107,7 @@ pub mod search_response {
 
             /// Default value. The summary skipped reason is not specified.
             pub const SUMMARY_SKIPPED_REASON_UNSPECIFIED: SummarySkippedReason =
-                SummarySkippedReason::new("SUMMARY_SKIPPED_REASON_UNSPECIFIED");
+                SummarySkippedReason::known("SUMMARY_SKIPPED_REASON_UNSPECIFIED", 0);
 
             /// The adversarial query ignored case.
             ///
@@ -20940,7 +22117,7 @@ pub mod search_response {
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec.ignore_adversarial_query]: crate::model::search_request::content_search_spec::SummarySpec::ignore_adversarial_query
             pub const ADVERSARIAL_QUERY_IGNORED: SummarySkippedReason =
-                SummarySkippedReason::new("ADVERSARIAL_QUERY_IGNORED");
+                SummarySkippedReason::known("ADVERSARIAL_QUERY_IGNORED", 1);
 
             /// The non-summary seeking query ignored case.
             ///
@@ -20951,7 +22128,7 @@ pub mod search_response {
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec.ignore_non_summary_seeking_query]: crate::model::search_request::content_search_spec::SummarySpec::ignore_non_summary_seeking_query
             pub const NON_SUMMARY_SEEKING_QUERY_IGNORED: SummarySkippedReason =
-                SummarySkippedReason::new("NON_SUMMARY_SEEKING_QUERY_IGNORED");
+                SummarySkippedReason::known("NON_SUMMARY_SEEKING_QUERY_IGNORED", 2);
 
             /// The out-of-domain query ignored case.
             ///
@@ -20959,27 +22136,27 @@ pub mod search_response {
             /// For example, the data store contains facts about company A but the
             /// user query is asking questions about company B.
             pub const OUT_OF_DOMAIN_QUERY_IGNORED: SummarySkippedReason =
-                SummarySkippedReason::new("OUT_OF_DOMAIN_QUERY_IGNORED");
+                SummarySkippedReason::known("OUT_OF_DOMAIN_QUERY_IGNORED", 3);
 
             /// The potential policy violation case.
             ///
             /// Google skips the summary if there is a potential policy violation
             /// detected. This includes content that may be violent or toxic.
             pub const POTENTIAL_POLICY_VIOLATION: SummarySkippedReason =
-                SummarySkippedReason::new("POTENTIAL_POLICY_VIOLATION");
+                SummarySkippedReason::known("POTENTIAL_POLICY_VIOLATION", 4);
 
             /// The LLM addon not enabled case.
             ///
             /// Google skips the summary if the LLM addon is not enabled.
             pub const LLM_ADDON_NOT_ENABLED: SummarySkippedReason =
-                SummarySkippedReason::new("LLM_ADDON_NOT_ENABLED");
+                SummarySkippedReason::known("LLM_ADDON_NOT_ENABLED", 5);
 
             /// The no relevant content case.
             ///
             /// Google skips the summary if there is no relevant content in the
             /// retrieved search results.
             pub const NO_RELEVANT_CONTENT: SummarySkippedReason =
-                SummarySkippedReason::new("NO_RELEVANT_CONTENT");
+                SummarySkippedReason::known("NO_RELEVANT_CONTENT", 6);
 
             /// The jail-breaking query ignored case.
             ///
@@ -20988,14 +22165,14 @@ pub mod search_response {
             /// [SearchRequest.ContentSearchSpec.SummarySpec.ignore_jail_breaking_query]
             /// is set to `true`.
             pub const JAIL_BREAKING_QUERY_IGNORED: SummarySkippedReason =
-                SummarySkippedReason::new("JAIL_BREAKING_QUERY_IGNORED");
+                SummarySkippedReason::known("JAIL_BREAKING_QUERY_IGNORED", 7);
 
             /// The customer policy violation case.
             ///
             /// Google skips the summary if there is a customer policy violation
             /// detected. The policy is defined by the customer.
             pub const CUSTOMER_POLICY_VIOLATION: SummarySkippedReason =
-                SummarySkippedReason::new("CUSTOMER_POLICY_VIOLATION");
+                SummarySkippedReason::known("CUSTOMER_POLICY_VIOLATION", 8);
 
             /// The non-answer seeking query ignored case.
             ///
@@ -21004,18 +22181,106 @@ pub mod search_response {
             /// [SearchRequest.ContentSearchSpec.SummarySpec.ignore_non_answer_seeking_query]
             /// is set to `true`.
             pub const NON_SUMMARY_SEEKING_QUERY_IGNORED_V2: SummarySkippedReason =
-                SummarySkippedReason::new("NON_SUMMARY_SEEKING_QUERY_IGNORED_V2");
+                SummarySkippedReason::known("NON_SUMMARY_SEEKING_QUERY_IGNORED_V2", 9);
+        }
+
+        impl SummarySkippedReason {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for SummarySkippedReason {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SummarySkippedReason {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(SummarySkippedReason::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(SummarySkippedReason::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(SummarySkippedReason::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for SummarySkippedReason {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "SUMMARY_SKIPPED_REASON_UNSPECIFIED" => {
+                        summary_skipped_reason::SUMMARY_SKIPPED_REASON_UNSPECIFIED
+                    }
+                    "ADVERSARIAL_QUERY_IGNORED" => {
+                        summary_skipped_reason::ADVERSARIAL_QUERY_IGNORED
+                    }
+                    "NON_SUMMARY_SEEKING_QUERY_IGNORED" => {
+                        summary_skipped_reason::NON_SUMMARY_SEEKING_QUERY_IGNORED
+                    }
+                    "OUT_OF_DOMAIN_QUERY_IGNORED" => {
+                        summary_skipped_reason::OUT_OF_DOMAIN_QUERY_IGNORED
+                    }
+                    "POTENTIAL_POLICY_VIOLATION" => {
+                        summary_skipped_reason::POTENTIAL_POLICY_VIOLATION
+                    }
+                    "LLM_ADDON_NOT_ENABLED" => summary_skipped_reason::LLM_ADDON_NOT_ENABLED,
+                    "NO_RELEVANT_CONTENT" => summary_skipped_reason::NO_RELEVANT_CONTENT,
+                    "JAIL_BREAKING_QUERY_IGNORED" => {
+                        summary_skipped_reason::JAIL_BREAKING_QUERY_IGNORED
+                    }
+                    "CUSTOMER_POLICY_VIOLATION" => {
+                        summary_skipped_reason::CUSTOMER_POLICY_VIOLATION
+                    }
+                    "NON_SUMMARY_SEEKING_QUERY_IGNORED_V2" => {
+                        summary_skipped_reason::NON_SUMMARY_SEEKING_QUERY_IGNORED_V2
+                    }
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for SummarySkippedReason {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => summary_skipped_reason::SUMMARY_SKIPPED_REASON_UNSPECIFIED,
+                    1 => summary_skipped_reason::ADVERSARIAL_QUERY_IGNORED,
+                    2 => summary_skipped_reason::NON_SUMMARY_SEEKING_QUERY_IGNORED,
+                    3 => summary_skipped_reason::OUT_OF_DOMAIN_QUERY_IGNORED,
+                    4 => summary_skipped_reason::POTENTIAL_POLICY_VIOLATION,
+                    5 => summary_skipped_reason::LLM_ADDON_NOT_ENABLED,
+                    6 => summary_skipped_reason::NO_RELEVANT_CONTENT,
+                    7 => summary_skipped_reason::JAIL_BREAKING_QUERY_IGNORED,
+                    8 => summary_skipped_reason::CUSTOMER_POLICY_VIOLATION,
+                    9 => summary_skipped_reason::NON_SUMMARY_SEEKING_QUERY_IGNORED_V2,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for SummarySkippedReason {
             fn default() -> Self {
-                summary_skipped_reason::SUMMARY_SKIPPED_REASON_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -21710,41 +22975,85 @@ pub mod session {
     }
 
     /// Enumeration of the state of the session.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// State is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The session is currently open.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 1);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::IN_PROGRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -22132,20 +23441,8 @@ pub mod target_site {
     }
 
     /// Possible target site types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
@@ -22155,42 +23452,88 @@ pub mod target_site {
         /// [Type.INCLUDE][google.cloud.discoveryengine.v1.TargetSite.Type.INCLUDE].
         ///
         /// [google.cloud.discoveryengine.v1.TargetSite.Type.INCLUDE]: crate::model::target_site::r#type::INCLUDE
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// Include the target site.
-        pub const INCLUDE: Type = Type::new("INCLUDE");
+        pub const INCLUDE: Type = Type::known("INCLUDE", 1);
 
         /// Exclude the target site.
-        pub const EXCLUDE: Type = Type::new("EXCLUDE");
+        pub const EXCLUDE: Type = Type::known("EXCLUDE", 2);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "INCLUDE" => r#type::INCLUDE,
+                "EXCLUDE" => r#type::EXCLUDE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::INCLUDE,
+                2 => r#type::EXCLUDE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Target site indexing status enumeration.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IndexingStatus(std::borrow::Cow<'static, str>);
-
-    impl IndexingStatus {
-        /// Creates a new IndexingStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct IndexingStatus(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [IndexingStatus](IndexingStatus)
     pub mod indexing_status {
@@ -22198,35 +23541,97 @@ pub mod target_site {
 
         /// Defaults to SUCCEEDED.
         pub const INDEXING_STATUS_UNSPECIFIED: IndexingStatus =
-            IndexingStatus::new("INDEXING_STATUS_UNSPECIFIED");
+            IndexingStatus::known("INDEXING_STATUS_UNSPECIFIED", 0);
 
         /// The target site is in the update queue and will be picked up by indexing
         /// pipeline.
-        pub const PENDING: IndexingStatus = IndexingStatus::new("PENDING");
+        pub const PENDING: IndexingStatus = IndexingStatus::known("PENDING", 1);
 
         /// The target site fails to be indexed.
-        pub const FAILED: IndexingStatus = IndexingStatus::new("FAILED");
+        pub const FAILED: IndexingStatus = IndexingStatus::known("FAILED", 2);
 
         /// The target site has been indexed.
-        pub const SUCCEEDED: IndexingStatus = IndexingStatus::new("SUCCEEDED");
+        pub const SUCCEEDED: IndexingStatus = IndexingStatus::known("SUCCEEDED", 3);
 
         /// The previously indexed target site has been marked to be deleted. This is
         /// a transitioning state which will resulted in either:
         ///
         /// . target site deleted if unindexing is successful;
         /// . state reverts to SUCCEEDED if the unindexing fails.
-        pub const DELETING: IndexingStatus = IndexingStatus::new("DELETING");
+        pub const DELETING: IndexingStatus = IndexingStatus::known("DELETING", 4);
+    }
+
+    impl IndexingStatus {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for IndexingStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IndexingStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(IndexingStatus::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(IndexingStatus::from(val)),
+                Enumeration::UnknownNum { str } => Ok(IndexingStatus::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for IndexingStatus {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "INDEXING_STATUS_UNSPECIFIED" => indexing_status::INDEXING_STATUS_UNSPECIFIED,
+                "PENDING" => indexing_status::PENDING,
+                "FAILED" => indexing_status::FAILED,
+                "SUCCEEDED" => indexing_status::SUCCEEDED,
+                "DELETING" => indexing_status::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IndexingStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => indexing_status::INDEXING_STATUS_UNSPECIFIED,
+                1 => indexing_status::PENDING,
+                2 => indexing_status::FAILED,
+                3 => indexing_status::SUCCEEDED,
+                4 => indexing_status::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for IndexingStatus {
         fn default() -> Self {
-            indexing_status::INDEXING_STATUS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -22283,20 +23688,8 @@ pub mod site_verification_info {
     use super::*;
 
     /// Site verification state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SiteVerificationState(std::borrow::Cow<'static, str>);
-
-    impl SiteVerificationState {
-        /// Creates a new SiteVerificationState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct SiteVerificationState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [SiteVerificationState](SiteVerificationState)
     pub mod site_verification_state {
@@ -22304,27 +23697,89 @@ pub mod site_verification_info {
 
         /// Defaults to VERIFIED.
         pub const SITE_VERIFICATION_STATE_UNSPECIFIED: SiteVerificationState =
-            SiteVerificationState::new("SITE_VERIFICATION_STATE_UNSPECIFIED");
+            SiteVerificationState::known("SITE_VERIFICATION_STATE_UNSPECIFIED", 0);
 
         /// Site ownership verified.
-        pub const VERIFIED: SiteVerificationState = SiteVerificationState::new("VERIFIED");
+        pub const VERIFIED: SiteVerificationState = SiteVerificationState::known("VERIFIED", 1);
 
         /// Site ownership pending verification or verification failed.
-        pub const UNVERIFIED: SiteVerificationState = SiteVerificationState::new("UNVERIFIED");
+        pub const UNVERIFIED: SiteVerificationState = SiteVerificationState::known("UNVERIFIED", 2);
 
         /// Site exempt from verification, e.g., a public website that opens to all.
-        pub const EXEMPTED: SiteVerificationState = SiteVerificationState::new("EXEMPTED");
+        pub const EXEMPTED: SiteVerificationState = SiteVerificationState::known("EXEMPTED", 3);
+    }
+
+    impl SiteVerificationState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for SiteVerificationState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SiteVerificationState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(SiteVerificationState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(SiteVerificationState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(SiteVerificationState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for SiteVerificationState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "SITE_VERIFICATION_STATE_UNSPECIFIED" => {
+                    site_verification_state::SITE_VERIFICATION_STATE_UNSPECIFIED
+                }
+                "VERIFIED" => site_verification_state::VERIFIED,
+                "UNVERIFIED" => site_verification_state::UNVERIFIED,
+                "EXEMPTED" => site_verification_state::EXEMPTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for SiteVerificationState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => site_verification_state::SITE_VERIFICATION_STATE_UNSPECIFIED,
+                1 => site_verification_state::VERIFIED,
+                2 => site_verification_state::UNVERIFIED,
+                3 => site_verification_state::EXEMPTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for SiteVerificationState {
         fn default() -> Self {
-            site_verification_state::SITE_VERIFICATION_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -23457,20 +24912,8 @@ pub mod recrawl_uris_response {
             use super::*;
 
             /// CorpusType for the failed crawling operation.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct CorpusType(std::borrow::Cow<'static, str>);
-
-            impl CorpusType {
-                /// Creates a new CorpusType instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct CorpusType(wkt::enumerations::Enumeration);
 
             /// Useful constants to work with [CorpusType](CorpusType)
             pub mod corpus_type {
@@ -23478,24 +24921,82 @@ pub mod recrawl_uris_response {
 
                 /// Default value.
                 pub const CORPUS_TYPE_UNSPECIFIED: CorpusType =
-                    CorpusType::new("CORPUS_TYPE_UNSPECIFIED");
+                    CorpusType::known("CORPUS_TYPE_UNSPECIFIED", 0);
 
                 /// Denotes a crawling attempt for the desktop version of a page.
-                pub const DESKTOP: CorpusType = CorpusType::new("DESKTOP");
+                pub const DESKTOP: CorpusType = CorpusType::known("DESKTOP", 1);
 
                 /// Denotes a crawling attempt for the mobile version of a page.
-                pub const MOBILE: CorpusType = CorpusType::new("MOBILE");
+                pub const MOBILE: CorpusType = CorpusType::known("MOBILE", 2);
+            }
+
+            impl CorpusType {
+                pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                    Self(wkt::enumerations::Enumeration::known(str, val))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    self.0.value()
+                }
+
+                /// Gets the numeric value of the enum (if available).
+                pub fn numeric_value(&self) -> std::option::Option<i32> {
+                    self.0.numeric_value()
+                }
+            }
+
+            impl serde::ser::Serialize for CorpusType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    self.0.serialize(serializer)
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for CorpusType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    use std::convert::From;
+                    use std::result::Result::Ok;
+                    use wkt::enumerations::Enumeration;
+                    match Enumeration::deserialize(deserializer)? {
+                        Enumeration::Known { str: _, val } => Ok(CorpusType::from(val)),
+                        Enumeration::UnknownStr { val, str: _ } => Ok(CorpusType::from(val)),
+                        Enumeration::UnknownNum { str } => Ok(CorpusType::from(str)),
+                    }
+                }
             }
 
             impl std::convert::From<std::string::String> for CorpusType {
                 fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+                    match value.as_str() {
+                        "CORPUS_TYPE_UNSPECIFIED" => corpus_type::CORPUS_TYPE_UNSPECIFIED,
+                        "DESKTOP" => corpus_type::DESKTOP,
+                        "MOBILE" => corpus_type::MOBILE,
+                        _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for CorpusType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => corpus_type::CORPUS_TYPE_UNSPECIFIED,
+                        1 => corpus_type::DESKTOP,
+                        2 => corpus_type::MOBILE,
+                        _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                    }
                 }
             }
 
             impl std::default::Default for CorpusType {
                 fn default() -> Self {
-                    corpus_type::CORPUS_TYPE_UNSPECIFIED
+                    use std::convert::From;
+                    Self::from(0_i32)
                 }
             }
         }
@@ -25141,20 +26642,8 @@ impl wkt::message::Message for CollectUserEventRequest {
 /// [DataStore][google.cloud.discoveryengine.v1.DataStore].
 ///
 /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IndustryVertical(std::borrow::Cow<'static, str>);
-
-impl IndustryVertical {
-    /// Creates a new IndustryVertical instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct IndustryVertical(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [IndustryVertical](IndustryVertical)
 pub mod industry_vertical {
@@ -25162,46 +26651,94 @@ pub mod industry_vertical {
 
     /// Value used when unset.
     pub const INDUSTRY_VERTICAL_UNSPECIFIED: IndustryVertical =
-        IndustryVertical::new("INDUSTRY_VERTICAL_UNSPECIFIED");
+        IndustryVertical::known("INDUSTRY_VERTICAL_UNSPECIFIED", 0);
 
     /// The generic vertical for documents that are not specific to any industry
     /// vertical.
-    pub const GENERIC: IndustryVertical = IndustryVertical::new("GENERIC");
+    pub const GENERIC: IndustryVertical = IndustryVertical::known("GENERIC", 1);
 
     /// The media industry vertical.
-    pub const MEDIA: IndustryVertical = IndustryVertical::new("MEDIA");
+    pub const MEDIA: IndustryVertical = IndustryVertical::known("MEDIA", 2);
 
     /// The healthcare FHIR vertical.
-    pub const HEALTHCARE_FHIR: IndustryVertical = IndustryVertical::new("HEALTHCARE_FHIR");
+    pub const HEALTHCARE_FHIR: IndustryVertical = IndustryVertical::known("HEALTHCARE_FHIR", 7);
+}
+
+impl IndustryVertical {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for IndustryVertical {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for IndustryVertical {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(IndustryVertical::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(IndustryVertical::from(val)),
+            Enumeration::UnknownNum { str } => Ok(IndustryVertical::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for IndustryVertical {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "INDUSTRY_VERTICAL_UNSPECIFIED" => industry_vertical::INDUSTRY_VERTICAL_UNSPECIFIED,
+            "GENERIC" => industry_vertical::GENERIC,
+            "MEDIA" => industry_vertical::MEDIA,
+            "HEALTHCARE_FHIR" => industry_vertical::HEALTHCARE_FHIR,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for IndustryVertical {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => industry_vertical::INDUSTRY_VERTICAL_UNSPECIFIED,
+            1 => industry_vertical::GENERIC,
+            2 => industry_vertical::MEDIA,
+            7 => industry_vertical::HEALTHCARE_FHIR,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for IndustryVertical {
     fn default() -> Self {
-        industry_vertical::INDUSTRY_VERTICAL_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The type of solution.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SolutionType(std::borrow::Cow<'static, str>);
-
-impl SolutionType {
-    /// Creates a new SolutionType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SolutionType(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SolutionType](SolutionType)
 pub mod solution_type {
@@ -25209,34 +26746,96 @@ pub mod solution_type {
 
     /// Default value.
     pub const SOLUTION_TYPE_UNSPECIFIED: SolutionType =
-        SolutionType::new("SOLUTION_TYPE_UNSPECIFIED");
+        SolutionType::known("SOLUTION_TYPE_UNSPECIFIED", 0);
 
     /// Used for Recommendations AI.
     pub const SOLUTION_TYPE_RECOMMENDATION: SolutionType =
-        SolutionType::new("SOLUTION_TYPE_RECOMMENDATION");
+        SolutionType::known("SOLUTION_TYPE_RECOMMENDATION", 1);
 
     /// Used for Discovery Search.
-    pub const SOLUTION_TYPE_SEARCH: SolutionType = SolutionType::new("SOLUTION_TYPE_SEARCH");
+    pub const SOLUTION_TYPE_SEARCH: SolutionType = SolutionType::known("SOLUTION_TYPE_SEARCH", 2);
 
     /// Used for use cases related to the Generative AI agent.
-    pub const SOLUTION_TYPE_CHAT: SolutionType = SolutionType::new("SOLUTION_TYPE_CHAT");
+    pub const SOLUTION_TYPE_CHAT: SolutionType = SolutionType::known("SOLUTION_TYPE_CHAT", 3);
 
     /// Used for use cases related to the Generative Chat agent.
     /// It's used for Generative chat engine only, the associated data stores
     /// must enrolled with `SOLUTION_TYPE_CHAT` solution.
     pub const SOLUTION_TYPE_GENERATIVE_CHAT: SolutionType =
-        SolutionType::new("SOLUTION_TYPE_GENERATIVE_CHAT");
+        SolutionType::known("SOLUTION_TYPE_GENERATIVE_CHAT", 4);
+}
+
+impl SolutionType {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SolutionType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SolutionType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SolutionType::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SolutionType::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SolutionType::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SolutionType {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SOLUTION_TYPE_UNSPECIFIED" => solution_type::SOLUTION_TYPE_UNSPECIFIED,
+            "SOLUTION_TYPE_RECOMMENDATION" => solution_type::SOLUTION_TYPE_RECOMMENDATION,
+            "SOLUTION_TYPE_SEARCH" => solution_type::SOLUTION_TYPE_SEARCH,
+            "SOLUTION_TYPE_CHAT" => solution_type::SOLUTION_TYPE_CHAT,
+            "SOLUTION_TYPE_GENERATIVE_CHAT" => solution_type::SOLUTION_TYPE_GENERATIVE_CHAT,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SolutionType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => solution_type::SOLUTION_TYPE_UNSPECIFIED,
+            1 => solution_type::SOLUTION_TYPE_RECOMMENDATION,
+            2 => solution_type::SOLUTION_TYPE_SEARCH,
+            3 => solution_type::SOLUTION_TYPE_CHAT,
+            4 => solution_type::SOLUTION_TYPE_GENERATIVE_CHAT,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SolutionType {
     fn default() -> Self {
-        solution_type::SOLUTION_TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
@@ -25245,20 +26844,8 @@ impl std::default::Default for SolutionType {
 /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH].
 ///
 /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::solution_type::SOLUTION_TYPE_SEARCH
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SearchUseCase(std::borrow::Cow<'static, str>);
-
-impl SearchUseCase {
-    /// Creates a new SearchUseCase instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SearchUseCase(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SearchUseCase](SearchUseCase)
 pub mod search_use_case {
@@ -25266,91 +26853,185 @@ pub mod search_use_case {
 
     /// Value used when unset. Will not occur in CSS.
     pub const SEARCH_USE_CASE_UNSPECIFIED: SearchUseCase =
-        SearchUseCase::new("SEARCH_USE_CASE_UNSPECIFIED");
+        SearchUseCase::known("SEARCH_USE_CASE_UNSPECIFIED", 0);
 
     /// Search use case. Expects the traffic has a non-empty
     /// [query][google.cloud.discoveryengine.v1.SearchRequest.query].
     ///
     /// [google.cloud.discoveryengine.v1.SearchRequest.query]: crate::model::SearchRequest::query
-    pub const SEARCH_USE_CASE_SEARCH: SearchUseCase = SearchUseCase::new("SEARCH_USE_CASE_SEARCH");
+    pub const SEARCH_USE_CASE_SEARCH: SearchUseCase =
+        SearchUseCase::known("SEARCH_USE_CASE_SEARCH", 1);
 
     /// Browse use case. Expects the traffic has an empty
     /// [query][google.cloud.discoveryengine.v1.SearchRequest.query].
     ///
     /// [google.cloud.discoveryengine.v1.SearchRequest.query]: crate::model::SearchRequest::query
-    pub const SEARCH_USE_CASE_BROWSE: SearchUseCase = SearchUseCase::new("SEARCH_USE_CASE_BROWSE");
+    pub const SEARCH_USE_CASE_BROWSE: SearchUseCase =
+        SearchUseCase::known("SEARCH_USE_CASE_BROWSE", 2);
+}
+
+impl SearchUseCase {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SearchUseCase {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SearchUseCase {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SearchUseCase::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SearchUseCase::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SearchUseCase::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SearchUseCase {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SEARCH_USE_CASE_UNSPECIFIED" => search_use_case::SEARCH_USE_CASE_UNSPECIFIED,
+            "SEARCH_USE_CASE_SEARCH" => search_use_case::SEARCH_USE_CASE_SEARCH,
+            "SEARCH_USE_CASE_BROWSE" => search_use_case::SEARCH_USE_CASE_BROWSE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SearchUseCase {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => search_use_case::SEARCH_USE_CASE_UNSPECIFIED,
+            1 => search_use_case::SEARCH_USE_CASE_SEARCH,
+            2 => search_use_case::SEARCH_USE_CASE_BROWSE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SearchUseCase {
     fn default() -> Self {
-        search_use_case::SEARCH_USE_CASE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Tiers of search features. Different tiers might have different
 /// pricing. To learn more, check the pricing documentation.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SearchTier(std::borrow::Cow<'static, str>);
-
-impl SearchTier {
-    /// Creates a new SearchTier instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SearchTier(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SearchTier](SearchTier)
 pub mod search_tier {
     use super::SearchTier;
 
     /// Default value when the enum is unspecified. This is invalid to use.
-    pub const SEARCH_TIER_UNSPECIFIED: SearchTier = SearchTier::new("SEARCH_TIER_UNSPECIFIED");
+    pub const SEARCH_TIER_UNSPECIFIED: SearchTier = SearchTier::known("SEARCH_TIER_UNSPECIFIED", 0);
 
     /// Standard tier.
-    pub const SEARCH_TIER_STANDARD: SearchTier = SearchTier::new("SEARCH_TIER_STANDARD");
+    pub const SEARCH_TIER_STANDARD: SearchTier = SearchTier::known("SEARCH_TIER_STANDARD", 1);
 
     /// Enterprise tier.
-    pub const SEARCH_TIER_ENTERPRISE: SearchTier = SearchTier::new("SEARCH_TIER_ENTERPRISE");
+    pub const SEARCH_TIER_ENTERPRISE: SearchTier = SearchTier::known("SEARCH_TIER_ENTERPRISE", 2);
+}
+
+impl SearchTier {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SearchTier {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SearchTier {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SearchTier::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SearchTier::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SearchTier::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SearchTier {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SEARCH_TIER_UNSPECIFIED" => search_tier::SEARCH_TIER_UNSPECIFIED,
+            "SEARCH_TIER_STANDARD" => search_tier::SEARCH_TIER_STANDARD,
+            "SEARCH_TIER_ENTERPRISE" => search_tier::SEARCH_TIER_ENTERPRISE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SearchTier {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => search_tier::SEARCH_TIER_UNSPECIFIED,
+            1 => search_tier::SEARCH_TIER_STANDARD,
+            2 => search_tier::SEARCH_TIER_ENTERPRISE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SearchTier {
     fn default() -> Self {
-        search_tier::SEARCH_TIER_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Add-on that provides additional functionality for search.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SearchAddOn(std::borrow::Cow<'static, str>);
-
-impl SearchAddOn {
-    /// Creates a new SearchAddOn instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SearchAddOn(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SearchAddOn](SearchAddOn)
 pub mod search_add_on {
@@ -25358,20 +27039,76 @@ pub mod search_add_on {
 
     /// Default value when the enum is unspecified. This is invalid to use.
     pub const SEARCH_ADD_ON_UNSPECIFIED: SearchAddOn =
-        SearchAddOn::new("SEARCH_ADD_ON_UNSPECIFIED");
+        SearchAddOn::known("SEARCH_ADD_ON_UNSPECIFIED", 0);
 
     /// Large language model add-on.
-    pub const SEARCH_ADD_ON_LLM: SearchAddOn = SearchAddOn::new("SEARCH_ADD_ON_LLM");
+    pub const SEARCH_ADD_ON_LLM: SearchAddOn = SearchAddOn::known("SEARCH_ADD_ON_LLM", 1);
+}
+
+impl SearchAddOn {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SearchAddOn {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SearchAddOn {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SearchAddOn::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SearchAddOn::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SearchAddOn::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SearchAddOn {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SEARCH_ADD_ON_UNSPECIFIED" => search_add_on::SEARCH_ADD_ON_UNSPECIFIED,
+            "SEARCH_ADD_ON_LLM" => search_add_on::SEARCH_ADD_ON_LLM,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SearchAddOn {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => search_add_on::SEARCH_ADD_ON_UNSPECIFIED,
+            1 => search_add_on::SEARCH_ADD_ON_LLM,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SearchAddOn {
     fn default() -> Self {
-        search_add_on::SEARCH_ADD_ON_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

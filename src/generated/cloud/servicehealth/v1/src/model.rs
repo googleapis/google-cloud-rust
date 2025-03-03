@@ -242,20 +242,8 @@ pub mod event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(std::borrow::Cow<'static, str>);
-
-    impl EventCategory {
-        /// Creates a new EventCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EventCategory(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EventCategory](EventCategory)
     pub mod event_category {
@@ -263,40 +251,84 @@ pub mod event {
 
         /// Unspecified category.
         pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory =
-            EventCategory::new("EVENT_CATEGORY_UNSPECIFIED");
+            EventCategory::known("EVENT_CATEGORY_UNSPECIFIED", 0);
 
         /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new("INCIDENT");
+        pub const INCIDENT: EventCategory = EventCategory::known("INCIDENT", 2);
+    }
+
+    impl EventCategory {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EventCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EventCategory::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EventCategory::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EventCategory::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EventCategory {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EVENT_CATEGORY_UNSPECIFIED" => event_category::EVENT_CATEGORY_UNSPECIFIED,
+                "INCIDENT" => event_category::INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => event_category::EVENT_CATEGORY_UNSPECIFIED,
+                2 => event_category::INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EventCategory {
         fn default() -> Self {
-            event_category::EVENT_CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(std::borrow::Cow<'static, str>);
-
-    impl DetailedCategory {
-        /// Creates a new DetailedCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DetailedCategory(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DetailedCategory](DetailedCategory)
     pub mod detailed_category {
@@ -304,90 +336,183 @@ pub mod event {
 
         /// Unspecified detailed category.
         pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory =
-            DetailedCategory::new("DETAILED_CATEGORY_UNSPECIFIED");
+            DetailedCategory::known("DETAILED_CATEGORY_UNSPECIFIED", 0);
 
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
         pub const CONFIRMED_INCIDENT: DetailedCategory =
-            DetailedCategory::new("CONFIRMED_INCIDENT");
+            DetailedCategory::known("CONFIRMED_INCIDENT", 1);
 
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new("EMERGING_INCIDENT");
+        pub const EMERGING_INCIDENT: DetailedCategory =
+            DetailedCategory::known("EMERGING_INCIDENT", 2);
+    }
+
+    impl DetailedCategory {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DetailedCategory::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DetailedCategory::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DetailedCategory::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DetailedCategory {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DETAILED_CATEGORY_UNSPECIFIED" => detailed_category::DETAILED_CATEGORY_UNSPECIFIED,
+                "CONFIRMED_INCIDENT" => detailed_category::CONFIRMED_INCIDENT,
+                "EMERGING_INCIDENT" => detailed_category::EMERGING_INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => detailed_category::DETAILED_CATEGORY_UNSPECIFIED,
+                1 => detailed_category::CONFIRMED_INCIDENT,
+                2 => detailed_category::EMERGING_INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DetailedCategory {
         fn default() -> Self {
-            detailed_category::DETAILED_CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The state of the event. This enum lists all possible states of event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
 
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new("CLOSED");
+        pub const CLOSED: State = State::known("CLOSED", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                "CLOSED" => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                2 => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(std::borrow::Cow<'static, str>);
-
-    impl DetailedState {
-        /// Creates a new DetailedState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DetailedState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DetailedState](DetailedState)
     pub mod detailed_state {
@@ -395,24 +520,24 @@ pub mod event {
 
         /// Unspecified detail state.
         pub const DETAILED_STATE_UNSPECIFIED: DetailedState =
-            DetailedState::new("DETAILED_STATE_UNSPECIFIED");
+            DetailedState::known("DETAILED_STATE_UNSPECIFIED", 0);
 
         /// Google engineers are actively investigating the event to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new("EMERGING");
+        pub const EMERGING: DetailedState = DetailedState::known("EMERGING", 1);
 
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new("CONFIRMED");
+        pub const CONFIRMED: DetailedState = DetailedState::known("CONFIRMED", 2);
 
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new("RESOLVED");
+        pub const RESOLVED: DetailedState = DetailedState::known("RESOLVED", 3);
 
         /// The incident was merged into a parent incident. All further updates will
         /// be published to the parent only. The `parent_event` field contains the
         /// name of the parent.
-        pub const MERGED: DetailedState = DetailedState::new("MERGED");
+        pub const MERGED: DetailedState = DetailedState::known("MERGED", 4);
 
         /// The incident was automatically closed because of the following reasons:
         ///
@@ -421,79 +546,197 @@ pub mod event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new("AUTO_CLOSED");
+        pub const AUTO_CLOSED: DetailedState = DetailedState::known("AUTO_CLOSED", 9);
 
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new("FALSE_POSITIVE");
+        pub const FALSE_POSITIVE: DetailedState = DetailedState::known("FALSE_POSITIVE", 10);
+    }
+
+    impl DetailedState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DetailedState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DetailedState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DetailedState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DetailedState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DETAILED_STATE_UNSPECIFIED" => detailed_state::DETAILED_STATE_UNSPECIFIED,
+                "EMERGING" => detailed_state::EMERGING,
+                "CONFIRMED" => detailed_state::CONFIRMED,
+                "RESOLVED" => detailed_state::RESOLVED,
+                "MERGED" => detailed_state::MERGED,
+                "AUTO_CLOSED" => detailed_state::AUTO_CLOSED,
+                "FALSE_POSITIVE" => detailed_state::FALSE_POSITIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => detailed_state::DETAILED_STATE_UNSPECIFIED,
+                1 => detailed_state::EMERGING,
+                2 => detailed_state::CONFIRMED,
+                3 => detailed_state::RESOLVED,
+                4 => detailed_state::MERGED,
+                9 => detailed_state::AUTO_CLOSED,
+                10 => detailed_state::FALSE_POSITIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DetailedState {
         fn default() -> Self {
-            detailed_state::DETAILED_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Communicates why a given incident is deemed relevant in the context of a
     /// given project. This enum lists all possible detailed states of relevance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Relevance(std::borrow::Cow<'static, str>);
-
-    impl Relevance {
-        /// Creates a new Relevance instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Relevance(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Relevance](Relevance)
     pub mod relevance {
         use super::Relevance;
 
         /// Unspecified relevance.
-        pub const RELEVANCE_UNSPECIFIED: Relevance = Relevance::new("RELEVANCE_UNSPECIFIED");
+        pub const RELEVANCE_UNSPECIFIED: Relevance = Relevance::known("RELEVANCE_UNSPECIFIED", 0);
 
         /// The relevance of the incident to the project is unknown.
-        pub const UNKNOWN: Relevance = Relevance::new("UNKNOWN");
+        pub const UNKNOWN: Relevance = Relevance::known("UNKNOWN", 2);
 
         /// The incident does not impact the project.
-        pub const NOT_IMPACTED: Relevance = Relevance::new("NOT_IMPACTED");
+        pub const NOT_IMPACTED: Relevance = Relevance::known("NOT_IMPACTED", 6);
 
         /// The incident is associated with a Google Cloud product your project uses,
         /// but the incident may not be impacting your project. For example, the
         /// incident may be impacting a Google Cloud product that your project uses,
         /// but in a location that your project does not use.
-        pub const PARTIALLY_RELATED: Relevance = Relevance::new("PARTIALLY_RELATED");
+        pub const PARTIALLY_RELATED: Relevance = Relevance::known("PARTIALLY_RELATED", 7);
 
         /// The incident has a direct connection with your project and impacts a
         /// Google Cloud product in a location your project uses.
-        pub const RELATED: Relevance = Relevance::new("RELATED");
+        pub const RELATED: Relevance = Relevance::known("RELATED", 8);
 
         /// The incident is verified to be impacting your project.
-        pub const IMPACTED: Relevance = Relevance::new("IMPACTED");
+        pub const IMPACTED: Relevance = Relevance::known("IMPACTED", 9);
+    }
+
+    impl Relevance {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Relevance {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Relevance {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Relevance::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Relevance::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Relevance::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Relevance {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RELEVANCE_UNSPECIFIED" => relevance::RELEVANCE_UNSPECIFIED,
+                "UNKNOWN" => relevance::UNKNOWN,
+                "NOT_IMPACTED" => relevance::NOT_IMPACTED,
+                "PARTIALLY_RELATED" => relevance::PARTIALLY_RELATED,
+                "RELATED" => relevance::RELATED,
+                "IMPACTED" => relevance::IMPACTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Relevance {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => relevance::RELEVANCE_UNSPECIFIED,
+                2 => relevance::UNKNOWN,
+                6 => relevance::NOT_IMPACTED,
+                7 => relevance::PARTIALLY_RELATED,
+                8 => relevance::RELATED,
+                9 => relevance::IMPACTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Relevance {
         fn default() -> Self {
-            relevance::RELEVANCE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -712,20 +955,8 @@ pub mod organization_event {
 
     /// The category of the event. This enum lists all possible categories of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventCategory(std::borrow::Cow<'static, str>);
-
-    impl EventCategory {
-        /// Creates a new EventCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct EventCategory(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [EventCategory](EventCategory)
     pub mod event_category {
@@ -733,40 +964,84 @@ pub mod organization_event {
 
         /// Unspecified category.
         pub const EVENT_CATEGORY_UNSPECIFIED: EventCategory =
-            EventCategory::new("EVENT_CATEGORY_UNSPECIFIED");
+            EventCategory::known("EVENT_CATEGORY_UNSPECIFIED", 0);
 
         /// Event category for service outage or degradation.
-        pub const INCIDENT: EventCategory = EventCategory::new("INCIDENT");
+        pub const INCIDENT: EventCategory = EventCategory::known("INCIDENT", 2);
+    }
+
+    impl EventCategory {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for EventCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(EventCategory::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(EventCategory::from(val)),
+                Enumeration::UnknownNum { str } => Ok(EventCategory::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for EventCategory {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EVENT_CATEGORY_UNSPECIFIED" => event_category::EVENT_CATEGORY_UNSPECIFIED,
+                "INCIDENT" => event_category::INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for EventCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => event_category::EVENT_CATEGORY_UNSPECIFIED,
+                2 => event_category::INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for EventCategory {
         fn default() -> Self {
-            event_category::EVENT_CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The detailed category of an event. Contains all possible states for all
     /// event categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedCategory(std::borrow::Cow<'static, str>);
-
-    impl DetailedCategory {
-        /// Creates a new DetailedCategory instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DetailedCategory(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DetailedCategory](DetailedCategory)
     pub mod detailed_category {
@@ -774,91 +1049,184 @@ pub mod organization_event {
 
         /// Unspecified detailed category.
         pub const DETAILED_CATEGORY_UNSPECIFIED: DetailedCategory =
-            DetailedCategory::new("DETAILED_CATEGORY_UNSPECIFIED");
+            DetailedCategory::known("DETAILED_CATEGORY_UNSPECIFIED", 0);
 
         /// Indicates an event with category INCIDENT has a confirmed impact to at
         /// least one Google Cloud product.
         pub const CONFIRMED_INCIDENT: DetailedCategory =
-            DetailedCategory::new("CONFIRMED_INCIDENT");
+            DetailedCategory::known("CONFIRMED_INCIDENT", 1);
 
         /// Indicates an event with category INCIDENT is under investigation to
         /// determine if it has a confirmed impact on any Google Cloud products.
-        pub const EMERGING_INCIDENT: DetailedCategory = DetailedCategory::new("EMERGING_INCIDENT");
+        pub const EMERGING_INCIDENT: DetailedCategory =
+            DetailedCategory::known("EMERGING_INCIDENT", 2);
+    }
+
+    impl DetailedCategory {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DetailedCategory::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DetailedCategory::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DetailedCategory::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DetailedCategory {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DETAILED_CATEGORY_UNSPECIFIED" => detailed_category::DETAILED_CATEGORY_UNSPECIFIED,
+                "CONFIRMED_INCIDENT" => detailed_category::CONFIRMED_INCIDENT,
+                "EMERGING_INCIDENT" => detailed_category::EMERGING_INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => detailed_category::DETAILED_CATEGORY_UNSPECIFIED,
+                1 => detailed_category::CONFIRMED_INCIDENT,
+                2 => detailed_category::EMERGING_INCIDENT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DetailedCategory {
         fn default() -> Self {
-            detailed_category::DETAILED_CATEGORY_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The state of the organization event. This enum lists all possible states of
     /// event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Event is actively affecting a Google Cloud product and will continue to
         /// receive updates.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 1);
 
         /// Event is no longer affecting the Google Cloud product or has been merged
         /// with another event.
-        pub const CLOSED: State = State::new("CLOSED");
+        pub const CLOSED: State = State::known("CLOSED", 2);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "ACTIVE" => state::ACTIVE,
+                "CLOSED" => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::ACTIVE,
+                2 => state::CLOSED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The detailed state of the incident. This enum lists all possible detailed
     /// states of an incident.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DetailedState(std::borrow::Cow<'static, str>);
-
-    impl DetailedState {
-        /// Creates a new DetailedState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DetailedState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DetailedState](DetailedState)
     pub mod detailed_state {
@@ -866,24 +1234,24 @@ pub mod organization_event {
 
         /// Unspecified detail state.
         pub const DETAILED_STATE_UNSPECIFIED: DetailedState =
-            DetailedState::new("DETAILED_STATE_UNSPECIFIED");
+            DetailedState::known("DETAILED_STATE_UNSPECIFIED", 0);
 
         /// Google engineers are actively investigating the incident to determine the
         /// impact.
-        pub const EMERGING: DetailedState = DetailedState::new("EMERGING");
+        pub const EMERGING: DetailedState = DetailedState::known("EMERGING", 1);
 
         /// The incident is confirmed and impacting at least one Google Cloud
         /// product. Ongoing status updates will be provided until it is resolved.
-        pub const CONFIRMED: DetailedState = DetailedState::new("CONFIRMED");
+        pub const CONFIRMED: DetailedState = DetailedState::known("CONFIRMED", 2);
 
         /// The incident is no longer affecting any Google Cloud product, and there
         /// will be no further updates.
-        pub const RESOLVED: DetailedState = DetailedState::new("RESOLVED");
+        pub const RESOLVED: DetailedState = DetailedState::known("RESOLVED", 3);
 
         /// The incident was merged into a parent event. All further updates will be
         /// published to the parent only. The `parent_event` contains the name of the
         /// parent.
-        pub const MERGED: DetailedState = DetailedState::new("MERGED");
+        pub const MERGED: DetailedState = DetailedState::known("MERGED", 4);
 
         /// The incident was automatically closed because of the following reasons:
         ///
@@ -892,23 +1260,89 @@ pub mod organization_event {
         ///
         /// The incident does not have a resolution because no action or
         /// investigation happened. If it is intermittent, the incident may reopen.
-        pub const AUTO_CLOSED: DetailedState = DetailedState::new("AUTO_CLOSED");
+        pub const AUTO_CLOSED: DetailedState = DetailedState::known("AUTO_CLOSED", 9);
 
         /// Upon investigation, Google engineers concluded that the incident is not
         /// affecting a Google Cloud product. This state can change if the incident
         /// is reviewed again.
-        pub const FALSE_POSITIVE: DetailedState = DetailedState::new("FALSE_POSITIVE");
+        pub const FALSE_POSITIVE: DetailedState = DetailedState::known("FALSE_POSITIVE", 10);
+    }
+
+    impl DetailedState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DetailedState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DetailedState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DetailedState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DetailedState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DetailedState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DetailedState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "DETAILED_STATE_UNSPECIFIED" => detailed_state::DETAILED_STATE_UNSPECIFIED,
+                "EMERGING" => detailed_state::EMERGING,
+                "CONFIRMED" => detailed_state::CONFIRMED,
+                "RESOLVED" => detailed_state::RESOLVED,
+                "MERGED" => detailed_state::MERGED,
+                "AUTO_CLOSED" => detailed_state::AUTO_CLOSED,
+                "FALSE_POSITIVE" => detailed_state::FALSE_POSITIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DetailedState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => detailed_state::DETAILED_STATE_UNSPECIFIED,
+                1 => detailed_state::EMERGING,
+                2 => detailed_state::CONFIRMED,
+                3 => detailed_state::RESOLVED,
+                4 => detailed_state::MERGED,
+                9 => detailed_state::AUTO_CLOSED,
+                10 => detailed_state::FALSE_POSITIVE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DetailedState {
         fn default() -> Self {
-            detailed_state::DETAILED_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1855,64 +2289,98 @@ impl wkt::message::Message for GetOrganizationImpactRequest {
 
 /// The event fields to include in ListEvents API response. This enum lists all
 /// possible event views.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EventView(std::borrow::Cow<'static, str>);
-
-impl EventView {
-    /// Creates a new EventView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct EventView(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [EventView](EventView)
 pub mod event_view {
     use super::EventView;
 
     /// Unspecified event view. Default to `EVENT_VIEW_BASIC`.
-    pub const EVENT_VIEW_UNSPECIFIED: EventView = EventView::new("EVENT_VIEW_UNSPECIFIED");
+    pub const EVENT_VIEW_UNSPECIFIED: EventView = EventView::known("EVENT_VIEW_UNSPECIFIED", 0);
 
     /// Includes all fields except `updates`. This view is the default for
     /// ListEvents API.
-    pub const EVENT_VIEW_BASIC: EventView = EventView::new("EVENT_VIEW_BASIC");
+    pub const EVENT_VIEW_BASIC: EventView = EventView::known("EVENT_VIEW_BASIC", 1);
 
     /// Includes all event fields.
-    pub const EVENT_VIEW_FULL: EventView = EventView::new("EVENT_VIEW_FULL");
+    pub const EVENT_VIEW_FULL: EventView = EventView::known("EVENT_VIEW_FULL", 2);
+}
+
+impl EventView {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for EventView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EventView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(EventView::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(EventView::from(val)),
+            Enumeration::UnknownNum { str } => Ok(EventView::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for EventView {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "EVENT_VIEW_UNSPECIFIED" => event_view::EVENT_VIEW_UNSPECIFIED,
+            "EVENT_VIEW_BASIC" => event_view::EVENT_VIEW_BASIC,
+            "EVENT_VIEW_FULL" => event_view::EVENT_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for EventView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => event_view::EVENT_VIEW_UNSPECIFIED,
+            1 => event_view::EVENT_VIEW_BASIC,
+            2 => event_view::EVENT_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for EventView {
     fn default() -> Self {
-        event_view::EVENT_VIEW_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The organization event fields to include in ListOrganizationEvents API
 /// response. This enum lists all possible organization event views.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OrganizationEventView(std::borrow::Cow<'static, str>);
-
-impl OrganizationEventView {
-    /// Creates a new OrganizationEventView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct OrganizationEventView(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [OrganizationEventView](OrganizationEventView)
 pub mod organization_event_view {
@@ -1920,26 +2388,88 @@ pub mod organization_event_view {
 
     /// Unspecified event view. Default to `ORGANIZATION_EVENT_VIEW_BASIC`.
     pub const ORGANIZATION_EVENT_VIEW_UNSPECIFIED: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_UNSPECIFIED");
+        OrganizationEventView::known("ORGANIZATION_EVENT_VIEW_UNSPECIFIED", 0);
 
     /// Includes all organization event fields except `updates`. This view is the
     /// default for ListOrganizationEvents API.
     pub const ORGANIZATION_EVENT_VIEW_BASIC: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_BASIC");
+        OrganizationEventView::known("ORGANIZATION_EVENT_VIEW_BASIC", 1);
 
     /// Includes all organization event fields.
     pub const ORGANIZATION_EVENT_VIEW_FULL: OrganizationEventView =
-        OrganizationEventView::new("ORGANIZATION_EVENT_VIEW_FULL");
+        OrganizationEventView::known("ORGANIZATION_EVENT_VIEW_FULL", 2);
+}
+
+impl OrganizationEventView {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for OrganizationEventView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OrganizationEventView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(OrganizationEventView::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(OrganizationEventView::from(val)),
+            Enumeration::UnknownNum { str } => Ok(OrganizationEventView::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for OrganizationEventView {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "ORGANIZATION_EVENT_VIEW_UNSPECIFIED" => {
+                organization_event_view::ORGANIZATION_EVENT_VIEW_UNSPECIFIED
+            }
+            "ORGANIZATION_EVENT_VIEW_BASIC" => {
+                organization_event_view::ORGANIZATION_EVENT_VIEW_BASIC
+            }
+            "ORGANIZATION_EVENT_VIEW_FULL" => organization_event_view::ORGANIZATION_EVENT_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for OrganizationEventView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => organization_event_view::ORGANIZATION_EVENT_VIEW_UNSPECIFIED,
+            1 => organization_event_view::ORGANIZATION_EVENT_VIEW_BASIC,
+            2 => organization_event_view::ORGANIZATION_EVENT_VIEW_FULL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for OrganizationEventView {
     fn default() -> Self {
-        organization_event_view::ORGANIZATION_EVENT_VIEW_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

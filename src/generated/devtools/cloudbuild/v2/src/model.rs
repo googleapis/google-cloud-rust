@@ -610,51 +610,101 @@ pub mod installation_state {
     use super::*;
 
     /// Stage of the installation process.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(std::borrow::Cow<'static, str>);
-
-    impl Stage {
-        /// Creates a new Stage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Stage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Stage](Stage)
     pub mod stage {
         use super::Stage;
 
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: Stage = Stage::new("STAGE_UNSPECIFIED");
+        pub const STAGE_UNSPECIFIED: Stage = Stage::known("STAGE_UNSPECIFIED", 0);
 
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: Stage = Stage::new("PENDING_CREATE_APP");
+        pub const PENDING_CREATE_APP: Stage = Stage::known("PENDING_CREATE_APP", 1);
 
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: Stage = Stage::new("PENDING_USER_OAUTH");
+        pub const PENDING_USER_OAUTH: Stage = Stage::known("PENDING_USER_OAUTH", 2);
 
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: Stage = Stage::new("PENDING_INSTALL_APP");
+        pub const PENDING_INSTALL_APP: Stage = Stage::known("PENDING_INSTALL_APP", 3);
 
         /// Installation process has been completed.
-        pub const COMPLETE: Stage = Stage::new("COMPLETE");
+        pub const COMPLETE: Stage = Stage::known("COMPLETE", 10);
+    }
+
+    impl Stage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Stage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Stage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Stage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Stage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Stage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Stage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STAGE_UNSPECIFIED" => stage::STAGE_UNSPECIFIED,
+                "PENDING_CREATE_APP" => stage::PENDING_CREATE_APP,
+                "PENDING_USER_OAUTH" => stage::PENDING_USER_OAUTH,
+                "PENDING_INSTALL_APP" => stage::PENDING_INSTALL_APP,
+                "COMPLETE" => stage::COMPLETE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Stage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => stage::STAGE_UNSPECIFIED,
+                1 => stage::PENDING_CREATE_APP,
+                2 => stage::PENDING_USER_OAUTH,
+                3 => stage::PENDING_INSTALL_APP,
+                10 => stage::COMPLETE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Stage {
         fn default() -> Self {
-            stage::STAGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2380,44 +2430,90 @@ pub mod fetch_git_refs_request {
     use super::*;
 
     /// Type of refs
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(std::borrow::Cow<'static, str>);
-
-    impl RefType {
-        /// Creates a new RefType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RefType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RefType](RefType)
     pub mod ref_type {
         use super::RefType;
 
         /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new("REF_TYPE_UNSPECIFIED");
+        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::known("REF_TYPE_UNSPECIFIED", 0);
 
         /// To fetch tags.
-        pub const TAG: RefType = RefType::new("TAG");
+        pub const TAG: RefType = RefType::known("TAG", 1);
 
         /// To fetch branches.
-        pub const BRANCH: RefType = RefType::new("BRANCH");
+        pub const BRANCH: RefType = RefType::known("BRANCH", 2);
+    }
+
+    impl RefType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RefType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RefType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RefType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RefType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RefType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RefType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "REF_TYPE_UNSPECIFIED" => ref_type::REF_TYPE_UNSPECIFIED,
+                "TAG" => ref_type::TAG,
+                "BRANCH" => ref_type::BRANCH,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RefType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => ref_type::REF_TYPE_UNSPECIFIED,
+                1 => ref_type::TAG,
+                2 => ref_type::BRANCH,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RefType {
         fn default() -> Self {
-            ref_type::REF_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

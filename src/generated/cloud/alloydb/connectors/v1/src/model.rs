@@ -88,44 +88,90 @@ pub mod metadata_exchange_request {
     use super::*;
 
     /// AuthType contains all supported authentication types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AuthType(std::borrow::Cow<'static, str>);
-
-    impl AuthType {
-        /// Creates a new AuthType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AuthType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AuthType](AuthType)
     pub mod auth_type {
         use super::AuthType;
 
         /// Authentication type is unspecified and DB_NATIVE is used by default
-        pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new("AUTH_TYPE_UNSPECIFIED");
+        pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::known("AUTH_TYPE_UNSPECIFIED", 0);
 
         /// Database native authentication (user/password)
-        pub const DB_NATIVE: AuthType = AuthType::new("DB_NATIVE");
+        pub const DB_NATIVE: AuthType = AuthType::known("DB_NATIVE", 1);
 
         /// Automatic IAM authentication
-        pub const AUTO_IAM: AuthType = AuthType::new("AUTO_IAM");
+        pub const AUTO_IAM: AuthType = AuthType::known("AUTO_IAM", 2);
+    }
+
+    impl AuthType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AuthType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AuthType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AuthType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AuthType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AuthType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AuthType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AUTH_TYPE_UNSPECIFIED" => auth_type::AUTH_TYPE_UNSPECIFIED,
+                "DB_NATIVE" => auth_type::DB_NATIVE,
+                "AUTO_IAM" => auth_type::AUTO_IAM,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AuthType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => auth_type::AUTH_TYPE_UNSPECIFIED,
+                1 => auth_type::DB_NATIVE,
+                2 => auth_type::AUTO_IAM,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AuthType {
         fn default() -> Self {
-            auth_type::AUTH_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -181,20 +227,8 @@ pub mod metadata_exchange_response {
     use super::*;
 
     /// Response code.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseCode(std::borrow::Cow<'static, str>);
-
-    impl ResponseCode {
-        /// Creates a new ResponseCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ResponseCode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ResponseCode](ResponseCode)
     pub mod response_code {
@@ -202,24 +236,82 @@ pub mod metadata_exchange_response {
 
         /// Unknown response code
         pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode =
-            ResponseCode::new("RESPONSE_CODE_UNSPECIFIED");
+            ResponseCode::known("RESPONSE_CODE_UNSPECIFIED", 0);
 
         /// Success
-        pub const OK: ResponseCode = ResponseCode::new("OK");
+        pub const OK: ResponseCode = ResponseCode::known("OK", 1);
 
         /// Failure
-        pub const ERROR: ResponseCode = ResponseCode::new("ERROR");
+        pub const ERROR: ResponseCode = ResponseCode::known("ERROR", 2);
+    }
+
+    impl ResponseCode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ResponseCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResponseCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ResponseCode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ResponseCode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ResponseCode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ResponseCode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RESPONSE_CODE_UNSPECIFIED" => response_code::RESPONSE_CODE_UNSPECIFIED,
+                "OK" => response_code::OK,
+                "ERROR" => response_code::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ResponseCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => response_code::RESPONSE_CODE_UNSPECIFIED,
+                1 => response_code::OK,
+                2 => response_code::ERROR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ResponseCode {
         fn default() -> Self {
-            response_code::RESPONSE_CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

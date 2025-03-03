@@ -469,46 +469,92 @@ pub mod authorization_policy {
     }
 
     /// Possible values that define what action to take.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
-
-    impl Action {
-        /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Action(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
         use super::Action;
 
         /// Default value.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
+        pub const ACTION_UNSPECIFIED: Action = Action::known("ACTION_UNSPECIFIED", 0);
 
         /// Grant access.
-        pub const ALLOW: Action = Action::new("ALLOW");
+        pub const ALLOW: Action = Action::known("ALLOW", 1);
 
         /// Deny access.
         /// Deny rules should be avoided unless they are used to provide a default
         /// "deny all" fallback.
-        pub const DENY: Action = Action::new("DENY");
+        pub const DENY: Action = Action::known("DENY", 2);
+    }
+
+    impl Action {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Action {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Action {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Action::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Action::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Action::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Action {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ACTION_UNSPECIFIED" => action::ACTION_UNSPECIFIED,
+                "ALLOW" => action::ALLOW,
+                "DENY" => action::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => action::ACTION_UNSPECIFIED,
+                1 => action::ALLOW,
+                2 => action::DENY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

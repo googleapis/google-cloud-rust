@@ -1684,41 +1684,87 @@ pub mod basic_level {
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConditionCombiningFunction(std::borrow::Cow<'static, str>);
-
-    impl ConditionCombiningFunction {
-        /// Creates a new ConditionCombiningFunction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ConditionCombiningFunction(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ConditionCombiningFunction](ConditionCombiningFunction)
     pub mod condition_combining_function {
         use super::ConditionCombiningFunction;
 
         /// All `Conditions` must be true for the `BasicLevel` to be true.
-        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::new("AND");
+        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::known("AND", 0);
 
         /// If at least one `Condition` is true, then the `BasicLevel` is true.
-        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::new("OR");
+        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::known("OR", 1);
+    }
+
+    impl ConditionCombiningFunction {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ConditionCombiningFunction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConditionCombiningFunction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ConditionCombiningFunction::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => {
+                    Ok(ConditionCombiningFunction::from(val))
+                }
+                Enumeration::UnknownNum { str } => Ok(ConditionCombiningFunction::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ConditionCombiningFunction {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AND" => condition_combining_function::AND,
+                "OR" => condition_combining_function::OR,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ConditionCombiningFunction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => condition_combining_function::AND,
+                1 => condition_combining_function::OR,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ConditionCombiningFunction {
         fn default() -> Self {
-            condition_combining_function::AND
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -2414,20 +2460,8 @@ pub mod service_perimeter {
     /// Perimeter Bridges are typically useful when building more complex toplogies
     /// with many independent perimeters that need to share some data with a common
     /// perimeter, but should not be able to share data among themselves.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PerimeterType(std::borrow::Cow<'static, str>);
-
-    impl PerimeterType {
-        /// Creates a new PerimeterType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PerimeterType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PerimeterType](PerimeterType)
     pub mod perimeter_type {
@@ -2435,22 +2469,78 @@ pub mod service_perimeter {
 
         /// Regular Perimeter.
         pub const PERIMETER_TYPE_REGULAR: PerimeterType =
-            PerimeterType::new("PERIMETER_TYPE_REGULAR");
+            PerimeterType::known("PERIMETER_TYPE_REGULAR", 0);
 
         /// Perimeter Bridge.
         pub const PERIMETER_TYPE_BRIDGE: PerimeterType =
-            PerimeterType::new("PERIMETER_TYPE_BRIDGE");
+            PerimeterType::known("PERIMETER_TYPE_BRIDGE", 1);
+    }
+
+    impl PerimeterType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PerimeterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PerimeterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PerimeterType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PerimeterType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PerimeterType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PerimeterType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "PERIMETER_TYPE_REGULAR" => perimeter_type::PERIMETER_TYPE_REGULAR,
+                "PERIMETER_TYPE_BRIDGE" => perimeter_type::PERIMETER_TYPE_BRIDGE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PerimeterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => perimeter_type::PERIMETER_TYPE_REGULAR,
+                1 => perimeter_type::PERIMETER_TYPE_BRIDGE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PerimeterType {
         fn default() -> Self {
-            perimeter_type::PERIMETER_TYPE_REGULAR
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -3423,20 +3513,8 @@ pub mod service_perimeter_config {
     /// or [EgressFrom]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// rules.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdentityType(std::borrow::Cow<'static, str>);
-
-    impl IdentityType {
-        /// Creates a new IdentityType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct IdentityType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [IdentityType](IdentityType)
     pub mod identity_type {
@@ -3444,71 +3522,178 @@ pub mod service_perimeter_config {
 
         /// No blanket identity group specified.
         pub const IDENTITY_TYPE_UNSPECIFIED: IdentityType =
-            IdentityType::new("IDENTITY_TYPE_UNSPECIFIED");
+            IdentityType::known("IDENTITY_TYPE_UNSPECIFIED", 0);
 
         /// Authorize access from all identities outside the perimeter.
-        pub const ANY_IDENTITY: IdentityType = IdentityType::new("ANY_IDENTITY");
+        pub const ANY_IDENTITY: IdentityType = IdentityType::known("ANY_IDENTITY", 1);
 
         /// Authorize access from all human users outside the perimeter.
-        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::new("ANY_USER_ACCOUNT");
+        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::known("ANY_USER_ACCOUNT", 2);
 
         /// Authorize access from all service accounts outside the perimeter.
-        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::new("ANY_SERVICE_ACCOUNT");
+        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::known("ANY_SERVICE_ACCOUNT", 3);
+    }
+
+    impl IdentityType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(IdentityType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(IdentityType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(IdentityType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for IdentityType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "IDENTITY_TYPE_UNSPECIFIED" => identity_type::IDENTITY_TYPE_UNSPECIFIED,
+                "ANY_IDENTITY" => identity_type::ANY_IDENTITY,
+                "ANY_USER_ACCOUNT" => identity_type::ANY_USER_ACCOUNT,
+                "ANY_SERVICE_ACCOUNT" => identity_type::ANY_SERVICE_ACCOUNT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => identity_type::IDENTITY_TYPE_UNSPECIFIED,
+                1 => identity_type::ANY_IDENTITY,
+                2 => identity_type::ANY_USER_ACCOUNT,
+                3 => identity_type::ANY_SERVICE_ACCOUNT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for IdentityType {
         fn default() -> Self {
-            identity_type::IDENTITY_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
 
 /// The format used in an `AccessLevel`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LevelFormat(std::borrow::Cow<'static, str>);
-
-impl LevelFormat {
-    /// Creates a new LevelFormat instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct LevelFormat(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [LevelFormat](LevelFormat)
 pub mod level_format {
     use super::LevelFormat;
 
     /// The format was not specified.
-    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat = LevelFormat::new("LEVEL_FORMAT_UNSPECIFIED");
+    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat =
+        LevelFormat::known("LEVEL_FORMAT_UNSPECIFIED", 0);
 
     /// Uses the format the resource was defined in. BasicLevels are returned as
     /// BasicLevels, CustomLevels are returned as CustomLevels.
-    pub const AS_DEFINED: LevelFormat = LevelFormat::new("AS_DEFINED");
+    pub const AS_DEFINED: LevelFormat = LevelFormat::known("AS_DEFINED", 1);
 
     /// Use Cloud Common Expression Language when returning the resource.  Both
     /// BasicLevels and CustomLevels are returned as CustomLevels.
-    pub const CEL: LevelFormat = LevelFormat::new("CEL");
+    pub const CEL: LevelFormat = LevelFormat::known("CEL", 2);
+}
+
+impl LevelFormat {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for LevelFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LevelFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(LevelFormat::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(LevelFormat::from(val)),
+            Enumeration::UnknownNum { str } => Ok(LevelFormat::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for LevelFormat {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "LEVEL_FORMAT_UNSPECIFIED" => level_format::LEVEL_FORMAT_UNSPECIFIED,
+            "AS_DEFINED" => level_format::AS_DEFINED,
+            "CEL" => level_format::CEL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for LevelFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => level_format::LEVEL_FORMAT_UNSPECIFIED,
+            1 => level_format::AS_DEFINED,
+            2 => level_format::CEL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for LevelFormat {
     fn default() -> Self {
-        level_format::LEVEL_FORMAT_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

@@ -3157,20 +3157,8 @@ pub mod execution_config {
     use super::*;
 
     /// Possible usages of this configuration.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionEnvironmentUsage(std::borrow::Cow<'static, str>);
-
-    impl ExecutionEnvironmentUsage {
-        /// Creates a new ExecutionEnvironmentUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ExecutionEnvironmentUsage(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ExecutionEnvironmentUsage](ExecutionEnvironmentUsage)
     pub mod execution_environment_usage {
@@ -3178,35 +3166,101 @@ pub mod execution_config {
 
         /// Default value. This value is unused.
         pub const EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED");
+            ExecutionEnvironmentUsage::known("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED", 0);
 
         /// Use for rendering.
-        pub const RENDER: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("RENDER");
+        pub const RENDER: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::known("RENDER", 1);
 
         /// Use for deploying and deployment hooks.
-        pub const DEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("DEPLOY");
+        pub const DEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::known("DEPLOY", 2);
 
         /// Use for deployment verification.
-        pub const VERIFY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("VERIFY");
+        pub const VERIFY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::known("VERIFY", 3);
 
         /// Use for predeploy job execution.
         pub const PREDEPLOY: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("PREDEPLOY");
+            ExecutionEnvironmentUsage::known("PREDEPLOY", 4);
 
         /// Use for postdeploy job execution.
         pub const POSTDEPLOY: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("POSTDEPLOY");
+            ExecutionEnvironmentUsage::known("POSTDEPLOY", 5);
+    }
+
+    impl ExecutionEnvironmentUsage {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionEnvironmentUsage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionEnvironmentUsage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ExecutionEnvironmentUsage::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ExecutionEnvironmentUsage::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ExecutionEnvironmentUsage::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ExecutionEnvironmentUsage {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED" => {
+                    execution_environment_usage::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED
+                }
+                "RENDER" => execution_environment_usage::RENDER,
+                "DEPLOY" => execution_environment_usage::DEPLOY,
+                "VERIFY" => execution_environment_usage::VERIFY,
+                "PREDEPLOY" => execution_environment_usage::PREDEPLOY,
+                "POSTDEPLOY" => execution_environment_usage::POSTDEPLOY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionEnvironmentUsage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => execution_environment_usage::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED,
+                1 => execution_environment_usage::RENDER,
+                2 => execution_environment_usage::DEPLOY,
+                3 => execution_environment_usage::VERIFY,
+                4 => execution_environment_usage::PREDEPLOY,
+                5 => execution_environment_usage::POSTDEPLOY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ExecutionEnvironmentUsage {
         fn default() -> Self {
-            execution_environment_usage::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -5249,45 +5303,91 @@ pub mod deploy_policy {
 
     /// What invoked the action. Filters enforcing the policy depending on what
     /// invoked the action.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Invoker(std::borrow::Cow<'static, str>);
-
-    impl Invoker {
-        /// Creates a new Invoker instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Invoker(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Invoker](Invoker)
     pub mod invoker {
         use super::Invoker;
 
         /// Unspecified.
-        pub const INVOKER_UNSPECIFIED: Invoker = Invoker::new("INVOKER_UNSPECIFIED");
+        pub const INVOKER_UNSPECIFIED: Invoker = Invoker::known("INVOKER_UNSPECIFIED", 0);
 
         /// The action is user-driven. For example, creating a rollout manually via a
         /// gcloud create command.
-        pub const USER: Invoker = Invoker::new("USER");
+        pub const USER: Invoker = Invoker::known("USER", 1);
 
         /// Automated action by Cloud Deploy.
-        pub const DEPLOY_AUTOMATION: Invoker = Invoker::new("DEPLOY_AUTOMATION");
+        pub const DEPLOY_AUTOMATION: Invoker = Invoker::known("DEPLOY_AUTOMATION", 2);
+    }
+
+    impl Invoker {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Invoker {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Invoker {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Invoker::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Invoker::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Invoker::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Invoker {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "INVOKER_UNSPECIFIED" => invoker::INVOKER_UNSPECIFIED,
+                "USER" => invoker::USER,
+                "DEPLOY_AUTOMATION" => invoker::DEPLOY_AUTOMATION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Invoker {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => invoker::INVOKER_UNSPECIFIED,
+                1 => invoker::USER,
+                2 => invoker::DEPLOY_AUTOMATION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Invoker {
         fn default() -> Self {
-            invoker::INVOKER_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -5600,20 +5700,8 @@ pub mod rollout_restriction {
     use super::*;
 
     /// Rollout actions to be restricted as part of the policy.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutActions(std::borrow::Cow<'static, str>);
-
-    impl RolloutActions {
-        /// Creates a new RolloutActions instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RolloutActions(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RolloutActions](RolloutActions)
     pub mod rollout_actions {
@@ -5621,42 +5709,112 @@ pub mod rollout_restriction {
 
         /// Unspecified.
         pub const ROLLOUT_ACTIONS_UNSPECIFIED: RolloutActions =
-            RolloutActions::new("ROLLOUT_ACTIONS_UNSPECIFIED");
+            RolloutActions::known("ROLLOUT_ACTIONS_UNSPECIFIED", 0);
 
         /// Advance the rollout to the next phase.
-        pub const ADVANCE: RolloutActions = RolloutActions::new("ADVANCE");
+        pub const ADVANCE: RolloutActions = RolloutActions::known("ADVANCE", 1);
 
         /// Approve the rollout.
-        pub const APPROVE: RolloutActions = RolloutActions::new("APPROVE");
+        pub const APPROVE: RolloutActions = RolloutActions::known("APPROVE", 2);
 
         /// Cancel the rollout.
-        pub const CANCEL: RolloutActions = RolloutActions::new("CANCEL");
+        pub const CANCEL: RolloutActions = RolloutActions::known("CANCEL", 3);
 
         /// Create a rollout.
-        pub const CREATE: RolloutActions = RolloutActions::new("CREATE");
+        pub const CREATE: RolloutActions = RolloutActions::known("CREATE", 4);
 
         /// Ignore a job result on the rollout.
-        pub const IGNORE_JOB: RolloutActions = RolloutActions::new("IGNORE_JOB");
+        pub const IGNORE_JOB: RolloutActions = RolloutActions::known("IGNORE_JOB", 5);
 
         /// Retry a job for a rollout.
-        pub const RETRY_JOB: RolloutActions = RolloutActions::new("RETRY_JOB");
+        pub const RETRY_JOB: RolloutActions = RolloutActions::known("RETRY_JOB", 6);
 
         /// Rollback a rollout.
-        pub const ROLLBACK: RolloutActions = RolloutActions::new("ROLLBACK");
+        pub const ROLLBACK: RolloutActions = RolloutActions::known("ROLLBACK", 7);
 
         /// Terminate a jobrun.
-        pub const TERMINATE_JOBRUN: RolloutActions = RolloutActions::new("TERMINATE_JOBRUN");
+        pub const TERMINATE_JOBRUN: RolloutActions = RolloutActions::known("TERMINATE_JOBRUN", 8);
+    }
+
+    impl RolloutActions {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RolloutActions {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RolloutActions {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RolloutActions::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RolloutActions::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RolloutActions::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RolloutActions {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ROLLOUT_ACTIONS_UNSPECIFIED" => rollout_actions::ROLLOUT_ACTIONS_UNSPECIFIED,
+                "ADVANCE" => rollout_actions::ADVANCE,
+                "APPROVE" => rollout_actions::APPROVE,
+                "CANCEL" => rollout_actions::CANCEL,
+                "CREATE" => rollout_actions::CREATE,
+                "IGNORE_JOB" => rollout_actions::IGNORE_JOB,
+                "RETRY_JOB" => rollout_actions::RETRY_JOB,
+                "ROLLBACK" => rollout_actions::ROLLBACK,
+                "TERMINATE_JOBRUN" => rollout_actions::TERMINATE_JOBRUN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RolloutActions {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => rollout_actions::ROLLOUT_ACTIONS_UNSPECIFIED,
+                1 => rollout_actions::ADVANCE,
+                2 => rollout_actions::APPROVE,
+                3 => rollout_actions::CANCEL,
+                4 => rollout_actions::CREATE,
+                5 => rollout_actions::IGNORE_JOB,
+                6 => rollout_actions::RETRY_JOB,
+                7 => rollout_actions::ROLLBACK,
+                8 => rollout_actions::TERMINATE_JOBRUN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RolloutActions {
         fn default() -> Self {
-            rollout_actions::ROLLOUT_ACTIONS_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -6396,20 +6554,8 @@ pub mod release {
         use super::*;
 
         /// Valid states of the render operation.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetRenderState(std::borrow::Cow<'static, str>);
-
-        impl TargetRenderState {
-            /// Creates a new TargetRenderState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct TargetRenderState(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [TargetRenderState](TargetRenderState)
         pub mod target_render_state {
@@ -6417,45 +6563,95 @@ pub mod release {
 
             /// The render operation state is unspecified.
             pub const TARGET_RENDER_STATE_UNSPECIFIED: TargetRenderState =
-                TargetRenderState::new("TARGET_RENDER_STATE_UNSPECIFIED");
+                TargetRenderState::known("TARGET_RENDER_STATE_UNSPECIFIED", 0);
 
             /// The render operation has completed successfully.
-            pub const SUCCEEDED: TargetRenderState = TargetRenderState::new("SUCCEEDED");
+            pub const SUCCEEDED: TargetRenderState = TargetRenderState::known("SUCCEEDED", 1);
 
             /// The render operation has failed.
-            pub const FAILED: TargetRenderState = TargetRenderState::new("FAILED");
+            pub const FAILED: TargetRenderState = TargetRenderState::known("FAILED", 2);
 
             /// The render operation is in progress.
-            pub const IN_PROGRESS: TargetRenderState = TargetRenderState::new("IN_PROGRESS");
+            pub const IN_PROGRESS: TargetRenderState = TargetRenderState::known("IN_PROGRESS", 3);
+        }
+
+        impl TargetRenderState {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for TargetRenderState {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TargetRenderState {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(TargetRenderState::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(TargetRenderState::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(TargetRenderState::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for TargetRenderState {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "TARGET_RENDER_STATE_UNSPECIFIED" => {
+                        target_render_state::TARGET_RENDER_STATE_UNSPECIFIED
+                    }
+                    "SUCCEEDED" => target_render_state::SUCCEEDED,
+                    "FAILED" => target_render_state::FAILED,
+                    "IN_PROGRESS" => target_render_state::IN_PROGRESS,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for TargetRenderState {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => target_render_state::TARGET_RENDER_STATE_UNSPECIFIED,
+                    1 => target_render_state::SUCCEEDED,
+                    2 => target_render_state::FAILED,
+                    3 => target_render_state::IN_PROGRESS,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for TargetRenderState {
             fn default() -> Self {
-                target_render_state::TARGET_RENDER_STATE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
 
         /// Well-known rendering failures.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-        impl FailureCause {
-            /// Creates a new FailureCause instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct FailureCause(wkt::enumerations::Enumeration);
 
         /// Useful constants to work with [FailureCause](FailureCause)
         pub mod failure_cause {
@@ -6463,54 +6659,124 @@ pub mod release {
 
             /// No reason for failure is specified.
             pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-                FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+                FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
             /// Cloud Build is not available, either because it is not enabled or
             /// because Cloud Deploy has insufficient permissions. See [required
             /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
             pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-                FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+                FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
             /// The render operation did not complete successfully; check Cloud Build
             /// logs.
-            pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+            pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
             /// Cloud Build failed to fulfill Cloud Deploy's request. See
             /// failure_message for additional details.
             pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-                FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+                FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 3);
 
             /// The render operation did not complete successfully because the
             /// verification stanza required for verify was not found on the Skaffold
             /// configuration.
             pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-                FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+                FailureCause::known("VERIFICATION_CONFIG_NOT_FOUND", 4);
 
             /// The render operation did not complete successfully because the custom
             /// action required for predeploy or postdeploy was not found in the
             /// Skaffold configuration. See failure_message for additional details.
             pub const CUSTOM_ACTION_NOT_FOUND: FailureCause =
-                FailureCause::new("CUSTOM_ACTION_NOT_FOUND");
+                FailureCause::known("CUSTOM_ACTION_NOT_FOUND", 5);
 
             /// Release failed during rendering because the release configuration is
             /// not supported with the specified deployment strategy.
             pub const DEPLOYMENT_STRATEGY_NOT_SUPPORTED: FailureCause =
-                FailureCause::new("DEPLOYMENT_STRATEGY_NOT_SUPPORTED");
+                FailureCause::known("DEPLOYMENT_STRATEGY_NOT_SUPPORTED", 6);
 
             /// The render operation had a feature configured that is not supported.
             pub const RENDER_FEATURE_NOT_SUPPORTED: FailureCause =
-                FailureCause::new("RENDER_FEATURE_NOT_SUPPORTED");
+                FailureCause::known("RENDER_FEATURE_NOT_SUPPORTED", 7);
+        }
+
+        impl FailureCause {
+            pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+                Self(wkt::enumerations::Enumeration::known(str, val))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                self.0.value()
+            }
+
+            /// Gets the numeric value of the enum (if available).
+            pub fn numeric_value(&self) -> std::option::Option<i32> {
+                self.0.numeric_value()
+            }
+        }
+
+        impl serde::ser::Serialize for FailureCause {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                self.0.serialize(serializer)
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for FailureCause {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                use std::convert::From;
+                use std::result::Result::Ok;
+                use wkt::enumerations::Enumeration;
+                match Enumeration::deserialize(deserializer)? {
+                    Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                    Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                    Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+                }
+            }
         }
 
         impl std::convert::From<std::string::String> for FailureCause {
             fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+                match value.as_str() {
+                    "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                    "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                    "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                    "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                    "VERIFICATION_CONFIG_NOT_FOUND" => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                    "CUSTOM_ACTION_NOT_FOUND" => failure_cause::CUSTOM_ACTION_NOT_FOUND,
+                    "DEPLOYMENT_STRATEGY_NOT_SUPPORTED" => {
+                        failure_cause::DEPLOYMENT_STRATEGY_NOT_SUPPORTED
+                    }
+                    "RENDER_FEATURE_NOT_SUPPORTED" => failure_cause::RENDER_FEATURE_NOT_SUPPORTED,
+                    _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for FailureCause {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                    1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                    2 => failure_cause::EXECUTION_FAILED,
+                    3 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                    4 => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                    5 => failure_cause::CUSTOM_ACTION_NOT_FOUND,
+                    6 => failure_cause::DEPLOYMENT_STRATEGY_NOT_SUPPORTED,
+                    7 => failure_cause::RENDER_FEATURE_NOT_SUPPORTED,
+                    _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+                }
             }
         }
 
         impl std::default::Default for FailureCause {
             fn default() -> Self {
-                failure_cause::FAILURE_CAUSE_UNSPECIFIED
+                use std::convert::From;
+                Self::from(0_i32)
             }
         }
     }
@@ -6678,20 +6944,8 @@ pub mod release {
     }
 
     /// Valid states of the render operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RenderState(std::borrow::Cow<'static, str>);
-
-    impl RenderState {
-        /// Creates a new RenderState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RenderState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RenderState](RenderState)
     pub mod render_state {
@@ -6699,27 +6953,87 @@ pub mod release {
 
         /// The render state is unspecified.
         pub const RENDER_STATE_UNSPECIFIED: RenderState =
-            RenderState::new("RENDER_STATE_UNSPECIFIED");
+            RenderState::known("RENDER_STATE_UNSPECIFIED", 0);
 
         /// All rendering operations have completed successfully.
-        pub const SUCCEEDED: RenderState = RenderState::new("SUCCEEDED");
+        pub const SUCCEEDED: RenderState = RenderState::known("SUCCEEDED", 1);
 
         /// All rendering operations have completed, and one or more have failed.
-        pub const FAILED: RenderState = RenderState::new("FAILED");
+        pub const FAILED: RenderState = RenderState::known("FAILED", 2);
 
         /// Rendering has started and is not complete.
-        pub const IN_PROGRESS: RenderState = RenderState::new("IN_PROGRESS");
+        pub const IN_PROGRESS: RenderState = RenderState::known("IN_PROGRESS", 3);
+    }
+
+    impl RenderState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RenderState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RenderState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RenderState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RenderState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RenderState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RenderState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "RENDER_STATE_UNSPECIFIED" => render_state::RENDER_STATE_UNSPECIFIED,
+                "SUCCEEDED" => render_state::SUCCEEDED,
+                "FAILED" => render_state::FAILED,
+                "IN_PROGRESS" => render_state::IN_PROGRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RenderState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => render_state::RENDER_STATE_UNSPECIFIED,
+                1 => render_state::SUCCEEDED,
+                2 => render_state::FAILED,
+                3 => render_state::IN_PROGRESS,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RenderState {
         fn default() -> Self {
-            render_state::RENDER_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -8126,20 +8440,8 @@ pub mod rollout {
     use super::*;
 
     /// Valid approval states of a `Rollout`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApprovalState(std::borrow::Cow<'static, str>);
-
-    impl ApprovalState {
-        /// Creates a new ApprovalState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ApprovalState(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [ApprovalState](ApprovalState)
     pub mod approval_state {
@@ -8147,116 +8449,228 @@ pub mod rollout {
 
         /// The `Rollout` has an unspecified approval state.
         pub const APPROVAL_STATE_UNSPECIFIED: ApprovalState =
-            ApprovalState::new("APPROVAL_STATE_UNSPECIFIED");
+            ApprovalState::known("APPROVAL_STATE_UNSPECIFIED", 0);
 
         /// The `Rollout` requires approval.
-        pub const NEEDS_APPROVAL: ApprovalState = ApprovalState::new("NEEDS_APPROVAL");
+        pub const NEEDS_APPROVAL: ApprovalState = ApprovalState::known("NEEDS_APPROVAL", 1);
 
         /// The `Rollout` does not require approval.
         pub const DOES_NOT_NEED_APPROVAL: ApprovalState =
-            ApprovalState::new("DOES_NOT_NEED_APPROVAL");
+            ApprovalState::known("DOES_NOT_NEED_APPROVAL", 2);
 
         /// The `Rollout` has been approved.
-        pub const APPROVED: ApprovalState = ApprovalState::new("APPROVED");
+        pub const APPROVED: ApprovalState = ApprovalState::known("APPROVED", 3);
 
         /// The `Rollout` has been rejected.
-        pub const REJECTED: ApprovalState = ApprovalState::new("REJECTED");
+        pub const REJECTED: ApprovalState = ApprovalState::known("REJECTED", 4);
+    }
+
+    impl ApprovalState {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for ApprovalState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ApprovalState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(ApprovalState::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(ApprovalState::from(val)),
+                Enumeration::UnknownNum { str } => Ok(ApprovalState::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for ApprovalState {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "APPROVAL_STATE_UNSPECIFIED" => approval_state::APPROVAL_STATE_UNSPECIFIED,
+                "NEEDS_APPROVAL" => approval_state::NEEDS_APPROVAL,
+                "DOES_NOT_NEED_APPROVAL" => approval_state::DOES_NOT_NEED_APPROVAL,
+                "APPROVED" => approval_state::APPROVED,
+                "REJECTED" => approval_state::REJECTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for ApprovalState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => approval_state::APPROVAL_STATE_UNSPECIFIED,
+                1 => approval_state::NEEDS_APPROVAL,
+                2 => approval_state::DOES_NOT_NEED_APPROVAL,
+                3 => approval_state::APPROVED,
+                4 => approval_state::REJECTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for ApprovalState {
         fn default() -> Self {
-            approval_state::APPROVAL_STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Valid states of a `Rollout`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The `Rollout` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The `Rollout` has completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 1);
 
         /// The `Rollout` has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 2);
 
         /// The `Rollout` is being deployed.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 3);
 
         /// The `Rollout` needs approval.
-        pub const PENDING_APPROVAL: State = State::new("PENDING_APPROVAL");
+        pub const PENDING_APPROVAL: State = State::known("PENDING_APPROVAL", 4);
 
         /// An approver rejected the `Rollout`.
-        pub const APPROVAL_REJECTED: State = State::new("APPROVAL_REJECTED");
+        pub const APPROVAL_REJECTED: State = State::known("APPROVAL_REJECTED", 5);
 
         /// The `Rollout` is waiting for an earlier Rollout(s) to complete on this
         /// `Target`.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 6);
 
         /// The `Rollout` is waiting for the `Release` to be fully rendered.
-        pub const PENDING_RELEASE: State = State::new("PENDING_RELEASE");
+        pub const PENDING_RELEASE: State = State::known("PENDING_RELEASE", 7);
 
         /// The `Rollout` is in the process of being cancelled.
-        pub const CANCELLING: State = State::new("CANCELLING");
+        pub const CANCELLING: State = State::known("CANCELLING", 8);
 
         /// The `Rollout` has been cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 9);
 
         /// The `Rollout` is halted.
-        pub const HALTED: State = State::new("HALTED");
+        pub const HALTED: State = State::known("HALTED", 10);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "PENDING_APPROVAL" => state::PENDING_APPROVAL,
+                "APPROVAL_REJECTED" => state::APPROVAL_REJECTED,
+                "PENDING" => state::PENDING,
+                "PENDING_RELEASE" => state::PENDING_RELEASE,
+                "CANCELLING" => state::CANCELLING,
+                "CANCELLED" => state::CANCELLED,
+                "HALTED" => state::HALTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::SUCCEEDED,
+                2 => state::FAILED,
+                3 => state::IN_PROGRESS,
+                4 => state::PENDING_APPROVAL,
+                5 => state::APPROVAL_REJECTED,
+                6 => state::PENDING,
+                7 => state::PENDING_RELEASE,
+                8 => state::CANCELLING,
+                9 => state::CANCELLED,
+                10 => state::HALTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Well-known rollout failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-    impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FailureCause(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FailureCause](FailureCause)
     pub mod failure_cause {
@@ -8264,50 +8678,120 @@ pub mod rollout {
 
         /// No reason for failure is specified.
         pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
         pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
         /// The deploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
         /// Deployment did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::known("DEADLINE_EXCEEDED", 3);
 
         /// Release is in a failed state.
-        pub const RELEASE_FAILED: FailureCause = FailureCause::new("RELEASE_FAILED");
+        pub const RELEASE_FAILED: FailureCause = FailureCause::known("RELEASE_FAILED", 4);
 
         /// Release is abandoned.
-        pub const RELEASE_ABANDONED: FailureCause = FailureCause::new("RELEASE_ABANDONED");
+        pub const RELEASE_ABANDONED: FailureCause = FailureCause::known("RELEASE_ABANDONED", 5);
 
         /// No Skaffold verify configuration was found.
         pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-            FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+            FailureCause::known("VERIFICATION_CONFIG_NOT_FOUND", 6);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
         pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 7);
 
         /// A Rollout operation had a feature configured that is not supported.
         pub const OPERATION_FEATURE_NOT_SUPPORTED: FailureCause =
-            FailureCause::new("OPERATION_FEATURE_NOT_SUPPORTED");
+            FailureCause::known("OPERATION_FEATURE_NOT_SUPPORTED", 8);
+    }
+
+    impl FailureCause {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FailureCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                "DEADLINE_EXCEEDED" => failure_cause::DEADLINE_EXCEEDED,
+                "RELEASE_FAILED" => failure_cause::RELEASE_FAILED,
+                "RELEASE_ABANDONED" => failure_cause::RELEASE_ABANDONED,
+                "VERIFICATION_CONFIG_NOT_FOUND" => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                "OPERATION_FEATURE_NOT_SUPPORTED" => failure_cause::OPERATION_FEATURE_NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                2 => failure_cause::EXECUTION_FAILED,
+                3 => failure_cause::DEADLINE_EXCEEDED,
+                4 => failure_cause::RELEASE_FAILED,
+                5 => failure_cause::RELEASE_ABANDONED,
+                6 => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                7 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                8 => failure_cause::OPERATION_FEATURE_NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -8767,56 +9251,110 @@ pub mod phase {
     use super::*;
 
     /// Valid states of a Phase.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The Phase has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Phase is waiting for an earlier Phase(s) to complete.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// The Phase is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 2);
 
         /// The Phase has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 3);
 
         /// The Phase has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 4);
 
         /// The Phase was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
+        pub const ABORTED: State = State::known("ABORTED", 5);
 
         /// The Phase was skipped.
-        pub const SKIPPED: State = State::new("SKIPPED");
+        pub const SKIPPED: State = State::known("SKIPPED", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "ABORTED" => state::ABORTED,
+                "SKIPPED" => state::SKIPPED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::IN_PROGRESS,
+                3 => state::SUCCEEDED,
+                4 => state::FAILED,
+                5 => state::ABORTED,
+                6 => state::SKIPPED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -9193,62 +9731,120 @@ pub mod job {
     use super::*;
 
     /// Valid states of a Job.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The Job has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The Job is waiting for an earlier Phase(s) or Job(s) to complete.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 1);
 
         /// The Job is disabled.
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::known("DISABLED", 2);
 
         /// The Job is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 3);
 
         /// The Job succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 4);
 
         /// The Job failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 5);
 
         /// The Job was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
+        pub const ABORTED: State = State::known("ABORTED", 6);
 
         /// The Job was skipped.
-        pub const SKIPPED: State = State::new("SKIPPED");
+        pub const SKIPPED: State = State::known("SKIPPED", 7);
 
         /// The Job was ignored.
-        pub const IGNORED: State = State::new("IGNORED");
+        pub const IGNORED: State = State::known("IGNORED", 8);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "PENDING" => state::PENDING,
+                "DISABLED" => state::DISABLED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "ABORTED" => state::ABORTED,
+                "SKIPPED" => state::SKIPPED,
+                "IGNORED" => state::IGNORED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::PENDING,
+                2 => state::DISABLED,
+                3 => state::IN_PROGRESS,
+                4 => state::SUCCEEDED,
+                5 => state::FAILED,
+                6 => state::ABORTED,
+                7 => state::SKIPPED,
+                8 => state::IGNORED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -10570,53 +11166,105 @@ pub mod job_run {
     use super::*;
 
     /// Valid states of a `JobRun`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The `JobRun` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The `JobRun` is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 1);
 
         /// The `JobRun` has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 2);
 
         /// The `JobRun` has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 3);
 
         /// The `JobRun` is terminating.
-        pub const TERMINATING: State = State::new("TERMINATING");
+        pub const TERMINATING: State = State::known("TERMINATING", 4);
 
         /// The `JobRun` was terminated.
-        pub const TERMINATED: State = State::new("TERMINATED");
+        pub const TERMINATED: State = State::known("TERMINATED", 5);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "FAILED" => state::FAILED,
+                "TERMINATING" => state::TERMINATING,
+                "TERMINATED" => state::TERMINATED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::IN_PROGRESS,
+                2 => state::SUCCEEDED,
+                3 => state::FAILED,
+                4 => state::TERMINATING,
+                5 => state::TERMINATED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -10730,20 +11378,8 @@ pub mod deploy_job_run {
     use super::*;
 
     /// Well-known deploy failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-    impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FailureCause(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FailureCause](FailureCause)
     pub mod failure_cause {
@@ -10751,45 +11387,111 @@ pub mod deploy_job_run {
 
         /// No reason for failure is specified.
         pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [Required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
         pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
         /// The deploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
         /// The deploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::known("DEADLINE_EXCEEDED", 3);
 
         /// There were missing resources in the runtime environment required for a
         /// canary deployment. Check the Cloud Build logs for more information.
         pub const MISSING_RESOURCES_FOR_CANARY: FailureCause =
-            FailureCause::new("MISSING_RESOURCES_FOR_CANARY");
+            FailureCause::known("MISSING_RESOURCES_FOR_CANARY", 4);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
         pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 5);
 
         /// The deploy operation had a feature configured that is not supported.
         pub const DEPLOY_FEATURE_NOT_SUPPORTED: FailureCause =
-            FailureCause::new("DEPLOY_FEATURE_NOT_SUPPORTED");
+            FailureCause::known("DEPLOY_FEATURE_NOT_SUPPORTED", 6);
+    }
+
+    impl FailureCause {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FailureCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                "DEADLINE_EXCEEDED" => failure_cause::DEADLINE_EXCEEDED,
+                "MISSING_RESOURCES_FOR_CANARY" => failure_cause::MISSING_RESOURCES_FOR_CANARY,
+                "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                "DEPLOY_FEATURE_NOT_SUPPORTED" => failure_cause::DEPLOY_FEATURE_NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                2 => failure_cause::EXECUTION_FAILED,
+                3 => failure_cause::DEADLINE_EXCEEDED,
+                4 => failure_cause::MISSING_RESOURCES_FOR_CANARY,
+                5 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                6 => failure_cause::DEPLOY_FEATURE_NOT_SUPPORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -10876,20 +11578,8 @@ pub mod verify_job_run {
     use super::*;
 
     /// Well-known verify failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-    impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FailureCause(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FailureCause](FailureCause)
     pub mod failure_cause {
@@ -10897,40 +11587,104 @@ pub mod verify_job_run {
 
         /// No reason for failure is specified.
         pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
         pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
         /// The verify operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
         /// The verify job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::known("DEADLINE_EXCEEDED", 3);
 
         /// No Skaffold verify configuration was found.
         pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-            FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+            FailureCause::known("VERIFICATION_CONFIG_NOT_FOUND", 4);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
         pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 5);
+    }
+
+    impl FailureCause {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FailureCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                "DEADLINE_EXCEEDED" => failure_cause::DEADLINE_EXCEEDED,
+                "VERIFICATION_CONFIG_NOT_FOUND" => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                2 => failure_cause::EXECUTION_FAILED,
+                3 => failure_cause::DEADLINE_EXCEEDED,
+                4 => failure_cause::VERIFICATION_CONFIG_NOT_FOUND,
+                5 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -10998,20 +11752,8 @@ pub mod predeploy_job_run {
     use super::*;
 
     /// Well-known predeploy failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-    impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FailureCause(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FailureCause](FailureCause)
     pub mod failure_cause {
@@ -11019,36 +11761,98 @@ pub mod predeploy_job_run {
 
         /// No reason for failure is specified.
         pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
         pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
         /// The predeploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
         /// The predeploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::known("DEADLINE_EXCEEDED", 3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
         pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 4);
+    }
+
+    impl FailureCause {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FailureCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                "DEADLINE_EXCEEDED" => failure_cause::DEADLINE_EXCEEDED,
+                "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                2 => failure_cause::EXECUTION_FAILED,
+                3 => failure_cause::DEADLINE_EXCEEDED,
+                4 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -11116,20 +11920,8 @@ pub mod postdeploy_job_run {
     use super::*;
 
     /// Well-known postdeploy failures.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
-
-    impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FailureCause(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [FailureCause](FailureCause)
     pub mod failure_cause {
@@ -11137,36 +11929,98 @@ pub mod postdeploy_job_run {
 
         /// No reason for failure is specified.
         pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            FailureCause::known("FAILURE_CAUSE_UNSPECIFIED", 0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
         pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            FailureCause::known("CLOUD_BUILD_UNAVAILABLE", 1);
 
         /// The postdeploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::known("EXECUTION_FAILED", 2);
 
         /// The postdeploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::known("DEADLINE_EXCEEDED", 3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
         pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            FailureCause::known("CLOUD_BUILD_REQUEST_FAILED", 4);
+    }
+
+    impl FailureCause {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for FailureCause {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FailureCause {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(FailureCause::from(val)),
+                Enumeration::UnknownNum { str } => Ok(FailureCause::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for FailureCause {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "FAILURE_CAUSE_UNSPECIFIED" => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                "CLOUD_BUILD_UNAVAILABLE" => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                "EXECUTION_FAILED" => failure_cause::EXECUTION_FAILED,
+                "DEADLINE_EXCEEDED" => failure_cause::DEADLINE_EXCEEDED,
+                "CLOUD_BUILD_REQUEST_FAILED" => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => failure_cause::FAILURE_CAUSE_UNSPECIFIED,
+                1 => failure_cause::CLOUD_BUILD_UNAVAILABLE,
+                2 => failure_cause::EXECUTION_FAILED,
+                3 => failure_cause::DEADLINE_EXCEEDED,
+                4 => failure_cause::CLOUD_BUILD_REQUEST_FAILED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -13669,56 +14523,110 @@ pub mod automation_run {
     use super::*;
 
     /// Valid state of an `AutomationRun`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The `AutomationRun` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The `AutomationRun` has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::known("SUCCEEDED", 1);
 
         /// The `AutomationRun` was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::known("CANCELLED", 2);
 
         /// The `AutomationRun` has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::known("FAILED", 3);
 
         /// The `AutomationRun` is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::known("IN_PROGRESS", 4);
 
         /// The `AutomationRun` is pending.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 5);
 
         /// The `AutomationRun` was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
+        pub const ABORTED: State = State::known("ABORTED", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "SUCCEEDED" => state::SUCCEEDED,
+                "CANCELLED" => state::CANCELLED,
+                "FAILED" => state::FAILED,
+                "IN_PROGRESS" => state::IN_PROGRESS,
+                "PENDING" => state::PENDING,
+                "ABORTED" => state::ABORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::SUCCEEDED,
+                2 => state::CANCELLED,
+                3 => state::FAILED,
+                4 => state::IN_PROGRESS,
+                5 => state::PENDING,
+                6 => state::ABORTED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
@@ -14832,20 +15740,8 @@ pub mod deploy_policy_evaluation_event {
     use super::*;
 
     /// The policy verdict of the request.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyVerdict(std::borrow::Cow<'static, str>);
-
-    impl PolicyVerdict {
-        /// Creates a new PolicyVerdict instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PolicyVerdict(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PolicyVerdict](PolicyVerdict)
     pub mod policy_verdict {
@@ -14853,45 +15749,91 @@ pub mod deploy_policy_evaluation_event {
 
         /// This should never happen.
         pub const POLICY_VERDICT_UNSPECIFIED: PolicyVerdict =
-            PolicyVerdict::new("POLICY_VERDICT_UNSPECIFIED");
+            PolicyVerdict::known("POLICY_VERDICT_UNSPECIFIED", 0);
 
         /// Allowed by policy. This enum value is not currently used but may be used
         /// in the future. Currently logs are only generated when a request is denied
         /// by policy.
-        pub const ALLOWED_BY_POLICY: PolicyVerdict = PolicyVerdict::new("ALLOWED_BY_POLICY");
+        pub const ALLOWED_BY_POLICY: PolicyVerdict = PolicyVerdict::known("ALLOWED_BY_POLICY", 1);
 
         /// Denied by policy.
-        pub const DENIED_BY_POLICY: PolicyVerdict = PolicyVerdict::new("DENIED_BY_POLICY");
+        pub const DENIED_BY_POLICY: PolicyVerdict = PolicyVerdict::known("DENIED_BY_POLICY", 2);
+    }
+
+    impl PolicyVerdict {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyVerdict {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyVerdict {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PolicyVerdict::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PolicyVerdict::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PolicyVerdict::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PolicyVerdict {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "POLICY_VERDICT_UNSPECIFIED" => policy_verdict::POLICY_VERDICT_UNSPECIFIED,
+                "ALLOWED_BY_POLICY" => policy_verdict::ALLOWED_BY_POLICY,
+                "DENIED_BY_POLICY" => policy_verdict::DENIED_BY_POLICY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyVerdict {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => policy_verdict::POLICY_VERDICT_UNSPECIFIED,
+                1 => policy_verdict::ALLOWED_BY_POLICY,
+                2 => policy_verdict::DENIED_BY_POLICY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PolicyVerdict {
         fn default() -> Self {
-            policy_verdict::POLICY_VERDICT_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Things that could have overridden the policy verdict. When overrides are
     /// used, the request will be allowed even if it is DENIED_BY_POLICY.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyVerdictOverride(std::borrow::Cow<'static, str>);
-
-    impl PolicyVerdictOverride {
-        /// Creates a new PolicyVerdictOverride instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct PolicyVerdictOverride(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [PolicyVerdictOverride](PolicyVerdictOverride)
     pub mod policy_verdict_override {
@@ -14899,26 +15841,86 @@ pub mod deploy_policy_evaluation_event {
 
         /// This should never happen.
         pub const POLICY_VERDICT_OVERRIDE_UNSPECIFIED: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_VERDICT_OVERRIDE_UNSPECIFIED");
+            PolicyVerdictOverride::known("POLICY_VERDICT_OVERRIDE_UNSPECIFIED", 0);
 
         /// The policy was overridden.
         pub const POLICY_OVERRIDDEN: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_OVERRIDDEN");
+            PolicyVerdictOverride::known("POLICY_OVERRIDDEN", 1);
 
         /// The policy was suspended.
         pub const POLICY_SUSPENDED: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_SUSPENDED");
+            PolicyVerdictOverride::known("POLICY_SUSPENDED", 2);
+    }
+
+    impl PolicyVerdictOverride {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyVerdictOverride {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyVerdictOverride {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(PolicyVerdictOverride::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(PolicyVerdictOverride::from(val)),
+                Enumeration::UnknownNum { str } => Ok(PolicyVerdictOverride::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for PolicyVerdictOverride {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "POLICY_VERDICT_OVERRIDE_UNSPECIFIED" => {
+                    policy_verdict_override::POLICY_VERDICT_OVERRIDE_UNSPECIFIED
+                }
+                "POLICY_OVERRIDDEN" => policy_verdict_override::POLICY_OVERRIDDEN,
+                "POLICY_SUSPENDED" => policy_verdict_override::POLICY_SUSPENDED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyVerdictOverride {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => policy_verdict_override::POLICY_VERDICT_OVERRIDE_UNSPECIFIED,
+                1 => policy_verdict_override::POLICY_OVERRIDDEN,
+                2 => policy_verdict_override::POLICY_SUSPENDED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for PolicyVerdictOverride {
         fn default() -> Self {
-            policy_verdict_override::POLICY_VERDICT_OVERRIDE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -15458,20 +16460,8 @@ pub mod rollout_update_event {
     use super::*;
 
     /// RolloutUpdateType indicates the type of the rollout update.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutUpdateType(std::borrow::Cow<'static, str>);
-
-    impl RolloutUpdateType {
-        /// Creates a new RolloutUpdateType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct RolloutUpdateType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [RolloutUpdateType](RolloutUpdateType)
     pub mod rollout_update_type {
@@ -15479,58 +16469,142 @@ pub mod rollout_update_event {
 
         /// Rollout update type unspecified.
         pub const ROLLOUT_UPDATE_TYPE_UNSPECIFIED: RolloutUpdateType =
-            RolloutUpdateType::new("ROLLOUT_UPDATE_TYPE_UNSPECIFIED");
+            RolloutUpdateType::known("ROLLOUT_UPDATE_TYPE_UNSPECIFIED", 0);
 
         /// rollout state updated to pending.
-        pub const PENDING: RolloutUpdateType = RolloutUpdateType::new("PENDING");
+        pub const PENDING: RolloutUpdateType = RolloutUpdateType::known("PENDING", 1);
 
         /// Rollout state updated to pending release.
-        pub const PENDING_RELEASE: RolloutUpdateType = RolloutUpdateType::new("PENDING_RELEASE");
+        pub const PENDING_RELEASE: RolloutUpdateType =
+            RolloutUpdateType::known("PENDING_RELEASE", 2);
 
         /// Rollout state updated to in progress.
-        pub const IN_PROGRESS: RolloutUpdateType = RolloutUpdateType::new("IN_PROGRESS");
+        pub const IN_PROGRESS: RolloutUpdateType = RolloutUpdateType::known("IN_PROGRESS", 3);
 
         /// Rollout state updated to cancelling.
-        pub const CANCELLING: RolloutUpdateType = RolloutUpdateType::new("CANCELLING");
+        pub const CANCELLING: RolloutUpdateType = RolloutUpdateType::known("CANCELLING", 4);
 
         /// Rollout state updated to cancelled.
-        pub const CANCELLED: RolloutUpdateType = RolloutUpdateType::new("CANCELLED");
+        pub const CANCELLED: RolloutUpdateType = RolloutUpdateType::known("CANCELLED", 5);
 
         /// Rollout state updated to halted.
-        pub const HALTED: RolloutUpdateType = RolloutUpdateType::new("HALTED");
+        pub const HALTED: RolloutUpdateType = RolloutUpdateType::known("HALTED", 6);
 
         /// Rollout state updated to succeeded.
-        pub const SUCCEEDED: RolloutUpdateType = RolloutUpdateType::new("SUCCEEDED");
+        pub const SUCCEEDED: RolloutUpdateType = RolloutUpdateType::known("SUCCEEDED", 7);
 
         /// Rollout state updated to failed.
-        pub const FAILED: RolloutUpdateType = RolloutUpdateType::new("FAILED");
+        pub const FAILED: RolloutUpdateType = RolloutUpdateType::known("FAILED", 8);
 
         /// Rollout requires approval.
         pub const APPROVAL_REQUIRED: RolloutUpdateType =
-            RolloutUpdateType::new("APPROVAL_REQUIRED");
+            RolloutUpdateType::known("APPROVAL_REQUIRED", 9);
 
         /// Rollout has been approved.
-        pub const APPROVED: RolloutUpdateType = RolloutUpdateType::new("APPROVED");
+        pub const APPROVED: RolloutUpdateType = RolloutUpdateType::known("APPROVED", 10);
 
         /// Rollout has been rejected.
-        pub const REJECTED: RolloutUpdateType = RolloutUpdateType::new("REJECTED");
+        pub const REJECTED: RolloutUpdateType = RolloutUpdateType::known("REJECTED", 11);
 
         /// Rollout requires advance to the next phase.
-        pub const ADVANCE_REQUIRED: RolloutUpdateType = RolloutUpdateType::new("ADVANCE_REQUIRED");
+        pub const ADVANCE_REQUIRED: RolloutUpdateType =
+            RolloutUpdateType::known("ADVANCE_REQUIRED", 12);
 
         /// Rollout has been advanced.
-        pub const ADVANCED: RolloutUpdateType = RolloutUpdateType::new("ADVANCED");
+        pub const ADVANCED: RolloutUpdateType = RolloutUpdateType::known("ADVANCED", 13);
+    }
+
+    impl RolloutUpdateType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for RolloutUpdateType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RolloutUpdateType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(RolloutUpdateType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(RolloutUpdateType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(RolloutUpdateType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for RolloutUpdateType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "ROLLOUT_UPDATE_TYPE_UNSPECIFIED" => {
+                    rollout_update_type::ROLLOUT_UPDATE_TYPE_UNSPECIFIED
+                }
+                "PENDING" => rollout_update_type::PENDING,
+                "PENDING_RELEASE" => rollout_update_type::PENDING_RELEASE,
+                "IN_PROGRESS" => rollout_update_type::IN_PROGRESS,
+                "CANCELLING" => rollout_update_type::CANCELLING,
+                "CANCELLED" => rollout_update_type::CANCELLED,
+                "HALTED" => rollout_update_type::HALTED,
+                "SUCCEEDED" => rollout_update_type::SUCCEEDED,
+                "FAILED" => rollout_update_type::FAILED,
+                "APPROVAL_REQUIRED" => rollout_update_type::APPROVAL_REQUIRED,
+                "APPROVED" => rollout_update_type::APPROVED,
+                "REJECTED" => rollout_update_type::REJECTED,
+                "ADVANCE_REQUIRED" => rollout_update_type::ADVANCE_REQUIRED,
+                "ADVANCED" => rollout_update_type::ADVANCED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for RolloutUpdateType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => rollout_update_type::ROLLOUT_UPDATE_TYPE_UNSPECIFIED,
+                1 => rollout_update_type::PENDING,
+                2 => rollout_update_type::PENDING_RELEASE,
+                3 => rollout_update_type::IN_PROGRESS,
+                4 => rollout_update_type::CANCELLING,
+                5 => rollout_update_type::CANCELLED,
+                6 => rollout_update_type::HALTED,
+                7 => rollout_update_type::SUCCEEDED,
+                8 => rollout_update_type::FAILED,
+                9 => rollout_update_type::APPROVAL_REQUIRED,
+                10 => rollout_update_type::APPROVED,
+                11 => rollout_update_type::REJECTED,
+                12 => rollout_update_type::ADVANCE_REQUIRED,
+                13 => rollout_update_type::ADVANCED,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for RolloutUpdateType {
         fn default() -> Self {
-            rollout_update_type::ROLLOUT_UPDATE_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -15587,20 +16661,8 @@ impl wkt::message::Message for TargetNotificationEvent {
 }
 
 /// The support state of a specific Skaffold version.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SkaffoldSupportState(std::borrow::Cow<'static, str>);
-
-impl SkaffoldSupportState {
-    /// Creates a new SkaffoldSupportState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct SkaffoldSupportState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [SkaffoldSupportState](SkaffoldSupportState)
 pub mod skaffold_support_state {
@@ -15608,186 +16670,416 @@ pub mod skaffold_support_state {
 
     /// Default value. This value is unused.
     pub const SKAFFOLD_SUPPORT_STATE_UNSPECIFIED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_UNSPECIFIED");
+        SkaffoldSupportState::known("SKAFFOLD_SUPPORT_STATE_UNSPECIFIED", 0);
 
     /// This Skaffold version is currently supported.
     pub const SKAFFOLD_SUPPORT_STATE_SUPPORTED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_SUPPORTED");
+        SkaffoldSupportState::known("SKAFFOLD_SUPPORT_STATE_SUPPORTED", 1);
 
     /// This Skaffold version is in maintenance mode.
     pub const SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE");
+        SkaffoldSupportState::known("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE", 2);
 
     /// This Skaffold version is no longer supported.
     pub const SKAFFOLD_SUPPORT_STATE_UNSUPPORTED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_UNSUPPORTED");
+        SkaffoldSupportState::known("SKAFFOLD_SUPPORT_STATE_UNSUPPORTED", 3);
+}
+
+impl SkaffoldSupportState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for SkaffoldSupportState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SkaffoldSupportState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(SkaffoldSupportState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(SkaffoldSupportState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(SkaffoldSupportState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for SkaffoldSupportState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "SKAFFOLD_SUPPORT_STATE_UNSPECIFIED" => {
+                skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED
+            }
+            "SKAFFOLD_SUPPORT_STATE_SUPPORTED" => {
+                skaffold_support_state::SKAFFOLD_SUPPORT_STATE_SUPPORTED
+            }
+            "SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE" => {
+                skaffold_support_state::SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE
+            }
+            "SKAFFOLD_SUPPORT_STATE_UNSUPPORTED" => {
+                skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSUPPORTED
+            }
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for SkaffoldSupportState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED,
+            1 => skaffold_support_state::SKAFFOLD_SUPPORT_STATE_SUPPORTED,
+            2 => skaffold_support_state::SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE,
+            3 => skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSUPPORTED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for SkaffoldSupportState {
     fn default() -> Self {
-        skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// The pattern of how wait time is increased.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BackoffMode(std::borrow::Cow<'static, str>);
-
-impl BackoffMode {
-    /// Creates a new BackoffMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct BackoffMode(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [BackoffMode](BackoffMode)
 pub mod backoff_mode {
     use super::BackoffMode;
 
     /// No WaitMode is specified.
-    pub const BACKOFF_MODE_UNSPECIFIED: BackoffMode = BackoffMode::new("BACKOFF_MODE_UNSPECIFIED");
+    pub const BACKOFF_MODE_UNSPECIFIED: BackoffMode =
+        BackoffMode::known("BACKOFF_MODE_UNSPECIFIED", 0);
 
     /// Increases the wait time linearly.
-    pub const BACKOFF_MODE_LINEAR: BackoffMode = BackoffMode::new("BACKOFF_MODE_LINEAR");
+    pub const BACKOFF_MODE_LINEAR: BackoffMode = BackoffMode::known("BACKOFF_MODE_LINEAR", 1);
 
     /// Increases the wait time exponentially.
-    pub const BACKOFF_MODE_EXPONENTIAL: BackoffMode = BackoffMode::new("BACKOFF_MODE_EXPONENTIAL");
+    pub const BACKOFF_MODE_EXPONENTIAL: BackoffMode =
+        BackoffMode::known("BACKOFF_MODE_EXPONENTIAL", 2);
+}
+
+impl BackoffMode {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for BackoffMode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for BackoffMode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(BackoffMode::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(BackoffMode::from(val)),
+            Enumeration::UnknownNum { str } => Ok(BackoffMode::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for BackoffMode {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "BACKOFF_MODE_UNSPECIFIED" => backoff_mode::BACKOFF_MODE_UNSPECIFIED,
+            "BACKOFF_MODE_LINEAR" => backoff_mode::BACKOFF_MODE_LINEAR,
+            "BACKOFF_MODE_EXPONENTIAL" => backoff_mode::BACKOFF_MODE_EXPONENTIAL,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for BackoffMode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => backoff_mode::BACKOFF_MODE_UNSPECIFIED,
+            1 => backoff_mode::BACKOFF_MODE_LINEAR,
+            2 => backoff_mode::BACKOFF_MODE_EXPONENTIAL,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for BackoffMode {
     fn default() -> Self {
-        backoff_mode::BACKOFF_MODE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Valid state of a repair attempt.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RepairState(std::borrow::Cow<'static, str>);
-
-impl RepairState {
-    /// Creates a new RepairState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct RepairState(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [RepairState](RepairState)
 pub mod repair_state {
     use super::RepairState;
 
     /// The `repair` has an unspecified state.
-    pub const REPAIR_STATE_UNSPECIFIED: RepairState = RepairState::new("REPAIR_STATE_UNSPECIFIED");
+    pub const REPAIR_STATE_UNSPECIFIED: RepairState =
+        RepairState::known("REPAIR_STATE_UNSPECIFIED", 0);
 
     /// The `repair` action has succeeded.
-    pub const REPAIR_STATE_SUCCEEDED: RepairState = RepairState::new("REPAIR_STATE_SUCCEEDED");
+    pub const REPAIR_STATE_SUCCEEDED: RepairState = RepairState::known("REPAIR_STATE_SUCCEEDED", 1);
 
     /// The `repair` action was cancelled.
-    pub const REPAIR_STATE_CANCELLED: RepairState = RepairState::new("REPAIR_STATE_CANCELLED");
+    pub const REPAIR_STATE_CANCELLED: RepairState = RepairState::known("REPAIR_STATE_CANCELLED", 2);
 
     /// The `repair` action has failed.
-    pub const REPAIR_STATE_FAILED: RepairState = RepairState::new("REPAIR_STATE_FAILED");
+    pub const REPAIR_STATE_FAILED: RepairState = RepairState::known("REPAIR_STATE_FAILED", 3);
 
     /// The `repair` action is in progress.
-    pub const REPAIR_STATE_IN_PROGRESS: RepairState = RepairState::new("REPAIR_STATE_IN_PROGRESS");
+    pub const REPAIR_STATE_IN_PROGRESS: RepairState =
+        RepairState::known("REPAIR_STATE_IN_PROGRESS", 4);
 
     /// The `repair` action is pending.
-    pub const REPAIR_STATE_PENDING: RepairState = RepairState::new("REPAIR_STATE_PENDING");
+    pub const REPAIR_STATE_PENDING: RepairState = RepairState::known("REPAIR_STATE_PENDING", 5);
 
     /// The `repair` action was aborted.
-    pub const REPAIR_STATE_ABORTED: RepairState = RepairState::new("REPAIR_STATE_ABORTED");
+    pub const REPAIR_STATE_ABORTED: RepairState = RepairState::known("REPAIR_STATE_ABORTED", 7);
+}
+
+impl RepairState {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for RepairState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for RepairState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(RepairState::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(RepairState::from(val)),
+            Enumeration::UnknownNum { str } => Ok(RepairState::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for RepairState {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "REPAIR_STATE_UNSPECIFIED" => repair_state::REPAIR_STATE_UNSPECIFIED,
+            "REPAIR_STATE_SUCCEEDED" => repair_state::REPAIR_STATE_SUCCEEDED,
+            "REPAIR_STATE_CANCELLED" => repair_state::REPAIR_STATE_CANCELLED,
+            "REPAIR_STATE_FAILED" => repair_state::REPAIR_STATE_FAILED,
+            "REPAIR_STATE_IN_PROGRESS" => repair_state::REPAIR_STATE_IN_PROGRESS,
+            "REPAIR_STATE_PENDING" => repair_state::REPAIR_STATE_PENDING,
+            "REPAIR_STATE_ABORTED" => repair_state::REPAIR_STATE_ABORTED,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for RepairState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => repair_state::REPAIR_STATE_UNSPECIFIED,
+            1 => repair_state::REPAIR_STATE_SUCCEEDED,
+            2 => repair_state::REPAIR_STATE_CANCELLED,
+            3 => repair_state::REPAIR_STATE_FAILED,
+            4 => repair_state::REPAIR_STATE_IN_PROGRESS,
+            5 => repair_state::REPAIR_STATE_PENDING,
+            7 => repair_state::REPAIR_STATE_ABORTED,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for RepairState {
     fn default() -> Self {
-        repair_state::REPAIR_STATE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }
 
 /// Type indicates the type of the log entry and can be used as a filter.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Type(std::borrow::Cow<'static, str>);
-
-impl Type {
-    /// Creates a new Type instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct Type(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [Type](Type)
 pub mod r#type {
     use super::Type;
 
     /// Type is unspecified.
-    pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+    pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
     /// A Pub/Sub notification failed to be sent.
     pub const TYPE_PUBSUB_NOTIFICATION_FAILURE: Type =
-        Type::new("TYPE_PUBSUB_NOTIFICATION_FAILURE");
+        Type::known("TYPE_PUBSUB_NOTIFICATION_FAILURE", 1);
 
     /// Resource state changed.
-    pub const TYPE_RESOURCE_STATE_CHANGE: Type = Type::new("TYPE_RESOURCE_STATE_CHANGE");
+    pub const TYPE_RESOURCE_STATE_CHANGE: Type = Type::known("TYPE_RESOURCE_STATE_CHANGE", 3);
 
     /// A process aborted.
-    pub const TYPE_PROCESS_ABORTED: Type = Type::new("TYPE_PROCESS_ABORTED");
+    pub const TYPE_PROCESS_ABORTED: Type = Type::known("TYPE_PROCESS_ABORTED", 4);
 
     /// Restriction check failed.
-    pub const TYPE_RESTRICTION_VIOLATED: Type = Type::new("TYPE_RESTRICTION_VIOLATED");
+    pub const TYPE_RESTRICTION_VIOLATED: Type = Type::known("TYPE_RESTRICTION_VIOLATED", 5);
 
     /// Resource deleted.
-    pub const TYPE_RESOURCE_DELETED: Type = Type::new("TYPE_RESOURCE_DELETED");
+    pub const TYPE_RESOURCE_DELETED: Type = Type::known("TYPE_RESOURCE_DELETED", 6);
 
     /// Rollout updated.
-    pub const TYPE_ROLLOUT_UPDATE: Type = Type::new("TYPE_ROLLOUT_UPDATE");
+    pub const TYPE_ROLLOUT_UPDATE: Type = Type::known("TYPE_ROLLOUT_UPDATE", 7);
 
     /// Deploy Policy evaluation.
-    pub const TYPE_DEPLOY_POLICY_EVALUATION: Type = Type::new("TYPE_DEPLOY_POLICY_EVALUATION");
+    pub const TYPE_DEPLOY_POLICY_EVALUATION: Type = Type::known("TYPE_DEPLOY_POLICY_EVALUATION", 8);
 
     /// Deprecated: This field is never used. Use release_render log type instead.
-    pub const TYPE_RENDER_STATUES_CHANGE: Type = Type::new("TYPE_RENDER_STATUES_CHANGE");
+    pub const TYPE_RENDER_STATUES_CHANGE: Type = Type::known("TYPE_RENDER_STATUES_CHANGE", 2);
+}
+
+impl Type {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for Type {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Type {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+            Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for Type {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+            "TYPE_PUBSUB_NOTIFICATION_FAILURE" => r#type::TYPE_PUBSUB_NOTIFICATION_FAILURE,
+            "TYPE_RESOURCE_STATE_CHANGE" => r#type::TYPE_RESOURCE_STATE_CHANGE,
+            "TYPE_PROCESS_ABORTED" => r#type::TYPE_PROCESS_ABORTED,
+            "TYPE_RESTRICTION_VIOLATED" => r#type::TYPE_RESTRICTION_VIOLATED,
+            "TYPE_RESOURCE_DELETED" => r#type::TYPE_RESOURCE_DELETED,
+            "TYPE_ROLLOUT_UPDATE" => r#type::TYPE_ROLLOUT_UPDATE,
+            "TYPE_DEPLOY_POLICY_EVALUATION" => r#type::TYPE_DEPLOY_POLICY_EVALUATION,
+            "TYPE_RENDER_STATUES_CHANGE" => r#type::TYPE_RENDER_STATUES_CHANGE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for Type {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => r#type::TYPE_UNSPECIFIED,
+            1 => r#type::TYPE_PUBSUB_NOTIFICATION_FAILURE,
+            2 => r#type::TYPE_RENDER_STATUES_CHANGE,
+            3 => r#type::TYPE_RESOURCE_STATE_CHANGE,
+            4 => r#type::TYPE_PROCESS_ABORTED,
+            5 => r#type::TYPE_RESTRICTION_VIOLATED,
+            6 => r#type::TYPE_RESOURCE_DELETED,
+            7 => r#type::TYPE_ROLLOUT_UPDATE,
+            8 => r#type::TYPE_DEPLOY_POLICY_EVALUATION,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for Type {
     fn default() -> Self {
-        r#type::TYPE_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

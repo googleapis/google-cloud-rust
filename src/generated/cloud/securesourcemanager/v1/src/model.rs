@@ -328,96 +328,195 @@ pub mod instance {
     }
 
     /// Secure Source Manager instance state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// Not set. This should only be the case for incoming requests.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// Instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::known("CREATING", 1);
 
         /// Instance is ready.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::known("ACTIVE", 2);
 
         /// Instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 3);
 
         /// Instance is paused.
-        pub const PAUSED: State = State::new("PAUSED");
+        pub const PAUSED: State = State::known("PAUSED", 4);
 
         /// Instance is unknown, we are not sure if it's functioning.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::known("UNKNOWN", 6);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "CREATING" => state::CREATING,
+                "ACTIVE" => state::ACTIVE,
+                "DELETING" => state::DELETING,
+                "PAUSED" => state::PAUSED,
+                "UNKNOWN" => state::UNKNOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::CREATING,
+                2 => state::ACTIVE,
+                3 => state::DELETING,
+                4 => state::PAUSED,
+                6 => state::UNKNOWN,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// Provides information about the current instance state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StateNote(std::borrow::Cow<'static, str>);
-
-    impl StateNote {
-        /// Creates a new StateNote instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct StateNote(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [StateNote](StateNote)
     pub mod state_note {
         use super::StateNote;
 
         /// STATE_NOTE_UNSPECIFIED as the first value of State.
-        pub const STATE_NOTE_UNSPECIFIED: StateNote = StateNote::new("STATE_NOTE_UNSPECIFIED");
+        pub const STATE_NOTE_UNSPECIFIED: StateNote = StateNote::known("STATE_NOTE_UNSPECIFIED", 0);
 
         /// CMEK access is unavailable.
-        pub const PAUSED_CMEK_UNAVAILABLE: StateNote = StateNote::new("PAUSED_CMEK_UNAVAILABLE");
+        pub const PAUSED_CMEK_UNAVAILABLE: StateNote =
+            StateNote::known("PAUSED_CMEK_UNAVAILABLE", 1);
 
         /// INSTANCE_RESUMING indicates that the instance was previously paused
         /// and is under the process of being brought back.
-        pub const INSTANCE_RESUMING: StateNote = StateNote::new("INSTANCE_RESUMING");
+        pub const INSTANCE_RESUMING: StateNote = StateNote::known("INSTANCE_RESUMING", 2);
+    }
+
+    impl StateNote {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for StateNote {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StateNote {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(StateNote::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(StateNote::from(val)),
+                Enumeration::UnknownNum { str } => Ok(StateNote::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for StateNote {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_NOTE_UNSPECIFIED" => state_note::STATE_NOTE_UNSPECIFIED,
+                "PAUSED_CMEK_UNAVAILABLE" => state_note::PAUSED_CMEK_UNAVAILABLE,
+                "INSTANCE_RESUMING" => state_note::INSTANCE_RESUMING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for StateNote {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state_note::STATE_NOTE_UNSPECIFIED,
+                1 => state_note::PAUSED_CMEK_UNAVAILABLE,
+                2 => state_note::INSTANCE_RESUMING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for StateNote {
         fn default() -> Self {
-            state_note::STATE_NOTE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

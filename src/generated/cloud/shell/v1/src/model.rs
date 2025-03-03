@@ -169,54 +169,104 @@ pub mod environment {
     use super::*;
 
     /// Possible execution states for an environment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The environment's states is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The environment is not running and can't be connected to. Starting the
         /// environment will transition it to the PENDING state.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::known("SUSPENDED", 1);
 
         /// The environment is being started but is not yet ready to accept
         /// connections.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::known("PENDING", 2);
 
         /// The environment is running and ready to accept connections. It will
         /// automatically transition back to DISABLED after a period of inactivity or
         /// if another environment is started.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::known("RUNNING", 3);
 
         /// The environment is being deleted and can't be connected to.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::known("DELETING", 4);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "SUSPENDED" => state::SUSPENDED,
+                "PENDING" => state::PENDING,
+                "RUNNING" => state::RUNNING,
+                "DELETING" => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::SUSPENDED,
+                2 => state::PENDING,
+                3 => state::RUNNING,
+                4 => state::DELETING,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -512,58 +562,108 @@ pub mod start_environment_metadata {
     /// show a progress message to the user. An environment won't necessarily go
     /// through all of these states when starting. More states are likely to be
     /// added in the future.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
-
-    impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct State(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [State](State)
     pub mod state {
         use super::State;
 
         /// The environment's start state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::known("STATE_UNSPECIFIED", 0);
 
         /// The environment is in the process of being started, but no additional
         /// details are available.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::known("STARTING", 1);
 
         /// Startup is waiting for the user's disk to be unarchived. This can happen
         /// when the user returns to Cloud Shell after not having used it for a
         /// while, and suggests that startup will take longer than normal.
-        pub const UNARCHIVING_DISK: State = State::new("UNARCHIVING_DISK");
+        pub const UNARCHIVING_DISK: State = State::known("UNARCHIVING_DISK", 2);
 
         /// Startup is waiting for compute resources to be assigned to the
         /// environment. This should normally happen very quickly, but an environment
         /// might stay in this state for an extended period of time if the system is
         /// experiencing heavy load.
-        pub const AWAITING_COMPUTE_RESOURCES: State = State::new("AWAITING_COMPUTE_RESOURCES");
+        pub const AWAITING_COMPUTE_RESOURCES: State = State::known("AWAITING_COMPUTE_RESOURCES", 4);
 
         /// Startup has completed. If the start operation was successful, the user
         /// should be able to establish an SSH connection to their environment.
         /// Otherwise, the operation will contain details of the failure.
-        pub const FINISHED: State = State::new("FINISHED");
+        pub const FINISHED: State = State::known("FINISHED", 3);
+    }
+
+    impl State {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(State::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(State::from(val)),
+                Enumeration::UnknownNum { str } => Ok(State::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for State {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "STATE_UNSPECIFIED" => state::STATE_UNSPECIFIED,
+                "STARTING" => state::STARTING,
+                "UNARCHIVING_DISK" => state::UNARCHIVING_DISK,
+                "AWAITING_COMPUTE_RESOURCES" => state::AWAITING_COMPUTE_RESOURCES,
+                "FINISHED" => state::FINISHED,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => state::STATE_UNSPECIFIED,
+                1 => state::STARTING,
+                2 => state::UNARCHIVING_DISK,
+                3 => state::FINISHED,
+                4 => state::AWAITING_COMPUTE_RESOURCES,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -835,20 +935,8 @@ pub mod cloud_shell_error_details {
     use super::*;
 
     /// Set of possible errors returned from API calls.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CloudShellErrorCode(std::borrow::Cow<'static, str>);
-
-    impl CloudShellErrorCode {
-        /// Creates a new CloudShellErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CloudShellErrorCode(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [CloudShellErrorCode](CloudShellErrorCode)
     pub mod cloud_shell_error_code {
@@ -856,41 +944,109 @@ pub mod cloud_shell_error_details {
 
         /// An unknown error occurred.
         pub const CLOUD_SHELL_ERROR_CODE_UNSPECIFIED: CloudShellErrorCode =
-            CloudShellErrorCode::new("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED");
+            CloudShellErrorCode::known("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED", 0);
 
         /// The image used by the Cloud Shell environment either does not exist or
         /// the user does not have access to it.
         pub const IMAGE_UNAVAILABLE: CloudShellErrorCode =
-            CloudShellErrorCode::new("IMAGE_UNAVAILABLE");
+            CloudShellErrorCode::known("IMAGE_UNAVAILABLE", 1);
 
         /// Cloud Shell has been disabled by an administrator for the user making the
         /// request.
         pub const CLOUD_SHELL_DISABLED: CloudShellErrorCode =
-            CloudShellErrorCode::new("CLOUD_SHELL_DISABLED");
+            CloudShellErrorCode::known("CLOUD_SHELL_DISABLED", 2);
 
         /// Cloud Shell has been permanently disabled due to a Terms of Service
         /// violation by the user.
-        pub const TOS_VIOLATION: CloudShellErrorCode = CloudShellErrorCode::new("TOS_VIOLATION");
+        pub const TOS_VIOLATION: CloudShellErrorCode =
+            CloudShellErrorCode::known("TOS_VIOLATION", 4);
 
         /// The user has exhausted their weekly Cloud Shell quota, and Cloud Shell
         /// will be disabled until the quota resets.
-        pub const QUOTA_EXCEEDED: CloudShellErrorCode = CloudShellErrorCode::new("QUOTA_EXCEEDED");
+        pub const QUOTA_EXCEEDED: CloudShellErrorCode =
+            CloudShellErrorCode::known("QUOTA_EXCEEDED", 5);
 
         /// The Cloud Shell environment is unavailable and cannot be connected to at
         /// the moment.
         pub const ENVIRONMENT_UNAVAILABLE: CloudShellErrorCode =
-            CloudShellErrorCode::new("ENVIRONMENT_UNAVAILABLE");
+            CloudShellErrorCode::known("ENVIRONMENT_UNAVAILABLE", 6);
+    }
+
+    impl CloudShellErrorCode {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for CloudShellErrorCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CloudShellErrorCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(CloudShellErrorCode::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(CloudShellErrorCode::from(val)),
+                Enumeration::UnknownNum { str } => Ok(CloudShellErrorCode::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for CloudShellErrorCode {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED" => {
+                    cloud_shell_error_code::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED
+                }
+                "IMAGE_UNAVAILABLE" => cloud_shell_error_code::IMAGE_UNAVAILABLE,
+                "CLOUD_SHELL_DISABLED" => cloud_shell_error_code::CLOUD_SHELL_DISABLED,
+                "TOS_VIOLATION" => cloud_shell_error_code::TOS_VIOLATION,
+                "QUOTA_EXCEEDED" => cloud_shell_error_code::QUOTA_EXCEEDED,
+                "ENVIRONMENT_UNAVAILABLE" => cloud_shell_error_code::ENVIRONMENT_UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for CloudShellErrorCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => cloud_shell_error_code::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED,
+                1 => cloud_shell_error_code::IMAGE_UNAVAILABLE,
+                2 => cloud_shell_error_code::CLOUD_SHELL_DISABLED,
+                4 => cloud_shell_error_code::TOS_VIOLATION,
+                5 => cloud_shell_error_code::QUOTA_EXCEEDED,
+                6 => cloud_shell_error_code::ENVIRONMENT_UNAVAILABLE,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for CloudShellErrorCode {
         fn default() -> Self {
-            cloud_shell_error_code::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

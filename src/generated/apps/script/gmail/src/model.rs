@@ -301,47 +301,93 @@ pub mod compose_trigger {
     use super::*;
 
     /// An enum defining the level of data access this compose trigger requires.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DraftAccess(std::borrow::Cow<'static, str>);
-
-    impl DraftAccess {
-        /// Creates a new DraftAccess instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct DraftAccess(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [DraftAccess](DraftAccess)
     pub mod draft_access {
         use super::DraftAccess;
 
         /// Default value when nothing is set for DraftAccess.
-        pub const UNSPECIFIED: DraftAccess = DraftAccess::new("UNSPECIFIED");
+        pub const UNSPECIFIED: DraftAccess = DraftAccess::known("UNSPECIFIED", 0);
 
         /// NONE means compose trigger won't be able to access any data of the draft
         /// when a compose addon is triggered.
-        pub const NONE: DraftAccess = DraftAccess::new("NONE");
+        pub const NONE: DraftAccess = DraftAccess::known("NONE", 1);
 
         /// METADATA gives compose trigger the permission to access the metadata of
         /// the draft when a compose addon is triggered. This includes the audience
         /// list (To/cc list) of a draft message.
-        pub const METADATA: DraftAccess = DraftAccess::new("METADATA");
+        pub const METADATA: DraftAccess = DraftAccess::known("METADATA", 2);
+    }
+
+    impl DraftAccess {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for DraftAccess {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DraftAccess {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(DraftAccess::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(DraftAccess::from(val)),
+                Enumeration::UnknownNum { str } => Ok(DraftAccess::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for DraftAccess {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "UNSPECIFIED" => draft_access::UNSPECIFIED,
+                "NONE" => draft_access::NONE,
+                "METADATA" => draft_access::METADATA,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DraftAccess {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => draft_access::UNSPECIFIED,
+                1 => draft_access::NONE,
+                2 => draft_access::METADATA,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for DraftAccess {
         fn default() -> Self {
-            draft_access::UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }

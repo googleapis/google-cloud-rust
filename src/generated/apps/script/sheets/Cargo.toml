@@ -16,7 +16,7 @@
 
 [package]
 name                 = "google-cloud-apps-script-type-sheets"
-version              = "0.1.0"
+version              = "0.2.0"
 description          = "Google Cloud Client Libraries for Rust - Google Apps Script Types"
 edition.workspace    = true
 authors.workspace    = true
@@ -26,8 +26,8 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-apps_script_type = { version = "0.1", path = "../../../../../src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
+apps_script_type = { version = "0.2", path = "../../../../../src/generated/apps/script/gtype", package = "google-cloud-apps-script-type" }
 bytes      = { version = "1", features = ["serde"] }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-wkt        = { version = "0.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
+wkt        = { version = "0.2", path = "../../../../../src/wkt", package = "google-cloud-wkt" }

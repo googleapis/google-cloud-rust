@@ -63,60 +63,118 @@ pub mod add_on_widget_set {
     use super::*;
 
     /// The Widget type. DEFAULT is the basic widget set.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WidgetType(std::borrow::Cow<'static, str>);
-
-    impl WidgetType {
-        /// Creates a new WidgetType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct WidgetType(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [WidgetType](WidgetType)
     pub mod widget_type {
         use super::WidgetType;
 
         /// The default widget set.
-        pub const WIDGET_TYPE_UNSPECIFIED: WidgetType = WidgetType::new("WIDGET_TYPE_UNSPECIFIED");
+        pub const WIDGET_TYPE_UNSPECIFIED: WidgetType =
+            WidgetType::known("WIDGET_TYPE_UNSPECIFIED", 0);
 
         /// The date picker.
-        pub const DATE_PICKER: WidgetType = WidgetType::new("DATE_PICKER");
+        pub const DATE_PICKER: WidgetType = WidgetType::known("DATE_PICKER", 1);
 
         /// Styled buttons include filled buttons and disabled buttons.
-        pub const STYLED_BUTTONS: WidgetType = WidgetType::new("STYLED_BUTTONS");
+        pub const STYLED_BUTTONS: WidgetType = WidgetType::known("STYLED_BUTTONS", 2);
 
         /// Persistent forms allow persisting form values during actions.
-        pub const PERSISTENT_FORMS: WidgetType = WidgetType::new("PERSISTENT_FORMS");
+        pub const PERSISTENT_FORMS: WidgetType = WidgetType::known("PERSISTENT_FORMS", 3);
 
         /// Fixed footer in card.
-        pub const FIXED_FOOTER: WidgetType = WidgetType::new("FIXED_FOOTER");
+        pub const FIXED_FOOTER: WidgetType = WidgetType::known("FIXED_FOOTER", 4);
 
         /// Update the subject and recipients of a draft.
         pub const UPDATE_SUBJECT_AND_RECIPIENTS: WidgetType =
-            WidgetType::new("UPDATE_SUBJECT_AND_RECIPIENTS");
+            WidgetType::known("UPDATE_SUBJECT_AND_RECIPIENTS", 5);
 
         /// The grid widget.
-        pub const GRID_WIDGET: WidgetType = WidgetType::new("GRID_WIDGET");
+        pub const GRID_WIDGET: WidgetType = WidgetType::known("GRID_WIDGET", 6);
 
         /// A Gmail add-on action that applies to the addon compose UI.
-        pub const ADDON_COMPOSE_UI_ACTION: WidgetType = WidgetType::new("ADDON_COMPOSE_UI_ACTION");
+        pub const ADDON_COMPOSE_UI_ACTION: WidgetType =
+            WidgetType::known("ADDON_COMPOSE_UI_ACTION", 7);
+    }
+
+    impl WidgetType {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for WidgetType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WidgetType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(WidgetType::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(WidgetType::from(val)),
+                Enumeration::UnknownNum { str } => Ok(WidgetType::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for WidgetType {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "WIDGET_TYPE_UNSPECIFIED" => widget_type::WIDGET_TYPE_UNSPECIFIED,
+                "DATE_PICKER" => widget_type::DATE_PICKER,
+                "STYLED_BUTTONS" => widget_type::STYLED_BUTTONS,
+                "PERSISTENT_FORMS" => widget_type::PERSISTENT_FORMS,
+                "FIXED_FOOTER" => widget_type::FIXED_FOOTER,
+                "UPDATE_SUBJECT_AND_RECIPIENTS" => widget_type::UPDATE_SUBJECT_AND_RECIPIENTS,
+                "GRID_WIDGET" => widget_type::GRID_WIDGET,
+                "ADDON_COMPOSE_UI_ACTION" => widget_type::ADDON_COMPOSE_UI_ACTION,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for WidgetType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => widget_type::WIDGET_TYPE_UNSPECIFIED,
+                1 => widget_type::DATE_PICKER,
+                2 => widget_type::STYLED_BUTTONS,
+                3 => widget_type::PERSISTENT_FORMS,
+                4 => widget_type::FIXED_FOOTER,
+                5 => widget_type::UPDATE_SUBJECT_AND_RECIPIENTS,
+                6 => widget_type::GRID_WIDGET,
+                7 => widget_type::ADDON_COMPOSE_UI_ACTION,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for WidgetType {
         fn default() -> Self {
-            widget_type::WIDGET_TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -555,20 +613,8 @@ impl wkt::message::Message for HttpOptions {
 }
 
 /// Authorization header sent in add-on HTTP requests
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpAuthorizationHeader(std::borrow::Cow<'static, str>);
-
-impl HttpAuthorizationHeader {
-    /// Creates a new HttpAuthorizationHeader instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HttpAuthorizationHeader(wkt::enumerations::Enumeration);
 
 /// Useful constants to work with [HttpAuthorizationHeader](HttpAuthorizationHeader)
 pub mod http_authorization_header {
@@ -576,29 +622,91 @@ pub mod http_authorization_header {
 
     /// Default value, equivalent to `SYSTEM_ID_TOKEN`
     pub const HTTP_AUTHORIZATION_HEADER_UNSPECIFIED: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED");
+        HttpAuthorizationHeader::known("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED", 0);
 
     /// Send an ID token for the project-specific Google Workspace add-ons system
     /// service account (default)
     pub const SYSTEM_ID_TOKEN: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("SYSTEM_ID_TOKEN");
+        HttpAuthorizationHeader::known("SYSTEM_ID_TOKEN", 1);
 
     /// Send an ID token for the end user
     pub const USER_ID_TOKEN: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new("USER_ID_TOKEN");
+        HttpAuthorizationHeader::known("USER_ID_TOKEN", 2);
 
     /// Do not send an Authentication header
-    pub const NONE: HttpAuthorizationHeader = HttpAuthorizationHeader::new("NONE");
+    pub const NONE: HttpAuthorizationHeader = HttpAuthorizationHeader::known("NONE", 3);
+}
+
+impl HttpAuthorizationHeader {
+    pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+        Self(wkt::enumerations::Enumeration::known(str, val))
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        self.0.value()
+    }
+
+    /// Gets the numeric value of the enum (if available).
+    pub fn numeric_value(&self) -> std::option::Option<i32> {
+        self.0.numeric_value()
+    }
+}
+
+impl serde::ser::Serialize for HttpAuthorizationHeader {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HttpAuthorizationHeader {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use std::convert::From;
+        use std::result::Result::Ok;
+        use wkt::enumerations::Enumeration;
+        match Enumeration::deserialize(deserializer)? {
+            Enumeration::Known { str: _, val } => Ok(HttpAuthorizationHeader::from(val)),
+            Enumeration::UnknownStr { val, str: _ } => Ok(HttpAuthorizationHeader::from(val)),
+            Enumeration::UnknownNum { str } => Ok(HttpAuthorizationHeader::from(str)),
+        }
+    }
 }
 
 impl std::convert::From<std::string::String> for HttpAuthorizationHeader {
     fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+        match value.as_str() {
+            "HTTP_AUTHORIZATION_HEADER_UNSPECIFIED" => {
+                http_authorization_header::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED
+            }
+            "SYSTEM_ID_TOKEN" => http_authorization_header::SYSTEM_ID_TOKEN,
+            "USER_ID_TOKEN" => http_authorization_header::USER_ID_TOKEN,
+            "NONE" => http_authorization_header::NONE,
+            _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+        }
+    }
+}
+
+impl std::convert::From<i32> for HttpAuthorizationHeader {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => http_authorization_header::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED,
+            1 => http_authorization_header::SYSTEM_ID_TOKEN,
+            2 => http_authorization_header::USER_ID_TOKEN,
+            3 => http_authorization_header::NONE,
+            _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+        }
     }
 }
 
 impl std::default::Default for HttpAuthorizationHeader {
     fn default() -> Self {
-        http_authorization_header::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED
+        use std::convert::From;
+        Self::from(0_i32)
     }
 }

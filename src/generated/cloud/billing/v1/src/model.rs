@@ -1307,84 +1307,178 @@ pub mod aggregation_info {
     /// The level at which usage is aggregated to compute cost.
     /// Example: "ACCOUNT" aggregation level indicates that usage for tiered
     /// pricing is aggregated across all projects in a single account.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationLevel(std::borrow::Cow<'static, str>);
-
-    impl AggregationLevel {
-        /// Creates a new AggregationLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AggregationLevel(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AggregationLevel](AggregationLevel)
     pub mod aggregation_level {
         use super::AggregationLevel;
 
         pub const AGGREGATION_LEVEL_UNSPECIFIED: AggregationLevel =
-            AggregationLevel::new("AGGREGATION_LEVEL_UNSPECIFIED");
+            AggregationLevel::known("AGGREGATION_LEVEL_UNSPECIFIED", 0);
 
-        pub const ACCOUNT: AggregationLevel = AggregationLevel::new("ACCOUNT");
+        pub const ACCOUNT: AggregationLevel = AggregationLevel::known("ACCOUNT", 1);
 
-        pub const PROJECT: AggregationLevel = AggregationLevel::new("PROJECT");
+        pub const PROJECT: AggregationLevel = AggregationLevel::known("PROJECT", 2);
+    }
+
+    impl AggregationLevel {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AggregationLevel::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AggregationLevel::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AggregationLevel::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AggregationLevel {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AGGREGATION_LEVEL_UNSPECIFIED" => aggregation_level::AGGREGATION_LEVEL_UNSPECIFIED,
+                "ACCOUNT" => aggregation_level::ACCOUNT,
+                "PROJECT" => aggregation_level::PROJECT,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => aggregation_level::AGGREGATION_LEVEL_UNSPECIFIED,
+                1 => aggregation_level::ACCOUNT,
+                2 => aggregation_level::PROJECT,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AggregationLevel {
         fn default() -> Self {
-            aggregation_level::AGGREGATION_LEVEL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 
     /// The interval at which usage is aggregated to compute cost.
     /// Example: "MONTHLY" aggregation interval indicates that usage for tiered
     /// pricing is aggregated every month.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationInterval(std::borrow::Cow<'static, str>);
-
-    impl AggregationInterval {
-        /// Creates a new AggregationInterval instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct AggregationInterval(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [AggregationInterval](AggregationInterval)
     pub mod aggregation_interval {
         use super::AggregationInterval;
 
         pub const AGGREGATION_INTERVAL_UNSPECIFIED: AggregationInterval =
-            AggregationInterval::new("AGGREGATION_INTERVAL_UNSPECIFIED");
+            AggregationInterval::known("AGGREGATION_INTERVAL_UNSPECIFIED", 0);
 
-        pub const DAILY: AggregationInterval = AggregationInterval::new("DAILY");
+        pub const DAILY: AggregationInterval = AggregationInterval::known("DAILY", 1);
 
-        pub const MONTHLY: AggregationInterval = AggregationInterval::new("MONTHLY");
+        pub const MONTHLY: AggregationInterval = AggregationInterval::known("MONTHLY", 2);
+    }
+
+    impl AggregationInterval {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationInterval {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationInterval {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(AggregationInterval::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(AggregationInterval::from(val)),
+                Enumeration::UnknownNum { str } => Ok(AggregationInterval::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for AggregationInterval {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "AGGREGATION_INTERVAL_UNSPECIFIED" => {
+                    aggregation_interval::AGGREGATION_INTERVAL_UNSPECIFIED
+                }
+                "DAILY" => aggregation_interval::DAILY,
+                "MONTHLY" => aggregation_interval::MONTHLY,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationInterval {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => aggregation_interval::AGGREGATION_INTERVAL_UNSPECIFIED,
+                1 => aggregation_interval::DAILY,
+                2 => aggregation_interval::MONTHLY,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for AggregationInterval {
         fn default() -> Self {
-            aggregation_interval::AGGREGATION_INTERVAL_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
@@ -1443,49 +1537,97 @@ pub mod geo_taxonomy {
     use super::*;
 
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
-
-    impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct Type(wkt::enumerations::Enumeration);
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
         use super::Type;
 
         /// The type is not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::known("TYPE_UNSPECIFIED", 0);
 
         /// The sku is global in nature, e.g. a license sku. Global skus are
         /// available in all regions, and so have an empty region list.
-        pub const GLOBAL: Type = Type::new("GLOBAL");
+        pub const GLOBAL: Type = Type::known("GLOBAL", 1);
 
         /// The sku is available in a specific region, e.g. "us-west2".
-        pub const REGIONAL: Type = Type::new("REGIONAL");
+        pub const REGIONAL: Type = Type::known("REGIONAL", 2);
 
         /// The sku is associated with multiple regions, e.g. "us-west2" and
         /// "us-east1".
-        pub const MULTI_REGIONAL: Type = Type::new("MULTI_REGIONAL");
+        pub const MULTI_REGIONAL: Type = Type::known("MULTI_REGIONAL", 3);
+    }
+
+    impl Type {
+        pub(crate) const fn known(str: &'static str, val: i32) -> Self {
+            Self(wkt::enumerations::Enumeration::known(str, val))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            self.0.value()
+        }
+
+        /// Gets the numeric value of the enum (if available).
+        pub fn numeric_value(&self) -> std::option::Option<i32> {
+            self.0.numeric_value()
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            self.0.serialize(serializer)
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            use std::convert::From;
+            use std::result::Result::Ok;
+            use wkt::enumerations::Enumeration;
+            match Enumeration::deserialize(deserializer)? {
+                Enumeration::Known { str: _, val } => Ok(Type::from(val)),
+                Enumeration::UnknownStr { val, str: _ } => Ok(Type::from(val)),
+                Enumeration::UnknownNum { str } => Ok(Type::from(str)),
+            }
+        }
     }
 
     impl std::convert::From<std::string::String> for Type {
         fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+            match value.as_str() {
+                "TYPE_UNSPECIFIED" => r#type::TYPE_UNSPECIFIED,
+                "GLOBAL" => r#type::GLOBAL,
+                "REGIONAL" => r#type::REGIONAL,
+                "MULTI_REGIONAL" => r#type::MULTI_REGIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_str(value)),
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => r#type::TYPE_UNSPECIFIED,
+                1 => r#type::GLOBAL,
+                2 => r#type::REGIONAL,
+                3 => r#type::MULTI_REGIONAL,
+                _ => Self(wkt::enumerations::Enumeration::known_num(value)),
+            }
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            use std::convert::From;
+            Self::from(0_i32)
         }
     }
 }
