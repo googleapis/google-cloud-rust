@@ -119,6 +119,7 @@ asscociated = "asscociated"
 launguage   = "launguage"
 simliar     = "simliar"
 inputed     = "inputed"     # probably mean input-ed
+maxiumn     = "maxiumn"
 # src/generated/cloud/edgenetwork/v1 has a typo, it needs to be fixed upstream.
 diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
@@ -143,6 +144,9 @@ Insepction = "Insepction"
 # src/generated/cloud/networkconnectivity has a typo, it needs to be fixed
 # upstream.
 flexibile = "flexibile"
+# src/generated/cloud/networkservices/v1 has a typo, it needs to be fixed
+# upstream.
+forwareded = "forwareded"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
 # src/generated/cloud/netapp/v1 has a typo, it needs to be fixed upstream.
@@ -218,6 +222,10 @@ combintation = "combintation"
 # true positives
 [type.rust]
 extend-ignore-re = [
+  # This is intentional, `typ` is the name of a field in OAuth2 claims:
+  "\"typ\"",
+  "\\Wtyp:",
+  "test_typ\"",
   # src/generated/cloud/aiplatform has a typo in the code. Won't be fixed.
   # Seems too risky to ignore the word, a RE seems cleaner
   "CheckTrialEarlyStoppingStateMetatdata",
