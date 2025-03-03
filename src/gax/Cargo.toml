@@ -38,7 +38,7 @@ rpc         = { version = "0.1", path = "../generated/rpc/types", package = "goo
 serde       = "1.0.218"
 serde_json  = "1"
 serde_with  = { version = "3.12.0", default-features = false, features = ["base64", "macros"] }
-thiserror   = "2.0.11"
+thiserror   = "2.0.12"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread"] }
 wkt         = { version = "0.1", path = "../wkt", package = "google-cloud-wkt" }
 
