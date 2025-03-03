@@ -28,8 +28,8 @@ run-integration-tests = []
 auth          = { path = "../../../src/auth", package = "google-cloud-auth" }
 gax           = { path = "../../../src/gax", package = "google-cloud-gax" }
 language      = { path = "../../../src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
-scoped-env    = "2.1.0"
+scoped-env    = "2"
 secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
-serial_test   = "3.2.0"
-tempfile      = "3.17.1"
-tokio         = { version = "1.42", features = ["full", "macros"] }
+serial_test   = "3"
+tempfile      = "3"
+tokio         = { version = "1", features = ["full", "macros"] }

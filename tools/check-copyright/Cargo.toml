@@ -19,4 +19,4 @@ edition = "2021"
 publish = false
 
 [dependencies]
-regex = "1.11.1"
+regex = "1"

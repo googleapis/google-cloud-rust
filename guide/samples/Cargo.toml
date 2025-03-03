@@ -28,18 +28,18 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-tokio = { version = "1.43", features = ["full", "macros"] }
+tokio = { version = "1", features = ["full", "macros"] }
 # ANCHOR: longrunning
-google-cloud-longrunning = { version = "0.22.0", path = "../../src/generated/longrunning" }
+google-cloud-longrunning = { version = "0.22", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
 # ANCHOR: gax
-google-cloud-gax = { version = "0.20.0", path = "../../src/gax" }
+google-cloud-gax = { version = "0.20", path = "../../src/gax" }
 # ANCHOR_END: gax
 # ANCHOR: speech
-google-cloud-speech-v2 = { version = "0.1.0", path = "../../src/generated/cloud/speech/v2" }
+google-cloud-speech-v2 = { version = "0.1", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
 # ANCHOR: secretmanager
-google-cloud-secretmanager-v1 = { version = "0.1.0", features = [
+google-cloud-secretmanager-v1 = { version = "0.1", features = [
   "unstable-stream",
 ], path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
