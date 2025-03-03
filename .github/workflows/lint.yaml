@@ -31,7 +31,7 @@ jobs:
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/lint.yaml') }}
       - run: |
           rustup component list
-          cargo install typos-cli --version 1.29.4
+          cargo install typos-cli --version 1.30.0 --locked
       - run: typos
   misc-formatting:
     runs-on: ubuntu-24.04
@@ -68,7 +68,7 @@ jobs:
             xargs -0 yamlfmt
       - name: Format TOML files
         run: |
-          cargo install taplo-cli --version 0.9.3
+          cargo install taplo-cli --version 0.9.3 --locked
           git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
             xargs -0 taplo fmt
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
