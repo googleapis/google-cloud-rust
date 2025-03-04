@@ -25,11 +25,9 @@ keywords.workspace   = true
 categories.workspace = true
 
 [features]
-default = ["aws_lc_rs"]
+default = ["default-crypto-provider"]
 
-aws-lc-rs = ["aws_lc_rs"]
-aws_lc_rs = ["rustls/aws_lc_rs"]
-ring      = []
+default-crypto-provider = ["rustls/aws_lc_rs"]
 
 [dependencies]
 async-trait    = "0.1"
