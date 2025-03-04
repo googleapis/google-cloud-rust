@@ -126,9 +126,19 @@ impl TokenProvider for ServiceAccountTokenProvider {
     }
 }
 
+#[cfg(not(feature = "default-crypto-provider"))]
+fn no_crypto_provider_error() -> CredentialError {
+    CredentialError::non_retryable_from_str("No default crypto provider found. Please (1) install a global CryptoProvider, or (2) enable the feature `default-crypto-provider` to have the library pick one for you.")
+}
+
 impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
+        #[cfg(not(feature = "default-crypto-provider"))]
+        let key_provider = CryptoProvider::get_default()
+            .map(|p| p.key_provider)
+            .ok_or_else(no_crypto_provider_error)?;
+        #[cfg(feature = "default-crypto-provider")]
         let key_provider = CryptoProvider::get_default().map_or_else(
             || rustls::crypto::aws_lc_rs::default_provider().key_provider,
             |p| p.key_provider,
@@ -306,6 +316,7 @@ mod test {
             .to_string()
     }
 
+    #[cfg(feature = "default-crypto-provider")]
     #[tokio::test]
     async fn get_service_account_token_pkcs1_key_failure() -> TestResult {
         let mut service_account_info = get_mock_service_account();
@@ -341,6 +352,7 @@ mod test {
         serde_json::from_str(&decoded).unwrap()
     }
 
+    #[cfg(feature = "default-crypto-provider")]
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_info = get_mock_service_account();
@@ -372,6 +384,7 @@ mod test {
         Ok(())
     }
 
+    #[cfg(feature = "default-crypto-provider")]
     #[tokio::test]
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
         let mut service_account_info = get_mock_service_account();
@@ -386,6 +399,7 @@ mod test {
         Ok(())
     }
 
+    #[cfg(feature = "default-crypto-provider")]
     #[test]
     fn signer_failure() -> TestResult {
         let tp = ServiceAccountTokenProvider {
@@ -408,5 +422,17 @@ mod test {
             ServiceAccountTokenProvider::unexpected_private_key_error(Item::Crl(Vec::new().into()));
         assert!(error.to_string().contains(&expected_message));
         Ok(())
+    }
+
+    #[cfg(not(feature = "default-crypto-provider"))]
+    #[tokio::test]
+    async fn no_crypto_provider_error() {
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info: get_mock_service_account(),
+        };
+        let token = token_provider.get_token().await;
+        assert!(token.is_err());
+        let e = format!("{}", token.err().unwrap());
+        assert!(e.to_string().contains("No default crypto provider"), "{e}");
     }
 }
