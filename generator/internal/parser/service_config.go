@@ -20,6 +20,7 @@ import (
 	"path"
 
 	"github.com/ghodss/yaml"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -54,7 +55,7 @@ func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 // path (or `extra-protos-root` when set). This finds the right path given a
 // configuration
 func findServiceConfigPath(serviceConfigFile string, options map[string]string) string {
-	for _, opt := range SourceRoots(options) {
+	for _, opt := range config.SourceRoots(options) {
 		dir, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set
