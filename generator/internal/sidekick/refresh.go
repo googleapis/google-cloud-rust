@@ -24,6 +24,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
+	"github.com/googleapis/google-cloud-rust/generator/internal/rust_prost"
 )
 
 func init() {
@@ -96,6 +97,8 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	switch config.General.Language {
 	case "rust":
 		return rust.Generate(model, output, config.Codec)
+	case "rust+prost":
+		return rust_prost.Generate(model, output, config)
 	case "go":
 		return golang.Generate(model, output, config.Codec)
 	case "dart":
