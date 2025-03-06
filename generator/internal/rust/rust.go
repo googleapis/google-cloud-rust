@@ -1515,7 +1515,7 @@ func externPackages(extraPackages []*packagez) []string {
 	return names
 }
 
-func packageName(api *api.API, packageNameOverride string) string {
+func PackageName(api *api.API, packageNameOverride string) string {
 	if len(packageNameOverride) > 0 {
 		return packageNameOverride
 	}

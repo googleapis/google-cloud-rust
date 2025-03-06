@@ -193,7 +193,7 @@ func annotateModel(model *api.API, c *codec, outdir string) *modelAnnotations {
 
 	loadWellKnownTypes(model.State)
 	resolveUsedPackages(model, c.extraPackages)
-	packageName := packageName(model, c.packageNameOverride)
+	packageName := PackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	// Only annotate enums and messages that we intend to generate. In the
 	// process we discover the external dependencies and trim the list of

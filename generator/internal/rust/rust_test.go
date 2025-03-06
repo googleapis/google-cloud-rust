@@ -130,7 +130,7 @@ func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api 
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := packageName(api, c.packageNameOverride)
+	got := PackageName(api, c.packageNameOverride)
 	if want != got {
 		t.Errorf("mismatch in package name, want=%s, got=%s", want, got)
 	}
