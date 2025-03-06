@@ -26,6 +26,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -106,7 +107,7 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 		"--retain_options",
 		"--descriptor_set_out", tempFile,
 	}
-	for _, name := range SourceRoots(options) {
+	for _, name := range config.SourceRoots(options) {
 		if path, ok := options[name]; ok {
 			args = append(args, "--proto_path")
 			args = append(args, path)
@@ -136,7 +137,7 @@ func determineInputFiles(source string, options map[string]string) ([]string, er
 	// `config.Source` is relative to the `googleapis-root`,
 	// or `extra-protos-root`, when that is set. It should always be a directory
 	// and by default all the the files in that directory are used.
-	for _, opt := range SourceRoots(options) {
+	for _, opt := range config.SourceRoots(options) {
 		location, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set
