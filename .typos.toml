@@ -160,6 +160,9 @@ supercedes = "supercedes"
 # src/generated/cloud/orchestration/airflow/service/v1 has a typo, it needs to
 # be fixed upstream.
 specifc = "specifc"
+# src/generated/cloud/parametermanager/v1 has a typo, it needs to be fixed
+# upstream.
+substituion = "substituion"
 # src/generated/cloud/rapidmigrationassessment/v1 has a typo, it needs to be
 # fixed upstream
 thorugh = "thorugh"
