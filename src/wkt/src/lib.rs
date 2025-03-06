@@ -40,3 +40,6 @@ pub use crate::rstruct::*;
 mod wrappers;
 pub use crate::wrappers::*;
 pub mod message;
+
+#[cfg(feature = "prost")]
+pub mod prost;
