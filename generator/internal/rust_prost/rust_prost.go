@@ -44,7 +44,7 @@ type root struct {
 
 func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	if cfg.General.SpecificationFormat != "protobuf" {
-		return fmt.Errorf("the `rust+prost` generator only supports `protobuf` as an specification source, outdir=%s", outdir)
+		return fmt.Errorf("the `rust+prost` generator only supports `protobuf` as a specification source, outdir=%s", outdir)
 	}
 	if err := testExternalCommand("cargo", "--version"); err != nil {
 		return fmt.Errorf("got an error trying to run `cargo --version`, the instructions on https://www.rust-lang.org/learn/get-started may solve this problem: %w", err)
@@ -109,7 +109,6 @@ func buildRS(googleapisRoot, outdir string) error {
 	cmd.Dir = outdir
 	cmd.Env = append(os.Environ(), fmt.Sprintf("GOOGLEAPIS_ROOT=%s", absolute))
 	return runAndCaptureErrors(cmd)
-
 }
 
 func testExternalCommand(c string, arg ...string) error {
