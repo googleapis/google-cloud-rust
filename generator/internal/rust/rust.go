@@ -63,7 +63,7 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 	}
 	annotations := annotateModel(model, codec, outdir)
 	provider := templatesProvider()
-	generatedFiles := generatedFiles(codec.generateModule, annotations.HasServices)
+	generatedFiles := codec.generatedFiles(annotations.HasServices)
 	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
 }
 
@@ -655,10 +655,10 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func generatedFiles(generateModule, hasServices bool) []language.GeneratedFile {
+func (c *codec) generatedFiles(hasServices bool) []language.GeneratedFile {
 	var root string
 	switch {
-	case generateModule:
+	case c.generateModule:
 		root = "templates/mod"
 	case !hasServices:
 		root = "templates/nosvc"
