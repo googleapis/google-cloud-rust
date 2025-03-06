@@ -86,7 +86,7 @@ type Error = AnyError;
 impl Any {
     /// Returns the name of the contained type.
     ///
-    /// An any may container any message type. The name of the message is a URL,
+    /// An any may contain any message type. The name of the message is a URL,
     /// usually with the `https://` scheme elided. All types in Google Cloud
     /// APIs are of the form
     /// `https://type.googleapis.com/${fully-qualified-name}`.
