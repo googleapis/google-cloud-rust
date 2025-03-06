@@ -32,6 +32,7 @@ members = [
   "src/auth",
   "src/auth/integration-tests",
   "src/base",
+  "src/firestore",
   "src/gax",
   "src/generated/api/apikeys/v2",
   "src/generated/api/servicecontrol/v1",
