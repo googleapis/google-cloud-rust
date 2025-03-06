@@ -17,6 +17,7 @@ use crate::credentials::{Credential, Result};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
+use derive_builder::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
@@ -33,15 +34,23 @@ pub(crate) fn new() -> Credential {
         endpoint: METADATA_ROOT.to_string(),
     };
     Credential {
-        inner: Arc::new(MDSCredential { token_provider }),
+        inner: Arc::new(
+            MDSCredentialBuilder::<MDSAccessTokenProvider>::default()
+                .token_provider(token_provider)
+                .build()
+                .unwrap(),
+        ),
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Builder, Clone, Default)]
+#[builder(setter(into), default)]
 struct MDSCredential<T>
 where
     T: TokenProvider,
 {
+    quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     token_provider: T,
 }
 
@@ -78,8 +87,13 @@ struct MDSTokenResponse {
     token_type: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Default, Builder)]
+#[builder(setter(into), default)]
 struct MDSAccessTokenProvider {
+    #[builder(default = "String::new()")]
+    service_account_email: String,
+    scopes: Option<Vec<String>>,
+    default_scopes: Option<Vec<String>>,
     endpoint: String,
 }
 
@@ -124,11 +138,19 @@ impl MDSAccessTokenProvider {
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
+        let scopes = if self.scopes.is_some() {
+            self.scopes.clone()
+        } else {
+            self.default_scopes.clone()
+        };
+        let scopes = scopes.unwrap_or_default().join(",");
+
         let request = client
             .get(format!(
-                "{}/instance/service-accounts/default/token",
-                self.endpoint
+                "{}/instance/service-accounts/{}/token",
+                self.endpoint, self.service_account_email
             ))
+            .query(&[("scopes", scopes)])
             .header(
                 METADATA_FLAVOR,
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
