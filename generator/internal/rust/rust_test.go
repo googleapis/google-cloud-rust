@@ -256,23 +256,24 @@ func TestWellKnownTypesAsMethod(t *testing.T) {
 }
 
 func TestGeneratedFiles(t *testing.T) {
-	generateModule := true
-	files := generatedFiles(generateModule, false)
+	c := codec{}
+	c.generateModule = true
+	files := c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(true, false)")
 	}
 	// No crate for module-only files
 	unexpectedGeneratedFile(t, "Cargo.toml", files)
 
-	files = generatedFiles(generateModule, true)
+	files = c.generatedFiles(true)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(true, true)")
 	}
 	// No crate for module-only files
 	unexpectedGeneratedFile(t, "Cargo.toml", files)
 
-	generateModule = false
-	files = generatedFiles(generateModule, false)
+	c.generateModule = false
+	files = c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
 	}
@@ -281,7 +282,7 @@ func TestGeneratedFiles(t *testing.T) {
 	// Should not have a client if there are no services.
 	unexpectedGeneratedFile(t, "client.rs", files)
 
-	files = generatedFiles(generateModule, true)
+	files = c.generatedFiles(true)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
 	}
