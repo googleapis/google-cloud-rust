@@ -53,6 +53,8 @@ type modelAnnotations struct {
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
+	// Sets the default system parameters
+	DefaultSystemParameters []systemParameter
 }
 
 type serviceAnnotations struct {
@@ -106,6 +108,7 @@ type methodAnnotation struct {
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
 	OperationInfo       *operationInfo
+	SystemParameters    []systemParameter
 }
 
 type pathInfoAnnotation struct {
@@ -397,6 +400,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToPascal: toPascal(s.Name),
 		ServiceNameToCamel:  toCamel(s.Name),
 		ServiceNameToSnake:  toSnake(s.Name),
+		SystemParameters:    c.systemParameters,
 	}
 	if m.OperationInfo != nil {
 		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)

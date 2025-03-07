@@ -43,7 +43,7 @@ func createRustCodec() *codec {
 	}
 }
 
-func TestParseOptions(t *testing.T) {
+func TestParseOptionsProtobuf(t *testing.T) {
 	options := map[string]string{
 		"version":               "1.2.3",
 		"package-name-override": "test-only",
@@ -53,7 +53,7 @@ func TestParseOptions(t *testing.T) {
 		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
 		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
 	}
-	got, err := newCodec(options)
+	got, err := newCodec(true, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -91,6 +91,46 @@ func TestParseOptions(t *testing.T) {
 			"google.protobuf": gp,
 			"test-only":       gp,
 		},
+		systemParameters: []systemParameter{
+			{Name: "$alt", Value: "json;enum-encoding=int"},
+		},
+	}
+	sort.Slice(want.extraPackages, func(i, j int) bool {
+		return want.extraPackages[i].name < want.extraPackages[j].name
+	})
+	sort.Slice(got.extraPackages, func(i, j int) bool {
+		return got.extraPackages[i].name < got.extraPackages[j].name
+	})
+	if diff := cmp.Diff(want, got, cmp.AllowUnexported(codec{}, packagez{})); diff != "" {
+		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
+	}
+	if want.packageNameOverride != got.packageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.packageNameOverride, got.packageNameOverride)
+	}
+	checkRustPackages(t, got, want)
+}
+
+func TestParseOptionsOpenAPI(t *testing.T) {
+	options := map[string]string{
+		"version":               "1.2.3",
+		"package-name-override": "test-only",
+		"copyright-year":        "2035",
+	}
+	got, err := newCodec(false, options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &codec{
+		version:             "1.2.3",
+		releaseLevel:        "preview",
+		packageNameOverride: "test-only",
+		generationYear:      "2035",
+		modulePath:          "crate::model",
+		extraPackages:       []*packagez{},
+		packageMapping:      map[string]*packagez{},
+		systemParameters: []systemParameter{
+			{Name: "$alt", Value: "json"},
+		},
 	}
 	sort.Slice(want.extraPackages, func(i, j int) bool {
 		return want.extraPackages[i].name < want.extraPackages[j].name
@@ -126,7 +166,7 @@ func TestPackageName(t *testing.T) {
 
 func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api *api.API) {
 	t.Helper()
-	c, err := newCodec(opts)
+	c, err := newCodec(true, opts)
 	if err != nil {
 		t.Fatal(err)
 	}

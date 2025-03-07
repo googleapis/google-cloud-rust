@@ -18,46 +18,56 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct {{Codec.Name}}(std::borrow::Cow<'static, str>);
+pub struct {{Codec.Name}}(i32);
 
 impl {{Codec.Name}} {
-    /// Creates a new {{Codec.Name}} instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [{{Codec.Name}}]({{Codec.Name}})
-pub mod {{Codec.ModuleName}} {
-    use super::{{Codec.Name}};
-    
     {{#Values}}
 
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new("{{Codec.Name}}");
+    pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new({{Number}});
     {{/Values}}
+
+    /// Creates a new {{Codec.Name}} instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            {{#UniqueNumberValues}}
+            {{Number}} => std::borrow::Cow::Borrowed("{{Name}}"),
+            {{/UniqueNumberValues}}
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            {{#Values}}
+            "{{Name}}" => std::option::Option::Some(Self::{{Codec.Name}}),
+            {{/Values}}
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for {{Codec.Name}} {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for {{Codec.Name}} {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for {{Codec.Name}} {
     fn default() -> Self {
-        {{#Codec.DefaultValueName}}
-        {{Codec.ModuleName}}::{{Codec.DefaultValueName}}
-        {{/Codec.DefaultValueName}}
-        {{^Codec.DefaultValueName}}
-        Self::new("")
-        {{/Codec.DefaultValueName}}
+        Self::new(0)
     }
 }

@@ -18,14 +18,14 @@ mod generated {
 
     #[test]
     fn string_to_constant() {
-        let got = Syntax::new("SYNTAX_PROTO2");
-        assert_eq!(google_cloud_wkt::syntax::SYNTAX_PROTO2, got);
+        let got = Syntax::from_str_name("SYNTAX_PROTO2");
+        assert_eq!(Some(google_cloud_wkt::Syntax::SYNTAX_PROTO2), got)
     }
 }
 
 #[cfg(test)]
 mod desired_protobuf {
-    use model::OptimizeMode;
+    use google_cloud_wkt::file_options::OptimizeMode;
     use serde_json::json;
     use test_case::test_case;
     type TestResult = Result<(), Box<dyn std::error::Error>>;
@@ -82,55 +82,5 @@ mod desired_protobuf {
     fn default() {
         let got = OptimizeMode::default();
         assert_eq!(got.value(), 0);
-    }
-
-    #[no_implicit_prelude]
-    mod model {
-        extern crate serde;
-        extern crate std;
-        // TODO(#1379) - replace this code with a `use google_cloud_wkt::model::OptimizeMode`
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct OptimizeMode(i32);
-
-        impl OptimizeMode {
-            pub const SPEED: OptimizeMode = OptimizeMode::new(1);
-            pub const CODE_SIZE: OptimizeMode = OptimizeMode::new(2);
-            pub const LITE_RUNTIME: OptimizeMode = OptimizeMode::new(3);
-
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-            pub fn value(&self) -> i32 {
-                self.0
-            }
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    1 => std::borrow::Cow::Borrowed("SPEED"),
-                    2 => std::borrow::Cow::Borrowed("CODE_SIZE"),
-                    3 => std::borrow::Cow::Borrowed("LITE_RUNTIME"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "SPEED" => std::option::Option::Some(Self::SPEED),
-                    "CODE_SIZE" => std::option::Option::Some(Self::CODE_SIZE),
-                    "LITE_RUNTIME" => std::option::Option::Some(Self::LITE_RUNTIME),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for OptimizeMode {
-            fn from(value: i32) -> Self {
-                Self::new(value)
-            }
-        }
-
-        impl std::default::Default for OptimizeMode {
-            fn default() -> Self {
-                Self::new(0)
-            }
-        }
     }
 }

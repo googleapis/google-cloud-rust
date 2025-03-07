@@ -19,7 +19,7 @@ mod enums {
     #[test]
     fn test_default_value() {
         let default = secret_version::State::default();
-        assert_eq!(default, secret_version::state::STATE_UNSPECIFIED);
+        assert_eq!(default, secret_version::State::STATE_UNSPECIFIED);
     }
 
     #[test]
@@ -30,7 +30,7 @@ mod enums {
         let secret_version = serde_json::from_value::<SecretVersion>(input).unwrap();
         assert_eq!(
             secret_version.state,
-            secret_version::state::STATE_UNSPECIFIED
+            secret_version::State::STATE_UNSPECIFIED
         );
     }
 }

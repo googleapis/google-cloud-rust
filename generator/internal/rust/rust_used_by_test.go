@@ -28,7 +28,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 		ID:   ".test.Service",
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
-	c, err := newCodec(map[string]string{
+	c, err := newCodec(true, map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 	})
@@ -62,7 +62,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 
 func TestUsedByServicesNoServices(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c, err := newCodec(map[string]string{
+	c, err := newCodec(true, map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 	})
@@ -104,7 +104,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 		Methods: []*api.Method{method},
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
-	c, err := newCodec(map[string]string{
+	c, err := newCodec(true, map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
 	})
@@ -147,7 +147,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		Methods: []*api.Method{method},
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
-	c, err := newCodec(map[string]string{
+	c, err := newCodec(true, map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
 	})
@@ -188,7 +188,7 @@ func TestRequiredPackages(t *testing.T) {
 		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
 		"package:auth":        "ignore=true",
 	}
-	c, err := newCodec(options)
+	c, err := newCodec(true, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -209,7 +209,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	options := map[string]string{
 		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only,force-used=true",
 	}
-	c, err := newCodec(options)
+	c, err := newCodec(true, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -257,7 +257,7 @@ func TestFindUsedPackages(t *testing.T) {
 		Package: "google.cloud.common",
 	}
 
-	c, err := newCodec(map[string]string{
+	c, err := newCodec(true, map[string]string{
 		"package:common":      "package=google-cloud-common,source=google.cloud.common,path=src/generated/cloud/common,version=0.2",
 		"package:longrunning": "package=google-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2",
 	})

@@ -58,7 +58,7 @@ var commentUrlRegex = regexp.MustCompile(
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
 
 func Generate(model *api.API, outdir string, cfg *config.Config) error {
-	codec, err := newCodec(cfg.Codec)
+	codec, err := newCodec(cfg.General.SpecificationFormat == "protobuf", cfg.Codec)
 	if err != nil {
 		return err
 	}
@@ -68,15 +68,27 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
 }
 
-func newCodec(options map[string]string) (*codec, error) {
+func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
+	var sysParams []systemParameter
+	if protobufSource {
+		sysParams = append(sysParams, systemParameter{
+			Name: "$alt", Value: "json;enum-encoding=int",
+		})
+	} else {
+		sysParams = append(sysParams, systemParameter{
+			Name: "$alt", Value: "json",
+		})
+	}
+
 	year, _, _ := time.Now().Date()
 	codec := &codec{
-		generationYear: fmt.Sprintf("%04d", year),
-		modulePath:     "crate::model",
-		extraPackages:  []*packagez{},
-		packageMapping: map[string]*packagez{},
-		version:        "0.0.0",
-		releaseLevel:   "preview",
+		generationYear:   fmt.Sprintf("%04d", year),
+		modulePath:       "crate::model",
+		extraPackages:    []*packagez{},
+		packageMapping:   map[string]*packagez{},
+		version:          "0.0.0",
+		releaseLevel:     "preview",
+		systemParameters: sysParams,
 	}
 
 	for key, definition := range options {
@@ -211,6 +223,13 @@ type codec struct {
 	hasServices bool
 	// A list of `rustdoc` warnings disabled for specific services.
 	disabledRustdocWarnings []string
+	// The default system parameters included in all requests.
+	systemParameters []systemParameter
+}
+
+type systemParameter struct {
+	Name  string
+	Value string
 }
 
 type packagez struct {

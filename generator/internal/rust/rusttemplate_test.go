@@ -28,7 +28,7 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "google.cloud.workflows.v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -89,7 +89,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message, map_message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -196,7 +196,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 
 	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -264,7 +264,7 @@ func Test_JsonNameAnnotations(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
-	codec, err := newCodec(map[string]string{})
+	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
