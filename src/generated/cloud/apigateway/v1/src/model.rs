@@ -400,9 +400,9 @@ pub mod api_config {
         pub path: std::string::String,
 
         /// The bytes that constitute the file.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub contents: bytes::Bytes,
+        pub contents: ::bytes::Bytes,
     }
 
     impl File {
@@ -417,7 +417,7 @@ pub mod api_config {
         }
 
         /// Sets the value of [contents][crate::model::api_config::File::contents].
-        pub fn set_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.contents = v.into();
             self
         }

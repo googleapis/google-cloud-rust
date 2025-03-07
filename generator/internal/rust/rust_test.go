@@ -416,7 +416,7 @@ func TestFieldAttributes(t *testing.T) {
 		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
 		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
 
-		"f_bytes":          `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
 		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
 		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
 
@@ -694,7 +694,7 @@ func TestFieldLossyName(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"data": `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" +
+		"data": `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" +
 			`#[serde_as(as = "serde_with::base64::Base64")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
 			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +

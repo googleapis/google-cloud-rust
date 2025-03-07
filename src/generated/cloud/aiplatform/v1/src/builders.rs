@@ -30781,7 +30781,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [input][crate::model::DirectRawPredictRequest::input].
-        pub fn set_input<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_input<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.input = v.into();
             self
         }

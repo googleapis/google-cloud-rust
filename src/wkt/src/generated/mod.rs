@@ -3113,9 +3113,9 @@ pub struct UninterpretedOption {
 
     pub double_value: f64,
 
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub string_value: bytes::Bytes,
+    pub string_value: ::bytes::Bytes,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub aggregate_value: std::string::String,
@@ -3154,7 +3154,7 @@ impl UninterpretedOption {
     }
 
     /// Sets the value of [string_value][crate::UninterpretedOption::string_value].
-    pub fn set_string_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_string_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.string_value = v.into();
         self
     }

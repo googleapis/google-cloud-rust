@@ -2623,7 +2623,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [wrapped_key][crate::model::ImportCryptoKeyVersionRequest::wrapped_key].
-        pub fn set_wrapped_key<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_wrapped_key<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.wrapped_key = v.into();
             self
         }
@@ -2990,13 +2990,13 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
-        pub fn set_plaintext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_plaintext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
         }
 
         /// Sets the value of [additional_authenticated_data][crate::model::EncryptRequest::additional_authenticated_data].
-        pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_additional_authenticated_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
@@ -3061,13 +3061,13 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
-        pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
 
         /// Sets the value of [additional_authenticated_data][crate::model::DecryptRequest::additional_authenticated_data].
-        pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_additional_authenticated_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
@@ -3134,13 +3134,13 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
-        pub fn set_plaintext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_plaintext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
         }
 
         /// Sets the value of [additional_authenticated_data][crate::model::RawEncryptRequest::additional_authenticated_data].
-        pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_additional_authenticated_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
@@ -3166,7 +3166,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [initialization_vector][crate::model::RawEncryptRequest::initialization_vector].
-        pub fn set_initialization_vector<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_initialization_vector<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.initialization_vector = v.into();
             self
         }
@@ -3222,19 +3222,19 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
-        pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
 
         /// Sets the value of [additional_authenticated_data][crate::model::RawDecryptRequest::additional_authenticated_data].
-        pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_additional_authenticated_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
 
         /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
-        pub fn set_initialization_vector<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_initialization_vector<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.initialization_vector = v.into();
             self
         }
@@ -3334,7 +3334,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data][crate::model::AsymmetricSignRequest::data].
-        pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
@@ -3393,7 +3393,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
-        pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_ciphertext<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
@@ -3449,7 +3449,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data][crate::model::MacSignRequest::data].
-        pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
@@ -3505,7 +3505,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data][crate::model::MacVerifyRequest::data].
-        pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
@@ -3520,7 +3520,7 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
-        pub fn set_mac<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_mac<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.mac = v.into();
             self
         }

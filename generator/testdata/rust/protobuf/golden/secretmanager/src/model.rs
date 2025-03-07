@@ -1313,9 +1313,9 @@ impl wkt::message::Message for Rotation {
 pub struct SecretPayload {
 
     /// The secret data. Must be no larger than 64KiB.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Optional. If specified,
     /// [SecretManagerService][google.cloud.secretmanager.v1.SecretManagerService]
@@ -1350,7 +1350,7 @@ impl SecretPayload {
     }
 
     /// Sets the value of [data][crate::model::SecretPayload::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }

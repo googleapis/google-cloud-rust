@@ -63,9 +63,9 @@ pub struct AptArtifact {
     pub component: std::string::String,
 
     /// Output only. Contents of the artifact's control metadata file.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub control_file: bytes::Bytes,
+    pub control_file: ::bytes::Bytes,
 }
 
 impl AptArtifact {
@@ -107,7 +107,7 @@ impl AptArtifact {
     }
 
     /// Sets the value of [control_file][crate::model::AptArtifact::control_file].
-    pub fn set_control_file<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_control_file<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.control_file = v.into();
         self
     }
@@ -1846,9 +1846,9 @@ pub struct Hash {
     pub r#type: crate::model::hash::HashType,
 
     /// The hash value.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 }
 
 impl Hash {
@@ -1863,7 +1863,7 @@ impl Hash {
     }
 
     /// Sets the value of [value][crate::model::Hash::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }

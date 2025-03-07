@@ -1925,9 +1925,9 @@ pub mod create_table_request {
     #[non_exhaustive]
     pub struct Split {
         /// Row key to use as an initial tablet boundary.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub key: bytes::Bytes,
+        pub key: ::bytes::Bytes,
     }
 
     impl Split {
@@ -1936,7 +1936,7 @@ pub mod create_table_request {
         }
 
         /// Sets the value of [key][crate::model::create_table_request::Split::key].
-        pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
@@ -2056,7 +2056,7 @@ impl DropRowRangeRequest {
     /// The value of [target][crate::model::DropRowRangeRequest::target]
     /// if it holds a `RowKeyPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_row_key_prefix(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_row_key_prefix(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v) => {
@@ -2084,7 +2084,7 @@ impl DropRowRangeRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
-    pub fn set_row_key_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.target = std::option::Option::Some(
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v.into()),
         );
@@ -2122,7 +2122,7 @@ pub mod drop_row_range_request {
     pub enum Target {
         /// Delete all rows that start with this row key prefix. Prefix cannot be
         /// zero length.
-        RowKeyPrefix(bytes::Bytes),
+        RowKeyPrefix(::bytes::Bytes),
         /// Delete all rows in the table. Setting this to false is a no-op.
         DeleteAllDataFromTable(bool),
     }
@@ -6816,7 +6816,7 @@ pub mod authorized_view {
         /// Individual exact column qualifiers to be included in the AuthorizedView.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub qualifiers: std::vec::Vec<bytes::Bytes>,
+        pub qualifiers: std::vec::Vec<::bytes::Bytes>,
 
         /// Prefixes for qualifiers to be included in the AuthorizedView. Every
         /// qualifier starting with one of these prefixes is included in the
@@ -6825,7 +6825,7 @@ pub mod authorized_view {
         /// ("").
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub qualifier_prefixes: std::vec::Vec<bytes::Bytes>,
+        pub qualifier_prefixes: std::vec::Vec<::bytes::Bytes>,
     }
 
     impl FamilySubsets {
@@ -6837,7 +6837,7 @@ pub mod authorized_view {
         pub fn set_qualifiers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.qualifiers = v.into_iter().map(|i| i.into()).collect();
@@ -6848,7 +6848,7 @@ pub mod authorized_view {
         pub fn set_qualifier_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.qualifier_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -6872,7 +6872,7 @@ pub mod authorized_view {
         /// To provide access to all rows, include the empty string as a prefix ("").
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub row_prefixes: std::vec::Vec<bytes::Bytes>,
+        pub row_prefixes: std::vec::Vec<::bytes::Bytes>,
 
         /// Map from column family name to the columns in this family to be included
         /// in the AuthorizedView.
@@ -6892,7 +6892,7 @@ pub mod authorized_view {
         pub fn set_row_prefixes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.row_prefixes = v.into_iter().map(|i| i.into()).collect();

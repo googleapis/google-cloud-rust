@@ -874,9 +874,9 @@ pub struct ByteContentItem {
     pub r#type: crate::model::byte_content_item::BytesType,
 
     /// Content data to inspect or redact.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 }
 
 impl ByteContentItem {
@@ -894,7 +894,7 @@ impl ByteContentItem {
     }
 
     /// Sets the value of [data][crate::model::ByteContentItem::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -2565,9 +2565,9 @@ impl wkt::message::Message for Color {
 #[non_exhaustive]
 pub struct RedactImageResponse {
     /// The redacted image. The type will be the same as the original image.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub redacted_image: bytes::Bytes,
+    pub redacted_image: ::bytes::Bytes,
 
     /// If an image was being inspected and the InspectConfig's include_quote was
     /// set to true, then this field will include all text, if any, that was found
@@ -2586,7 +2586,7 @@ impl RedactImageResponse {
     }
 
     /// Sets the value of [redacted_image][crate::model::RedactImageResponse::redacted_image].
-    pub fn set_redacted_image<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_redacted_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.redacted_image = v.into();
         self
     }
@@ -10160,9 +10160,9 @@ impl wkt::message::Message for TransientCryptoKey {
 #[non_exhaustive]
 pub struct UnwrappedCryptoKey {
     /// Required. A 128/192/256 bit key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub key: bytes::Bytes,
+    pub key: ::bytes::Bytes,
 }
 
 impl UnwrappedCryptoKey {
@@ -10171,7 +10171,7 @@ impl UnwrappedCryptoKey {
     }
 
     /// Sets the value of [key][crate::model::UnwrappedCryptoKey::key].
-    pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
@@ -10200,9 +10200,9 @@ impl wkt::message::Message for UnwrappedCryptoKey {
 #[non_exhaustive]
 pub struct KmsWrappedCryptoKey {
     /// Required. The wrapped data crypto key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub wrapped_key: bytes::Bytes,
+    pub wrapped_key: ::bytes::Bytes,
 
     /// Required. The resource name of the KMS CryptoKey to use for unwrapping.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -10215,7 +10215,7 @@ impl KmsWrappedCryptoKey {
     }
 
     /// Sets the value of [wrapped_key][crate::model::KmsWrappedCryptoKey::wrapped_key].
-    pub fn set_wrapped_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
         self
     }

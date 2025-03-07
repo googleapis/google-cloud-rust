@@ -595,9 +595,9 @@ impl wkt::message::Message for ParameterVersion {
 #[non_exhaustive]
 pub struct ParameterVersionPayload {
     /// Required. bytes data for storing payload.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 }
 
 impl ParameterVersionPayload {
@@ -606,7 +606,7 @@ impl ParameterVersionPayload {
     }
 
     /// Sets the value of [data][crate::model::ParameterVersionPayload::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -849,9 +849,9 @@ pub struct RenderParameterVersionResponse {
     /// data (ParameterVersionPayload) which has substitutions of all (if any)
     /// references to a SecretManager SecretVersion resources. This substituion
     /// only works for a Parameter which is in JSON or YAML format.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub rendered_payload: bytes::Bytes,
+    pub rendered_payload: ::bytes::Bytes,
 }
 
 impl RenderParameterVersionResponse {
@@ -880,7 +880,7 @@ impl RenderParameterVersionResponse {
     }
 
     /// Sets the value of [rendered_payload][crate::model::RenderParameterVersionResponse::rendered_payload].
-    pub fn set_rendered_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_rendered_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.rendered_payload = v.into();
         self
     }

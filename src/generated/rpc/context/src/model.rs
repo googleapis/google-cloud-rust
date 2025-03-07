@@ -932,9 +932,9 @@ pub mod attribute_context {
 #[non_exhaustive]
 pub struct AuditContext {
     /// Serialized audit log.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audit_log: bytes::Bytes,
+    pub audit_log: ::bytes::Bytes,
 
     /// An API request message that is scrubbed based on the method annotation.
     /// This field should only be filled if audit_log field is present.
@@ -964,7 +964,7 @@ impl AuditContext {
     }
 
     /// Sets the value of [audit_log][crate::model::AuditContext::audit_log].
-    pub fn set_audit_log<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audit_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audit_log = v.into();
         self
     }

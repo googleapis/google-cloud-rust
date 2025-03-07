@@ -11814,9 +11814,9 @@ pub mod uptime_check_config {
         /// Note: If client libraries aren't used (which performs the conversion
         /// automatically) base64 encode your `body` data since the field is of
         /// `bytes` type.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub body: bytes::Bytes,
+        pub body: ::bytes::Bytes,
 
         /// If present, the check will only pass if the HTTP response status code is
         /// in this set of status codes. If empty, the HTTP status code will only
@@ -11919,7 +11919,7 @@ pub mod uptime_check_config {
         }
 
         /// Sets the value of [body][crate::model::uptime_check_config::HttpCheck::body].
-        pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.body = v.into();
             self
         }

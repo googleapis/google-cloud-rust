@@ -207,7 +207,7 @@ pub mod database_admin {
         }
 
         /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
-        pub fn set_proto_descriptors<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
             self
         }
@@ -444,7 +444,7 @@ pub mod database_admin {
         }
 
         /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-        pub fn set_proto_descriptors<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
             self
         }

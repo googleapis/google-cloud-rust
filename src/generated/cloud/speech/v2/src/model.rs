@@ -2471,7 +2471,7 @@ impl RecognizeRequest {
     /// The value of [audio_source][crate::model::RecognizeRequest::audio_source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
             crate::model::recognize_request::AudioSource::Content(v) => {
@@ -2497,7 +2497,7 @@ impl RecognizeRequest {
     ///
     /// Note that all the setters affecting `audio_source` are
     /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_source = std::option::Option::Some(
             crate::model::recognize_request::AudioSource::Content(v.into()),
         );
@@ -2539,7 +2539,7 @@ pub mod recognize_request {
         /// whereas JSON representations use base64.
         ///
         /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
-        Content(bytes::Bytes),
+        Content(::bytes::Bytes),
         /// URI that points to a file that contains audio data bytes as specified in
         /// [RecognitionConfig][google.cloud.speech.v2.RecognitionConfig]. The file
         /// must not be compressed (for example, gzip). Currently, only Google Cloud
@@ -3181,7 +3181,7 @@ impl StreamingRecognizeRequest {
     /// The value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
     /// if it holds a `Audio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_audio(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
             crate::model::streaming_recognize_request::StreamingRequest::Audio(v) => {
@@ -3213,7 +3213,7 @@ impl StreamingRecognizeRequest {
     ///
     /// Note that all the setters affecting `streaming_request` are
     /// mutually exclusive.
-    pub fn set_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.streaming_request = std::option::Option::Some(
             crate::model::streaming_recognize_request::StreamingRequest::Audio(v.into()),
         );
@@ -3242,7 +3242,7 @@ pub mod streaming_recognize_request {
         StreamingConfig(std::boxed::Box<crate::model::StreamingRecognitionConfig>),
         /// Inline audio bytes to be Recognized.
         /// Maximum size for this field is 15 KB per request.
-        Audio(bytes::Bytes),
+        Audio(::bytes::Bytes),
     }
 }
 

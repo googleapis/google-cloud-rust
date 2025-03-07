@@ -77,7 +77,7 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [version_token][crate::model::ComputeThreatListDiffRequest::version_token].
-        pub fn set_version_token<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_version_token<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.version_token = v.into();
             self
         }
@@ -181,7 +181,7 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
-        pub fn set_hash_prefix<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_hash_prefix<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.hash_prefix = v.into();
             self
         }

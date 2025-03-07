@@ -386,9 +386,9 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 }
 
 impl Policy {
@@ -403,7 +403,7 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }

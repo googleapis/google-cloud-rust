@@ -1626,7 +1626,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentContent(v) => {
@@ -1666,7 +1666,7 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::export_agent_response::Agent::AgentContent(v.into()),
         );
@@ -1713,7 +1713,7 @@ pub mod export_agent_response {
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportAgentRequest]: crate::model::ExportAgentRequest
-        AgentContent(bytes::Bytes),
+        AgentContent(::bytes::Bytes),
         /// Commit SHA of the git push. This field is populated if
         /// `git_destination` is specified in
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
@@ -1792,7 +1792,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentContent(v) => {
@@ -1834,7 +1834,7 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::restore_agent_request::Agent::AgentContent(v.into()),
         );
@@ -1964,7 +1964,7 @@ pub mod restore_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Uncompressed raw byte content for agent.
-        AgentContent(bytes::Bytes),
+        AgentContent(::bytes::Bytes),
         /// Setting for restoring from a git branch
         GitSource(std::boxed::Box<crate::model::restore_agent_request::GitSource>),
     }
@@ -9469,7 +9469,7 @@ impl ImportFlowRequest {
     /// The value of [flow][crate::model::ImportFlowRequest::flow]
     /// if it holds a `FlowContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::import_flow_request::Flow::FlowContent(v) => std::option::Option::Some(v),
@@ -9493,7 +9493,7 @@ impl ImportFlowRequest {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    pub fn set_flow_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_flow_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.flow = std::option::Option::Some(
             crate::model::import_flow_request::Flow::FlowContent(v.into()),
         );
@@ -9575,7 +9575,7 @@ pub mod import_flow_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         FlowUri(std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(bytes::Bytes),
+        FlowContent(::bytes::Bytes),
     }
 }
 
@@ -9756,7 +9756,7 @@ impl ExportFlowResponse {
     /// The value of [flow][crate::model::ExportFlowResponse::flow]
     /// if it holds a `FlowContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::export_flow_response::Flow::FlowContent(v) => {
@@ -9782,7 +9782,7 @@ impl ExportFlowResponse {
     ///
     /// Note that all the setters affecting `flow` are
     /// mutually exclusive.
-    pub fn set_flow_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_flow_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.flow = std::option::Option::Some(
             crate::model::export_flow_response::Flow::FlowContent(v.into()),
         );
@@ -9813,7 +9813,7 @@ pub mod export_flow_response {
         /// [google.cloud.dialogflow.cx.v3.ExportFlowRequest]: crate::model::ExportFlowRequest
         FlowUri(std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(bytes::Bytes),
+        FlowContent(::bytes::Bytes),
     }
 }
 
@@ -11183,9 +11183,9 @@ impl wkt::message::Message for DeleteGeneratorRequest {
 pub struct InlineDestination {
     /// Output only. The uncompressed byte content for the objects.
     /// Only populated in responses.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 }
 
 impl InlineDestination {
@@ -11194,7 +11194,7 @@ impl InlineDestination {
     }
 
     /// Sets the value of [content][crate::model::InlineDestination::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -11216,9 +11216,9 @@ impl wkt::message::Message for InlineDestination {
 #[non_exhaustive]
 pub struct InlineSource {
     /// The uncompressed byte content for the objects.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 }
 
 impl InlineSource {
@@ -11227,7 +11227,7 @@ impl InlineSource {
     }
 
     /// Sets the value of [content][crate::model::InlineSource::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -14930,7 +14930,7 @@ pub mod response_message {
             /// The value of [content][crate::model::response_message::mixed_audio::Segment::content]
             /// if it holds a `Audio`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_audio(&self) -> std::option::Option<&bytes::Bytes> {
+            pub fn get_audio(&self) -> std::option::Option<&::bytes::Bytes> {
                 #[allow(unreachable_patterns)]
                 self.content.as_ref().and_then(|v| match v {
                     crate::model::response_message::mixed_audio::segment::Content::Audio(v) => {
@@ -14958,7 +14958,7 @@ pub mod response_message {
             ///
             /// Note that all the setters affecting `content` are
             /// mutually exclusive.
-            pub fn set_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+            pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.content = std::option::Option::Some(
                     crate::model::response_message::mixed_audio::segment::Content::Audio(v.into()),
                 );
@@ -14996,7 +14996,7 @@ pub mod response_message {
             pub enum Content {
                 /// Raw audio synthesized from the Dialogflow agent's response using
                 /// the output config specified in the request.
-                Audio(bytes::Bytes),
+                Audio(::bytes::Bytes),
                 /// Client-specific URI that points to an audio clip accessible to the
                 /// client. Dialogflow does not impose any validation on it.
                 Uri(std::string::String),
@@ -16571,9 +16571,9 @@ pub struct DetectIntentResponse {
     /// has content.
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.response_messages]: crate::model::QueryResult::response_messages
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output_audio: bytes::Bytes,
+    pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -16611,7 +16611,7 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::DetectIntentResponse::output_audio].
-    pub fn set_output_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }
@@ -19131,9 +19131,9 @@ pub struct AudioInput {
     /// the first request and `audio` must be provided in all following requests.
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.transcript]: crate::model::QueryResult::query
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio: bytes::Bytes,
+    pub audio: ::bytes::Bytes,
 }
 
 impl AudioInput {
@@ -19153,7 +19153,7 @@ impl AudioInput {
     }
 
     /// Sets the value of [audio][crate::model::AudioInput::audio].
-    pub fn set_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio = v.into();
         self
     }
@@ -19787,9 +19787,9 @@ pub struct FulfillIntentResponse {
     /// has content.
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.response_messages]: crate::model::QueryResult::response_messages
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output_audio: bytes::Bytes,
+    pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19819,7 +19819,7 @@ impl FulfillIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::FulfillIntentResponse::output_audio].
-    pub fn set_output_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }
@@ -22546,7 +22546,7 @@ impl ImportTestCasesRequest {
     /// The value of [source][crate::model::ImportTestCasesRequest::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_test_cases_request::Source::Content(v) => {
@@ -22573,7 +22573,7 @@ impl ImportTestCasesRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::import_test_cases_request::Source::Content(v.into()),
         );
@@ -22608,7 +22608,7 @@ pub mod import_test_cases_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         GcsUri(std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(bytes::Bytes),
+        Content(::bytes::Bytes),
     }
 }
 
@@ -22957,7 +22957,7 @@ impl ExportTestCasesResponse {
     /// The value of [destination][crate::model::ExportTestCasesResponse::destination]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_test_cases_response::Destination::Content(v) => {
@@ -22984,7 +22984,7 @@ impl ExportTestCasesResponse {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_test_cases_response::Destination::Content(v.into()),
         );
@@ -23015,7 +23015,7 @@ pub mod export_test_cases_response {
         /// [google.cloud.dialogflow.cx.v3.ExportTestCasesRequest]: crate::model::ExportTestCasesRequest
         GcsUri(std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(bytes::Bytes),
+        Content(::bytes::Bytes),
     }
 }
 
@@ -24783,7 +24783,7 @@ pub mod webhook {
         /// ```
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-        pub allowed_ca_certs: std::vec::Vec<bytes::Bytes>,
+        pub allowed_ca_certs: std::vec::Vec<::bytes::Bytes>,
 
         /// Optional. The OAuth configuration of the webhook. If specified,
         /// Dialogflow will initiate the OAuth client credential flow to exchange an
@@ -24901,7 +24901,7 @@ pub mod webhook {
         pub fn set_allowed_ca_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<bytes::Bytes>,
+            V: std::convert::Into<::bytes::Bytes>,
         {
             use std::iter::Iterator;
             self.allowed_ca_certs = v.into_iter().map(|i| i.into()).collect();

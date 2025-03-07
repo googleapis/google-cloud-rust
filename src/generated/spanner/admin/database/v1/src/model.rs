@@ -3167,9 +3167,9 @@ pub struct CreateDatabaseRequest {
     ///
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub proto_descriptors: bytes::Bytes,
+    pub proto_descriptors: ::bytes::Bytes,
 }
 
 impl CreateDatabaseRequest {
@@ -3213,7 +3213,7 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
-    pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
     }
@@ -3502,9 +3502,9 @@ pub struct UpdateDatabaseDdlRequest {
     ///
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub proto_descriptors: bytes::Bytes,
+    pub proto_descriptors: ::bytes::Bytes,
 }
 
 impl UpdateDatabaseDdlRequest {
@@ -3525,7 +3525,7 @@ impl UpdateDatabaseDdlRequest {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-    pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
     }
@@ -3814,9 +3814,9 @@ pub struct GetDatabaseDdlResponse {
     /// [google.protobuf.FileDescriptorSet](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto).
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub proto_descriptors: bytes::Bytes,
+    pub proto_descriptors: ::bytes::Bytes,
 }
 
 impl GetDatabaseDdlResponse {
@@ -3825,7 +3825,7 @@ impl GetDatabaseDdlResponse {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
-    pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
     }

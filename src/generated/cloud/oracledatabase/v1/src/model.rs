@@ -6148,9 +6148,9 @@ impl wkt::message::Message for GenerateAutonomousDatabaseWalletRequest {
 #[non_exhaustive]
 pub struct GenerateAutonomousDatabaseWalletResponse {
     /// Output only. The base64 encoded wallet files.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub archive_content: bytes::Bytes,
+    pub archive_content: ::bytes::Bytes,
 }
 
 impl GenerateAutonomousDatabaseWalletResponse {
@@ -6159,7 +6159,7 @@ impl GenerateAutonomousDatabaseWalletResponse {
     }
 
     /// Sets the value of [archive_content][crate::model::GenerateAutonomousDatabaseWalletResponse::archive_content].
-    pub fn set_archive_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_archive_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.archive_content = v.into();
         self
     }

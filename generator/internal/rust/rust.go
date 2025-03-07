@@ -340,7 +340,7 @@ func scalarFieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "std::string::String"
 	case api.BYTES_TYPE:
-		out = "bytes::Bytes"
+		out = "::bytes::Bytes"
 	case api.UINT32_TYPE:
 		out = "u32"
 	case api.SFIXED32_TYPE:
@@ -379,7 +379,7 @@ func fieldSkipAttributes(f *api.Field) []string {
 	case api.STRING_TYPE:
 		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
 	case api.BYTES_TYPE:
-		return []string{`#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]`}
+		return []string{`#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]`}
 	default:
 		return []string{}
 	}

@@ -210,9 +210,9 @@ pub struct Profile {
 
     /// Input only. Profile bytes, as a gzip compressed serialized proto, the
     /// format is <https://github.com/google/pprof/blob/master/proto/profile.proto>.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub profile_bytes: bytes::Bytes,
+    pub profile_bytes: ::bytes::Bytes,
 
     /// Input only. Labels associated to this specific profile. These labels will
     /// get merged with the deployment labels for the final data set. See
@@ -265,7 +265,7 @@ impl Profile {
     }
 
     /// Sets the value of [profile_bytes][crate::model::Profile::profile_bytes].
-    pub fn set_profile_bytes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_profile_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.profile_bytes = v.into();
         self
     }

@@ -47,9 +47,9 @@ pub struct ComputeThreatListDiffRequest {
     /// If the client does not have a version token (this is the first time calling
     /// ComputeThreatListDiff), this may be left empty and a full database
     /// snapshot will be returned.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub version_token: bytes::Bytes,
+    pub version_token: ::bytes::Bytes,
 
     /// Required. The constraints associated with this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -72,7 +72,7 @@ impl ComputeThreatListDiffRequest {
     }
 
     /// Sets the value of [version_token][crate::model::ComputeThreatListDiffRequest::version_token].
-    pub fn set_version_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_version_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.version_token = v.into();
         self
     }
@@ -180,9 +180,9 @@ pub struct ComputeThreatListDiffResponse {
     /// The new opaque client version token. This should be retained by the client
     /// and passed into the next call of ComputeThreatListDiff as 'version_token'.
     /// A separate version token should be stored and used for each threatList.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub new_version_token: bytes::Bytes,
+    pub new_version_token: ::bytes::Bytes,
 
     /// The expected SHA256 hash of the client state; that is, of the sorted list
     /// of all hashes present in the database after applying the provided diff.
@@ -238,7 +238,7 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [new_version_token][crate::model::ComputeThreatListDiffResponse::new_version_token].
-    pub fn set_new_version_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_new_version_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.new_version_token = v.into();
         self
     }
@@ -285,9 +285,9 @@ pub mod compute_threat_list_diff_response {
     pub struct Checksum {
         /// The SHA256 hash of the client state; that is, of the sorted list of all
         /// hashes present in the database.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub sha256: bytes::Bytes,
+        pub sha256: ::bytes::Bytes,
     }
 
     impl Checksum {
@@ -296,7 +296,7 @@ pub mod compute_threat_list_diff_response {
         }
 
         /// Sets the value of [sha256][crate::model::compute_threat_list_diff_response::Checksum::sha256].
-        pub fn set_sha256<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.sha256 = v.into();
             self
         }
@@ -496,9 +496,9 @@ pub struct SearchHashesRequest {
     /// hash. For JSON requests, this field is base64-encoded.
     /// Note that if this parameter is provided by a URI, it must be encoded using
     /// the web safe base64 variant (RFC 4648).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hash_prefix: bytes::Bytes,
+    pub hash_prefix: ::bytes::Bytes,
 
     /// Required. The ThreatLists to search in. Multiple ThreatLists may be
     /// specified.
@@ -512,7 +512,7 @@ impl SearchHashesRequest {
     }
 
     /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
-    pub fn set_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hash_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hash_prefix = v.into();
         self
     }
@@ -601,9 +601,9 @@ pub mod search_hashes_response {
 
         /// A 32 byte SHA256 hash. This field is in binary format. For JSON
         /// requests, hashes are base64-encoded.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub hash: bytes::Bytes,
+        pub hash: ::bytes::Bytes,
 
         /// The cache lifetime for the returned match. Clients must not cache this
         /// response past this timestamp to avoid false positives.
@@ -617,7 +617,7 @@ pub mod search_hashes_response {
         }
 
         /// Sets the value of [hash][crate::model::search_hashes_response::ThreatHash::hash].
-        pub fn set_hash<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_hash<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.hash = v.into();
             self
         }
@@ -808,9 +808,9 @@ pub struct RawHashes {
     /// The hashes, in binary format, concatenated into one long string. Hashes are
     /// sorted in lexicographic order. For JSON API users, hashes are
     /// base64-encoded.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub raw_hashes: bytes::Bytes,
+    pub raw_hashes: ::bytes::Bytes,
 }
 
 impl RawHashes {
@@ -825,7 +825,7 @@ impl RawHashes {
     }
 
     /// Sets the value of [raw_hashes][crate::model::RawHashes::raw_hashes].
-    pub fn set_raw_hashes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_raw_hashes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_hashes = v.into();
         self
     }
@@ -860,9 +860,9 @@ pub struct RiceDeltaEncoding {
     pub entry_count: i32,
 
     /// The encoded deltas that are encoded using the Golomb-Rice coder.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub encoded_data: bytes::Bytes,
+    pub encoded_data: ::bytes::Bytes,
 }
 
 impl RiceDeltaEncoding {
@@ -889,7 +889,7 @@ impl RiceDeltaEncoding {
     }
 
     /// Sets the value of [encoded_data][crate::model::RiceDeltaEncoding::encoded_data].
-    pub fn set_encoded_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_encoded_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.encoded_data = v.into();
         self
     }

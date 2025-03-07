@@ -320,9 +320,9 @@ pub struct AnnotateAssessmentRequest {
     /// This is an alternative to setting `hashed_account_id` in
     /// `CreateAssessment`, for example when a stable account identifier is not yet
     /// known in the initial request.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. If the assessment is part of a payment transaction, provide
     /// details on payment lifecycle events that occur in the transaction.
@@ -359,7 +359,7 @@ impl AnnotateAssessmentRequest {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::AnnotateAssessmentRequest::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -853,30 +853,30 @@ pub struct PrivatePasswordLeakVerification {
     /// Required. Exactly 26-bit prefix of the SHA-256 hash of the canonicalized
     /// username. It is used to look up password leaks associated with that hash
     /// prefix.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub lookup_hash_prefix: bytes::Bytes,
+    pub lookup_hash_prefix: ::bytes::Bytes,
 
     /// Optional. Encrypted Scrypt hash of the canonicalized username+password. It
     /// is re-encrypted by the server and returned through
     /// `reencrypted_user_credentials_hash`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub encrypted_user_credentials_hash: bytes::Bytes,
+    pub encrypted_user_credentials_hash: ::bytes::Bytes,
 
     /// Output only. List of prefixes of the encrypted potential password leaks
     /// that matched the given parameters. They must be compared with the
     /// client-side decryption prefix of `reencrypted_user_credentials_hash`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub encrypted_leak_match_prefixes: std::vec::Vec<bytes::Bytes>,
+    pub encrypted_leak_match_prefixes: std::vec::Vec<::bytes::Bytes>,
 
     /// Output only. Corresponds to the re-encryption of the
     /// `encrypted_user_credentials_hash` field. It is used to match potential
     /// password leaks within `encrypted_leak_match_prefixes`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub reencrypted_user_credentials_hash: bytes::Bytes,
+    pub reencrypted_user_credentials_hash: ::bytes::Bytes,
 }
 
 impl PrivatePasswordLeakVerification {
@@ -885,13 +885,13 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [lookup_hash_prefix][crate::model::PrivatePasswordLeakVerification::lookup_hash_prefix].
-    pub fn set_lookup_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_lookup_hash_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.lookup_hash_prefix = v.into();
         self
     }
 
     /// Sets the value of [encrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::encrypted_user_credentials_hash].
-    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_encrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -900,7 +900,7 @@ impl PrivatePasswordLeakVerification {
     }
 
     /// Sets the value of [reencrypted_user_credentials_hash][crate::model::PrivatePasswordLeakVerification::reencrypted_user_credentials_hash].
-    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_reencrypted_user_credentials_hash<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -912,7 +912,7 @@ impl PrivatePasswordLeakVerification {
     pub fn set_encrypted_leak_match_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.encrypted_leak_match_prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -1166,9 +1166,9 @@ pub struct Event {
     /// Optional. Deprecated: use `user_info.account_id` instead.
     /// Unique stable hashed user identifier for the request. The identifier must
     /// be hashed using hmac-sha256 with stable secret.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
     /// token. If enabled, `site_key` must reference an Express site key.
@@ -1249,7 +1249,7 @@ impl Event {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::Event::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -5534,9 +5534,9 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// identifier should correspond to a `hashed_account_id` provided in a
     /// previous `CreateAssessment` or `AnnotateAssessment` call. Either
     /// hashed_account_id or account_id must be set, but not both.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. The maximum number of groups to return. The service might return
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
@@ -5572,7 +5572,7 @@ impl SearchRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }
@@ -5915,9 +5915,9 @@ pub struct RelatedAccountGroupMembership {
     /// The unique stable hashed account identifier of the member. The identifier
     /// corresponds to a `hashed_account_id` provided in a previous
     /// `CreateAssessment` or `AnnotateAssessment` call.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub hashed_account_id: bytes::Bytes,
+    pub hashed_account_id: ::bytes::Bytes,
 }
 
 impl RelatedAccountGroupMembership {
@@ -5938,7 +5938,7 @@ impl RelatedAccountGroupMembership {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::RelatedAccountGroupMembership::hashed_account_id].
-    pub fn set_hashed_account_id<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
     }

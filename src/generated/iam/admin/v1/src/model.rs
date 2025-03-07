@@ -184,9 +184,9 @@ pub struct ServiceAccount {
     pub display_name: std::string::String,
 
     /// Deprecated. Do not use.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// Optional. A user-specified, human-readable description of the service account. The
     /// maximum length is 256 UTF-8 bytes.
@@ -237,7 +237,7 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [etag][crate::model::ServiceAccount::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -934,14 +934,14 @@ pub struct ServiceAccountKey {
     /// Google API client libraries and with
     /// <a href="/sdk/gcloud/reference/auth/activate-service-account">gcloud
     /// auth activate-service-account</a>.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key_data: bytes::Bytes,
+    pub private_key_data: ::bytes::Bytes,
 
     /// The public key data. Only provided in `GetServiceAccountKey` responses.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub public_key_data: bytes::Bytes,
+    pub public_key_data: ::bytes::Bytes,
 
     /// The key can be used after this timestamp.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -996,13 +996,13 @@ impl ServiceAccountKey {
     }
 
     /// Sets the value of [private_key_data][crate::model::ServiceAccountKey::private_key_data].
-    pub fn set_private_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key_data = v.into();
         self
     }
 
     /// Sets the value of [public_key_data][crate::model::ServiceAccountKey::public_key_data].
-    pub fn set_public_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
     }
@@ -1139,9 +1139,9 @@ pub struct UploadServiceAccountKeyRequest {
     /// key that is wrapped in an X.509 v3 certificate. Include the first line,
     /// `-----BEGIN CERTIFICATE-----`, and the last line,
     /// `-----END CERTIFICATE-----`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub public_key_data: bytes::Bytes,
+    pub public_key_data: ::bytes::Bytes,
 }
 
 impl UploadServiceAccountKeyRequest {
@@ -1156,7 +1156,7 @@ impl UploadServiceAccountKeyRequest {
     }
 
     /// Sets the value of [public_key_data][crate::model::UploadServiceAccountKeyRequest::public_key_data].
-    pub fn set_public_key_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_public_key_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key_data = v.into();
         self
     }
@@ -1293,9 +1293,9 @@ pub struct SignBlobRequest {
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
     /// The bytes to sign.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub bytes_to_sign: bytes::Bytes,
+    pub bytes_to_sign: ::bytes::Bytes,
 }
 
 impl SignBlobRequest {
@@ -1310,7 +1310,7 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
-    pub fn set_bytes_to_sign<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_bytes_to_sign<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bytes_to_sign = v.into();
         self
     }
@@ -1342,9 +1342,9 @@ pub struct SignBlobResponse {
     /// API](https://cloud.google.com/iam/help/credentials/migrate-api).
     ///
     /// The signed blob.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 }
 
 impl SignBlobResponse {
@@ -1359,7 +1359,7 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [signature][crate::model::SignBlobResponse::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
@@ -1515,9 +1515,9 @@ pub struct Role {
     pub stage: crate::model::role::RoleLaunchStage,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// The current deleted state of the role. This field is read only.
     /// It will be ignored in calls to CreateRole and UpdateRole.
@@ -1557,7 +1557,7 @@ impl Role {
     }
 
     /// Sets the value of [etag][crate::model::Role::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2180,9 +2180,9 @@ pub struct DeleteRoleRequest {
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 }
 
 impl DeleteRoleRequest {
@@ -2197,7 +2197,7 @@ impl DeleteRoleRequest {
     }
 
     /// Sets the value of [etag][crate::model::DeleteRoleRequest::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2243,9 +2243,9 @@ pub struct UndeleteRoleRequest {
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 }
 
 impl UndeleteRoleRequest {
@@ -2260,7 +2260,7 @@ impl UndeleteRoleRequest {
     }
 
     /// Sets the value of [etag][crate::model::UndeleteRoleRequest::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
