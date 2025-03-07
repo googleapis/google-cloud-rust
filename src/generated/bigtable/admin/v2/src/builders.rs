@@ -300,6 +300,12 @@ pub mod bigtable_instance_admin {
             self
         }
 
+        /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+        pub fn set_satisfies_pzi<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+            self.0.request.satisfies_pzi = v.into();
+            self
+        }
+
         /// Sets the value of [labels][crate::model::Instance::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -2076,6 +2082,12 @@ pub mod bigtable_table_admin {
             v: T,
         ) -> Self {
             self.0.request.update_mask = v.into();
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::UpdateTableRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
             self
         }
     }

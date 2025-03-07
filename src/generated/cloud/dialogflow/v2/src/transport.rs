@@ -915,6 +915,26 @@ impl crate::stubs::Conversations for Conversations {
         self.inner.execute(builder, Some(req), options).await
     }
 
+    async fn ingest_context_references(
+        &self,
+        req: crate::model::IngestContextReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::IngestContextReferencesResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v2/{}:ingestContextReferences", req.conversation),
+            )
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn list_messages(
         &self,
         req: crate::model::ListMessagesRequest,
@@ -1017,6 +1037,26 @@ impl crate::stubs::Conversations for Conversations {
             .builder(
                 reqwest::Method::POST,
                 format!("/v2/{}/suggestions:searchKnowledge", req.parent),
+            )
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn generate_suggestions(
+        &self,
+        req: crate::model::GenerateSuggestionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::GenerateSuggestionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v2/{}/suggestions:generate", req.conversation),
             )
             .query(&[("alt", "json")])
             .header(

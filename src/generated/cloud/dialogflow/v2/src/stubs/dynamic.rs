@@ -571,6 +571,12 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Conversation>;
 
+    async fn ingest_context_references(
+        &self,
+        req: crate::model::IngestContextReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::IngestContextReferencesResponse>;
+
     async fn list_messages(
         &self,
         req: crate::model::ListMessagesRequest,
@@ -600,6 +606,12 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         req: crate::model::SearchKnowledgeRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SearchKnowledgeResponse>;
+
+    async fn generate_suggestions(
+        &self,
+        req: crate::model::GenerateSuggestionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::GenerateSuggestionsResponse>;
 
     async fn list_locations(
         &self,
@@ -672,6 +684,15 @@ impl<T: crate::stubs::Conversations> Conversations for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn ingest_context_references(
+        &self,
+        req: crate::model::IngestContextReferencesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::IngestContextReferencesResponse> {
+        T::ingest_context_references(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_messages(
         &self,
         req: crate::model::ListMessagesRequest,
@@ -714,6 +735,15 @@ impl<T: crate::stubs::Conversations> Conversations for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SearchKnowledgeResponse> {
         T::search_knowledge(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn generate_suggestions(
+        &self,
+        req: crate::model::GenerateSuggestionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::GenerateSuggestionsResponse> {
+        T::generate_suggestions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

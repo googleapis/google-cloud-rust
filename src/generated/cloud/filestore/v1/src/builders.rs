@@ -684,6 +684,12 @@ pub mod cloud_filestore_manager {
             self.0.request.filter = v.into();
             self
         }
+
+        /// Sets the value of [return_partial_success][crate::model::ListSnapshotsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
     }
 
     impl gax::options::RequestBuilder for ListSnapshots {
@@ -1379,6 +1385,92 @@ pub mod cloud_filestore_manager {
     }
 
     impl gax::options::RequestBuilder for UpdateBackup {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a CloudFilestoreManager::promote_replica call.
+    #[derive(Clone, Debug)]
+    pub struct PromoteReplica(RequestBuilder<crate::model::PromoteReplicaRequest>);
+
+    impl PromoteReplica {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::CloudFilestoreManager>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::PromoteReplicaRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [promote_replica][crate::client::CloudFilestoreManager::promote_replica].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .promote_replica(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `promote_replica`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
+        {
+            type Operation =
+                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [peer_instance][crate::model::PromoteReplicaRequest::peer_instance].
+        pub fn set_peer_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_instance = v.into();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for PromoteReplica {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

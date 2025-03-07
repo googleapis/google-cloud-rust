@@ -24955,7 +24955,7 @@ pub mod webhook {
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub client_id: std::string::String,
 
-            /// Required. The client secret provided by the 3rd party platform.
+            /// Optional. The client secret provided by the 3rd party platform.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub client_secret: std::string::String,
 

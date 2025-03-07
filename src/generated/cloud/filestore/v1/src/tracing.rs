@@ -191,6 +191,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn promote_replica(
+        &self,
+        req: crate::model::PromoteReplicaRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        self.inner.promote_replica(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

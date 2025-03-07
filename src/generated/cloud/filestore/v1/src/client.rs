@@ -382,6 +382,25 @@ impl CloudFilestoreManager {
             .set_backup(backup.into())
     }
 
+    /// Promote the standby instance (replica).
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn promote_replica(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> crate::builders::cloud_filestore_manager::PromoteReplica {
+        crate::builders::cloud_filestore_manager::PromoteReplica::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,

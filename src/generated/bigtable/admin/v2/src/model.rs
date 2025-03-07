@@ -59,7 +59,6 @@ pub struct CreateInstanceRequest {
     /// cluster ID, e.g., just `mycluster` rather than
     /// `projects/myproject/instances/myinstance/clusters/mycluster`.
     /// Fields marked `OutputOnly` must be left blank.
-    /// Currently, at most four clusters can be specified.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub clusters: std::collections::HashMap<std::string::String, crate::model::Cluster>,
 }
@@ -1525,6 +1524,355 @@ impl gax::paginator::PageableResponse for ListHotTabletsResponse {
     }
 }
 
+/// Request message for BigtableInstanceAdmin.CreateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateLogicalViewRequest {
+    /// Required. The parent instance where this logical view will be created.
+    /// Format: `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the logical view, which will become the final
+    /// component of the logical view's resource name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub logical_view_id: std::string::String,
+
+    /// Required. The logical view to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub logical_view: std::option::Option<crate::model::LogicalView>,
+}
+
+impl CreateLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+    pub fn set_logical_view_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.logical_view_id = v.into();
+        self
+    }
+
+    /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+    pub fn set_logical_view<
+        T: std::convert::Into<std::option::Option<crate::model::LogicalView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logical_view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateLogicalViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by CreateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateLogicalViewMetadata {
+    /// The request that prompted the initiation of this CreateLogicalView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::CreateLogicalViewRequest>,
+
+    /// The time at which this operation started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl CreateLogicalViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::CreateLogicalViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::CreateLogicalViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateLogicalViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateLogicalViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateLogicalViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateLogicalViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.UpdateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateLogicalViewRequest {
+    /// Required. The logical view to update.
+    ///
+    /// The logical view's `name` field is used to identify the view to update.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/logicalViews/{logical_view}`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub logical_view: std::option::Option<crate::model::LogicalView>,
+
+    /// Optional. The list of fields to update.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+}
+
+impl UpdateLogicalViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+    pub fn set_logical_view<
+        T: std::convert::Into<std::option::Option<crate::model::LogicalView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.logical_view = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateLogicalViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateLogicalViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by UpdateLogicalView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateLogicalViewMetadata {
+    /// The request that prompted the initiation of this UpdateLogicalView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::UpdateLogicalViewRequest>,
+
+    /// The time at which this operation was started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl UpdateLogicalViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::UpdateLogicalViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::UpdateLogicalViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::UpdateLogicalViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::UpdateLogicalViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateLogicalViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateLogicalViewMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.CreateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateMaterializedViewRequest {
+    /// Required. The parent instance where this materialized view will be created.
+    /// Format: `projects/{project}/instances/{instance}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the materialized view, which will become the
+    /// final component of the materialized view's resource name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub materialized_view_id: std::string::String,
+
+    /// Required. The materialized view to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub materialized_view: std::option::Option<crate::model::MaterializedView>,
+}
+
+impl CreateMaterializedViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+    pub fn set_materialized_view_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view_id = v.into();
+        self
+    }
+
+    /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+    pub fn set_materialized_view<
+        T: std::convert::Into<std::option::Option<crate::model::MaterializedView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.materialized_view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMaterializedViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateMaterializedViewRequest"
+    }
+}
+
+/// The metadata for the Operation returned by CreateMaterializedView.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateMaterializedViewMetadata {
+    /// The request that prompted the initiation of this CreateMaterializedView
+    /// operation.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub original_request: std::option::Option<crate::model::CreateMaterializedViewRequest>,
+
+    /// The time at which this operation started.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl CreateMaterializedViewMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::CreateMaterializedViewMetadata::original_request].
+    pub fn set_original_request<
+        T: std::convert::Into<std::option::Option<crate::model::CreateMaterializedViewRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_request = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateMaterializedViewMetadata::start_time].
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_time = v.into();
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateMaterializedViewMetadata::end_time].
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.end_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMaterializedViewMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateMaterializedViewMetadata"
+    }
+}
+
 /// The request for
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
@@ -2327,11 +2675,15 @@ pub struct UpdateTableRequest {
     /// * `change_stream_config`
     /// * `change_stream_config.retention_period`
     /// * `deletion_protection`
+    /// * `row_key_schema`
     ///
     /// If `column_families` is set in `update_mask`, it will return an
     /// UNIMPLEMENTED error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If true, ignore safety checks when updating the table.
+    pub ignore_warnings: bool,
 }
 
 impl UpdateTableRequest {
@@ -2354,6 +2706,12 @@ impl UpdateTableRequest {
         v: T,
     ) -> Self {
         self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of [ignore_warnings][crate::model::UpdateTableRequest::ignore_warnings].
+    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_warnings = v.into();
         self
     }
 }
@@ -4676,8 +5034,7 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
-    /// (`OutputOnly`)
-    /// The current state of the instance.
+    /// Output only. The current state of the instance.
     pub state: crate::model::instance::State,
 
     /// The type of the instance. Defaults to `PRODUCTION`.
@@ -4698,15 +5055,19 @@ pub struct Instance {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Output only. A server-assigned timestamp representing when this Instance
-    /// was created. For instances created before this field was added (August
-    /// 2021), this value is `seconds: 0, nanos: 1`.
+    /// Output only. A commit timestamp representing when this Instance was
+    /// created. For instances created before this field was added (August 2021),
+    /// this value is `seconds: 0, nanos: 1`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub satisfies_pzi: std::option::Option<bool>,
 }
 
 impl Instance {
@@ -4753,6 +5114,15 @@ impl Instance {
         v: T,
     ) -> Self {
         self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<std::option::Option<bool>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.satisfies_pzi = v.into();
         self
     }
 
@@ -4982,8 +5352,9 @@ pub struct Cluster {
     /// Output only. The current state of the cluster.
     pub state: crate::model::cluster::State,
 
-    /// The number of nodes allocated to this cluster. More nodes enable higher
-    /// throughput and more consistent performance.
+    /// The number of nodes in the cluster. If no value is set,
+    /// Cloud Bigtable automatically allocates nodes based on your data footprint
+    /// and optimized for 50% storage utilization.
     pub serve_nodes: i32,
 
     /// Immutable. The node scaling factor of this cluster.
@@ -5212,7 +5583,6 @@ pub mod cluster {
         ///   `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
         /// ) Only regional keys can be used and the region of the CMEK key must
         ///   match the region of the cluster.
-        /// ) All clusters within an instance must use the same CMEK key.
         ///   Values are of the form
         ///   `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5837,17 +6207,10 @@ pub mod app_profile {
     }
 
     /// Data Boost is a serverless compute capability that lets you run
-    /// high-throughput read jobs on your Bigtable data, without impacting the
-    /// performance of the clusters that handle your application traffic.
-    /// Currently, Data Boost exclusively supports read-only use-cases with
-    /// single-cluster routing.
-    ///
-    /// Data Boost reads are only guaranteed to see the results of writes that
-    /// were written at least 30 minutes ago. This means newly written values may
-    /// not become visible for up to 30m, and also means that old values may
-    /// remain visible for up to 30m after being deleted or overwritten. To
-    /// mitigate the staleness of the data, users may either wait 30m, or use
-    /// CheckConsistency.
+    /// high-throughput read jobs and queries on your Bigtable data, without
+    /// impacting the performance of the clusters that handle your application
+    /// traffic. Data Boost supports read-only use cases with single-cluster
+    /// routing.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6118,6 +6481,123 @@ impl wkt::message::Message for HotTablet {
     }
 }
 
+/// A SQL logical view object that can be referenced in SQL queries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LogicalView {
+    /// Identifier. The unique name of the logical view.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/logicalViews/{logical_view}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. The logical view's select query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. The etag for this logical view.
+    /// This may be sent on update requests to ensure that the client has an
+    /// up-to-date value before proceeding. The server returns an ABORTED error on
+    /// a mismatched etag.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+}
+
+impl LogicalView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::LogicalView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::LogicalView::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::LogicalView::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LogicalView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.LogicalView"
+    }
+}
+
+/// A materialized view object that can be referenced in SQL queries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MaterializedView {
+    /// Identifier. The unique name of the materialized view.
+    /// Format:
+    /// `projects/{project}/instances/{instance}/materializedViews/{materialized_view}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. Immutable. The materialized view's select query.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub query: std::string::String,
+
+    /// Optional. The etag for this materialized view.
+    /// This may be sent on update requests to ensure that the client has an
+    /// up-to-date value before proceeding. The server returns an ABORTED error on
+    /// a mismatched etag.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
+    /// Set to true to make the MaterializedView protected against deletion.
+    pub deletion_protection: bool,
+}
+
+impl MaterializedView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MaterializedView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::MaterializedView::query].
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MaterializedView::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection][crate::model::MaterializedView::deletion_protection].
+    pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_protection = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MaterializedView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.MaterializedView"
+    }
+}
+
 /// Information about a table restore.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -6297,6 +6777,66 @@ pub struct Table {
     /// Note one can still delete the data stored in the table through Data APIs.
     pub deletion_protection: bool,
 
+    /// The row key schema for this table. The schema is used to decode the raw row
+    /// key bytes into a structured format. The order of field declarations in this
+    /// schema is important, as it reflects how the raw row key bytes are
+    /// structured. Currently, this only affects how the key is read via a
+    /// GoogleSQL query from the ExecuteQuery API.
+    ///
+    /// For a SQL query, the _key column is still read as raw bytes. But queries
+    /// can reference the key fields by name, which will be decoded from _key using
+    /// provided type and encoding. Queries that reference key fields will fail if
+    /// they encounter an invalid row key.
+    ///
+    /// For example, if _key = "some_id#2024-04-30#\x00\x13\x00\xf3" with the
+    /// following schema:
+    /// {
+    /// fields {
+    /// field_name: "id"
+    /// type { string { encoding: utf8_bytes {} } }
+    /// }
+    /// fields {
+    /// field_name: "date"
+    /// type { string { encoding: utf8_bytes {} } }
+    /// }
+    /// fields {
+    /// field_name: "product_code"
+    /// type { int64 { encoding: big_endian_bytes {} } }
+    /// }
+    /// encoding { delimited_bytes { delimiter: "#" } }
+    /// }
+    ///
+    /// The decoded key parts would be:
+    /// id = "some_id", date = "2024-04-30", product_code = 1245427
+    /// The query "SELECT _key, product_code FROM table" will return two columns:
+    /// /------------------------------------------------------\
+    /// |              _key                     | product_code |
+    /// | --------------------------------------|--------------|
+    /// | "some_id#2024-04-30#\x00\x13\x00\xf3" |   1245427    |
+    /// \------------------------------------------------------/
+    ///
+    /// The schema has the following invariants:
+    /// (1) The decoded field values are order-preserved. For read, the field
+    /// values will be decoded in sorted mode from the raw bytes.
+    /// (2) Every field in the schema must specify a non-empty name.
+    /// (3) Every field must specify a type with an associated encoding. The type
+    /// is limited to scalar types only: Array, Map, Aggregate, and Struct are not
+    /// allowed.
+    /// (4) The field names must not collide with existing column family
+    /// names and reserved keywords "_key" and "_timestamp".
+    ///
+    /// The following update operations are allowed for row_key_schema:
+    ///
+    /// - Update from an empty schema to a new schema.
+    /// - Remove the existing schema. This operation requires setting the
+    ///   `ignore_warnings` flag to `true`, since it might be a backward
+    ///   incompatible change. Without the flag, the update request will fail with
+    ///   an INVALID_ARGUMENT error.
+    ///   Any other row key schema update operation (e.g. update existing schema
+    ///   columns names or types) is currently unsupported.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub row_key_schema: std::option::Option<crate::model::r#type::Struct>,
+
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub automated_backup_config: std::option::Option<crate::model::table::AutomatedBackupConfig>,
 }
@@ -6346,6 +6886,17 @@ impl Table {
     /// Sets the value of [deletion_protection][crate::model::Table::deletion_protection].
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
+        self
+    }
+
+    /// Sets the value of [row_key_schema][crate::model::Table::row_key_schema].
+    pub fn set_row_key_schema<
+        T: std::convert::Into<std::option::Option<crate::model::r#type::Struct>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_key_schema = v.into();
         self
     }
 
@@ -7900,25 +8451,23 @@ impl wkt::message::Message for BackupInfo {
 /// familiarity and consistency across products and features.
 ///
 /// For compatibility with Bigtable's existing untyped APIs, each `Type` includes
-/// an `Encoding` which describes how to convert to/from the underlying data.
+/// an `Encoding` which describes how to convert to or from the underlying data.
 ///
-/// Each encoding also defines the following properties:
+/// Each encoding can operate in one of two modes:
 ///
-/// * Order-preserving: Does the encoded value sort consistently with the
-///   original typed value? Note that Bigtable will always sort data based on
-///   the raw encoded value, *not* the decoded type.
-///   - Example: BYTES values sort in the same order as their raw encodings.
-///   - Counterexample: Encoding INT64 as a fixed-width decimal string does
-///     *not* preserve sort order when dealing with negative numbers.
-///     `INT64(1) > INT64(-1)`, but `STRING("-00001") > STRING("00001)`.
-/// * Self-delimiting: If we concatenate two encoded values, can we always tell
-///   where the first one ends and the second one begins?
-///   - Example: If we encode INT64s to fixed-width STRINGs, the first value
-///     will always contain exactly N digits, possibly preceded by a sign.
-///   - Counterexample: If we concatenate two UTF-8 encoded STRINGs, we have
-///     no way to tell where the first one ends.
-/// * Compatibility: Which other systems have matching encoding schemes? For
-///   example, does this encoding have a GoogleSQL equivalent? HBase? Java?
+/// - Sorted: In this mode, Bigtable guarantees that `Encode(X) <= Encode(Y)`
+///   if and only if `X <= Y`. This is useful anywhere sort order is important,
+///   for example when encoding keys.
+/// - Distinct: In this mode, Bigtable guarantees that if `X != Y` then
+///   `Encode(X) != Encode(Y)`. However, the converse is not guaranteed. For
+///   example, both "{'foo': '1', 'bar': '2'}" and "{'bar': '2', 'foo': '1'}"
+///   are valid encodings of the same JSON value.
+///
+/// The API clearly documents which mode is used wherever an encoding can be
+/// configured. Each encoding also documents which values are supported in which
+/// modes. For example, when encoding INT64 as a numeric STRING, negative numbers
+/// cannot be encoded in sorted mode. This is because `INT64(1) > INT64(-1)`, but
+/// `STRING("-00001") > STRING("00001")`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8280,7 +8829,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Bytes {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::bytes::Encoding>,
     }
@@ -8313,7 +8862,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8387,11 +8936,11 @@ pub mod r#type {
             #[allow(unused_imports)]
             use super::*;
 
-            /// Leaves the value "as-is"
+            /// Leaves the value as-is.
             ///
-            /// * Order-preserving? Yes
-            /// * Self-delimiting? No
-            /// * Compatibility? N/A
+            /// Sorted mode: all values are supported.
+            ///
+            /// Distinct mode: all values are supported.
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8428,7 +8977,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct String {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::string::Encoding>,
     }
@@ -8461,7 +9010,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8593,14 +9142,20 @@ pub mod r#type {
                 }
             }
 
-            /// UTF-8 encoding
+            /// UTF-8 encoding.
             ///
-            /// * Order-preserving? Yes (code point order)
-            /// * Self-delimiting? No
-            /// * Compatibility?
-            ///   - BigQuery Federation `TEXT` encoding
-            ///   - HBase `Bytes.toBytes`
-            ///   - Java `String#getBytes(StandardCharsets.UTF_8)`
+            /// Sorted mode:
+            ///
+            /// - All values are supported.
+            /// - Code point order is preserved.
+            ///
+            /// Distinct mode: all values are supported.
+            ///
+            /// Compatible with:
+            ///
+            /// - BigQuery `TEXT` encoding
+            /// - HBase `Bytes.toBytes`
+            /// - Java `String#getBytes(StandardCharsets.UTF_8)`
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8639,7 +9194,7 @@ pub mod r#type {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Int64 {
-        /// The encoding to use when converting to/from lower level types.
+        /// The encoding to use when converting to or from lower level types.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub encoding: std::option::Option<crate::model::r#type::int_64::Encoding>,
     }
@@ -8672,7 +9227,7 @@ pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
 
-        /// Rules used to convert to/from lower level types.
+        /// Rules used to convert to or from lower level types.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8718,6 +9273,23 @@ pub mod r#type {
                 })
             }
 
+            /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
             /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
             /// to hold a `BigEndianBytes`.
             ///
@@ -8736,6 +9308,25 @@ pub mod r#type {
                 );
                 self
             }
+
+            /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
+            /// to hold a `OrderedCodeBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_ordered_code_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::int_64::encoding::Encoding::OrderedCodeBytes(v.into()),
+                );
+                self
+            }
         }
 
         impl wkt::message::Message for Encoding {
@@ -8749,15 +9340,17 @@ pub mod r#type {
             #[allow(unused_imports)]
             use super::*;
 
-            /// Encodes the value as an 8-byte big endian twos complement `Bytes`
-            /// value.
+            /// Encodes the value as an 8-byte big-endian two's complement value.
             ///
-            /// * Order-preserving? No (positive values only)
-            /// * Self-delimiting? Yes
-            /// * Compatibility?
-            ///   - BigQuery Federation `BINARY` encoding
-            ///   - HBase `Bytes.toBytes`
-            ///   - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
+            /// Sorted mode: non-negative values are supported.
+            ///
+            /// Distinct mode: all values are supported.
+            ///
+            /// Compatible with:
+            ///
+            /// - BigQuery `BINARY` encoding
+            /// - HBase `Bytes.toBytes`
+            /// - Java `ByteBuffer.putLong()` with `ByteOrder.BIG_ENDIAN`
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -8791,6 +9384,30 @@ pub mod r#type {
                 }
             }
 
+            /// Encodes the value in a variable length binary format of up to 10 bytes.
+            /// Values that are closer to zero use fewer bytes.
+            ///
+            /// Sorted mode: all values are supported.
+            ///
+            /// Distinct mode: all values are supported.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct OrderedCodeBytes {}
+
+            impl OrderedCodeBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for OrderedCodeBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Int64.Encoding.OrderedCodeBytes"
+                }
+            }
+
             /// Which encoding to use.
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -8799,6 +9416,10 @@ pub mod r#type {
                 /// Use `BigEndianBytes` encoding.
                 BigEndianBytes(
                     std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
+                ),
+                /// Use `OrderedCodeBytes` encoding.
+                OrderedCodeBytes(
+                    std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
                 ),
             }
         }
@@ -8870,17 +9491,127 @@ pub mod r#type {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Timestamp {}
+    pub struct Timestamp {
+        /// The encoding to use when converting to or from lower level types.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub encoding: std::option::Option<crate::model::r#type::timestamp::Encoding>,
+    }
 
     impl Timestamp {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [encoding][crate::model::r#type::Timestamp::encoding].
+        pub fn set_encoding<
+            T: std::convert::Into<std::option::Option<crate::model::r#type::timestamp::Encoding>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.encoding = v.into();
+            self
         }
     }
 
     impl wkt::message::Message for Timestamp {
         fn typename() -> &'static str {
             "type.googleapis.com/google.bigtable.admin.v2.Type.Timestamp"
+        }
+    }
+
+    /// Defines additional types related to Timestamp
+    pub mod timestamp {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Rules used to convert to or from lower level types.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Encoding {
+            /// Which encoding to use.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub encoding: std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
+        }
+
+        impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of `encoding`.
+            pub fn set_encoding<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = v.into();
+                self
+            }
+
+            /// The value of [encoding][crate::model::r#type::timestamp::Encoding::encoding]
+            /// if it holds a `UnixMicrosInt64`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_unix_micros_int64(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::int_64::Encoding>>
+            {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::timestamp::encoding::Encoding::UnixMicrosInt64(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::timestamp::Encoding::encoding]
+            /// to hold a `UnixMicrosInt64`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_unix_micros_int64<
+                T: std::convert::Into<std::boxed::Box<crate::model::r#type::int_64::Encoding>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::timestamp::encoding::Encoding::UnixMicrosInt64(v.into()),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for Encoding {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.bigtable.admin.v2.Type.Timestamp.Encoding"
+            }
+        }
+
+        /// Defines additional types related to Encoding
+        pub mod encoding {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Which encoding to use.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Encoding {
+                /// Encodes the number of microseconds since the Unix epoch using the
+                /// given `Int64` encoding. Values must be microsecond-aligned.
+                ///
+                /// Compatible with:
+                ///
+                /// - Java `Instant.truncatedTo()` with `ChronoUnit.MICROS`
+                UnixMicrosInt64(std::boxed::Box<crate::model::r#type::int_64::Encoding>),
+            }
         }
     }
 
@@ -8916,11 +9647,26 @@ pub mod r#type {
         /// The names and types of the fields in this struct.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub fields: std::vec::Vec<crate::model::r#type::r#struct::Field>,
+
+        /// The encoding to use when converting to or from lower level types.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub encoding: std::option::Option<crate::model::r#type::r#struct::Encoding>,
     }
 
     impl Struct {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [encoding][crate::model::r#type::Struct::encoding].
+        pub fn set_encoding<
+            T: std::convert::Into<std::option::Option<crate::model::r#type::r#struct::Encoding>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.encoding = v.into();
+            self
         }
 
         /// Sets the value of [fields][crate::model::r#type::Struct::fields].
@@ -8992,6 +9738,300 @@ pub mod r#type {
         impl wkt::message::Message for Field {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Field"
+            }
+        }
+
+        /// Rules used to convert to or from lower level types.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Encoding {
+            /// Which encoding to use.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub encoding: std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
+        }
+
+        impl Encoding {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of `encoding`.
+            pub fn set_encoding<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = v.into();
+                self
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `Singleton`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_singleton(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::Singleton(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `DelimitedBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_delimited_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn get_ordered_code_bytes(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+            > {
+                #[allow(unreachable_patterns)]
+                self.encoding.as_ref().and_then(|v| match v {
+                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v) => {
+                        std::option::Option::Some(v)
+                    }
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `Singleton`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_singleton<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::Singleton(v.into()),
+                );
+                self
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `DelimitedBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_delimited_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::DelimitedBytes(v.into()),
+                );
+                self
+            }
+
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
+            /// to hold a `OrderedCodeBytes`.
+            ///
+            /// Note that all the setters affecting `encoding` are
+            /// mutually exclusive.
+            pub fn set_ordered_code_bytes<
+                T: std::convert::Into<
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.encoding = std::option::Option::Some(
+                    crate::model::r#type::r#struct::encoding::Encoding::OrderedCodeBytes(v.into()),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for Encoding {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding"
+            }
+        }
+
+        /// Defines additional types related to Encoding
+        pub mod encoding {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Uses the encoding of `fields[0].type` as-is.
+            /// Only valid if `fields.size == 1`.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct Singleton {}
+
+            impl Singleton {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for Singleton {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.Singleton"
+                }
+            }
+
+            /// Fields are encoded independently and concatenated with a configurable
+            /// `delimiter` in between.
+            ///
+            /// A struct with no fields defined is encoded as a single `delimiter`.
+            ///
+            /// Sorted mode:
+            ///
+            /// - Fields are encoded in sorted mode.
+            /// - Encoded field values must not contain any bytes <= `delimiter[0]`
+            /// - Element-wise order is preserved: `A < B` if `A[0] < B[0]`, or if
+            ///   `A[0] == B[0] && A[1] < B[1]`, etc. Strict prefixes sort first.
+            ///
+            /// Distinct mode:
+            ///
+            /// - Fields are encoded in distinct mode.
+            /// - Encoded field values must not contain `delimiter[0]`.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct DelimitedBytes {
+                /// Byte sequence used to delimit concatenated fields. The delimiter must
+                /// contain at least 1 character and at most 50 characters.
+                #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+                #[serde_as(as = "serde_with::base64::Base64")]
+                pub delimiter: ::bytes::Bytes,
+            }
+
+            impl DelimitedBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [delimiter][crate::model::r#type::r#struct::encoding::DelimitedBytes::delimiter].
+                pub fn set_delimiter<T: std::convert::Into<::bytes::Bytes>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.delimiter = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for DelimitedBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.DelimitedBytes"
+                }
+            }
+
+            /// Fields are encoded independently and concatenated with the fixed byte
+            /// pair {0x00, 0x01} in between.
+            ///
+            /// Any null (0x00) byte in an encoded field is replaced by the fixed byte
+            /// pair {0x00, 0xFF}.
+            ///
+            /// Fields that encode to the empty string "" have special handling:
+            ///
+            /// - If *every* field encodes to "", or if the STRUCT has no fields
+            ///   defined, then the STRUCT is encoded as the fixed byte pair
+            ///   {0x00, 0x00}.
+            /// - Otherwise, the STRUCT only encodes until the last non-empty field,
+            ///   omitting any trailing empty fields. Any empty fields that aren't
+            ///   omitted are replaced with the fixed byte pair {0x00, 0x00}.
+            ///
+            /// Examples:
+            ///
+            /// - STRUCT()             -> "\00\00"
+            /// - STRUCT("")           -> "\00\00"
+            /// - STRUCT("", "")       -> "\00\00"
+            /// - STRUCT("", "B")      -> "\00\00" + "\00\01" + "B"
+            /// - STRUCT("A", "")      -> "A"
+            /// - STRUCT("", "B", "")  -> "\00\00" + "\00\01" + "B"
+            /// - STRUCT("A", "", "C") -> "A" + "\00\01" + "\00\00" + "\00\01" + "C"
+            ///
+            /// Since null bytes are always escaped, this encoding can cause size
+            /// blowup for encodings like `Int64.BigEndianBytes` that are likely to
+            /// produce many such bytes.
+            ///
+            /// Sorted mode:
+            ///
+            /// - Fields are encoded in sorted mode.
+            /// - All values supported by the field encodings are allowed
+            /// - Element-wise order is preserved: `A < B` if `A[0] < B[0]`, or if
+            ///   `A[0] == B[0] && A[1] < B[1]`, etc. Strict prefixes sort first.
+            ///
+            /// Distinct mode:
+            ///
+            /// - Fields are encoded in distinct mode.
+            /// - All values supported by the field encodings are allowed.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct OrderedCodeBytes {}
+
+            impl OrderedCodeBytes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+            }
+
+            impl wkt::message::Message for OrderedCodeBytes {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.bigtable.admin.v2.Type.Struct.Encoding.OrderedCodeBytes"
+                }
+            }
+
+            /// Which encoding to use.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Encoding {
+                /// Use `Singleton` encoding.
+                Singleton(std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>),
+                /// Use `DelimitedBytes` encoding.
+                DelimitedBytes(
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
+                ),
+                /// User `OrderedCodeBytes` encoding.
+                OrderedCodeBytes(
+                    std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
+                ),
             }
         }
     }

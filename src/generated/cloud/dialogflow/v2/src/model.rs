@@ -1215,9 +1215,22 @@ pub struct ListAnswerRecordsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Optional. Filters to restrict results to specific answer records.
+    /// Optional. Filters to restrict results to specific answer records. The
+    /// expression has the following syntax:
     ///
-    /// Marked deprecated as it hasn't been, and isn't currently, supported.
+    /// ```norust
+    /// <field> <operator> <value> [AND <field> <operator> <value>] ...
+    /// ```
+    ///
+    /// The following fields and operators are supported:
+    ///
+    /// * conversation_id with equals(=) operator
+    ///
+    /// Examples:
+    ///
+    /// * `conversation_id=bar` matches answer records in the
+    ///   `projects/foo/locations/global/conversations/bar` conversation
+    ///   (assuming the parent is `projects/foo/locations/global`).
     ///
     /// For more information about filtering, see
     /// [API Filtering](https://aip.dev/160).
@@ -1609,6 +1622,10 @@ pub struct AgentAssistantFeedback {
     /// * Suggested document says: "Items must be returned/exchanged within 60
     ///   days of the purchase date."
     /// * Ground truth: "No return or exchange is allowed."
+    /// * [document_correctness][google.cloud.dialogflow.v2.AgentAssistantFeedback.document_correctness]: [INCORRECT][google.cloud.dialogflow.v2.AgentAssistantFeedback.DocumentCorrectness.INCORRECT]
+    ///
+    /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.DocumentCorrectness.INCORRECT]: crate::model::agent_assistant_feedback::document_correctness::INCORRECT
+    /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.document_correctness]: crate::model::AgentAssistantFeedback::document_correctness
     pub document_correctness: crate::model::agent_assistant_feedback::DocumentCorrectness,
 
     /// Optional. Whether or not the suggested document is efficient. For example,
@@ -2829,6 +2846,8 @@ pub struct SpeechToTextConfig {
     pub model: std::string::String,
 
     /// List of names of Cloud Speech phrase sets that are used for transcription.
+    /// For phrase set limitations, please refer to [Cloud Speech API quotas and
+    /// limits](https://cloud.google.com/speech-to-text/quotas#content).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub phrase_sets: std::vec::Vec<std::string::String>,
 
@@ -2860,7 +2879,7 @@ pub struct SpeechToTextConfig {
     /// [google.cloud.dialogflow.v2.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
     pub enable_word_info: bool,
 
-    /// Use timeout based endpointing, interpreting endpointer sensitivy as
+    /// Use timeout based endpointing, interpreting endpointer sensitivity as
     /// seconds of timeout value.
     pub use_timeout_based_endpointing: bool,
 }
@@ -3419,6 +3438,18 @@ pub struct Conversation {
     /// [google.cloud.dialogflow.v2.Conversation.ConversationStage.HUMAN_ASSIST_STAGE]: crate::model::conversation::conversation_stage::HUMAN_ASSIST_STAGE
     /// [google.cloud.dialogflow.v2.Conversation.ConversationStage.VIRTUAL_AGENT_STAGE]: crate::model::conversation::conversation_stage::VIRTUAL_AGENT_STAGE
     pub conversation_stage: crate::model::conversation::ConversationStage,
+
+    /// Output only. The telephony connection information.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub telephony_connection_info:
+        std::option::Option<crate::model::conversation::TelephonyConnectionInfo>,
+
+    /// Output only. The context reference updates provided by external systems.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub ingested_context_references: std::collections::HashMap<
+        std::string::String,
+        crate::model::conversation::ContextReference,
+    >,
 }
 
 impl Conversation {
@@ -3491,6 +3522,32 @@ impl Conversation {
         self.conversation_stage = v.into();
         self
     }
+
+    /// Sets the value of [telephony_connection_info][crate::model::Conversation::telephony_connection_info].
+    pub fn set_telephony_connection_info<
+        T: std::convert::Into<
+            std::option::Option<crate::model::conversation::TelephonyConnectionInfo>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.telephony_connection_info = v.into();
+        self
+    }
+
+    /// Sets the value of [ingested_context_references][crate::model::Conversation::ingested_context_references].
+    pub fn set_ingested_context_references<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::conversation::ContextReference>,
+    {
+        use std::iter::Iterator;
+        self.ingested_context_references =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Conversation {
@@ -3503,6 +3560,408 @@ impl wkt::message::Message for Conversation {
 pub mod conversation {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The information about phone calls connected via phone gateway to the
+    /// conversation.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct TelephonyConnectionInfo {
+        /// Output only. The number dialed to connect this call in E.164 format.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub dialed_number: std::string::String,
+
+        /// Optional. SDP of the call. It's initially the SDP answer to the endpoint,
+        /// but maybe later updated for the purpose of making the link active, etc.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub sdp: std::string::String,
+
+        /// Output only. The SIP headers from the initial SIP INVITE.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub sip_headers:
+            std::vec::Vec<crate::model::conversation::telephony_connection_info::SipHeader>,
+
+        /// Output only. The mime content from the initial SIP INVITE.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub extra_mime_contents:
+            std::vec::Vec<crate::model::conversation::telephony_connection_info::MimeContent>,
+    }
+
+    impl TelephonyConnectionInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dialed_number][crate::model::conversation::TelephonyConnectionInfo::dialed_number].
+        pub fn set_dialed_number<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.dialed_number = v.into();
+            self
+        }
+
+        /// Sets the value of [sdp][crate::model::conversation::TelephonyConnectionInfo::sdp].
+        pub fn set_sdp<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.sdp = v.into();
+            self
+        }
+
+        /// Sets the value of [sip_headers][crate::model::conversation::TelephonyConnectionInfo::sip_headers].
+        pub fn set_sip_headers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::conversation::telephony_connection_info::SipHeader>,
+        {
+            use std::iter::Iterator;
+            self.sip_headers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [extra_mime_contents][crate::model::conversation::TelephonyConnectionInfo::extra_mime_contents].
+        pub fn set_extra_mime_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                crate::model::conversation::telephony_connection_info::MimeContent,
+            >,
+        {
+            use std::iter::Iterator;
+            self.extra_mime_contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for TelephonyConnectionInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Conversation.TelephonyConnectionInfo"
+        }
+    }
+
+    /// Defines additional types related to TelephonyConnectionInfo
+    pub mod telephony_connection_info {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The SIP headers from the initial SIP INVITE.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct SipHeader {
+            /// Optional. The name of the header.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub name: std::string::String,
+
+            /// Optional. The value of the header.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub value: std::string::String,
+        }
+
+        impl SipHeader {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [name][crate::model::conversation::telephony_connection_info::SipHeader::name].
+            pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.name = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::conversation::telephony_connection_info::SipHeader::value].
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.value = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SipHeader {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Conversation.TelephonyConnectionInfo.SipHeader"
+            }
+        }
+
+        /// The mime content from the initial SIP INVITE.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct MimeContent {
+            /// Optional. The mime type of the content.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub mime_type: std::string::String,
+
+            /// Optional. The content payload.
+            #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+            #[serde_as(as = "serde_with::base64::Base64")]
+            pub content: ::bytes::Bytes,
+        }
+
+        impl MimeContent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [mime_type][crate::model::conversation::telephony_connection_info::MimeContent::mime_type].
+            pub fn set_mime_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.mime_type = v.into();
+                self
+            }
+
+            /// Sets the value of [content][crate::model::conversation::telephony_connection_info::MimeContent::content].
+            pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+                self.content = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MimeContent {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Conversation.TelephonyConnectionInfo.MimeContent"
+            }
+        }
+    }
+
+    /// Represents a section of ingested context information.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ContextReference {
+        /// Required. The list of content updates for a context reference.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub context_contents:
+            std::vec::Vec<crate::model::conversation::context_reference::ContextContent>,
+
+        /// Required. The mode in which context reference contents are updated.
+        pub update_mode: crate::model::conversation::context_reference::UpdateMode,
+
+        /// Optional. The language of the information ingested, defaults to "en-US"
+        /// if not set.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub language_code: std::string::String,
+
+        /// Output only. The time the context reference was first created.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub create_time: std::option::Option<wkt::Timestamp>,
+    }
+
+    impl ContextReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [update_mode][crate::model::conversation::ContextReference::update_mode].
+        pub fn set_update_mode<
+            T: std::convert::Into<crate::model::conversation::context_reference::UpdateMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.update_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [language_code][crate::model::conversation::ContextReference::language_code].
+        pub fn set_language_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.language_code = v.into();
+            self
+        }
+
+        /// Sets the value of [create_time][crate::model::conversation::ContextReference::create_time].
+        pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.create_time = v.into();
+            self
+        }
+
+        /// Sets the value of [context_contents][crate::model::conversation::ContextReference::context_contents].
+        pub fn set_context_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::conversation::context_reference::ContextContent>,
+        {
+            use std::iter::Iterator;
+            self.context_contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ContextReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.Conversation.ContextReference"
+        }
+    }
+
+    /// Defines additional types related to ContextReference
+    pub mod context_reference {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Contents ingested.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ContextContent {
+            /// Required. The information ingested in a single request.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub content: std::string::String,
+
+            /// Required. The format of the ingested string.
+            pub content_format:
+                crate::model::conversation::context_reference::context_content::ContentFormat,
+
+            /// Output only. The time when this information was incorporated into the
+            /// relevant context reference.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub ingestion_time: std::option::Option<wkt::Timestamp>,
+        }
+
+        impl ContextContent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [content][crate::model::conversation::context_reference::ContextContent::content].
+            pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.content = v.into();
+                self
+            }
+
+            /// Sets the value of [content_format][crate::model::conversation::context_reference::ContextContent::content_format].
+            pub fn set_content_format<
+                T: std::convert::Into<
+                    crate::model::conversation::context_reference::context_content::ContentFormat,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.content_format = v.into();
+                self
+            }
+
+            /// Sets the value of [ingestion_time][crate::model::conversation::context_reference::ContextContent::ingestion_time].
+            pub fn set_ingestion_time<
+                T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.ingestion_time = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ContextContent {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.v2.Conversation.ContextReference.ContextContent"
+            }
+        }
+
+        /// Defines additional types related to ContextContent
+        pub mod context_content {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Represents the format of the ingested string.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct ContentFormat(std::borrow::Cow<'static, str>);
+
+            impl ContentFormat {
+                /// Creates a new ContentFormat instance.
+                pub const fn new(v: &'static str) -> Self {
+                    Self(std::borrow::Cow::Borrowed(v))
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> &str {
+                    &self.0
+                }
+            }
+
+            /// Useful constants to work with [ContentFormat](ContentFormat)
+            pub mod content_format {
+                use super::ContentFormat;
+
+                /// Unspecified content format.
+                pub const CONTENT_FORMAT_UNSPECIFIED: ContentFormat =
+                    ContentFormat::new("CONTENT_FORMAT_UNSPECIFIED");
+
+                /// Content was provided in JSON format.
+                pub const JSON: ContentFormat = ContentFormat::new("JSON");
+
+                /// Content was provided as plain text.
+                pub const PLAIN_TEXT: ContentFormat = ContentFormat::new("PLAIN_TEXT");
+            }
+
+            impl std::convert::From<std::string::String> for ContentFormat {
+                fn from(value: std::string::String) -> Self {
+                    Self(std::borrow::Cow::Owned(value))
+                }
+            }
+
+            impl std::default::Default for ContentFormat {
+                fn default() -> Self {
+                    content_format::CONTENT_FORMAT_UNSPECIFIED
+                }
+            }
+        }
+
+        /// Represents the mode in which context reference contents are updated.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct UpdateMode(std::borrow::Cow<'static, str>);
+
+        impl UpdateMode {
+            /// Creates a new UpdateMode instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> &str {
+                &self.0
+            }
+        }
+
+        /// Useful constants to work with [UpdateMode](UpdateMode)
+        pub mod update_mode {
+            use super::UpdateMode;
+
+            /// Unspecified update mode.
+            pub const UPDATE_MODE_UNSPECIFIED: UpdateMode =
+                UpdateMode::new("UPDATE_MODE_UNSPECIFIED");
+
+            /// Context content updates are applied in append mode.
+            pub const APPEND: UpdateMode = UpdateMode::new("APPEND");
+
+            /// Context content updates are applied in overwrite mode.
+            pub const OVERWRITE: UpdateMode = UpdateMode::new("OVERWRITE");
+        }
+
+        impl std::convert::From<std::string::String> for UpdateMode {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
+        impl std::default::Default for UpdateMode {
+            fn default() -> Self {
+                update_mode::UPDATE_MODE_UNSPECIFIED
+            }
+        }
+    }
 
     /// Enumeration of the completion status of the conversation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3549,7 +4008,7 @@ pub mod conversation {
 
     /// Enumeration of the different conversation stages a conversation can be in.
     /// Reference:
-    /// <https://cloud.google.com/dialogflow/priv/docs/contact-center/basics#stages>
+    /// <https://cloud.google.com/agent-assist/docs/basics#conversation_stages>
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ConversationStage(std::borrow::Cow<'static, str>);
 
@@ -4007,6 +4466,9 @@ impl gax::paginator::PageableResponse for ListMessagesResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ConversationPhoneNumber {
+    /// Output only. Desired country code for the phone number.
+    pub country_code: i32,
+
     /// Output only. The phone number to connect to this conversation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub phone_number: std::string::String,
@@ -4015,6 +4477,12 @@ pub struct ConversationPhoneNumber {
 impl ConversationPhoneNumber {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [country_code][crate::model::ConversationPhoneNumber::country_code].
+    pub fn set_country_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.country_code = v.into();
+        self
     }
 
     /// Sets the value of [phone_number][crate::model::ConversationPhoneNumber::phone_number].
@@ -4027,6 +4495,98 @@ impl ConversationPhoneNumber {
 impl wkt::message::Message for ConversationPhoneNumber {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.ConversationPhoneNumber"
+    }
+}
+
+/// The request message for [ConversationsService.IngestContextReferences][].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IngestContextReferencesRequest {
+    /// Required. Resource identifier of the conversation to ingest context
+    /// information for. Format: `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub conversation: std::string::String,
+
+    /// Required. The context references to ingest. The key is the name of the
+    /// context reference and the value contains the contents of the context
+    /// reference. The key is used to incorporate ingested context references to
+    /// enhance the generator.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub context_references: std::collections::HashMap<
+        std::string::String,
+        crate::model::conversation::ContextReference,
+    >,
+}
+
+impl IngestContextReferencesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [conversation][crate::model::IngestContextReferencesRequest::conversation].
+    pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.conversation = v.into();
+        self
+    }
+
+    /// Sets the value of [context_references][crate::model::IngestContextReferencesRequest::context_references].
+    pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::conversation::ContextReference>,
+    {
+        use std::iter::Iterator;
+        self.context_references = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for IngestContextReferencesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.IngestContextReferencesRequest"
+    }
+}
+
+/// The response message for [ConversationsService.IngestContextReferences][].
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IngestContextReferencesResponse {
+    /// All context references ingested.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub ingested_context_references: std::collections::HashMap<
+        std::string::String,
+        crate::model::conversation::ContextReference,
+    >,
+}
+
+impl IngestContextReferencesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ingested_context_references][crate::model::IngestContextReferencesResponse::ingested_context_references].
+    pub fn set_ingested_context_references<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::conversation::ContextReference>,
+    {
+        use std::iter::Iterator;
+        self.ingested_context_references =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for IngestContextReferencesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.IngestContextReferencesResponse"
     }
 }
 
@@ -4546,6 +5106,16 @@ pub struct GenerateStatelessSuggestionRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
+    /// Optional. A section of ingested context information. The key is the name of
+    /// the context reference and the value contains the contents of the context
+    /// reference. The key is used to incorporate ingested context references to
+    /// enhance the generator.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub context_references: std::collections::HashMap<
+        std::string::String,
+        crate::model::conversation::ContextReference,
+    >,
+
     /// Optional. Context of the conversation, including transcripts.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub conversation_context: std::option::Option<crate::model::ConversationContext>,
@@ -4591,6 +5161,18 @@ impl GenerateStatelessSuggestionRequest {
     {
         use std::iter::Iterator;
         self.trigger_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
+    pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::conversation::ContextReference>,
+    {
+        use std::iter::Iterator;
+        self.context_references = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -4911,11 +5493,20 @@ pub mod search_knowledge_request {
     #[non_exhaustive]
     pub struct SearchConfig {
         /// Optional. Boost specifications for data stores.
+        ///
+        /// Maps from datastore name to their boost configuration. Do not specify
+        /// more than one BoostSpecs for each datastore name. If multiple BoostSpecs
+        /// are provided for the same datastore name, the behavior is undefined.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub boost_specs:
             std::vec::Vec<crate::model::search_knowledge_request::search_config::BoostSpecs>,
 
         /// Optional. Filter specification for data store queries.
+        ///
+        /// TMaps from datastore name to the filter expression for that datastore. Do
+        /// not specify more than one FilterSpecs for each datastore name. If
+        /// multiple FilterSpecs are provided for the same datastore name, the
+        /// behavior is undefined.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub filter_specs:
             std::vec::Vec<crate::model::search_knowledge_request::search_config::FilterSpecs>,
@@ -5036,7 +5627,7 @@ pub mod search_knowledge_request {
             pub struct BoostSpec {
 
                 /// Optional. Condition boost specifications. If a document matches
-                /// multiple conditions in the specifictions, boost scores from these
+                /// multiple conditions in the specifications, boost scores from these
                 /// specifications are all applied and combined in a non-linear way.
                 /// Maximum number of specifications is 20.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -5249,11 +5840,45 @@ pub mod search_knowledge_request {
                         )]
                         #[serde(default, rename_all = "camelCase")]
                         #[non_exhaustive]
-                        pub struct ControlPoint {}
+                        pub struct ControlPoint {
+                            /// Optional. Can be one of:
+                            ///
+                            /// . The numerical field value.
+                            /// . The duration spec for freshness:
+                            ///   The value must be formatted as an XSD `dayTimeDuration` value
+                            ///   (a restricted subset of an ISO 8601 duration value). The
+                            ///   pattern for this is: `[nD][T[nH][nM][nS]]`.
+                            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                            pub attribute_value: std::string::String,
+
+                            /// Optional. The value between -1 to 1 by which to boost the score
+                            /// if the attribute_value evaluates to the value specified above.
+                            pub boost_amount: f32,
+                        }
 
                         impl ControlPoint {
                             pub fn new() -> Self {
                                 std::default::Default::default()
+                            }
+
+                            /// Sets the value of [attribute_value][crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint::attribute_value].
+                            pub fn set_attribute_value<
+                                T: std::convert::Into<std::string::String>,
+                            >(
+                                mut self,
+                                v: T,
+                            ) -> Self {
+                                self.attribute_value = v.into();
+                                self
+                            }
+
+                            /// Sets the value of [boost_amount][crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint::boost_amount].
+                            pub fn set_boost_amount<T: std::convert::Into<f32>>(
+                                mut self,
+                                v: T,
+                            ) -> Self {
+                                self.boost_amount = v.into();
+                                self
                             }
                         }
 
@@ -5693,6 +6318,71 @@ pub mod search_knowledge_answer {
         fn default() -> Self {
             answer_type::ANSWER_TYPE_UNSPECIFIED
         }
+    }
+}
+
+/// The request message for
+/// [Conversations.GenerateSuggestions][google.cloud.dialogflow.v2.Conversations.GenerateSuggestions].
+///
+/// [google.cloud.dialogflow.v2.Conversations.GenerateSuggestions]: crate::client::Conversations::generate_suggestions
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GenerateSuggestionsRequest {
+    /// Required. The conversation for which the suggestions are generated. Format:
+    /// `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>`.
+    ///
+    /// The conversation must be created with a conversation profile which has
+    /// generators configured in it to be able to get suggestions.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub conversation: std::string::String,
+
+    /// Optional. The name of the latest conversation message for which the request
+    /// is triggered. Format: `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>/messages/<Message ID>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub latest_message: std::string::String,
+
+    /// Optional. A list of trigger events. Only generators configured in the
+    /// conversation_profile whose trigger_event is listed here will be triggered.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub trigger_events: std::vec::Vec<crate::model::TriggerEvent>,
+}
+
+impl GenerateSuggestionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [conversation][crate::model::GenerateSuggestionsRequest::conversation].
+    pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.conversation = v.into();
+        self
+    }
+
+    /// Sets the value of [latest_message][crate::model::GenerateSuggestionsRequest::latest_message].
+    pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.latest_message = v.into();
+        self
+    }
+
+    /// Sets the value of [trigger_events][crate::model::GenerateSuggestionsRequest::trigger_events].
+    pub fn set_trigger_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TriggerEvent>,
+    {
+        use std::iter::Iterator;
+        self.trigger_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateSuggestionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GenerateSuggestionsRequest"
     }
 }
 
@@ -6974,7 +7664,7 @@ pub struct ConversationModelEvaluation {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Human eval template in csv format.
-    /// It tooks real-world conversations provided through input dataset, generates
+    /// It takes real-world conversations provided through input dataset, generates
     /// example suggestions for customer to verify quality of the model.
     /// For Smart Reply, the generated csv file contains columns of
     /// Context, (Suggestions,Q1,Q2)*3, Actual reply.
@@ -7329,9 +8019,9 @@ pub mod evaluation_config {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ModelSpecificConfig {
-        /// Configuration for smart reply model evalution.
+        /// Configuration for smart reply model evaluation.
         SmartReplyConfig(std::boxed::Box<crate::model::evaluation_config::SmartReplyConfig>),
-        /// Configuration for smart compose model evalution.
+        /// Configuration for smart compose model evaluation.
         SmartComposeConfig(std::boxed::Box<crate::model::evaluation_config::SmartComposeConfig>),
     }
 }
@@ -10619,6 +11309,9 @@ pub mod suggestion_feature {
 
         /// Run smart reply model for chat.
         pub const SMART_REPLY: Type = Type::new("SMART_REPLY");
+
+        /// Run conversation summarization model for chat.
+        pub const CONVERSATION_SUMMARIZATION: Type = Type::new("CONVERSATION_SUMMARIZATION");
 
         /// Run knowledge search with text input from agent or text generated query.
         pub const KNOWLEDGE_SEARCH: Type = Type::new("KNOWLEDGE_SEARCH");
@@ -15580,6 +16273,14 @@ pub mod summarization_section {
 
         /// Customer defined sections.
         pub const CUSTOMER_DEFINED: Type = Type::new("CUSTOMER_DEFINED");
+
+        /// Concise version of the situation section. This type is only available if
+        /// type SITUATION is not selected.
+        pub const SITUATION_CONCISE: Type = Type::new("SITUATION_CONCISE");
+
+        /// Concise version of the action section. This type is only available if
+        /// type ACTION is not selected.
+        pub const ACTION_CONCISE: Type = Type::new("ACTION_CONCISE");
     }
 
     impl std::convert::From<std::string::String> for Type {
@@ -15671,6 +16372,35 @@ impl wkt::message::Message for SummarizationContext {
     }
 }
 
+/// Free form generator context that customer can configure.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FreeFormContext {
+    /// Optional. Free form text input to LLM.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub text: std::string::String,
+}
+
+impl FreeFormContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::FreeFormContext::text].
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FreeFormContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.FreeFormContext"
+    }
+}
+
 /// LLM generator.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -15705,6 +16435,12 @@ pub struct Generator {
     /// Required. Input context of the generator.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub context: std::option::Option<crate::model::generator::Context>,
+
+    /// The foundation model to use for generating suggestions. If a foundation
+    /// model isn't specified here, a model specifically tuned for the feature
+    /// type (and version when applicable) will be used.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub foundation_model: std::option::Option<crate::model::generator::FoundationModel>,
 }
 
 impl Generator {
@@ -15774,6 +16510,19 @@ impl Generator {
     }
 
     /// The value of [context][crate::model::Generator::context]
+    /// if it holds a `FreeFormContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_free_form_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FreeFormContext>> {
+        #[allow(unreachable_patterns)]
+        self.context.as_ref().and_then(|v| match v {
+            crate::model::generator::Context::FreeFormContext(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [context][crate::model::Generator::context]
     /// if it holds a `SummarizationContext`, `None` if the field is not set or
     /// holds a different branch.
     pub fn get_summarization_context(
@@ -15789,6 +16538,22 @@ impl Generator {
     }
 
     /// Sets the value of [context][crate::model::Generator::context]
+    /// to hold a `FreeFormContext`.
+    ///
+    /// Note that all the setters affecting `context` are
+    /// mutually exclusive.
+    pub fn set_free_form_context<
+        T: std::convert::Into<std::boxed::Box<crate::model::FreeFormContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.context =
+            std::option::Option::Some(crate::model::generator::Context::FreeFormContext(v.into()));
+        self
+    }
+
+    /// Sets the value of [context][crate::model::Generator::context]
     /// to hold a `SummarizationContext`.
     ///
     /// Note that all the setters affecting `context` are
@@ -15801,6 +16566,42 @@ impl Generator {
     ) -> Self {
         self.context = std::option::Option::Some(
             crate::model::generator::Context::SummarizationContext(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of `foundation_model`.
+    pub fn set_foundation_model<
+        T: std::convert::Into<std::option::Option<crate::model::generator::FoundationModel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.foundation_model = v.into();
+        self
+    }
+
+    /// The value of [foundation_model][crate::model::Generator::foundation_model]
+    /// if it holds a `PublishedModel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_published_model(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.foundation_model.as_ref().and_then(|v| match v {
+            crate::model::generator::FoundationModel::PublishedModel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [foundation_model][crate::model::Generator::foundation_model]
+    /// to hold a `PublishedModel`.
+    ///
+    /// Note that all the setters affecting `foundation_model` are
+    /// mutually exclusive.
+    pub fn set_published_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.foundation_model = std::option::Option::Some(
+            crate::model::generator::FoundationModel::PublishedModel(v.into()),
         );
         self
     }
@@ -15822,8 +16623,55 @@ pub mod generator {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Context {
+        /// Input of free from generator to LLM.
+        FreeFormContext(std::boxed::Box<crate::model::FreeFormContext>),
         /// Input of prebuilt Summarization feature.
         SummarizationContext(std::boxed::Box<crate::model::SummarizationContext>),
+    }
+
+    /// The foundation model to use for generating suggestions. If a foundation
+    /// model isn't specified here, a model specifically tuned for the feature
+    /// type (and version when applicable) will be used.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum FoundationModel {
+        /// Optional. The published Large Language Model name.
+        ///
+        /// * To use the latest model version, specify the model name without version
+        ///   number. Example: `text-bison`
+        /// * To use a stable model version, specify the version number as well.
+        ///   Example: `text-bison@002`.
+        PublishedModel(std::string::String),
+    }
+}
+
+/// Suggestion generated using free form generator.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FreeFormSuggestion {
+    /// Required. Free form suggestion.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub response: std::string::String,
+}
+
+impl FreeFormSuggestion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [response][crate::model::FreeFormSuggestion::response].
+    pub fn set_response<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.response = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FreeFormSuggestion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.FreeFormSuggestion"
     }
 }
 
@@ -15934,6 +16782,21 @@ impl GeneratorSuggestion {
     }
 
     /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
+    /// if it holds a `FreeFormSuggestion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_free_form_suggestion(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FreeFormSuggestion>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion.as_ref().and_then(|v| match v {
+            crate::model::generator_suggestion::Suggestion::FreeFormSuggestion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
     /// if it holds a `SummarySuggestion`, `None` if the field is not set or
     /// holds a different branch.
     pub fn get_summary_suggestion(
@@ -15946,6 +16809,23 @@ impl GeneratorSuggestion {
             }
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
+    /// to hold a `FreeFormSuggestion`.
+    ///
+    /// Note that all the setters affecting `suggestion` are
+    /// mutually exclusive.
+    pub fn set_free_form_suggestion<
+        T: std::convert::Into<std::boxed::Box<crate::model::FreeFormSuggestion>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggestion = std::option::Option::Some(
+            crate::model::generator_suggestion::Suggestion::FreeFormSuggestion(v.into()),
+        );
+        self
     }
 
     /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
@@ -15982,6 +16862,8 @@ pub mod generator_suggestion {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Suggestion {
+        /// Optional. Free form suggestion.
+        FreeFormSuggestion(std::boxed::Box<crate::model::FreeFormSuggestion>),
         /// Optional. Suggested summary.
         SummarySuggestion(std::boxed::Box<crate::model::SummarySuggestion>),
     }
@@ -20482,7 +21364,8 @@ pub struct Message {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. The time when the message was sent.
+    /// Optional. The time when the message was sent. For voice messages, this is
+    /// the time when an utterance started.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub send_time: std::option::Option<wkt::Timestamp>,
 
@@ -20964,6 +21847,21 @@ impl AnalyzeContentRequest {
     }
 
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
+    /// if it holds a `AudioInput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_audio_input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::analyze_content_request::Input::AudioInput(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `EventInput`, `None` if the field is not set or
     /// holds a different branch.
     pub fn get_event_input(
@@ -21004,6 +21902,21 @@ impl AnalyzeContentRequest {
     ) -> Self {
         self.input = std::option::Option::Some(
             crate::model::analyze_content_request::Input::TextInput(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
+    /// to hold a `AudioInput`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    pub fn set_audio_input<T: std::convert::Into<std::boxed::Box<crate::model::AudioInput>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input = std::option::Option::Some(
+            crate::model::analyze_content_request::Input::AudioInput(v.into()),
         );
         self
     }
@@ -21059,6 +21972,8 @@ pub mod analyze_content_request {
     pub enum Input {
         /// The natural language text to be processed.
         TextInput(std::boxed::Box<crate::model::TextInput>),
+        /// The natural language speech audio to be processed.
+        AudioInput(std::boxed::Box<crate::model::AudioInput>),
         /// An input event to send to Dialogflow.
         EventInput(std::boxed::Box<crate::model::EventInput>),
         /// An input representing the selection of a suggestion.
@@ -21367,10 +22282,10 @@ pub struct StreamingAnalyzeContentRequest {
     /// [google.cloud.dialogflow.v2.Conversations.CreateConversation]: crate::client::Conversations::create_conversation
     pub enable_extended_streaming: bool,
 
-    /// Enable partial virtual agent responses. If this flag is not enabled,
-    /// response stream still contains only one final response even if some
-    /// `Fulfillment`s in Dialogflow virtual agent have been configured to return
-    /// partial responses.
+    /// Optional. Enable partial responses from Dialogflow CX agent. If this flag
+    /// is not enabled, response stream still contains only one final response even
+    /// if some `Fulfillment`s in Dialogflow CX agent have been configured to
+    /// return partial responses.
     pub enable_partial_automated_agent_reply: bool,
 
     /// If true, `StreamingAnalyzeContentResponse.debugging_info` will get
@@ -21771,6 +22686,10 @@ pub struct StreamingAnalyzeContentResponse {
     /// `StreamingAnalyzeContentRequest.enable_debugging_info` is set to true.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub debugging_info: std::option::Option<crate::model::CloudConversationDebuggingInfo>,
+
+    /// The name of the actual Cloud speech model used for speech recognition.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub speech_model: std::string::String,
 }
 
 impl StreamingAnalyzeContentResponse {
@@ -21845,6 +22764,12 @@ impl StreamingAnalyzeContentResponse {
         v: T,
     ) -> Self {
         self.debugging_info = v.into();
+        self
+    }
+
+    /// Sets the value of [speech_model][crate::model::StreamingAnalyzeContentResponse::speech_model].
+    pub fn set_speech_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.speech_model = v.into();
         self
     }
 
@@ -22164,6 +23089,129 @@ impl wkt::message::Message for SuggestFaqAnswersResponse {
     }
 }
 
+/// The response message for
+/// [Conversations.GenerateSuggestions][google.cloud.dialogflow.v2.Conversations.GenerateSuggestions].
+///
+/// [google.cloud.dialogflow.v2.Conversations.GenerateSuggestions]: crate::client::Conversations::generate_suggestions
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GenerateSuggestionsResponse {
+    /// The answers generated for the conversation based on context.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub generator_suggestion_answers:
+        std::vec::Vec<crate::model::generate_suggestions_response::GeneratorSuggestionAnswer>,
+
+    /// The name of the latest conversation message used as context for
+    /// compiling suggestion.
+    ///
+    /// Format: `projects/<Project ID>/locations/<Location
+    /// ID>/conversations/<Conversation ID>/messages/<Message ID>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub latest_message: std::string::String,
+}
+
+impl GenerateSuggestionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [latest_message][crate::model::GenerateSuggestionsResponse::latest_message].
+    pub fn set_latest_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.latest_message = v.into();
+        self
+    }
+
+    /// Sets the value of [generator_suggestion_answers][crate::model::GenerateSuggestionsResponse::generator_suggestion_answers].
+    pub fn set_generator_suggestion_answers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+            crate::model::generate_suggestions_response::GeneratorSuggestionAnswer,
+        >,
+    {
+        use std::iter::Iterator;
+        self.generator_suggestion_answers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GenerateSuggestionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.GenerateSuggestionsResponse"
+    }
+}
+
+/// Defines additional types related to GenerateSuggestionsResponse
+pub mod generate_suggestions_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A GeneratorSuggestion answer.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct GeneratorSuggestionAnswer {
+        /// Suggestion details.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub generator_suggestion: std::option::Option<crate::model::GeneratorSuggestion>,
+
+        /// The name of the generator used to generate this suggestion. Format:
+        /// `projects/<Project ID>/locations/<Location ID>/generators/<Generator
+        /// ID>`.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub source_generator: std::string::String,
+
+        /// Answer record that uniquely identifies the suggestion. This can be used
+        /// to provide suggestion feedback.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub answer_record: std::string::String,
+    }
+
+    impl GeneratorSuggestionAnswer {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generator_suggestion][crate::model::generate_suggestions_response::GeneratorSuggestionAnswer::generator_suggestion].
+        pub fn set_generator_suggestion<
+            T: std::convert::Into<std::option::Option<crate::model::GeneratorSuggestion>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.generator_suggestion = v.into();
+            self
+        }
+
+        /// Sets the value of [source_generator][crate::model::generate_suggestions_response::GeneratorSuggestionAnswer::source_generator].
+        pub fn set_source_generator<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source_generator = v.into();
+            self
+        }
+
+        /// Sets the value of [answer_record][crate::model::generate_suggestions_response::GeneratorSuggestionAnswer::answer_record].
+        pub fn set_answer_record<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.answer_record = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GeneratorSuggestionAnswer {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.v2.GenerateSuggestionsResponse.GeneratorSuggestionAnswer"
+        }
+    }
+}
+
 /// The request message for
 /// [Participants.SuggestSmartReplies][google.cloud.dialogflow.v2.Participants.SuggestSmartReplies].
 ///
@@ -22307,6 +23355,54 @@ impl SuggestSmartRepliesResponse {
 impl wkt::message::Message for SuggestSmartRepliesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.v2.SuggestSmartRepliesResponse"
+    }
+}
+
+/// Represents the natural language speech audio to be processed.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AudioInput {
+    /// Required. Instructs the speech recognizer how to process the speech audio.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub config: std::option::Option<crate::model::InputAudioConfig>,
+
+    /// Required. The natural language speech audio to be processed.
+    /// A single request can contain up to 2 minutes of speech audio data.
+    /// The transcribed text cannot contain more than 256 bytes for virtual agent
+    /// interactions.
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+    #[serde_as(as = "serde_with::base64::Base64")]
+    pub audio: ::bytes::Bytes,
+}
+
+impl AudioInput {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [config][crate::model::AudioInput::config].
+    pub fn set_config<
+        T: std::convert::Into<std::option::Option<crate::model::InputAudioConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.config = v.into();
+        self
+    }
+
+    /// Sets the value of [audio][crate::model::AudioInput::audio].
+    pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.audio = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AudioInput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.v2.AudioInput"
     }
 }
 
@@ -23055,6 +24151,21 @@ impl SuggestionResult {
         })
     }
 
+    /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// if it holds a `GenerateSuggestionsResponse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_generate_suggestions_response(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GenerateSuggestionsResponse>> {
+        #[allow(unreachable_patterns)]
+        self.suggestion_response.as_ref().and_then(|v| match v {
+            crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// to hold a `Error`.
     ///
@@ -23143,6 +24254,25 @@ impl SuggestionResult {
         );
         self
     }
+
+    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
+    /// to hold a `GenerateSuggestionsResponse`.
+    ///
+    /// Note that all the setters affecting `suggestion_response` are
+    /// mutually exclusive.
+    pub fn set_generate_suggestions_response<
+        T: std::convert::Into<std::boxed::Box<crate::model::GenerateSuggestionsResponse>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.suggestion_response = std::option::Option::Some(
+            crate::model::suggestion_result::SuggestionResponse::GenerateSuggestionsResponse(
+                v.into(),
+            ),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for SuggestionResult {
@@ -23173,6 +24303,9 @@ pub mod suggestion_result {
         SuggestFaqAnswersResponse(std::boxed::Box<crate::model::SuggestFaqAnswersResponse>),
         /// SuggestSmartRepliesResponse if request is for SMART_REPLY.
         SuggestSmartRepliesResponse(std::boxed::Box<crate::model::SuggestSmartRepliesResponse>),
+        /// Suggestions generated using generators triggered by customer or agent
+        /// messages.
+        GenerateSuggestionsResponse(std::boxed::Box<crate::model::GenerateSuggestionsResponse>),
     }
 }
 
@@ -23433,7 +24566,7 @@ pub struct SuggestKnowledgeAssistRequest {
     pub context_size: i32,
 
     /// Optional. The previously suggested query for the given conversation. This
-    /// helps identify whether the next suggestion we generate is resonably
+    /// helps identify whether the next suggestion we generate is reasonably
     /// different from the previous one. This is useful to avoid similar
     /// suggestions within the conversation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -27548,6 +28681,12 @@ pub mod trigger_event {
     /// Conversations.GenerateStatelessSuggestion and
     /// Conversations.GenerateSuggestions.
     pub const MANUAL_CALL: TriggerEvent = TriggerEvent::new("MANUAL_CALL");
+
+    /// Triggers after each customer message only.
+    pub const CUSTOMER_MESSAGE: TriggerEvent = TriggerEvent::new("CUSTOMER_MESSAGE");
+
+    /// Triggers after each agent message only.
+    pub const AGENT_MESSAGE: TriggerEvent = TriggerEvent::new("AGENT_MESSAGE");
 }
 
 impl std::convert::From<std::string::String> for TriggerEvent {

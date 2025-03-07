@@ -1806,14 +1806,14 @@ impl FilterResult {
     }
 
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
-    /// if it holds a `CsamFilterResult`, `None` if the field is not set or
+    /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csam_filter_result(
+    pub fn get_csam_filter_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
         #[allow(unreachable_patterns)]
         self.filter_result.as_ref().and_then(|v| match v {
-            crate::model::filter_result::FilterResult::CsamFilterResult(v) => {
+            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v) => {
                 std::option::Option::Some(v)
             }
             _ => std::option::Option::None,
@@ -1904,18 +1904,18 @@ impl FilterResult {
     }
 
     /// Sets the value of [filter_result][crate::model::FilterResult::filter_result]
-    /// to hold a `CsamFilterResult`.
+    /// to hold a `CsamFilterFilterResult`.
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
-    pub fn set_csam_filter_result<
+    pub fn set_csam_filter_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>,
     >(
         mut self,
         v: T,
     ) -> Self {
         self.filter_result = std::option::Option::Some(
-            crate::model::filter_result::FilterResult::CsamFilterResult(v.into()),
+            crate::model::filter_result::FilterResult::CsamFilterFilterResult(v.into()),
         );
         self
     }
@@ -1965,7 +1965,7 @@ pub mod filter_result {
         /// Malicious URI filter results.
         MaliciousUriFilterResult(std::boxed::Box<crate::model::MaliciousUriFilterResult>),
         /// CSAM filter results.
-        CsamFilterResult(std::boxed::Box<crate::model::CsamFilterResult>),
+        CsamFilterFilterResult(std::boxed::Box<crate::model::CsamFilterResult>),
         /// Virus scan results.
         VirusScanFilterResult(std::boxed::Box<crate::model::VirusScanFilterResult>),
     }
