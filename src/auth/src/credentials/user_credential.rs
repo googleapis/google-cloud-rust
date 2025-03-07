@@ -27,11 +27,14 @@ const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let au =
         serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
+
+    let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
+
     let token_provider = UserTokenProvider {
         client_id: au.client_id,
         client_secret: au.client_secret,
         refresh_token: au.refresh_token,
-        endpoint: OAUTH2_ENDPOINT.to_string(),
+        endpoint: endpoint,
     };
 
     Ok(Credential {
@@ -153,6 +156,8 @@ pub(crate) struct AuthorizedUser {
     client_secret: String,
     refresh_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    token_uri: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     quota_project_id: Option<String>,
 }
 
@@ -217,7 +222,8 @@ mod test {
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
             "universe_domain": "googleapis.com",
-            "quota_project_id": "test-project"
+            "quota_project_id": "test-project",
+            "token_uri" : "test-token-uri",
         });
 
         let expected = AuthorizedUser {
@@ -226,6 +232,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: Some("test-project".to_string()),
+            token_uri: Some("test-token-uri".to_string()),
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -246,6 +253,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: None,
+            token_uri: None,
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
