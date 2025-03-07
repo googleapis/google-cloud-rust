@@ -53,6 +53,8 @@ type modelAnnotations struct {
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
+	// Sets the default system parameters
+	DefaultSystemParameters []systemParameter
 }
 
 type serviceAnnotations struct {
@@ -106,6 +108,7 @@ type methodAnnotation struct {
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
 	OperationInfo       *operationInfo
+	SystemParameters    []systemParameter
 }
 
 type pathInfoAnnotation struct {
@@ -213,7 +216,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 			if !generateMethod(m) {
 				continue
 			}
-			annotateMethod(m, s, model.State, codec.modulePath, model.PackageName, codec.packageMapping, packageNamespace)
+			codec.annotateMethod(m, s, model.State, model.PackageName, packageNamespace)
 			if m := m.InputType; m != nil {
 				codec.annotateMessage(m, model.State, model.PackageName)
 			}
@@ -375,7 +378,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	}
 }
 
-func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez, packageNamespace string) {
+func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
 	pathInfoAnnotation := &pathInfoAnnotation{
 		Method:        m.PathInfo.Verb,
 		MethodToLower: strings.ToLower(m.PathInfo.Verb),
@@ -390,17 +393,18 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePa
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
-		DocLines:            formatDocComments(m.Documentation, m.ID, state, modulePath, s.Scopes(), packageMapping),
+		DocLines:            formatDocComments(m.Documentation, m.ID, state, c.modulePath, s.Scopes(), c.packageMapping),
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
 		ServiceNameToPascal: toPascal(s.Name),
 		ServiceNameToCamel:  toCamel(s.Name),
 		ServiceNameToSnake:  toSnake(s.Name),
+		SystemParameters:    c.systemParameters,
 	}
 	if m.OperationInfo != nil {
-		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 		m.OperationInfo.Codec = &operationInfo{
 			MetadataType:       metadataType,
 			ResponseType:       responseType,

@@ -350,131 +350,177 @@ pub mod workflow {
 
         /// Describes the possibled types of a state error.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::borrow::Cow<'static, str>);
+        pub struct Type(i32);
 
         impl Type {
+            /// No type specified.
+            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+            /// Caused by an issue with KMS.
+            pub const KMS_ERROR: Type = Type::new(1);
+
             /// Creates a new Type instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("KMS_ERROR"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                    "KMS_ERROR" => std::option::Option::Some(Self::KMS_ERROR),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Type](Type)
-        pub mod r#type {
-            use super::Type;
-
-            /// No type specified.
-            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-            /// Caused by an issue with KMS.
-            pub const KMS_ERROR: Type = Type::new("KMS_ERROR");
-        }
-
-        impl std::convert::From<std::string::String> for Type {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                r#type::TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// Describes the current state of workflow deployment.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Invalid state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The workflow has been deployed successfully and is serving.
+        pub const ACTIVE: State = State::new(1);
+
+        /// Workflow data is unavailable. See the `state_error` field.
+        pub const UNAVAILABLE: State = State::new(2);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Invalid state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The workflow has been deployed successfully and is serving.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// Workflow data is unavailable. See the `state_error` field.
-        pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallLogLevel(std::borrow::Cow<'static, str>);
+    pub struct CallLogLevel(i32);
 
     impl CallLogLevel {
-        /// Creates a new CallLogLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CallLogLevel](CallLogLevel)
-    pub mod call_log_level {
-        use super::CallLogLevel;
-
         /// No call logging level specified.
-        pub const CALL_LOG_LEVEL_UNSPECIFIED: CallLogLevel =
-            CallLogLevel::new("CALL_LOG_LEVEL_UNSPECIFIED");
+        pub const CALL_LOG_LEVEL_UNSPECIFIED: CallLogLevel = CallLogLevel::new(0);
 
         /// Log all call steps within workflows, all call returns, and all exceptions
         /// raised.
-        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::new("LOG_ALL_CALLS");
+        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::new(1);
 
         /// Log only exceptions that are raised from call steps within workflows.
-        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::new("LOG_ERRORS_ONLY");
+        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::new(2);
 
         /// Explicitly log nothing.
-        pub const LOG_NONE: CallLogLevel = CallLogLevel::new("LOG_NONE");
+        pub const LOG_NONE: CallLogLevel = CallLogLevel::new(3);
+
+        /// Creates a new CallLogLevel instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CALL_LOG_LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOG_ALL_CALLS"),
+                2 => std::borrow::Cow::Borrowed("LOG_ERRORS_ONLY"),
+                3 => std::borrow::Cow::Borrowed("LOG_NONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CALL_LOG_LEVEL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CALL_LOG_LEVEL_UNSPECIFIED)
+                }
+                "LOG_ALL_CALLS" => std::option::Option::Some(Self::LOG_ALL_CALLS),
+                "LOG_ERRORS_ONLY" => std::option::Option::Some(Self::LOG_ERRORS_ONLY),
+                "LOG_NONE" => std::option::Option::Some(Self::LOG_NONE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CallLogLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CallLogLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CallLogLevel {
         fn default() -> Self {
-            call_log_level::CALL_LOG_LEVEL_UNSPECIFIED
+            Self::new(0)
         }
     }
 

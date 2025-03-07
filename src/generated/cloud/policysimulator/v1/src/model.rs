@@ -425,79 +425,85 @@ pub mod binding_explanation {
 
     /// Whether a role includes a specific permission.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolePermission(std::borrow::Cow<'static, str>);
+    pub struct RolePermission(i32);
 
     impl RolePermission {
-        /// Creates a new RolePermission instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RolePermission](RolePermission)
-    pub mod role_permission {
-        use super::RolePermission;
-
         /// Default value. This value is unused.
-        pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNSPECIFIED");
+        pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission = RolePermission::new(0);
 
         /// The permission is included in the role.
-        pub const ROLE_PERMISSION_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_INCLUDED");
+        pub const ROLE_PERMISSION_INCLUDED: RolePermission = RolePermission::new(1);
 
         /// The permission is not included in the role.
-        pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_NOT_INCLUDED");
+        pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission = RolePermission::new(2);
 
         /// The user who created the
         /// [Replay][google.cloud.policysimulator.v1.Replay] is not
         /// allowed to access the binding.
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-        pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission =
-            RolePermission::new("ROLE_PERMISSION_UNKNOWN_INFO_DENIED");
+        pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission = RolePermission::new(3);
+
+        /// Creates a new RolePermission instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_INCLUDED"),
+                2 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_NOT_INCLUDED"),
+                3 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNKNOWN_INFO_DENIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLE_PERMISSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_UNSPECIFIED)
+                }
+                "ROLE_PERMISSION_INCLUDED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_INCLUDED)
+                }
+                "ROLE_PERMISSION_NOT_INCLUDED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_NOT_INCLUDED)
+                }
+                "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => {
+                    std::option::Option::Some(Self::ROLE_PERMISSION_UNKNOWN_INFO_DENIED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RolePermission {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RolePermission {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RolePermission {
         fn default() -> Self {
-            role_permission::ROLE_PERMISSION_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Whether the binding includes the principal.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Membership(std::borrow::Cow<'static, str>);
+    pub struct Membership(i32);
 
     impl Membership {
-        /// Creates a new Membership instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Membership](Membership)
-    pub mod membership {
-        use super::Membership;
-
         /// Default value. This value is unused.
-        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new("MEMBERSHIP_UNSPECIFIED");
+        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new(0);
 
         /// The binding includes the principal. The principal can be included
         /// directly or indirectly. For example:
@@ -506,34 +512,72 @@ pub mod binding_explanation {
         ///   binding.
         /// * A principal is included indirectly if that principal is in a Google
         ///   group or Google Workspace domain that is listed in the binding.
-        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new("MEMBERSHIP_INCLUDED");
+        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new(1);
 
         /// The binding does not include the principal.
-        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new("MEMBERSHIP_NOT_INCLUDED");
+        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new(2);
 
         /// The user who created the
         /// [Replay][google.cloud.policysimulator.v1.Replay] is not
         /// allowed to access the binding.
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-        pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_INFO_DENIED");
+        pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership = Membership::new(3);
 
         /// The principal is an unsupported type. Only Google Accounts and service
         /// accounts are supported.
-        pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership =
-            Membership::new("MEMBERSHIP_UNKNOWN_UNSUPPORTED");
+        pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership = Membership::new(4);
+
+        /// Creates a new Membership instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MEMBERSHIP_INCLUDED"),
+                2 => std::borrow::Cow::Borrowed("MEMBERSHIP_NOT_INCLUDED"),
+                3 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_INFO_DENIED"),
+                4 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_UNSUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MEMBERSHIP_UNSPECIFIED" => std::option::Option::Some(Self::MEMBERSHIP_UNSPECIFIED),
+                "MEMBERSHIP_INCLUDED" => std::option::Option::Some(Self::MEMBERSHIP_INCLUDED),
+                "MEMBERSHIP_NOT_INCLUDED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_NOT_INCLUDED)
+                }
+                "MEMBERSHIP_UNKNOWN_INFO_DENIED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_INFO_DENIED)
+                }
+                "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => {
+                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_UNSUPPORTED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Membership {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Membership {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Membership {
         fn default() -> Self {
-            membership::MEMBERSHIP_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -704,49 +748,68 @@ pub mod replay {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Default value. This value is unused.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The `Replay` has not started yet.
+        pub const PENDING: State = State::new(1);
+
+        /// The `Replay` is currently running.
+        pub const RUNNING: State = State::new(2);
+
+        /// The `Replay` has successfully completed.
+        pub const SUCCEEDED: State = State::new(3);
+
+        /// The `Replay` has finished with an error.
+        pub const FAILED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The `Replay` has not started yet.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The `Replay` is currently running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The `Replay` has successfully completed.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The `Replay` has finished with an error.
-        pub const FAILED: State = State::new("FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1268,46 +1331,59 @@ pub mod replay_config {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSource(std::borrow::Cow<'static, str>);
+    pub struct LogSource(i32);
 
     impl LogSource {
-        /// Creates a new LogSource instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [LogSource](LogSource)
-    pub mod log_source {
-        use super::LogSource;
-
         /// An unspecified log source.
         /// If the log source is unspecified, the
         /// [Replay][google.cloud.policysimulator.v1.Replay] defaults to using
         /// `RECENT_ACCESSES`.
         ///
         /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-        pub const LOG_SOURCE_UNSPECIFIED: LogSource = LogSource::new("LOG_SOURCE_UNSPECIFIED");
+        pub const LOG_SOURCE_UNSPECIFIED: LogSource = LogSource::new(0);
 
         /// All access logs from the last 90 days. These logs may not include logs
         /// from the most recent 7 days.
-        pub const RECENT_ACCESSES: LogSource = LogSource::new("RECENT_ACCESSES");
+        pub const RECENT_ACCESSES: LogSource = LogSource::new(1);
+
+        /// Creates a new LogSource instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOG_SOURCE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RECENT_ACCESSES"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOG_SOURCE_UNSPECIFIED" => std::option::Option::Some(Self::LOG_SOURCE_UNSPECIFIED),
+                "RECENT_ACCESSES" => std::option::Option::Some(Self::RECENT_ACCESSES),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for LogSource {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LogSource {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LogSource {
         fn default() -> Self {
-            log_source::LOG_SOURCE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1439,45 +1515,29 @@ pub mod access_state_diff {
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccessChangeType(std::borrow::Cow<'static, str>);
+    pub struct AccessChangeType(i32);
 
     impl AccessChangeType {
-        /// Creates a new AccessChangeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AccessChangeType](AccessChangeType)
-    pub mod access_change_type {
-        use super::AccessChangeType;
-
         /// Default value. This value is unused.
-        pub const ACCESS_CHANGE_TYPE_UNSPECIFIED: AccessChangeType =
-            AccessChangeType::new("ACCESS_CHANGE_TYPE_UNSPECIFIED");
+        pub const ACCESS_CHANGE_TYPE_UNSPECIFIED: AccessChangeType = AccessChangeType::new(0);
 
         /// The principal's access did not change.
         /// This includes the case where both baseline and simulated are UNKNOWN,
         /// but the unknown information is equivalent.
-        pub const NO_CHANGE: AccessChangeType = AccessChangeType::new("NO_CHANGE");
+        pub const NO_CHANGE: AccessChangeType = AccessChangeType::new(1);
 
         /// The principal's access under both the current policies and the proposed
         /// policies is `UNKNOWN`, but the unknown information differs between them.
-        pub const UNKNOWN_CHANGE: AccessChangeType = AccessChangeType::new("UNKNOWN_CHANGE");
+        pub const UNKNOWN_CHANGE: AccessChangeType = AccessChangeType::new(2);
 
         /// The principal had access under the current policies (`GRANTED`), but will
         /// no longer have access after the proposed changes (`NOT_GRANTED`).
-        pub const ACCESS_REVOKED: AccessChangeType = AccessChangeType::new("ACCESS_REVOKED");
+        pub const ACCESS_REVOKED: AccessChangeType = AccessChangeType::new(3);
 
         /// The principal did not have access under the current policies
         /// (`NOT_GRANTED`), but will have access after the proposed changes
         /// (`GRANTED`).
-        pub const ACCESS_GAINED: AccessChangeType = AccessChangeType::new("ACCESS_GAINED");
+        pub const ACCESS_GAINED: AccessChangeType = AccessChangeType::new(4);
 
         /// This result can occur for the following reasons:
         ///
@@ -1488,8 +1548,7 @@ pub mod access_state_diff {
         ///   they
         ///   will not have access after the proposed changes (`NOT_GRANTED`).
         ///
-        pub const ACCESS_MAYBE_REVOKED: AccessChangeType =
-            AccessChangeType::new("ACCESS_MAYBE_REVOKED");
+        pub const ACCESS_MAYBE_REVOKED: AccessChangeType = AccessChangeType::new(5);
 
         /// This result can occur for the following reasons:
         ///
@@ -1500,19 +1559,58 @@ pub mod access_state_diff {
         /// * The principal's access under the current policies is `UNKNOWN`, but
         ///   they will have access after the proposed changes (`GRANTED`).
         ///
-        pub const ACCESS_MAYBE_GAINED: AccessChangeType =
-            AccessChangeType::new("ACCESS_MAYBE_GAINED");
+        pub const ACCESS_MAYBE_GAINED: AccessChangeType = AccessChangeType::new(6);
+
+        /// Creates a new AccessChangeType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACCESS_CHANGE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_CHANGE"),
+                2 => std::borrow::Cow::Borrowed("UNKNOWN_CHANGE"),
+                3 => std::borrow::Cow::Borrowed("ACCESS_REVOKED"),
+                4 => std::borrow::Cow::Borrowed("ACCESS_GAINED"),
+                5 => std::borrow::Cow::Borrowed("ACCESS_MAYBE_REVOKED"),
+                6 => std::borrow::Cow::Borrowed("ACCESS_MAYBE_GAINED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACCESS_CHANGE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACCESS_CHANGE_TYPE_UNSPECIFIED)
+                }
+                "NO_CHANGE" => std::option::Option::Some(Self::NO_CHANGE),
+                "UNKNOWN_CHANGE" => std::option::Option::Some(Self::UNKNOWN_CHANGE),
+                "ACCESS_REVOKED" => std::option::Option::Some(Self::ACCESS_REVOKED),
+                "ACCESS_GAINED" => std::option::Option::Some(Self::ACCESS_GAINED),
+                "ACCESS_MAYBE_REVOKED" => std::option::Option::Some(Self::ACCESS_MAYBE_REVOKED),
+                "ACCESS_MAYBE_GAINED" => std::option::Option::Some(Self::ACCESS_MAYBE_GAINED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AccessChangeType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AccessChangeType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AccessChangeType {
         fn default() -> Self {
-            access_change_type::ACCESS_CHANGE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1600,54 +1698,73 @@ impl wkt::message::Message for ExplainedAccess {
 
 /// Whether a principal has a permission for a resource.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessState(std::borrow::Cow<'static, str>);
+pub struct AccessState(i32);
 
 impl AccessState {
-    /// Creates a new AccessState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AccessState](AccessState)
-pub mod access_state {
-    use super::AccessState;
-
     /// Default value. This value is unused.
-    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new("ACCESS_STATE_UNSPECIFIED");
+    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new(0);
 
     /// The principal has the permission.
-    pub const GRANTED: AccessState = AccessState::new("GRANTED");
+    pub const GRANTED: AccessState = AccessState::new(1);
 
     /// The principal does not have the permission.
-    pub const NOT_GRANTED: AccessState = AccessState::new("NOT_GRANTED");
+    pub const NOT_GRANTED: AccessState = AccessState::new(2);
 
     /// The principal has the permission only if a condition expression evaluates
     /// to `true`.
-    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new("UNKNOWN_CONDITIONAL");
+    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new(3);
 
     /// The user who created the
     /// [Replay][google.cloud.policysimulator.v1.Replay] does not have
     /// access to all of the policies that Policy Simulator needs to evaluate.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new("UNKNOWN_INFO_DENIED");
+    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new(4);
+
+    /// Creates a new AccessState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ACCESS_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("GRANTED"),
+            2 => std::borrow::Cow::Borrowed("NOT_GRANTED"),
+            3 => std::borrow::Cow::Borrowed("UNKNOWN_CONDITIONAL"),
+            4 => std::borrow::Cow::Borrowed("UNKNOWN_INFO_DENIED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ACCESS_STATE_UNSPECIFIED" => std::option::Option::Some(Self::ACCESS_STATE_UNSPECIFIED),
+            "GRANTED" => std::option::Option::Some(Self::GRANTED),
+            "NOT_GRANTED" => std::option::Option::Some(Self::NOT_GRANTED),
+            "UNKNOWN_CONDITIONAL" => std::option::Option::Some(Self::UNKNOWN_CONDITIONAL),
+            "UNKNOWN_INFO_DENIED" => std::option::Option::Some(Self::UNKNOWN_INFO_DENIED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AccessState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AccessState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for AccessState {
     fn default() -> Self {
-        access_state::ACCESS_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
@@ -1655,45 +1772,61 @@ impl std::default::Default for AccessState {
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HeuristicRelevance(std::borrow::Cow<'static, str>);
+pub struct HeuristicRelevance(i32);
 
 impl HeuristicRelevance {
-    /// Creates a new HeuristicRelevance instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [HeuristicRelevance](HeuristicRelevance)
-pub mod heuristic_relevance {
-    use super::HeuristicRelevance;
-
     /// Default value. This value is unused.
-    pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance =
-        HeuristicRelevance::new("HEURISTIC_RELEVANCE_UNSPECIFIED");
+    pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance = HeuristicRelevance::new(0);
 
     /// The data point has a limited effect on the result. Changing the data point
     /// is unlikely to affect the overall determination.
-    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new("NORMAL");
+    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new(1);
 
     /// The data point has a strong effect on the result. Changing the data point
     /// is likely to affect the overall determination.
-    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new("HIGH");
+    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new(2);
+
+    /// Creates a new HeuristicRelevance instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HEURISTIC_RELEVANCE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NORMAL"),
+            2 => std::borrow::Cow::Borrowed("HIGH"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HEURISTIC_RELEVANCE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::HEURISTIC_RELEVANCE_UNSPECIFIED)
+            }
+            "NORMAL" => std::option::Option::Some(Self::NORMAL),
+            "HIGH" => std::option::Option::Some(Self::HIGH),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for HeuristicRelevance {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for HeuristicRelevance {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for HeuristicRelevance {
     fn default() -> Self {
-        heuristic_relevance::HEURISTIC_RELEVANCE_UNSPECIFIED
+        Self::new(0)
     }
 }

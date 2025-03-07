@@ -444,46 +444,63 @@ pub mod disable_service_request {
     /// Enum to determine if service usage should be checked when disabling a
     /// service.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CheckIfServiceHasUsage(std::borrow::Cow<'static, str>);
+    pub struct CheckIfServiceHasUsage(i32);
 
     impl CheckIfServiceHasUsage {
-        /// Creates a new CheckIfServiceHasUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CheckIfServiceHasUsage](CheckIfServiceHasUsage)
-    pub mod check_if_service_has_usage {
-        use super::CheckIfServiceHasUsage;
-
         /// When unset, the default behavior is used, which is SKIP.
         pub const CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED: CheckIfServiceHasUsage =
-            CheckIfServiceHasUsage::new("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED");
+            CheckIfServiceHasUsage::new(0);
 
         /// If set, skip checking service usage when disabling a service.
-        pub const SKIP: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new("SKIP");
+        pub const SKIP: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new(1);
 
         /// If set, service usage is checked when disabling the service. If a
         /// service, or its dependents, has usage in the last 30 days, the request
         /// returns a FAILED_PRECONDITION error.
-        pub const CHECK: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new("CHECK");
+        pub const CHECK: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new(2);
+
+        /// Creates a new CheckIfServiceHasUsage instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SKIP"),
+                2 => std::borrow::Cow::Borrowed("CHECK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED)
+                }
+                "SKIP" => std::option::Option::Some(Self::SKIP),
+                "CHECK" => std::option::Option::Some(Self::CHECK),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CheckIfServiceHasUsage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CheckIfServiceHasUsage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CheckIfServiceHasUsage {
         fn default() -> Self {
-            check_if_service_has_usage::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -926,45 +943,60 @@ impl wkt::message::Message for BatchGetServicesResponse {
 
 /// Whether or not a service has been enabled for use by a consumer.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct State(std::borrow::Cow<'static, str>);
+pub struct State(i32);
 
 impl State {
-    /// Creates a new State instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [State](State)
-pub mod state {
-    use super::State;
-
     /// The default value, which indicates that the enabled state of the service
     /// is unspecified or not meaningful. Currently, all consumers other than
     /// projects (such as folders and organizations) are always in this state.
-    pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+    pub const STATE_UNSPECIFIED: State = State::new(0);
 
     /// The service cannot be used by this consumer. It has either been explicitly
     /// disabled, or has never been enabled.
-    pub const DISABLED: State = State::new("DISABLED");
+    pub const DISABLED: State = State::new(1);
 
     /// The service has been explicitly enabled for use by this consumer.
-    pub const ENABLED: State = State::new("ENABLED");
+    pub const ENABLED: State = State::new(2);
+
+    /// Creates a new State instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DISABLED"),
+            2 => std::borrow::Cow::Borrowed("ENABLED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+            "DISABLED" => std::option::Option::Some(Self::DISABLED),
+            "ENABLED" => std::option::Option::Some(Self::ENABLED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for State {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for State {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for State {
     fn default() -> Self {
-        state::STATE_UNSPECIFIED
+        Self::new(0)
     }
 }

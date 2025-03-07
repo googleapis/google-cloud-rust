@@ -49,7 +49,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77,7 +77,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97,7 +97,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::Method::POST,
                 format!("/v1/{}/attestors", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -117,7 +117,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -145,7 +145,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -167,7 +167,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 reqwest::Method::GET,
                 format!("/v1/{}/attestors", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -188,7 +188,7 @@ impl crate::stubs::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -230,7 +230,7 @@ impl crate::stubs::SystemPolicyV1 for SystemPolicyV1 {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -275,7 +275,7 @@ impl crate::stubs::ValidationHelperV1 for ValidationHelperV1 {
                 reqwest::Method::POST,
                 format!("/v1/{}:validateAttestationOccurrence", req.attestor),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

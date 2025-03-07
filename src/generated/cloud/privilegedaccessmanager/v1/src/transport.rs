@@ -52,7 +52,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::Method::GET,
                 format!("/v1/{}:checkOnboardingStatus", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74,7 +74,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::Method::GET,
                 format!("/v1/{}/entitlements", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -100,7 +100,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::Method::GET,
                 format!("/v1/{}/entitlements:search", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -123,7 +123,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -145,7 +145,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::Method::POST,
                 format!("/v1/{}/entitlements", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -166,7 +166,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -196,7 +196,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -225,7 +225,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/grants", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -251,7 +251,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::Method::GET,
                 format!("/v1/{}/grants:search", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -274,7 +274,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -293,7 +293,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/grants", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -311,7 +311,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -328,7 +328,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:deny", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -345,7 +345,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:revoke", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -362,7 +362,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -384,7 +384,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -403,7 +403,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -425,7 +425,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -444,7 +444,7 @@ impl crate::stubs::PrivilegedAccessManager for PrivilegedAccessManager {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

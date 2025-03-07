@@ -839,124 +839,168 @@ impl wkt::message::Message for HttpResponse {
 
 /// The action taken by agent.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Action(std::borrow::Cow<'static, str>);
+pub struct Action(i32);
 
 impl Action {
+    /// Unspecified Action.
+    pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+    /// Indicates that agent should open a new stream.
+    pub const OPEN_NEW_STREAM: Action = Action::new(1);
+
     /// Creates a new Action instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("OPEN_NEW_STREAM"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+            "OPEN_NEW_STREAM" => std::option::Option::Some(Self::OPEN_NEW_STREAM),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Action](Action)
-pub mod action {
-    use super::Action;
-
-    /// Unspecified Action.
-    pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-    /// Indicates that agent should open a new stream.
-    pub const OPEN_NEW_STREAM: Action = Action::new("OPEN_NEW_STREAM");
-}
-
-impl std::convert::From<std::string::String> for Action {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Action {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Action {
     fn default() -> Self {
-        action::ACTION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Endpoint indicates where the messages will be delivered.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TetherEndpoint(std::borrow::Cow<'static, str>);
+pub struct TetherEndpoint(i32);
 
 impl TetherEndpoint {
+    /// Unspecified tether endpoint.
+    pub const TETHER_ENDPOINT_UNSPECIFIED: TetherEndpoint = TetherEndpoint::new(0);
+
+    /// Apigee MART endpoint.
+    pub const APIGEE_MART: TetherEndpoint = TetherEndpoint::new(1);
+
+    /// Apigee Runtime endpoint.
+    pub const APIGEE_RUNTIME: TetherEndpoint = TetherEndpoint::new(2);
+
+    /// Apigee Mint Rating endpoint.
+    pub const APIGEE_MINT_RATING: TetherEndpoint = TetherEndpoint::new(3);
+
     /// Creates a new TetherEndpoint instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TETHER_ENDPOINT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("APIGEE_MART"),
+            2 => std::borrow::Cow::Borrowed("APIGEE_RUNTIME"),
+            3 => std::borrow::Cow::Borrowed("APIGEE_MINT_RATING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TETHER_ENDPOINT_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TETHER_ENDPOINT_UNSPECIFIED)
+            }
+            "APIGEE_MART" => std::option::Option::Some(Self::APIGEE_MART),
+            "APIGEE_RUNTIME" => std::option::Option::Some(Self::APIGEE_RUNTIME),
+            "APIGEE_MINT_RATING" => std::option::Option::Some(Self::APIGEE_MINT_RATING),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TetherEndpoint](TetherEndpoint)
-pub mod tether_endpoint {
-    use super::TetherEndpoint;
-
-    /// Unspecified tether endpoint.
-    pub const TETHER_ENDPOINT_UNSPECIFIED: TetherEndpoint =
-        TetherEndpoint::new("TETHER_ENDPOINT_UNSPECIFIED");
-
-    /// Apigee MART endpoint.
-    pub const APIGEE_MART: TetherEndpoint = TetherEndpoint::new("APIGEE_MART");
-
-    /// Apigee Runtime endpoint.
-    pub const APIGEE_RUNTIME: TetherEndpoint = TetherEndpoint::new("APIGEE_RUNTIME");
-
-    /// Apigee Mint Rating endpoint.
-    pub const APIGEE_MINT_RATING: TetherEndpoint = TetherEndpoint::new("APIGEE_MINT_RATING");
-}
-
-impl std::convert::From<std::string::String> for TetherEndpoint {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TetherEndpoint {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for TetherEndpoint {
     fn default() -> Self {
-        tether_endpoint::TETHER_ENDPOINT_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// HTTP Scheme.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Scheme(std::borrow::Cow<'static, str>);
+pub struct Scheme(i32);
 
 impl Scheme {
+    /// Unspecified scheme.
+    pub const SCHEME_UNSPECIFIED: Scheme = Scheme::new(0);
+
+    /// HTTPS protocol.
+    pub const HTTPS: Scheme = Scheme::new(1);
+
     /// Creates a new Scheme instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SCHEME_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HTTPS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SCHEME_UNSPECIFIED" => std::option::Option::Some(Self::SCHEME_UNSPECIFIED),
+            "HTTPS" => std::option::Option::Some(Self::HTTPS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Scheme](Scheme)
-pub mod scheme {
-    use super::Scheme;
-
-    /// Unspecified scheme.
-    pub const SCHEME_UNSPECIFIED: Scheme = Scheme::new("SCHEME_UNSPECIFIED");
-
-    /// HTTPS protocol.
-    pub const HTTPS: Scheme = Scheme::new("HTTPS");
-}
-
-impl std::convert::From<std::string::String> for Scheme {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Scheme {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Scheme {
     fn default() -> Self {
-        scheme::SCHEME_UNSPECIFIED
+        Self::new(0)
     }
 }

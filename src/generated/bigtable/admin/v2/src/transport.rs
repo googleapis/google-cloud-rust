@@ -52,7 +52,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/instances", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69,7 +69,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91,7 +91,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::GET,
                 format!("/v2/{}/instances", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -111,7 +111,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -137,7 +137,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -166,7 +166,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -188,7 +188,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/clusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -208,7 +208,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -227,7 +227,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/clusters", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -247,7 +247,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -273,7 +273,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -302,7 +302,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -324,7 +324,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/appProfiles", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -345,7 +345,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -367,7 +367,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::GET,
                 format!("/v2/{}/appProfiles", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -397,7 +397,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -427,7 +427,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -450,7 +450,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -470,7 +470,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -490,7 +490,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -510,7 +510,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 reqwest::Method::GET,
                 format!("/v2/{}/hotTablets", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -551,7 +551,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -573,7 +573,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -592,7 +592,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -611,7 +611,7 @@ impl crate::stubs::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -667,7 +667,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/tables", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -687,7 +687,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/tables:createFromSnapshot", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -704,7 +704,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/tables", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -726,7 +726,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -755,7 +755,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -782,7 +782,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -801,7 +801,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:undelete", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -821,7 +821,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/authorizedViews", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -844,7 +844,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::GET,
                 format!("/v2/{}/authorizedViews", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -866,7 +866,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -895,7 +895,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -925,7 +925,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -948,7 +948,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:modifyColumnFamilies", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -968,7 +968,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:dropRowRange", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -988,7 +988,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:generateConsistencyToken", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1008,7 +1008,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:checkConsistency", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1025,7 +1025,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:snapshot", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1042,7 +1042,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1064,7 +1064,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::GET,
                 format!("/v2/{}/snapshots", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1085,7 +1085,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1104,7 +1104,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1122,7 +1122,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1150,7 +1150,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1177,7 +1177,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1196,7 +1196,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1222,7 +1222,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/tables:restore", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1242,7 +1242,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}/backups:copy", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1262,7 +1262,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1282,7 +1282,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1302,7 +1302,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 reqwest::Method::POST,
                 format!("/v2/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1319,7 +1319,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1341,7 +1341,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1360,7 +1360,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1379,7 +1379,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

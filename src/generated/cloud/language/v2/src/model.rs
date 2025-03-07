@@ -142,43 +142,58 @@ pub mod document {
 
     /// The document types enum.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// The content type is not specified.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Plain text
+        pub const PLAIN_TEXT: Type = Type::new(1);
+
+        /// HTML
+        pub const HTML: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PLAIN_TEXT"),
+                2 => std::borrow::Cow::Borrowed("HTML"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "PLAIN_TEXT" => std::option::Option::Some(Self::PLAIN_TEXT),
+                "HTML" => std::option::Option::Some(Self::HTML),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// The content type is not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Plain text
-        pub const PLAIN_TEXT: Type = Type::new("PLAIN_TEXT");
-
-        /// HTML
-        pub const HTML: Type = Type::new("HTML");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -349,47 +364,32 @@ pub mod entity {
     /// below lists the associated fields for entities that have different
     /// metadata.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// Unknown
-        pub const UNKNOWN: Type = Type::new("UNKNOWN");
+        pub const UNKNOWN: Type = Type::new(0);
 
         /// Person
-        pub const PERSON: Type = Type::new("PERSON");
+        pub const PERSON: Type = Type::new(1);
 
         /// Location
-        pub const LOCATION: Type = Type::new("LOCATION");
+        pub const LOCATION: Type = Type::new(2);
 
         /// Organization
-        pub const ORGANIZATION: Type = Type::new("ORGANIZATION");
+        pub const ORGANIZATION: Type = Type::new(3);
 
         /// Event
-        pub const EVENT: Type = Type::new("EVENT");
+        pub const EVENT: Type = Type::new(4);
 
         /// Artwork
-        pub const WORK_OF_ART: Type = Type::new("WORK_OF_ART");
+        pub const WORK_OF_ART: Type = Type::new(5);
 
         /// Consumer product
-        pub const CONSUMER_GOOD: Type = Type::new("CONSUMER_GOOD");
+        pub const CONSUMER_GOOD: Type = Type::new(6);
 
         /// Other types of entities
-        pub const OTHER: Type = Type::new("OTHER");
+        pub const OTHER: Type = Type::new(7);
 
         /// Phone number
         ///
@@ -402,7 +402,7 @@ pub mod entity {
         /// * `area_code` - region or area code, if detected
         /// * `extension` - phone extension (to be dialed after connection), if
         ///   detected
-        pub const PHONE_NUMBER: Type = Type::new("PHONE_NUMBER");
+        pub const PHONE_NUMBER: Type = Type::new(9);
 
         /// Address
         ///
@@ -419,7 +419,7 @@ pub mod entity {
         ///   detected
         /// * `sublocality` - used in Asian addresses to demark a district within a
         ///   city, if detected
-        pub const ADDRESS: Type = Type::new("ADDRESS");
+        pub const ADDRESS: Type = Type::new(10);
 
         /// Date
         ///
@@ -428,28 +428,78 @@ pub mod entity {
         /// * `year` - four digit year, if detected
         /// * `month` - two digit month number, if detected
         /// * `day` - two digit day number, if detected
-        pub const DATE: Type = Type::new("DATE");
+        pub const DATE: Type = Type::new(11);
 
         /// Number
         ///
         /// The metadata is the number itself.
-        pub const NUMBER: Type = Type::new("NUMBER");
+        pub const NUMBER: Type = Type::new(12);
 
         /// Price
         ///
         /// The metadata identifies the `value` and `currency`.
-        pub const PRICE: Type = Type::new("PRICE");
+        pub const PRICE: Type = Type::new(13);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PERSON"),
+                2 => std::borrow::Cow::Borrowed("LOCATION"),
+                3 => std::borrow::Cow::Borrowed("ORGANIZATION"),
+                4 => std::borrow::Cow::Borrowed("EVENT"),
+                5 => std::borrow::Cow::Borrowed("WORK_OF_ART"),
+                6 => std::borrow::Cow::Borrowed("CONSUMER_GOOD"),
+                7 => std::borrow::Cow::Borrowed("OTHER"),
+                9 => std::borrow::Cow::Borrowed("PHONE_NUMBER"),
+                10 => std::borrow::Cow::Borrowed("ADDRESS"),
+                11 => std::borrow::Cow::Borrowed("DATE"),
+                12 => std::borrow::Cow::Borrowed("NUMBER"),
+                13 => std::borrow::Cow::Borrowed("PRICE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "PERSON" => std::option::Option::Some(Self::PERSON),
+                "LOCATION" => std::option::Option::Some(Self::LOCATION),
+                "ORGANIZATION" => std::option::Option::Some(Self::ORGANIZATION),
+                "EVENT" => std::option::Option::Some(Self::EVENT),
+                "WORK_OF_ART" => std::option::Option::Some(Self::WORK_OF_ART),
+                "CONSUMER_GOOD" => std::option::Option::Some(Self::CONSUMER_GOOD),
+                "OTHER" => std::option::Option::Some(Self::OTHER),
+                "PHONE_NUMBER" => std::option::Option::Some(Self::PHONE_NUMBER),
+                "ADDRESS" => std::option::Option::Some(Self::ADDRESS),
+                "DATE" => std::option::Option::Some(Self::DATE),
+                "NUMBER" => std::option::Option::Some(Self::NUMBER),
+                "PRICE" => std::option::Option::Some(Self::PRICE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -576,43 +626,58 @@ pub mod entity_mention {
 
     /// The supported types of mentions.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Unknown
+        pub const TYPE_UNKNOWN: Type = Type::new(0);
+
+        /// Proper name
+        pub const PROPER: Type = Type::new(1);
+
+        /// Common noun (or noun compound)
+        pub const COMMON: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PROPER"),
+                2 => std::borrow::Cow::Borrowed("COMMON"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNKNOWN" => std::option::Option::Some(Self::TYPE_UNKNOWN),
+                "PROPER" => std::option::Option::Some(Self::PROPER),
+                "COMMON" => std::option::Option::Some(Self::COMMON),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Unknown
-        pub const TYPE_UNKNOWN: Type = Type::new("TYPE_UNKNOWN");
-
-        /// Proper name
-        pub const PROPER: Type = Type::new("PROPER");
-
-        /// Common noun (or noun compound)
-        pub const COMMON: Type = Type::new("COMMON");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -1069,48 +1134,64 @@ pub mod moderate_text_request {
 
     /// The model version to use for ModerateText.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelVersion(std::borrow::Cow<'static, str>);
+    pub struct ModelVersion(i32);
 
     impl ModelVersion {
-        /// Creates a new ModelVersion instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ModelVersion](ModelVersion)
-    pub mod model_version {
-        use super::ModelVersion;
-
         /// The default model version.
-        pub const MODEL_VERSION_UNSPECIFIED: ModelVersion =
-            ModelVersion::new("MODEL_VERSION_UNSPECIFIED");
+        pub const MODEL_VERSION_UNSPECIFIED: ModelVersion = ModelVersion::new(0);
 
         /// Use the v1 model, this model is used by default when not provided.
         /// The v1 model only returns probability (confidence) score for each
         /// category.
-        pub const MODEL_VERSION_1: ModelVersion = ModelVersion::new("MODEL_VERSION_1");
+        pub const MODEL_VERSION_1: ModelVersion = ModelVersion::new(1);
 
         /// Use the v2 model.
         /// The v2 model only returns probability (confidence) score for each
         /// category, and returns severity score for a subset of the categories.
-        pub const MODEL_VERSION_2: ModelVersion = ModelVersion::new("MODEL_VERSION_2");
+        pub const MODEL_VERSION_2: ModelVersion = ModelVersion::new(2);
+
+        /// Creates a new ModelVersion instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MODEL_VERSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MODEL_VERSION_1"),
+                2 => std::borrow::Cow::Borrowed("MODEL_VERSION_2"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MODEL_VERSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MODEL_VERSION_UNSPECIFIED)
+                }
+                "MODEL_VERSION_1" => std::option::Option::Some(Self::MODEL_VERSION_1),
+                "MODEL_VERSION_2" => std::option::Option::Some(Self::MODEL_VERSION_2),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ModelVersion {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ModelVersion {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ModelVersion {
         fn default() -> Self {
-            model_version::MODEL_VERSION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1429,52 +1510,69 @@ impl wkt::message::Message for AnnotateTextResponse {
 /// languages that natively use different text encodings may access offsets
 /// differently.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncodingType(std::borrow::Cow<'static, str>);
+pub struct EncodingType(i32);
 
 impl EncodingType {
-    /// Creates a new EncodingType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [EncodingType](EncodingType)
-pub mod encoding_type {
-    use super::EncodingType;
-
     /// If `EncodingType` is not specified, encoding-dependent information (such as
     /// `begin_offset`) will be set at `-1`.
-    pub const NONE: EncodingType = EncodingType::new("NONE");
+    pub const NONE: EncodingType = EncodingType::new(0);
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-8 encoding of the input. C++ and Go are examples of languages
     /// that use this encoding natively.
-    pub const UTF8: EncodingType = EncodingType::new("UTF8");
+    pub const UTF8: EncodingType = EncodingType::new(1);
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-16 encoding of the input. Java and JavaScript are examples of
     /// languages that use this encoding natively.
-    pub const UTF16: EncodingType = EncodingType::new("UTF16");
+    pub const UTF16: EncodingType = EncodingType::new(2);
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-32 encoding of the input. Python is an example of a language
     /// that uses this encoding natively.
-    pub const UTF32: EncodingType = EncodingType::new("UTF32");
+    pub const UTF32: EncodingType = EncodingType::new(3);
+
+    /// Creates a new EncodingType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("NONE"),
+            1 => std::borrow::Cow::Borrowed("UTF8"),
+            2 => std::borrow::Cow::Borrowed("UTF16"),
+            3 => std::borrow::Cow::Borrowed("UTF32"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "NONE" => std::option::Option::Some(Self::NONE),
+            "UTF8" => std::option::Option::Some(Self::UTF8),
+            "UTF16" => std::option::Option::Some(Self::UTF16),
+            "UTF32" => std::option::Option::Some(Self::UTF32),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for EncodingType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for EncodingType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for EncodingType {
     fn default() -> Self {
-        encoding_type::NONE
+        Self::new(0)
     }
 }

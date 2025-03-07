@@ -18,8 +18,10 @@ import (
 	"bytes"
 	"fmt"
 	"log/slog"
+	"maps"
 	"os"
 	"os/exec"
+	"slices"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -532,6 +534,22 @@ func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN,
 		}
 		enum.Values = append(enum.Values, enumValue)
 	}
+	numbers := map[int32]*api.EnumValue{}
+	for _, v := range enum.Values {
+		matchesStyle := func(v *api.EnumValue) bool {
+			return strings.ToUpper(v.Name) == v.Name
+		}
+		if ev, ok := numbers[v.Number]; ok {
+			if len(ev.Name) > len(v.Name) || (matchesStyle(v) && !matchesStyle(ev)) {
+				numbers[v.Number] = v
+			}
+		} else {
+			numbers[v.Number] = v
+		}
+	}
+	unique := slices.Collect(maps.Values(numbers))
+	slices.SortFunc(unique, func(a, b *api.EnumValue) int { return int(a.Number - b.Number) })
+	enum.UniqueNumberValues = unique
 	return enum
 }
 

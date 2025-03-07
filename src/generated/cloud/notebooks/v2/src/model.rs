@@ -181,60 +181,81 @@ pub mod event {
 
     /// The definition of the event types.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(std::borrow::Cow<'static, str>);
+    pub struct EventType(i32);
 
     impl EventType {
-        /// Creates a new EventType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [EventType](EventType)
-    pub mod event_type {
-        use super::EventType;
-
         /// Event is not specified.
-        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new(0);
 
         /// The instance / runtime is idle
-        pub const IDLE: EventType = EventType::new("IDLE");
+        pub const IDLE: EventType = EventType::new(1);
 
         /// The instance / runtime is available.
         /// This event indicates that instance / runtime underlying compute is
         /// operational.
-        pub const HEARTBEAT: EventType = EventType::new("HEARTBEAT");
+        pub const HEARTBEAT: EventType = EventType::new(2);
 
         /// The instance / runtime health is available.
         /// This event indicates that instance / runtime health information.
-        pub const HEALTH: EventType = EventType::new("HEALTH");
+        pub const HEALTH: EventType = EventType::new(3);
 
         /// The instance / runtime is available.
         /// This event allows instance / runtime to send Host maintenance
         /// information to Control Plane.
         /// <https://cloud.google.com/compute/docs/gpus/gpu-host-maintenance>
-        pub const MAINTENANCE: EventType = EventType::new("MAINTENANCE");
+        pub const MAINTENANCE: EventType = EventType::new(4);
 
         /// The instance / runtime is available.
         /// This event indicates that the instance had metadata that needs to be
         /// modified.
-        pub const METADATA_CHANGE: EventType = EventType::new("METADATA_CHANGE");
+        pub const METADATA_CHANGE: EventType = EventType::new(5);
+
+        /// Creates a new EventType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IDLE"),
+                2 => std::borrow::Cow::Borrowed("HEARTBEAT"),
+                3 => std::borrow::Cow::Borrowed("HEALTH"),
+                4 => std::borrow::Cow::Borrowed("MAINTENANCE"),
+                5 => std::borrow::Cow::Borrowed("METADATA_CHANGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::EVENT_TYPE_UNSPECIFIED),
+                "IDLE" => std::option::Option::Some(Self::IDLE),
+                "HEARTBEAT" => std::option::Option::Some(Self::HEARTBEAT),
+                "HEALTH" => std::option::Option::Some(Self::HEALTH),
+                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
+                "METADATA_CHANGE" => std::option::Option::Some(Self::METADATA_CHANGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for EventType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for EventType {
         fn default() -> Self {
-            event_type::EVENT_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -303,43 +324,58 @@ pub mod network_interface {
     /// The type of vNIC driver.
     /// Default should be NIC_TYPE_UNSPECIFIED.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct NicType(std::borrow::Cow<'static, str>);
+    pub struct NicType(i32);
 
     impl NicType {
+        /// No type specified.
+        pub const NIC_TYPE_UNSPECIFIED: NicType = NicType::new(0);
+
+        /// VIRTIO
+        pub const VIRTIO_NET: NicType = NicType::new(1);
+
+        /// GVNIC
+        pub const GVNIC: NicType = NicType::new(2);
+
         /// Creates a new NicType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NIC_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("VIRTIO_NET"),
+                2 => std::borrow::Cow::Borrowed("GVNIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NIC_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::NIC_TYPE_UNSPECIFIED),
+                "VIRTIO_NET" => std::option::Option::Some(Self::VIRTIO_NET),
+                "GVNIC" => std::option::Option::Some(Self::GVNIC),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [NicType](NicType)
-    pub mod nic_type {
-        use super::NicType;
-
-        /// No type specified.
-        pub const NIC_TYPE_UNSPECIFIED: NicType = NicType::new("NIC_TYPE_UNSPECIFIED");
-
-        /// VIRTIO
-        pub const VIRTIO_NET: NicType = NicType::new("VIRTIO_NET");
-
-        /// GVNIC
-        pub const GVNIC: NicType = NicType::new("GVNIC");
-    }
-
-    impl std::convert::From<std::string::String> for NicType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for NicType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for NicType {
         fn default() -> Self {
-            nic_type::NIC_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -545,71 +581,100 @@ pub mod accelerator_config {
     /// Definition of the types of hardware accelerators that can be used on
     /// this instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AcceleratorType(std::borrow::Cow<'static, str>);
+    pub struct AcceleratorType(i32);
 
     impl AcceleratorType {
+        /// Accelerator type is not specified.
+        pub const ACCELERATOR_TYPE_UNSPECIFIED: AcceleratorType = AcceleratorType::new(0);
+
+        /// Accelerator type is Nvidia Tesla P100.
+        pub const NVIDIA_TESLA_P100: AcceleratorType = AcceleratorType::new(2);
+
+        /// Accelerator type is Nvidia Tesla V100.
+        pub const NVIDIA_TESLA_V100: AcceleratorType = AcceleratorType::new(3);
+
+        /// Accelerator type is Nvidia Tesla P4.
+        pub const NVIDIA_TESLA_P4: AcceleratorType = AcceleratorType::new(4);
+
+        /// Accelerator type is Nvidia Tesla T4.
+        pub const NVIDIA_TESLA_T4: AcceleratorType = AcceleratorType::new(5);
+
+        /// Accelerator type is Nvidia Tesla A100 - 40GB.
+        pub const NVIDIA_TESLA_A100: AcceleratorType = AcceleratorType::new(11);
+
+        /// Accelerator type is Nvidia Tesla A100 - 80GB.
+        pub const NVIDIA_A100_80GB: AcceleratorType = AcceleratorType::new(12);
+
+        /// Accelerator type is Nvidia Tesla L4.
+        pub const NVIDIA_L4: AcceleratorType = AcceleratorType::new(13);
+
+        /// Accelerator type is NVIDIA Tesla T4 Virtual Workstations.
+        pub const NVIDIA_TESLA_T4_VWS: AcceleratorType = AcceleratorType::new(8);
+
+        /// Accelerator type is NVIDIA Tesla P100 Virtual Workstations.
+        pub const NVIDIA_TESLA_P100_VWS: AcceleratorType = AcceleratorType::new(9);
+
+        /// Accelerator type is NVIDIA Tesla P4 Virtual Workstations.
+        pub const NVIDIA_TESLA_P4_VWS: AcceleratorType = AcceleratorType::new(10);
+
         /// Creates a new AcceleratorType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACCELERATOR_TYPE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_P100"),
+                3 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_V100"),
+                4 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_P4"),
+                5 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_T4"),
+                8 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_T4_VWS"),
+                9 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_P100_VWS"),
+                10 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_P4_VWS"),
+                11 => std::borrow::Cow::Borrowed("NVIDIA_TESLA_A100"),
+                12 => std::borrow::Cow::Borrowed("NVIDIA_A100_80GB"),
+                13 => std::borrow::Cow::Borrowed("NVIDIA_L4"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACCELERATOR_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACCELERATOR_TYPE_UNSPECIFIED)
+                }
+                "NVIDIA_TESLA_P100" => std::option::Option::Some(Self::NVIDIA_TESLA_P100),
+                "NVIDIA_TESLA_V100" => std::option::Option::Some(Self::NVIDIA_TESLA_V100),
+                "NVIDIA_TESLA_P4" => std::option::Option::Some(Self::NVIDIA_TESLA_P4),
+                "NVIDIA_TESLA_T4" => std::option::Option::Some(Self::NVIDIA_TESLA_T4),
+                "NVIDIA_TESLA_A100" => std::option::Option::Some(Self::NVIDIA_TESLA_A100),
+                "NVIDIA_A100_80GB" => std::option::Option::Some(Self::NVIDIA_A100_80GB),
+                "NVIDIA_L4" => std::option::Option::Some(Self::NVIDIA_L4),
+                "NVIDIA_TESLA_T4_VWS" => std::option::Option::Some(Self::NVIDIA_TESLA_T4_VWS),
+                "NVIDIA_TESLA_P100_VWS" => std::option::Option::Some(Self::NVIDIA_TESLA_P100_VWS),
+                "NVIDIA_TESLA_P4_VWS" => std::option::Option::Some(Self::NVIDIA_TESLA_P4_VWS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AcceleratorType](AcceleratorType)
-    pub mod accelerator_type {
-        use super::AcceleratorType;
-
-        /// Accelerator type is not specified.
-        pub const ACCELERATOR_TYPE_UNSPECIFIED: AcceleratorType =
-            AcceleratorType::new("ACCELERATOR_TYPE_UNSPECIFIED");
-
-        /// Accelerator type is Nvidia Tesla P100.
-        pub const NVIDIA_TESLA_P100: AcceleratorType = AcceleratorType::new("NVIDIA_TESLA_P100");
-
-        /// Accelerator type is Nvidia Tesla V100.
-        pub const NVIDIA_TESLA_V100: AcceleratorType = AcceleratorType::new("NVIDIA_TESLA_V100");
-
-        /// Accelerator type is Nvidia Tesla P4.
-        pub const NVIDIA_TESLA_P4: AcceleratorType = AcceleratorType::new("NVIDIA_TESLA_P4");
-
-        /// Accelerator type is Nvidia Tesla T4.
-        pub const NVIDIA_TESLA_T4: AcceleratorType = AcceleratorType::new("NVIDIA_TESLA_T4");
-
-        /// Accelerator type is Nvidia Tesla A100 - 40GB.
-        pub const NVIDIA_TESLA_A100: AcceleratorType = AcceleratorType::new("NVIDIA_TESLA_A100");
-
-        /// Accelerator type is Nvidia Tesla A100 - 80GB.
-        pub const NVIDIA_A100_80GB: AcceleratorType = AcceleratorType::new("NVIDIA_A100_80GB");
-
-        /// Accelerator type is Nvidia Tesla L4.
-        pub const NVIDIA_L4: AcceleratorType = AcceleratorType::new("NVIDIA_L4");
-
-        /// Accelerator type is NVIDIA Tesla T4 Virtual Workstations.
-        pub const NVIDIA_TESLA_T4_VWS: AcceleratorType =
-            AcceleratorType::new("NVIDIA_TESLA_T4_VWS");
-
-        /// Accelerator type is NVIDIA Tesla P100 Virtual Workstations.
-        pub const NVIDIA_TESLA_P100_VWS: AcceleratorType =
-            AcceleratorType::new("NVIDIA_TESLA_P100_VWS");
-
-        /// Accelerator type is NVIDIA Tesla P4 Virtual Workstations.
-        pub const NVIDIA_TESLA_P4_VWS: AcceleratorType =
-            AcceleratorType::new("NVIDIA_TESLA_P4_VWS");
-    }
-
-    impl std::convert::From<std::string::String> for AcceleratorType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AcceleratorType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AcceleratorType {
         fn default() -> Self {
-            accelerator_type::ACCELERATOR_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1297,88 +1362,120 @@ pub mod upgrade_history_entry {
 
     /// The definition of the states of this upgrade history entry.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The instance upgrade is started.
+        pub const STARTED: State = State::new(1);
+
+        /// The instance upgrade is succeeded.
+        pub const SUCCEEDED: State = State::new(2);
+
+        /// The instance upgrade is failed.
+        pub const FAILED: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STARTED"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "STARTED" => std::option::Option::Some(Self::STARTED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The instance upgrade is started.
-        pub const STARTED: State = State::new("STARTED");
-
-        /// The instance upgrade is succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The instance upgrade is failed.
-        pub const FAILED: State = State::new("FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The definition of operations of this upgrade history entry.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    pub struct Action(i32);
 
     impl Action {
+        /// Operation is not specified.
+        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+        /// Upgrade.
+        pub const UPGRADE: Action = Action::new(1);
+
+        /// Rollback.
+        pub const ROLLBACK: Action = Action::new(2);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UPGRADE"),
+                2 => std::borrow::Cow::Borrowed("ROLLBACK"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+                "UPGRADE" => std::option::Option::Some(Self::UPGRADE),
+                "ROLLBACK" => std::option::Option::Some(Self::ROLLBACK),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-
-        /// Operation is not specified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-        /// Upgrade.
-        pub const UPGRADE: Action = Action::new("UPGRADE");
-
-        /// Rollback.
-        pub const ROLLBACK: Action = Action::new("ROLLBACK");
-    }
-
-    impl std::convert::From<std::string::String> for Action {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2401,212 +2498,297 @@ impl wkt::message::Message for DiagnoseInstanceRequest {
 
 /// Definition of the disk encryption options.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiskEncryption(std::borrow::Cow<'static, str>);
+pub struct DiskEncryption(i32);
 
 impl DiskEncryption {
+    /// Disk encryption is not specified.
+    pub const DISK_ENCRYPTION_UNSPECIFIED: DiskEncryption = DiskEncryption::new(0);
+
+    /// Use Google managed encryption keys to encrypt the boot disk.
+    pub const GMEK: DiskEncryption = DiskEncryption::new(1);
+
+    /// Use customer managed encryption keys to encrypt the boot disk.
+    pub const CMEK: DiskEncryption = DiskEncryption::new(2);
+
     /// Creates a new DiskEncryption instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DISK_ENCRYPTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("GMEK"),
+            2 => std::borrow::Cow::Borrowed("CMEK"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DISK_ENCRYPTION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DISK_ENCRYPTION_UNSPECIFIED)
+            }
+            "GMEK" => std::option::Option::Some(Self::GMEK),
+            "CMEK" => std::option::Option::Some(Self::CMEK),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DiskEncryption](DiskEncryption)
-pub mod disk_encryption {
-    use super::DiskEncryption;
-
-    /// Disk encryption is not specified.
-    pub const DISK_ENCRYPTION_UNSPECIFIED: DiskEncryption =
-        DiskEncryption::new("DISK_ENCRYPTION_UNSPECIFIED");
-
-    /// Use Google managed encryption keys to encrypt the boot disk.
-    pub const GMEK: DiskEncryption = DiskEncryption::new("GMEK");
-
-    /// Use customer managed encryption keys to encrypt the boot disk.
-    pub const CMEK: DiskEncryption = DiskEncryption::new("CMEK");
-}
-
-impl std::convert::From<std::string::String> for DiskEncryption {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DiskEncryption {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DiskEncryption {
     fn default() -> Self {
-        disk_encryption::DISK_ENCRYPTION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Possible disk types.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiskType(std::borrow::Cow<'static, str>);
+pub struct DiskType(i32);
 
 impl DiskType {
+    /// Disk type not set.
+    pub const DISK_TYPE_UNSPECIFIED: DiskType = DiskType::new(0);
+
+    /// Standard persistent disk type.
+    pub const PD_STANDARD: DiskType = DiskType::new(1);
+
+    /// SSD persistent disk type.
+    pub const PD_SSD: DiskType = DiskType::new(2);
+
+    /// Balanced persistent disk type.
+    pub const PD_BALANCED: DiskType = DiskType::new(3);
+
+    /// Extreme persistent disk type.
+    pub const PD_EXTREME: DiskType = DiskType::new(4);
+
     /// Creates a new DiskType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DISK_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PD_STANDARD"),
+            2 => std::borrow::Cow::Borrowed("PD_SSD"),
+            3 => std::borrow::Cow::Borrowed("PD_BALANCED"),
+            4 => std::borrow::Cow::Borrowed("PD_EXTREME"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DISK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::DISK_TYPE_UNSPECIFIED),
+            "PD_STANDARD" => std::option::Option::Some(Self::PD_STANDARD),
+            "PD_SSD" => std::option::Option::Some(Self::PD_SSD),
+            "PD_BALANCED" => std::option::Option::Some(Self::PD_BALANCED),
+            "PD_EXTREME" => std::option::Option::Some(Self::PD_EXTREME),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DiskType](DiskType)
-pub mod disk_type {
-    use super::DiskType;
-
-    /// Disk type not set.
-    pub const DISK_TYPE_UNSPECIFIED: DiskType = DiskType::new("DISK_TYPE_UNSPECIFIED");
-
-    /// Standard persistent disk type.
-    pub const PD_STANDARD: DiskType = DiskType::new("PD_STANDARD");
-
-    /// SSD persistent disk type.
-    pub const PD_SSD: DiskType = DiskType::new("PD_SSD");
-
-    /// Balanced persistent disk type.
-    pub const PD_BALANCED: DiskType = DiskType::new("PD_BALANCED");
-
-    /// Extreme persistent disk type.
-    pub const PD_EXTREME: DiskType = DiskType::new("PD_EXTREME");
-}
-
-impl std::convert::From<std::string::String> for DiskType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DiskType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DiskType {
     fn default() -> Self {
-        disk_type::DISK_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The definition of the states of this instance.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct State(std::borrow::Cow<'static, str>);
+pub struct State(i32);
 
 impl State {
-    /// Creates a new State instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [State](State)
-pub mod state {
-    use super::State;
-
     /// State is not specified.
-    pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+    pub const STATE_UNSPECIFIED: State = State::new(0);
 
     /// The control logic is starting the instance.
-    pub const STARTING: State = State::new("STARTING");
+    pub const STARTING: State = State::new(1);
 
     /// The control logic is installing required frameworks and registering the
     /// instance with notebook proxy
-    pub const PROVISIONING: State = State::new("PROVISIONING");
+    pub const PROVISIONING: State = State::new(2);
 
     /// The instance is running.
-    pub const ACTIVE: State = State::new("ACTIVE");
+    pub const ACTIVE: State = State::new(3);
 
     /// The control logic is stopping the instance.
-    pub const STOPPING: State = State::new("STOPPING");
+    pub const STOPPING: State = State::new(4);
 
     /// The instance is stopped.
-    pub const STOPPED: State = State::new("STOPPED");
+    pub const STOPPED: State = State::new(5);
 
     /// The instance is deleted.
-    pub const DELETED: State = State::new("DELETED");
+    pub const DELETED: State = State::new(6);
 
     /// The instance is upgrading.
-    pub const UPGRADING: State = State::new("UPGRADING");
+    pub const UPGRADING: State = State::new(7);
 
     /// The instance is being created.
-    pub const INITIALIZING: State = State::new("INITIALIZING");
+    pub const INITIALIZING: State = State::new(8);
 
     /// The instance is suspending.
-    pub const SUSPENDING: State = State::new("SUSPENDING");
+    pub const SUSPENDING: State = State::new(9);
 
     /// The instance is suspended.
-    pub const SUSPENDED: State = State::new("SUSPENDED");
+    pub const SUSPENDED: State = State::new(10);
+
+    /// Creates a new State instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("STARTING"),
+            2 => std::borrow::Cow::Borrowed("PROVISIONING"),
+            3 => std::borrow::Cow::Borrowed("ACTIVE"),
+            4 => std::borrow::Cow::Borrowed("STOPPING"),
+            5 => std::borrow::Cow::Borrowed("STOPPED"),
+            6 => std::borrow::Cow::Borrowed("DELETED"),
+            7 => std::borrow::Cow::Borrowed("UPGRADING"),
+            8 => std::borrow::Cow::Borrowed("INITIALIZING"),
+            9 => std::borrow::Cow::Borrowed("SUSPENDING"),
+            10 => std::borrow::Cow::Borrowed("SUSPENDED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+            "STARTING" => std::option::Option::Some(Self::STARTING),
+            "PROVISIONING" => std::option::Option::Some(Self::PROVISIONING),
+            "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+            "STOPPING" => std::option::Option::Some(Self::STOPPING),
+            "STOPPED" => std::option::Option::Some(Self::STOPPED),
+            "DELETED" => std::option::Option::Some(Self::DELETED),
+            "UPGRADING" => std::option::Option::Some(Self::UPGRADING),
+            "INITIALIZING" => std::option::Option::Some(Self::INITIALIZING),
+            "SUSPENDING" => std::option::Option::Some(Self::SUSPENDING),
+            "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for State {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for State {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for State {
     fn default() -> Self {
-        state::STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The instance health state.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HealthState(std::borrow::Cow<'static, str>);
+pub struct HealthState(i32);
 
 impl HealthState {
-    /// Creates a new HealthState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [HealthState](HealthState)
-pub mod health_state {
-    use super::HealthState;
-
     /// The instance substate is unknown.
-    pub const HEALTH_STATE_UNSPECIFIED: HealthState = HealthState::new("HEALTH_STATE_UNSPECIFIED");
+    pub const HEALTH_STATE_UNSPECIFIED: HealthState = HealthState::new(0);
 
     /// The instance is known to be in an healthy state
     /// (for example, critical daemons are running)
     /// Applies to ACTIVE state.
-    pub const HEALTHY: HealthState = HealthState::new("HEALTHY");
+    pub const HEALTHY: HealthState = HealthState::new(1);
 
     /// The instance is known to be in an unhealthy state
     /// (for example, critical daemons are not running)
     /// Applies to ACTIVE state.
-    pub const UNHEALTHY: HealthState = HealthState::new("UNHEALTHY");
+    pub const UNHEALTHY: HealthState = HealthState::new(2);
 
     /// The instance has not installed health monitoring agent.
     /// Applies to ACTIVE state.
-    pub const AGENT_NOT_INSTALLED: HealthState = HealthState::new("AGENT_NOT_INSTALLED");
+    pub const AGENT_NOT_INSTALLED: HealthState = HealthState::new(3);
 
     /// The instance health monitoring agent is not running.
     /// Applies to ACTIVE state.
-    pub const AGENT_NOT_RUNNING: HealthState = HealthState::new("AGENT_NOT_RUNNING");
+    pub const AGENT_NOT_RUNNING: HealthState = HealthState::new(4);
+
+    /// Creates a new HealthState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HEALTH_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("HEALTHY"),
+            2 => std::borrow::Cow::Borrowed("UNHEALTHY"),
+            3 => std::borrow::Cow::Borrowed("AGENT_NOT_INSTALLED"),
+            4 => std::borrow::Cow::Borrowed("AGENT_NOT_RUNNING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HEALTH_STATE_UNSPECIFIED" => std::option::Option::Some(Self::HEALTH_STATE_UNSPECIFIED),
+            "HEALTHY" => std::option::Option::Some(Self::HEALTHY),
+            "UNHEALTHY" => std::option::Option::Some(Self::UNHEALTHY),
+            "AGENT_NOT_INSTALLED" => std::option::Option::Some(Self::AGENT_NOT_INSTALLED),
+            "AGENT_NOT_RUNNING" => std::option::Option::Some(Self::AGENT_NOT_RUNNING),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for HealthState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for HealthState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for HealthState {
     fn default() -> Self {
-        health_state::HEALTH_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }

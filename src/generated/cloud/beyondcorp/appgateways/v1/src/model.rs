@@ -570,132 +570,179 @@ pub mod app_gateway {
     /// Enum containing list of all possible network connectivity options
     /// supported by BeyondCorp AppGateway.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Default value. This value is unused.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// TCP Proxy based BeyondCorp Connection. API will default to this if unset.
+        pub const TCP_PROXY: Type = Type::new(1);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TCP_PROXY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "TCP_PROXY" => std::option::Option::Some(Self::TCP_PROXY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Default value. This value is unused.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// TCP Proxy based BeyondCorp Connection. API will default to this if unset.
-        pub const TCP_PROXY: Type = Type::new("TCP_PROXY");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Represents the different states of an AppGateway.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// AppGateway is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// AppGateway has been created.
-        pub const CREATED: State = State::new("CREATED");
+        pub const CREATED: State = State::new(2);
 
         /// AppGateway's configuration is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// AppGateway is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// AppGateway is down and may be restored in the future.
         /// This happens when CCFE sends ProjectState = OFF.
-        pub const DOWN: State = State::new("DOWN");
+        pub const DOWN: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("CREATED"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("DOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "CREATED" => std::option::Option::Some(Self::CREATED),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "DOWN" => std::option::Option::Some(Self::DOWN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Enum containing list of all possible host types supported by BeyondCorp
     /// Connection.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HostType(std::borrow::Cow<'static, str>);
+    pub struct HostType(i32);
 
     impl HostType {
+        /// Default value. This value is unused.
+        pub const HOST_TYPE_UNSPECIFIED: HostType = HostType::new(0);
+
+        /// AppGateway hosted in a GCP regional managed instance group.
+        pub const GCP_REGIONAL_MIG: HostType = HostType::new(1);
+
         /// Creates a new HostType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HOST_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GCP_REGIONAL_MIG"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HOST_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::HOST_TYPE_UNSPECIFIED),
+                "GCP_REGIONAL_MIG" => std::option::Option::Some(Self::GCP_REGIONAL_MIG),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [HostType](HostType)
-    pub mod host_type {
-        use super::HostType;
-
-        /// Default value. This value is unused.
-        pub const HOST_TYPE_UNSPECIFIED: HostType = HostType::new("HOST_TYPE_UNSPECIFIED");
-
-        /// AppGateway hosted in a GCP regional managed instance group.
-        pub const GCP_REGIONAL_MIG: HostType = HostType::new("GCP_REGIONAL_MIG");
-    }
-
-    impl std::convert::From<std::string::String> for HostType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for HostType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for HostType {
         fn default() -> Self {
-            host_type::HOST_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

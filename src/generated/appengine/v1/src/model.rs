@@ -167,51 +167,70 @@ pub mod error_handler {
 
     /// Error codes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ErrorCode(std::borrow::Cow<'static, str>);
+    pub struct ErrorCode(i32);
 
     impl ErrorCode {
-        /// Creates a new ErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ErrorCode](ErrorCode)
-    pub mod error_code {
-        use super::ErrorCode;
-
         /// Not specified. ERROR_CODE_DEFAULT is assumed.
-        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new("ERROR_CODE_UNSPECIFIED");
+        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new(0);
 
         /// All other error types.
-        pub const ERROR_CODE_DEFAULT: ErrorCode = ErrorCode::new("ERROR_CODE_DEFAULT");
+        pub const ERROR_CODE_DEFAULT: ErrorCode = ErrorCode::new(0);
 
         /// Application has exceeded a resource quota.
-        pub const ERROR_CODE_OVER_QUOTA: ErrorCode = ErrorCode::new("ERROR_CODE_OVER_QUOTA");
+        pub const ERROR_CODE_OVER_QUOTA: ErrorCode = ErrorCode::new(1);
 
         /// Client blocked by the application's Denial of Service protection
         /// configuration.
-        pub const ERROR_CODE_DOS_API_DENIAL: ErrorCode =
-            ErrorCode::new("ERROR_CODE_DOS_API_DENIAL");
+        pub const ERROR_CODE_DOS_API_DENIAL: ErrorCode = ErrorCode::new(2);
 
         /// Deadline reached before the application responds.
-        pub const ERROR_CODE_TIMEOUT: ErrorCode = ErrorCode::new("ERROR_CODE_TIMEOUT");
+        pub const ERROR_CODE_TIMEOUT: ErrorCode = ErrorCode::new(3);
+
+        /// Creates a new ErrorCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ERROR_CODE_DEFAULT"),
+                1 => std::borrow::Cow::Borrowed("ERROR_CODE_OVER_QUOTA"),
+                2 => std::borrow::Cow::Borrowed("ERROR_CODE_DOS_API_DENIAL"),
+                3 => std::borrow::Cow::Borrowed("ERROR_CODE_TIMEOUT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
+                "ERROR_CODE_DEFAULT" => std::option::Option::Some(Self::ERROR_CODE_DEFAULT),
+                "ERROR_CODE_OVER_QUOTA" => std::option::Option::Some(Self::ERROR_CODE_OVER_QUOTA),
+                "ERROR_CODE_DOS_API_DENIAL" => {
+                    std::option::Option::Some(Self::ERROR_CODE_DOS_API_DENIAL)
+                }
+                "ERROR_CODE_TIMEOUT" => std::option::Option::Some(Self::ERROR_CODE_TIMEOUT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ErrorCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ErrorCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ErrorCode {
         fn default() -> Self {
-            error_code::ERROR_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -408,54 +427,83 @@ pub mod url_map {
 
     /// Redirect codes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RedirectHttpResponseCode(std::borrow::Cow<'static, str>);
+    pub struct RedirectHttpResponseCode(i32);
 
     impl RedirectHttpResponseCode {
-        /// Creates a new RedirectHttpResponseCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RedirectHttpResponseCode](RedirectHttpResponseCode)
-    pub mod redirect_http_response_code {
-        use super::RedirectHttpResponseCode;
-
         /// Not specified. `302` is assumed.
         pub const REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED: RedirectHttpResponseCode =
-            RedirectHttpResponseCode::new("REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED");
+            RedirectHttpResponseCode::new(0);
 
         /// `301 Moved Permanently` code.
         pub const REDIRECT_HTTP_RESPONSE_CODE_301: RedirectHttpResponseCode =
-            RedirectHttpResponseCode::new("REDIRECT_HTTP_RESPONSE_CODE_301");
+            RedirectHttpResponseCode::new(1);
 
         /// `302 Moved Temporarily` code.
         pub const REDIRECT_HTTP_RESPONSE_CODE_302: RedirectHttpResponseCode =
-            RedirectHttpResponseCode::new("REDIRECT_HTTP_RESPONSE_CODE_302");
+            RedirectHttpResponseCode::new(2);
 
         /// `303 See Other` code.
         pub const REDIRECT_HTTP_RESPONSE_CODE_303: RedirectHttpResponseCode =
-            RedirectHttpResponseCode::new("REDIRECT_HTTP_RESPONSE_CODE_303");
+            RedirectHttpResponseCode::new(3);
 
         /// `307 Temporary Redirect` code.
         pub const REDIRECT_HTTP_RESPONSE_CODE_307: RedirectHttpResponseCode =
-            RedirectHttpResponseCode::new("REDIRECT_HTTP_RESPONSE_CODE_307");
+            RedirectHttpResponseCode::new(4);
+
+        /// Creates a new RedirectHttpResponseCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REDIRECT_HTTP_RESPONSE_CODE_301"),
+                2 => std::borrow::Cow::Borrowed("REDIRECT_HTTP_RESPONSE_CODE_302"),
+                3 => std::borrow::Cow::Borrowed("REDIRECT_HTTP_RESPONSE_CODE_303"),
+                4 => std::borrow::Cow::Borrowed("REDIRECT_HTTP_RESPONSE_CODE_307"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED)
+                }
+                "REDIRECT_HTTP_RESPONSE_CODE_301" => {
+                    std::option::Option::Some(Self::REDIRECT_HTTP_RESPONSE_CODE_301)
+                }
+                "REDIRECT_HTTP_RESPONSE_CODE_302" => {
+                    std::option::Option::Some(Self::REDIRECT_HTTP_RESPONSE_CODE_302)
+                }
+                "REDIRECT_HTTP_RESPONSE_CODE_303" => {
+                    std::option::Option::Some(Self::REDIRECT_HTTP_RESPONSE_CODE_303)
+                }
+                "REDIRECT_HTTP_RESPONSE_CODE_307" => {
+                    std::option::Option::Some(Self::REDIRECT_HTTP_RESPONSE_CODE_307)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RedirectHttpResponseCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RedirectHttpResponseCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RedirectHttpResponseCode {
         fn default() -> Self {
-            redirect_http_response_code::REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -3272,92 +3320,128 @@ pub mod application {
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ServingStatus(std::borrow::Cow<'static, str>);
+    pub struct ServingStatus(i32);
 
     impl ServingStatus {
+        /// Serving status is unspecified.
+        pub const UNSPECIFIED: ServingStatus = ServingStatus::new(0);
+
+        /// Application is serving.
+        pub const SERVING: ServingStatus = ServingStatus::new(1);
+
+        /// Application has been disabled by the user.
+        pub const USER_DISABLED: ServingStatus = ServingStatus::new(2);
+
+        /// Application has been disabled by the system.
+        pub const SYSTEM_DISABLED: ServingStatus = ServingStatus::new(3);
+
         /// Creates a new ServingStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SERVING"),
+                2 => std::borrow::Cow::Borrowed("USER_DISABLED"),
+                3 => std::borrow::Cow::Borrowed("SYSTEM_DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "SERVING" => std::option::Option::Some(Self::SERVING),
+                "USER_DISABLED" => std::option::Option::Some(Self::USER_DISABLED),
+                "SYSTEM_DISABLED" => std::option::Option::Some(Self::SYSTEM_DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ServingStatus](ServingStatus)
-    pub mod serving_status {
-        use super::ServingStatus;
-
-        /// Serving status is unspecified.
-        pub const UNSPECIFIED: ServingStatus = ServingStatus::new("UNSPECIFIED");
-
-        /// Application is serving.
-        pub const SERVING: ServingStatus = ServingStatus::new("SERVING");
-
-        /// Application has been disabled by the user.
-        pub const USER_DISABLED: ServingStatus = ServingStatus::new("USER_DISABLED");
-
-        /// Application has been disabled by the system.
-        pub const SYSTEM_DISABLED: ServingStatus = ServingStatus::new("SYSTEM_DISABLED");
-    }
-
-    impl std::convert::From<std::string::String> for ServingStatus {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ServingStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ServingStatus {
         fn default() -> Self {
-            serving_status::UNSPECIFIED
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(std::borrow::Cow<'static, str>);
+    pub struct DatabaseType(i32);
 
     impl DatabaseType {
+        /// Database type is unspecified.
+        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
+
+        /// Cloud Datastore
+        pub const CLOUD_DATASTORE: DatabaseType = DatabaseType::new(1);
+
+        /// Cloud Firestore Native
+        pub const CLOUD_FIRESTORE: DatabaseType = DatabaseType::new(2);
+
+        /// Cloud Firestore in Datastore Mode
+        pub const CLOUD_DATASTORE_COMPATIBILITY: DatabaseType = DatabaseType::new(3);
+
         /// Creates a new DatabaseType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_DATASTORE"),
+                2 => std::borrow::Cow::Borrowed("CLOUD_FIRESTORE"),
+                3 => std::borrow::Cow::Borrowed("CLOUD_DATASTORE_COMPATIBILITY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATABASE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
+                }
+                "CLOUD_DATASTORE" => std::option::Option::Some(Self::CLOUD_DATASTORE),
+                "CLOUD_FIRESTORE" => std::option::Option::Some(Self::CLOUD_FIRESTORE),
+                "CLOUD_DATASTORE_COMPATIBILITY" => {
+                    std::option::Option::Some(Self::CLOUD_DATASTORE_COMPATIBILITY)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DatabaseType](DatabaseType)
-    pub mod database_type {
-        use super::DatabaseType;
-
-        /// Database type is unspecified.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-            DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
-
-        /// Cloud Datastore
-        pub const CLOUD_DATASTORE: DatabaseType = DatabaseType::new("CLOUD_DATASTORE");
-
-        /// Cloud Firestore Native
-        pub const CLOUD_FIRESTORE: DatabaseType = DatabaseType::new("CLOUD_FIRESTORE");
-
-        /// Cloud Firestore in Datastore Mode
-        pub const CLOUD_DATASTORE_COMPATIBILITY: DatabaseType =
-            DatabaseType::new("CLOUD_DATASTORE_COMPATIBILITY");
-    }
-
-    impl std::convert::From<std::string::String> for DatabaseType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            database_type::DATABASE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4340,47 +4424,63 @@ pub mod ssl_settings {
 
     /// The SSL management type for this domain.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SslManagementType(std::borrow::Cow<'static, str>);
+    pub struct SslManagementType(i32);
 
     impl SslManagementType {
-        /// Creates a new SslManagementType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SslManagementType](SslManagementType)
-    pub mod ssl_management_type {
-        use super::SslManagementType;
-
         /// Defaults to `AUTOMATIC`.
-        pub const SSL_MANAGEMENT_TYPE_UNSPECIFIED: SslManagementType =
-            SslManagementType::new("SSL_MANAGEMENT_TYPE_UNSPECIFIED");
+        pub const SSL_MANAGEMENT_TYPE_UNSPECIFIED: SslManagementType = SslManagementType::new(0);
 
         /// SSL support for this domain is configured automatically. The mapped SSL
         /// certificate will be automatically renewed.
-        pub const AUTOMATIC: SslManagementType = SslManagementType::new("AUTOMATIC");
+        pub const AUTOMATIC: SslManagementType = SslManagementType::new(1);
 
         /// SSL support for this domain is configured manually by the user. Either
         /// the domain has no SSL support or a user-obtained SSL certificate has been
         /// explictly mapped to this domain.
-        pub const MANUAL: SslManagementType = SslManagementType::new("MANUAL");
+        pub const MANUAL: SslManagementType = SslManagementType::new(2);
+
+        /// Creates a new SslManagementType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SSL_MANAGEMENT_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATIC"),
+                2 => std::borrow::Cow::Borrowed("MANUAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SSL_MANAGEMENT_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SSL_MANAGEMENT_TYPE_UNSPECIFIED)
+                }
+                "AUTOMATIC" => std::option::Option::Some(Self::AUTOMATIC),
+                "MANUAL" => std::option::Option::Some(Self::MANUAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SslManagementType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SslManagementType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SslManagementType {
         fn default() -> Self {
-            ssl_management_type::SSL_MANAGEMENT_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4446,46 +4546,65 @@ pub mod resource_record {
 
     /// A resource record type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RecordType(std::borrow::Cow<'static, str>);
+    pub struct RecordType(i32);
 
     impl RecordType {
+        /// An unknown resource record.
+        pub const RECORD_TYPE_UNSPECIFIED: RecordType = RecordType::new(0);
+
+        /// An A resource record. Data is an IPv4 address.
+        pub const A: RecordType = RecordType::new(1);
+
+        /// An AAAA resource record. Data is an IPv6 address.
+        pub const AAAA: RecordType = RecordType::new(2);
+
+        /// A CNAME resource record. Data is a domain name to be aliased.
+        pub const CNAME: RecordType = RecordType::new(3);
+
         /// Creates a new RecordType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RECORD_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("A"),
+                2 => std::borrow::Cow::Borrowed("AAAA"),
+                3 => std::borrow::Cow::Borrowed("CNAME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RECORD_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RECORD_TYPE_UNSPECIFIED)
+                }
+                "A" => std::option::Option::Some(Self::A),
+                "AAAA" => std::option::Option::Some(Self::AAAA),
+                "CNAME" => std::option::Option::Some(Self::CNAME),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RecordType](RecordType)
-    pub mod record_type {
-        use super::RecordType;
-
-        /// An unknown resource record.
-        pub const RECORD_TYPE_UNSPECIFIED: RecordType = RecordType::new("RECORD_TYPE_UNSPECIFIED");
-
-        /// An A resource record. Data is an IPv4 address.
-        pub const A: RecordType = RecordType::new("A");
-
-        /// An AAAA resource record. Data is an IPv6 address.
-        pub const AAAA: RecordType = RecordType::new("AAAA");
-
-        /// A CNAME resource record. Data is a domain name to be aliased.
-        pub const CNAME: RecordType = RecordType::new("CNAME");
-    }
-
-    impl std::convert::From<std::string::String> for RecordType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RecordType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RecordType {
         fn default() -> Self {
-            record_type::RECORD_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4568,42 +4687,57 @@ pub mod firewall_rule {
 
     /// Available actions to take on matching requests.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    pub struct Action(i32);
 
     impl Action {
+        pub const UNSPECIFIED_ACTION: Action = Action::new(0);
+
+        /// Matching requests are allowed.
+        pub const ALLOW: Action = Action::new(1);
+
+        /// Matching requests are denied.
+        pub const DENY: Action = Action::new(2);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED_ACTION"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                2 => std::borrow::Cow::Borrowed("DENY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED_ACTION" => std::option::Option::Some(Self::UNSPECIFIED_ACTION),
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                "DENY" => std::option::Option::Some(Self::DENY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-
-        pub const UNSPECIFIED_ACTION: Action = Action::new("UNSPECIFIED_ACTION");
-
-        /// Matching requests are allowed.
-        pub const ALLOW: Action = Action::new("ALLOW");
-
-        /// Matching requests are denied.
-        pub const DENY: Action = Action::new("DENY");
-    }
-
-    impl std::convert::From<std::string::String> for Action {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::UNSPECIFIED_ACTION
+            Self::new(0)
         }
     }
 }
@@ -4847,101 +4981,138 @@ pub mod instance {
 
         /// Liveness health check status for Flex instances.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct LivenessState(std::borrow::Cow<'static, str>);
+        pub struct LivenessState(i32);
 
         impl LivenessState {
-            /// Creates a new LivenessState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [LivenessState](LivenessState)
-        pub mod liveness_state {
-            use super::LivenessState;
-
             /// There is no liveness health check for the instance. Only applicable for
             /// instances in App Engine standard environment.
-            pub const LIVENESS_STATE_UNSPECIFIED: LivenessState =
-                LivenessState::new("LIVENESS_STATE_UNSPECIFIED");
+            pub const LIVENESS_STATE_UNSPECIFIED: LivenessState = LivenessState::new(0);
 
             /// The health checking system is aware of the instance but its health is
             /// not known at the moment.
-            pub const UNKNOWN: LivenessState = LivenessState::new("UNKNOWN");
+            pub const UNKNOWN: LivenessState = LivenessState::new(1);
 
             /// The instance is reachable i.e. a connection to the application health
             /// checking endpoint can be established, and conforms to the requirements
             /// defined by the health check.
-            pub const HEALTHY: LivenessState = LivenessState::new("HEALTHY");
+            pub const HEALTHY: LivenessState = LivenessState::new(2);
 
             /// The instance is reachable, but does not conform to the requirements
             /// defined by the health check.
-            pub const UNHEALTHY: LivenessState = LivenessState::new("UNHEALTHY");
+            pub const UNHEALTHY: LivenessState = LivenessState::new(3);
 
             /// The instance is being drained. The existing connections to the instance
             /// have time to complete, but the new ones are being refused.
-            pub const DRAINING: LivenessState = LivenessState::new("DRAINING");
+            pub const DRAINING: LivenessState = LivenessState::new(4);
 
             /// The instance is unreachable i.e. a connection to the application health
             /// checking endpoint cannot be established, or the server does not respond
             /// within the specified timeout.
-            pub const TIMEOUT: LivenessState = LivenessState::new("TIMEOUT");
+            pub const TIMEOUT: LivenessState = LivenessState::new(5);
+
+            /// Creates a new LivenessState instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("LIVENESS_STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                    2 => std::borrow::Cow::Borrowed("HEALTHY"),
+                    3 => std::borrow::Cow::Borrowed("UNHEALTHY"),
+                    4 => std::borrow::Cow::Borrowed("DRAINING"),
+                    5 => std::borrow::Cow::Borrowed("TIMEOUT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "LIVENESS_STATE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::LIVENESS_STATE_UNSPECIFIED)
+                    }
+                    "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                    "HEALTHY" => std::option::Option::Some(Self::HEALTHY),
+                    "UNHEALTHY" => std::option::Option::Some(Self::UNHEALTHY),
+                    "DRAINING" => std::option::Option::Some(Self::DRAINING),
+                    "TIMEOUT" => std::option::Option::Some(Self::TIMEOUT),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for LivenessState {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for LivenessState {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for LivenessState {
             fn default() -> Self {
-                liveness_state::LIVENESS_STATE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// Availability of the instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Availability(std::borrow::Cow<'static, str>);
+    pub struct Availability(i32);
 
     impl Availability {
+        pub const UNSPECIFIED: Availability = Availability::new(0);
+
+        pub const RESIDENT: Availability = Availability::new(1);
+
+        pub const DYNAMIC: Availability = Availability::new(2);
+
         /// Creates a new Availability instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RESIDENT"),
+                2 => std::borrow::Cow::Borrowed("DYNAMIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "RESIDENT" => std::option::Option::Some(Self::RESIDENT),
+                "DYNAMIC" => std::option::Option::Some(Self::DYNAMIC),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Availability](Availability)
-    pub mod availability {
-        use super::Availability;
-
-        pub const UNSPECIFIED: Availability = Availability::new("UNSPECIFIED");
-
-        pub const RESIDENT: Availability = Availability::new("RESIDENT");
-
-        pub const DYNAMIC: Availability = Availability::new("DYNAMIC");
-    }
-
-    impl std::convert::From<std::string::String> for Availability {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Availability {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Availability {
         fn default() -> Self {
-            availability::UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5038,50 +5209,75 @@ pub mod network_settings {
 
     /// If unspecified, INGRESS_TRAFFIC_ALLOWED_ALL will be used.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IngressTrafficAllowed(std::borrow::Cow<'static, str>);
+    pub struct IngressTrafficAllowed(i32);
 
     impl IngressTrafficAllowed {
-        /// Creates a new IngressTrafficAllowed instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [IngressTrafficAllowed](IngressTrafficAllowed)
-    pub mod ingress_traffic_allowed {
-        use super::IngressTrafficAllowed;
-
         /// Unspecified
         pub const INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED: IngressTrafficAllowed =
-            IngressTrafficAllowed::new("INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED");
+            IngressTrafficAllowed::new(0);
 
         /// Allow HTTP traffic from public and private sources.
         pub const INGRESS_TRAFFIC_ALLOWED_ALL: IngressTrafficAllowed =
-            IngressTrafficAllowed::new("INGRESS_TRAFFIC_ALLOWED_ALL");
+            IngressTrafficAllowed::new(1);
 
         /// Allow HTTP traffic from only private VPC sources.
         pub const INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY: IngressTrafficAllowed =
-            IngressTrafficAllowed::new("INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY");
+            IngressTrafficAllowed::new(2);
 
         /// Allow HTTP traffic from private VPC sources and through load balancers.
         pub const INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB: IngressTrafficAllowed =
-            IngressTrafficAllowed::new("INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB");
+            IngressTrafficAllowed::new(3);
+
+        /// Creates a new IngressTrafficAllowed instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_ALLOWED_ALL"),
+                2 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY"),
+                3 => std::borrow::Cow::Borrowed("INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED)
+                }
+                "INGRESS_TRAFFIC_ALLOWED_ALL" => {
+                    std::option::Option::Some(Self::INGRESS_TRAFFIC_ALLOWED_ALL)
+                }
+                "INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY" => {
+                    std::option::Option::Some(Self::INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY)
+                }
+                "INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB" => {
+                    std::option::Option::Some(Self::INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for IngressTrafficAllowed {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for IngressTrafficAllowed {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for IngressTrafficAllowed {
         fn default() -> Self {
-            ingress_traffic_allowed::INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5469,50 +5665,67 @@ pub mod traffic_split {
 
     /// Available sharding mechanisms.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ShardBy(std::borrow::Cow<'static, str>);
+    pub struct ShardBy(i32);
 
     impl ShardBy {
-        /// Creates a new ShardBy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ShardBy](ShardBy)
-    pub mod shard_by {
-        use super::ShardBy;
-
         /// Diversion method unspecified.
-        pub const UNSPECIFIED: ShardBy = ShardBy::new("UNSPECIFIED");
+        pub const UNSPECIFIED: ShardBy = ShardBy::new(0);
 
         /// Diversion based on a specially named cookie, "GOOGAPPUID." The cookie
         /// must be set by the application itself or no diversion will occur.
-        pub const COOKIE: ShardBy = ShardBy::new("COOKIE");
+        pub const COOKIE: ShardBy = ShardBy::new(1);
 
         /// Diversion based on applying the modulus operation to a fingerprint
         /// of the IP address.
-        pub const IP: ShardBy = ShardBy::new("IP");
+        pub const IP: ShardBy = ShardBy::new(2);
 
         /// Diversion based on weighted random assignment. An incoming request is
         /// randomly routed to a version in the traffic split, with probability
         /// proportional to the version's traffic share.
-        pub const RANDOM: ShardBy = ShardBy::new("RANDOM");
+        pub const RANDOM: ShardBy = ShardBy::new(3);
+
+        /// Creates a new ShardBy instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COOKIE"),
+                2 => std::borrow::Cow::Borrowed("IP"),
+                3 => std::borrow::Cow::Borrowed("RANDOM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "COOKIE" => std::option::Option::Some(Self::COOKIE),
+                "IP" => std::option::Option::Some(Self::IP),
+                "RANDOM" => std::option::Option::Some(Self::RANDOM),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ShardBy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ShardBy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ShardBy {
         fn default() -> Self {
-            shard_by::UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6301,45 +6514,61 @@ pub mod endpoints_api_service {
 
     /// Available rollout strategies.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutStrategy(std::borrow::Cow<'static, str>);
+    pub struct RolloutStrategy(i32);
 
     impl RolloutStrategy {
-        /// Creates a new RolloutStrategy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RolloutStrategy](RolloutStrategy)
-    pub mod rollout_strategy {
-        use super::RolloutStrategy;
-
         /// Not specified. Defaults to `FIXED`.
-        pub const UNSPECIFIED_ROLLOUT_STRATEGY: RolloutStrategy =
-            RolloutStrategy::new("UNSPECIFIED_ROLLOUT_STRATEGY");
+        pub const UNSPECIFIED_ROLLOUT_STRATEGY: RolloutStrategy = RolloutStrategy::new(0);
 
         /// Endpoints service configuration ID will be fixed to the configuration ID
         /// specified by `config_id`.
-        pub const FIXED: RolloutStrategy = RolloutStrategy::new("FIXED");
+        pub const FIXED: RolloutStrategy = RolloutStrategy::new(1);
 
         /// Endpoints service configuration ID will be updated with each rollout.
-        pub const MANAGED: RolloutStrategy = RolloutStrategy::new("MANAGED");
+        pub const MANAGED: RolloutStrategy = RolloutStrategy::new(2);
+
+        /// Creates a new RolloutStrategy instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED_ROLLOUT_STRATEGY"),
+                1 => std::borrow::Cow::Borrowed("FIXED"),
+                2 => std::borrow::Cow::Borrowed("MANAGED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED_ROLLOUT_STRATEGY" => {
+                    std::option::Option::Some(Self::UNSPECIFIED_ROLLOUT_STRATEGY)
+                }
+                "FIXED" => std::option::Option::Some(Self::FIXED),
+                "MANAGED" => std::option::Option::Some(Self::MANAGED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RolloutStrategy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RolloutStrategy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RolloutStrategy {
         fn default() -> Self {
-            rollout_strategy::UNSPECIFIED_ROLLOUT_STRATEGY
+            Self::new(0)
         }
     }
 }
@@ -7148,43 +7377,59 @@ pub mod vpc_access_connector {
     /// This controls what traffic is diverted through the VPC Access Connector
     /// resource. By default PRIVATE_IP_RANGES will be used.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EgressSetting(std::borrow::Cow<'static, str>);
+    pub struct EgressSetting(i32);
 
     impl EgressSetting {
+        pub const EGRESS_SETTING_UNSPECIFIED: EgressSetting = EgressSetting::new(0);
+
+        /// Force the use of VPC Access for all egress traffic from the function.
+        pub const ALL_TRAFFIC: EgressSetting = EgressSetting::new(1);
+
+        /// Use the VPC Access Connector for private IP space from RFC1918.
+        pub const PRIVATE_IP_RANGES: EgressSetting = EgressSetting::new(2);
+
         /// Creates a new EgressSetting instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EGRESS_SETTING_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALL_TRAFFIC"),
+                2 => std::borrow::Cow::Borrowed("PRIVATE_IP_RANGES"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EGRESS_SETTING_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EGRESS_SETTING_UNSPECIFIED)
+                }
+                "ALL_TRAFFIC" => std::option::Option::Some(Self::ALL_TRAFFIC),
+                "PRIVATE_IP_RANGES" => std::option::Option::Some(Self::PRIVATE_IP_RANGES),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EgressSetting](EgressSetting)
-    pub mod egress_setting {
-        use super::EgressSetting;
-
-        pub const EGRESS_SETTING_UNSPECIFIED: EgressSetting =
-            EgressSetting::new("EGRESS_SETTING_UNSPECIFIED");
-
-        /// Force the use of VPC Access for all egress traffic from the function.
-        pub const ALL_TRAFFIC: EgressSetting = EgressSetting::new("ALL_TRAFFIC");
-
-        /// Use the VPC Access Connector for private IP space from RFC1918.
-        pub const PRIVATE_IP_RANGES: EgressSetting = EgressSetting::new("PRIVATE_IP_RANGES");
-    }
-
-    impl std::convert::From<std::string::String> for EgressSetting {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EgressSetting {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for EgressSetting {
         fn default() -> Self {
-            egress_setting::EGRESS_SETTING_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -7262,153 +7507,206 @@ pub mod entrypoint {
 
 /// Actions to take when the user is not logged in.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AuthFailAction(std::borrow::Cow<'static, str>);
+pub struct AuthFailAction(i32);
 
 impl AuthFailAction {
-    /// Creates a new AuthFailAction instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AuthFailAction](AuthFailAction)
-pub mod auth_fail_action {
-    use super::AuthFailAction;
-
     /// Not specified. `AUTH_FAIL_ACTION_REDIRECT` is assumed.
-    pub const AUTH_FAIL_ACTION_UNSPECIFIED: AuthFailAction =
-        AuthFailAction::new("AUTH_FAIL_ACTION_UNSPECIFIED");
+    pub const AUTH_FAIL_ACTION_UNSPECIFIED: AuthFailAction = AuthFailAction::new(0);
 
     /// Redirects user to "accounts.google.com". The user is redirected back to the
     /// application URL after signing in or creating an account.
-    pub const AUTH_FAIL_ACTION_REDIRECT: AuthFailAction =
-        AuthFailAction::new("AUTH_FAIL_ACTION_REDIRECT");
+    pub const AUTH_FAIL_ACTION_REDIRECT: AuthFailAction = AuthFailAction::new(1);
 
     /// Rejects request with a `401` HTTP status code and an error
     /// message.
-    pub const AUTH_FAIL_ACTION_UNAUTHORIZED: AuthFailAction =
-        AuthFailAction::new("AUTH_FAIL_ACTION_UNAUTHORIZED");
+    pub const AUTH_FAIL_ACTION_UNAUTHORIZED: AuthFailAction = AuthFailAction::new(2);
+
+    /// Creates a new AuthFailAction instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("AUTH_FAIL_ACTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("AUTH_FAIL_ACTION_REDIRECT"),
+            2 => std::borrow::Cow::Borrowed("AUTH_FAIL_ACTION_UNAUTHORIZED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "AUTH_FAIL_ACTION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::AUTH_FAIL_ACTION_UNSPECIFIED)
+            }
+            "AUTH_FAIL_ACTION_REDIRECT" => {
+                std::option::Option::Some(Self::AUTH_FAIL_ACTION_REDIRECT)
+            }
+            "AUTH_FAIL_ACTION_UNAUTHORIZED" => {
+                std::option::Option::Some(Self::AUTH_FAIL_ACTION_UNAUTHORIZED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AuthFailAction {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AuthFailAction {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for AuthFailAction {
     fn default() -> Self {
-        auth_fail_action::AUTH_FAIL_ACTION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Methods to restrict access to a URL based on login status.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LoginRequirement(std::borrow::Cow<'static, str>);
+pub struct LoginRequirement(i32);
 
 impl LoginRequirement {
-    /// Creates a new LoginRequirement instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LoginRequirement](LoginRequirement)
-pub mod login_requirement {
-    use super::LoginRequirement;
-
     /// Not specified. `LOGIN_OPTIONAL` is assumed.
-    pub const LOGIN_UNSPECIFIED: LoginRequirement = LoginRequirement::new("LOGIN_UNSPECIFIED");
+    pub const LOGIN_UNSPECIFIED: LoginRequirement = LoginRequirement::new(0);
 
     /// Does not require that the user is signed in.
-    pub const LOGIN_OPTIONAL: LoginRequirement = LoginRequirement::new("LOGIN_OPTIONAL");
+    pub const LOGIN_OPTIONAL: LoginRequirement = LoginRequirement::new(1);
 
     /// If the user is not signed in, the `auth_fail_action` is taken.
     /// In addition, if the user is not an administrator for the
     /// application, they are given an error message regardless of
     /// `auth_fail_action`. If the user is an administrator, the handler
     /// proceeds.
-    pub const LOGIN_ADMIN: LoginRequirement = LoginRequirement::new("LOGIN_ADMIN");
+    pub const LOGIN_ADMIN: LoginRequirement = LoginRequirement::new(2);
 
     /// If the user has signed in, the handler proceeds normally. Otherwise, the
     /// auth_fail_action is taken.
-    pub const LOGIN_REQUIRED: LoginRequirement = LoginRequirement::new("LOGIN_REQUIRED");
+    pub const LOGIN_REQUIRED: LoginRequirement = LoginRequirement::new(3);
+
+    /// Creates a new LoginRequirement instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LOGIN_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LOGIN_OPTIONAL"),
+            2 => std::borrow::Cow::Borrowed("LOGIN_ADMIN"),
+            3 => std::borrow::Cow::Borrowed("LOGIN_REQUIRED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LOGIN_UNSPECIFIED" => std::option::Option::Some(Self::LOGIN_UNSPECIFIED),
+            "LOGIN_OPTIONAL" => std::option::Option::Some(Self::LOGIN_OPTIONAL),
+            "LOGIN_ADMIN" => std::option::Option::Some(Self::LOGIN_ADMIN),
+            "LOGIN_REQUIRED" => std::option::Option::Some(Self::LOGIN_REQUIRED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LoginRequirement {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LoginRequirement {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for LoginRequirement {
     fn default() -> Self {
-        login_requirement::LOGIN_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Methods to enforce security (HTTPS) on a URL.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SecurityLevel(std::borrow::Cow<'static, str>);
+pub struct SecurityLevel(i32);
 
 impl SecurityLevel {
-    /// Creates a new SecurityLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SecurityLevel](SecurityLevel)
-pub mod security_level {
-    use super::SecurityLevel;
-
     /// Not specified.
-    pub const SECURE_UNSPECIFIED: SecurityLevel = SecurityLevel::new("SECURE_UNSPECIFIED");
+    pub const SECURE_UNSPECIFIED: SecurityLevel = SecurityLevel::new(0);
 
     /// Both HTTP and HTTPS requests with URLs that match the handler succeed
     /// without redirects. The application can examine the request to determine
     /// which protocol was used, and respond accordingly.
-    pub const SECURE_DEFAULT: SecurityLevel = SecurityLevel::new("SECURE_DEFAULT");
+    pub const SECURE_DEFAULT: SecurityLevel = SecurityLevel::new(0);
 
     /// Requests for a URL that match this handler that use HTTPS are automatically
     /// redirected to the HTTP equivalent URL.
-    pub const SECURE_NEVER: SecurityLevel = SecurityLevel::new("SECURE_NEVER");
+    pub const SECURE_NEVER: SecurityLevel = SecurityLevel::new(1);
 
     /// Both HTTP and HTTPS requests with URLs that match the handler succeed
     /// without redirects. The application can examine the request to determine
     /// which protocol was used and respond accordingly.
-    pub const SECURE_OPTIONAL: SecurityLevel = SecurityLevel::new("SECURE_OPTIONAL");
+    pub const SECURE_OPTIONAL: SecurityLevel = SecurityLevel::new(2);
 
     /// Requests for a URL that match this handler that do not use HTTPS are
     /// automatically redirected to the HTTPS URL with the same path. Query
     /// parameters are reserved for the redirect.
-    pub const SECURE_ALWAYS: SecurityLevel = SecurityLevel::new("SECURE_ALWAYS");
+    pub const SECURE_ALWAYS: SecurityLevel = SecurityLevel::new(3);
+
+    /// Creates a new SecurityLevel instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SECURE_DEFAULT"),
+            1 => std::borrow::Cow::Borrowed("SECURE_NEVER"),
+            2 => std::borrow::Cow::Borrowed("SECURE_OPTIONAL"),
+            3 => std::borrow::Cow::Borrowed("SECURE_ALWAYS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SECURE_UNSPECIFIED" => std::option::Option::Some(Self::SECURE_UNSPECIFIED),
+            "SECURE_DEFAULT" => std::option::Option::Some(Self::SECURE_DEFAULT),
+            "SECURE_NEVER" => std::option::Option::Some(Self::SECURE_NEVER),
+            "SECURE_OPTIONAL" => std::option::Option::Some(Self::SECURE_OPTIONAL),
+            "SECURE_ALWAYS" => std::option::Option::Some(Self::SECURE_ALWAYS),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SecurityLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SecurityLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for SecurityLevel {
     fn default() -> Self {
-        security_level::SECURE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
@@ -7417,186 +7715,209 @@ impl std::default::Default for SecurityLevel {
 ///
 /// [google.appengine.v1.Version]: crate::model::Version
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct VersionView(std::borrow::Cow<'static, str>);
+pub struct VersionView(i32);
 
 impl VersionView {
-    /// Creates a new VersionView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [VersionView](VersionView)
-pub mod version_view {
-    use super::VersionView;
-
     /// Basic version information including scaling and inbound services,
     /// but not detailed deployment information.
-    pub const BASIC: VersionView = VersionView::new("BASIC");
+    pub const BASIC: VersionView = VersionView::new(0);
 
     /// The information from `BASIC`, plus detailed information about the
     /// deployment. This format is required when creating resources, but
     /// is not returned in `Get` or `List` by default.
-    pub const FULL: VersionView = VersionView::new("FULL");
+    pub const FULL: VersionView = VersionView::new(1);
+
+    /// Creates a new VersionView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BASIC"),
+            1 => std::borrow::Cow::Borrowed("FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            "FULL" => std::option::Option::Some(Self::FULL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for VersionView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for VersionView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for VersionView {
     fn default() -> Self {
-        version_view::BASIC
+        Self::new(0)
     }
 }
 
 /// Fields that should be returned when an AuthorizedCertificate resource is
 /// retrieved.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AuthorizedCertificateView(std::borrow::Cow<'static, str>);
+pub struct AuthorizedCertificateView(i32);
 
 impl AuthorizedCertificateView {
-    /// Creates a new AuthorizedCertificateView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [AuthorizedCertificateView](AuthorizedCertificateView)
-pub mod authorized_certificate_view {
-    use super::AuthorizedCertificateView;
-
     /// Basic certificate information, including applicable domains and expiration
     /// date.
-    pub const BASIC_CERTIFICATE: AuthorizedCertificateView =
-        AuthorizedCertificateView::new("BASIC_CERTIFICATE");
+    pub const BASIC_CERTIFICATE: AuthorizedCertificateView = AuthorizedCertificateView::new(0);
 
     /// The information from `BASIC_CERTIFICATE`, plus detailed information on the
     /// domain mappings that have this certificate mapped.
-    pub const FULL_CERTIFICATE: AuthorizedCertificateView =
-        AuthorizedCertificateView::new("FULL_CERTIFICATE");
+    pub const FULL_CERTIFICATE: AuthorizedCertificateView = AuthorizedCertificateView::new(1);
+
+    /// Creates a new AuthorizedCertificateView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BASIC_CERTIFICATE"),
+            1 => std::borrow::Cow::Borrowed("FULL_CERTIFICATE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BASIC_CERTIFICATE" => std::option::Option::Some(Self::BASIC_CERTIFICATE),
+            "FULL_CERTIFICATE" => std::option::Option::Some(Self::FULL_CERTIFICATE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for AuthorizedCertificateView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for AuthorizedCertificateView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for AuthorizedCertificateView {
     fn default() -> Self {
-        authorized_certificate_view::BASIC_CERTIFICATE
+        Self::new(0)
     }
 }
 
 /// Override strategy for mutating an existing mapping.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DomainOverrideStrategy(std::borrow::Cow<'static, str>);
+pub struct DomainOverrideStrategy(i32);
 
 impl DomainOverrideStrategy {
-    /// Creates a new DomainOverrideStrategy instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DomainOverrideStrategy](DomainOverrideStrategy)
-pub mod domain_override_strategy {
-    use super::DomainOverrideStrategy;
-
     /// Strategy unspecified. Defaults to `STRICT`.
     pub const UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY: DomainOverrideStrategy =
-        DomainOverrideStrategy::new("UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY");
+        DomainOverrideStrategy::new(0);
 
     /// Overrides not allowed. If a mapping already exists for the
     /// specified domain, the request will return an ALREADY_EXISTS (409).
-    pub const STRICT: DomainOverrideStrategy = DomainOverrideStrategy::new("STRICT");
+    pub const STRICT: DomainOverrideStrategy = DomainOverrideStrategy::new(1);
 
     /// Overrides allowed. If a mapping already exists for the specified domain,
     /// the request will overwrite it. Note that this might stop another
     /// Google product from serving. For example, if the domain is
     /// mapped to another App Engine application, that app will no
     /// longer serve from that domain.
-    pub const OVERRIDE: DomainOverrideStrategy = DomainOverrideStrategy::new("OVERRIDE");
+    pub const OVERRIDE: DomainOverrideStrategy = DomainOverrideStrategy::new(2);
+
+    /// Creates a new DomainOverrideStrategy instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY"),
+            1 => std::borrow::Cow::Borrowed("STRICT"),
+            2 => std::borrow::Cow::Borrowed("OVERRIDE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY" => {
+                std::option::Option::Some(Self::UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY)
+            }
+            "STRICT" => std::option::Option::Some(Self::STRICT),
+            "OVERRIDE" => std::option::Option::Some(Self::OVERRIDE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DomainOverrideStrategy {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DomainOverrideStrategy {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DomainOverrideStrategy {
     fn default() -> Self {
-        domain_override_strategy::UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY
+        Self::new(0)
     }
 }
 
 /// State of certificate management. Refers to the most recent certificate
 /// acquisition or renewal attempt.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ManagementStatus(std::borrow::Cow<'static, str>);
+pub struct ManagementStatus(i32);
 
 impl ManagementStatus {
-    /// Creates a new ManagementStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ManagementStatus](ManagementStatus)
-pub mod management_status {
-    use super::ManagementStatus;
-
-    pub const MANAGEMENT_STATUS_UNSPECIFIED: ManagementStatus =
-        ManagementStatus::new("MANAGEMENT_STATUS_UNSPECIFIED");
+    pub const MANAGEMENT_STATUS_UNSPECIFIED: ManagementStatus = ManagementStatus::new(0);
 
     /// Certificate was successfully obtained and inserted into the serving
     /// system.
-    pub const OK: ManagementStatus = ManagementStatus::new("OK");
+    pub const OK: ManagementStatus = ManagementStatus::new(1);
 
     /// Certificate is under active attempts to acquire or renew.
-    pub const PENDING: ManagementStatus = ManagementStatus::new("PENDING");
+    pub const PENDING: ManagementStatus = ManagementStatus::new(2);
 
     /// Most recent renewal failed due to an invalid DNS setup and will be
     /// retried. Renewal attempts will continue to fail until the certificate
     /// domain's DNS configuration is fixed. The last successfully provisioned
     /// certificate may still be serving.
-    pub const FAILED_RETRYING_NOT_VISIBLE: ManagementStatus =
-        ManagementStatus::new("FAILED_RETRYING_NOT_VISIBLE");
+    pub const FAILED_RETRYING_NOT_VISIBLE: ManagementStatus = ManagementStatus::new(4);
 
     /// All renewal attempts have been exhausted, likely due to an invalid DNS
     /// setup.
-    pub const FAILED_PERMANENT: ManagementStatus = ManagementStatus::new("FAILED_PERMANENT");
+    pub const FAILED_PERMANENT: ManagementStatus = ManagementStatus::new(6);
 
     /// Most recent renewal failed due to an explicit CAA record that does not
     /// include one of the in-use CAs (Google CA and Let's Encrypt). Renewals will
     /// continue to fail until the CAA is reconfigured. The last successfully
     /// provisioned certificate may still be serving.
-    pub const FAILED_RETRYING_CAA_FORBIDDEN: ManagementStatus =
-        ManagementStatus::new("FAILED_RETRYING_CAA_FORBIDDEN");
+    pub const FAILED_RETRYING_CAA_FORBIDDEN: ManagementStatus = ManagementStatus::new(7);
 
     /// Most recent renewal failed due to a CAA retrieval failure. This means that
     /// the domain's DNS provider does not properly handle CAA records, failing
@@ -7604,134 +7925,227 @@ pub mod management_status {
     /// continue to fail until the DNS provider is changed or a CAA record is
     /// added for the given domain. The last successfully provisioned certificate
     /// may still be serving.
-    pub const FAILED_RETRYING_CAA_CHECKING: ManagementStatus =
-        ManagementStatus::new("FAILED_RETRYING_CAA_CHECKING");
+    pub const FAILED_RETRYING_CAA_CHECKING: ManagementStatus = ManagementStatus::new(8);
+
+    /// Creates a new ManagementStatus instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MANAGEMENT_STATUS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("OK"),
+            2 => std::borrow::Cow::Borrowed("PENDING"),
+            4 => std::borrow::Cow::Borrowed("FAILED_RETRYING_NOT_VISIBLE"),
+            6 => std::borrow::Cow::Borrowed("FAILED_PERMANENT"),
+            7 => std::borrow::Cow::Borrowed("FAILED_RETRYING_CAA_FORBIDDEN"),
+            8 => std::borrow::Cow::Borrowed("FAILED_RETRYING_CAA_CHECKING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MANAGEMENT_STATUS_UNSPECIFIED" => {
+                std::option::Option::Some(Self::MANAGEMENT_STATUS_UNSPECIFIED)
+            }
+            "OK" => std::option::Option::Some(Self::OK),
+            "PENDING" => std::option::Option::Some(Self::PENDING),
+            "FAILED_RETRYING_NOT_VISIBLE" => {
+                std::option::Option::Some(Self::FAILED_RETRYING_NOT_VISIBLE)
+            }
+            "FAILED_PERMANENT" => std::option::Option::Some(Self::FAILED_PERMANENT),
+            "FAILED_RETRYING_CAA_FORBIDDEN" => {
+                std::option::Option::Some(Self::FAILED_RETRYING_CAA_FORBIDDEN)
+            }
+            "FAILED_RETRYING_CAA_CHECKING" => {
+                std::option::Option::Some(Self::FAILED_RETRYING_CAA_CHECKING)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ManagementStatus {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ManagementStatus {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ManagementStatus {
     fn default() -> Self {
-        management_status::MANAGEMENT_STATUS_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Available inbound services.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct InboundServiceType(std::borrow::Cow<'static, str>);
+pub struct InboundServiceType(i32);
 
 impl InboundServiceType {
-    /// Creates a new InboundServiceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [InboundServiceType](InboundServiceType)
-pub mod inbound_service_type {
-    use super::InboundServiceType;
-
     /// Not specified.
-    pub const INBOUND_SERVICE_UNSPECIFIED: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_UNSPECIFIED");
+    pub const INBOUND_SERVICE_UNSPECIFIED: InboundServiceType = InboundServiceType::new(0);
 
     /// Allows an application to receive mail.
-    pub const INBOUND_SERVICE_MAIL: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_MAIL");
+    pub const INBOUND_SERVICE_MAIL: InboundServiceType = InboundServiceType::new(1);
 
     /// Allows an application to receive email-bound notifications.
-    pub const INBOUND_SERVICE_MAIL_BOUNCE: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_MAIL_BOUNCE");
+    pub const INBOUND_SERVICE_MAIL_BOUNCE: InboundServiceType = InboundServiceType::new(2);
 
     /// Allows an application to receive error stanzas.
-    pub const INBOUND_SERVICE_XMPP_ERROR: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_XMPP_ERROR");
+    pub const INBOUND_SERVICE_XMPP_ERROR: InboundServiceType = InboundServiceType::new(3);
 
     /// Allows an application to receive instant messages.
-    pub const INBOUND_SERVICE_XMPP_MESSAGE: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_XMPP_MESSAGE");
+    pub const INBOUND_SERVICE_XMPP_MESSAGE: InboundServiceType = InboundServiceType::new(4);
 
     /// Allows an application to receive user subscription POSTs.
-    pub const INBOUND_SERVICE_XMPP_SUBSCRIBE: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_XMPP_SUBSCRIBE");
+    pub const INBOUND_SERVICE_XMPP_SUBSCRIBE: InboundServiceType = InboundServiceType::new(5);
 
     /// Allows an application to receive a user's chat presence.
-    pub const INBOUND_SERVICE_XMPP_PRESENCE: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_XMPP_PRESENCE");
+    pub const INBOUND_SERVICE_XMPP_PRESENCE: InboundServiceType = InboundServiceType::new(6);
 
     /// Registers an application for notifications when a client connects or
     /// disconnects from a channel.
-    pub const INBOUND_SERVICE_CHANNEL_PRESENCE: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_CHANNEL_PRESENCE");
+    pub const INBOUND_SERVICE_CHANNEL_PRESENCE: InboundServiceType = InboundServiceType::new(7);
 
     /// Enables warmup requests.
-    pub const INBOUND_SERVICE_WARMUP: InboundServiceType =
-        InboundServiceType::new("INBOUND_SERVICE_WARMUP");
+    pub const INBOUND_SERVICE_WARMUP: InboundServiceType = InboundServiceType::new(9);
+
+    /// Creates a new InboundServiceType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_MAIL"),
+            2 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_MAIL_BOUNCE"),
+            3 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_XMPP_ERROR"),
+            4 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_XMPP_MESSAGE"),
+            5 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_XMPP_SUBSCRIBE"),
+            6 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_XMPP_PRESENCE"),
+            7 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_CHANNEL_PRESENCE"),
+            9 => std::borrow::Cow::Borrowed("INBOUND_SERVICE_WARMUP"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INBOUND_SERVICE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_UNSPECIFIED)
+            }
+            "INBOUND_SERVICE_MAIL" => std::option::Option::Some(Self::INBOUND_SERVICE_MAIL),
+            "INBOUND_SERVICE_MAIL_BOUNCE" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_MAIL_BOUNCE)
+            }
+            "INBOUND_SERVICE_XMPP_ERROR" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_XMPP_ERROR)
+            }
+            "INBOUND_SERVICE_XMPP_MESSAGE" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_XMPP_MESSAGE)
+            }
+            "INBOUND_SERVICE_XMPP_SUBSCRIBE" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_XMPP_SUBSCRIBE)
+            }
+            "INBOUND_SERVICE_XMPP_PRESENCE" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_XMPP_PRESENCE)
+            }
+            "INBOUND_SERVICE_CHANNEL_PRESENCE" => {
+                std::option::Option::Some(Self::INBOUND_SERVICE_CHANNEL_PRESENCE)
+            }
+            "INBOUND_SERVICE_WARMUP" => std::option::Option::Some(Self::INBOUND_SERVICE_WARMUP),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for InboundServiceType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for InboundServiceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for InboundServiceType {
     fn default() -> Self {
-        inbound_service_type::INBOUND_SERVICE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Run states of a version.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServingStatus(std::borrow::Cow<'static, str>);
+pub struct ServingStatus(i32);
 
 impl ServingStatus {
-    /// Creates a new ServingStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ServingStatus](ServingStatus)
-pub mod serving_status {
-    use super::ServingStatus;
-
     /// Not specified.
-    pub const SERVING_STATUS_UNSPECIFIED: ServingStatus =
-        ServingStatus::new("SERVING_STATUS_UNSPECIFIED");
+    pub const SERVING_STATUS_UNSPECIFIED: ServingStatus = ServingStatus::new(0);
 
     /// Currently serving. Instances are created according to the
     /// scaling settings of the version.
-    pub const SERVING: ServingStatus = ServingStatus::new("SERVING");
+    pub const SERVING: ServingStatus = ServingStatus::new(1);
 
     /// Disabled. No instances will be created and the scaling
     /// settings are ignored until the state of the version changes
     /// to `SERVING`.
-    pub const STOPPED: ServingStatus = ServingStatus::new("STOPPED");
+    pub const STOPPED: ServingStatus = ServingStatus::new(2);
+
+    /// Creates a new ServingStatus instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SERVING_STATUS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SERVING"),
+            2 => std::borrow::Cow::Borrowed("STOPPED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SERVING_STATUS_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SERVING_STATUS_UNSPECIFIED)
+            }
+            "SERVING" => std::option::Option::Some(Self::SERVING),
+            "STOPPED" => std::option::Option::Some(Self::STOPPED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ServingStatus {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ServingStatus {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ServingStatus {
     fn default() -> Self {
-        serving_status::SERVING_STATUS_UNSPECIFIED
+        Self::new(0)
     }
 }

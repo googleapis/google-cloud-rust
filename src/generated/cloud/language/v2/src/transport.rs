@@ -52,7 +52,7 @@ impl crate::stubs::LanguageService for LanguageService {
                 reqwest::Method::POST,
                 "/v2/documents:analyzeSentiment".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::LanguageService for LanguageService {
                 reqwest::Method::POST,
                 "/v2/documents:analyzeEntities".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92,7 +92,7 @@ impl crate::stubs::LanguageService for LanguageService {
                 reqwest::Method::POST,
                 "/v2/documents:classifyText".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -112,7 +112,7 @@ impl crate::stubs::LanguageService for LanguageService {
                 reqwest::Method::POST,
                 "/v2/documents:moderateText".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -132,7 +132,7 @@ impl crate::stubs::LanguageService for LanguageService {
                 reqwest::Method::POST,
                 "/v2/documents:annotateText".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

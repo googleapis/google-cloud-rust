@@ -52,7 +52,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/databases", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76,7 +76,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/databases", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93,7 +93,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -121,7 +121,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -150,7 +150,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}/ddl", req.database))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -167,7 +167,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.database))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -186,7 +186,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/ddl", req.database))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -208,7 +208,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -228,7 +228,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -248,7 +248,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -265,7 +265,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -296,7 +296,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/backups:copy", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -313,7 +313,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -341,7 +341,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -368,7 +368,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -387,7 +387,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -412,7 +412,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/databases:restore", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -432,7 +432,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/databaseOperations", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -457,7 +457,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/backupOperations", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -482,7 +482,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/databaseRoles", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -506,7 +506,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:addSplitPoints", req.database),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -526,7 +526,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/backupSchedules", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -546,7 +546,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -574,7 +574,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -603,7 +603,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -625,7 +625,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/backupSchedules", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -646,7 +646,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -668,7 +668,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -687,7 +687,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -706,7 +706,7 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

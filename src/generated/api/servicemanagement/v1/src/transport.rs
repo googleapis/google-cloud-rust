@@ -49,7 +49,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/services".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75,7 +75,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::GET,
                 format!("/v1/services/{}", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94,7 +94,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/services".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -116,7 +116,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::DELETE,
                 format!("/v1/services/{}", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -138,7 +138,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/services/{}:undelete", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -160,7 +160,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::GET,
                 format!("/v1/services/{}/configs", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -187,7 +187,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                     req.service_name, req.config_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -210,7 +210,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/services/{}/configs", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -232,7 +232,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/services/{}/configs:submit", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -252,7 +252,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::GET,
                 format!("/v1/services/{}/rollouts", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -280,7 +280,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                     req.service_name, req.rollout_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -302,7 +302,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/services/{}/rollouts", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -324,7 +324,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 "/v1/services:generateConfigReport".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -344,7 +344,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -364,7 +364,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -384,7 +384,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
                 reqwest::Method::POST,
                 format!("/v1/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -401,7 +401,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/operations".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -424,7 +424,7 @@ impl crate::stubs::ServiceManager for ServiceManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

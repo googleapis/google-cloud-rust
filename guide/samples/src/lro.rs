@@ -41,7 +41,7 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
         // ANCHOR_END: transcript-output
         // ANCHOR: configuration
         .set_processing_strategy(
-            speech::model::batch_recognize_request::processing_strategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
         )
         .set_config(
             speech::model::RecognitionConfig::new()
@@ -84,7 +84,7 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::processing_strategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
         )
         .set_config(
             speech::model::RecognitionConfig::new()
@@ -126,7 +126,7 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
                 .set_inline_response_config(speech::model::InlineOutputConfig::new()),
         )
         .set_processing_strategy(
-            speech::model::batch_recognize_request::processing_strategy::DYNAMIC_BATCHING,
+            speech::model::batch_recognize_request::ProcessingStrategy::DYNAMIC_BATCHING,
         )
         .set_config(
             speech::model::RecognitionConfig::new()

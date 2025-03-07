@@ -1396,51 +1396,67 @@ pub mod partition_spec {
     /// (expressed in UTC. see details in
     /// <https://cloud.google.com/bigquery/docs/partitioned-tables#date_timestamp_partitioned_tables>).
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PartitionKey(std::borrow::Cow<'static, str>);
+    pub struct PartitionKey(i32);
 
     impl PartitionKey {
-        /// Creates a new PartitionKey instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PartitionKey](PartitionKey)
-    pub mod partition_key {
-        use super::PartitionKey;
-
         /// Unspecified partition key. If used, it means using non-partitioned table.
-        pub const PARTITION_KEY_UNSPECIFIED: PartitionKey =
-            PartitionKey::new("PARTITION_KEY_UNSPECIFIED");
+        pub const PARTITION_KEY_UNSPECIFIED: PartitionKey = PartitionKey::new(0);
 
         /// The time when the snapshot is taken. If specified as partition key, the
         /// result table(s) is partitoned by the additional timestamp column,
         /// readTime. If [read_time] in ExportAssetsRequest is specified, the
         /// readTime column's value will be the same as it. Otherwise, its value will
         /// be the current time that is used to take the snapshot.
-        pub const READ_TIME: PartitionKey = PartitionKey::new("READ_TIME");
+        pub const READ_TIME: PartitionKey = PartitionKey::new(1);
 
         /// The time when the request is received and started to be processed. If
         /// specified as partition key, the result table(s) is partitoned by the
         /// requestTime column, an additional timestamp column representing when the
         /// request was received.
-        pub const REQUEST_TIME: PartitionKey = PartitionKey::new("REQUEST_TIME");
+        pub const REQUEST_TIME: PartitionKey = PartitionKey::new(2);
+
+        /// Creates a new PartitionKey instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PARTITION_KEY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ_TIME"),
+                2 => std::borrow::Cow::Borrowed("REQUEST_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PARTITION_KEY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PARTITION_KEY_UNSPECIFIED)
+                }
+                "READ_TIME" => std::option::Option::Some(Self::READ_TIME),
+                "REQUEST_TIME" => std::option::Option::Some(Self::REQUEST_TIME),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PartitionKey {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PartitionKey {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PartitionKey {
         fn default() -> Self {
-            partition_key::PARTITION_KEY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3280,44 +3296,58 @@ pub mod iam_policy_analysis_output_config {
         /// filtering partitions. Refer to
         /// <https://cloud.google.com/bigquery/docs/partitioned-tables> for details.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PartitionKey(std::borrow::Cow<'static, str>);
+        pub struct PartitionKey(i32);
 
         impl PartitionKey {
-            /// Creates a new PartitionKey instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [PartitionKey](PartitionKey)
-        pub mod partition_key {
-            use super::PartitionKey;
-
             /// Unspecified partition key. Tables won't be partitioned using this
             /// option.
-            pub const PARTITION_KEY_UNSPECIFIED: PartitionKey =
-                PartitionKey::new("PARTITION_KEY_UNSPECIFIED");
+            pub const PARTITION_KEY_UNSPECIFIED: PartitionKey = PartitionKey::new(0);
 
             /// The time when the request is received. If specified as partition key,
             /// the result table(s) is partitoned by the RequestTime column, an
             /// additional timestamp column representing when the request was received.
-            pub const REQUEST_TIME: PartitionKey = PartitionKey::new("REQUEST_TIME");
+            pub const REQUEST_TIME: PartitionKey = PartitionKey::new(1);
+
+            /// Creates a new PartitionKey instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PARTITION_KEY_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("REQUEST_TIME"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PARTITION_KEY_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::PARTITION_KEY_UNSPECIFIED)
+                    }
+                    "REQUEST_TIME" => std::option::Option::Some(Self::REQUEST_TIME),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for PartitionKey {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for PartitionKey {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for PartitionKey {
             fn default() -> Self {
-                partition_key::PARTITION_KEY_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -4047,47 +4077,63 @@ pub mod analyze_move_request {
 
     /// View enum for supporting partial analysis responses.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AnalysisView(std::borrow::Cow<'static, str>);
+    pub struct AnalysisView(i32);
 
     impl AnalysisView {
-        /// Creates a new AnalysisView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AnalysisView](AnalysisView)
-    pub mod analysis_view {
-        use super::AnalysisView;
-
         /// The default/unset value.
         /// The API will default to the FULL view.
-        pub const ANALYSIS_VIEW_UNSPECIFIED: AnalysisView =
-            AnalysisView::new("ANALYSIS_VIEW_UNSPECIFIED");
+        pub const ANALYSIS_VIEW_UNSPECIFIED: AnalysisView = AnalysisView::new(0);
 
         /// Full analysis including all level of impacts of the specified resource
         /// move.
-        pub const FULL: AnalysisView = AnalysisView::new("FULL");
+        pub const FULL: AnalysisView = AnalysisView::new(1);
 
         /// Basic analysis only including blockers which will prevent the specified
         /// resource move at runtime.
-        pub const BASIC: AnalysisView = AnalysisView::new("BASIC");
+        pub const BASIC: AnalysisView = AnalysisView::new(2);
+
+        /// Creates a new AnalysisView instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ANALYSIS_VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FULL"),
+                2 => std::borrow::Cow::Borrowed("BASIC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ANALYSIS_VIEW_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ANALYSIS_VIEW_UNSPECIFIED)
+                }
+                "FULL" => std::option::Option::Some(Self::FULL),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AnalysisView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AnalysisView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AnalysisView {
         fn default() -> Self {
-            analysis_view::ANALYSIS_VIEW_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6067,47 +6113,63 @@ pub mod analyzer_org_policy_constraint {
         /// Specifies the default behavior in the absence of any `Policy` for the
         /// `Constraint`. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConstraintDefault(std::borrow::Cow<'static, str>);
+        pub struct ConstraintDefault(i32);
 
         impl ConstraintDefault {
-            /// Creates a new ConstraintDefault instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ConstraintDefault](ConstraintDefault)
-        pub mod constraint_default {
-            use super::ConstraintDefault;
-
             /// This is only used for distinguishing unset values and should never be
             /// used.
-            pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault =
-                ConstraintDefault::new("CONSTRAINT_DEFAULT_UNSPECIFIED");
+            pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault = ConstraintDefault::new(0);
 
             /// Indicate that all values are allowed for list constraints.
             /// Indicate that enforcement is off for boolean constraints.
-            pub const ALLOW: ConstraintDefault = ConstraintDefault::new("ALLOW");
+            pub const ALLOW: ConstraintDefault = ConstraintDefault::new(1);
 
             /// Indicate that all values are denied for list constraints.
             /// Indicate that enforcement is on for boolean constraints.
-            pub const DENY: ConstraintDefault = ConstraintDefault::new("DENY");
+            pub const DENY: ConstraintDefault = ConstraintDefault::new(2);
+
+            /// Creates a new ConstraintDefault instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CONSTRAINT_DEFAULT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ALLOW"),
+                    2 => std::borrow::Cow::Borrowed("DENY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CONSTRAINT_DEFAULT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::CONSTRAINT_DEFAULT_UNSPECIFIED)
+                    }
+                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                    "DENY" => std::option::Option::Some(Self::DENY),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ConstraintDefault {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ConstraintDefault {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for ConstraintDefault {
             fn default() -> Self {
-                constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
+                Self::new(0)
             }
         }
 
@@ -6267,90 +6329,124 @@ pub mod analyzer_org_policy_constraint {
         /// "CREATE" only. If the constraint applied when create or delete VMs, the
         /// method_types will be "CREATE" and "DELETE".
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct MethodType(std::borrow::Cow<'static, str>);
+        pub struct MethodType(i32);
 
         impl MethodType {
+            /// Unspecified. Will results in user error.
+            pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
+
+            /// Constraint applied when creating the resource.
+            pub const CREATE: MethodType = MethodType::new(1);
+
+            /// Constraint applied when updating the resource.
+            pub const UPDATE: MethodType = MethodType::new(2);
+
+            /// Constraint applied when deleting the resource.
+            pub const DELETE: MethodType = MethodType::new(3);
+
             /// Creates a new MethodType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("METHOD_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CREATE"),
+                    2 => std::borrow::Cow::Borrowed("UPDATE"),
+                    3 => std::borrow::Cow::Borrowed("DELETE"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "METHOD_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::METHOD_TYPE_UNSPECIFIED)
+                    }
+                    "CREATE" => std::option::Option::Some(Self::CREATE),
+                    "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                    "DELETE" => std::option::Option::Some(Self::DELETE),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [MethodType](MethodType)
-        pub mod method_type {
-            use super::MethodType;
-
-            /// Unspecified. Will results in user error.
-            pub const METHOD_TYPE_UNSPECIFIED: MethodType =
-                MethodType::new("METHOD_TYPE_UNSPECIFIED");
-
-            /// Constraint applied when creating the resource.
-            pub const CREATE: MethodType = MethodType::new("CREATE");
-
-            /// Constraint applied when updating the resource.
-            pub const UPDATE: MethodType = MethodType::new("UPDATE");
-
-            /// Constraint applied when deleting the resource.
-            pub const DELETE: MethodType = MethodType::new("DELETE");
-        }
-
-        impl std::convert::From<std::string::String> for MethodType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for MethodType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for MethodType {
             fn default() -> Self {
-                method_type::METHOD_TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
 
         /// Allow or deny type.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ActionType(std::borrow::Cow<'static, str>);
+        pub struct ActionType(i32);
 
         impl ActionType {
+            /// Unspecified. Will results in user error.
+            pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
+
+            /// Allowed action type.
+            pub const ALLOW: ActionType = ActionType::new(1);
+
+            /// Deny action type.
+            pub const DENY: ActionType = ActionType::new(2);
+
             /// Creates a new ActionType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ACTION_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ALLOW"),
+                    2 => std::borrow::Cow::Borrowed("DENY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ACTION_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ACTION_TYPE_UNSPECIFIED)
+                    }
+                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                    "DENY" => std::option::Option::Some(Self::DENY),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [ActionType](ActionType)
-        pub mod action_type {
-            use super::ActionType;
-
-            /// Unspecified. Will results in user error.
-            pub const ACTION_TYPE_UNSPECIFIED: ActionType =
-                ActionType::new("ACTION_TYPE_UNSPECIFIED");
-
-            /// Allowed action type.
-            pub const ALLOW: ActionType = ActionType::new("ALLOW");
-
-            /// Deny action type.
-            pub const DENY: ActionType = ActionType::new("DENY");
-        }
-
-        impl std::convert::From<std::string::String> for ActionType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ActionType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for ActionType {
             fn default() -> Self {
-                action_type::ACTION_TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -7716,50 +7812,70 @@ pub mod temporal_asset {
 
     /// State of prior asset.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PriorAssetState(std::borrow::Cow<'static, str>);
+    pub struct PriorAssetState(i32);
 
     impl PriorAssetState {
+        /// prior_asset is not applicable for the current asset.
+        pub const PRIOR_ASSET_STATE_UNSPECIFIED: PriorAssetState = PriorAssetState::new(0);
+
+        /// prior_asset is populated correctly.
+        pub const PRESENT: PriorAssetState = PriorAssetState::new(1);
+
+        /// Failed to set prior_asset.
+        pub const INVALID: PriorAssetState = PriorAssetState::new(2);
+
+        /// Current asset is the first known state.
+        pub const DOES_NOT_EXIST: PriorAssetState = PriorAssetState::new(3);
+
+        /// prior_asset is a deletion.
+        pub const DELETED: PriorAssetState = PriorAssetState::new(4);
+
         /// Creates a new PriorAssetState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PRIOR_ASSET_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PRESENT"),
+                2 => std::borrow::Cow::Borrowed("INVALID"),
+                3 => std::borrow::Cow::Borrowed("DOES_NOT_EXIST"),
+                4 => std::borrow::Cow::Borrowed("DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PRIOR_ASSET_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PRIOR_ASSET_STATE_UNSPECIFIED)
+                }
+                "PRESENT" => std::option::Option::Some(Self::PRESENT),
+                "INVALID" => std::option::Option::Some(Self::INVALID),
+                "DOES_NOT_EXIST" => std::option::Option::Some(Self::DOES_NOT_EXIST),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PriorAssetState](PriorAssetState)
-    pub mod prior_asset_state {
-        use super::PriorAssetState;
-
-        /// prior_asset is not applicable for the current asset.
-        pub const PRIOR_ASSET_STATE_UNSPECIFIED: PriorAssetState =
-            PriorAssetState::new("PRIOR_ASSET_STATE_UNSPECIFIED");
-
-        /// prior_asset is populated correctly.
-        pub const PRESENT: PriorAssetState = PriorAssetState::new("PRESENT");
-
-        /// Failed to set prior_asset.
-        pub const INVALID: PriorAssetState = PriorAssetState::new("INVALID");
-
-        /// Current asset is the first known state.
-        pub const DOES_NOT_EXIST: PriorAssetState = PriorAssetState::new("DOES_NOT_EXIST");
-
-        /// prior_asset is a deletion.
-        pub const DELETED: PriorAssetState = PriorAssetState::new("DELETED");
-    }
-
-    impl std::convert::From<std::string::String> for PriorAssetState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PriorAssetState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PriorAssetState {
         fn default() -> Self {
-            prior_asset_state::PRIOR_ASSET_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -9772,49 +9888,67 @@ pub mod condition_evaluation {
 
     /// Value of this expression.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EvaluationValue(std::borrow::Cow<'static, str>);
+    pub struct EvaluationValue(i32);
 
     impl EvaluationValue {
-        /// Creates a new EvaluationValue instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [EvaluationValue](EvaluationValue)
-    pub mod evaluation_value {
-        use super::EvaluationValue;
-
         /// Reserved for future use.
-        pub const EVALUATION_VALUE_UNSPECIFIED: EvaluationValue =
-            EvaluationValue::new("EVALUATION_VALUE_UNSPECIFIED");
+        pub const EVALUATION_VALUE_UNSPECIFIED: EvaluationValue = EvaluationValue::new(0);
 
         /// The evaluation result is `true`.
-        pub const TRUE: EvaluationValue = EvaluationValue::new("TRUE");
+        pub const TRUE: EvaluationValue = EvaluationValue::new(1);
 
         /// The evaluation result is `false`.
-        pub const FALSE: EvaluationValue = EvaluationValue::new("FALSE");
+        pub const FALSE: EvaluationValue = EvaluationValue::new(2);
 
         /// The evaluation result is `conditional` when the condition expression
         /// contains variables that are either missing input values or have not been
         /// supported by Policy Analyzer yet.
-        pub const CONDITIONAL: EvaluationValue = EvaluationValue::new("CONDITIONAL");
+        pub const CONDITIONAL: EvaluationValue = EvaluationValue::new(3);
+
+        /// Creates a new EvaluationValue instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EVALUATION_VALUE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TRUE"),
+                2 => std::borrow::Cow::Borrowed("FALSE"),
+                3 => std::borrow::Cow::Borrowed("CONDITIONAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EVALUATION_VALUE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EVALUATION_VALUE_UNSPECIFIED)
+                }
+                "TRUE" => std::option::Option::Some(Self::TRUE),
+                "FALSE" => std::option::Option::Some(Self::FALSE),
+                "CONDITIONAL" => std::option::Option::Some(Self::CONDITIONAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for EvaluationValue {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EvaluationValue {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for EvaluationValue {
         fn default() -> Self {
-            evaluation_value::EVALUATION_VALUE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -10371,54 +10505,77 @@ pub mod iam_policy_analysis_result {
 
 /// Asset content type.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ContentType(std::borrow::Cow<'static, str>);
+pub struct ContentType(i32);
 
 impl ContentType {
+    /// Unspecified content type.
+    pub const CONTENT_TYPE_UNSPECIFIED: ContentType = ContentType::new(0);
+
+    /// Resource metadata.
+    pub const RESOURCE: ContentType = ContentType::new(1);
+
+    /// The actual IAM policy set on a resource.
+    pub const IAM_POLICY: ContentType = ContentType::new(2);
+
+    /// The organization policy set on an asset.
+    pub const ORG_POLICY: ContentType = ContentType::new(4);
+
+    /// The Access Context Manager policy set on an asset.
+    pub const ACCESS_POLICY: ContentType = ContentType::new(5);
+
+    /// The runtime OS Inventory information.
+    pub const OS_INVENTORY: ContentType = ContentType::new(6);
+
+    /// The related resources.
+    pub const RELATIONSHIP: ContentType = ContentType::new(7);
+
     /// Creates a new ContentType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CONTENT_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("RESOURCE"),
+            2 => std::borrow::Cow::Borrowed("IAM_POLICY"),
+            4 => std::borrow::Cow::Borrowed("ORG_POLICY"),
+            5 => std::borrow::Cow::Borrowed("ACCESS_POLICY"),
+            6 => std::borrow::Cow::Borrowed("OS_INVENTORY"),
+            7 => std::borrow::Cow::Borrowed("RELATIONSHIP"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CONTENT_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::CONTENT_TYPE_UNSPECIFIED),
+            "RESOURCE" => std::option::Option::Some(Self::RESOURCE),
+            "IAM_POLICY" => std::option::Option::Some(Self::IAM_POLICY),
+            "ORG_POLICY" => std::option::Option::Some(Self::ORG_POLICY),
+            "ACCESS_POLICY" => std::option::Option::Some(Self::ACCESS_POLICY),
+            "OS_INVENTORY" => std::option::Option::Some(Self::OS_INVENTORY),
+            "RELATIONSHIP" => std::option::Option::Some(Self::RELATIONSHIP),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ContentType](ContentType)
-pub mod content_type {
-    use super::ContentType;
-
-    /// Unspecified content type.
-    pub const CONTENT_TYPE_UNSPECIFIED: ContentType = ContentType::new("CONTENT_TYPE_UNSPECIFIED");
-
-    /// Resource metadata.
-    pub const RESOURCE: ContentType = ContentType::new("RESOURCE");
-
-    /// The actual IAM policy set on a resource.
-    pub const IAM_POLICY: ContentType = ContentType::new("IAM_POLICY");
-
-    /// The organization policy set on an asset.
-    pub const ORG_POLICY: ContentType = ContentType::new("ORG_POLICY");
-
-    /// The Access Context Manager policy set on an asset.
-    pub const ACCESS_POLICY: ContentType = ContentType::new("ACCESS_POLICY");
-
-    /// The runtime OS Inventory information.
-    pub const OS_INVENTORY: ContentType = ContentType::new("OS_INVENTORY");
-
-    /// The related resources.
-    pub const RELATIONSHIP: ContentType = ContentType::new("RELATIONSHIP");
-}
-
-impl std::convert::From<std::string::String> for ContentType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ContentType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ContentType {
     fn default() -> Self {
-        content_type::CONTENT_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

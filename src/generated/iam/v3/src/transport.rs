@@ -52,7 +52,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                 reqwest::Method::POST,
                 format!("/v3/{}/policyBindings", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73,7 +73,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -101,7 +101,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -131,7 +131,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -155,7 +155,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                 reqwest::Method::GET,
                 format!("/v3/{}/policyBindings", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -183,7 +183,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
                     req.parent
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -205,7 +205,7 @@ impl crate::stubs::PolicyBindings for PolicyBindings {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -264,7 +264,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                 reqwest::Method::POST,
                 format!("/v3/{}/principalAccessBoundaryPolicies", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -288,7 +288,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -318,7 +318,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -348,7 +348,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -373,7 +373,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                 reqwest::Method::GET,
                 format!("/v3/{}/principalAccessBoundaryPolicies", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -397,7 +397,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
                 reqwest::Method::GET,
                 format!("/v3/{}:searchPolicyBindings", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -418,7 +418,7 @@ impl crate::stubs::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPo
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

@@ -49,7 +49,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/clusters", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95,7 +95,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/clusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -126,7 +126,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -158,7 +158,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -181,7 +181,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:promote", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -201,7 +201,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:switchover", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -221,7 +221,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/clusters:restore", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -241,7 +241,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/clusters:createsecondary", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -266,7 +266,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/instances", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -289,7 +289,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -312,7 +312,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/instances", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -337,7 +337,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/instances:createsecondary", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -362,7 +362,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}/instances:batchCreate", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -391,7 +391,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -423,7 +423,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -445,7 +445,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:failover", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -465,7 +465,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:injectFault", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -482,7 +482,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:restart", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -502,7 +502,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:executeSql", req.instance),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -519,7 +519,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -542,7 +542,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -561,7 +561,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/backups", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -590,7 +590,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -620,7 +620,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -645,7 +645,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/supportedDatabaseFlags", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -669,7 +669,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::POST,
                 format!("/v1/{}:generateClientCertificate", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -689,7 +689,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/connectionInfo", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -709,7 +709,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/users", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -732,7 +732,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -751,7 +751,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/users", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -780,7 +780,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -810,7 +810,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -834,7 +834,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
                 reqwest::Method::GET,
                 format!("/v1/{}/databases", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -856,7 +856,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -878,7 +878,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -897,7 +897,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -919,7 +919,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -938,7 +938,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -957,7 +957,7 @@ impl crate::stubs::AlloyDBAdmin for AlloyDBAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

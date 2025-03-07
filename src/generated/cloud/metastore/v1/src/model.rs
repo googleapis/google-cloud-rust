@@ -370,105 +370,145 @@ pub mod service {
 
     /// The current state of the metastore service.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the metastore service is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The metastore service is in the process of being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The metastore service is running and ready to serve queries.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The metastore service is entering suspension. Its query-serving
         /// availability may cease unexpectedly.
-        pub const SUSPENDING: State = State::new("SUSPENDING");
+        pub const SUSPENDING: State = State::new(3);
 
         /// The metastore service is suspended and unable to serve queries.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(4);
 
         /// The metastore service is being updated. It remains usable but cannot
         /// accept additional update requests or be deleted at this time.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(5);
 
         /// The metastore service is undergoing deletion. It cannot be used.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(6);
 
         /// The metastore service has encountered an error and cannot be used. The
         /// metastore service should be deleted.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("SUSPENDING"),
+                4 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                6 => std::borrow::Cow::Borrowed("DELETING"),
+                7 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "SUSPENDING" => std::option::Option::Some(Self::SUSPENDING),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Available service tiers.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(std::borrow::Cow<'static, str>);
+    pub struct Tier(i32);
 
     impl Tier {
-        /// Creates a new Tier instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Tier](Tier)
-    pub mod tier {
-        use super::Tier;
-
         /// The tier is not set.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
+        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
 
         /// The developer tier provides limited scalability and no fault tolerance.
         /// Good for low-cost proof-of-concept.
-        pub const DEVELOPER: Tier = Tier::new("DEVELOPER");
+        pub const DEVELOPER: Tier = Tier::new(1);
 
         /// The enterprise tier provides multi-zone high availability, and sufficient
         /// scalability for enterprise-level Dataproc Metastore workloads.
-        pub const ENTERPRISE: Tier = Tier::new("ENTERPRISE");
+        pub const ENTERPRISE: Tier = Tier::new(3);
+
+        /// Creates a new Tier instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEVELOPER"),
+                3 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
+                "DEVELOPER" => std::option::Option::Some(Self::DEVELOPER),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Tier {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Tier {
         fn default() -> Self {
-            tier::TIER_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -476,90 +516,122 @@ pub mod service {
     /// features may be introduced initially into less stable release channels and
     /// can be automatically promoted into more stable release channels.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReleaseChannel(std::borrow::Cow<'static, str>);
+    pub struct ReleaseChannel(i32);
 
     impl ReleaseChannel {
-        /// Creates a new ReleaseChannel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ReleaseChannel](ReleaseChannel)
-    pub mod release_channel {
-        use super::ReleaseChannel;
-
         /// Release channel is not specified.
-        pub const RELEASE_CHANNEL_UNSPECIFIED: ReleaseChannel =
-            ReleaseChannel::new("RELEASE_CHANNEL_UNSPECIFIED");
+        pub const RELEASE_CHANNEL_UNSPECIFIED: ReleaseChannel = ReleaseChannel::new(0);
 
         /// The `CANARY` release channel contains the newest features, which may be
         /// unstable and subject to unresolved issues with no known workarounds.
         /// Services using the `CANARY` release channel are not subject to any SLAs.
-        pub const CANARY: ReleaseChannel = ReleaseChannel::new("CANARY");
+        pub const CANARY: ReleaseChannel = ReleaseChannel::new(1);
 
         /// The `STABLE` release channel contains features that are considered stable
         /// and have been validated for production use.
-        pub const STABLE: ReleaseChannel = ReleaseChannel::new("STABLE");
+        pub const STABLE: ReleaseChannel = ReleaseChannel::new(2);
+
+        /// Creates a new ReleaseChannel instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RELEASE_CHANNEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CANARY"),
+                2 => std::borrow::Cow::Borrowed("STABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RELEASE_CHANNEL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RELEASE_CHANNEL_UNSPECIFIED)
+                }
+                "CANARY" => std::option::Option::Some(Self::CANARY),
+                "STABLE" => std::option::Option::Some(Self::STABLE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ReleaseChannel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ReleaseChannel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ReleaseChannel {
         fn default() -> Self {
-            release_channel::RELEASE_CHANNEL_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The backend database type for the metastore service.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(std::borrow::Cow<'static, str>);
+    pub struct DatabaseType(i32);
 
     impl DatabaseType {
+        /// The DATABASE_TYPE is not set.
+        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
+
+        /// MySQL is used to persist the metastore data.
+        pub const MYSQL: DatabaseType = DatabaseType::new(1);
+
+        /// Spanner is used to persist the metastore data.
+        pub const SPANNER: DatabaseType = DatabaseType::new(2);
+
         /// Creates a new DatabaseType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MYSQL"),
+                2 => std::borrow::Cow::Borrowed("SPANNER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATABASE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
+                }
+                "MYSQL" => std::option::Option::Some(Self::MYSQL),
+                "SPANNER" => std::option::Option::Some(Self::SPANNER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DatabaseType](DatabaseType)
-    pub mod database_type {
-        use super::DatabaseType;
-
-        /// The DATABASE_TYPE is not set.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-            DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
-
-        /// MySQL is used to persist the metastore data.
-        pub const MYSQL: DatabaseType = DatabaseType::new("MYSQL");
-
-        /// Spanner is used to persist the metastore data.
-        pub const SPANNER: DatabaseType = DatabaseType::new("SPANNER");
-    }
-
-    impl std::convert::From<std::string::String> for DatabaseType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            database_type::DATABASE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -732,44 +804,60 @@ pub mod hive_metastore_config {
 
     /// Protocols available for serving the metastore service endpoint.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EndpointProtocol(std::borrow::Cow<'static, str>);
+    pub struct EndpointProtocol(i32);
 
     impl EndpointProtocol {
+        /// The protocol is not set.
+        pub const ENDPOINT_PROTOCOL_UNSPECIFIED: EndpointProtocol = EndpointProtocol::new(0);
+
+        /// Use the legacy Apache Thrift protocol for the metastore service endpoint.
+        pub const THRIFT: EndpointProtocol = EndpointProtocol::new(1);
+
+        /// Use the modernized gRPC protocol for the metastore service endpoint.
+        pub const GRPC: EndpointProtocol = EndpointProtocol::new(2);
+
         /// Creates a new EndpointProtocol instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ENDPOINT_PROTOCOL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("THRIFT"),
+                2 => std::borrow::Cow::Borrowed("GRPC"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ENDPOINT_PROTOCOL_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ENDPOINT_PROTOCOL_UNSPECIFIED)
+                }
+                "THRIFT" => std::option::Option::Some(Self::THRIFT),
+                "GRPC" => std::option::Option::Some(Self::GRPC),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EndpointProtocol](EndpointProtocol)
-    pub mod endpoint_protocol {
-        use super::EndpointProtocol;
-
-        /// The protocol is not set.
-        pub const ENDPOINT_PROTOCOL_UNSPECIFIED: EndpointProtocol =
-            EndpointProtocol::new("ENDPOINT_PROTOCOL_UNSPECIFIED");
-
-        /// Use the legacy Apache Thrift protocol for the metastore service endpoint.
-        pub const THRIFT: EndpointProtocol = EndpointProtocol::new("THRIFT");
-
-        /// Use the modernized gRPC protocol for the metastore service endpoint.
-        pub const GRPC: EndpointProtocol = EndpointProtocol::new("GRPC");
-    }
-
-    impl std::convert::From<std::string::String> for EndpointProtocol {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EndpointProtocol {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for EndpointProtocol {
         fn default() -> Self {
-            endpoint_protocol::ENDPOINT_PROTOCOL_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1192,43 +1280,58 @@ pub mod telemetry_config {
     use super::*;
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogFormat(std::borrow::Cow<'static, str>);
+    pub struct LogFormat(i32);
 
     impl LogFormat {
+        /// The LOG_FORMAT is not set.
+        pub const LOG_FORMAT_UNSPECIFIED: LogFormat = LogFormat::new(0);
+
+        /// Logging output uses the legacy `textPayload` format.
+        pub const LEGACY: LogFormat = LogFormat::new(1);
+
+        /// Logging output uses the `jsonPayload` format.
+        pub const JSON: LogFormat = LogFormat::new(2);
+
         /// Creates a new LogFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOG_FORMAT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LEGACY"),
+                2 => std::borrow::Cow::Borrowed("JSON"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOG_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::LOG_FORMAT_UNSPECIFIED),
+                "LEGACY" => std::option::Option::Some(Self::LEGACY),
+                "JSON" => std::option::Option::Some(Self::JSON),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [LogFormat](LogFormat)
-    pub mod log_format {
-        use super::LogFormat;
-
-        /// The LOG_FORMAT is not set.
-        pub const LOG_FORMAT_UNSPECIFIED: LogFormat = LogFormat::new("LOG_FORMAT_UNSPECIFIED");
-
-        /// Logging output uses the legacy `textPayload` format.
-        pub const LEGACY: LogFormat = LogFormat::new("LEGACY");
-
-        /// Logging output uses the `jsonPayload` format.
-        pub const JSON: LogFormat = LogFormat::new("JSON");
-    }
-
-    impl std::convert::From<std::string::String> for LogFormat {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LogFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LogFormat {
         fn default() -> Self {
-            log_format::LOG_FORMAT_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1505,91 +1608,124 @@ pub mod metadata_import {
 
         /// The type of the database.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct DatabaseType(std::borrow::Cow<'static, str>);
+        pub struct DatabaseType(i32);
 
         impl DatabaseType {
+            /// The type of the source database is unknown.
+            pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
+
+            /// The type of the source database is MySQL.
+            pub const MYSQL: DatabaseType = DatabaseType::new(1);
+
             /// Creates a new DatabaseType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("MYSQL"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "DATABASE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
+                    }
+                    "MYSQL" => std::option::Option::Some(Self::MYSQL),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [DatabaseType](DatabaseType)
-        pub mod database_type {
-            use super::DatabaseType;
-
-            /// The type of the source database is unknown.
-            pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-                DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
-
-            /// The type of the source database is MySQL.
-            pub const MYSQL: DatabaseType = DatabaseType::new("MYSQL");
-        }
-
-        impl std::convert::From<std::string::String> for DatabaseType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for DatabaseType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for DatabaseType {
             fn default() -> Self {
-                database_type::DATABASE_TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// The current state of the metadata import.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the metadata import is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The metadata import is running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(1);
 
         /// The metadata import completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::new(2);
 
         /// The metadata import is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// The metadata import failed, and attempted metadata changes were rolled
         /// back.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNING"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1721,49 +1857,68 @@ pub mod metadata_export {
 
     /// The current state of the metadata export.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The state of the metadata export is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The metadata export is running.
+        pub const RUNNING: State = State::new(1);
+
+        /// The metadata export completed successfully.
+        pub const SUCCEEDED: State = State::new(2);
+
+        /// The metadata export failed.
+        pub const FAILED: State = State::new(3);
+
+        /// The metadata export is cancelled.
+        pub const CANCELLED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNING"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The state of the metadata export is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The metadata export is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The metadata export completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The metadata export failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The metadata export is cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1892,52 +2047,73 @@ pub mod backup {
 
     /// The current state of the backup.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The state of the backup is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The backup is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The backup is being deleted.
+        pub const DELETING: State = State::new(2);
+
+        /// The backup is active and ready to use.
+        pub const ACTIVE: State = State::new(3);
+
+        /// The backup failed.
+        pub const FAILED: State = State::new(4);
+
+        /// The backup is being restored.
+        pub const RESTORING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("DELETING"),
+                3 => std::borrow::Cow::Borrowed("ACTIVE"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("RESTORING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "RESTORING" => std::option::Option::Some(Self::RESTORING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The state of the backup is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The backup is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The backup is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// The backup is active and ready to use.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The backup failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The backup is being restored.
-        pub const RESTORING: State = State::new("RESTORING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2040,92 +2216,127 @@ pub mod restore {
 
     /// The current state of the restore.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The state of the metadata restore is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The metadata restore is running.
+        pub const RUNNING: State = State::new(1);
+
+        /// The metadata restore completed successfully.
+        pub const SUCCEEDED: State = State::new(2);
+
+        /// The metadata restore failed.
+        pub const FAILED: State = State::new(3);
+
+        /// The metadata restore is cancelled.
+        pub const CANCELLED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNING"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The state of the metadata restore is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The metadata restore is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The metadata restore completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The metadata restore failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The metadata restore is cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The type of restore. If unspecified, defaults to `METADATA_ONLY`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RestoreType(std::borrow::Cow<'static, str>);
+    pub struct RestoreType(i32);
 
     impl RestoreType {
+        /// The restore type is unknown.
+        pub const RESTORE_TYPE_UNSPECIFIED: RestoreType = RestoreType::new(0);
+
+        /// The service's metadata and configuration are restored.
+        pub const FULL: RestoreType = RestoreType::new(1);
+
+        /// Only the service's metadata is restored.
+        pub const METADATA_ONLY: RestoreType = RestoreType::new(2);
+
         /// Creates a new RestoreType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESTORE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FULL"),
+                2 => std::borrow::Cow::Borrowed("METADATA_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESTORE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESTORE_TYPE_UNSPECIFIED)
+                }
+                "FULL" => std::option::Option::Some(Self::FULL),
+                "METADATA_ONLY" => std::option::Option::Some(Self::METADATA_ONLY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RestoreType](RestoreType)
-    pub mod restore_type {
-        use super::RestoreType;
-
-        /// The restore type is unknown.
-        pub const RESTORE_TYPE_UNSPECIFIED: RestoreType =
-            RestoreType::new("RESTORE_TYPE_UNSPECIFIED");
-
-        /// The service's metadata and configuration are restored.
-        pub const FULL: RestoreType = RestoreType::new("FULL");
-
-        /// Only the service's metadata is restored.
-        pub const METADATA_ONLY: RestoreType = RestoreType::new("METADATA_ONLY");
-    }
-
-    impl std::convert::From<std::string::String> for RestoreType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RestoreType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RestoreType {
         fn default() -> Self {
-            restore_type::RESTORE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2227,53 +2438,75 @@ pub mod scaling_config {
 
     /// Metastore instance sizes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InstanceSize(std::borrow::Cow<'static, str>);
+    pub struct InstanceSize(i32);
 
     impl InstanceSize {
+        /// Unspecified instance size
+        pub const INSTANCE_SIZE_UNSPECIFIED: InstanceSize = InstanceSize::new(0);
+
+        /// Extra small instance size, maps to a scaling factor of 0.1.
+        pub const EXTRA_SMALL: InstanceSize = InstanceSize::new(1);
+
+        /// Small instance size, maps to a scaling factor of 0.5.
+        pub const SMALL: InstanceSize = InstanceSize::new(2);
+
+        /// Medium instance size, maps to a scaling factor of 1.0.
+        pub const MEDIUM: InstanceSize = InstanceSize::new(3);
+
+        /// Large instance size, maps to a scaling factor of 3.0.
+        pub const LARGE: InstanceSize = InstanceSize::new(4);
+
+        /// Extra large instance size, maps to a scaling factor of 6.0.
+        pub const EXTRA_LARGE: InstanceSize = InstanceSize::new(5);
+
         /// Creates a new InstanceSize instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INSTANCE_SIZE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EXTRA_SMALL"),
+                2 => std::borrow::Cow::Borrowed("SMALL"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("LARGE"),
+                5 => std::borrow::Cow::Borrowed("EXTRA_LARGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INSTANCE_SIZE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INSTANCE_SIZE_UNSPECIFIED)
+                }
+                "EXTRA_SMALL" => std::option::Option::Some(Self::EXTRA_SMALL),
+                "SMALL" => std::option::Option::Some(Self::SMALL),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "LARGE" => std::option::Option::Some(Self::LARGE),
+                "EXTRA_LARGE" => std::option::Option::Some(Self::EXTRA_LARGE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [InstanceSize](InstanceSize)
-    pub mod instance_size {
-        use super::InstanceSize;
-
-        /// Unspecified instance size
-        pub const INSTANCE_SIZE_UNSPECIFIED: InstanceSize =
-            InstanceSize::new("INSTANCE_SIZE_UNSPECIFIED");
-
-        /// Extra small instance size, maps to a scaling factor of 0.1.
-        pub const EXTRA_SMALL: InstanceSize = InstanceSize::new("EXTRA_SMALL");
-
-        /// Small instance size, maps to a scaling factor of 0.5.
-        pub const SMALL: InstanceSize = InstanceSize::new("SMALL");
-
-        /// Medium instance size, maps to a scaling factor of 1.0.
-        pub const MEDIUM: InstanceSize = InstanceSize::new("MEDIUM");
-
-        /// Large instance size, maps to a scaling factor of 3.0.
-        pub const LARGE: InstanceSize = InstanceSize::new("LARGE");
-
-        /// Extra large instance size, maps to a scaling factor of 6.0.
-        pub const EXTRA_LARGE: InstanceSize = InstanceSize::new("EXTRA_LARGE");
-    }
-
-    impl std::convert::From<std::string::String> for InstanceSize {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for InstanceSize {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for InstanceSize {
         fn default() -> Self {
-            instance_size::INSTANCE_SIZE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -3833,43 +4066,58 @@ pub mod database_dump_spec {
 
     /// The type of the database dump.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// The type of the database dump is unknown.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Database dump is a MySQL dump file.
+        pub const MYSQL: Type = Type::new(1);
+
+        /// Database dump contains Avro files.
+        pub const AVRO: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MYSQL"),
+                2 => std::borrow::Cow::Borrowed("AVRO"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "MYSQL" => std::option::Option::Some(Self::MYSQL),
+                "AVRO" => std::option::Option::Some(Self::AVRO),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// The type of the database dump is unknown.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Database dump is a MySQL dump file.
-        pub const MYSQL: Type = Type::new("MYSQL");
-
-        /// Database dump contains Avro files.
-        pub const AVRO: Type = Type::new("AVRO");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4328,54 +4576,75 @@ pub mod federation {
 
     /// The current state of the federation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state of the metastore federation is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The metastore federation is in the process of being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The metastore federation is running and ready to serve queries.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The metastore federation is being updated. It remains usable but cannot
         /// accept additional update requests or be deleted at this time.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// The metastore federation is undergoing deletion. It cannot be used.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// The metastore federation has encountered an error and cannot be used. The
         /// metastore federation should be deleted.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4437,44 +4706,60 @@ pub mod backend_metastore {
 
     /// The type of the backend metastore.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetastoreType(std::borrow::Cow<'static, str>);
+    pub struct MetastoreType(i32);
 
     impl MetastoreType {
+        /// The metastore type is not set.
+        pub const METASTORE_TYPE_UNSPECIFIED: MetastoreType = MetastoreType::new(0);
+
+        /// The backend metastore is BigQuery.
+        pub const BIGQUERY: MetastoreType = MetastoreType::new(2);
+
+        /// The backend metastore is Dataproc Metastore.
+        pub const DATAPROC_METASTORE: MetastoreType = MetastoreType::new(3);
+
         /// Creates a new MetastoreType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METASTORE_TYPE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("BIGQUERY"),
+                3 => std::borrow::Cow::Borrowed("DATAPROC_METASTORE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METASTORE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::METASTORE_TYPE_UNSPECIFIED)
+                }
+                "BIGQUERY" => std::option::Option::Some(Self::BIGQUERY),
+                "DATAPROC_METASTORE" => std::option::Option::Some(Self::DATAPROC_METASTORE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MetastoreType](MetastoreType)
-    pub mod metastore_type {
-        use super::MetastoreType;
-
-        /// The metastore type is not set.
-        pub const METASTORE_TYPE_UNSPECIFIED: MetastoreType =
-            MetastoreType::new("METASTORE_TYPE_UNSPECIFIED");
-
-        /// The backend metastore is BigQuery.
-        pub const BIGQUERY: MetastoreType = MetastoreType::new("BIGQUERY");
-
-        /// The backend metastore is Dataproc Metastore.
-        pub const DATAPROC_METASTORE: MetastoreType = MetastoreType::new("DATAPROC_METASTORE");
-    }
-
-    impl std::convert::From<std::string::String> for MetastoreType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MetastoreType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for MetastoreType {
         fn default() -> Self {
-            metastore_type::METASTORE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

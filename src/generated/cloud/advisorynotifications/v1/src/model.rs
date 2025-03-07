@@ -832,72 +832,72 @@ impl wkt::message::Message for UpdateSettingsRequest {
 
 /// Notification view.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationView(std::borrow::Cow<'static, str>);
+pub struct NotificationView(i32);
 
 impl NotificationView {
-    /// Creates a new NotificationView instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [NotificationView](NotificationView)
-pub mod notification_view {
-    use super::NotificationView;
-
     /// Not specified, equivalent to BASIC.
-    pub const NOTIFICATION_VIEW_UNSPECIFIED: NotificationView =
-        NotificationView::new("NOTIFICATION_VIEW_UNSPECIFIED");
+    pub const NOTIFICATION_VIEW_UNSPECIFIED: NotificationView = NotificationView::new(0);
 
     /// Server responses only include title, creation time and Notification ID.
     /// Note: for internal use responses also include the last update time,
     /// the latest message text and whether notification has attachments.
-    pub const BASIC: NotificationView = NotificationView::new("BASIC");
+    pub const BASIC: NotificationView = NotificationView::new(1);
 
     /// Include everything.
-    pub const FULL: NotificationView = NotificationView::new("FULL");
+    pub const FULL: NotificationView = NotificationView::new(2);
+
+    /// Creates a new NotificationView instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("NOTIFICATION_VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BASIC"),
+            2 => std::borrow::Cow::Borrowed("FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "NOTIFICATION_VIEW_UNSPECIFIED" => {
+                std::option::Option::Some(Self::NOTIFICATION_VIEW_UNSPECIFIED)
+            }
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            "FULL" => std::option::Option::Some(Self::FULL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for NotificationView {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for NotificationView {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for NotificationView {
     fn default() -> Self {
-        notification_view::NOTIFICATION_VIEW_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Status of localized text.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LocalizationState(std::borrow::Cow<'static, str>);
+pub struct LocalizationState(i32);
 
 impl LocalizationState {
-    /// Creates a new LocalizationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LocalizationState](LocalizationState)
-pub mod localization_state {
-    use super::LocalizationState;
-
     /// Not used.
-    pub const LOCALIZATION_STATE_UNSPECIFIED: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_UNSPECIFIED");
+    pub const LOCALIZATION_STATE_UNSPECIFIED: LocalizationState = LocalizationState::new(0);
 
     /// Localization is not applicable for requested language. This can happen
     /// when:
@@ -906,79 +906,141 @@ pub mod localization_state {
     ///   time of localization (including notifications created before the
     ///   localization feature was launched).
     /// - The requested language is English, so only the English text is returned.
-    pub const LOCALIZATION_STATE_NOT_APPLICABLE: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_NOT_APPLICABLE");
+    pub const LOCALIZATION_STATE_NOT_APPLICABLE: LocalizationState = LocalizationState::new(1);
 
     /// Localization for requested language is in progress, and not ready yet.
-    pub const LOCALIZATION_STATE_PENDING: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_PENDING");
+    pub const LOCALIZATION_STATE_PENDING: LocalizationState = LocalizationState::new(2);
 
     /// Localization for requested language is completed.
-    pub const LOCALIZATION_STATE_COMPLETED: LocalizationState =
-        LocalizationState::new("LOCALIZATION_STATE_COMPLETED");
+    pub const LOCALIZATION_STATE_COMPLETED: LocalizationState = LocalizationState::new(3);
+
+    /// Creates a new LocalizationState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_NOT_APPLICABLE"),
+            2 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_PENDING"),
+            3 => std::borrow::Cow::Borrowed("LOCALIZATION_STATE_COMPLETED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LOCALIZATION_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LOCALIZATION_STATE_UNSPECIFIED)
+            }
+            "LOCALIZATION_STATE_NOT_APPLICABLE" => {
+                std::option::Option::Some(Self::LOCALIZATION_STATE_NOT_APPLICABLE)
+            }
+            "LOCALIZATION_STATE_PENDING" => {
+                std::option::Option::Some(Self::LOCALIZATION_STATE_PENDING)
+            }
+            "LOCALIZATION_STATE_COMPLETED" => {
+                std::option::Option::Some(Self::LOCALIZATION_STATE_COMPLETED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LocalizationState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LocalizationState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for LocalizationState {
     fn default() -> Self {
-        localization_state::LOCALIZATION_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Type of notification
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationType(std::borrow::Cow<'static, str>);
+pub struct NotificationType(i32);
 
 impl NotificationType {
-    /// Creates a new NotificationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [NotificationType](NotificationType)
-pub mod notification_type {
-    use super::NotificationType;
-
     /// Default type
-    pub const NOTIFICATION_TYPE_UNSPECIFIED: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_UNSPECIFIED");
+    pub const NOTIFICATION_TYPE_UNSPECIFIED: NotificationType = NotificationType::new(0);
 
     /// Security and privacy advisory notifications
     pub const NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY");
+        NotificationType::new(1);
 
     /// Sensitive action notifications
-    pub const NOTIFICATION_TYPE_SENSITIVE_ACTIONS: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SENSITIVE_ACTIONS");
+    pub const NOTIFICATION_TYPE_SENSITIVE_ACTIONS: NotificationType = NotificationType::new(2);
 
     /// General security MSA
-    pub const NOTIFICATION_TYPE_SECURITY_MSA: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_SECURITY_MSA");
+    pub const NOTIFICATION_TYPE_SECURITY_MSA: NotificationType = NotificationType::new(3);
 
     /// Threat horizons MSA
-    pub const NOTIFICATION_TYPE_THREAT_HORIZONS: NotificationType =
-        NotificationType::new("NOTIFICATION_TYPE_THREAT_HORIZONS");
+    pub const NOTIFICATION_TYPE_THREAT_HORIZONS: NotificationType = NotificationType::new(4);
+
+    /// Creates a new NotificationType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY"),
+            2 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SENSITIVE_ACTIONS"),
+            3 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_SECURITY_MSA"),
+            4 => std::borrow::Cow::Borrowed("NOTIFICATION_TYPE_THREAT_HORIZONS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "NOTIFICATION_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::NOTIFICATION_TYPE_UNSPECIFIED)
+            }
+            "NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY" => {
+                std::option::Option::Some(Self::NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY)
+            }
+            "NOTIFICATION_TYPE_SENSITIVE_ACTIONS" => {
+                std::option::Option::Some(Self::NOTIFICATION_TYPE_SENSITIVE_ACTIONS)
+            }
+            "NOTIFICATION_TYPE_SECURITY_MSA" => {
+                std::option::Option::Some(Self::NOTIFICATION_TYPE_SECURITY_MSA)
+            }
+            "NOTIFICATION_TYPE_THREAT_HORIZONS" => {
+                std::option::Option::Some(Self::NOTIFICATION_TYPE_THREAT_HORIZONS)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for NotificationType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for NotificationType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for NotificationType {
     fn default() -> Self {
-        notification_type::NOTIFICATION_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

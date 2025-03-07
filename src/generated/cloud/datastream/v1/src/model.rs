@@ -3468,52 +3468,73 @@ pub mod private_connection {
 
     /// Private Connection state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The private connection is in creation state - creating resources.
+        pub const CREATING: State = State::new(1);
+
+        /// The private connection has been created with all of its resources.
+        pub const CREATED: State = State::new(2);
+
+        /// The private connection creation has failed.
+        pub const FAILED: State = State::new(3);
+
+        /// The private connection is being deleted.
+        pub const DELETING: State = State::new(4);
+
+        /// Delete request has failed, resource is in invalid state.
+        pub const FAILED_TO_DELETE: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("CREATED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("FAILED_TO_DELETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "CREATED" => std::option::Option::Some(Self::CREATED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED_TO_DELETE" => std::option::Option::Some(Self::FAILED_TO_DELETE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The private connection is in creation state - creating resources.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The private connection has been created with all of its resources.
-        pub const CREATED: State = State::new("CREATED");
-
-        /// The private connection creation has failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The private connection is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// Delete request has failed, resource is in invalid state.
-        pub const FAILED_TO_DELETE: State = State::new("FAILED_TO_DELETE");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6628,87 +6649,119 @@ pub mod json_file_format {
 
     /// Schema file format.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SchemaFileFormat(std::borrow::Cow<'static, str>);
+    pub struct SchemaFileFormat(i32);
 
     impl SchemaFileFormat {
+        /// Unspecified schema file format.
+        pub const SCHEMA_FILE_FORMAT_UNSPECIFIED: SchemaFileFormat = SchemaFileFormat::new(0);
+
+        /// Do not attach schema file.
+        pub const NO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new(1);
+
+        /// Avro schema format.
+        pub const AVRO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new(2);
+
         /// Creates a new SchemaFileFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SCHEMA_FILE_FORMAT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_SCHEMA_FILE"),
+                2 => std::borrow::Cow::Borrowed("AVRO_SCHEMA_FILE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SCHEMA_FILE_FORMAT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SCHEMA_FILE_FORMAT_UNSPECIFIED)
+                }
+                "NO_SCHEMA_FILE" => std::option::Option::Some(Self::NO_SCHEMA_FILE),
+                "AVRO_SCHEMA_FILE" => std::option::Option::Some(Self::AVRO_SCHEMA_FILE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SchemaFileFormat](SchemaFileFormat)
-    pub mod schema_file_format {
-        use super::SchemaFileFormat;
-
-        /// Unspecified schema file format.
-        pub const SCHEMA_FILE_FORMAT_UNSPECIFIED: SchemaFileFormat =
-            SchemaFileFormat::new("SCHEMA_FILE_FORMAT_UNSPECIFIED");
-
-        /// Do not attach schema file.
-        pub const NO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new("NO_SCHEMA_FILE");
-
-        /// Avro schema format.
-        pub const AVRO_SCHEMA_FILE: SchemaFileFormat = SchemaFileFormat::new("AVRO_SCHEMA_FILE");
-    }
-
-    impl std::convert::From<std::string::String> for SchemaFileFormat {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SchemaFileFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SchemaFileFormat {
         fn default() -> Self {
-            schema_file_format::SCHEMA_FILE_FORMAT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Json file compression.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JsonCompression(std::borrow::Cow<'static, str>);
+    pub struct JsonCompression(i32);
 
     impl JsonCompression {
+        /// Unspecified json file compression.
+        pub const JSON_COMPRESSION_UNSPECIFIED: JsonCompression = JsonCompression::new(0);
+
+        /// Do not compress JSON file.
+        pub const NO_COMPRESSION: JsonCompression = JsonCompression::new(1);
+
+        /// Gzip compression.
+        pub const GZIP: JsonCompression = JsonCompression::new(2);
+
         /// Creates a new JsonCompression instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JSON_COMPRESSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_COMPRESSION"),
+                2 => std::borrow::Cow::Borrowed("GZIP"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JSON_COMPRESSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::JSON_COMPRESSION_UNSPECIFIED)
+                }
+                "NO_COMPRESSION" => std::option::Option::Some(Self::NO_COMPRESSION),
+                "GZIP" => std::option::Option::Some(Self::GZIP),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [JsonCompression](JsonCompression)
-    pub mod json_compression {
-        use super::JsonCompression;
-
-        /// Unspecified json file compression.
-        pub const JSON_COMPRESSION_UNSPECIFIED: JsonCompression =
-            JsonCompression::new("JSON_COMPRESSION_UNSPECIFIED");
-
-        /// Do not compress JSON file.
-        pub const NO_COMPRESSION: JsonCompression = JsonCompression::new("NO_COMPRESSION");
-
-        /// Gzip compression.
-        pub const GZIP: JsonCompression = JsonCompression::new("GZIP");
-    }
-
-    impl std::convert::From<std::string::String> for JsonCompression {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for JsonCompression {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for JsonCompression {
         fn default() -> Self {
-            json_compression::JSON_COMPRESSION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -7872,65 +7925,92 @@ pub mod stream {
 
     /// Stream state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified stream state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The stream has been created but has not yet started streaming data.
-        pub const NOT_STARTED: State = State::new("NOT_STARTED");
+        pub const NOT_STARTED: State = State::new(1);
 
         /// The stream is running.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(2);
 
         /// The stream is paused.
-        pub const PAUSED: State = State::new("PAUSED");
+        pub const PAUSED: State = State::new(3);
 
         /// The stream is in maintenance mode.
         ///
         /// Updates are rejected on the resource in this state.
-        pub const MAINTENANCE: State = State::new("MAINTENANCE");
+        pub const MAINTENANCE: State = State::new(4);
 
         /// The stream is experiencing an error that is preventing data from being
         /// streamed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(5);
 
         /// The stream has experienced a terminal failure.
-        pub const FAILED_PERMANENTLY: State = State::new("FAILED_PERMANENTLY");
+        pub const FAILED_PERMANENTLY: State = State::new(6);
 
         /// The stream is starting, but not yet running.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::new(7);
 
         /// The Stream is no longer reading new events, but still writing events in
         /// the buffer.
-        pub const DRAINING: State = State::new("DRAINING");
+        pub const DRAINING: State = State::new(8);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_STARTED"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("PAUSED"),
+                4 => std::borrow::Cow::Borrowed("MAINTENANCE"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                6 => std::borrow::Cow::Borrowed("FAILED_PERMANENTLY"),
+                7 => std::borrow::Cow::Borrowed("STARTING"),
+                8 => std::borrow::Cow::Borrowed("DRAINING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "NOT_STARTED" => std::option::Option::Some(Self::NOT_STARTED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "PAUSED" => std::option::Option::Some(Self::PAUSED),
+                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "FAILED_PERMANENTLY" => std::option::Option::Some(Self::FAILED_PERMANENTLY),
+                "STARTING" => std::option::Option::Some(Self::STARTING),
+                "DRAINING" => std::option::Option::Some(Self::DRAINING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -8516,104 +8596,144 @@ pub mod backfill_job {
 
     /// State of the stream object's backfill job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Backfill job was never started for the stream object (stream has backfill
         /// strategy defined as manual or object was explicitly excluded from
         /// automatic backfill).
-        pub const NOT_STARTED: State = State::new("NOT_STARTED");
+        pub const NOT_STARTED: State = State::new(1);
 
         /// Backfill job will start pending available resources.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(2);
 
         /// Backfill job is running.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(3);
 
         /// Backfill job stopped (next job run will start from beginning).
-        pub const STOPPED: State = State::new("STOPPED");
+        pub const STOPPED: State = State::new(4);
 
         /// Backfill job failed (due to an error).
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(5);
 
         /// Backfill completed successfully.
-        pub const COMPLETED: State = State::new("COMPLETED");
+        pub const COMPLETED: State = State::new(6);
 
         /// Backfill job failed since the table structure is currently unsupported
         /// for backfill.
-        pub const UNSUPPORTED: State = State::new("UNSUPPORTED");
+        pub const UNSUPPORTED: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_STARTED"),
+                2 => std::borrow::Cow::Borrowed("PENDING"),
+                3 => std::borrow::Cow::Borrowed("ACTIVE"),
+                4 => std::borrow::Cow::Borrowed("STOPPED"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                6 => std::borrow::Cow::Borrowed("COMPLETED"),
+                7 => std::borrow::Cow::Borrowed("UNSUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "NOT_STARTED" => std::option::Option::Some(Self::NOT_STARTED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "STOPPED" => std::option::Option::Some(Self::STOPPED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "COMPLETED" => std::option::Option::Some(Self::COMPLETED),
+                "UNSUPPORTED" => std::option::Option::Some(Self::UNSUPPORTED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Triggering reason for a backfill job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Trigger(std::borrow::Cow<'static, str>);
+    pub struct Trigger(i32);
 
     impl Trigger {
-        /// Creates a new Trigger instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Trigger](Trigger)
-    pub mod trigger {
-        use super::Trigger;
-
         /// Default value.
-        pub const TRIGGER_UNSPECIFIED: Trigger = Trigger::new("TRIGGER_UNSPECIFIED");
+        pub const TRIGGER_UNSPECIFIED: Trigger = Trigger::new(0);
 
         /// Object backfill job was triggered automatically according to the stream's
         /// backfill strategy.
-        pub const AUTOMATIC: Trigger = Trigger::new("AUTOMATIC");
+        pub const AUTOMATIC: Trigger = Trigger::new(1);
 
         /// Object backfill job was triggered manually using the dedicated API.
-        pub const MANUAL: Trigger = Trigger::new("MANUAL");
+        pub const MANUAL: Trigger = Trigger::new(2);
+
+        /// Creates a new Trigger instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRIGGER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATIC"),
+                2 => std::borrow::Cow::Borrowed("MANUAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRIGGER_UNSPECIFIED" => std::option::Option::Some(Self::TRIGGER_UNSPECIFIED),
+                "AUTOMATIC" => std::option::Option::Some(Self::AUTOMATIC),
+                "MANUAL" => std::option::Option::Some(Self::MANUAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Trigger {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Trigger {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Trigger {
         fn default() -> Self {
-            trigger::TRIGGER_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8805,49 +8925,68 @@ pub mod validation {
 
     /// Validation execution state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Validation did not execute.
+        pub const NOT_EXECUTED: State = State::new(1);
+
+        /// Validation failed.
+        pub const FAILED: State = State::new(2);
+
+        /// Validation passed.
+        pub const PASSED: State = State::new(3);
+
+        /// Validation executed with warnings.
+        pub const WARNING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_EXECUTED"),
+                2 => std::borrow::Cow::Borrowed("FAILED"),
+                3 => std::borrow::Cow::Borrowed("PASSED"),
+                4 => std::borrow::Cow::Borrowed("WARNING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "NOT_EXECUTED" => std::option::Option::Some(Self::NOT_EXECUTED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "PASSED" => std::option::Option::Some(Self::PASSED),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Validation did not execute.
-        pub const NOT_EXECUTED: State = State::new("NOT_EXECUTED");
-
-        /// Validation failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// Validation passed.
-        pub const PASSED: State = State::new("PASSED");
-
-        /// Validation executed with warnings.
-        pub const WARNING: State = State::new("WARNING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8926,43 +9065,58 @@ pub mod validation_message {
 
     /// Validation message level.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(std::borrow::Cow<'static, str>);
+    pub struct Level(i32);
 
     impl Level {
+        /// Unspecified level.
+        pub const LEVEL_UNSPECIFIED: Level = Level::new(0);
+
+        /// Potentially cause issues with the Stream.
+        pub const WARNING: Level = Level::new(1);
+
+        /// Definitely cause issues with the Stream.
+        pub const ERROR: Level = Level::new(2);
+
         /// Creates a new Level instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("WARNING"),
+                2 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_UNSPECIFIED),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Level](Level)
-    pub mod level {
-        use super::Level;
-
-        /// Unspecified level.
-        pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
-
-        /// Potentially cause issues with the Stream.
-        pub const WARNING: Level = Level::new("WARNING");
-
-        /// Definitely cause issues with the Stream.
-        pub const ERROR: Level = Level::new("ERROR");
-    }
-
-    impl std::convert::From<std::string::String> for Level {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Level {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Level {
         fn default() -> Self {
-            level::LEVEL_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

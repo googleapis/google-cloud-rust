@@ -407,49 +407,68 @@ pub mod operation_metadata {
 
     /// Batch operation states.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Invalid.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Request has been received.
+        pub const CREATED: State = State::new(1);
+
+        /// Request is actively being processed.
+        pub const RUNNING: State = State::new(2);
+
+        /// The batch processing is done.
+        pub const DONE: State = State::new(3);
+
+        /// The batch processing was cancelled.
+        pub const CANCELLED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATED"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DONE"),
+                4 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATED" => std::option::Option::Some(Self::CREATED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Request has been received.
-        pub const CREATED: State = State::new("CREATED");
-
-        /// Request is actively being processed.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// The batch processing is done.
-        pub const DONE: State = State::new("DONE");
-
-        /// The batch processing was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

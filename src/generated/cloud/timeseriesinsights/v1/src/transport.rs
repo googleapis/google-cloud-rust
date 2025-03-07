@@ -49,7 +49,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/datasets", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73,7 +73,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
                 reqwest::Method::POST,
                 format!("/v1/{}/datasets", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92,7 +92,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -114,7 +114,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
                 reqwest::Method::POST,
                 format!("/v1/{}:appendEvents", req.dataset),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -131,7 +131,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:query", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -151,7 +151,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
                 reqwest::Method::POST,
                 format!("/v1/{}:evaluateSlice", req.dataset),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -171,7 +171,7 @@ impl crate::stubs::TimeseriesInsightsController for TimeseriesInsightsController
                 reqwest::Method::POST,
                 format!("/v1/{}/datasets:evaluateTimeseries", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
