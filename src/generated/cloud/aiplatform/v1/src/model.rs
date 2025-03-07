@@ -2528,9 +2528,9 @@ pub struct Blob {
     pub mime_type: std::string::String,
 
     /// Required. Raw bytes.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 }
 
 impl Blob {
@@ -2545,7 +2545,7 @@ impl Blob {
     }
 
     /// Sets the value of [data][crate::model::Blob::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -4385,9 +4385,9 @@ pub struct SearchEntryPoint {
 
     /// Optional. Base64 encoded JSON representing array of <search term, search
     /// url> tuple.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub sdk_blob: bytes::Bytes,
+    pub sdk_blob: ::bytes::Bytes,
 }
 
 impl SearchEntryPoint {
@@ -4405,7 +4405,7 @@ impl SearchEntryPoint {
     }
 
     /// Sets the value of [sdk_blob][crate::model::SearchEntryPoint::sdk_blob].
-    pub fn set_sdk_blob<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_sdk_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.sdk_blob = v.into();
         self
     }
@@ -30065,7 +30065,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `BytesValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bytes_value(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::BytesValue(v) => std::option::Option::Some(v),
@@ -30200,7 +30200,7 @@ impl FeatureValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    pub fn set_bytes_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::feature_value::Value::BytesValue(v.into()));
         self
@@ -30291,7 +30291,7 @@ pub mod feature_value {
         /// A list of string type feature value.
         StringArrayValue(std::boxed::Box<crate::model::StringArray>),
         /// Bytes feature value.
-        BytesValue(bytes::Bytes),
+        BytesValue(::bytes::Bytes),
         /// A struct type feature value.
         StructValue(std::boxed::Box<crate::model::StructValue>),
     }
@@ -41959,7 +41959,7 @@ pub struct TokensInfo {
     /// A list of tokens from the input.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub tokens: std::vec::Vec<bytes::Bytes>,
+    pub tokens: std::vec::Vec<::bytes::Bytes>,
 
     /// A list of token ids from the input.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -41986,7 +41986,7 @@ impl TokensInfo {
     pub fn set_tokens<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.tokens = v.into_iter().map(|i| i.into()).collect();
@@ -56883,9 +56883,9 @@ pub mod notebook_execution_job {
     #[non_exhaustive]
     pub struct DirectNotebookSource {
         /// The base64-encoded contents of the input notebook file.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub content: bytes::Bytes,
+        pub content: ::bytes::Bytes,
     }
 
     impl DirectNotebookSource {
@@ -56894,7 +56894,7 @@ pub mod notebook_execution_job {
         }
 
         /// Sets the value of [content][crate::model::notebook_execution_job::DirectNotebookSource::content].
-        pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
         }
@@ -63862,9 +63862,9 @@ pub struct DirectRawPredictRequest {
     pub method_name: std::string::String,
 
     /// The prediction input.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input: bytes::Bytes,
+    pub input: ::bytes::Bytes,
 }
 
 impl DirectRawPredictRequest {
@@ -63885,7 +63885,7 @@ impl DirectRawPredictRequest {
     }
 
     /// Sets the value of [input][crate::model::DirectRawPredictRequest::input].
-    pub fn set_input<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input = v.into();
         self
     }
@@ -63907,9 +63907,9 @@ impl wkt::message::Message for DirectRawPredictRequest {
 #[non_exhaustive]
 pub struct DirectRawPredictResponse {
     /// The prediction output.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output: bytes::Bytes,
+    pub output: ::bytes::Bytes,
 }
 
 impl DirectRawPredictResponse {
@@ -63918,7 +63918,7 @@ impl DirectRawPredictResponse {
     }
 
     /// Sets the value of [output][crate::model::DirectRawPredictResponse::output].
-    pub fn set_output<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output = v.into();
         self
     }
@@ -64084,9 +64084,9 @@ pub struct StreamDirectRawPredictRequest {
     pub method_name: std::string::String,
 
     /// Optional. The prediction input.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input: bytes::Bytes,
+    pub input: ::bytes::Bytes,
 }
 
 impl StreamDirectRawPredictRequest {
@@ -64107,7 +64107,7 @@ impl StreamDirectRawPredictRequest {
     }
 
     /// Sets the value of [input][crate::model::StreamDirectRawPredictRequest::input].
-    pub fn set_input<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input = v.into();
         self
     }
@@ -64127,9 +64127,9 @@ impl wkt::message::Message for StreamDirectRawPredictRequest {
 #[non_exhaustive]
 pub struct StreamDirectRawPredictResponse {
     /// The prediction output.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output: bytes::Bytes,
+    pub output: ::bytes::Bytes,
 }
 
 impl StreamDirectRawPredictResponse {
@@ -64138,7 +64138,7 @@ impl StreamDirectRawPredictResponse {
     }
 
     /// Sets the value of [output][crate::model::StreamDirectRawPredictResponse::output].
-    pub fn set_output<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output = v.into();
         self
     }
@@ -64303,9 +64303,9 @@ pub struct StreamingRawPredictRequest {
     pub method_name: std::string::String,
 
     /// The prediction input.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input: bytes::Bytes,
+    pub input: ::bytes::Bytes,
 }
 
 impl StreamingRawPredictRequest {
@@ -64326,7 +64326,7 @@ impl StreamingRawPredictRequest {
     }
 
     /// Sets the value of [input][crate::model::StreamingRawPredictRequest::input].
-    pub fn set_input<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input = v.into();
         self
     }
@@ -64346,9 +64346,9 @@ impl wkt::message::Message for StreamingRawPredictRequest {
 #[non_exhaustive]
 pub struct StreamingRawPredictResponse {
     /// The prediction output.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output: bytes::Bytes,
+    pub output: ::bytes::Bytes,
 }
 
 impl StreamingRawPredictResponse {
@@ -64357,7 +64357,7 @@ impl StreamingRawPredictResponse {
     }
 
     /// Sets the value of [output][crate::model::StreamingRawPredictResponse::output].
-    pub fn set_output<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output = v.into();
         self
     }
@@ -72076,9 +72076,9 @@ impl wkt::message::Message for Scalar {
 pub struct TensorboardTensor {
     /// Required. Serialized form of
     /// <https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/tensor.proto>
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 
     /// Optional. Version number of TensorProto used to serialize
     /// [value][google.cloud.aiplatform.v1.TensorboardTensor.value].
@@ -72093,7 +72093,7 @@ impl TensorboardTensor {
     }
 
     /// Sets the value of [value][crate::model::TensorboardTensor::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
@@ -72159,9 +72159,9 @@ pub struct TensorboardBlob {
 
     /// Optional. The bytes of the blob is not present unless it's returned by the
     /// ReadTensorboardBlobData endpoint.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 }
 
 impl TensorboardBlob {
@@ -72176,7 +72176,7 @@ impl TensorboardBlob {
     }
 
     /// Sets the value of [data][crate::model::TensorboardBlob::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -74925,9 +74925,9 @@ pub struct TensorboardTimeSeries {
     pub plugin_name: std::string::String,
 
     /// Data of the current plugin, with the size limited to 65KB.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plugin_data: bytes::Bytes,
+    pub plugin_data: ::bytes::Bytes,
 
     /// Output only. Scalar, Tensor, or Blob metadata for this
     /// TensorboardTimeSeries.
@@ -75000,7 +75000,7 @@ impl TensorboardTimeSeries {
     }
 
     /// Sets the value of [plugin_data][crate::model::TensorboardTimeSeries::plugin_data].
-    pub fn set_plugin_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plugin_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plugin_data = v.into();
         self
     }
@@ -78892,7 +78892,7 @@ pub struct Tensor {
     /// [google.cloud.aiplatform.v1.Tensor.DataType.STRING]: crate::model::tensor::data_type::STRING
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub bytes_val: std::vec::Vec<bytes::Bytes>,
+    pub bytes_val: std::vec::Vec<::bytes::Bytes>,
 
     /// [FLOAT][google.cloud.aiplatform.v1.Tensor.DataType.FLOAT]
     ///
@@ -78949,9 +78949,9 @@ pub struct Tensor {
     pub struct_val: std::collections::HashMap<std::string::String, crate::model::Tensor>,
 
     /// Serialized raw tensor content.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub tensor_val: bytes::Bytes,
+    pub tensor_val: ::bytes::Bytes,
 }
 
 impl Tensor {
@@ -78969,7 +78969,7 @@ impl Tensor {
     }
 
     /// Sets the value of [tensor_val][crate::model::Tensor::tensor_val].
-    pub fn set_tensor_val<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_tensor_val<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.tensor_val = v.into();
         self
     }
@@ -79011,7 +79011,7 @@ impl Tensor {
     pub fn set_bytes_val<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.bytes_val = v.into_iter().map(|i| i.into()).collect();

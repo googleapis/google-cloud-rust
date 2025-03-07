@@ -614,9 +614,9 @@ pub struct AttachedOidcConfig {
     /// This field is required for cluster that doesn't have a publicly available
     /// discovery endpoint. When provided, it will be directly used
     /// to verify the OIDC JWT asserted by the IDP.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub jwks: bytes::Bytes,
+    pub jwks: ::bytes::Bytes,
 }
 
 impl AttachedOidcConfig {
@@ -631,7 +631,7 @@ impl AttachedOidcConfig {
     }
 
     /// Sets the value of [jwks][crate::model::AttachedOidcConfig::jwks].
-    pub fn set_jwks<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_jwks<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.jwks = v.into();
         self
     }

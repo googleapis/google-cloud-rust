@@ -2436,9 +2436,9 @@ pub struct ByteDataItem {
     pub byte_data_type: crate::model::byte_data_item::ByteItemType,
 
     /// Required. Bytes Data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub byte_data: bytes::Bytes,
+    pub byte_data: ::bytes::Bytes,
 }
 
 impl ByteDataItem {
@@ -2456,7 +2456,7 @@ impl ByteDataItem {
     }
 
     /// Sets the value of [byte_data][crate::model::ByteDataItem::byte_data].
-    pub fn set_byte_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_byte_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.byte_data = v.into();
         self
     }

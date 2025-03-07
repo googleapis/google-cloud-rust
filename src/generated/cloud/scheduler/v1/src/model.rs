@@ -1076,9 +1076,9 @@ pub struct HttpTarget {
     /// incompatible [HttpMethod][google.cloud.scheduler.v1.HttpMethod].
     ///
     /// [google.cloud.scheduler.v1.HttpMethod]: crate::model::HttpMethod
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 
     /// The mode for generating an `Authorization` header for HTTP requests.
     ///
@@ -1112,7 +1112,7 @@ impl HttpTarget {
     }
 
     /// Sets the value of [body][crate::model::HttpTarget::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
@@ -1323,9 +1323,9 @@ pub struct AppEngineHttpTarget {
     /// [HttpMethod][google.cloud.scheduler.v1.HttpMethod].
     ///
     /// [google.cloud.scheduler.v1.HttpMethod]: crate::model::HttpMethod
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 }
 
 impl AppEngineHttpTarget {
@@ -1360,7 +1360,7 @@ impl AppEngineHttpTarget {
     }
 
     /// Sets the value of [body][crate::model::AppEngineHttpTarget::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
@@ -1405,9 +1405,9 @@ pub struct PubsubTarget {
     ///
     /// Pubsub message must contain either non-empty data, or at least one
     /// attribute.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Attributes for PubsubMessage.
     ///
@@ -1429,7 +1429,7 @@ impl PubsubTarget {
     }
 
     /// Sets the value of [data][crate::model::PubsubTarget::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }

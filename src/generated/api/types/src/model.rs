@@ -4586,9 +4586,9 @@ pub struct HttpBody {
     pub content_type: std::string::String,
 
     /// The HTTP request/response body as raw binary.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Application specific response metadata. Must be set in the first response
     /// for streaming APIs.
@@ -4608,7 +4608,7 @@ impl HttpBody {
     }
 
     /// Sets the value of [data][crate::model::HttpBody::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }

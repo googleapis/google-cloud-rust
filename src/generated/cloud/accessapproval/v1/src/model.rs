@@ -221,9 +221,9 @@ pub mod access_reason {
 #[non_exhaustive]
 pub struct SignatureInfo {
     /// The digital signature.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 
     /// How this signature may be verified.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -236,7 +236,7 @@ impl SignatureInfo {
     }
 
     /// Sets the value of [signature][crate::model::SignatureInfo::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }

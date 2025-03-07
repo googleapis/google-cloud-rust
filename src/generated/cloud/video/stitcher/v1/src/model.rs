@@ -469,9 +469,9 @@ pub mod cdn_key {
 #[non_exhaustive]
 pub struct GoogleCdnKey {
     /// Input only. Secret for this Google Cloud CDN key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key: bytes::Bytes,
+    pub private_key: ::bytes::Bytes,
 
     /// The public name of the Google Cloud CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -484,7 +484,7 @@ impl GoogleCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::GoogleCdnKey::private_key].
-    pub fn set_private_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }
@@ -509,9 +509,9 @@ impl wkt::message::Message for GoogleCdnKey {
 #[non_exhaustive]
 pub struct AkamaiCdnKey {
     /// Input only. Token key for the Akamai CDN edge configuration.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub token_key: bytes::Bytes,
+    pub token_key: ::bytes::Bytes,
 }
 
 impl AkamaiCdnKey {
@@ -520,7 +520,7 @@ impl AkamaiCdnKey {
     }
 
     /// Sets the value of [token_key][crate::model::AkamaiCdnKey::token_key].
-    pub fn set_token_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_token_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.token_key = v.into();
         self
     }
@@ -539,9 +539,9 @@ impl wkt::message::Message for AkamaiCdnKey {
 #[non_exhaustive]
 pub struct MediaCdnKey {
     /// Input only. 64-byte ed25519 private key for this Media CDN key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub private_key: bytes::Bytes,
+    pub private_key: ::bytes::Bytes,
 
     /// The keyset name of the Media CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -559,7 +559,7 @@ impl MediaCdnKey {
     }
 
     /// Sets the value of [private_key][crate::model::MediaCdnKey::private_key].
-    pub fn set_private_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_private_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.private_key = v.into();
         self
     }

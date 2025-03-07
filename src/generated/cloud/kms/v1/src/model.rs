@@ -1086,9 +1086,9 @@ impl wkt::message::Message for UpdateEkmConfigRequest {
 #[non_exhaustive]
 pub struct Certificate {
     /// Required. The raw certificate bytes in DER format.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub raw_der: bytes::Bytes,
+    pub raw_der: ::bytes::Bytes,
 
     /// Output only. True if the certificate was parsed successfully.
     pub parsed: bool,
@@ -1149,7 +1149,7 @@ impl Certificate {
     }
 
     /// Sets the value of [raw_der][crate::model::Certificate::raw_der].
-    pub fn set_raw_der<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_raw_der<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_der = v.into();
         self
     }
@@ -2228,9 +2228,9 @@ pub struct KeyOperationAttestation {
 
     /// Output only. The attestation data provided by the HSM when the key
     /// operation was performed.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// Output only. The certificate chains needed to validate the attestation
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2255,7 +2255,7 @@ impl KeyOperationAttestation {
     }
 
     /// Sets the value of [content][crate::model::KeyOperationAttestation::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -3172,9 +3172,9 @@ pub mod crypto_key_version {
 #[non_exhaustive]
 pub struct ChecksummedData {
     /// Raw Data.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C
     /// checksum of the returned
@@ -3204,7 +3204,7 @@ impl ChecksummedData {
     }
 
     /// Sets the value of [data][crate::model::ChecksummedData::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -5221,9 +5221,9 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256]: crate::model::import_job::import_method::RSA_OAEP_4096_SHA256
     /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256_AES_256]: crate::model::import_job::import_method::RSA_OAEP_4096_SHA256_AES_256
     /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub wrapped_key: bytes::Bytes,
+    pub wrapped_key: ::bytes::Bytes,
 
     /// This field is legacy. Use the field
     /// [wrapped_key][google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]
@@ -5273,7 +5273,7 @@ impl ImportCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [wrapped_key][crate::model::ImportCryptoKeyVersionRequest::wrapped_key].
-    pub fn set_wrapped_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
         self
     }
@@ -5296,7 +5296,7 @@ impl ImportCryptoKeyVersionRequest {
     /// The value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material]
     /// if it holds a `RsaAesWrappedKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rsa_aes_wrapped_key(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_rsa_aes_wrapped_key(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.wrapped_key_material.as_ref().and_then(|v| match v {
             crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(v) => std::option::Option::Some(v),
@@ -5309,7 +5309,7 @@ impl ImportCryptoKeyVersionRequest {
     ///
     /// Note that all the setters affecting `wrapped_key_material` are
     /// mutually exclusive.
-    pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key_material = std::option::Option::Some(
             crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(
                 v.into(),
@@ -5345,7 +5345,7 @@ pub mod import_crypto_key_version_request {
         /// (but not both) must be specified.
         ///
         /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
-        RsaAesWrappedKey(bytes::Bytes),
+        RsaAesWrappedKey(::bytes::Bytes),
     }
 }
 
@@ -5678,9 +5678,9 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plaintext: bytes::Bytes,
+    pub plaintext: ::bytes::Bytes,
 
     /// Optional. Optional data that, if specified, must also be provided during
     /// decryption through
@@ -5702,9 +5702,9 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::protection_level::EXTERNAL_VPC
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub additional_authenticated_data: bytes::Bytes,
+    pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [EncryptRequest.plaintext][google.cloud.kms.v1.EncryptRequest.plaintext].
@@ -5775,13 +5775,13 @@ impl EncryptRequest {
     }
 
     /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
-    pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::EncryptRequest::additional_authenticated_data].
-    pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -5837,17 +5837,17 @@ pub struct DecryptRequest {
     /// [EncryptResponse.ciphertext][google.cloud.kms.v1.EncryptResponse.ciphertext].
     ///
     /// [google.cloud.kms.v1.EncryptResponse.ciphertext]: crate::model::EncryptResponse::ciphertext
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ciphertext: bytes::Bytes,
+    pub ciphertext: ::bytes::Bytes,
 
     /// Optional. Optional data that must match the data originally supplied in
     /// [EncryptRequest.additional_authenticated_data][google.cloud.kms.v1.EncryptRequest.additional_authenticated_data].
     ///
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data]: crate::model::EncryptRequest::additional_authenticated_data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub additional_authenticated_data: bytes::Bytes,
+    pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [DecryptRequest.ciphertext][google.cloud.kms.v1.DecryptRequest.ciphertext].
@@ -5918,13 +5918,13 @@ impl DecryptRequest {
     }
 
     /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
-    pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::DecryptRequest::additional_authenticated_data].
-    pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -5989,9 +5989,9 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plaintext: bytes::Bytes,
+    pub plaintext: ::bytes::Bytes,
 
     /// Optional. Optional data that, if specified, must also be provided during
     /// decryption through
@@ -6014,9 +6014,9 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::protection_level::SOFTWARE
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data]: crate::model::RawDecryptRequest::additional_authenticated_data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub additional_authenticated_data: bytes::Bytes,
+    pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [RawEncryptRequest.plaintext][google.cloud.kms.v1.RawEncryptRequest.plaintext].
@@ -6071,9 +6071,9 @@ pub struct RawEncryptRequest {
     /// [RawEncryptResponse.initialization_vector][google.cloud.kms.v1.RawEncryptResponse.initialization_vector].
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.initialization_vector]: crate::model::RawEncryptResponse::initialization_vector
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub initialization_vector: bytes::Bytes,
+    pub initialization_vector: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [RawEncryptRequest.initialization_vector][google.cloud.kms.v1.RawEncryptRequest.initialization_vector].
@@ -6112,13 +6112,13 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
-    pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::RawEncryptRequest::additional_authenticated_data].
-    pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -6147,7 +6147,10 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawEncryptRequest::initialization_vector].
-    pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -6191,26 +6194,26 @@ pub struct RawDecryptRequest {
     /// [RawEncryptResponse.ciphertext][google.cloud.kms.v1.RawEncryptResponse.ciphertext].
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.ciphertext]: crate::model::RawEncryptResponse::ciphertext
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ciphertext: bytes::Bytes,
+    pub ciphertext: ::bytes::Bytes,
 
     /// Optional. Optional data that must match the data originally supplied in
     /// [RawEncryptRequest.additional_authenticated_data][google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data].
     ///
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data]: crate::model::RawEncryptRequest::additional_authenticated_data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub additional_authenticated_data: bytes::Bytes,
+    pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Required. The initialization vector (IV) used during encryption, which must
     /// match the data originally provided in
     /// [RawEncryptResponse.initialization_vector][google.cloud.kms.v1.RawEncryptResponse.initialization_vector].
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.initialization_vector]: crate::model::RawEncryptResponse::initialization_vector
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub initialization_vector: bytes::Bytes,
+    pub initialization_vector: ::bytes::Bytes,
 
     /// The length of the authentication tag that is appended to the end of
     /// the ciphertext. If unspecified (0), the default value for the key's
@@ -6300,13 +6303,13 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
-    pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::RawDecryptRequest::additional_authenticated_data].
-    pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {
@@ -6315,7 +6318,10 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
-    pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -6428,9 +6434,9 @@ pub struct AsymmetricSignRequest {
     /// is supplied.
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest]: crate::model::AsymmetricSignRequest::digest
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [AsymmetricSignRequest.data][google.cloud.kms.v1.AsymmetricSignRequest.data].
@@ -6491,7 +6497,7 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [data][crate::model::AsymmetricSignRequest::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -6534,9 +6540,9 @@ pub struct AsymmetricDecryptRequest {
     /// OAEP.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ciphertext: bytes::Bytes,
+    pub ciphertext: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [AsymmetricDecryptRequest.ciphertext][google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext].
@@ -6579,7 +6585,7 @@ impl AsymmetricDecryptRequest {
     }
 
     /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
-    pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
@@ -6619,9 +6625,9 @@ pub struct MacSignRequest {
 
     /// Required. The data to sign. The MAC tag is computed over this data field
     /// based on the specific algorithm.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [MacSignRequest.data][google.cloud.kms.v1.MacSignRequest.data]. If
@@ -6662,7 +6668,7 @@ impl MacSignRequest {
     }
 
     /// Sets the value of [data][crate::model::MacSignRequest::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -6705,9 +6711,9 @@ pub struct MacVerifyRequest {
     /// the MAC tag.
     ///
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [MacVerifyRequest.data][google.cloud.kms.v1.MacVerifyRequest.data]. If
@@ -6737,9 +6743,9 @@ pub struct MacVerifyRequest {
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Required. The signature to verify.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub mac: bytes::Bytes,
+    pub mac: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
     /// [MacVerifyRequest.mac][google.cloud.kms.v1.MacVerifyRequest.mac]. If
@@ -6780,7 +6786,7 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [data][crate::model::MacVerifyRequest::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -6795,7 +6801,7 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
-    pub fn set_mac<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_mac<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
@@ -6896,9 +6902,9 @@ pub struct EncryptResponse {
     pub name: std::string::String,
 
     /// The encrypted data.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ciphertext: bytes::Bytes,
+    pub ciphertext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [EncryptResponse.ciphertext][google.cloud.kms.v1.EncryptResponse.ciphertext].
@@ -6983,7 +6989,7 @@ impl EncryptResponse {
     }
 
     /// Sets the value of [ciphertext][crate::model::EncryptResponse::ciphertext].
-    pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
@@ -7041,9 +7047,9 @@ pub struct DecryptResponse {
     /// [EncryptRequest.plaintext][google.cloud.kms.v1.EncryptRequest.plaintext].
     ///
     /// [google.cloud.kms.v1.EncryptRequest.plaintext]: crate::model::EncryptRequest::plaintext
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plaintext: bytes::Bytes,
+    pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [DecryptResponse.plaintext][google.cloud.kms.v1.DecryptResponse.plaintext].
@@ -7089,7 +7095,7 @@ impl DecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::DecryptResponse::plaintext].
-    pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
@@ -7139,9 +7145,9 @@ pub struct RawEncryptResponse {
     /// bytes at the end of this field.
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.tag_length]: crate::model::RawEncryptResponse::tag_length
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub ciphertext: bytes::Bytes,
+    pub ciphertext: ::bytes::Bytes,
 
     /// The initialization vector (IV) generated by the service during
     /// encryption. This value must be stored and provided in
@@ -7149,9 +7155,9 @@ pub struct RawEncryptResponse {
     /// at decryption time.
     ///
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector]: crate::model::RawDecryptRequest::initialization_vector
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub initialization_vector: bytes::Bytes,
+    pub initialization_vector: ::bytes::Bytes,
 
     /// The length of the authentication tag that is appended to
     /// the end of the ciphertext.
@@ -7272,13 +7278,16 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [ciphertext][crate::model::RawEncryptResponse::ciphertext].
-    pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawEncryptResponse::initialization_vector].
-    pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.initialization_vector = v.into();
         self
     }
@@ -7365,9 +7374,9 @@ impl wkt::message::Message for RawEncryptResponse {
 #[non_exhaustive]
 pub struct RawDecryptResponse {
     /// The decrypted data.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plaintext: bytes::Bytes,
+    pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [RawDecryptResponse.plaintext][google.cloud.kms.v1.RawDecryptResponse.plaintext].
@@ -7465,7 +7474,7 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::RawDecryptResponse::plaintext].
-    pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
@@ -7529,9 +7538,9 @@ impl wkt::message::Message for RawDecryptResponse {
 #[non_exhaustive]
 pub struct AsymmetricSignResponse {
     /// The created signature.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [AsymmetricSignResponse.signature][google.cloud.kms.v1.AsymmetricSignResponse.signature].
@@ -7617,7 +7626,7 @@ impl AsymmetricSignResponse {
     }
 
     /// Sets the value of [signature][crate::model::AsymmetricSignResponse::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
@@ -7675,9 +7684,9 @@ impl wkt::message::Message for AsymmetricSignResponse {
 #[non_exhaustive]
 pub struct AsymmetricDecryptResponse {
     /// The decrypted data originally encrypted with the matching public key.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub plaintext: bytes::Bytes,
+    pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [AsymmetricDecryptResponse.plaintext][google.cloud.kms.v1.AsymmetricDecryptResponse.plaintext].
@@ -7735,7 +7744,7 @@ impl AsymmetricDecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::AsymmetricDecryptResponse::plaintext].
-    pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
@@ -7789,9 +7798,9 @@ pub struct MacSignResponse {
     pub name: std::string::String,
 
     /// The created signature.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub mac: bytes::Bytes,
+    pub mac: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [MacSignResponse.mac][google.cloud.kms.v1.MacSignResponse.mac]. An
@@ -7854,7 +7863,7 @@ impl MacSignResponse {
     }
 
     /// Sets the value of [mac][crate::model::MacSignResponse::mac].
-    pub fn set_mac<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_mac<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
@@ -8035,9 +8044,9 @@ impl wkt::message::Message for MacVerifyResponse {
 #[non_exhaustive]
 pub struct GenerateRandomBytesResponse {
     /// The generated data.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub data: bytes::Bytes,
+    pub data: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
     /// [GenerateRandomBytesResponse.data][google.cloud.kms.v1.GenerateRandomBytesResponse.data].
@@ -8066,7 +8075,7 @@ impl GenerateRandomBytesResponse {
     }
 
     /// Sets the value of [data][crate::model::GenerateRandomBytesResponse::data].
-    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
@@ -8117,7 +8126,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha256`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha256(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_sha256(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha256(v) => std::option::Option::Some(v),
@@ -8128,7 +8137,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha384`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha384(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_sha384(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha384(v) => std::option::Option::Some(v),
@@ -8139,7 +8148,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha512`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha512(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_sha512(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha512(v) => std::option::Option::Some(v),
@@ -8152,7 +8161,7 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
-    pub fn set_sha256<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
         self
     }
@@ -8162,7 +8171,7 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
-    pub fn set_sha384<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
         self
     }
@@ -8172,7 +8181,7 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
-    pub fn set_sha512<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_sha512<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha512(v.into()));
         self
     }
@@ -8195,11 +8204,11 @@ pub mod digest {
     #[non_exhaustive]
     pub enum Digest {
         /// A message digest produced with the SHA-256 algorithm.
-        Sha256(bytes::Bytes),
+        Sha256(::bytes::Bytes),
         /// A message digest produced with the SHA-384 algorithm.
-        Sha384(bytes::Bytes),
+        Sha384(::bytes::Bytes),
         /// A message digest produced with the SHA-512 algorithm.
-        Sha512(bytes::Bytes),
+        Sha512(::bytes::Bytes),
     }
 }
 

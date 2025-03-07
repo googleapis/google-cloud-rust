@@ -600,9 +600,9 @@ pub struct HttpRequest {
     pub headers: std::vec::Vec<crate::model::Header>,
 
     /// HTTP request body.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 }
 
 impl HttpRequest {
@@ -632,7 +632,7 @@ impl HttpRequest {
     }
 
     /// Sets the value of [body][crate::model::HttpRequest::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
@@ -768,9 +768,9 @@ pub struct HttpResponse {
     pub status_code: i32,
 
     /// The HTTP 1.1 response body.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub body: bytes::Bytes,
+    pub body: ::bytes::Bytes,
 
     /// The HTTP response headers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -808,7 +808,7 @@ impl HttpResponse {
     }
 
     /// Sets the value of [body][crate::model::HttpResponse::body].
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }

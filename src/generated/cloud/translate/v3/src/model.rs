@@ -3094,9 +3094,9 @@ pub struct FileInputSource {
     pub mime_type: std::string::String,
 
     /// Required. The file's byte contents.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// Required. The file's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3115,7 +3115,7 @@ impl FileInputSource {
     }
 
     /// Sets the value of [content][crate::model::FileInputSource::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -4703,7 +4703,7 @@ impl DocumentInputConfig {
     /// The value of [source][crate::model::DocumentInputConfig::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document_input_config::Source::Content(v) => std::option::Option::Some(v),
@@ -4729,7 +4729,7 @@ impl DocumentInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::document_input_config::Source::Content(v.into()),
         );
@@ -4776,7 +4776,7 @@ pub mod document_input_config {
     #[non_exhaustive]
     pub enum Source {
         /// Document's content represented as a stream of bytes.
-        Content(bytes::Bytes),
+        Content(::bytes::Bytes),
         /// Google Cloud Storage location. This must be a single file.
         /// For example: gs://example_bucket/example_file.pdf
         GcsSource(std::boxed::Box<crate::model::GcsSource>),
@@ -5167,7 +5167,7 @@ pub struct DocumentTranslation {
     /// file formats.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub byte_stream_outputs: std::vec::Vec<bytes::Bytes>,
+    pub byte_stream_outputs: std::vec::Vec<::bytes::Bytes>,
 
     /// The translated document's mime type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5206,7 +5206,7 @@ impl DocumentTranslation {
     pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.byte_stream_outputs = v.into_iter().map(|i| i.into()).collect();

@@ -11964,7 +11964,7 @@ pub mod sessions {
         }
 
         /// Sets the value of [input_audio][crate::model::DetectIntentRequest::input_audio].
-        pub fn set_input_audio<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_input_audio<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.input_audio = v.into();
             self
         }

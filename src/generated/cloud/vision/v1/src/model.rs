@@ -417,9 +417,9 @@ pub struct Image {
     ///
     /// Currently, this field only works for BatchAnnotateImages requests. It does
     /// not work for AsyncBatchAnnotateImages requests.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// Google Cloud Storage image location, or publicly-accessible image
     /// URL. If both `content` and `source` are provided for an image, `content`
@@ -434,7 +434,7 @@ impl Image {
     }
 
     /// Sets the value of [content][crate::model::Image::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
@@ -2820,9 +2820,9 @@ pub struct InputConfig {
     ///
     /// Currently, this field only works for BatchAnnotateFiles requests. It does
     /// not work for AsyncBatchAnnotateFiles requests.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// The type of the file. Currently only "application/pdf", "image/tiff" and
     /// "image/gif" are supported. Wildcards are not supported.
@@ -2845,7 +2845,7 @@ impl InputConfig {
     }
 
     /// Sets the value of [content][crate::model::InputConfig::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }

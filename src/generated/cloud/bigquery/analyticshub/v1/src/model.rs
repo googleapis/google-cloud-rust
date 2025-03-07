@@ -77,9 +77,9 @@ pub struct DataExchange {
     /// only performs validation on size of the encoded data. Note: For byte
     /// fields, the content of the fields are base64-encoded (which increases the
     /// size of the data by 33-36%) when using JSON on the wire.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub icon: bytes::Bytes,
+    pub icon: ::bytes::Bytes,
 
     /// Optional. Configurable data sharing environment option for a data exchange.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -134,7 +134,7 @@ impl DataExchange {
     }
 
     /// Sets the value of [icon][crate::model::DataExchange::icon].
-    pub fn set_icon<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }
@@ -631,9 +631,9 @@ pub struct Listing {
     /// performs validation on size of the encoded data.
     /// Note: For byte fields, the contents of the field are base64-encoded (which
     /// increases the size of the data by 33-36%) when using JSON on the wire.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub icon: bytes::Bytes,
+    pub icon: ::bytes::Bytes,
 
     /// Optional. Details of the data provider who owns the source data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -711,7 +711,7 @@ impl Listing {
     }
 
     /// Sets the value of [icon][crate::model::Listing::icon].
-    pub fn set_icon<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }

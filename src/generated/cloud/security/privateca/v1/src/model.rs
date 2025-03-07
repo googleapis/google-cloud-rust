@@ -3039,9 +3039,9 @@ pub mod subordinate_config {
 pub struct PublicKey {
     /// Required. A public key. The padding and encoding
     /// must match with the `KeyFormat` value specified for the `format` field.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub key: bytes::Bytes,
+    pub key: ::bytes::Bytes,
 
     /// Required. The format of the public key.
     pub format: crate::model::public_key::KeyFormat,
@@ -3053,7 +3053,7 @@ impl PublicKey {
     }
 
     /// Sets the value of [key][crate::model::PublicKey::key].
-    pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
@@ -3697,9 +3697,9 @@ pub struct X509Extension {
     pub critical: bool,
 
     /// Required. The value of this X.509 extension.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 }
 
 impl X509Extension {
@@ -3723,7 +3723,7 @@ impl X509Extension {
     }
 
     /// Sets the value of [value][crate::model::X509Extension::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }

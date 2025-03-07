@@ -11629,21 +11629,21 @@ pub struct SequenceEntity {
 
     /// Start number for the sequence represented as bytes to accommodate large.
     /// numbers
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub start_value: bytes::Bytes,
+    pub start_value: ::bytes::Bytes,
 
     /// Maximum number for the sequence represented as bytes to accommodate large.
     /// numbers
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub max_value: bytes::Bytes,
+    pub max_value: ::bytes::Bytes,
 
     /// Minimum number for the sequence represented as bytes to accommodate large.
     /// numbers
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub min_value: bytes::Bytes,
+    pub min_value: ::bytes::Bytes,
 
     /// Indicates whether the sequence value should cycle through.
     pub cycle: bool,
@@ -11669,19 +11669,19 @@ impl SequenceEntity {
     }
 
     /// Sets the value of [start_value][crate::model::SequenceEntity::start_value].
-    pub fn set_start_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_start_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.start_value = v.into();
         self
     }
 
     /// Sets the value of [max_value][crate::model::SequenceEntity::max_value].
-    pub fn set_max_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_max_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.max_value = v.into();
         self
     }
 
     /// Sets the value of [min_value][crate::model::SequenceEntity::min_value].
-    pub fn set_min_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_min_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.min_value = v.into();
         self
     }

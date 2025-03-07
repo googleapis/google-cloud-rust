@@ -272,7 +272,7 @@ pub mod iam {
         }
 
         /// Sets the value of [etag][crate::model::ServiceAccount::etag].
-        pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -746,7 +746,7 @@ pub mod iam {
         }
 
         /// Sets the value of [public_key_data][crate::model::UploadServiceAccountKeyRequest::public_key_data].
-        pub fn set_public_key_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_public_key_data<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.public_key_data = v.into();
             self
         }
@@ -931,7 +931,7 @@ pub mod iam {
         }
 
         /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
-        pub fn set_bytes_to_sign<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_bytes_to_sign<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.bytes_to_sign = v.into();
             self
         }
@@ -1495,7 +1495,7 @@ pub mod iam {
         }
 
         /// Sets the value of [etag][crate::model::DeleteRoleRequest::etag].
-        pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -1542,7 +1542,7 @@ pub mod iam {
         }
 
         /// Sets the value of [etag][crate::model::UndeleteRoleRequest::etag].
-        pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }

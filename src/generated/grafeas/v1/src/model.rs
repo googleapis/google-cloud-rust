@@ -161,9 +161,9 @@ impl wkt::message::Message for Jwt {
 pub struct AttestationOccurrence {
     /// Required. The serialized payload that is verified by one or more
     /// `signatures`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub serialized_payload: bytes::Bytes,
+    pub serialized_payload: ::bytes::Bytes,
 
     /// One or more signatures over `serialized_payload`.  Verifier implementations
     /// should consider this attestation message verified if at least one
@@ -191,7 +191,7 @@ impl AttestationOccurrence {
     }
 
     /// Sets the value of [serialized_payload][crate::model::AttestationOccurrence::serialized_payload].
-    pub fn set_serialized_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_serialized_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.serialized_payload = v.into();
         self
     }
@@ -437,9 +437,9 @@ pub struct Signature {
     /// the payload explicitly. Alternatively, a message might have a canonical
     /// serialization that can always be unambiguously computed to derive the
     /// payload.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub signature: bytes::Bytes,
+    pub signature: ::bytes::Bytes,
 
     /// The identifier for the public key that verifies this signature.
     ///
@@ -471,7 +471,7 @@ impl Signature {
     }
 
     /// Sets the value of [signature][crate::model::Signature::signature].
-    pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
@@ -497,9 +497,9 @@ impl wkt::message::Message for Signature {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Envelope {
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub payload: bytes::Bytes,
+    pub payload: ::bytes::Bytes,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub payload_type: std::string::String,
@@ -514,7 +514,7 @@ impl Envelope {
     }
 
     /// Sets the value of [payload][crate::model::Envelope::payload].
-    pub fn set_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
@@ -548,9 +548,9 @@ impl wkt::message::Message for Envelope {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnvelopeSignature {
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub sig: bytes::Bytes,
+    pub sig: ::bytes::Bytes,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub keyid: std::string::String,
@@ -562,7 +562,7 @@ impl EnvelopeSignature {
     }
 
     /// Sets the value of [sig][crate::model::EnvelopeSignature::sig].
-    pub fn set_sig<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_sig<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.sig = v.into();
         self
     }
@@ -664,9 +664,9 @@ pub struct Digest {
     pub algo: std::string::String,
 
     /// Value of the digest.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub digest_bytes: bytes::Bytes,
+    pub digest_bytes: ::bytes::Bytes,
 }
 
 impl Digest {
@@ -681,7 +681,7 @@ impl Digest {
     }
 
     /// Sets the value of [digest_bytes][crate::model::Digest::digest_bytes].
-    pub fn set_digest_bytes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_digest_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest_bytes = v.into();
         self
     }
@@ -719,9 +719,9 @@ pub struct ComplianceNote {
     pub remediation: std::string::String,
 
     /// Serialized scan instructions with a predefined format.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub scan_instructions: bytes::Bytes,
+    pub scan_instructions: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub compliance_type: std::option::Option<crate::model::compliance_note::ComplianceType>,
@@ -761,7 +761,7 @@ impl ComplianceNote {
     }
 
     /// Sets the value of [scan_instructions][crate::model::ComplianceNote::scan_instructions].
-    pub fn set_scan_instructions<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_scan_instructions<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.scan_instructions = v.into();
         self
     }
@@ -5677,9 +5677,9 @@ pub mod in_toto_slsa_provenance_v_1 {
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub content: bytes::Bytes,
+        pub content: ::bytes::Bytes,
 
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub download_location: std::string::String,
@@ -5709,7 +5709,7 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
 
         /// Sets the value of [content][crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor::content].
-        pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
         }
@@ -6796,9 +6796,9 @@ pub struct Hash {
     pub r#type: std::string::String,
 
     /// Required. The hash value.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 }
 
 impl Hash {
@@ -6813,7 +6813,7 @@ impl Hash {
     }
 
     /// Sets the value of [value][crate::model::Hash::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }

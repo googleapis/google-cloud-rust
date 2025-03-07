@@ -3740,7 +3740,7 @@ impl Literal {
     /// The value of [literal_data][crate::model::Literal::literal_data]
     /// if it holds a `LiteralBytes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_literal_bytes(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_literal_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.literal_data.as_ref().and_then(|v| match v {
             crate::model::literal::LiteralData::LiteralBytes(v) => std::option::Option::Some(v),
@@ -3764,7 +3764,7 @@ impl Literal {
     ///
     /// Note that all the setters affecting `literal_data` are
     /// mutually exclusive.
-    pub fn set_literal_bytes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_literal_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.literal_data =
             std::option::Option::Some(crate::model::literal::LiteralData::LiteralBytes(v.into()));
         self
@@ -3790,7 +3790,7 @@ pub mod literal {
         /// Literal string data.
         LiteralString(std::string::String),
         /// Literal byte data.
-        LiteralBytes(bytes::Bytes),
+        LiteralBytes(::bytes::Bytes),
     }
 }
 

@@ -346,7 +346,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::Content(v) => std::option::Option::Some(v),
@@ -369,7 +369,7 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
         self
     }
@@ -967,9 +967,9 @@ pub mod document {
         #[non_exhaustive]
         pub struct Image {
             /// Raw byte content of the image.
-            #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+            #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
             #[serde_as(as = "serde_with::base64::Base64")]
-            pub content: bytes::Bytes,
+            pub content: ::bytes::Bytes,
 
             /// Encoding [media type (MIME
             /// type)](https://www.iana.org/assignments/media-types/media-types.xhtml)
@@ -990,7 +990,7 @@ pub mod document {
             }
 
             /// Sets the value of [content][crate::model::document::page::Image::content].
-            pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+            pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.content = v.into();
                 self
             }
@@ -1044,9 +1044,9 @@ pub mod document {
             pub r#type: i32,
 
             /// The matrix data.
-            #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+            #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
             #[serde_as(as = "serde_with::base64::Base64")]
-            pub data: bytes::Bytes,
+            pub data: ::bytes::Bytes,
         }
 
         impl Matrix {
@@ -1073,7 +1073,7 @@ pub mod document {
             }
 
             /// Sets the value of [data][crate::model::document::page::Matrix::data].
-            pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+            pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                 self.data = v.into();
                 self
             }
@@ -4726,7 +4726,7 @@ pub mod document {
         /// Optional. Inline document content, represented as a stream of bytes.
         /// Note: As with all `bytes` fields, protobuffers use a pure binary
         /// representation, whereas JSON representations use base64.
-        Content(bytes::Bytes),
+        Content(::bytes::Bytes),
     }
 }
 
@@ -4737,9 +4737,9 @@ pub mod document {
 #[non_exhaustive]
 pub struct RawDocument {
     /// Inline document content.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub content: bytes::Bytes,
+    pub content: ::bytes::Bytes,
 
     /// An IANA MIME type (RFC6838) indicating the nature and format of the
     /// [content][google.cloud.documentai.v1.RawDocument.content].
@@ -4763,7 +4763,7 @@ impl RawDocument {
     }
 
     /// Sets the value of [content][crate::model::RawDocument::content].
-    pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }

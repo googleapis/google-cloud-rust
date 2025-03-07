@@ -4971,9 +4971,9 @@ pub mod attribute {
 #[non_exhaustive]
 pub struct SpecContents {
     /// Required. The contents of the spec.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub contents: bytes::Bytes,
+    pub contents: ::bytes::Bytes,
 
     /// Required. The mime type of the content for example application/json,
     /// application/yaml, application/wsdl etc.
@@ -4987,7 +4987,7 @@ impl SpecContents {
     }
 
     /// Sets the value of [contents][crate::model::SpecContents::contents].
-    pub fn set_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.contents = v.into();
         self
     }
@@ -5495,9 +5495,9 @@ pub struct Schema {
 
     /// Output only. The raw value of the schema definition corresponding to the
     /// schema name in the spec.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub raw_value: bytes::Bytes,
+    pub raw_value: ::bytes::Bytes,
 }
 
 impl Schema {
@@ -5512,7 +5512,7 @@ impl Schema {
     }
 
     /// Sets the value of [raw_value][crate::model::Schema::raw_value].
-    pub fn set_raw_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_raw_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_value = v.into();
         self
     }
@@ -7508,9 +7508,9 @@ impl wkt::message::Message for LintSpecRequest {
 #[non_exhaustive]
 pub struct StyleGuideContents {
     /// Required. The contents of the style guide.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub contents: bytes::Bytes,
+    pub contents: ::bytes::Bytes,
 
     /// Required. The mime type of the content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7523,7 +7523,7 @@ impl StyleGuideContents {
     }
 
     /// Sets the value of [contents][crate::model::StyleGuideContents::contents].
-    pub fn set_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.contents = v.into();
         self
     }

@@ -7908,7 +7908,7 @@ pub mod document {
         /// The value of [content][crate::model::document::Content::content]
         /// if it holds a `RawBytes`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_raw_bytes(&self) -> std::option::Option<&bytes::Bytes> {
+        pub fn get_raw_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
             #[allow(unreachable_patterns)]
             self.content.as_ref().and_then(|v| match v {
                 crate::model::document::content::Content::RawBytes(v) => {
@@ -7934,7 +7934,7 @@ pub mod document {
         ///
         /// Note that all the setters affecting `content` are
         /// mutually exclusive.
-        pub fn set_raw_bytes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_raw_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.content = std::option::Option::Some(
                 crate::model::document::content::Content::RawBytes(v.into()),
             );
@@ -7976,7 +7976,7 @@ pub mod document {
             /// example, `abc123!?$*&()'-=@~` should be represented as
             /// `YWJjMTIzIT8kKiYoKSctPUB+` in JSON. See
             /// <https://developers.google.com/protocol-buffers/docs/proto3#json>.
-            RawBytes(bytes::Bytes),
+            RawBytes(::bytes::Bytes),
             /// The URI of the content. Only Cloud Storage URIs (e.g.
             /// `gs://bucket-name/path/to/file`) are supported. The maximum file size
             /// is 2.5 MB for text-based formats, 200 MB for other formats.
@@ -11952,9 +11952,9 @@ pub mod generate_grounded_content_response {
 
                 /// Base64 encoded JSON representing array of <search term, search url>
                 /// tuple.
-                #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+                #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
                 #[serde_as(as = "serde_with::base64::Base64")]
-                pub sdk_blob: bytes::Bytes,
+                pub sdk_blob: ::bytes::Bytes,
             }
 
             impl SearchEntryPoint {
@@ -11972,7 +11972,7 @@ pub mod generate_grounded_content_response {
                 }
 
                 /// Sets the value of [sdk_blob][crate::model::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint::sdk_blob].
-                pub fn set_sdk_blob<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+                pub fn set_sdk_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
                     self.sdk_blob = v.into();
                     self
                 }
@@ -12948,9 +12948,9 @@ pub mod bigtable_options {
     pub struct BigtableColumn {
         /// Required. Qualifier of the column. If it cannot be decoded with utf-8,
         /// use a base-64 encoded string instead.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub qualifier: bytes::Bytes,
+        pub qualifier: ::bytes::Bytes,
 
         /// The field name to use for this column in the document. The name has to
         /// match the pattern `[a-zA-Z0-9][a-zA-Z0-9-_]*`.
@@ -12982,7 +12982,7 @@ pub mod bigtable_options {
         }
 
         /// Sets the value of [qualifier][crate::model::bigtable_options::BigtableColumn::qualifier].
-        pub fn set_qualifier<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_qualifier<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.qualifier = v.into();
             self
         }

@@ -55,9 +55,9 @@ pub struct Policy {
     /// read-modify-write loop for concurrency control. Not setting the `etag`in a
     /// `SetOrgPolicy` request will result in an unconditional write of the
     /// `Policy`.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub etag: bytes::Bytes,
+    pub etag: ::bytes::Bytes,
 
     /// The time stamp the `Policy` was previously updated. This is set by the
     /// server, not specified by the caller, and represents the last time a call to
@@ -100,7 +100,7 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }

@@ -1392,7 +1392,7 @@ pub struct Results {
     /// read-only and can't be substituted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
-    pub build_step_outputs: std::vec::Vec<bytes::Bytes>,
+    pub build_step_outputs: std::vec::Vec<::bytes::Bytes>,
 
     /// Time to push all non-container artifacts to Cloud Storage.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1473,7 +1473,7 @@ impl Results {
     pub fn set_build_step_outputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.build_step_outputs = v.into_iter().map(|i| i.into()).collect();
@@ -3414,9 +3414,9 @@ pub struct Hash {
     pub r#type: crate::model::hash::HashType,
 
     /// The hash value.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub value: bytes::Bytes,
+    pub value: ::bytes::Bytes,
 }
 
 impl Hash {
@@ -3431,7 +3431,7 @@ impl Hash {
     }
 
     /// Sets the value of [value][crate::model::Hash::value].
-    pub fn set_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
@@ -3567,7 +3567,7 @@ pub struct InlineSecret {
     /// build's secrets.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
-    pub env_map: std::collections::HashMap<std::string::String, bytes::Bytes>,
+    pub env_map: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 }
 
 impl InlineSecret {
@@ -3586,7 +3586,7 @@ impl InlineSecret {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.env_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -3664,7 +3664,7 @@ pub struct Secret {
     /// build's secrets.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
-    pub secret_env: std::collections::HashMap<std::string::String, bytes::Bytes>,
+    pub secret_env: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 }
 
 impl Secret {
@@ -3683,7 +3683,7 @@ impl Secret {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>,
     {
         use std::iter::Iterator;
         self.secret_env = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();

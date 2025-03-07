@@ -4653,9 +4653,9 @@ pub mod os_policy_assignment_report {
             pub struct ExecResourceOutput {
                 /// Output from enforcement phase output file (if run).
                 /// Output size is limited to 100K bytes.
-                #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+                #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
                 #[serde_as(as = "serde_with::base64::Base64")]
-                pub enforcement_output: bytes::Bytes,
+                pub enforcement_output: ::bytes::Bytes,
             }
 
             impl ExecResourceOutput {
@@ -4664,7 +4664,7 @@ pub mod os_policy_assignment_report {
                 }
 
                 /// Sets the value of [enforcement_output][crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput::enforcement_output].
-                pub fn set_enforcement_output<T: std::convert::Into<bytes::Bytes>>(
+                pub fn set_enforcement_output<T: std::convert::Into<::bytes::Bytes>>(
                     mut self,
                     v: T,
                 ) -> Self {

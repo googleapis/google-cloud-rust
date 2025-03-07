@@ -1599,9 +1599,9 @@ pub struct Authority {
     ///
     /// When this field is set, OIDC discovery will NOT be performed on `issuer`,
     /// and instead OIDC tokens will be validated using this field.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub oidc_jwks: bytes::Bytes,
+    pub oidc_jwks: ::bytes::Bytes,
 }
 
 impl Authority {
@@ -1634,7 +1634,7 @@ impl Authority {
     }
 
     /// Sets the value of [oidc_jwks][crate::model::Authority::oidc_jwks].
-    pub fn set_oidc_jwks<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_oidc_jwks<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.oidc_jwks = v.into();
         self
     }
@@ -2103,9 +2103,9 @@ pub struct GenerateConnectManifestRequest {
     /// the form `http(s)://{proxy_address}`, depending on the HTTP/HTTPS protocol
     /// supported by the proxy. This will direct the connect agent's outbound
     /// traffic through a HTTP(S) proxy.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub proxy: bytes::Bytes,
+    pub proxy: ::bytes::Bytes,
 
     /// Optional. The Connect agent version to use. Defaults to the most current
     /// version.
@@ -2122,9 +2122,9 @@ pub struct GenerateConnectManifestRequest {
     pub registry: std::string::String,
 
     /// Optional. The image pull secret content for the registry, if not public.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub image_pull_secret_content: bytes::Bytes,
+    pub image_pull_secret_content: ::bytes::Bytes,
 }
 
 impl GenerateConnectManifestRequest {
@@ -2145,7 +2145,7 @@ impl GenerateConnectManifestRequest {
     }
 
     /// Sets the value of [proxy][crate::model::GenerateConnectManifestRequest::proxy].
-    pub fn set_proxy<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_proxy<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proxy = v.into();
         self
     }
@@ -2169,7 +2169,7 @@ impl GenerateConnectManifestRequest {
     }
 
     /// Sets the value of [image_pull_secret_content][crate::model::GenerateConnectManifestRequest::image_pull_secret_content].
-    pub fn set_image_pull_secret_content<T: std::convert::Into<bytes::Bytes>>(
+    pub fn set_image_pull_secret_content<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
     ) -> Self {

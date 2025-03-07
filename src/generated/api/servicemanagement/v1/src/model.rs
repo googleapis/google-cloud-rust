@@ -401,9 +401,9 @@ pub struct ConfigFile {
     pub file_path: std::string::String,
 
     /// The bytes that constitute the file.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub file_contents: bytes::Bytes,
+    pub file_contents: ::bytes::Bytes,
 
     /// The type of configuration file this represents.
     pub file_type: crate::model::config_file::FileType,
@@ -421,7 +421,7 @@ impl ConfigFile {
     }
 
     /// Sets the value of [file_contents][crate::model::ConfigFile::file_contents].
-    pub fn set_file_contents<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_file_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.file_contents = v.into();
         self
     }

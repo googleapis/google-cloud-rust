@@ -1019,9 +1019,9 @@ pub struct SynthesizeSpeechResponse {
     /// For LINEAR16 audio, we include the WAV header. Note: as
     /// with all bytes fields, protobuffers use a pure binary representation,
     /// whereas JSON representations use base64.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio_content: bytes::Bytes,
+    pub audio_content: ::bytes::Bytes,
 }
 
 impl SynthesizeSpeechResponse {
@@ -1030,7 +1030,7 @@ impl SynthesizeSpeechResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::SynthesizeSpeechResponse::audio_content].
-    pub fn set_audio_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
     }
@@ -1346,9 +1346,9 @@ pub mod streaming_synthesize_request {
 pub struct StreamingSynthesizeResponse {
     /// The audio data bytes encoded as specified in the request. This is
     /// headerless LINEAR16 audio with a sample rate of 24000.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio_content: bytes::Bytes,
+    pub audio_content: ::bytes::Bytes,
 }
 
 impl StreamingSynthesizeResponse {
@@ -1357,7 +1357,7 @@ impl StreamingSynthesizeResponse {
     }
 
     /// Sets the value of [audio_content][crate::model::StreamingSynthesizeResponse::audio_content].
-    pub fn set_audio_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio_content = v.into();
         self
     }

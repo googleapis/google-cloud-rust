@@ -171,9 +171,9 @@ pub mod generate_credentials_request {
 #[non_exhaustive]
 pub struct GenerateCredentialsResponse {
     /// A full YAML kubeconfig in serialized format.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub kubeconfig: bytes::Bytes,
+    pub kubeconfig: ::bytes::Bytes,
 
     /// The generated URI of the cluster as accessed through the Connect Gateway
     /// API.
@@ -187,7 +187,7 @@ impl GenerateCredentialsResponse {
     }
 
     /// Sets the value of [kubeconfig][crate::model::GenerateCredentialsResponse::kubeconfig].
-    pub fn set_kubeconfig<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_kubeconfig<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.kubeconfig = v.into();
         self
     }

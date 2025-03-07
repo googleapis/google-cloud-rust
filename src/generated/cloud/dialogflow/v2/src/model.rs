@@ -711,7 +711,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentContent(v) => {
@@ -738,7 +738,7 @@ impl ExportAgentResponse {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::export_agent_response::Agent::AgentContent(v.into()),
         );
@@ -766,7 +766,7 @@ pub mod export_agent_response {
         /// only if `agent_uri` is specified in `ExportAgentRequest`.
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(bytes::Bytes),
+        AgentContent(::bytes::Bytes),
     }
 }
 
@@ -825,7 +825,7 @@ impl ImportAgentRequest {
     /// The value of [agent][crate::model::ImportAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::import_agent_request::Agent::AgentContent(v) => {
@@ -852,7 +852,7 @@ impl ImportAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::import_agent_request::Agent::AgentContent(v.into()),
         );
@@ -886,7 +886,7 @@ pub mod import_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(bytes::Bytes),
+        AgentContent(::bytes::Bytes),
     }
 }
 
@@ -945,7 +945,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentContent(v) => {
@@ -972,7 +972,7 @@ impl RestoreAgentRequest {
     ///
     /// Note that all the setters affecting `agent` are
     /// mutually exclusive.
-    pub fn set_agent_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.agent = std::option::Option::Some(
             crate::model::restore_agent_request::Agent::AgentContent(v.into()),
         );
@@ -1006,7 +1006,7 @@ pub mod restore_agent_request {
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
         AgentUri(std::string::String),
         /// Zip compressed raw byte content for agent.
-        AgentContent(bytes::Bytes),
+        AgentContent(::bytes::Bytes),
     }
 }
 
@@ -11098,7 +11098,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `RawContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_raw_content(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::RawContent(v) => std::option::Option::Some(v),
@@ -11122,7 +11122,7 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_raw_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_raw_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.source =
             std::option::Option::Some(crate::model::document::Source::RawContent(v.into()));
         self
@@ -11313,7 +11313,7 @@ pub mod document {
         ContentUri(std::string::String),
         /// The raw content of the document. This field is only permitted for
         /// EXTRACTIVE_QA and FAQ knowledge types.
-        RawContent(bytes::Bytes),
+        RawContent(::bytes::Bytes),
     }
 }
 
@@ -21553,7 +21553,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputAudio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_input_audio(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_input_audio(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::streaming_analyze_content_request::Input::InputAudio(v) => {
@@ -21596,7 +21596,7 @@ impl StreamingAnalyzeContentRequest {
     ///
     /// Note that all the setters affecting `input` are
     /// mutually exclusive.
-    pub fn set_input_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input = std::option::Option::Some(
             crate::model::streaming_analyze_content_request::Input::InputAudio(v.into()),
         );
@@ -21663,7 +21663,7 @@ pub mod streaming_analyze_content_request {
         /// The input audio content to be recognized. Must be sent if `audio_config`
         /// is set in the first message. The complete audio over all streaming
         /// messages must not exceed 1 minute.
-        InputAudio(bytes::Bytes),
+        InputAudio(::bytes::Bytes),
         /// The UTF-8 encoded natural language text to be processed. Must be sent if
         /// `text_config` is set in the first message. Text length must not exceed
         /// 256 bytes for virtual agent interactions. The `input_text` field can be
@@ -22322,9 +22322,9 @@ pub struct OutputAudio {
     pub config: std::option::Option<crate::model::OutputAudioConfig>,
 
     /// The natural language speech audio.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub audio: bytes::Bytes,
+    pub audio: ::bytes::Bytes,
 }
 
 impl OutputAudio {
@@ -22344,7 +22344,7 @@ impl OutputAudio {
     }
 
     /// Sets the value of [audio][crate::model::OutputAudio::audio].
-    pub fn set_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audio = v.into();
         self
     }
@@ -24005,9 +24005,9 @@ pub struct DetectIntentRequest {
     /// The natural language speech audio to be processed. This field
     /// should be populated iff `query_input` is set to an input audio config.
     /// A single request can contain up to 1 minute of speech audio data.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input_audio: bytes::Bytes,
+    pub input_audio: ::bytes::Bytes,
 }
 
 impl DetectIntentRequest {
@@ -24064,7 +24064,7 @@ impl DetectIntentRequest {
     }
 
     /// Sets the value of [input_audio][crate::model::DetectIntentRequest::input_audio].
-    pub fn set_input_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input_audio = v.into();
         self
     }
@@ -24106,9 +24106,9 @@ pub struct DetectIntentResponse {
     /// In some scenarios, multiple output audio fields may be present in the
     /// response structure. In these cases, only the top-most-level audio output
     /// has content.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output_audio: bytes::Bytes,
+    pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -24147,7 +24147,7 @@ impl DetectIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::DetectIntentResponse::output_audio].
-    pub fn set_output_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }
@@ -24855,9 +24855,9 @@ pub struct StreamingDetectIntentRequest {
     /// The input audio content to be recognized. Must be sent if
     /// `query_input` was set to a streaming input audio config. The complete audio
     /// over all streaming messages must not exceed 1 minute.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input_audio: bytes::Bytes,
+    pub input_audio: ::bytes::Bytes,
 
     /// if true, `StreamingDetectIntentResponse.debugging_info` will get populated.
     pub enable_debugging_info: bool,
@@ -24923,7 +24923,7 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [input_audio][crate::model::StreamingDetectIntentRequest::input_audio].
-    pub fn set_input_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input_audio = v.into();
         self
     }
@@ -25246,9 +25246,9 @@ pub struct StreamingDetectIntentResponse {
     /// In some scenarios, multiple output audio fields may be present in the
     /// response structure. In these cases, only the top-most-level audio output
     /// has content.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub output_audio: bytes::Bytes,
+    pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -25306,7 +25306,7 @@ impl StreamingDetectIntentResponse {
     }
 
     /// Sets the value of [output_audio][crate::model::StreamingDetectIntentResponse::output_audio].
-    pub fn set_output_audio<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_output_audio<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.output_audio = v.into();
         self
     }

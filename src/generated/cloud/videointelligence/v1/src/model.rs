@@ -55,9 +55,9 @@ pub struct AnnotateVideoRequest {
     /// The video data bytes.
     /// If unset, the input video(s) should be specified via the `input_uri`.
     /// If set, `input_uri` must be unset.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub input_content: bytes::Bytes,
+    pub input_content: ::bytes::Bytes,
 
     /// Required. Requested video annotation features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -97,7 +97,7 @@ impl AnnotateVideoRequest {
     }
 
     /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
-    pub fn set_input_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_input_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.input_content = v.into();
         self
     }
@@ -1058,9 +1058,9 @@ pub struct FaceDetectionAnnotation {
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// The thumbnail of a person's face.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub thumbnail: bytes::Bytes,
+    pub thumbnail: ::bytes::Bytes,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1073,7 +1073,7 @@ impl FaceDetectionAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
-    pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
@@ -1235,9 +1235,9 @@ impl wkt::message::Message for FaceFrame {
 #[non_exhaustive]
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub thumbnail: bytes::Bytes,
+    pub thumbnail: ::bytes::Bytes,
 
     /// All video segments where a face was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -1254,7 +1254,7 @@ impl FaceAnnotation {
     }
 
     /// Sets the value of [thumbnail][crate::model::FaceAnnotation::thumbnail].
-    pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_thumbnail<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
         self
     }
