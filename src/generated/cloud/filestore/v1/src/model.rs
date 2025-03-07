@@ -535,6 +535,274 @@ pub mod nfs_export_options {
     }
 }
 
+/// Replica configuration for the instance.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ReplicaConfig {
+    /// Output only. The replica state.
+    pub state: crate::model::replica_config::State,
+
+    /// Output only. Additional information about the replication state, if
+    /// available.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub state_reasons: std::vec::Vec<crate::model::replica_config::StateReason>,
+
+    /// Optional. The peer instance.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub peer_instance: std::string::String,
+
+    /// Output only. The timestamp of the latest replication snapshot taken on the
+    /// active instance and is already replicated safely.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub last_active_sync_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl ReplicaConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::ReplicaConfig::state].
+    pub fn set_state<T: std::convert::Into<crate::model::replica_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_instance][crate::model::ReplicaConfig::peer_instance].
+    pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_instance = v.into();
+        self
+    }
+
+    /// Sets the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
+    pub fn set_last_active_sync_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_active_sync_time = v.into();
+        self
+    }
+
+    /// Sets the value of [state_reasons][crate::model::ReplicaConfig::state_reasons].
+    pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::replica_config::StateReason>,
+    {
+        use std::iter::Iterator;
+        self.state_reasons = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ReplicaConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.ReplicaConfig"
+    }
+}
+
+/// Defines additional types related to ReplicaConfig
+pub mod replica_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The replica state.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct State(std::borrow::Cow<'static, str>);
+
+    impl State {
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [State](State)
+    pub mod state {
+        use super::State;
+
+        /// State not set.
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+
+        /// The replica is being created.
+        pub const CREATING: State = State::new("CREATING");
+
+        /// The replica is ready.
+        pub const READY: State = State::new("READY");
+
+        /// The replica is being removed.
+        pub const REMOVING: State = State::new("REMOVING");
+
+        /// The replica is experiencing an issue and might be unusable. You can get
+        /// further details from the `stateReasons` field of the `ReplicaConfig`
+        /// object.
+        pub const FAILED: State = State::new("FAILED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            state::STATE_UNSPECIFIED
+        }
+    }
+
+    /// Additional information about the replication state, if available.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct StateReason(std::borrow::Cow<'static, str>);
+
+    impl StateReason {
+        /// Creates a new StateReason instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [StateReason](StateReason)
+    pub mod state_reason {
+        use super::StateReason;
+
+        /// Reason not specified.
+        pub const STATE_REASON_UNSPECIFIED: StateReason =
+            StateReason::new("STATE_REASON_UNSPECIFIED");
+
+        /// The peer instance is unreachable.
+        pub const PEER_INSTANCE_UNREACHABLE: StateReason =
+            StateReason::new("PEER_INSTANCE_UNREACHABLE");
+
+        /// The remove replica peer instance operation failed.
+        pub const REMOVE_FAILED: StateReason = StateReason::new("REMOVE_FAILED");
+    }
+
+    impl std::convert::From<std::string::String> for StateReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for StateReason {
+        fn default() -> Self {
+            state_reason::STATE_REASON_UNSPECIFIED
+        }
+    }
+}
+
+/// Replication specifications.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Replication {
+    /// Optional. The replication role.
+    pub role: crate::model::replication::Role,
+
+    /// Optional. Replication configuration for the replica instance associated
+    /// with this instance. Only a single replica is supported.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub replicas: std::vec::Vec<crate::model::ReplicaConfig>,
+}
+
+impl Replication {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [role][crate::model::Replication::role].
+    pub fn set_role<T: std::convert::Into<crate::model::replication::Role>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.role = v.into();
+        self
+    }
+
+    /// Sets the value of [replicas][crate::model::Replication::replicas].
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaConfig>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Replication {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.Replication"
+    }
+}
+
+/// Defines additional types related to Replication
+pub mod replication {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Replication role.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Role(std::borrow::Cow<'static, str>);
+
+    impl Role {
+        /// Creates a new Role instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [Role](Role)
+    pub mod role {
+        use super::Role;
+
+        /// Role not set.
+        pub const ROLE_UNSPECIFIED: Role = Role::new("ROLE_UNSPECIFIED");
+
+        /// The instance is the `ACTIVE` replication member, functions as
+        /// the replication source instance.
+        pub const ACTIVE: Role = Role::new("ACTIVE");
+
+        /// The instance is the `STANDBY` replication member, functions as
+        /// the replication destination instance.
+        pub const STANDBY: Role = Role::new("STANDBY");
+    }
+
+    impl std::convert::From<std::string::String> for Role {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            role::ROLE_UNSPECIFIED
+        }
+    }
+}
+
 /// A Filestore instance.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -598,6 +866,49 @@ pub struct Instance {
     /// state.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub suspension_reasons: std::vec::Vec<crate::model::instance::SuspensionReason>,
+
+    /// Optional. Replication configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication: std::option::Option<crate::model::Replication>,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. The protocol indicates the access protocol for all shares in the
+    /// instance. This field is immutable and it cannot be changed after the
+    /// instance has been created. Default value: `NFS_V3`.
+    pub protocol: crate::model::instance::FileProtocol,
+
+    /// Output only. Indicates whether this instance supports configuring its
+    /// performance. If true, the user can configure the instance's performance by
+    /// using the 'performance_config' field.
+    pub custom_performance_supported: bool,
+
+    /// Optional. Used to configure performance.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_config: std::option::Option<crate::model::instance::PerformanceConfig>,
+
+    /// Output only. Used for getting performance limits.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_limits: std::option::Option<crate::model::instance::PerformanceLimits>,
+
+    /// Optional. Indicates whether the instance is protected against deletion.
+    pub deletion_protection_enabled: bool,
+
+    /// Optional. The reason for enabling deletion protection.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub deletion_protection_reason: std::string::String,
 }
 
 impl Instance {
@@ -671,6 +982,69 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [replication][crate::model::Instance::replication].
+    pub fn set_replication<
+        T: std::convert::Into<std::option::Option<crate::model::Replication>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication = v.into();
+        self
+    }
+
+    /// Sets the value of [protocol][crate::model::Instance::protocol].
+    pub fn set_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.protocol = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_performance_supported][crate::model::Instance::custom_performance_supported].
+    pub fn set_custom_performance_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.custom_performance_supported = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_config][crate::model::Instance::performance_config].
+    pub fn set_performance_config<
+        T: std::convert::Into<std::option::Option<crate::model::instance::PerformanceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_config = v.into();
+        self
+    }
+
+    /// Sets the value of [performance_limits][crate::model::Instance::performance_limits].
+    pub fn set_performance_limits<
+        T: std::convert::Into<std::option::Option<crate::model::instance::PerformanceLimits>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.performance_limits = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection_enabled][crate::model::Instance::deletion_protection_enabled].
+    pub fn set_deletion_protection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deletion_protection_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [deletion_protection_reason][crate::model::Instance::deletion_protection_reason].
+    pub fn set_deletion_protection_reason<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deletion_protection_reason = v.into();
+        self
+    }
+
     /// Sets the value of [file_shares][crate::model::Instance::file_shares].
     pub fn set_file_shares<T, V>(mut self, v: T) -> Self
     where
@@ -715,6 +1089,18 @@ impl Instance {
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [tags][crate::model::Instance::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Instance {
@@ -727,6 +1113,274 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
+
+    /// IOPS per TB.
+    /// Filestore defines TB as 1024^4 bytes (TiB).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct IOPSPerTB {
+        /// Required. Maximum IOPS per TiB.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops_per_tb: i64,
+    }
+
+    impl IOPSPerTB {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_iops_per_tb][crate::model::instance::IOPSPerTB::max_iops_per_tb].
+        pub fn set_max_iops_per_tb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops_per_tb = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IOPSPerTB {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.IOPSPerTB"
+        }
+    }
+
+    /// Fixed IOPS (input/output operations per second) parameters.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FixedIOPS {
+        /// Required. Maximum IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops: i64,
+    }
+
+    impl FixedIOPS {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_iops][crate::model::instance::FixedIOPS::max_iops].
+        pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FixedIOPS {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.FixedIOPS"
+        }
+    }
+
+    /// Used for setting the performance configuration.
+    /// If the user doesn't specify PerformanceConfig, automatically provision
+    /// the default performance settings as described in
+    /// <https://cloud.google.com/filestore/docs/performance>. Larger instances will
+    /// be linearly set to more IOPS. If the instance's capacity is increased or
+    /// decreased, its performance will be automatically adjusted upwards or
+    /// downwards accordingly (respectively).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PerformanceConfig {
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub mode: std::option::Option<crate::model::instance::performance_config::Mode>,
+    }
+
+    impl PerformanceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of `mode`.
+        pub fn set_mode<
+            T: std::convert::Into<
+                std::option::Option<crate::model::instance::performance_config::Mode>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = v.into();
+            self
+        }
+
+        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// if it holds a `IopsPerTb`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_iops_per_tb(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::IOPSPerTB>> {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::instance::performance_config::Mode::IopsPerTb(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// if it holds a `FixedIops`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_fixed_iops(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::instance::performance_config::Mode::FixedIops(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// to hold a `IopsPerTb`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_iops_per_tb<
+            T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::instance::performance_config::Mode::IopsPerTb(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode]
+        /// to hold a `FixedIops`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_fixed_iops<
+            T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::instance::performance_config::Mode::FixedIops(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for PerformanceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.PerformanceConfig"
+        }
+    }
+
+    /// Defines additional types related to PerformanceConfig
+    pub mod performance_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// Provision IOPS dynamically based on the capacity of the instance.
+            /// Provisioned IOPS will be calculated by multiplying the capacity of the
+            /// instance in TiB by the `iops_per_tb` value. For example, for a 2 TiB
+            /// instance with an `iops_per_tb` value of 17000 the provisioned IOPS will
+            /// be 34000.
+            ///
+            /// If the calculated value is outside the supported range for the
+            /// instance's capacity during instance creation, instance creation will
+            /// fail with an `InvalidArgument` error. Similarly, if an instance
+            /// capacity update would result in a value outside the supported range,
+            /// the update will fail with an `InvalidArgument` error.
+            IopsPerTb(std::boxed::Box<crate::model::instance::IOPSPerTB>),
+            /// Choose a fixed provisioned IOPS value for the instance, which will
+            /// remain constant regardless of instance capacity. Value must be a
+            /// multiple of 1000.
+            ///
+            /// If the chosen value is outside the supported range for the instance's
+            /// capacity during instance creation, instance creation will fail with an
+            /// `InvalidArgument` error. Similarly, if an instance capacity update
+            /// would result in a value outside the supported range, the update will
+            /// fail with an `InvalidArgument` error.
+            FixedIops(std::boxed::Box<crate::model::instance::FixedIOPS>),
+        }
+    }
+
+    /// The enforced performance limits, calculated from the instance's performance
+    /// configuration.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PerformanceLimits {
+        /// Output only. The max IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_iops: i64,
+
+        /// Output only. The max read IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_read_iops: i64,
+
+        /// Output only. The max write IOPS.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_write_iops: i64,
+
+        /// Output only. The max read throughput in bytes per second.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_read_throughput_bps: i64,
+
+        /// Output only. The max write throughput in bytes per second.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub max_write_throughput_bps: i64,
+    }
+
+    impl PerformanceLimits {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_iops][crate::model::instance::PerformanceLimits::max_iops].
+        pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_read_iops][crate::model::instance::PerformanceLimits::max_read_iops].
+        pub fn set_max_read_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_read_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_write_iops][crate::model::instance::PerformanceLimits::max_write_iops].
+        pub fn set_max_write_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_write_iops = v.into();
+            self
+        }
+
+        /// Sets the value of [max_read_throughput_bps][crate::model::instance::PerformanceLimits::max_read_throughput_bps].
+        pub fn set_max_read_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_read_throughput_bps = v.into();
+            self
+        }
+
+        /// Sets the value of [max_write_throughput_bps][crate::model::instance::PerformanceLimits::max_write_throughput_bps].
+        pub fn set_max_write_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.max_write_throughput_bps = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PerformanceLimits {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.filestore.v1.Instance.PerformanceLimits"
+        }
+    }
 
     /// The instance state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -785,6 +1439,9 @@ pub mod instance {
 
         /// The instance is reverting to a snapshot.
         pub const REVERTING: State = State::new("REVERTING");
+
+        /// The replica instance is being promoted.
+        pub const PROMOTING: State = State::new("PROMOTING");
     }
 
     impl std::convert::From<std::string::String> for State {
@@ -906,6 +1563,50 @@ pub mod instance {
             suspension_reason::SUSPENSION_REASON_UNSPECIFIED
         }
     }
+
+    /// File access protocol.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct FileProtocol(std::borrow::Cow<'static, str>);
+
+    impl FileProtocol {
+        /// Creates a new FileProtocol instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
+
+    /// Useful constants to work with [FileProtocol](FileProtocol)
+    pub mod file_protocol {
+        use super::FileProtocol;
+
+        /// FILE_PROTOCOL_UNSPECIFIED serves a "not set" default value when
+        /// a FileProtocol is a separate field in a message.
+        pub const FILE_PROTOCOL_UNSPECIFIED: FileProtocol =
+            FileProtocol::new("FILE_PROTOCOL_UNSPECIFIED");
+
+        /// NFS 3.0.
+        pub const NFS_V3: FileProtocol = FileProtocol::new("NFS_V3");
+
+        /// NFS 4.1.
+        pub const NFS_V4_1: FileProtocol = FileProtocol::new("NFS_V4_1");
+    }
+
+    impl std::convert::From<std::string::String> for FileProtocol {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
+    impl std::default::Default for FileProtocol {
+        fn default() -> Self {
+            file_protocol::FILE_PROTOCOL_UNSPECIFIED
+        }
+    }
 }
 
 /// CreateInstanceRequest creates an instance.
@@ -1008,6 +1709,9 @@ pub struct UpdateInstanceRequest {
     /// * "description"
     /// * "file_shares"
     /// * "labels"
+    /// * "performance_config"
+    /// * "deletion_protection_enabled"
+    /// * "deletion_protection_reason"
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -1149,9 +1853,8 @@ pub mod restore_instance_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RevertInstanceRequest {
-    /// Required.
+    /// Required. The resource name of the instance, in the format
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
-    /// The resource name of the instance, in the format
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1323,7 +2026,7 @@ pub struct ListInstancesResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    /// Locations that could not be reached.
+    /// Unordered list. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
 }
@@ -1412,6 +2115,20 @@ pub struct Snapshot {
     /// snapshot content
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub filesystem_used_bytes: i64,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 }
 
 impl Snapshot {
@@ -1461,6 +2178,18 @@ impl Snapshot {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Snapshot::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1712,6 +2441,10 @@ pub struct ListSnapshotsRequest {
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests.
+    pub return_partial_success: bool,
 }
 
 impl ListSnapshotsRequest {
@@ -1748,6 +2481,12 @@ impl ListSnapshotsRequest {
         self.filter = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListSnapshotsRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListSnapshotsRequest {
@@ -1770,6 +2509,10 @@ pub struct ListSnapshotsResponse {
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
 }
 
 impl ListSnapshotsResponse {
@@ -1791,6 +2534,17 @@ impl ListSnapshotsResponse {
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListSnapshotsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1881,6 +2635,24 @@ pub struct Backup {
     /// Immutable. KMS key name used for data encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    /// Optional. Input only. Immutable. Tag key-value pairs bound to this
+    /// resource. Each key must be a namespaced name and each value a short name.
+    /// Example:
+    /// "123456789012/environment" : "production",
+    /// "123456789013/costCenter" : "marketing"
+    /// See the documentation for more information:
+    ///
+    /// - Namespaced name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
+    /// - Short name:
+    ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The file system protocol of the source Filestore instance that
+    /// this backup is created from.
+    pub file_system_protocol: crate::model::instance::FileProtocol,
 }
 
 impl Backup {
@@ -1978,6 +2750,15 @@ impl Backup {
         self
     }
 
+    /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
+    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.file_system_protocol = v.into();
+        self
+    }
+
     /// Sets the value of [labels][crate::model::Backup::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -1987,6 +2768,18 @@ impl Backup {
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Backup::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -2196,6 +2989,49 @@ impl wkt::message::Message for UpdateBackupRequest {
     }
 }
 
+/// PromoteReplicaRequest promotes a Filestore standby instance (replica).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PromoteReplicaRequest {
+    /// Required. The resource name of the instance, in the format
+    /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. The resource name of the peer instance to promote, in the format
+    /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
+    /// The peer instance is required if the operation is called on an active
+    /// instance.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub peer_instance: std::string::String,
+}
+
+impl PromoteReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_instance][crate::model::PromoteReplicaRequest::peer_instance].
+    pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_instance = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PromoteReplicaRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.filestore.v1.PromoteReplicaRequest"
+    }
+}
+
 /// GetBackupRequest gets the state of a backup.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2321,7 +3157,7 @@ pub struct ListBackupsResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    /// Locations that could not be reached.
+    /// Unordered list. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
 }

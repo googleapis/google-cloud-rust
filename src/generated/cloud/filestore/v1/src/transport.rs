@@ -221,6 +221,7 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
@@ -438,6 +439,26 @@ impl crate::stubs::CloudFilestoreManager for CloudFilestoreManager {
                 v.add(builder, "updateMask")
             });
         self.inner.execute(builder, Some(req.backup), options).await
+    }
+
+    async fn promote_replica(
+        &self,
+        req: crate::model::PromoteReplicaRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:promoteReplica", req.name),
+            )
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(

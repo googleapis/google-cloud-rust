@@ -106,13 +106,6 @@ aplies      = "aplies"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
 verion = "verion"
-# src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
-# seems too broad.
-evalution     = "evalution"
-resonably     = "resonably"
-sensitivy     = "sensitivy"
-specifictions = "specifictions"
-tooks         = "tooks"
 # src/generated/cloud/discoveryengine/v1 has typos, they need to be fixed
 # upstream.
 asscociated = "asscociated"
@@ -175,6 +168,8 @@ wil    = "wil"
 goig   = "goig"
 sesion = "sesion"
 overal = "overal"
+# Newly caught
+specifictions = "specifictions"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 # src/generated/cloud/securesourcemanager/v1 has some typos, they need to be
