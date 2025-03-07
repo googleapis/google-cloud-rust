@@ -27,7 +27,6 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AggregationResult {
-
     /// The result of the aggregation functions, ex: `COUNT(*) AS total_docs`.
     ///
     /// The key is the
@@ -37,7 +36,7 @@ pub struct AggregationResult {
     ///
     /// [google.firestore.v1.StructuredAggregationQuery.Aggregation.alias]: crate::model::structured_aggregation_query::Aggregation::alias
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub aggregate_fields: std::collections::HashMap<std::string::String,crate::model::Value>,
+    pub aggregate_fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 }
 
 impl AggregationResult {
@@ -84,7 +83,6 @@ impl wkt::message::Message for AggregationResult {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BitSequence {
-
     /// The bytes that encode the bit sequence.
     /// May have a length of zero.
     #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
@@ -141,7 +139,6 @@ impl wkt::message::Message for BitSequence {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BloomFilter {
-
     /// The bloom filter data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bits: std::option::Option<crate::model::BitSequence>,
@@ -156,7 +153,10 @@ impl BloomFilter {
     }
 
     /// Sets the value of [bits][crate::model::BloomFilter::bits].
-    pub fn set_bits<T: std::convert::Into<std::option::Option<crate::model::BitSequence>>>(mut self, v: T) -> Self {
+    pub fn set_bits<T: std::convert::Into<std::option::Option<crate::model::BitSequence>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.bits = v.into();
         self
     }
@@ -188,7 +188,6 @@ impl wkt::message::Message for BloomFilter {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DocumentMask {
-
     /// The list of field paths in the mask. See
     /// [Document.fields][google.firestore.v1.Document.fields] for a field path
     /// syntax reference.
@@ -207,7 +206,7 @@ impl DocumentMask {
     pub fn set_field_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.field_paths = v.into_iter().map(|i| i.into()).collect();
@@ -227,7 +226,6 @@ impl wkt::message::Message for DocumentMask {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Precondition {
-
     /// The type of precondition.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub condition_type: std::option::Option<crate::model::precondition::ConditionType>,
@@ -239,8 +237,12 @@ impl Precondition {
     }
 
     /// Sets the value of `condition_type`.
-    pub fn set_condition_type<T: std::convert::Into<std::option::Option<crate::model::precondition::ConditionType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_condition_type<
+        T: std::convert::Into<std::option::Option<crate::model::precondition::ConditionType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition_type = v.into();
         self
     }
@@ -262,7 +264,9 @@ impl Precondition {
     pub fn get_update_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.condition_type.as_ref().and_then(|v| match v {
-            crate::model::precondition::ConditionType::UpdateTime(v) => std::option::Option::Some(v),
+            crate::model::precondition::ConditionType::UpdateTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -273,11 +277,8 @@ impl Precondition {
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
     pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.condition_type = std::option::Option::Some(
-            crate::model::precondition::ConditionType::Exists(
-                v.into()
-            )
-        );
+        self.condition_type =
+            std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
         self
     }
 
@@ -286,11 +287,12 @@ impl Precondition {
     ///
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
-    pub fn set_update_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_update_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition_type = std::option::Option::Some(
-            crate::model::precondition::ConditionType::UpdateTime(
-                v.into()
-            )
+            crate::model::precondition::ConditionType::UpdateTime(v.into()),
         );
         self
     }
@@ -306,7 +308,6 @@ impl wkt::message::Message for Precondition {
 pub mod precondition {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The type of precondition.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -328,7 +329,6 @@ pub mod precondition {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TransactionOptions {
-
     /// The mode of the transaction.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub mode: std::option::Option<crate::model::transaction_options::Mode>,
@@ -340,8 +340,12 @@ impl TransactionOptions {
     }
 
     /// Sets the value of `mode`.
-    pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::transaction_options::Mode>>>(mut self, v: T) -> Self
-    {
+    pub fn set_mode<
+        T: std::convert::Into<std::option::Option<crate::model::transaction_options::Mode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mode = v.into();
         self
     }
@@ -349,7 +353,9 @@ impl TransactionOptions {
     /// The value of [mode][crate::model::TransactionOptions::mode]
     /// if it holds a `ReadOnly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_read_only(&self) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadOnly>> {
+    pub fn get_read_only(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadOnly>> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::transaction_options::Mode::ReadOnly(v) => std::option::Option::Some(v),
@@ -360,7 +366,9 @@ impl TransactionOptions {
     /// The value of [mode][crate::model::TransactionOptions::mode]
     /// if it holds a `ReadWrite`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_read_write(&self) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
+    pub fn get_read_write(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::transaction_options::ReadWrite>> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::transaction_options::Mode::ReadWrite(v) => std::option::Option::Some(v),
@@ -373,12 +381,14 @@ impl TransactionOptions {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    pub fn set_read_only<T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadOnly>>>(mut self, v: T) -> Self {
-        self.mode = std::option::Option::Some(
-            crate::model::transaction_options::Mode::ReadOnly(
-                v.into()
-            )
-        );
+    pub fn set_read_only<
+        T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadOnly>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode =
+            std::option::Option::Some(crate::model::transaction_options::Mode::ReadOnly(v.into()));
         self
     }
 
@@ -387,12 +397,14 @@ impl TransactionOptions {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    pub fn set_read_write<T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadWrite>>>(mut self, v: T) -> Self {
-        self.mode = std::option::Option::Some(
-            crate::model::transaction_options::Mode::ReadWrite(
-                v.into()
-            )
-        );
+    pub fn set_read_write<
+        T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadWrite>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode =
+            std::option::Option::Some(crate::model::transaction_options::Mode::ReadWrite(v.into()));
         self
     }
 }
@@ -408,7 +420,6 @@ pub mod transaction_options {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Options for a transaction that can be used to read and write documents.
     ///
     /// Firestore does not allow 3rd party auth requests to create read-write.
@@ -418,7 +429,6 @@ pub mod transaction_options {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ReadWrite {
-
         /// An optional transaction to retry.
         #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
@@ -449,11 +459,11 @@ pub mod transaction_options {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ReadOnly {
-
         /// The consistency mode for this transaction. If not set, defaults to strong
         /// consistency.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-        pub consistency_selector: std::option::Option<crate::model::transaction_options::read_only::ConsistencySelector>,
+        pub consistency_selector:
+            std::option::Option<crate::model::transaction_options::read_only::ConsistencySelector>,
     }
 
     impl ReadOnly {
@@ -462,8 +472,16 @@ pub mod transaction_options {
         }
 
         /// Sets the value of `consistency_selector`.
-        pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::transaction_options::read_only::ConsistencySelector>>>(mut self, v: T) -> Self
-        {
+        pub fn set_consistency_selector<
+            T: std::convert::Into<
+                std::option::Option<
+                    crate::model::transaction_options::read_only::ConsistencySelector,
+                >,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.consistency_selector = v.into();
             self
         }
@@ -474,7 +492,9 @@ pub mod transaction_options {
         pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
             #[allow(unreachable_patterns)]
             self.consistency_selector.as_ref().and_then(|v| match v {
-                crate::model::transaction_options::read_only::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+                crate::model::transaction_options::read_only::ConsistencySelector::ReadTime(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -484,11 +504,14 @@ pub mod transaction_options {
         ///
         /// Note that all the setters affecting `consistency_selector` are
         /// mutually exclusive.
-        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.consistency_selector = std::option::Option::Some(
                 crate::model::transaction_options::read_only::ConsistencySelector::ReadTime(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -504,7 +527,6 @@ pub mod transaction_options {
     pub mod read_only {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The consistency mode for this transaction. If not set, defaults to strong
         /// consistency.
@@ -541,7 +563,6 @@ pub mod transaction_options {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Document {
-
     /// The resource name of the document, for example
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -572,7 +593,7 @@ pub struct Document {
     /// escaped using a `\`. For example, `` `x&y` `` represents `x&y` and
     /// `` `bak\`tik` `` represents `` bak`tik ``.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub fields: std::collections::HashMap<std::string::String,crate::model::Value>,
+    pub fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 
     /// Output only. The time at which the document was created.
     ///
@@ -603,13 +624,19 @@ impl Document {
     }
 
     /// Sets the value of [create_time][crate::model::Document::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Document::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_time = v.into();
         self
     }
@@ -639,7 +666,6 @@ impl wkt::message::Message for Document {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Value {
-
     /// Must have a value set.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub value_type: std::option::Option<crate::model::value::ValueType>,
@@ -651,8 +677,12 @@ impl Value {
     }
 
     /// Sets the value of `value_type`.
-    pub fn set_value_type<T: std::convert::Into<std::option::Option<crate::model::value::ValueType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_value_type<
+        T: std::convert::Into<std::option::Option<crate::model::value::ValueType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.value_type = v.into();
         self
     }
@@ -748,7 +778,9 @@ impl Value {
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `GeoPointValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_geo_point_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
+    pub fn get_geo_point_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<gtype::model::LatLng>> {
         #[allow(unreachable_patterns)]
         self.value_type.as_ref().and_then(|v| match v {
             crate::model::value::ValueType::GeoPointValue(v) => std::option::Option::Some(v),
@@ -759,7 +791,9 @@ impl Value {
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `ArrayValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_array_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+    pub fn get_array_value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
         #[allow(unreachable_patterns)]
         self.value_type.as_ref().and_then(|v| match v {
             crate::model::value::ValueType::ArrayValue(v) => std::option::Option::Some(v),
@@ -784,11 +818,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::NullValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::NullValue(v.into()));
         self
     }
 
@@ -798,11 +829,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::BooleanValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::BooleanValue(v.into()));
         self
     }
 
@@ -812,11 +840,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_integer_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::IntegerValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::IntegerValue(v.into()));
         self
     }
 
@@ -826,11 +851,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::DoubleValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::DoubleValue(v.into()));
         self
     }
 
@@ -839,12 +861,12 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
-    pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::TimestampValue(
-                v.into()
-            )
-        );
+    pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::TimestampValue(v.into()));
         self
     }
 
@@ -854,11 +876,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::StringValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::StringValue(v.into()));
         self
     }
 
@@ -868,11 +887,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_bytes_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::BytesValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::BytesValue(v.into()));
         self
     }
 
@@ -882,11 +898,8 @@ impl Value {
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
     pub fn set_reference_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::ReferenceValue(
-                v.into()
-            )
-        );
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::ReferenceValue(v.into()));
         self
     }
 
@@ -895,12 +908,12 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
-    pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::GeoPointValue(
-                v.into()
-            )
-        );
+    pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::GeoPointValue(v.into()));
         self
     }
 
@@ -909,12 +922,12 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
-    pub fn set_array_value<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::ArrayValue(
-                v.into()
-            )
-        );
+    pub fn set_array_value<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::ArrayValue(v.into()));
         self
     }
 
@@ -923,12 +936,12 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
-    pub fn set_map_value<T: std::convert::Into<std::boxed::Box<crate::model::MapValue>>>(mut self, v: T) -> Self {
-        self.value_type = std::option::Option::Some(
-            crate::model::value::ValueType::MapValue(
-                v.into()
-            )
-        );
+    pub fn set_map_value<T: std::convert::Into<std::boxed::Box<crate::model::MapValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::MapValue(v.into()));
         self
     }
 }
@@ -943,7 +956,6 @@ impl wkt::message::Message for Value {
 pub mod value {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// Must have a value set.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -995,7 +1007,6 @@ pub mod value {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ArrayValue {
-
     /// Values in the array.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub values: std::vec::Vec<crate::model::Value>,
@@ -1010,7 +1021,7 @@ impl ArrayValue {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Value>
+        V: std::convert::Into<crate::model::Value>,
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -1030,7 +1041,6 @@ impl wkt::message::Message for ArrayValue {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct MapValue {
-
     /// The map's fields.
     ///
     /// The map keys represent field names. Field names matching the regular
@@ -1038,7 +1048,7 @@ pub struct MapValue {
     /// in certain documented contexts. The map keys, represented as UTF-8, must
     /// not exceed 1,500 bytes and cannot be empty.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub fields: std::collections::HashMap<std::string::String,crate::model::Value>,
+    pub fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 }
 
 impl MapValue {
@@ -1074,7 +1084,6 @@ impl wkt::message::Message for MapValue {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetDocumentRequest {
-
     /// Required. The resource name of the Document to get. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1090,7 +1099,8 @@ pub struct GetDocumentRequest {
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::get_document_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::get_document_request::ConsistencySelector>,
 }
 
 impl GetDocumentRequest {
@@ -1105,14 +1115,23 @@ impl GetDocumentRequest {
     }
 
     /// Sets the value of [mask][crate::model::GetDocumentRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mask = v.into();
         self
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::get_document_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::get_document_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -1123,7 +1142,9 @@ impl GetDocumentRequest {
     pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::get_document_request::ConsistencySelector::Transaction(v) => std::option::Option::Some(v),
+            crate::model::get_document_request::ConsistencySelector::Transaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1134,7 +1155,9 @@ impl GetDocumentRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::get_document_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::get_document_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1146,9 +1169,7 @@ impl GetDocumentRequest {
     /// mutually exclusive.
     pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::Transaction(
-                v.into()
-            )
+            crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
         );
         self
     }
@@ -1158,11 +1179,12 @@ impl GetDocumentRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::get_document_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::get_document_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -1178,7 +1200,6 @@ impl wkt::message::Message for GetDocumentRequest {
 pub mod get_document_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
@@ -1206,7 +1227,6 @@ pub mod get_document_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListDocumentsRequest {
-
     /// Required. The parent resource name. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents` or
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -1275,7 +1295,8 @@ pub struct ListDocumentsRequest {
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
 }
 
 impl ListDocumentsRequest {
@@ -1314,7 +1335,10 @@ impl ListDocumentsRequest {
     }
 
     /// Sets the value of [mask][crate::model::ListDocumentsRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mask = v.into();
         self
     }
@@ -1326,8 +1350,14 @@ impl ListDocumentsRequest {
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::list_documents_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -1338,7 +1368,9 @@ impl ListDocumentsRequest {
     pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::list_documents_request::ConsistencySelector::Transaction(v) => std::option::Option::Some(v),
+            crate::model::list_documents_request::ConsistencySelector::Transaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1349,7 +1381,9 @@ impl ListDocumentsRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::list_documents_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::list_documents_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1361,9 +1395,7 @@ impl ListDocumentsRequest {
     /// mutually exclusive.
     pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::Transaction(
-                v.into()
-            )
+            crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
         );
         self
     }
@@ -1373,11 +1405,12 @@ impl ListDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::list_documents_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::list_documents_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -1393,7 +1426,6 @@ impl wkt::message::Message for ListDocumentsRequest {
 pub mod list_documents_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
@@ -1421,7 +1453,6 @@ pub mod list_documents_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListDocumentsResponse {
-
     /// The Documents found.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub documents: std::vec::Vec<crate::model::Document>,
@@ -1448,7 +1479,7 @@ impl ListDocumentsResponse {
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Document>
+        V: std::convert::Into<crate::model::Document>,
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
@@ -1484,7 +1515,6 @@ impl gax::paginator::PageableResponse for ListDocumentsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateDocumentRequest {
-
     /// Required. The parent resource. For example:
     /// `projects/{project_id}/databases/{database_id}/documents` or
     /// `projects/{project_id}/databases/{database_id}/documents/chatrooms/{chatroom_id}`
@@ -1538,13 +1568,19 @@ impl CreateDocumentRequest {
     }
 
     /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [mask][crate::model::CreateDocumentRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mask = v.into();
         self
     }
@@ -1565,7 +1601,6 @@ impl wkt::message::Message for CreateDocumentRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UpdateDocumentRequest {
-
     /// Required. The updated document.
     /// Creates the document if it does not already exist.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1600,25 +1635,41 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<
+        T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_mask = v.into();
         self
     }
 
     /// Sets the value of [mask][crate::model::UpdateDocumentRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mask = v.into();
         self
     }
 
     /// Sets the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
-    pub fn set_current_document<T: std::convert::Into<std::option::Option<crate::model::Precondition>>>(mut self, v: T) -> Self {
+    pub fn set_current_document<
+        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.current_document = v.into();
         self
     }
@@ -1639,7 +1690,6 @@ impl wkt::message::Message for UpdateDocumentRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeleteDocumentRequest {
-
     /// Required. The resource name of the Document to delete. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1663,7 +1713,12 @@ impl DeleteDocumentRequest {
     }
 
     /// Sets the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
-    pub fn set_current_document<T: std::convert::Into<std::option::Option<crate::model::Precondition>>>(mut self, v: T) -> Self {
+    pub fn set_current_document<
+        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.current_document = v.into();
         self
     }
@@ -1682,7 +1737,6 @@ impl wkt::message::Message for DeleteDocumentRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BatchGetDocumentsRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1705,7 +1759,8 @@ pub struct BatchGetDocumentsRequest {
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
 }
 
 impl BatchGetDocumentsRequest {
@@ -1720,7 +1775,10 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
-    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.mask = v.into();
         self
     }
@@ -1729,7 +1787,7 @@ impl BatchGetDocumentsRequest {
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.documents = v.into_iter().map(|i| i.into()).collect();
@@ -1737,8 +1795,14 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -1749,7 +1813,9 @@ impl BatchGetDocumentsRequest {
     pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v) => std::option::Option::Some(v),
+            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1757,10 +1823,14 @@ impl BatchGetDocumentsRequest {
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_new_transaction(&self) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
+    pub fn get_new_transaction(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_request::ConsistencySelector::NewTransaction(v) => std::option::Option::Some(v),
+            crate::model::batch_get_documents_request::ConsistencySelector::NewTransaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1771,7 +1841,9 @@ impl BatchGetDocumentsRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1783,9 +1855,7 @@ impl BatchGetDocumentsRequest {
     /// mutually exclusive.
     pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(
-                v.into()
-            )
+            crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
         );
         self
     }
@@ -1795,11 +1865,16 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_new_transaction<T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>>(mut self, v: T) -> Self {
+    pub fn set_new_transaction<
+        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::batch_get_documents_request::ConsistencySelector::NewTransaction(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -1809,11 +1884,12 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::batch_get_documents_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -1829,7 +1905,6 @@ impl wkt::message::Message for BatchGetDocumentsRequest {
 pub mod batch_get_documents_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
@@ -1860,7 +1935,6 @@ pub mod batch_get_documents_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BatchGetDocumentsResponse {
-
     /// The transaction that was started as part of this request.
     /// Will only be set in the first response, and only if
     /// [BatchGetDocumentsRequest.new_transaction][google.firestore.v1.BatchGetDocumentsRequest.new_transaction]
@@ -1896,14 +1970,21 @@ impl BatchGetDocumentsResponse {
     }
 
     /// Sets the value of [read_time][crate::model::BatchGetDocumentsResponse::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
 
     /// Sets the value of `result`.
-    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_response::Result>>>(mut self, v: T) -> Self
-    {
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_response::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = v.into();
         self
     }
@@ -1914,7 +1995,9 @@ impl BatchGetDocumentsResponse {
     pub fn get_found(&self) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_response::Result::Found(v) => std::option::Option::Some(v),
+            crate::model::batch_get_documents_response::Result::Found(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1925,7 +2008,9 @@ impl BatchGetDocumentsResponse {
     pub fn get_missing(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
-            crate::model::batch_get_documents_response::Result::Missing(v) => std::option::Option::Some(v),
+            crate::model::batch_get_documents_response::Result::Missing(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -1935,11 +2020,12 @@ impl BatchGetDocumentsResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    pub fn set_found<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_found<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::batch_get_documents_response::Result::Found(
-                v.into()
-            )
+            crate::model::batch_get_documents_response::Result::Found(v.into()),
         );
         self
     }
@@ -1951,9 +2037,7 @@ impl BatchGetDocumentsResponse {
     /// mutually exclusive.
     pub fn set_missing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
-            crate::model::batch_get_documents_response::Result::Missing(
-                v.into()
-            )
+            crate::model::batch_get_documents_response::Result::Missing(v.into()),
         );
         self
     }
@@ -1969,7 +2053,6 @@ impl wkt::message::Message for BatchGetDocumentsResponse {
 pub mod batch_get_documents_response {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// A single result.
     /// This can be empty if the server is just returning a transaction.
@@ -1994,7 +2077,6 @@ pub mod batch_get_documents_response {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BeginTransactionRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2018,7 +2100,12 @@ impl BeginTransactionRequest {
     }
 
     /// Sets the value of [options][crate::model::BeginTransactionRequest::options].
-    pub fn set_options<T: std::convert::Into<std::option::Option<crate::model::TransactionOptions>>>(mut self, v: T) -> Self {
+    pub fn set_options<
+        T: std::convert::Into<std::option::Option<crate::model::TransactionOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.options = v.into();
         self
     }
@@ -2039,7 +2126,6 @@ impl wkt::message::Message for BeginTransactionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BeginTransactionResponse {
-
     /// The transaction that was started.
     #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
@@ -2072,7 +2158,6 @@ impl wkt::message::Message for BeginTransactionResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CommitRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2111,7 +2196,7 @@ impl CommitRequest {
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Write>
+        V: std::convert::Into<crate::model::Write>,
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
@@ -2133,7 +2218,6 @@ impl wkt::message::Message for CommitRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CommitResponse {
-
     /// The result of applying the writes.
     ///
     /// This i-th write result corresponds to the i-th write in the
@@ -2153,7 +2237,10 @@ impl CommitResponse {
     }
 
     /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.commit_time = v.into();
         self
     }
@@ -2162,7 +2249,7 @@ impl CommitResponse {
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WriteResult>
+        V: std::convert::Into<crate::model::WriteResult>,
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
@@ -2184,7 +2271,6 @@ impl wkt::message::Message for CommitResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RollbackRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2226,7 +2312,6 @@ impl wkt::message::Message for RollbackRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RunQueryRequest {
-
     /// Required. The parent resource name. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents` or
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -2248,7 +2333,8 @@ pub struct RunQueryRequest {
     /// The consistency mode for this transaction.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::run_query_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::run_query_request::ConsistencySelector>,
 }
 
 impl RunQueryRequest {
@@ -2263,14 +2349,23 @@ impl RunQueryRequest {
     }
 
     /// Sets the value of [explain_options][crate::model::RunQueryRequest::explain_options].
-    pub fn set_explain_options<T: std::convert::Into<std::option::Option<crate::model::ExplainOptions>>>(mut self, v: T) -> Self {
+    pub fn set_explain_options<
+        T: std::convert::Into<std::option::Option<crate::model::ExplainOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.explain_options = v.into();
         self
     }
 
     /// Sets the value of `query_type`.
-    pub fn set_query_type<T: std::convert::Into<std::option::Option<crate::model::run_query_request::QueryType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_query_type<
+        T: std::convert::Into<std::option::Option<crate::model::run_query_request::QueryType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = v.into();
         self
     }
@@ -2278,10 +2373,14 @@ impl RunQueryRequest {
     /// The value of [query_type][crate::model::RunQueryRequest::query_type]
     /// if it holds a `StructuredQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_structured_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
+    pub fn get_structured_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
         #[allow(unreachable_patterns)]
         self.query_type.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::QueryType::StructuredQuery(v) => std::option::Option::Some(v),
+            crate::model::run_query_request::QueryType::StructuredQuery(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2291,18 +2390,27 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
-    pub fn set_structured_query<T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>>(mut self, v: T) -> Self {
+    pub fn set_structured_query<
+        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = std::option::Option::Some(
-            crate::model::run_query_request::QueryType::StructuredQuery(
-                v.into()
-            )
+            crate::model::run_query_request::QueryType::StructuredQuery(v.into()),
         );
         self
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::run_query_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::run_query_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -2313,7 +2421,9 @@ impl RunQueryRequest {
     pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::ConsistencySelector::Transaction(v) => std::option::Option::Some(v),
+            crate::model::run_query_request::ConsistencySelector::Transaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2321,10 +2431,14 @@ impl RunQueryRequest {
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_new_transaction(&self) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
+    pub fn get_new_transaction(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::ConsistencySelector::NewTransaction(v) => std::option::Option::Some(v),
+            crate::model::run_query_request::ConsistencySelector::NewTransaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2335,7 +2449,9 @@ impl RunQueryRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::run_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2347,9 +2463,7 @@ impl RunQueryRequest {
     /// mutually exclusive.
     pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::Transaction(
-                v.into()
-            )
+            crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
         );
         self
     }
@@ -2359,11 +2473,14 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_new_transaction<T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>>(mut self, v: T) -> Self {
+    pub fn set_new_transaction<
+        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::NewTransaction(
-                v.into()
-            )
+            crate::model::run_query_request::ConsistencySelector::NewTransaction(v.into()),
         );
         self
     }
@@ -2373,11 +2490,12 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::run_query_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::run_query_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -2393,7 +2511,6 @@ impl wkt::message::Message for RunQueryRequest {
 pub mod run_query_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The query to run.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2435,7 +2552,6 @@ pub mod run_query_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RunQueryResponse {
-
     /// The transaction that was started as part of this request.
     /// Can only be set in the first response, and only if
     /// [RunQueryRequest.new_transaction][google.firestore.v1.RunQueryRequest.new_transaction]
@@ -2477,7 +2593,8 @@ pub struct RunQueryResponse {
     /// query response stream has finished. This can be set with or without a
     /// `document` present, but when set, no more results are returned.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub continuation_selector: std::option::Option<crate::model::run_query_response::ContinuationSelector>,
+    pub continuation_selector:
+        std::option::Option<crate::model::run_query_response::ContinuationSelector>,
 }
 
 impl RunQueryResponse {
@@ -2492,13 +2609,19 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [document][crate::model::RunQueryResponse::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::RunQueryResponse::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
@@ -2510,14 +2633,25 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [explain_metrics][crate::model::RunQueryResponse::explain_metrics].
-    pub fn set_explain_metrics<T: std::convert::Into<std::option::Option<crate::model::ExplainMetrics>>>(mut self, v: T) -> Self {
+    pub fn set_explain_metrics<
+        T: std::convert::Into<std::option::Option<crate::model::ExplainMetrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.explain_metrics = v.into();
         self
     }
 
     /// Sets the value of `continuation_selector`.
-    pub fn set_continuation_selector<T: std::convert::Into<std::option::Option<crate::model::run_query_response::ContinuationSelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_continuation_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::run_query_response::ContinuationSelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.continuation_selector = v.into();
         self
     }
@@ -2528,7 +2662,9 @@ impl RunQueryResponse {
     pub fn get_done(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.continuation_selector.as_ref().and_then(|v| match v {
-            crate::model::run_query_response::ContinuationSelector::Done(v) => std::option::Option::Some(v),
+            crate::model::run_query_response::ContinuationSelector::Done(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2540,9 +2676,7 @@ impl RunQueryResponse {
     /// mutually exclusive.
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.continuation_selector = std::option::Option::Some(
-            crate::model::run_query_response::ContinuationSelector::Done(
-                v.into()
-            )
+            crate::model::run_query_response::ContinuationSelector::Done(v.into()),
         );
         self
     }
@@ -2558,7 +2692,6 @@ impl wkt::message::Message for RunQueryResponse {
 pub mod run_query_response {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The continuation mode for the query. If present, it indicates the current
     /// query response stream has finished. This can be set with or without a
@@ -2580,7 +2713,6 @@ pub mod run_query_response {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RunAggregationQueryRequest {
-
     /// Required. The parent resource name. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents` or
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -2601,7 +2733,8 @@ pub struct RunAggregationQueryRequest {
 
     /// The consistency mode for the query, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::run_aggregation_query_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::run_aggregation_query_request::ConsistencySelector>,
 }
 
 impl RunAggregationQueryRequest {
@@ -2616,14 +2749,25 @@ impl RunAggregationQueryRequest {
     }
 
     /// Sets the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
-    pub fn set_explain_options<T: std::convert::Into<std::option::Option<crate::model::ExplainOptions>>>(mut self, v: T) -> Self {
+    pub fn set_explain_options<
+        T: std::convert::Into<std::option::Option<crate::model::ExplainOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.explain_options = v.into();
         self
     }
 
     /// Sets the value of `query_type`.
-    pub fn set_query_type<T: std::convert::Into<std::option::Option<crate::model::run_aggregation_query_request::QueryType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_query_type<
+        T: std::convert::Into<
+            std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = v.into();
         self
     }
@@ -2631,10 +2775,14 @@ impl RunAggregationQueryRequest {
     /// The value of [query_type][crate::model::RunAggregationQueryRequest::query_type]
     /// if it holds a `StructuredAggregationQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_structured_aggregation_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructuredAggregationQuery>> {
+    pub fn get_structured_aggregation_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StructuredAggregationQuery>> {
         #[allow(unreachable_patterns)]
         self.query_type.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::QueryType::StructuredAggregationQuery(v) => std::option::Option::Some(v),
+            crate::model::run_aggregation_query_request::QueryType::StructuredAggregationQuery(
+                v,
+            ) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2644,18 +2792,29 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
-    pub fn set_structured_aggregation_query<T: std::convert::Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>>(mut self, v: T) -> Self {
+    pub fn set_structured_aggregation_query<
+        T: std::convert::Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = std::option::Option::Some(
             crate::model::run_aggregation_query_request::QueryType::StructuredAggregationQuery(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::run_aggregation_query_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::run_aggregation_query_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -2666,7 +2825,9 @@ impl RunAggregationQueryRequest {
     pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v) => std::option::Option::Some(v),
+            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2674,10 +2835,14 @@ impl RunAggregationQueryRequest {
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `NewTransaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_new_transaction(&self) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
+    pub fn get_new_transaction(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TransactionOptions>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::ConsistencySelector::NewTransaction(v) => std::option::Option::Some(v),
+            crate::model::run_aggregation_query_request::ConsistencySelector::NewTransaction(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2688,7 +2853,9 @@ impl RunAggregationQueryRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2700,9 +2867,7 @@ impl RunAggregationQueryRequest {
     /// mutually exclusive.
     pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(
-                v.into()
-            )
+            crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
         );
         self
     }
@@ -2712,11 +2877,16 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_new_transaction<T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>>(mut self, v: T) -> Self {
+    pub fn set_new_transaction<
+        T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::run_aggregation_query_request::ConsistencySelector::NewTransaction(
-                v.into()
-            )
+                v.into(),
+            ),
         );
         self
     }
@@ -2726,11 +2896,12 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::run_aggregation_query_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -2746,7 +2917,6 @@ impl wkt::message::Message for RunAggregationQueryRequest {
 pub mod run_aggregation_query_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The query to run.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2787,7 +2957,6 @@ pub mod run_aggregation_query_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RunAggregationQueryResponse {
-
     /// A single aggregation result.
     ///
     /// Not present when reporting partial progress.
@@ -2828,7 +2997,12 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [result][crate::model::RunAggregationQueryResponse::result].
-    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::AggregationResult>>>(mut self, v: T) -> Self {
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::AggregationResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = v.into();
         self
     }
@@ -2840,13 +3014,21 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [read_time][crate::model::RunAggregationQueryResponse::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
 
     /// Sets the value of [explain_metrics][crate::model::RunAggregationQueryResponse::explain_metrics].
-    pub fn set_explain_metrics<T: std::convert::Into<std::option::Option<crate::model::ExplainMetrics>>>(mut self, v: T) -> Self {
+    pub fn set_explain_metrics<
+        T: std::convert::Into<std::option::Option<crate::model::ExplainMetrics>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.explain_metrics = v.into();
         self
     }
@@ -2867,7 +3049,6 @@ impl wkt::message::Message for RunAggregationQueryResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PartitionQueryRequest {
-
     /// Required. The parent resource name. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents`.
     /// Document resource names are not supported; only database resource names
@@ -2918,7 +3099,8 @@ pub struct PartitionQueryRequest {
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
 }
 
 impl PartitionQueryRequest {
@@ -2951,8 +3133,12 @@ impl PartitionQueryRequest {
     }
 
     /// Sets the value of `query_type`.
-    pub fn set_query_type<T: std::convert::Into<std::option::Option<crate::model::partition_query_request::QueryType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_query_type<
+        T: std::convert::Into<std::option::Option<crate::model::partition_query_request::QueryType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = v.into();
         self
     }
@@ -2960,10 +3146,14 @@ impl PartitionQueryRequest {
     /// The value of [query_type][crate::model::PartitionQueryRequest::query_type]
     /// if it holds a `StructuredQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_structured_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
+    pub fn get_structured_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
         #[allow(unreachable_patterns)]
         self.query_type.as_ref().and_then(|v| match v {
-            crate::model::partition_query_request::QueryType::StructuredQuery(v) => std::option::Option::Some(v),
+            crate::model::partition_query_request::QueryType::StructuredQuery(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -2973,18 +3163,27 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
-    pub fn set_structured_query<T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>>(mut self, v: T) -> Self {
+    pub fn set_structured_query<
+        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = std::option::Option::Some(
-            crate::model::partition_query_request::QueryType::StructuredQuery(
-                v.into()
-            )
+            crate::model::partition_query_request::QueryType::StructuredQuery(v.into()),
         );
         self
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::partition_query_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -2995,7 +3194,9 @@ impl PartitionQueryRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::partition_query_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::partition_query_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3005,11 +3206,12 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::partition_query_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::partition_query_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -3025,7 +3227,6 @@ impl wkt::message::Message for PartitionQueryRequest {
 pub mod partition_query_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The query to partition.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3063,7 +3264,6 @@ pub mod partition_query_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PartitionQueryResponse {
-
     /// Partition results.
     /// Each partition is a split point that can be used by RunQuery as a starting
     /// or end point for the query results. The RunQuery requests must be made with
@@ -3106,7 +3306,7 @@ impl PartitionQueryResponse {
     pub fn set_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Cursor>
+        V: std::convert::Into<crate::model::Cursor>,
     {
         use std::iter::Iterator;
         self.partitions = v.into_iter().map(|i| i.into()).collect();
@@ -3148,7 +3348,6 @@ impl gax::paginator::PageableResponse for PartitionQueryResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct WriteRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     /// This is only required in the first message.
@@ -3192,7 +3391,7 @@ pub struct WriteRequest {
 
     /// Labels associated with this write request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 }
 
 impl WriteRequest {
@@ -3222,7 +3421,7 @@ impl WriteRequest {
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Write>
+        V: std::convert::Into<crate::model::Write>,
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
@@ -3254,7 +3453,6 @@ impl wkt::message::Message for WriteRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct WriteResponse {
-
     /// The ID of the stream.
     /// Only set on the first message, when a new stream was created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3299,7 +3497,10 @@ impl WriteResponse {
     }
 
     /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
-    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_commit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.commit_time = v.into();
         self
     }
@@ -3308,7 +3509,7 @@ impl WriteResponse {
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WriteResult>
+        V: std::convert::Into<crate::model::WriteResult>,
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
@@ -3328,7 +3529,6 @@ impl wkt::message::Message for WriteResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListenRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3336,7 +3536,7 @@ pub struct ListenRequest {
 
     /// Labels associated with this target change.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The supported target changes.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3367,8 +3567,12 @@ impl ListenRequest {
     }
 
     /// Sets the value of `target_change`.
-    pub fn set_target_change<T: std::convert::Into<std::option::Option<crate::model::listen_request::TargetChange>>>(mut self, v: T) -> Self
-    {
+    pub fn set_target_change<
+        T: std::convert::Into<std::option::Option<crate::model::listen_request::TargetChange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target_change = v.into();
         self
     }
@@ -3379,7 +3583,9 @@ impl ListenRequest {
     pub fn get_add_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::Target>> {
         #[allow(unreachable_patterns)]
         self.target_change.as_ref().and_then(|v| match v {
-            crate::model::listen_request::TargetChange::AddTarget(v) => std::option::Option::Some(v),
+            crate::model::listen_request::TargetChange::AddTarget(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3390,7 +3596,9 @@ impl ListenRequest {
     pub fn get_remove_target(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.target_change.as_ref().and_then(|v| match v {
-            crate::model::listen_request::TargetChange::RemoveTarget(v) => std::option::Option::Some(v),
+            crate::model::listen_request::TargetChange::RemoveTarget(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3400,11 +3608,12 @@ impl ListenRequest {
     ///
     /// Note that all the setters affecting `target_change` are
     /// mutually exclusive.
-    pub fn set_add_target<T: std::convert::Into<std::boxed::Box<crate::model::Target>>>(mut self, v: T) -> Self {
+    pub fn set_add_target<T: std::convert::Into<std::boxed::Box<crate::model::Target>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target_change = std::option::Option::Some(
-            crate::model::listen_request::TargetChange::AddTarget(
-                v.into()
-            )
+            crate::model::listen_request::TargetChange::AddTarget(v.into()),
         );
         self
     }
@@ -3416,9 +3625,7 @@ impl ListenRequest {
     /// mutually exclusive.
     pub fn set_remove_target<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.target_change = std::option::Option::Some(
-            crate::model::listen_request::TargetChange::RemoveTarget(
-                v.into()
-            )
+            crate::model::listen_request::TargetChange::RemoveTarget(v.into()),
         );
         self
     }
@@ -3434,7 +3641,6 @@ impl wkt::message::Message for ListenRequest {
 pub mod listen_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The supported target changes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3454,7 +3660,6 @@ pub mod listen_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListenResponse {
-
     /// The supported responses.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub response_type: std::option::Option<crate::model::listen_response::ResponseType>,
@@ -3466,8 +3671,12 @@ impl ListenResponse {
     }
 
     /// Sets the value of `response_type`.
-    pub fn set_response_type<T: std::convert::Into<std::option::Option<crate::model::listen_response::ResponseType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_response_type<
+        T: std::convert::Into<std::option::Option<crate::model::listen_response::ResponseType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = v.into();
         self
     }
@@ -3475,10 +3684,14 @@ impl ListenResponse {
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `TargetChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::TargetChange>> {
+    pub fn get_target_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TargetChange>> {
         #[allow(unreachable_patterns)]
         self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::TargetChange(v) => std::option::Option::Some(v),
+            crate::model::listen_response::ResponseType::TargetChange(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3486,10 +3699,14 @@ impl ListenResponse {
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `DocumentChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_document_change(&self) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
+    pub fn get_document_change(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentChange>> {
         #[allow(unreachable_patterns)]
         self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentChange(v) => std::option::Option::Some(v),
+            crate::model::listen_response::ResponseType::DocumentChange(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3497,10 +3714,14 @@ impl ListenResponse {
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `DocumentDelete`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_document_delete(&self) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
+    pub fn get_document_delete(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentDelete>> {
         #[allow(unreachable_patterns)]
         self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentDelete(v) => std::option::Option::Some(v),
+            crate::model::listen_response::ResponseType::DocumentDelete(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3508,10 +3729,14 @@ impl ListenResponse {
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `DocumentRemove`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_document_remove(&self) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
+    pub fn get_document_remove(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentRemove>> {
         #[allow(unreachable_patterns)]
         self.response_type.as_ref().and_then(|v| match v {
-            crate::model::listen_response::ResponseType::DocumentRemove(v) => std::option::Option::Some(v),
+            crate::model::listen_response::ResponseType::DocumentRemove(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -3519,7 +3744,9 @@ impl ListenResponse {
     /// The value of [response_type][crate::model::ListenResponse::response_type]
     /// if it holds a `Filter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
+    pub fn get_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ExistenceFilter>> {
         #[allow(unreachable_patterns)]
         self.response_type.as_ref().and_then(|v| match v {
             crate::model::listen_response::ResponseType::Filter(v) => std::option::Option::Some(v),
@@ -3532,11 +3759,12 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
-    pub fn set_target_change<T: std::convert::Into<std::boxed::Box<crate::model::TargetChange>>>(mut self, v: T) -> Self {
+    pub fn set_target_change<T: std::convert::Into<std::boxed::Box<crate::model::TargetChange>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::TargetChange(
-                v.into()
-            )
+            crate::model::listen_response::ResponseType::TargetChange(v.into()),
         );
         self
     }
@@ -3546,11 +3774,14 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
-    pub fn set_document_change<T: std::convert::Into<std::boxed::Box<crate::model::DocumentChange>>>(mut self, v: T) -> Self {
+    pub fn set_document_change<
+        T: std::convert::Into<std::boxed::Box<crate::model::DocumentChange>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentChange(
-                v.into()
-            )
+            crate::model::listen_response::ResponseType::DocumentChange(v.into()),
         );
         self
     }
@@ -3560,11 +3791,14 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
-    pub fn set_document_delete<T: std::convert::Into<std::boxed::Box<crate::model::DocumentDelete>>>(mut self, v: T) -> Self {
+    pub fn set_document_delete<
+        T: std::convert::Into<std::boxed::Box<crate::model::DocumentDelete>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentDelete(
-                v.into()
-            )
+            crate::model::listen_response::ResponseType::DocumentDelete(v.into()),
         );
         self
     }
@@ -3574,11 +3808,14 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
-    pub fn set_document_remove<T: std::convert::Into<std::boxed::Box<crate::model::DocumentRemove>>>(mut self, v: T) -> Self {
+    pub fn set_document_remove<
+        T: std::convert::Into<std::boxed::Box<crate::model::DocumentRemove>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::DocumentRemove(
-                v.into()
-            )
+            crate::model::listen_response::ResponseType::DocumentRemove(v.into()),
         );
         self
     }
@@ -3588,11 +3825,12 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
-    pub fn set_filter<T: std::convert::Into<std::boxed::Box<crate::model::ExistenceFilter>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::boxed::Box<crate::model::ExistenceFilter>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.response_type = std::option::Option::Some(
-            crate::model::listen_response::ResponseType::Filter(
-                v.into()
-            )
+            crate::model::listen_response::ResponseType::Filter(v.into()),
         );
         self
     }
@@ -3608,7 +3846,6 @@ impl wkt::message::Message for ListenResponse {
 pub mod listen_response {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The supported responses.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3645,7 +3882,6 @@ pub mod listen_response {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Target {
-
     /// The target ID that identifies the target on the stream. Must be a positive
     /// number and non-zero.
     ///
@@ -3708,14 +3944,21 @@ impl Target {
     }
 
     /// Sets the value of [expected_count][crate::model::Target::expected_count].
-    pub fn set_expected_count<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
+    pub fn set_expected_count<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.expected_count = v.into();
         self
     }
 
     /// Sets the value of `target_type`.
-    pub fn set_target_type<T: std::convert::Into<std::option::Option<crate::model::target::TargetType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_target_type<
+        T: std::convert::Into<std::option::Option<crate::model::target::TargetType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target_type = v.into();
         self
     }
@@ -3723,7 +3966,9 @@ impl Target {
     /// The value of [target_type][crate::model::Target::target_type]
     /// if it holds a `Query`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::target::QueryTarget>> {
+    pub fn get_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::target::QueryTarget>> {
         #[allow(unreachable_patterns)]
         self.target_type.as_ref().and_then(|v| match v {
             crate::model::target::TargetType::Query(v) => std::option::Option::Some(v),
@@ -3734,7 +3979,9 @@ impl Target {
     /// The value of [target_type][crate::model::Target::target_type]
     /// if it holds a `Documents`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_documents(&self) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
+    pub fn get_documents(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::target::DocumentsTarget>> {
         #[allow(unreachable_patterns)]
         self.target_type.as_ref().and_then(|v| match v {
             crate::model::target::TargetType::Documents(v) => std::option::Option::Some(v),
@@ -3747,12 +3994,12 @@ impl Target {
     ///
     /// Note that all the setters affecting `target_type` are
     /// mutually exclusive.
-    pub fn set_query<T: std::convert::Into<std::boxed::Box<crate::model::target::QueryTarget>>>(mut self, v: T) -> Self {
-        self.target_type = std::option::Option::Some(
-            crate::model::target::TargetType::Query(
-                v.into()
-            )
-        );
+    pub fn set_query<T: std::convert::Into<std::boxed::Box<crate::model::target::QueryTarget>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_type =
+            std::option::Option::Some(crate::model::target::TargetType::Query(v.into()));
         self
     }
 
@@ -3761,18 +4008,24 @@ impl Target {
     ///
     /// Note that all the setters affecting `target_type` are
     /// mutually exclusive.
-    pub fn set_documents<T: std::convert::Into<std::boxed::Box<crate::model::target::DocumentsTarget>>>(mut self, v: T) -> Self {
-        self.target_type = std::option::Option::Some(
-            crate::model::target::TargetType::Documents(
-                v.into()
-            )
-        );
+    pub fn set_documents<
+        T: std::convert::Into<std::boxed::Box<crate::model::target::DocumentsTarget>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_type =
+            std::option::Option::Some(crate::model::target::TargetType::Documents(v.into()));
         self
     }
 
     /// Sets the value of `resume_type`.
-    pub fn set_resume_type<T: std::convert::Into<std::option::Option<crate::model::target::ResumeType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_resume_type<
+        T: std::convert::Into<std::option::Option<crate::model::target::ResumeType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.resume_type = v.into();
         self
     }
@@ -3805,11 +4058,8 @@ impl Target {
     /// Note that all the setters affecting `resume_type` are
     /// mutually exclusive.
     pub fn set_resume_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.resume_type = std::option::Option::Some(
-            crate::model::target::ResumeType::ResumeToken(
-                v.into()
-            )
-        );
+        self.resume_type =
+            std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
         self
     }
 
@@ -3818,12 +4068,12 @@ impl Target {
     ///
     /// Note that all the setters affecting `resume_type` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
-        self.resume_type = std::option::Option::Some(
-            crate::model::target::ResumeType::ReadTime(
-                v.into()
-            )
-        );
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resume_type =
+            std::option::Option::Some(crate::model::target::ResumeType::ReadTime(v.into()));
         self
     }
 }
@@ -3839,14 +4089,12 @@ pub mod target {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A target specified by a set of documents names.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct DocumentsTarget {
-
         /// The names of the documents to retrieve. In the format:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         /// The request will fail if any of the document is not a child resource of
@@ -3864,7 +4112,7 @@ pub mod target {
         pub fn set_documents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>
+            V: std::convert::Into<std::string::String>,
         {
             use std::iter::Iterator;
             self.documents = v.into_iter().map(|i| i.into()).collect();
@@ -3884,7 +4132,6 @@ pub mod target {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct QueryTarget {
-
         /// The parent resource name. In the format:
         /// `projects/{project_id}/databases/{database_id}/documents` or
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
@@ -3911,8 +4158,12 @@ pub mod target {
         }
 
         /// Sets the value of `query_type`.
-        pub fn set_query_type<T: std::convert::Into<std::option::Option<crate::model::target::query_target::QueryType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_query_type<
+            T: std::convert::Into<std::option::Option<crate::model::target::query_target::QueryType>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.query_type = v.into();
             self
         }
@@ -3920,10 +4171,14 @@ pub mod target {
         /// The value of [query_type][crate::model::target::QueryTarget::query_type]
         /// if it holds a `StructuredQuery`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_structured_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
+        pub fn get_structured_query(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
             #[allow(unreachable_patterns)]
             self.query_type.as_ref().and_then(|v| match v {
-                crate::model::target::query_target::QueryType::StructuredQuery(v) => std::option::Option::Some(v),
+                crate::model::target::query_target::QueryType::StructuredQuery(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -3933,11 +4188,14 @@ pub mod target {
         ///
         /// Note that all the setters affecting `query_type` are
         /// mutually exclusive.
-        pub fn set_structured_query<T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>>(mut self, v: T) -> Self {
+        pub fn set_structured_query<
+            T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.query_type = std::option::Option::Some(
-                crate::model::target::query_target::QueryType::StructuredQuery(
-                    v.into()
-                )
+                crate::model::target::query_target::QueryType::StructuredQuery(v.into()),
             );
             self
         }
@@ -3953,7 +4211,6 @@ pub mod target {
     pub mod query_target {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The query to run.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4005,7 +4262,6 @@ pub mod target {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TargetChange {
-
     /// The type of change that occurred.
     pub target_change_type: crate::model::target_change::TargetChangeType,
 
@@ -4049,13 +4305,21 @@ impl TargetChange {
     }
 
     /// Sets the value of [target_change_type][crate::model::TargetChange::target_change_type].
-    pub fn set_target_change_type<T: std::convert::Into<crate::model::target_change::TargetChangeType>>(mut self, v: T) -> Self {
+    pub fn set_target_change_type<
+        T: std::convert::Into<crate::model::target_change::TargetChangeType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.target_change_type = v.into();
         self
     }
 
     /// Sets the value of [cause][crate::model::TargetChange::cause].
-    pub fn set_cause<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(mut self, v: T) -> Self {
+    pub fn set_cause<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.cause = v.into();
         self
     }
@@ -4067,7 +4331,10 @@ impl TargetChange {
     }
 
     /// Sets the value of [read_time][crate::model::TargetChange::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
@@ -4076,7 +4343,7 @@ impl TargetChange {
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -4094,7 +4361,6 @@ impl wkt::message::Message for TargetChange {
 pub mod target_change {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The type of change.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4115,7 +4381,6 @@ pub mod target_change {
     /// Useful constants to work with [TargetChangeType](TargetChangeType)
     pub mod target_change_type {
         use super::TargetChangeType;
-        
 
         /// No change has occurred. Used only to send an updated `resume_token`.
         pub const NO_CHANGE: TargetChangeType = TargetChangeType::new("NO_CHANGE");
@@ -4145,9 +4410,9 @@ pub mod target_change {
     }
 
     impl std::convert::From<std::string::String> for TargetChangeType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     impl std::default::Default for TargetChangeType {
@@ -4166,7 +4431,6 @@ pub mod target_change {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCollectionIdsRequest {
-
     /// Required. The parent document. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     /// For example:
@@ -4187,7 +4451,8 @@ pub struct ListCollectionIdsRequest {
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub consistency_selector: std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
+    pub consistency_selector:
+        std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
 }
 
 impl ListCollectionIdsRequest {
@@ -4214,8 +4479,14 @@ impl ListCollectionIdsRequest {
     }
 
     /// Sets the value of `consistency_selector`.
-    pub fn set_consistency_selector<T: std::convert::Into<std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>>>(mut self, v: T) -> Self
-    {
+    pub fn set_consistency_selector<
+        T: std::convert::Into<
+            std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = v.into();
         self
     }
@@ -4226,7 +4497,9 @@ impl ListCollectionIdsRequest {
     pub fn get_read_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
-            crate::model::list_collection_ids_request::ConsistencySelector::ReadTime(v) => std::option::Option::Some(v),
+            crate::model::list_collection_ids_request::ConsistencySelector::ReadTime(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -4236,11 +4509,12 @@ impl ListCollectionIdsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.consistency_selector = std::option::Option::Some(
-            crate::model::list_collection_ids_request::ConsistencySelector::ReadTime(
-                v.into()
-            )
+            crate::model::list_collection_ids_request::ConsistencySelector::ReadTime(v.into()),
         );
         self
     }
@@ -4256,7 +4530,6 @@ impl wkt::message::Message for ListCollectionIdsRequest {
 pub mod list_collection_ids_request {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The consistency mode for this request.
     /// If not set, defaults to strong consistency.
@@ -4282,7 +4555,6 @@ pub mod list_collection_ids_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCollectionIdsResponse {
-
     /// The collection ids.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub collection_ids: std::vec::Vec<std::string::String>,
@@ -4307,7 +4579,7 @@ impl ListCollectionIdsResponse {
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>
+        V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
         self.collection_ids = v.into_iter().map(|i| i.into()).collect();
@@ -4330,7 +4602,6 @@ impl wkt::message::Message for ListCollectionIdsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BatchWriteRequest {
-
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -4346,7 +4617,7 @@ pub struct BatchWriteRequest {
 
     /// Labels associated with this batch write.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 }
 
 impl BatchWriteRequest {
@@ -4364,7 +4635,7 @@ impl BatchWriteRequest {
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Write>
+        V: std::convert::Into<crate::model::Write>,
     {
         use std::iter::Iterator;
         self.writes = v.into_iter().map(|i| i.into()).collect();
@@ -4399,7 +4670,6 @@ impl wkt::message::Message for BatchWriteRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BatchWriteResponse {
-
     /// The result of applying the writes.
     ///
     /// This i-th write result corresponds to the i-th write in the
@@ -4424,7 +4694,7 @@ impl BatchWriteResponse {
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WriteResult>
+        V: std::convert::Into<crate::model::WriteResult>,
     {
         use std::iter::Iterator;
         self.write_results = v.into_iter().map(|i| i.into()).collect();
@@ -4435,7 +4705,7 @@ impl BatchWriteResponse {
     pub fn set_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>
+        V: std::convert::Into<rpc::model::Status>,
     {
         use std::iter::Iterator;
         self.status = v.into_iter().map(|i| i.into()).collect();
@@ -4465,7 +4735,6 @@ impl wkt::message::Message for BatchWriteResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct StructuredQuery {
-
     /// Optional sub-set of the fields to return.
     ///
     /// This acts as a [DocumentMask][google.firestore.v1.DocumentMask] over the
@@ -4589,25 +4858,41 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [select][crate::model::StructuredQuery::select].
-    pub fn set_select<T: std::convert::Into<std::option::Option<crate::model::structured_query::Projection>>>(mut self, v: T) -> Self {
+    pub fn set_select<
+        T: std::convert::Into<std::option::Option<crate::model::structured_query::Projection>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.select = v.into();
         self
     }
 
     /// Sets the value of [r#where][crate::model::StructuredQuery::where].
-    pub fn set_where<T: std::convert::Into<std::option::Option<crate::model::structured_query::Filter>>>(mut self, v: T) -> Self {
+    pub fn set_where<
+        T: std::convert::Into<std::option::Option<crate::model::structured_query::Filter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.r#where = v.into();
         self
     }
 
     /// Sets the value of [start_at][crate::model::StructuredQuery::start_at].
-    pub fn set_start_at<T: std::convert::Into<std::option::Option<crate::model::Cursor>>>(mut self, v: T) -> Self {
+    pub fn set_start_at<T: std::convert::Into<std::option::Option<crate::model::Cursor>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_at = v.into();
         self
     }
 
     /// Sets the value of [end_at][crate::model::StructuredQuery::end_at].
-    pub fn set_end_at<T: std::convert::Into<std::option::Option<crate::model::Cursor>>>(mut self, v: T) -> Self {
+    pub fn set_end_at<T: std::convert::Into<std::option::Option<crate::model::Cursor>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.end_at = v.into();
         self
     }
@@ -4619,13 +4904,21 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [limit][crate::model::StructuredQuery::limit].
-    pub fn set_limit<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
+    pub fn set_limit<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.limit = v.into();
         self
     }
 
     /// Sets the value of [find_nearest][crate::model::StructuredQuery::find_nearest].
-    pub fn set_find_nearest<T: std::convert::Into<std::option::Option<crate::model::structured_query::FindNearest>>>(mut self, v: T) -> Self {
+    pub fn set_find_nearest<
+        T: std::convert::Into<std::option::Option<crate::model::structured_query::FindNearest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.find_nearest = v.into();
         self
     }
@@ -4634,7 +4927,7 @@ impl StructuredQuery {
     pub fn set_from<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::CollectionSelector>
+        V: std::convert::Into<crate::model::structured_query::CollectionSelector>,
     {
         use std::iter::Iterator;
         self.from = v.into_iter().map(|i| i.into()).collect();
@@ -4645,7 +4938,7 @@ impl StructuredQuery {
     pub fn set_order_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_query::Order>
+        V: std::convert::Into<crate::model::structured_query::Order>,
     {
         use std::iter::Iterator;
         self.order_by = v.into_iter().map(|i| i.into()).collect();
@@ -4664,14 +4957,12 @@ pub mod structured_query {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A selection of a collection, such as `messages as m1`.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct CollectionSelector {
-
         /// The collection ID.
         /// When set, selects only collections with this ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -4689,7 +4980,10 @@ pub mod structured_query {
         }
 
         /// Sets the value of [collection_id][crate::model::structured_query::CollectionSelector::collection_id].
-        pub fn set_collection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_collection_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.collection_id = v.into();
             self
         }
@@ -4713,7 +5007,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Filter {
-
         /// The type of filter.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub filter_type: std::option::Option<crate::model::structured_query::filter::FilterType>,
@@ -4725,8 +5018,14 @@ pub mod structured_query {
         }
 
         /// Sets the value of `filter_type`.
-        pub fn set_filter_type<T: std::convert::Into<std::option::Option<crate::model::structured_query::filter::FilterType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_filter_type<
+            T: std::convert::Into<
+                std::option::Option<crate::model::structured_query::filter::FilterType>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = v.into();
             self
         }
@@ -4734,10 +5033,15 @@ pub mod structured_query {
         /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// if it holds a `CompositeFilter`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_composite_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::CompositeFilter>> {
+        pub fn get_composite_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::CompositeFilter>>
+        {
             #[allow(unreachable_patterns)]
             self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::CompositeFilter(v) => std::option::Option::Some(v),
+                crate::model::structured_query::filter::FilterType::CompositeFilter(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -4745,10 +5049,15 @@ pub mod structured_query {
         /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// if it holds a `FieldFilter`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_field_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>> {
+        pub fn get_field_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldFilter>>
+        {
             #[allow(unreachable_patterns)]
             self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::FieldFilter(v) => std::option::Option::Some(v),
+                crate::model::structured_query::filter::FilterType::FieldFilter(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -4756,10 +5065,15 @@ pub mod structured_query {
         /// The value of [filter_type][crate::model::structured_query::Filter::filter_type]
         /// if it holds a `UnaryFilter`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_unary_filter(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>> {
+        pub fn get_unary_filter(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::UnaryFilter>>
+        {
             #[allow(unreachable_patterns)]
             self.filter_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => std::option::Option::Some(v),
+                crate::model::structured_query::filter::FilterType::UnaryFilter(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -4769,11 +5083,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
-        pub fn set_composite_filter<T: std::convert::Into<std::boxed::Box<crate::model::structured_query::CompositeFilter>>>(mut self, v: T) -> Self {
+        pub fn set_composite_filter<
+            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::CompositeFilter>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::CompositeFilter(
-                    v.into()
-                )
+                crate::model::structured_query::filter::FilterType::CompositeFilter(v.into()),
             );
             self
         }
@@ -4783,11 +5100,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
-        pub fn set_field_filter<T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldFilter>>>(mut self, v: T) -> Self {
+        pub fn set_field_filter<
+            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldFilter>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::FieldFilter(
-                    v.into()
-                )
+                crate::model::structured_query::filter::FilterType::FieldFilter(v.into()),
             );
             self
         }
@@ -4797,11 +5117,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
-        pub fn set_unary_filter<T: std::convert::Into<std::boxed::Box<crate::model::structured_query::UnaryFilter>>>(mut self, v: T) -> Self {
+        pub fn set_unary_filter<
+            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::UnaryFilter>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.filter_type = std::option::Option::Some(
-                crate::model::structured_query::filter::FilterType::UnaryFilter(
-                    v.into()
-                )
+                crate::model::structured_query::filter::FilterType::UnaryFilter(v.into()),
             );
             self
         }
@@ -4817,7 +5140,6 @@ pub mod structured_query {
     pub mod filter {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The type of filter.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4839,7 +5161,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct CompositeFilter {
-
         /// The operator for combining multiple filters.
         pub op: crate::model::structured_query::composite_filter::Operator,
 
@@ -4858,7 +5179,12 @@ pub mod structured_query {
         }
 
         /// Sets the value of [op][crate::model::structured_query::CompositeFilter::op].
-        pub fn set_op<T: std::convert::Into<crate::model::structured_query::composite_filter::Operator>>(mut self, v: T) -> Self {
+        pub fn set_op<
+            T: std::convert::Into<crate::model::structured_query::composite_filter::Operator>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.op = v.into();
             self
         }
@@ -4867,7 +5193,7 @@ pub mod structured_query {
         pub fn set_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::structured_query::Filter>
+            V: std::convert::Into<crate::model::structured_query::Filter>,
         {
             use std::iter::Iterator;
             self.filters = v.into_iter().map(|i| i.into()).collect();
@@ -4885,7 +5211,6 @@ pub mod structured_query {
     pub mod composite_filter {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// A composite filter operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4906,7 +5231,6 @@ pub mod structured_query {
         /// Useful constants to work with [Operator](Operator)
         pub mod operator {
             use super::Operator;
-            
 
             /// Unspecified. This value must not be used.
             pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
@@ -4919,9 +5243,9 @@ pub mod structured_query {
         }
 
         impl std::convert::From<std::string::String> for Operator {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         impl std::default::Default for Operator {
@@ -4937,7 +5261,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FieldFilter {
-
         /// The field to filter by.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub field: std::option::Option<crate::model::structured_query::FieldReference>,
@@ -4956,19 +5279,32 @@ pub mod structured_query {
         }
 
         /// Sets the value of [field][crate::model::structured_query::FieldFilter::field].
-        pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+        pub fn set_field<
+            T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [op][crate::model::structured_query::FieldFilter::op].
-        pub fn set_op<T: std::convert::Into<crate::model::structured_query::field_filter::Operator>>(mut self, v: T) -> Self {
+        pub fn set_op<
+            T: std::convert::Into<crate::model::structured_query::field_filter::Operator>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.op = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::structured_query::FieldFilter::value].
-        pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::Value>>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.value = v.into();
             self
         }
@@ -4984,7 +5320,6 @@ pub mod structured_query {
     pub mod field_filter {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// A field filter operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5005,7 +5340,6 @@ pub mod structured_query {
         /// Useful constants to work with [Operator](Operator)
         pub mod operator {
             use super::Operator;
-            
 
             /// Unspecified. This value must not be used.
             pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
@@ -5084,9 +5418,9 @@ pub mod structured_query {
         }
 
         impl std::convert::From<std::string::String> for Operator {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         impl std::default::Default for Operator {
@@ -5102,13 +5436,13 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UnaryFilter {
-
         /// The unary operator to apply.
         pub op: crate::model::structured_query::unary_filter::Operator,
 
         /// The argument to the filter.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-        pub operand_type: std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
+        pub operand_type:
+            std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
     }
 
     impl UnaryFilter {
@@ -5117,14 +5451,25 @@ pub mod structured_query {
         }
 
         /// Sets the value of [op][crate::model::structured_query::UnaryFilter::op].
-        pub fn set_op<T: std::convert::Into<crate::model::structured_query::unary_filter::Operator>>(mut self, v: T) -> Self {
+        pub fn set_op<
+            T: std::convert::Into<crate::model::structured_query::unary_filter::Operator>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.op = v.into();
             self
         }
 
         /// Sets the value of `operand_type`.
-        pub fn set_operand_type<T: std::convert::Into<std::option::Option<crate::model::structured_query::unary_filter::OperandType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_operand_type<
+            T: std::convert::Into<
+                std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operand_type = v.into();
             self
         }
@@ -5132,10 +5477,15 @@ pub mod structured_query {
         /// The value of [operand_type][crate::model::structured_query::UnaryFilter::operand_type]
         /// if it holds a `Field`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_field(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldReference>> {
+        pub fn get_field(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::structured_query::FieldReference>>
+        {
             #[allow(unreachable_patterns)]
             self.operand_type.as_ref().and_then(|v| match v {
-                crate::model::structured_query::unary_filter::OperandType::Field(v) => std::option::Option::Some(v),
+                crate::model::structured_query::unary_filter::OperandType::Field(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5145,11 +5495,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `operand_type` are
         /// mutually exclusive.
-        pub fn set_field<T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+        pub fn set_field<
+            T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operand_type = std::option::Option::Some(
-                crate::model::structured_query::unary_filter::OperandType::Field(
-                    v.into()
-                )
+                crate::model::structured_query::unary_filter::OperandType::Field(v.into()),
             );
             self
         }
@@ -5165,7 +5518,6 @@ pub mod structured_query {
     pub mod unary_filter {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// A unary operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5186,7 +5538,6 @@ pub mod structured_query {
         /// Useful constants to work with [Operator](Operator)
         pub mod operator {
             use super::Operator;
-            
 
             /// Unspecified. This value must not be used.
             pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
@@ -5215,9 +5566,9 @@ pub mod structured_query {
         }
 
         impl std::convert::From<std::string::String> for Operator {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         impl std::default::Default for Operator {
@@ -5242,7 +5593,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Order {
-
         /// The field to order by.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub field: std::option::Option<crate::model::structured_query::FieldReference>,
@@ -5257,13 +5607,21 @@ pub mod structured_query {
         }
 
         /// Sets the value of [field][crate::model::structured_query::Order::field].
-        pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+        pub fn set_field<
+            T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [direction][crate::model::structured_query::Order::direction].
-        pub fn set_direction<T: std::convert::Into<crate::model::structured_query::Direction>>(mut self, v: T) -> Self {
+        pub fn set_direction<T: std::convert::Into<crate::model::structured_query::Direction>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.direction = v.into();
             self
         }
@@ -5281,7 +5639,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FieldReference {
-
         /// A reference to a field in a document.
         ///
         /// Requires:
@@ -5319,7 +5676,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Projection {
-
         /// The fields to return.
         ///
         /// If empty, all fields are returned. To only return the name
@@ -5337,7 +5693,7 @@ pub mod structured_query {
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::structured_query::FieldReference>
+            V: std::convert::Into<crate::model::structured_query::FieldReference>,
         {
             use std::iter::Iterator;
             self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -5360,7 +5716,6 @@ pub mod structured_query {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FindNearest {
-
         /// Required. An indexed vector field to search upon. Only documents which
         /// contain vectors whose dimensionality match the query_vector can be
         /// returned.
@@ -5406,37 +5761,61 @@ pub mod structured_query {
         }
 
         /// Sets the value of [vector_field][crate::model::structured_query::FindNearest::vector_field].
-        pub fn set_vector_field<T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+        pub fn set_vector_field<
+            T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.vector_field = v.into();
             self
         }
 
         /// Sets the value of [query_vector][crate::model::structured_query::FindNearest::query_vector].
-        pub fn set_query_vector<T: std::convert::Into<std::option::Option<crate::model::Value>>>(mut self, v: T) -> Self {
+        pub fn set_query_vector<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.query_vector = v.into();
             self
         }
 
         /// Sets the value of [distance_measure][crate::model::structured_query::FindNearest::distance_measure].
-        pub fn set_distance_measure<T: std::convert::Into<crate::model::structured_query::find_nearest::DistanceMeasure>>(mut self, v: T) -> Self {
+        pub fn set_distance_measure<
+            T: std::convert::Into<crate::model::structured_query::find_nearest::DistanceMeasure>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.distance_measure = v.into();
             self
         }
 
         /// Sets the value of [limit][crate::model::structured_query::FindNearest::limit].
-        pub fn set_limit<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
+        pub fn set_limit<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.limit = v.into();
             self
         }
 
         /// Sets the value of [distance_result_field][crate::model::structured_query::FindNearest::distance_result_field].
-        pub fn set_distance_result_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        pub fn set_distance_result_field<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.distance_result_field = v.into();
             self
         }
 
         /// Sets the value of [distance_threshold][crate::model::structured_query::FindNearest::distance_threshold].
-        pub fn set_distance_threshold<T: std::convert::Into<std::option::Option<wkt::DoubleValue>>>(mut self, v: T) -> Self {
+        pub fn set_distance_threshold<
+            T: std::convert::Into<std::option::Option<wkt::DoubleValue>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.distance_threshold = v.into();
             self
         }
@@ -5452,7 +5831,6 @@ pub mod structured_query {
     pub mod find_nearest {
         #[allow(unused_imports)]
         use super::*;
-
 
         /// The distance measure to use when comparing vectors.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5473,10 +5851,10 @@ pub mod structured_query {
         /// Useful constants to work with [DistanceMeasure](DistanceMeasure)
         pub mod distance_measure {
             use super::DistanceMeasure;
-            
 
             /// Should not be set.
-            pub const DISTANCE_MEASURE_UNSPECIFIED: DistanceMeasure = DistanceMeasure::new("DISTANCE_MEASURE_UNSPECIFIED");
+            pub const DISTANCE_MEASURE_UNSPECIFIED: DistanceMeasure =
+                DistanceMeasure::new("DISTANCE_MEASURE_UNSPECIFIED");
 
             /// Measures the EUCLIDEAN distance between the vectors. See
             /// [Euclidean](https://en.wikipedia.org/wiki/Euclidean_distance) to learn
@@ -5501,9 +5879,9 @@ pub mod structured_query {
         }
 
         impl std::convert::From<std::string::String> for DistanceMeasure {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         impl std::default::Default for DistanceMeasure {
@@ -5532,7 +5910,6 @@ pub mod structured_query {
     /// Useful constants to work with [Direction](Direction)
     pub mod direction {
         use super::Direction;
-        
 
         /// Unspecified.
         pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
@@ -5545,9 +5922,9 @@ pub mod structured_query {
     }
 
     impl std::convert::From<std::string::String> for Direction {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     impl std::default::Default for Direction {
@@ -5566,7 +5943,6 @@ pub mod structured_query {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct StructuredAggregationQuery {
-
     /// Optional. Series of aggregations to apply over the results of the
     /// `structured_query`.
     ///
@@ -5590,7 +5966,7 @@ impl StructuredAggregationQuery {
     pub fn set_aggregations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::structured_aggregation_query::Aggregation>
+        V: std::convert::Into<crate::model::structured_aggregation_query::Aggregation>,
     {
         use std::iter::Iterator;
         self.aggregations = v.into_iter().map(|i| i.into()).collect();
@@ -5598,8 +5974,14 @@ impl StructuredAggregationQuery {
     }
 
     /// Sets the value of `query_type`.
-    pub fn set_query_type<T: std::convert::Into<std::option::Option<crate::model::structured_aggregation_query::QueryType>>>(mut self, v: T) -> Self
-    {
+    pub fn set_query_type<
+        T: std::convert::Into<
+            std::option::Option<crate::model::structured_aggregation_query::QueryType>,
+        >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = v.into();
         self
     }
@@ -5607,10 +5989,14 @@ impl StructuredAggregationQuery {
     /// The value of [query_type][crate::model::StructuredAggregationQuery::query_type]
     /// if it holds a `StructuredQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_structured_query(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
+    pub fn get_structured_query(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StructuredQuery>> {
         #[allow(unreachable_patterns)]
         self.query_type.as_ref().and_then(|v| match v {
-            crate::model::structured_aggregation_query::QueryType::StructuredQuery(v) => std::option::Option::Some(v),
+            crate::model::structured_aggregation_query::QueryType::StructuredQuery(v) => {
+                std::option::Option::Some(v)
+            }
             _ => std::option::Option::None,
         })
     }
@@ -5620,11 +6006,14 @@ impl StructuredAggregationQuery {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
-    pub fn set_structured_query<T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>>(mut self, v: T) -> Self {
+    pub fn set_structured_query<
+        T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.query_type = std::option::Option::Some(
-            crate::model::structured_aggregation_query::QueryType::StructuredQuery(
-                v.into()
-            )
+            crate::model::structured_aggregation_query::QueryType::StructuredQuery(v.into()),
         );
         self
     }
@@ -5641,14 +6030,12 @@ pub mod structured_aggregation_query {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// Defines an aggregation that produces a single result.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Aggregation {
-
         /// Optional. Optional name of the field to store the result of the
         /// aggregation into.
         ///
@@ -5691,7 +6078,8 @@ pub mod structured_aggregation_query {
 
         /// The type of aggregation to perform, required.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-        pub operator: std::option::Option<crate::model::structured_aggregation_query::aggregation::Operator>,
+        pub operator:
+            std::option::Option<crate::model::structured_aggregation_query::aggregation::Operator>,
     }
 
     impl Aggregation {
@@ -5706,8 +6094,16 @@ pub mod structured_aggregation_query {
         }
 
         /// Sets the value of `operator`.
-        pub fn set_operator<T: std::convert::Into<std::option::Option<crate::model::structured_aggregation_query::aggregation::Operator>>>(mut self, v: T) -> Self
-        {
+        pub fn set_operator<
+            T: std::convert::Into<
+                std::option::Option<
+                    crate::model::structured_aggregation_query::aggregation::Operator,
+                >,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operator = v.into();
             self
         }
@@ -5715,10 +6111,16 @@ pub mod structured_aggregation_query {
         /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// if it holds a `Count`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_count(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>> {
+        pub fn get_count(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
+        > {
             #[allow(unreachable_patterns)]
             self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Count(v) => std::option::Option::Some(v),
+                crate::model::structured_aggregation_query::aggregation::Operator::Count(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5726,10 +6128,16 @@ pub mod structured_aggregation_query {
         /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// if it holds a `Sum`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sum(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>> {
+        pub fn get_sum(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+        > {
             #[allow(unreachable_patterns)]
             self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => std::option::Option::Some(v),
+                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5737,10 +6145,16 @@ pub mod structured_aggregation_query {
         /// The value of [operator][crate::model::structured_aggregation_query::Aggregation::operator]
         /// if it holds a `Avg`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_avg(&self) -> std::option::Option<&std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>> {
+        pub fn get_avg(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+        > {
             #[allow(unreachable_patterns)]
             self.operator.as_ref().and_then(|v| match v {
-                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => std::option::Option::Some(v),
+                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -5750,11 +6164,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
-        pub fn set_count<T: std::convert::Into<std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>>>(mut self, v: T) -> Self {
+        pub fn set_count<
+            T: std::convert::Into<
+                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Count(
-                    v.into()
-                )
+                crate::model::structured_aggregation_query::aggregation::Operator::Count(v.into()),
             );
             self
         }
@@ -5764,11 +6183,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
-        pub fn set_sum<T: std::convert::Into<std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>>>(mut self, v: T) -> Self {
+        pub fn set_sum<
+            T: std::convert::Into<
+                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Sum(
-                    v.into()
-                )
+                crate::model::structured_aggregation_query::aggregation::Operator::Sum(v.into()),
             );
             self
         }
@@ -5778,11 +6202,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
-        pub fn set_avg<T: std::convert::Into<std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>>>(mut self, v: T) -> Self {
+        pub fn set_avg<
+            T: std::convert::Into<
+                std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.operator = std::option::Option::Some(
-                crate::model::structured_aggregation_query::aggregation::Operator::Avg(
-                    v.into()
-                )
+                crate::model::structured_aggregation_query::aggregation::Operator::Avg(v.into()),
             );
             self
         }
@@ -5799,7 +6228,6 @@ pub mod structured_aggregation_query {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// Count of documents that match the query.
         ///
         /// The `COUNT(*)` aggregation function operates on the entire document
@@ -5809,7 +6237,6 @@ pub mod structured_aggregation_query {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Count {
-
             /// Optional. Optional constraint on the maximum number of documents to
             /// count.
             ///
@@ -5838,7 +6265,10 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [up_to][crate::model::structured_aggregation_query::aggregation::Count::up_to].
-            pub fn set_up_to<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
+            pub fn set_up_to<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.up_to = v.into();
                 self
             }
@@ -5877,7 +6307,6 @@ pub mod structured_aggregation_query {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Sum {
-
             /// The field to aggregate on.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub field: std::option::Option<crate::model::structured_query::FieldReference>,
@@ -5889,7 +6318,14 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Sum::field].
-            pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+            pub fn set_field<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::structured_query::FieldReference>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.field = v.into();
                 self
             }
@@ -5918,7 +6354,6 @@ pub mod structured_aggregation_query {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Avg {
-
             /// The field to aggregate on.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub field: std::option::Option<crate::model::structured_query::FieldReference>,
@@ -5930,7 +6365,14 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Avg::field].
-            pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::structured_query::FieldReference>>>(mut self, v: T) -> Self {
+            pub fn set_field<
+                T: std::convert::Into<
+                    std::option::Option<crate::model::structured_query::FieldReference>,
+                >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.field = v.into();
                 self
             }
@@ -5972,7 +6414,6 @@ pub mod structured_aggregation_query {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Cursor {
-
     /// The values that represent a position, in the order they appear in
     /// the order by clause of a query.
     ///
@@ -6000,7 +6441,7 @@ impl Cursor {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Value>
+        V: std::convert::Into<crate::model::Value>,
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -6020,7 +6461,6 @@ impl wkt::message::Message for Cursor {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ExplainOptions {
-
     /// Optional. Whether to execute this query.
     ///
     /// When false (the default), the query will be planned, returning only
@@ -6055,7 +6495,6 @@ impl wkt::message::Message for ExplainOptions {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ExplainMetrics {
-
     /// Planning phase information for the query.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub plan_summary: std::option::Option<crate::model::PlanSummary>,
@@ -6075,13 +6514,23 @@ impl ExplainMetrics {
     }
 
     /// Sets the value of [plan_summary][crate::model::ExplainMetrics::plan_summary].
-    pub fn set_plan_summary<T: std::convert::Into<std::option::Option<crate::model::PlanSummary>>>(mut self, v: T) -> Self {
+    pub fn set_plan_summary<
+        T: std::convert::Into<std::option::Option<crate::model::PlanSummary>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.plan_summary = v.into();
         self
     }
 
     /// Sets the value of [execution_stats][crate::model::ExplainMetrics::execution_stats].
-    pub fn set_execution_stats<T: std::convert::Into<std::option::Option<crate::model::ExecutionStats>>>(mut self, v: T) -> Self {
+    pub fn set_execution_stats<
+        T: std::convert::Into<std::option::Option<crate::model::ExecutionStats>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_stats = v.into();
         self
     }
@@ -6099,7 +6548,6 @@ impl wkt::message::Message for ExplainMetrics {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PlanSummary {
-
     /// The indexes selected for the query. For example:
     /// [
     /// {"query_scope": "Collection", "properties": "(foo ASC, __name__ ASC)"},
@@ -6118,7 +6566,7 @@ impl PlanSummary {
     pub fn set_indexes_used<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Struct>
+        V: std::convert::Into<wkt::Struct>,
     {
         use std::iter::Iterator;
         self.indexes_used = v.into_iter().map(|i| i.into()).collect();
@@ -6138,7 +6586,6 @@ impl wkt::message::Message for PlanSummary {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ExecutionStats {
-
     /// Total number of results returned, including documents, projections,
     /// aggregation results, keys.
     #[serde_as(as = "serde_with::DisplayFromStr")]
@@ -6180,7 +6627,10 @@ impl ExecutionStats {
     }
 
     /// Sets the value of [execution_duration][crate::model::ExecutionStats::execution_duration].
-    pub fn set_execution_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_execution_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.execution_duration = v.into();
         self
     }
@@ -6192,7 +6642,10 @@ impl ExecutionStats {
     }
 
     /// Sets the value of [debug_stats][crate::model::ExecutionStats::debug_stats].
-    pub fn set_debug_stats<T: std::convert::Into<std::option::Option<wkt::Struct>>>(mut self, v: T) -> Self {
+    pub fn set_debug_stats<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.debug_stats = v.into();
         self
     }
@@ -6210,7 +6663,6 @@ impl wkt::message::Message for ExecutionStats {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Write {
-
     /// The fields to update in this write.
     ///
     /// This field can be set only when the operation is `update`.
@@ -6249,13 +6701,23 @@ impl Write {
     }
 
     /// Sets the value of [update_mask][crate::model::Write::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<
+        T: std::convert::Into<std::option::Option<crate::model::DocumentMask>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_mask = v.into();
         self
     }
 
     /// Sets the value of [current_document][crate::model::Write::current_document].
-    pub fn set_current_document<T: std::convert::Into<std::option::Option<crate::model::Precondition>>>(mut self, v: T) -> Self {
+    pub fn set_current_document<
+        T: std::convert::Into<std::option::Option<crate::model::Precondition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.current_document = v.into();
         self
     }
@@ -6264,7 +6726,7 @@ impl Write {
     pub fn set_update_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document_transform::FieldTransform>
+        V: std::convert::Into<crate::model::document_transform::FieldTransform>,
     {
         use std::iter::Iterator;
         self.update_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -6272,8 +6734,12 @@ impl Write {
     }
 
     /// Sets the value of `operation`.
-    pub fn set_operation<T: std::convert::Into<std::option::Option<crate::model::write::Operation>>>(mut self, v: T) -> Self
-    {
+    pub fn set_operation<
+        T: std::convert::Into<std::option::Option<crate::model::write::Operation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.operation = v.into();
         self
     }
@@ -6303,7 +6769,9 @@ impl Write {
     /// The value of [operation][crate::model::Write::operation]
     /// if it holds a `Transform`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transform(&self) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
+    pub fn get_transform(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocumentTransform>> {
         #[allow(unreachable_patterns)]
         self.operation.as_ref().and_then(|v| match v {
             crate::model::write::Operation::Transform(v) => std::option::Option::Some(v),
@@ -6316,12 +6784,12 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
-    pub fn set_update<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(mut self, v: T) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::write::Operation::Update(
-                v.into()
-            )
-        );
+    pub fn set_update<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation =
+            std::option::Option::Some(crate::model::write::Operation::Update(v.into()));
         self
     }
 
@@ -6331,11 +6799,8 @@ impl Write {
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
     pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::write::Operation::Delete(
-                v.into()
-            )
-        );
+        self.operation =
+            std::option::Option::Some(crate::model::write::Operation::Delete(v.into()));
         self
     }
 
@@ -6344,12 +6809,14 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
-    pub fn set_transform<T: std::convert::Into<std::boxed::Box<crate::model::DocumentTransform>>>(mut self, v: T) -> Self {
-        self.operation = std::option::Option::Some(
-            crate::model::write::Operation::Transform(
-                v.into()
-            )
-        );
+    pub fn set_transform<
+        T: std::convert::Into<std::boxed::Box<crate::model::DocumentTransform>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation =
+            std::option::Option::Some(crate::model::write::Operation::Transform(v.into()));
         self
     }
 }
@@ -6364,7 +6831,6 @@ impl wkt::message::Message for Write {
 pub mod write {
     #[allow(unused_imports)]
     use super::*;
-
 
     /// The operation to execute.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -6387,7 +6853,6 @@ pub mod write {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DocumentTransform {
-
     /// The name of the document to transform.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub document: std::string::String,
@@ -6414,7 +6879,7 @@ impl DocumentTransform {
     pub fn set_field_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::document_transform::FieldTransform>
+        V: std::convert::Into<crate::model::document_transform::FieldTransform>,
     {
         use std::iter::Iterator;
         self.field_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -6433,14 +6898,12 @@ pub mod document_transform {
     #[allow(unused_imports)]
     use super::*;
 
-
     /// A transformation of a field of the document.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FieldTransform {
-
         /// The path of the field. See
         /// [Document.fields][google.firestore.v1.Document.fields] for the field path
         /// syntax reference.
@@ -6451,7 +6914,8 @@ pub mod document_transform {
 
         /// The transformation to apply on the field.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-        pub transform_type: std::option::Option<crate::model::document_transform::field_transform::TransformType>,
+        pub transform_type:
+            std::option::Option<crate::model::document_transform::field_transform::TransformType>,
     }
 
     impl FieldTransform {
@@ -6466,8 +6930,16 @@ pub mod document_transform {
         }
 
         /// Sets the value of `transform_type`.
-        pub fn set_transform_type<T: std::convert::Into<std::option::Option<crate::model::document_transform::field_transform::TransformType>>>(mut self, v: T) -> Self
-        {
+        pub fn set_transform_type<
+            T: std::convert::Into<
+                std::option::Option<
+                    crate::model::document_transform::field_transform::TransformType,
+                >,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = v.into();
             self
         }
@@ -6475,7 +6947,10 @@ pub mod document_transform {
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `SetToServerValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_set_to_server_value(&self) -> std::option::Option<&crate::model::document_transform::field_transform::ServerValue> {
+        pub fn get_set_to_server_value(
+            &self,
+        ) -> std::option::Option<&crate::model::document_transform::field_transform::ServerValue>
+        {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
                 crate::model::document_transform::field_transform::TransformType::SetToServerValue(v) => std::option::Option::Some(v),
@@ -6489,7 +6964,9 @@ pub mod document_transform {
         pub fn get_increment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Increment(v) => std::option::Option::Some(v),
+                crate::model::document_transform::field_transform::TransformType::Increment(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6500,7 +6977,9 @@ pub mod document_transform {
         pub fn get_maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Maximum(v) => std::option::Option::Some(v),
+                crate::model::document_transform::field_transform::TransformType::Maximum(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6511,7 +6990,9 @@ pub mod document_transform {
         pub fn get_minimum(&self) -> std::option::Option<&std::boxed::Box<crate::model::Value>> {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
-                crate::model::document_transform::field_transform::TransformType::Minimum(v) => std::option::Option::Some(v),
+                crate::model::document_transform::field_transform::TransformType::Minimum(v) => {
+                    std::option::Option::Some(v)
+                }
                 _ => std::option::Option::None,
             })
         }
@@ -6519,7 +7000,9 @@ pub mod document_transform {
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `AppendMissingElements`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_append_missing_elements(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+        pub fn get_append_missing_elements(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
                 crate::model::document_transform::field_transform::TransformType::AppendMissingElements(v) => std::option::Option::Some(v),
@@ -6530,7 +7013,9 @@ pub mod document_transform {
         /// The value of [transform_type][crate::model::document_transform::FieldTransform::transform_type]
         /// if it holds a `RemoveAllFromArray`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_remove_all_from_array(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
+        pub fn get_remove_all_from_array(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::ArrayValue>> {
             #[allow(unreachable_patterns)]
             self.transform_type.as_ref().and_then(|v| match v {
                 crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(v) => std::option::Option::Some(v),
@@ -6543,11 +7028,16 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_set_to_server_value<T: std::convert::Into<crate::model::document_transform::field_transform::ServerValue>>(mut self, v: T) -> Self {
+        pub fn set_set_to_server_value<
+            T: std::convert::Into<crate::model::document_transform::field_transform::ServerValue>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
                 crate::model::document_transform::field_transform::TransformType::SetToServerValue(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -6557,11 +7047,14 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_increment<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(mut self, v: T) -> Self {
+        pub fn set_increment<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
                 crate::model::document_transform::field_transform::TransformType::Increment(
-                    v.into()
-                )
+                    v.into(),
+                ),
             );
             self
         }
@@ -6571,11 +7064,12 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(mut self, v: T) -> Self {
+        pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::Maximum(
-                    v.into()
-                )
+                crate::model::document_transform::field_transform::TransformType::Maximum(v.into()),
             );
             self
         }
@@ -6585,11 +7079,12 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_minimum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(mut self, v: T) -> Self {
+        pub fn set_minimum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
-                crate::model::document_transform::field_transform::TransformType::Minimum(
-                    v.into()
-                )
+                crate::model::document_transform::field_transform::TransformType::Minimum(v.into()),
             );
             self
         }
@@ -6599,7 +7094,12 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_append_missing_elements<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(mut self, v: T) -> Self {
+        pub fn set_append_missing_elements<
+            T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
                 crate::model::document_transform::field_transform::TransformType::AppendMissingElements(
                     v.into()
@@ -6613,7 +7113,12 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
-        pub fn set_remove_all_from_array<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(mut self, v: T) -> Self {
+        pub fn set_remove_all_from_array<
+            T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.transform_type = std::option::Option::Some(
                 crate::model::document_transform::field_transform::TransformType::RemoveAllFromArray(
                     v.into()
@@ -6634,7 +7139,6 @@ pub mod document_transform {
         #[allow(unused_imports)]
         use super::*;
 
-
         /// A value that is calculated by the server.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct ServerValue(std::borrow::Cow<'static, str>);
@@ -6654,10 +7158,10 @@ pub mod document_transform {
         /// Useful constants to work with [ServerValue](ServerValue)
         pub mod server_value {
             use super::ServerValue;
-            
 
             /// Unspecified. This value must not be used.
-            pub const SERVER_VALUE_UNSPECIFIED: ServerValue = ServerValue::new("SERVER_VALUE_UNSPECIFIED");
+            pub const SERVER_VALUE_UNSPECIFIED: ServerValue =
+                ServerValue::new("SERVER_VALUE_UNSPECIFIED");
 
             /// The time at which the server processed the request, with millisecond
             /// precision. If used on multiple fields (same or different documents) in
@@ -6666,9 +7170,9 @@ pub mod document_transform {
         }
 
         impl std::convert::From<std::string::String> for ServerValue {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         impl std::default::Default for ServerValue {
@@ -6755,7 +7259,6 @@ pub mod document_transform {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct WriteResult {
-
     /// The last update time of the document after applying the write. Not set
     /// after a `delete`.
     ///
@@ -6779,7 +7282,10 @@ impl WriteResult {
     }
 
     /// Sets the value of [update_time][crate::model::WriteResult::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_time = v.into();
         self
     }
@@ -6788,7 +7294,7 @@ impl WriteResult {
     pub fn set_transform_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Value>
+        V: std::convert::Into<crate::model::Value>,
     {
         use std::iter::Iterator;
         self.transform_results = v.into_iter().map(|i| i.into()).collect();
@@ -6819,7 +7325,6 @@ impl wkt::message::Message for WriteResult {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DocumentChange {
-
     /// The new state of the [Document][google.firestore.v1.Document].
     ///
     /// If `mask` is set, contains only fields that were updated or added.
@@ -6843,7 +7348,10 @@ impl DocumentChange {
     }
 
     /// Sets the value of [document][crate::model::DocumentChange::document].
-    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(mut self, v: T) -> Self {
+    pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.document = v.into();
         self
     }
@@ -6852,7 +7360,7 @@ impl DocumentChange {
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -6863,7 +7371,7 @@ impl DocumentChange {
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -6894,7 +7402,6 @@ impl wkt::message::Message for DocumentChange {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DocumentDelete {
-
     /// The resource name of the [Document][google.firestore.v1.Document] that was
     /// deleted.
     ///
@@ -6925,7 +7432,10 @@ impl DocumentDelete {
     }
 
     /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
@@ -6934,7 +7444,7 @@ impl DocumentDelete {
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -6966,7 +7476,6 @@ impl wkt::message::Message for DocumentDelete {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DocumentRemove {
-
     /// The resource name of the [Document][google.firestore.v1.Document] that has
     /// gone out of view.
     ///
@@ -6997,7 +7506,10 @@ impl DocumentRemove {
     }
 
     /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
-    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_read_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.read_time = v.into();
         self
     }
@@ -7006,7 +7518,7 @@ impl DocumentRemove {
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>
+        V: std::convert::Into<i32>,
     {
         use std::iter::Iterator;
         self.removed_target_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7026,7 +7538,6 @@ impl wkt::message::Message for DocumentRemove {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ExistenceFilter {
-
     /// The target ID to which this filter applies.
     pub target_id: i32,
 
@@ -7079,7 +7590,12 @@ impl ExistenceFilter {
     }
 
     /// Sets the value of [unchanged_names][crate::model::ExistenceFilter::unchanged_names].
-    pub fn set_unchanged_names<T: std::convert::Into<std::option::Option<crate::model::BloomFilter>>>(mut self, v: T) -> Self {
+    pub fn set_unchanged_names<
+        T: std::convert::Into<std::option::Option<crate::model::BloomFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.unchanged_names = v.into();
         self
     }
