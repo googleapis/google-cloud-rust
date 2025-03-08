@@ -146,7 +146,7 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - run: cargo clippy --workspace -- --deny warnings
-      - run: cargo fmt --workspace
+      - run: cargo fmt
       - run: git diff --exit-code
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
