@@ -34,7 +34,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
         client_id: au.client_id,
         client_secret: au.client_secret,
         refresh_token: au.refresh_token,
-        endpoint: endpoint,
+        endpoint,
     };
 
     Ok(Credential {
