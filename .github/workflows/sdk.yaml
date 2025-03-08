@@ -43,8 +43,8 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - name: Test gax with features disabled
-        run: cargo build -p google-cloud-gax
-      - run: cargo test
+        run: cargo test --package google-cloud-gax
+      - run: cargo test --workspace
   coverage:
     runs-on: ubuntu-24.04
     strategy:
@@ -98,10 +98,10 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: cargo doc
+      - run: cargo doc --workspace
         env:
           RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc -p google-cloud-gax
+      - run: cargo doc --package google-cloud-gax
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: mdbook build guide
@@ -145,8 +145,8 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: cargo clippy -- --deny warnings
-      - run: cargo fmt
+      - run: cargo clippy --workspace -- --deny warnings
+      - run: cargo fmt --workspace
       - run: git diff --exit-code
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
