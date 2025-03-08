@@ -19,6 +19,24 @@ The code generator is implemented in [Go](https://go.dev). Follow the
 Whatever works for you. Several team members use Visual Studio Code, but Rust
 can be used with many IDEs.
 
+### Recommended VS Code Configuration
+
+The default configuration for VS Code is to `cargo check` all the code when you
+save a file. As the project is rather large (almost 200 crates, over 1 million
+lines of code), this can be rather slow. We recommend you override these
+defaults in your `settings.json` file:
+
+```json
+    "rust-analyzer.cargo.buildScripts.overrideCommand": [
+        "cargo",
+        "check",
+        "--quiet",
+        "--message-format=json",
+        "--keep-going"
+    ],
+    "rust-analyzer.check.workspace": false,
+```
+
 ## Compile the Code
 
 Just use cargo:
