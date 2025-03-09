@@ -199,7 +199,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 	// process we discover the external dependencies and trim the list of
 	// packages used by this API.
 	for _, e := range model.Enums {
-		annotateEnum(e, model.State, codec.modulePath, codec.packageMapping)
+		codec.annotateEnum(e, model.State)
 	}
 	for _, m := range model.Messages {
 		codec.annotateMessage(m, model.State, model.PackageName)
@@ -213,7 +213,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 			if !generateMethod(m) {
 				continue
 			}
-			annotateMethod(m, s, model.State, codec.modulePath, model.PackageName, codec.packageMapping, packageNamespace)
+			codec.annotateMethod(m, s, model.State, model.PackageName, packageNamespace)
 			if m := m.InputType; m != nil {
 				codec.annotateMessage(m, model.State, model.PackageName)
 			}
@@ -221,7 +221,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 				codec.annotateMessage(m, model.State, model.PackageName)
 			}
 		}
-		annotateService(s, model, codec.modulePath, codec.packageMapping)
+		codec.annotateService(s, model)
 	}
 
 	servicesSubset := language.FilterSlice(model.Services, func(s *api.Service) bool {
@@ -276,7 +276,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 	return ann
 }
 
-func annotateService(s *api.Service, model *api.API, modulePath string, packageMapping map[string]*packagez) {
+func (c *codec) annotateService(s *api.Service, model *api.API) {
 	// Some codecs skip some methods.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
@@ -292,7 +292,7 @@ func annotateService(s *api.Service, model *api.API, modulePath string, packageM
 		Name:       toPascal(s.Name),
 		ModuleName: toSnake(s.Name),
 		DocLines: formatDocComments(
-			s.Documentation, s.ID, model.State, modulePath, []string{s.ID, s.Package}, packageMapping),
+			s.Documentation, s.ID, model.State, c.modulePath, []string{s.ID, s.Package}, c.packageMapping),
 		Methods:     methods,
 		DefaultHost: s.DefaultHost,
 		HasLROs:     hasLROs,
@@ -337,13 +337,13 @@ func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
 // messages, and its nested enums.
 func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	for _, f := range m.Fields {
-		annotateField(f, m, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+		c.annotateField(f, m, state, sourceSpecificationPackageName)
 	}
 	for _, f := range m.OneOfs {
-		annotateOneOf(f, m, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+		c.annotateOneOf(f, m, state, sourceSpecificationPackageName)
 	}
 	for _, e := range m.Enums {
-		annotateEnum(e, state, c.modulePath, c.packageMapping)
+		c.annotateEnum(e, state)
 	}
 	for _, child := range m.Messages {
 		c.annotateMessage(child, state, sourceSpecificationPackageName)
@@ -375,7 +375,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	}
 }
 
-func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez, packageNamespace string) {
+func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
 	pathInfoAnnotation := &pathInfoAnnotation{
 		Method:        m.PathInfo.Verb,
 		MethodToLower: strings.ToLower(m.PathInfo.Verb),
@@ -390,7 +390,7 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePa
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
-		DocLines:            formatDocComments(m.Documentation, m.ID, state, modulePath, s.Scopes(), packageMapping),
+		DocLines:            formatDocComments(m.Documentation, m.ID, state, c.modulePath, s.Scopes(), c.packageMapping),
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
@@ -399,8 +399,8 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePa
 		ServiceNameToSnake:  toSnake(s.Name),
 	}
 	if m.OperationInfo != nil {
-		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 		m.OperationInfo.Codec = &operationInfo{
 			MetadataType:       metadataType,
 			ResponseType:       responseType,
@@ -412,9 +412,9 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePa
 	m.Codec = annotation
 }
 
-func annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
+func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	partition := partitionFields(oneof.Fields, state)
-	scope := messageScopeName(message, "", modulePath, sourceSpecificationPackageName, packageMapping)
+	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := toPascal(oneof.Name)
 	fqEnumName := fmt.Sprintf("%s::%s", scope, enumName)
 	oneof.Codec = &oneOfAnnotation{
@@ -423,23 +423,23 @@ func annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, 
 		EnumName:       enumName,
 		FQEnumName:     fqEnumName,
 		FieldType:      fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
-		DocLines:       formatDocComments(oneof.Documentation, oneof.ID, state, modulePath, message.Scopes(), packageMapping),
+		DocLines:       formatDocComments(oneof.Documentation, oneof.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
 		SingularFields: partition.singularFields,
 		RepeatedFields: partition.repeatedFields,
 		MapFields:      partition.mapFields,
 	}
 }
 
-func annotateField(field *api.Field, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
+func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
 		SetterName:         toSnakeNoMangling(field.Name),
-		FQMessageName:      fullyQualifiedMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping),
+		FQMessageName:      fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		BranchName:         toPascal(field.Name),
-		DocLines:           formatDocComments(field.Documentation, field.ID, state, modulePath, message.Scopes(), packageMapping),
+		DocLines:           formatDocComments(field.Documentation, field.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
 		Attributes:         fieldAttributes(field, state),
-		FieldType:          fieldType(field, state, false, modulePath, sourceSpecificationPackageName, packageMapping),
-		PrimitiveFieldType: fieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
+		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
+		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
 	}
 	field.Codec = ann
@@ -450,13 +450,13 @@ func annotateField(field *api.Field, message *api.Message, state *api.APIState, 
 	if !ok || !mapMessage.IsMap {
 		return
 	}
-	ann.KeyType = mapType(mapMessage.Fields[0], state, modulePath, sourceSpecificationPackageName, packageMapping)
-	ann.ValueType = mapType(mapMessage.Fields[1], state, modulePath, sourceSpecificationPackageName, packageMapping)
+	ann.KeyType = mapType(mapMessage.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
-func annotateEnum(e *api.Enum, state *api.APIState, modulePath string, packageMapping map[string]*packagez) {
+func (c *codec) annotateEnum(e *api.Enum, state *api.APIState) {
 	for _, ev := range e.Values {
-		annotateEnumValue(ev, e, state, modulePath, packageMapping)
+		c.annotateEnumValue(ev, e, state)
 	}
 	defaultValueName := ""
 	for _, ev := range e.Values {
@@ -468,14 +468,14 @@ func annotateEnum(e *api.Enum, state *api.APIState, modulePath string, packageMa
 	e.Codec = &enumAnnotation{
 		Name:             enumName(e),
 		ModuleName:       toSnake(enumName(e)),
-		DocLines:         formatDocComments(e.Documentation, e.ID, state, modulePath, e.Scopes(), packageMapping),
+		DocLines:         formatDocComments(e.Documentation, e.ID, state, c.modulePath, e.Scopes(), c.packageMapping),
 		DefaultValueName: defaultValueName,
 	}
 }
 
-func annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath string, packageMapping map[string]*packagez) {
+func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: formatDocComments(ev.Documentation, ev.ID, state, modulePath, ev.Scopes(), packageMapping),
+		DocLines: formatDocComments(ev.Documentation, ev.ID, state, c.modulePath, ev.Scopes(), c.packageMapping),
 		Name:     enumValueName(ev),
 		EnumType: enumName(e),
 	}
