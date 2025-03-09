@@ -28,6 +28,7 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 	"github.com/yuin/goldmark"
@@ -56,8 +57,8 @@ var commentUrlRegex = regexp.MustCompile(
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
 
-func Generate(model *api.API, outdir string, options map[string]string) error {
-	codec, err := newCodec(options)
+func Generate(model *api.API, outdir string, cfg *config.Config) error {
+	codec, err := newCodec(cfg.Codec)
 	if err != nil {
 		return err
 	}
