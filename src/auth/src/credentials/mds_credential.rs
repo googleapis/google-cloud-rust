@@ -19,9 +19,7 @@ use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use derive_builder::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
-use reqwest::header::HeaderMap;
 use reqwest::Client;
-use std::collections::HashMap;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -31,26 +29,20 @@ const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1"
 
 pub(crate) fn new() -> Credential {
     let token_provider = MDSAccessTokenProvider {
+        service_account_email: "default".to_string(),
+        scopes: None,
         endpoint: METADATA_ROOT.to_string(),
     };
     Credential {
-        inner: Arc::new(
-            MDSCredentialBuilder::<MDSAccessTokenProvider>::default()
-                .token_provider(token_provider)
-                .build()
-                .unwrap(),
-        ),
+        inner: Arc::new(MDSCredential { token_provider }),
     }
 }
 
-#[derive(Debug, Builder, Clone, Default)]
-#[builder(setter(into), default)]
+#[derive(Debug)]
 struct MDSCredential<T>
 where
     T: TokenProvider,
 {
-    quota_project_id: Option<String>,
-    universe_domain: Option<String>,
     token_provider: T,
 }
 
@@ -90,42 +82,25 @@ struct MDSTokenResponse {
 #[derive(Debug, Clone, Default, Builder)]
 #[builder(setter(into), default)]
 struct MDSAccessTokenProvider {
-    #[builder(default = "String::new()")]
     service_account_email: String,
     scopes: Option<Vec<String>>,
-    default_scopes: Option<Vec<String>>,
     endpoint: String,
 }
 
 impl MDSAccessTokenProvider {
-    #[allow(dead_code)]
-    async fn get_service_account_info(
-        request: &Client,
-        metadata_service_endpoint: String,
-        email: Option<String>,
-    ) -> Result<ServiceAccountInfo> {
-        let email: String = email.unwrap_or("default".to_string());
-        let path: String = format!(
-            "{}/instance/service-accounts/{}/",
-            metadata_service_endpoint, email
-        );
-        let params = HashMap::from([("recursive", "true")]);
+    async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
+        let request = client
+            .get(format!(
+                "{}/instance/service-accounts/{}/",
+                self.endpoint, self.service_account_email
+            ))
+            .query(&[("recursive", "true")])
+            .header(
+                METADATA_FLAVOR,
+                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+            );
 
-        let mut headers = HeaderMap::new();
-        headers.insert(
-            METADATA_FLAVOR,
-            HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-        );
-
-        let url = reqwest::Url::parse_with_params(path.as_str(), params.iter())
-            .map_err(CredentialError::non_retryable)?;
-
-        let response = request
-            .get(url.clone())
-            .headers(headers)
-            .send()
-            .await
-            .map_err(CredentialError::non_retryable)?;
+        let response = request.send().await.map_err(CredentialError::retryable)?;
 
         response
             .json::<ServiceAccountInfo>()
@@ -138,11 +113,11 @@ impl MDSAccessTokenProvider {
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
-        let scopes = if self.scopes.is_some() {
-            self.scopes.clone()
-        } else {
-            self.default_scopes.clone()
-        };
+        let mut scopes = self.scopes.clone();
+        if scopes.is_none() {
+            let service_account_info = self.get_service_account_info(&client).await?;
+            scopes = service_account_info.scopes;
+        }
         let scopes = scopes.unwrap_or_default().join(",");
 
         let request = client
@@ -190,8 +165,10 @@ mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
     use axum::response::IntoResponse;
+    use reqwest::header::HeaderMap;
     use reqwest::StatusCode;
     use serde_json::Value;
+    use std::collections::HashMap;
     use std::error::Error;
     use tokio::task::JoinHandle;
 
@@ -297,20 +274,27 @@ mod test {
         (response_code, response_headers, response_body.to_string()).into_response()
     }
 
-    // Starts a server running locally. Returns an (endpoint, server) pair.
+    // Starts a server running locally that responds on multiple paths.
+    // Returns an (endpoint, server) pair.
     async fn start(
-        response_code: StatusCode,
-        response_body: Value,
-        path: String,
+        path_handlers: HashMap<String, (StatusCode, Value)>,
     ) -> (String, JoinHandle<()>) {
-        let code = response_code.clone();
-        let body = response_body.clone();
-        let header_map = HeaderMap::new();
-        let handler = move || async move { handle_token_factory(code, header_map, body) };
-        let app = axum::Router::new().route(&path, axum::routing::get(handler));
+        let mut app = axum::Router::new();
+
+        for (path, (code, body)) in path_handlers {
+            let header_map = HeaderMap::new();
+            let handler = move || {
+                let code = code.clone();
+                let body = body.clone();
+                let header_map = header_map.clone();
+                async move { handle_token_factory(code, header_map, body) }
+            };
+            app = app.route(&path, axum::routing::get(handler));
+        }
+
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
-        let server = tokio::spawn(async {
+        let server = tokio::spawn(async move {
             axum::serve(listener, app).await.unwrap();
         });
 
@@ -327,11 +311,20 @@ mod test {
             aliases: None,
         };
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-        let (endpoint, _server) = start(StatusCode::OK, service_account_info_json, path).await;
+        let (endpoint, _server) = start(HashMap::from([(
+            path,
+            (StatusCode::OK, service_account_info_json),
+        )]))
+        .await;
+
         let request = Client::new();
-        let result =
-            MDSAccessTokenProvider::get_service_account_info(&request, endpoint, Option::None)
-                .await;
+        let token_provider = MDSAccessTokenProvider {
+            service_account_email: service_account.to_string(),
+            scopes: None,
+            endpoint,
+        };
+        let result = token_provider.get_service_account_info(&request).await;
+
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), service_account_info);
     }
@@ -346,14 +339,18 @@ mod test {
             aliases: None,
         };
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-        let (endpoint, _server) = start(StatusCode::OK, service_account_info_json, path).await;
-        let request = Client::new();
-        let result = MDSAccessTokenProvider::get_service_account_info(
-            &request,
-            endpoint,
-            Some(service_account.to_string()),
-        )
+        let (endpoint, _server) = start(HashMap::from([(
+            path,
+            (StatusCode::OK, service_account_info_json),
+        )]))
         .await;
+        let request = Client::new();
+        let token_provider = MDSAccessTokenProvider {
+            service_account_email: service_account.to_string(),
+            scopes: None,
+            endpoint,
+        };
+        let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), service_account_info);
     }
@@ -362,19 +359,22 @@ mod test {
     async fn get_service_account_info_server_error() {
         let service_account = "test@test";
         let path = format!("/instance/service-accounts/{}/", service_account);
-        let (endpoint, _server) = start(
-            StatusCode::SERVICE_UNAVAILABLE,
-            serde_json::to_value("try again").unwrap(),
+        let (endpoint, _server) = start(HashMap::from([(
             path,
-        )
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                serde_json::to_value("try again").unwrap(),
+            ),
+        )]))
         .await;
+
         let request = Client::new();
-        let result = MDSAccessTokenProvider::get_service_account_info(
-            &request,
+        let token_provider = MDSAccessTokenProvider {
+            service_account_email: service_account.to_string(),
+            scopes: None,
             endpoint,
-            Some(service_account.to_string()),
-        )
-        .await;
+        };
+        let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_err());
     }
 
@@ -387,10 +387,19 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(StatusCode::OK, response_body, path.to_string()).await;
-        println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (StatusCode::OK, response_body),
+        )]))
+        .await;
+        println!("endpoint = {endpoint}");
+        let tp = MDSAccessTokenProvider {
+            service_account_email: "default".to_string(),
+            scopes: Some(vec!["scope1".to_string()]),
+            endpoint,
+        };
+
         let mdsc = MDSCredential { token_provider: tp };
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
@@ -412,10 +421,18 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(StatusCode::OK, response_body, path.to_string()).await;
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (StatusCode::OK, response_body),
+        )]))
+        .await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let tp = MDSAccessTokenProvider {
+            service_account_email: "default".to_string(),
+            scopes: Some(vec!["scope1".to_string()]),
+            endpoint,
+        };
         let mdsc = MDSCredential { token_provider: tp };
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -428,14 +445,20 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(
-            StatusCode::SERVICE_UNAVAILABLE,
-            serde_json::to_value("try again")?,
+        let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
-        )
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                serde_json::to_value("try again")?,
+            ),
+        )]))
         .await;
 
-        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let tp = MDSAccessTokenProvider {
+            service_account_email: "default".to_string(),
+            scopes: Some(vec!["scope1".to_string()]),
+            endpoint,
+        };
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
@@ -447,14 +470,20 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(
-            StatusCode::UNAUTHORIZED,
-            serde_json::to_value("epic fail".to_string())?,
+        let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
-        )
+            (
+                StatusCode::UNAUTHORIZED,
+                serde_json::to_value("epic fail".to_string())?,
+            ),
+        )]))
         .await;
 
-        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let tp = MDSAccessTokenProvider {
+            service_account_email: "default".to_string(),
+            scopes: Some(vec!["scope1".to_string()]),
+            endpoint,
+        };
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -466,14 +495,20 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(
-            StatusCode::OK,
-            serde_json::to_value("bad json".to_string())?,
+        let (endpoint, _server) = start(HashMap::from([(
             path.to_string(),
-        )
+            (
+                StatusCode::OK,
+                serde_json::to_value("bad json".to_string())?,
+            ),
+        )]))
         .await;
 
-        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let tp = MDSAccessTokenProvider {
+            service_account_email: "default".to_string(),
+            scopes: Some(vec!["scope1".to_string()]),
+            endpoint,
+        };
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
