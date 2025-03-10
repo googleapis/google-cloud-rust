@@ -1,0 +1,141 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'dart:convert';
+
+import 'package:google_cloud_rpc/rpc.dart';
+import 'package:http/http.dart';
+
+const _clientName = 'dart-test-client';
+
+abstract class Jsonable {
+  Object toJson();
+}
+
+abstract class CloudMessage implements Jsonable {}
+
+abstract class CloudEnum implements Jsonable {
+  final String value;
+
+  const CloudEnum(this.value);
+
+  @override
+  int get hashCode => value.hashCode;
+
+  @override
+  Object toJson() => value;
+}
+
+abstract class CloudService {
+  final Client client;
+
+  CloudService({required this.client});
+
+  Future<Map<String, dynamic>> $get(Uri url) async {
+    final response = await client.get(
+      url,
+      headers: {
+        'x-goog-api-client': _clientName,
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Future<Map<String, dynamic>> $post(Uri url, {Jsonable? body}) async {
+    final response = await client.post(
+      url,
+      body: body == null ? null : jsonEncode(body.toJson()),
+      headers: {
+        'x-goog-api-client': _clientName,
+        if (body != null) 'content-type': 'application/json',
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Future<Map<String, dynamic>> $patch(Uri url, {Jsonable? body}) async {
+    final response = await client.patch(
+      url,
+      body: body == null ? null : jsonEncode(body.toJson()),
+      headers: {
+        'x-goog-api-client': _clientName,
+        if (body != null) 'content-type': 'application/json',
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Future<Map<String, dynamic>> $delete(Uri url) async {
+    final response = await client.delete(
+      url,
+      headers: {
+        'x-goog-api-client': _clientName,
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Map<String, dynamic> _processResponse(Response response) {
+    final statusOK = response.statusCode >= 200 && response.statusCode < 300;
+    if (statusOK) {
+      final body = response.body;
+      return body.isEmpty ? {} : jsonDecode(body);
+    }
+
+    Status status;
+
+    try {
+      final json = jsonDecode(response.body);
+      status = Status.fromJson(json['error']);
+    } catch (_) {
+      // If we're not able to parse the Status error, return a general http
+      // exception.
+      throw ClientException('${response.statusCode}: ${response.reasonPhrase}');
+    }
+
+    throw status;
+  }
+}
+
+T? $toMessage<T>(dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return json == null ? null : decoder(json);
+}
+
+T? $toCustom<T>(dynamic json, T Function(String) decoder) {
+  return json == null ? null : decoder(json);
+}
+
+List<T>? $toMessageList<T>(
+    dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return (json as List?)?.map((item) => decoder(item)).toList().cast();
+}
+
+List<T>? $toCustomList<T>(dynamic json, T Function(String) decoder) {
+  return (json as List?)?.map((item) => decoder(item)).toList().cast();
+}
+
+Map<String, T>? $toMap<T>(
+    dynamic json, T Function(Map<String, dynamic>) decoder) {
+  return (json as Map?)
+      ?.map((key, value) => MapEntry(key, decoder(value)))
+      .cast();
+}
+
+List? $fromList(List<Jsonable>? items) {
+  return items?.map((item) => item.toJson()).toList();
+}
+
+Map? $fromMap(Map<String, Jsonable>? items) {
+  return items?.map((key, value) => MapEntry(key, value.toJson()));
+}
