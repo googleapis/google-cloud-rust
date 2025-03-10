@@ -51,7 +51,7 @@ pub struct Token {
 }
 
 #[async_trait::async_trait]
-pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync + Default {
+pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
     async fn get_token(&self) -> Result<Token>;
 }
 

@@ -44,7 +44,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
-#[derive(serde::Deserialize, Builder, Default)]
+#[derive(serde::Deserialize, Builder)]
 #[builder(setter(into))]
 struct ServiceAccountInfo {
     client_email: String,
@@ -66,7 +66,7 @@ impl std::fmt::Debug for ServiceAccountInfo {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 struct ServiceAccountCredential<T>
 where
     T: TokenProvider,
@@ -74,7 +74,7 @@ where
     token_provider: T,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 struct ServiceAccountTokenProvider {
     service_account_info: ServiceAccountInfo,
 }

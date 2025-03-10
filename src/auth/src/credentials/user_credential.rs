@@ -41,7 +41,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     })
 }
 
-#[derive(PartialEq, Default)]
+#[derive(PartialEq)]
 struct UserTokenProvider {
     client_id: String,
     client_secret: String,

@@ -28,11 +28,10 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
 pub(crate) fn new() -> Credential {
-    let token_provider = MDSAccessTokenProvider {
-        service_account_email: "default".to_string(),
-        scopes: None,
-        endpoint: METADATA_ROOT.to_string(),
-    };
+    let token_provider = MDSAccessTokenProviderBuilder::default()
+        .endpoint(METADATA_ROOT)
+        .build()
+        .unwrap();
     Credential {
         inner: Arc::new(MDSCredential { token_provider }),
     }
@@ -82,6 +81,7 @@ struct MDSTokenResponse {
 #[derive(Debug, Clone, Default, Builder)]
 #[builder(setter(into), default)]
 struct MDSAccessTokenProvider {
+    #[builder(default = "default".to_string())]
     service_account_email: String,
     scopes: Option<Vec<String>>,
     endpoint: String,
