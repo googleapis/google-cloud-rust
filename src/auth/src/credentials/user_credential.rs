@@ -564,6 +564,38 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn creds_from_json_custom_token_uri() -> TestResult {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_string(&response).unwrap();
+        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
+        println!("endpoint = {endpoint}");
+
+        let json = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project",
+            "token_uri": endpoint,
+        });
+
+        let cred = creds_from(json).unwrap();
+
+        let token = cred.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_partial() -> TestResult {
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
