@@ -13,10 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
 fn main() {
     #[cfg(feature = "_generate-protos")]
@@ -24,9 +24,9 @@ fn main() {
         let root = std::env::var("GOOGLEAPIS_ROOT")
             .expect("GOOGLEAPIS_ROOT must be set");
         let files = &[
-            {{#Files}}
+            {{#Codec.Files}}
             "{{{.}}}",
-            {{/Files}}
+            {{/Codec.Files}}
         ];
         let includes = &[
             &root
@@ -39,7 +39,12 @@ fn main() {
         config.out_dir(".");
         tonic_build::configure()
             .bytes(&["."])
-            .disable_comments(".")
+            {{#Services}}
+            .disable_comments("{{Codec.ID}}")
+            {{#Methods}}
+            .disable_comments("{{Codec.ID}}")
+            {{/Methods}}
+            {{/Services}}
             .build_server(false)
             .out_dir(".")
             .compile_protos_with_config(config, files, includes)
