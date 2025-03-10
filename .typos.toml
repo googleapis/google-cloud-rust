@@ -247,6 +247,8 @@ extend-ignore-re = [
   # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
   "GOST R 34",
   "GOST3411",
+  # src/generated/cloud/firestore has a typo, needs to be fixed upstream.
+  "`TargetChage\\.",
   # src/generated/cloud/gkemulticloud/v1 uses AKS as an acronym.
   "\\WAKS\\W",
   "\\Waks\\W",
