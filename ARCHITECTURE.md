@@ -16,7 +16,7 @@ Only the public API is stable, the rest is subject to change without notice.
 The goal of the libraries is to provide idiomatic Rust libraries to access
 services in [Google Cloud](https://cloud.google.com). All services are in scope.
 As of 2025-03 we have over 100 libraries, covering most Google Cloud services.
-The APIs are not stable
+The APIs are not stable, they are **not** ready for use in production code.
 
 What do we mean by idiomatic? We mean that CRust developers will find the APIs
 familiar, or "natural", that these APIs will fit well with the rest of the Rust
