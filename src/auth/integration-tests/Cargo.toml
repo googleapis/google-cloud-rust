@@ -31,5 +31,5 @@ secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", packag
 tempfile      = "3"
 
 [dev-dependencies]
-serial_test   = "3"
-tokio         = { version = "1", features = ["full", "macros"] }
+serial_test = "3"
+tokio       = { version = "1", features = ["full", "macros"] }
