@@ -19,6 +19,6 @@ specification-source = 'google/protobuf'
 include-list = "api.proto,source_context.proto,type.proto,descriptor.proto"
 
 [codec]
-copyright-year  = '2025'
-generate-module = 'true'
-module-path     = 'crate'
+copyright-year    = '2025'
+template-override = 'templates/mod'
+module-path       = 'crate'

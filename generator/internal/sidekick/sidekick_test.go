@@ -186,8 +186,8 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			Language:      "rust",
 			Output:        path.Join(testdataDir, "rust/protobuf/golden/module", config.Name),
 			Codec: map[string]string{
-				"copyright-year":  "2024",
-				"generate-module": "true",
+				"copyright-year":    "2024",
+				"template-override": "templates/mod",
 			},
 		}
 		for k, v := range config.ExtraOptions {
@@ -233,8 +233,8 @@ func TestRustBootstrapWkt(t *testing.T) {
 			Language: "rust",
 			Output:   path.Join(testdataDir, "rust/protobuf/golden/wkt/generated", config.Name),
 			Codec: map[string]string{
-				"copyright-year":  "2025",
-				"generate-module": "true",
+				"copyright-year":    "2025",
+				"template-override": "templates/mod",
 			},
 		}
 		for k, v := range config.SourceOptions {
