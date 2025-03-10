@@ -23,5 +23,8 @@ environment:
 
 resolution: workspace
 
+dependencies:
+  google_cloud_common: any
+
 dev_dependencies:
   test: any

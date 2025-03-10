@@ -89,13 +89,13 @@ func TestAnnotateMethod(t *testing.T) {
 	}
 
 	got = codec.RequestType
-	want = "ListSecretVersionRequest" // todo:
+	want = "ListSecretVersionRequest"
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
 
 	got = codec.ResponseType
-	want = "ListSecretVersionsResponse" // todo:
+	want = "ListSecretVersionsResponse"
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}

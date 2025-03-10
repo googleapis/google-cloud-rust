@@ -29,7 +29,8 @@ protobuf-subdir         = "src"
 version = "0.1.0"
 
 # Default package dependency versions.
-'package:http' = '^1.3.0'
+'package:google_cloud_common' = '^0.1.0'
+'package:http'                = '^1.3.0'
 
 # A mapping from protobuf packages to Dart imports.
 'proto:google.cloud.location' = 'package:google_cloud_location/location.dart'

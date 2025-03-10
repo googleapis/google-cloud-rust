@@ -19,6 +19,7 @@
 /// Defines common types for Google APIs.
 library;
 
+import 'package:google_cloud_common/common.dart';
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
@@ -51,7 +52,7 @@ library;
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-class Expr {
+class Expr extends CloudMessage {
 
   /// Textual representation of an expression in Common Expression Language
   /// syntax.

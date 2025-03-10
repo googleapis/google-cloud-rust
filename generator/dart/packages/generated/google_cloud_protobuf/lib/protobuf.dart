@@ -19,6 +19,7 @@
 /// Core Protobuf types used by most services.
 library;
 
+import 'package:google_cloud_common/common.dart';
 
 part 'src/protobuf.p.dart';
 
@@ -80,7 +81,7 @@ part 'src/protobuf.p.dart';
 /// encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
-class Duration {
+class Duration extends CloudMessage {
 
   /// Signed seconds of the span of time. Must be from -315,576,000,000
   /// to +315,576,000,000 inclusive. Note: these bounds are computed from:
@@ -302,7 +303,7 @@ class Duration {
 /// The implementation of any API method which has a FieldMask type field in the
 /// request should verify the included field paths, and return an
 /// `INVALID_ARGUMENT` error if any path is unmappable.
-class FieldMask {
+class FieldMask extends CloudMessage {
 
   /// The set of field mask paths.
   final List<String>? paths;

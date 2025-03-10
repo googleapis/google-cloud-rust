@@ -22,6 +22,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:google_cloud_common/common.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart';
 
@@ -32,8 +33,10 @@ import 'package:http/http.dart';
 ///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-class SecretManagerService {
-  static const String defaultHost = 'https://secretmanager.googleapis.com';
+class SecretManagerService extends CloudService {
+  static const String host = 'secretmanager.googleapis.com';
+
+  SecretManagerService({required super.client});
 
   /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
   Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) {
@@ -166,7 +169,7 @@ class SecretManagerService {
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is made up of zero or more
 /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] that represent
 /// the secret data.
-class Secret {
+class Secret extends CloudMessage {
 
   /// Output only. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] in the format
@@ -282,7 +285,7 @@ class Secret {
 }
 
 /// A secret version resource in the Secret Manager API.
-class SecretVersion {
+class SecretVersion extends CloudMessage {
 
   /// Output only. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -354,33 +357,40 @@ class SecretVersion {
 /// The state of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion], indicating if
 /// it can be accessed.
-class SecretVersion$State {
+class SecretVersion$State extends CloudEnum {
   /// Not specified. This value is unused and invalid.
-  static const SecretVersion$State stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
+  static const stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
   /// accessed.
-  static const SecretVersion$State enabled = SecretVersion$State('ENABLED');
+  static const enabled = SecretVersion$State('ENABLED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
   /// be accessed, but the secret data is still available and can be placed
   /// back into the
   /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
   /// state.
-  static const SecretVersion$State disabled = SecretVersion$State('DISABLED');
+  static const disabled = SecretVersion$State('DISABLED');
 
   /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
   /// destroyed and the secret data is no longer stored. A version may not
   /// leave this state once entered.
-  static const SecretVersion$State destroyed = SecretVersion$State('DESTROYED');
+  static const destroyed = SecretVersion$State('DESTROYED');
 
-  final String value;
+  const SecretVersion$State(super.value);
 
-  const SecretVersion$State(this.value);
+  factory SecretVersion$State.fromJson(String json) => SecretVersion$State(json);
+
+  @override
+  bool operator ==(Object other) =>
+      other is SecretVersion$State && value == other.value;
+
+  @override
+  String toString() => 'State.$value';
 }
 
 /// A policy that defines the replication and encryption configuration of data.
-class Replication {
+class Replication extends CloudMessage {
 
   /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
   /// replicated without any restrictions.
@@ -399,7 +409,7 @@ class Replication {
 /// A replication policy that replicates the
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
 /// restrictions.
-class Replication$Automatic {
+class Replication$Automatic extends CloudMessage {
 
   /// Optional. The customer-managed encryption configuration of the
   /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
@@ -420,7 +430,7 @@ class Replication$Automatic {
 /// A replication policy that replicates the
 /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
 /// specified in [Secret.replication.user_managed.replicas][]
-class Replication$UserManaged {
+class Replication$UserManaged extends CloudMessage {
 
   /// Required. The list of Replicas for this
   /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -435,7 +445,7 @@ class Replication$UserManaged {
 
 /// Represents a Replica for this
 /// [Secret][google.cloud.secretmanager.v1.Secret].
-class Replication$UserManaged$Replica {
+class Replication$UserManaged$Replica extends CloudMessage {
 
   /// The canonical IDs of the location to replicate data.
   /// For example: `"us-east1"`.
@@ -460,7 +470,7 @@ class Replication$UserManaged$Replica {
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
-class CustomerManagedEncryption {
+class CustomerManagedEncryption extends CloudMessage {
 
   /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
   /// secret payloads.
@@ -484,7 +494,7 @@ class CustomerManagedEncryption {
 
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-class ReplicationStatus {
+class ReplicationStatus extends CloudMessage {
 
   /// Describes the replication status of a
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
@@ -516,7 +526,7 @@ class ReplicationStatus {
 ///
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has an automatic replication policy.
-class ReplicationStatus$AutomaticStatus {
+class ReplicationStatus$AutomaticStatus extends CloudMessage {
 
   /// Output only. The customer-managed encryption status of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
@@ -534,7 +544,7 @@ class ReplicationStatus$AutomaticStatus {
 ///
 /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
 /// has a user-managed replication policy.
-class ReplicationStatus$UserManagedStatus {
+class ReplicationStatus$UserManagedStatus extends CloudMessage {
 
   /// Output only. The list of replica statuses for the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -547,7 +557,7 @@ class ReplicationStatus$UserManagedStatus {
 
 /// Describes the status of a user-managed replica for the
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-class ReplicationStatus$UserManagedStatus$ReplicaStatus {
+class ReplicationStatus$UserManagedStatus$ReplicaStatus extends CloudMessage {
 
   /// Output only. The canonical ID of the replica location.
   /// For example: `"us-east1"`.
@@ -565,7 +575,7 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus {
 }
 
 /// Describes the status of customer-managed encryption.
-class CustomerManagedEncryptionStatus {
+class CustomerManagedEncryptionStatus extends CloudMessage {
 
   /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
   /// encrypt the secret payload, in the following format:
@@ -579,7 +589,7 @@ class CustomerManagedEncryptionStatus {
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
-class Topic {
+class Topic extends CloudMessage {
 
   /// Required. The resource name of the Pub/Sub topic that will be published to,
   /// in the following format: `projects/*/topics/*`. For publication to succeed,
@@ -598,7 +608,7 @@ class Topic {
 /// Manager will send a Pub/Sub notification to the topics configured on the
 /// Secret. [Secret.topics][google.cloud.secretmanager.v1.Secret.topics] must be
 /// set to configure rotation.
-class Rotation {
+class Rotation extends CloudMessage {
 
   /// Optional. Timestamp in UTC at which the
   /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
@@ -633,7 +643,7 @@ class Rotation {
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-class SecretPayload {
+class SecretPayload extends CloudMessage {
 
   /// The secret data. Must be no larger than 64KiB.
   final Uint8List? data;
@@ -664,7 +674,7 @@ class SecretPayload {
 
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
-class ListSecretsRequest {
+class ListSecretsRequest extends CloudMessage {
 
   /// Required. The resource name of the project associated with the
   /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
@@ -697,7 +707,7 @@ class ListSecretsRequest {
 
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
-class ListSecretsResponse {
+class ListSecretsResponse extends CloudMessage {
 
   /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
   /// reverse by create_time (newest first).
@@ -723,7 +733,7 @@ class ListSecretsResponse {
 
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
-class CreateSecretRequest {
+class CreateSecretRequest extends CloudMessage {
 
   /// Required. The resource name of the project to associate with the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
@@ -750,7 +760,7 @@ class CreateSecretRequest {
 
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
-class AddSecretVersionRequest {
+class AddSecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
@@ -770,7 +780,7 @@ class AddSecretVersionRequest {
 
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
-class GetSecretRequest {
+class GetSecretRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
@@ -784,7 +794,7 @@ class GetSecretRequest {
 
 /// Request message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
-class ListSecretVersionsRequest {
+class ListSecretVersionsRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
@@ -818,7 +828,7 @@ class ListSecretVersionsRequest {
 
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
-class ListSecretVersionsResponse {
+class ListSecretVersionsResponse extends CloudMessage {
 
   /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
   /// sorted in reverse by create_time (newest first).
@@ -845,7 +855,7 @@ class ListSecretVersionsResponse {
 
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
-class GetSecretVersionRequest {
+class GetSecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -865,7 +875,7 @@ class GetSecretVersionRequest {
 
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
-class UpdateSecretRequest {
+class UpdateSecretRequest extends CloudMessage {
 
   /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
   /// values.
@@ -882,7 +892,7 @@ class UpdateSecretRequest {
 
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
-class AccessSecretVersionRequest {
+class AccessSecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -902,7 +912,7 @@ class AccessSecretVersionRequest {
 
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
-class AccessSecretVersionResponse {
+class AccessSecretVersionResponse extends CloudMessage {
 
   /// The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -921,7 +931,7 @@ class AccessSecretVersionResponse {
 
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
-class DeleteSecretRequest {
+class DeleteSecretRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
@@ -941,7 +951,7 @@ class DeleteSecretRequest {
 
 /// Request message for
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
-class DisableSecretVersionRequest {
+class DisableSecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
@@ -963,7 +973,7 @@ class DisableSecretVersionRequest {
 
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
-class EnableSecretVersionRequest {
+class EnableSecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
@@ -985,7 +995,7 @@ class EnableSecretVersionRequest {
 
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
-class DestroySecretVersionRequest {
+class DestroySecretVersionRequest extends CloudMessage {
 
   /// Required. The resource name of the
   /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
