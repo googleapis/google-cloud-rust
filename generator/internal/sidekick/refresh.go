@@ -96,13 +96,13 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 
 	switch config.General.Language {
 	case "rust":
-		return rust.Generate(model, output, config.Codec)
+		return rust.Generate(model, output, config)
 	case "rust+prost":
 		return rust_prost.Generate(model, output, config)
 	case "go":
-		return golang.Generate(model, output, config.Codec)
+		return golang.Generate(model, output, config)
 	case "dart":
-		return dart.Generate(model, output, config.Codec)
+		return dart.Generate(model, output, config)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}
