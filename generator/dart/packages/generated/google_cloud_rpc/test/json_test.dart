@@ -48,7 +48,7 @@ void main() {
     expect(actual, expected);
   });
 
-  // fields and primative maps
+  // fields and primitive maps
   test('ErrorInfo', () {
     var expected = ErrorInfo(
       reason: 'LOREM_IPSUM',
@@ -84,7 +84,7 @@ void main() {
     expect(retry.nanos, 1000);
   });
 
-  // primative lists
+  // primitive lists
   test('DebugInfo', () {
     final expected = DebugInfo(
         stackEntries: ['one', 'two', 'three'], detail: 'Lorem ipsum.');

@@ -419,7 +419,7 @@ func createFromJsonLines(message *api.Message, state *api.APIState) []string {
 			//   name: $toMap(json['name'], Status.fromJson),
 			lines = append(lines, fmt.Sprintf("%s: $toMap(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
 		} else if isMap {
-			// primative maps
+			// primitive maps
 			//   name: (json['name'] as Map).cast(),
 			//   name: (json['name'] as Map?)?.cast(),
 			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as Map%s)%s.cast(),", name, name, opt, opt))
@@ -434,7 +434,7 @@ func createFromJsonLines(message *api.Message, state *api.APIState) []string {
 			//   name: $toMessageList(json['name'], Status.fromJson),
 			lines = append(lines, fmt.Sprintf("%s: $toMessageList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
 		} else if isList {
-			// primative lists
+			// primitive lists
 			//   name: (json['name'] as List).cast(),
 			//   name: (json['name'] as List?)?.cast(),
 			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as List%s)%s.cast(),", name, name, opt, opt))
@@ -457,7 +457,7 @@ func createFromJsonLines(message *api.Message, state *api.APIState) []string {
 				lines = append(lines, fmt.Sprintf("%s: $toMessage(json['%s'], %s.fromJson),", name, name, typeName))
 			}
 		} else {
-			// primatives
+			// primitive
 			// name: json['name'],
 			lines = append(lines, fmt.Sprintf("%s: json['%s'],", name, name))
 		}
@@ -511,7 +511,7 @@ func createToJsonLines(message *api.Message, state *api.APIState) []string {
 				lines = append(lines, fmt.Sprintf("if (%s != null) '%s': %s!.toJson(),", name, name, name))
 			}
 		} else {
-			// primative, primative lists, and primative maps
+			// primitive, primitive lists, and primitive maps
 			//   'name': name
 			//   if (name != null) 'name': name,
 			lines = append(lines, fmt.Sprintf("%s'%s': %s,", prefix, name, name))
