@@ -20,6 +20,7 @@ default-members = [
   "src/auth",
   "src/auth/integration-tests",
   "src/base",
+  "src/firestore",
   "src/gax",
   "src/integration-tests",
   "src/lro",
