@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: google_cloud_common
-description: todo description
+description: Common code for the Google Cloud client librariy packages.
 version: 0.1.0
 
 environment: 
