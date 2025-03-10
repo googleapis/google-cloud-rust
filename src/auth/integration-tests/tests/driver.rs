@@ -115,7 +115,7 @@ mod driver {
         // Make a request using the API key.
         let d = Document::new()
             .set_content("Hello, world!")
-            .set_type("PLAIN_TEXT".to_string());
+            .set_type(language::model::document::Type::PLAIN_TEXT);
         client.analyze_sentiment().set_document(d).send().await?;
 
         Ok(())
