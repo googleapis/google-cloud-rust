@@ -85,9 +85,9 @@ impl wkt::message::Message for AggregationResult {
 pub struct BitSequence {
     /// The bytes that encode the bit sequence.
     /// May have a length of zero.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub bitmap: bytes::Bytes,
+    pub bitmap: ::bytes::Bytes,
 
     /// The number of bits of the last byte in `bitmap` to ignore as "padding".
     /// If the length of `bitmap` is zero, then this value must be `0`.
@@ -101,7 +101,7 @@ impl BitSequence {
     }
 
     /// Sets the value of [bitmap][crate::model::BitSequence::bitmap].
-    pub fn set_bitmap<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_bitmap<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bitmap = v.into();
         self
     }
@@ -430,9 +430,9 @@ pub mod transaction_options {
     #[non_exhaustive]
     pub struct ReadWrite {
         /// An optional transaction to retry.
-        #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
-        pub retry_transaction: bytes::Bytes,
+        pub retry_transaction: ::bytes::Bytes,
     }
 
     impl ReadWrite {
@@ -441,7 +441,10 @@ pub mod transaction_options {
         }
 
         /// Sets the value of [retry_transaction][crate::model::transaction_options::ReadWrite::retry_transaction].
-        pub fn set_retry_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        pub fn set_retry_transaction<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.retry_transaction = v.into();
             self
         }
@@ -756,7 +759,7 @@ impl Value {
     /// The value of [value_type][crate::model::Value::value_type]
     /// if it holds a `BytesValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bytes_value(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.value_type.as_ref().and_then(|v| match v {
             crate::model::value::ValueType::BytesValue(v) => std::option::Option::Some(v),
@@ -886,7 +889,7 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
-    pub fn set_bytes_value<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::BytesValue(v.into()));
         self
@@ -985,7 +988,7 @@ pub mod value {
         ///
         /// Must not exceed 1 MiB - 89 bytes.
         /// Only the first 1,500 bytes are considered by queries.
-        BytesValue(bytes::Bytes),
+        BytesValue(::bytes::Bytes),
         /// A reference to a document. For example:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
         ReferenceValue(std::string::String),
@@ -1139,7 +1142,7 @@ impl GetDocumentRequest {
     /// The value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
     /// if it holds a `Transaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_transaction(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
             crate::model::get_document_request::ConsistencySelector::Transaction(v) => {
@@ -1167,7 +1170,7 @@ impl GetDocumentRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
         );
@@ -1208,7 +1211,7 @@ pub mod get_document_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads the document in a transaction.
-        Transaction(bytes::Bytes),
+        Transaction(::bytes::Bytes),
         /// Reads the version of the document at the given time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -1365,7 +1368,7 @@ impl ListDocumentsRequest {
     /// The value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
     /// if it holds a `Transaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_transaction(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
             crate::model::list_documents_request::ConsistencySelector::Transaction(v) => {
@@ -1393,7 +1396,7 @@ impl ListDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
         );
@@ -1434,7 +1437,7 @@ pub mod list_documents_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Perform the read as part of an already active transaction.
-        Transaction(bytes::Bytes),
+        Transaction(::bytes::Bytes),
         /// Perform the read at the provided time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -1810,7 +1813,7 @@ impl BatchGetDocumentsRequest {
     /// The value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
     /// if it holds a `Transaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_transaction(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
             crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v) => {
@@ -1853,7 +1856,7 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
         );
@@ -1913,7 +1916,7 @@ pub mod batch_get_documents_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads documents in a transaction.
-        Transaction(bytes::Bytes),
+        Transaction(::bytes::Bytes),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -1941,9 +1944,9 @@ pub struct BatchGetDocumentsResponse {
     /// was set in the request.
     ///
     /// [google.firestore.v1.BatchGetDocumentsRequest.new_transaction]: crate::model::BatchGetDocumentsRequest::consistency_selector
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 
     /// The time at which the document was read.
     /// This may be monotically increasing, in this case the previous documents in
@@ -1964,7 +1967,7 @@ impl BatchGetDocumentsResponse {
     }
 
     /// Sets the value of [transaction][crate::model::BatchGetDocumentsResponse::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -2127,9 +2130,9 @@ impl wkt::message::Message for BeginTransactionRequest {
 #[non_exhaustive]
 pub struct BeginTransactionResponse {
     /// The transaction that was started.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 }
 
 impl BeginTransactionResponse {
@@ -2138,7 +2141,7 @@ impl BeginTransactionResponse {
     }
 
     /// Sets the value of [transaction][crate::model::BeginTransactionResponse::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -2170,9 +2173,9 @@ pub struct CommitRequest {
     pub writes: std::vec::Vec<crate::model::Write>,
 
     /// If set, applies all writes in this transaction, and commits it.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 }
 
 impl CommitRequest {
@@ -2187,7 +2190,7 @@ impl CommitRequest {
     }
 
     /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -2277,9 +2280,9 @@ pub struct RollbackRequest {
     pub database: std::string::String,
 
     /// Required. The transaction to roll back.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 }
 
 impl RollbackRequest {
@@ -2294,7 +2297,7 @@ impl RollbackRequest {
     }
 
     /// Sets the value of [transaction][crate::model::RollbackRequest::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -2418,7 +2421,7 @@ impl RunQueryRequest {
     /// The value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
     /// if it holds a `Transaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_transaction(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
             crate::model::run_query_request::ConsistencySelector::Transaction(v) => {
@@ -2461,7 +2464,7 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
         );
@@ -2530,7 +2533,7 @@ pub mod run_query_request {
         /// Run the query within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(bytes::Bytes),
+        Transaction(::bytes::Bytes),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -2559,9 +2562,9 @@ pub struct RunQueryResponse {
     /// response.
     ///
     /// [google.firestore.v1.RunQueryRequest.new_transaction]: crate::model::RunQueryRequest::consistency_selector
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 
     /// A query result, not set when reporting partial progress.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2603,7 +2606,7 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [transaction][crate::model::RunQueryResponse::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -2822,7 +2825,7 @@ impl RunAggregationQueryRequest {
     /// The value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
     /// if it holds a `Transaction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_transaction(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.consistency_selector.as_ref().and_then(|v| match v {
             crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v) => {
@@ -2865,7 +2868,7 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
         );
@@ -2935,7 +2938,7 @@ pub mod run_aggregation_query_request {
         /// Run the aggregation within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(bytes::Bytes),
+        Transaction(::bytes::Bytes),
         /// Starts a new transaction as part of the query, defaulting to read-only.
         ///
         /// The new transaction ID will be returned as the first response in the
@@ -2967,9 +2970,9 @@ pub struct RunAggregationQueryResponse {
     ///
     /// Only present on the first response when the request requested to start
     /// a new transaction.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub transaction: bytes::Bytes,
+    pub transaction: ::bytes::Bytes,
 
     /// The time at which the aggregate result was computed. This is always
     /// monotonically increasing; in this case, the previous AggregationResult in
@@ -3008,7 +3011,7 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [transaction][crate::model::RunAggregationQueryResponse::transaction].
-    pub fn set_transaction<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
@@ -3385,9 +3388,9 @@ pub struct WriteRequest {
     /// Leave this field unset when creating a new stream.
     ///
     /// [google.firestore.v1.WriteResponse]: crate::model::WriteResponse
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub stream_token: bytes::Bytes,
+    pub stream_token: ::bytes::Bytes,
 
     /// Labels associated with this write request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -3412,7 +3415,7 @@ impl WriteRequest {
     }
 
     /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
-    pub fn set_stream_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.stream_token = v.into();
         self
     }
@@ -3462,9 +3465,9 @@ pub struct WriteResponse {
     /// This can be used by a client to resume the stream at this point.
     ///
     /// This field is always set.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub stream_token: bytes::Bytes,
+    pub stream_token: ::bytes::Bytes,
 
     /// The result of applying the writes.
     ///
@@ -3491,7 +3494,7 @@ impl WriteResponse {
     }
 
     /// Sets the value of [stream_token][crate::model::WriteResponse::stream_token].
-    pub fn set_stream_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.stream_token = v.into();
         self
     }
@@ -4033,7 +4036,7 @@ impl Target {
     /// The value of [resume_type][crate::model::Target::resume_type]
     /// if it holds a `ResumeToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_resume_token(&self) -> std::option::Option<&bytes::Bytes> {
+    pub fn get_resume_token(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.resume_type.as_ref().and_then(|v| match v {
             crate::model::target::ResumeType::ResumeToken(v) => std::option::Option::Some(v),
@@ -4057,7 +4060,7 @@ impl Target {
     ///
     /// Note that all the setters affecting `resume_type` are
     /// mutually exclusive.
-    pub fn set_resume_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_resume_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.resume_type =
             std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
         self
@@ -4248,7 +4251,7 @@ pub mod target {
         /// Using a resume token with a different target is unsupported and may fail.
         ///
         /// [google.firestore.v1.TargetChange]: crate::model::TargetChange
-        ResumeToken(bytes::Bytes),
+        ResumeToken(::bytes::Bytes),
         /// Start listening after a specific `read_time`.
         ///
         /// The client must know the state of matching documents at this time.
@@ -4281,9 +4284,9 @@ pub struct TargetChange {
     /// or all targets if `target_ids` is empty.
     ///
     /// Not set on every target change.
-    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
-    pub resume_token: bytes::Bytes,
+    pub resume_token: ::bytes::Bytes,
 
     /// The consistent `read_time` for the given `target_ids` (omitted when the
     /// target_ids are not at a consistent snapshot).
@@ -4325,7 +4328,7 @@ impl TargetChange {
     }
 
     /// Sets the value of [resume_token][crate::model::TargetChange::resume_token].
-    pub fn set_resume_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_resume_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.resume_token = v.into();
         self
     }
