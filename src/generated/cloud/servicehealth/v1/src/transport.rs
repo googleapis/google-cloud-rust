@@ -49,7 +49,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/events", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94,7 +94,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::Method::GET,
                 format!("/v1/{}/organizationEvents", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -117,7 +117,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -139,7 +139,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
                 reqwest::Method::GET,
                 format!("/v1/{}/organizationImpacts", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -161,7 +161,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -180,7 +180,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -202,7 +202,7 @@ impl crate::stubs::ServiceHealth for ServiceHealth {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

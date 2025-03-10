@@ -787,40 +787,25 @@ pub mod job {
 
     /// State of the job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The job is executing normally.
-        pub const ENABLED: State = State::new("ENABLED");
+        pub const ENABLED: State = State::new(1);
 
         /// The job is paused by the user. It will not execute. A user can
         /// intentionally pause the job using
         /// [PauseJobRequest][google.cloud.scheduler.v1.PauseJobRequest].
         ///
         /// [google.cloud.scheduler.v1.PauseJobRequest]: crate::model::PauseJobRequest
-        pub const PAUSED: State = State::new("PAUSED");
+        pub const PAUSED: State = State::new(2);
 
         /// The job is disabled by the system due to error. The user
         /// cannot directly set a job to be disabled.
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(3);
 
         /// The job state resulting from a failed
         /// [CloudScheduler.UpdateJob][google.cloud.scheduler.v1.CloudScheduler.UpdateJob]
@@ -829,18 +814,52 @@ pub mod job {
         /// until a successful response is received.
         ///
         /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
-        pub const UPDATE_FAILED: State = State::new("UPDATE_FAILED");
+        pub const UPDATE_FAILED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("PAUSED"),
+                3 => std::borrow::Cow::Borrowed("DISABLED"),
+                4 => std::borrow::Cow::Borrowed("UPDATE_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "PAUSED" => std::option::Option::Some(Self::PAUSED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "UPDATE_FAILED" => std::option::Option::Some(Self::UPDATE_FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1708,57 +1727,82 @@ impl wkt::message::Message for OidcToken {
 
 /// The HTTP method used to execute the job.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpMethod(std::borrow::Cow<'static, str>);
+pub struct HttpMethod(i32);
 
 impl HttpMethod {
+    /// HTTP method unspecified. Defaults to POST.
+    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new(0);
+
+    /// HTTP POST
+    pub const POST: HttpMethod = HttpMethod::new(1);
+
+    /// HTTP GET
+    pub const GET: HttpMethod = HttpMethod::new(2);
+
+    /// HTTP HEAD
+    pub const HEAD: HttpMethod = HttpMethod::new(3);
+
+    /// HTTP PUT
+    pub const PUT: HttpMethod = HttpMethod::new(4);
+
+    /// HTTP DELETE
+    pub const DELETE: HttpMethod = HttpMethod::new(5);
+
+    /// HTTP PATCH
+    pub const PATCH: HttpMethod = HttpMethod::new(6);
+
+    /// HTTP OPTIONS
+    pub const OPTIONS: HttpMethod = HttpMethod::new(7);
+
     /// Creates a new HttpMethod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("HTTP_METHOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("POST"),
+            2 => std::borrow::Cow::Borrowed("GET"),
+            3 => std::borrow::Cow::Borrowed("HEAD"),
+            4 => std::borrow::Cow::Borrowed("PUT"),
+            5 => std::borrow::Cow::Borrowed("DELETE"),
+            6 => std::borrow::Cow::Borrowed("PATCH"),
+            7 => std::borrow::Cow::Borrowed("OPTIONS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "HTTP_METHOD_UNSPECIFIED" => std::option::Option::Some(Self::HTTP_METHOD_UNSPECIFIED),
+            "POST" => std::option::Option::Some(Self::POST),
+            "GET" => std::option::Option::Some(Self::GET),
+            "HEAD" => std::option::Option::Some(Self::HEAD),
+            "PUT" => std::option::Option::Some(Self::PUT),
+            "DELETE" => std::option::Option::Some(Self::DELETE),
+            "PATCH" => std::option::Option::Some(Self::PATCH),
+            "OPTIONS" => std::option::Option::Some(Self::OPTIONS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [HttpMethod](HttpMethod)
-pub mod http_method {
-    use super::HttpMethod;
-
-    /// HTTP method unspecified. Defaults to POST.
-    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new("HTTP_METHOD_UNSPECIFIED");
-
-    /// HTTP POST
-    pub const POST: HttpMethod = HttpMethod::new("POST");
-
-    /// HTTP GET
-    pub const GET: HttpMethod = HttpMethod::new("GET");
-
-    /// HTTP HEAD
-    pub const HEAD: HttpMethod = HttpMethod::new("HEAD");
-
-    /// HTTP PUT
-    pub const PUT: HttpMethod = HttpMethod::new("PUT");
-
-    /// HTTP DELETE
-    pub const DELETE: HttpMethod = HttpMethod::new("DELETE");
-
-    /// HTTP PATCH
-    pub const PATCH: HttpMethod = HttpMethod::new("PATCH");
-
-    /// HTTP OPTIONS
-    pub const OPTIONS: HttpMethod = HttpMethod::new("OPTIONS");
-}
-
-impl std::convert::From<std::string::String> for HttpMethod {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for HttpMethod {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for HttpMethod {
     fn default() -> Self {
-        http_method::HTTP_METHOD_UNSPECIFIED
+        Self::new(0)
     }
 }

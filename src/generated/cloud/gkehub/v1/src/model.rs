@@ -265,55 +265,76 @@ pub mod feature_resource_state {
 
     /// State describes the lifecycle status of a Feature.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// State is unknown or not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The Feature is being enabled, and the Feature resource is being created.
         /// Once complete, the corresponding Feature will be enabled in this Hub.
-        pub const ENABLING: State = State::new("ENABLING");
+        pub const ENABLING: State = State::new(1);
 
         /// The Feature is enabled in this Hub, and the Feature resource is fully
         /// available.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The Feature is being disabled in this Hub, and the Feature resource
         /// is being deleted.
-        pub const DISABLING: State = State::new("DISABLING");
+        pub const DISABLING: State = State::new(3);
 
         /// The Feature resource is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(4);
 
         /// The Feature resource is being updated by the Hub Service.
-        pub const SERVICE_UPDATING: State = State::new("SERVICE_UPDATING");
+        pub const SERVICE_UPDATING: State = State::new(5);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DISABLING"),
+                4 => std::borrow::Cow::Borrowed("UPDATING"),
+                5 => std::borrow::Cow::Borrowed("SERVICE_UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLING" => std::option::Option::Some(Self::ENABLING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DISABLING" => std::option::Option::Some(Self::DISABLING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "SERVICE_UPDATING" => std::option::Option::Some(Self::SERVICE_UPDATING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -381,52 +402,69 @@ pub mod feature_state {
 
     /// Code represents a machine-readable, high-level status of the Feature.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// Unknown or not set.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// The Feature is operating normally.
-        pub const OK: Code = Code::new("OK");
+        pub const OK: Code = Code::new(1);
 
         /// The Feature has encountered an issue, and is operating in a degraded
         /// state. The Feature may need intervention to return to normal operation.
         /// See the description and any associated Feature-specific details for more
         /// information.
-        pub const WARNING: Code = Code::new("WARNING");
+        pub const WARNING: Code = Code::new(2);
 
         /// The Feature is not operating or is in a severely degraded state.
         /// The Feature may need intervention to return to normal operation.
         /// See the description and any associated Feature-specific details for more
         /// information.
-        pub const ERROR: Code = Code::new("ERROR");
+        pub const ERROR: Code = Code::new(3);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OK"),
+                2 => std::borrow::Cow::Borrowed("WARNING"),
+                3 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "OK" => std::option::Option::Some(Self::OK),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1508,52 +1546,73 @@ pub mod membership_state {
 
     /// Code describes the state of a Membership resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    pub struct Code(i32);
 
     impl Code {
+        /// The code is not set.
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
+
+        /// The cluster is being registered.
+        pub const CREATING: Code = Code::new(1);
+
+        /// The cluster is registered.
+        pub const READY: Code = Code::new(2);
+
+        /// The cluster is being unregistered.
+        pub const DELETING: Code = Code::new(3);
+
+        /// The Membership is being updated.
+        pub const UPDATING: Code = Code::new(4);
+
+        /// The Membership is being updated by the Hub Service.
+        pub const SERVICE_UPDATING: Code = Code::new(5);
+
         /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("UPDATING"),
+                5 => std::borrow::Cow::Borrowed("SERVICE_UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "SERVICE_UPDATING" => std::option::Option::Some(Self::SERVICE_UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
-        /// The code is not set.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
-
-        /// The cluster is being registered.
-        pub const CREATING: Code = Code::new("CREATING");
-
-        /// The cluster is registered.
-        pub const READY: Code = Code::new("READY");
-
-        /// The cluster is being unregistered.
-        pub const DELETING: Code = Code::new("DELETING");
-
-        /// The Membership is being updated.
-        pub const UPDATING: Code = Code::new("UPDATING");
-
-        /// The Membership is being updated by the Hub Service.
-        pub const SERVICE_UPDATING: Code = Code::new("SERVICE_UPDATING");
-    }
-
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

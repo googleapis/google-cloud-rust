@@ -125,60 +125,85 @@ pub mod common_metadata {
 
     /// The various possible states for an ongoing Operation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Request is being prepared for processing.
-        pub const INITIALIZING: State = State::new("INITIALIZING");
+        pub const INITIALIZING: State = State::new(1);
 
         /// Request is actively being processed.
-        pub const PROCESSING: State = State::new("PROCESSING");
+        pub const PROCESSING: State = State::new(2);
 
         /// Request is in the process of being cancelled after user called
         /// google.longrunning.Operations.CancelOperation on the operation.
-        pub const CANCELLING: State = State::new("CANCELLING");
+        pub const CANCELLING: State = State::new(3);
 
         /// Request has been processed and is in its finalization stage.
-        pub const FINALIZING: State = State::new("FINALIZING");
+        pub const FINALIZING: State = State::new(4);
 
         /// Request has completed successfully.
-        pub const SUCCESSFUL: State = State::new("SUCCESSFUL");
+        pub const SUCCESSFUL: State = State::new(5);
 
         /// Request has finished being processed, but encountered an error.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(6);
 
         /// Request has finished being cancelled after user called
         /// google.longrunning.Operations.CancelOperation.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INITIALIZING"),
+                2 => std::borrow::Cow::Borrowed("PROCESSING"),
+                3 => std::borrow::Cow::Borrowed("CANCELLING"),
+                4 => std::borrow::Cow::Borrowed("FINALIZING"),
+                5 => std::borrow::Cow::Borrowed("SUCCESSFUL"),
+                6 => std::borrow::Cow::Borrowed("FAILED"),
+                7 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "INITIALIZING" => std::option::Option::Some(Self::INITIALIZING),
+                "PROCESSING" => std::option::Option::Some(Self::PROCESSING),
+                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
+                "FINALIZING" => std::option::Option::Some(Self::FINALIZING),
+                "SUCCESSFUL" => std::option::Option::Some(Self::SUCCESSFUL),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1209,130 +1234,146 @@ pub mod index {
     /// For an ordered index, specifies whether each of the entity's ancestors
     /// will be included.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AncestorMode(std::borrow::Cow<'static, str>);
+    pub struct AncestorMode(i32);
 
     impl AncestorMode {
+        /// The ancestor mode is unspecified.
+        pub const ANCESTOR_MODE_UNSPECIFIED: AncestorMode = AncestorMode::new(0);
+
+        /// Do not include the entity's ancestors in the index.
+        pub const NONE: AncestorMode = AncestorMode::new(1);
+
+        /// Include all the entity's ancestors in the index.
+        pub const ALL_ANCESTORS: AncestorMode = AncestorMode::new(2);
+
         /// Creates a new AncestorMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ANCESTOR_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NONE"),
+                2 => std::borrow::Cow::Borrowed("ALL_ANCESTORS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ANCESTOR_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ANCESTOR_MODE_UNSPECIFIED)
+                }
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "ALL_ANCESTORS" => std::option::Option::Some(Self::ALL_ANCESTORS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [AncestorMode](AncestorMode)
-    pub mod ancestor_mode {
-        use super::AncestorMode;
-
-        /// The ancestor mode is unspecified.
-        pub const ANCESTOR_MODE_UNSPECIFIED: AncestorMode =
-            AncestorMode::new("ANCESTOR_MODE_UNSPECIFIED");
-
-        /// Do not include the entity's ancestors in the index.
-        pub const NONE: AncestorMode = AncestorMode::new("NONE");
-
-        /// Include all the entity's ancestors in the index.
-        pub const ALL_ANCESTORS: AncestorMode = AncestorMode::new("ALL_ANCESTORS");
-    }
-
-    impl std::convert::From<std::string::String> for AncestorMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AncestorMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AncestorMode {
         fn default() -> Self {
-            ancestor_mode::ANCESTOR_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The direction determines how a property is indexed.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
+    pub struct Direction(i32);
 
     impl Direction {
-        /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Direction](Direction)
-    pub mod direction {
-        use super::Direction;
-
         /// The direction is unspecified.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
 
         /// The property's values are indexed so as to support sequencing in
         /// ascending order and also query by <, >, <=, >=, and =.
-        pub const ASCENDING: Direction = Direction::new("ASCENDING");
+        pub const ASCENDING: Direction = Direction::new(1);
 
         /// The property's values are indexed so as to support sequencing in
         /// descending order and also query by <, >, <=, >=, and =.
-        pub const DESCENDING: Direction = Direction::new("DESCENDING");
+        pub const DESCENDING: Direction = Direction::new(2);
+
+        /// Creates a new Direction instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ASCENDING"),
+                2 => std::borrow::Cow::Borrowed("DESCENDING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
+                "ASCENDING" => std::option::Option::Some(Self::ASCENDING),
+                "DESCENDING" => std::option::Option::Some(Self::DESCENDING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Direction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            direction::DIRECTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The possible set of states of an index.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The state is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The index is being created, and cannot be used by queries.
         /// There is an active long-running operation for the index.
         /// The index is updated when writing an entity.
         /// Some index data may exist.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The index is ready to be used.
         /// The index is updated when writing an entity.
         /// The index is fully populated from all stored entities it applies to.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// The index is being deleted, and cannot be used by queries.
         /// There is an active long-running operation for the index.
         /// The index is not updated when writing an entity.
         /// Some index data may exist.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(3);
 
         /// The index was being created or deleted, but something went wrong.
         /// The index cannot by used by queries.
@@ -1340,18 +1381,52 @@ pub mod index {
         /// and the most recently finished long-running operation failed.
         /// The index is not updated when writing an entity.
         /// Some index data may exist.
-        pub const ERROR: State = State::new("ERROR");
+        pub const ERROR: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1584,48 +1659,67 @@ pub mod migration_progress_event {
 
     /// Concurrency modes for transactions in Cloud Firestore.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConcurrencyMode(std::borrow::Cow<'static, str>);
+    pub struct ConcurrencyMode(i32);
 
     impl ConcurrencyMode {
+        /// Unspecified.
+        pub const CONCURRENCY_MODE_UNSPECIFIED: ConcurrencyMode = ConcurrencyMode::new(0);
+
+        /// Pessimistic concurrency.
+        pub const PESSIMISTIC: ConcurrencyMode = ConcurrencyMode::new(1);
+
+        /// Optimistic concurrency.
+        pub const OPTIMISTIC: ConcurrencyMode = ConcurrencyMode::new(2);
+
+        /// Optimistic concurrency with entity groups.
+        pub const OPTIMISTIC_WITH_ENTITY_GROUPS: ConcurrencyMode = ConcurrencyMode::new(3);
+
         /// Creates a new ConcurrencyMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONCURRENCY_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PESSIMISTIC"),
+                2 => std::borrow::Cow::Borrowed("OPTIMISTIC"),
+                3 => std::borrow::Cow::Borrowed("OPTIMISTIC_WITH_ENTITY_GROUPS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONCURRENCY_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONCURRENCY_MODE_UNSPECIFIED)
+                }
+                "PESSIMISTIC" => std::option::Option::Some(Self::PESSIMISTIC),
+                "OPTIMISTIC" => std::option::Option::Some(Self::OPTIMISTIC),
+                "OPTIMISTIC_WITH_ENTITY_GROUPS" => {
+                    std::option::Option::Some(Self::OPTIMISTIC_WITH_ENTITY_GROUPS)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ConcurrencyMode](ConcurrencyMode)
-    pub mod concurrency_mode {
-        use super::ConcurrencyMode;
-
-        /// Unspecified.
-        pub const CONCURRENCY_MODE_UNSPECIFIED: ConcurrencyMode =
-            ConcurrencyMode::new("CONCURRENCY_MODE_UNSPECIFIED");
-
-        /// Pessimistic concurrency.
-        pub const PESSIMISTIC: ConcurrencyMode = ConcurrencyMode::new("PESSIMISTIC");
-
-        /// Optimistic concurrency.
-        pub const OPTIMISTIC: ConcurrencyMode = ConcurrencyMode::new("OPTIMISTIC");
-
-        /// Optimistic concurrency with entity groups.
-        pub const OPTIMISTIC_WITH_ENTITY_GROUPS: ConcurrencyMode =
-            ConcurrencyMode::new("OPTIMISTIC_WITH_ENTITY_GROUPS");
-    }
-
-    impl std::convert::From<std::string::String> for ConcurrencyMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConcurrencyMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ConcurrencyMode {
         fn default() -> Self {
-            concurrency_mode::CONCURRENCY_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1647,157 +1741,224 @@ pub mod migration_progress_event {
 
 /// Operation types.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationType(std::borrow::Cow<'static, str>);
+pub struct OperationType(i32);
 
 impl OperationType {
+    /// Unspecified.
+    pub const OPERATION_TYPE_UNSPECIFIED: OperationType = OperationType::new(0);
+
+    /// ExportEntities.
+    pub const EXPORT_ENTITIES: OperationType = OperationType::new(1);
+
+    /// ImportEntities.
+    pub const IMPORT_ENTITIES: OperationType = OperationType::new(2);
+
+    /// CreateIndex.
+    pub const CREATE_INDEX: OperationType = OperationType::new(3);
+
+    /// DeleteIndex.
+    pub const DELETE_INDEX: OperationType = OperationType::new(4);
+
     /// Creates a new OperationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("OPERATION_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("EXPORT_ENTITIES"),
+            2 => std::borrow::Cow::Borrowed("IMPORT_ENTITIES"),
+            3 => std::borrow::Cow::Borrowed("CREATE_INDEX"),
+            4 => std::borrow::Cow::Borrowed("DELETE_INDEX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "OPERATION_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::OPERATION_TYPE_UNSPECIFIED)
+            }
+            "EXPORT_ENTITIES" => std::option::Option::Some(Self::EXPORT_ENTITIES),
+            "IMPORT_ENTITIES" => std::option::Option::Some(Self::IMPORT_ENTITIES),
+            "CREATE_INDEX" => std::option::Option::Some(Self::CREATE_INDEX),
+            "DELETE_INDEX" => std::option::Option::Some(Self::DELETE_INDEX),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [OperationType](OperationType)
-pub mod operation_type {
-    use super::OperationType;
-
-    /// Unspecified.
-    pub const OPERATION_TYPE_UNSPECIFIED: OperationType =
-        OperationType::new("OPERATION_TYPE_UNSPECIFIED");
-
-    /// ExportEntities.
-    pub const EXPORT_ENTITIES: OperationType = OperationType::new("EXPORT_ENTITIES");
-
-    /// ImportEntities.
-    pub const IMPORT_ENTITIES: OperationType = OperationType::new("IMPORT_ENTITIES");
-
-    /// CreateIndex.
-    pub const CREATE_INDEX: OperationType = OperationType::new("CREATE_INDEX");
-
-    /// DeleteIndex.
-    pub const DELETE_INDEX: OperationType = OperationType::new("DELETE_INDEX");
-}
-
-impl std::convert::From<std::string::String> for OperationType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for OperationType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for OperationType {
     fn default() -> Self {
-        operation_type::OPERATION_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// States for a migration.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct MigrationState(std::borrow::Cow<'static, str>);
+pub struct MigrationState(i32);
 
 impl MigrationState {
+    /// Unspecified.
+    pub const MIGRATION_STATE_UNSPECIFIED: MigrationState = MigrationState::new(0);
+
+    /// The migration is running.
+    pub const RUNNING: MigrationState = MigrationState::new(1);
+
+    /// The migration is paused.
+    pub const PAUSED: MigrationState = MigrationState::new(2);
+
+    /// The migration is complete.
+    pub const COMPLETE: MigrationState = MigrationState::new(3);
+
     /// Creates a new MigrationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MIGRATION_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("RUNNING"),
+            2 => std::borrow::Cow::Borrowed("PAUSED"),
+            3 => std::borrow::Cow::Borrowed("COMPLETE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MIGRATION_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::MIGRATION_STATE_UNSPECIFIED)
+            }
+            "RUNNING" => std::option::Option::Some(Self::RUNNING),
+            "PAUSED" => std::option::Option::Some(Self::PAUSED),
+            "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [MigrationState](MigrationState)
-pub mod migration_state {
-    use super::MigrationState;
-
-    /// Unspecified.
-    pub const MIGRATION_STATE_UNSPECIFIED: MigrationState =
-        MigrationState::new("MIGRATION_STATE_UNSPECIFIED");
-
-    /// The migration is running.
-    pub const RUNNING: MigrationState = MigrationState::new("RUNNING");
-
-    /// The migration is paused.
-    pub const PAUSED: MigrationState = MigrationState::new("PAUSED");
-
-    /// The migration is complete.
-    pub const COMPLETE: MigrationState = MigrationState::new("COMPLETE");
-}
-
-impl std::convert::From<std::string::String> for MigrationState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for MigrationState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for MigrationState {
     fn default() -> Self {
-        migration_state::MIGRATION_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Steps in a migration.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct MigrationStep(std::borrow::Cow<'static, str>);
+pub struct MigrationStep(i32);
 
 impl MigrationStep {
-    /// Creates a new MigrationStep instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [MigrationStep](MigrationStep)
-pub mod migration_step {
-    use super::MigrationStep;
-
     /// Unspecified.
-    pub const MIGRATION_STEP_UNSPECIFIED: MigrationStep =
-        MigrationStep::new("MIGRATION_STEP_UNSPECIFIED");
+    pub const MIGRATION_STEP_UNSPECIFIED: MigrationStep = MigrationStep::new(0);
 
     /// Pre-migration: the database is prepared for migration.
-    pub const PREPARE: MigrationStep = MigrationStep::new("PREPARE");
+    pub const PREPARE: MigrationStep = MigrationStep::new(6);
 
     /// Start of migration.
-    pub const START: MigrationStep = MigrationStep::new("START");
+    pub const START: MigrationStep = MigrationStep::new(1);
 
     /// Writes are applied synchronously to at least one replica.
-    pub const APPLY_WRITES_SYNCHRONOUSLY: MigrationStep =
-        MigrationStep::new("APPLY_WRITES_SYNCHRONOUSLY");
+    pub const APPLY_WRITES_SYNCHRONOUSLY: MigrationStep = MigrationStep::new(7);
 
     /// Data is copied to Cloud Firestore and then verified to match the data in
     /// Cloud Datastore.
-    pub const COPY_AND_VERIFY: MigrationStep = MigrationStep::new("COPY_AND_VERIFY");
+    pub const COPY_AND_VERIFY: MigrationStep = MigrationStep::new(2);
 
     /// Eventually-consistent reads are redirected to Cloud Firestore.
-    pub const REDIRECT_EVENTUALLY_CONSISTENT_READS: MigrationStep =
-        MigrationStep::new("REDIRECT_EVENTUALLY_CONSISTENT_READS");
+    pub const REDIRECT_EVENTUALLY_CONSISTENT_READS: MigrationStep = MigrationStep::new(3);
 
     /// Strongly-consistent reads are redirected to Cloud Firestore.
-    pub const REDIRECT_STRONGLY_CONSISTENT_READS: MigrationStep =
-        MigrationStep::new("REDIRECT_STRONGLY_CONSISTENT_READS");
+    pub const REDIRECT_STRONGLY_CONSISTENT_READS: MigrationStep = MigrationStep::new(4);
 
     /// Writes are redirected to Cloud Firestore.
-    pub const REDIRECT_WRITES: MigrationStep = MigrationStep::new("REDIRECT_WRITES");
+    pub const REDIRECT_WRITES: MigrationStep = MigrationStep::new(5);
+
+    /// Creates a new MigrationStep instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MIGRATION_STEP_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("START"),
+            2 => std::borrow::Cow::Borrowed("COPY_AND_VERIFY"),
+            3 => std::borrow::Cow::Borrowed("REDIRECT_EVENTUALLY_CONSISTENT_READS"),
+            4 => std::borrow::Cow::Borrowed("REDIRECT_STRONGLY_CONSISTENT_READS"),
+            5 => std::borrow::Cow::Borrowed("REDIRECT_WRITES"),
+            6 => std::borrow::Cow::Borrowed("PREPARE"),
+            7 => std::borrow::Cow::Borrowed("APPLY_WRITES_SYNCHRONOUSLY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MIGRATION_STEP_UNSPECIFIED" => {
+                std::option::Option::Some(Self::MIGRATION_STEP_UNSPECIFIED)
+            }
+            "PREPARE" => std::option::Option::Some(Self::PREPARE),
+            "START" => std::option::Option::Some(Self::START),
+            "APPLY_WRITES_SYNCHRONOUSLY" => {
+                std::option::Option::Some(Self::APPLY_WRITES_SYNCHRONOUSLY)
+            }
+            "COPY_AND_VERIFY" => std::option::Option::Some(Self::COPY_AND_VERIFY),
+            "REDIRECT_EVENTUALLY_CONSISTENT_READS" => {
+                std::option::Option::Some(Self::REDIRECT_EVENTUALLY_CONSISTENT_READS)
+            }
+            "REDIRECT_STRONGLY_CONSISTENT_READS" => {
+                std::option::Option::Some(Self::REDIRECT_STRONGLY_CONSISTENT_READS)
+            }
+            "REDIRECT_WRITES" => std::option::Option::Some(Self::REDIRECT_WRITES),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for MigrationStep {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for MigrationStep {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for MigrationStep {
     fn default() -> Self {
-        migration_step::MIGRATION_STEP_UNSPECIFIED
+        Self::new(0)
     }
 }

@@ -52,7 +52,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::GET,
                 format!("/v2/{}/instances", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74,7 +74,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -102,7 +102,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -131,7 +131,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -148,7 +148,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:reset", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -165,7 +165,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:start", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -182,7 +182,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:stop", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -202,7 +202,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}:enableInteractiveSerialConsole", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -222,7 +222,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}:disableInteractiveSerialConsole", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -242,7 +242,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}:detachLun", req.instance),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -259,7 +259,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/sshKeys", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -280,7 +280,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/sshKeys", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -300,7 +300,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -319,7 +319,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/volumes", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -341,7 +341,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -369,7 +369,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -396,7 +396,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -413,7 +413,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:evict", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -430,7 +430,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:resize", req.volume))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -447,7 +447,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/networks", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -472,7 +472,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::GET,
                 format!("/v2/{}/networks:listNetworkUsage", req.location),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -491,7 +491,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -519,7 +519,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -551,7 +551,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}/snapshots", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -573,7 +573,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}:restoreVolumeSnapshot", req.volume_snapshot),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -590,7 +590,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -609,7 +609,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -631,7 +631,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::GET,
                 format!("/v2/{}/snapshots", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -652,7 +652,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -671,7 +671,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/luns", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -692,7 +692,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:evict", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -709,7 +709,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -731,7 +731,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::GET,
                 format!("/v2/{}/nfsShares", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -762,7 +762,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -794,7 +794,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}/nfsShares", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -813,7 +813,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -830,7 +830,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -852,7 +852,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::GET,
                 format!("/v2/{}/provisioningQuotas", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -876,7 +876,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}/provisioningConfigs:submit", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -893,7 +893,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -915,7 +915,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                 reqwest::Method::POST,
                 format!("/v2/{}/provisioningConfigs", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -944,7 +944,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -974,7 +974,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -991,7 +991,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/osImages", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1012,7 +1012,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1034,7 +1034,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1053,7 +1053,7 @@ impl crate::stubs::BareMetalSolution for BareMetalSolution {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

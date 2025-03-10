@@ -49,7 +49,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/clusters", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94,7 +94,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::POST,
                 format!("/v1/{}/clusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -124,7 +124,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -154,7 +154,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:upgrade", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -171,7 +171,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -194,7 +194,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::GET,
                 format!("/v1/{}:generateAccessToken", req.cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -216,7 +216,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::GET,
                 format!("/v1/{}:generateOfflineCredential", req.cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -238,7 +238,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::GET,
                 format!("/v1/{}/nodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -261,7 +261,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -283,7 +283,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::POST,
                 format!("/v1/{}/nodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -313,7 +313,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -343,7 +343,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -363,7 +363,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/machines", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -386,7 +386,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -408,7 +408,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::GET,
                 format!("/v1/{}/vpnConnections", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -431,7 +431,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -453,7 +453,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::POST,
                 format!("/v1/{}/vpnConnections", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -474,7 +474,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -497,7 +497,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
                 reqwest::Method::GET,
                 format!("/v1/{}/serverConfig", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -516,7 +516,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -538,7 +538,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -557,7 +557,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -579,7 +579,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -598,7 +598,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -617,7 +617,7 @@ impl crate::stubs::EdgeContainer for EdgeContainer {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

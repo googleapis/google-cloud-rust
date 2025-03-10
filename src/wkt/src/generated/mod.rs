@@ -1010,39 +1010,52 @@ pub mod extension_range_options {
 
     /// The verification state of the extension range.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VerificationState(std::borrow::Cow<'static, str>);
+    pub struct VerificationState(i32);
 
     impl VerificationState {
+        /// All the extensions of the range must be declared.
+        pub const DECLARATION: VerificationState = VerificationState::new(0);
+
+        pub const UNVERIFIED: VerificationState = VerificationState::new(1);
+
         /// Creates a new VerificationState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DECLARATION"),
+                1 => std::borrow::Cow::Borrowed("UNVERIFIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DECLARATION" => std::option::Option::Some(Self::DECLARATION),
+                "UNVERIFIED" => std::option::Option::Some(Self::UNVERIFIED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [VerificationState](VerificationState)
-    pub mod verification_state {
-        use super::VerificationState;
-
-        /// All the extensions of the range must be declared.
-        pub const DECLARATION: VerificationState = VerificationState::new("DECLARATION");
-
-        pub const UNVERIFIED: VerificationState = VerificationState::new("UNVERIFIED");
-    }
-
-    impl std::convert::From<std::string::String> for VerificationState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for VerificationState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for VerificationState {
         fn default() -> Self {
-            verification_state::DECLARATION
+            Self::new(0)
         }
     }
 }
@@ -1216,124 +1229,184 @@ pub mod field_descriptor_proto {
     use super::*;
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// 0 is reserved for errors.
         /// Order is weird for historical reasons.
-        pub const TYPE_DOUBLE: Type = Type::new("TYPE_DOUBLE");
+        pub const TYPE_DOUBLE: Type = Type::new(1);
 
-        pub const TYPE_FLOAT: Type = Type::new("TYPE_FLOAT");
+        pub const TYPE_FLOAT: Type = Type::new(2);
 
         /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
         /// negative values are likely.
-        pub const TYPE_INT64: Type = Type::new("TYPE_INT64");
+        pub const TYPE_INT64: Type = Type::new(3);
 
-        pub const TYPE_UINT64: Type = Type::new("TYPE_UINT64");
+        pub const TYPE_UINT64: Type = Type::new(4);
 
         /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
         /// negative values are likely.
-        pub const TYPE_INT32: Type = Type::new("TYPE_INT32");
+        pub const TYPE_INT32: Type = Type::new(5);
 
-        pub const TYPE_FIXED64: Type = Type::new("TYPE_FIXED64");
+        pub const TYPE_FIXED64: Type = Type::new(6);
 
-        pub const TYPE_FIXED32: Type = Type::new("TYPE_FIXED32");
+        pub const TYPE_FIXED32: Type = Type::new(7);
 
-        pub const TYPE_BOOL: Type = Type::new("TYPE_BOOL");
+        pub const TYPE_BOOL: Type = Type::new(8);
 
-        pub const TYPE_STRING: Type = Type::new("TYPE_STRING");
+        pub const TYPE_STRING: Type = Type::new(9);
 
         /// Tag-delimited aggregate.
         /// Group type is deprecated and not supported after google.protobuf. However, Proto3
         /// implementations should still be able to parse the group wire format and
         /// treat group fields as unknown fields.  In Editions, the group wire format
         /// can be enabled via the `message_encoding` feature.
-        pub const TYPE_GROUP: Type = Type::new("TYPE_GROUP");
+        pub const TYPE_GROUP: Type = Type::new(10);
 
-        pub const TYPE_MESSAGE: Type = Type::new("TYPE_MESSAGE");
+        pub const TYPE_MESSAGE: Type = Type::new(11);
 
         /// New in version 2.
-        pub const TYPE_BYTES: Type = Type::new("TYPE_BYTES");
+        pub const TYPE_BYTES: Type = Type::new(12);
 
-        pub const TYPE_UINT32: Type = Type::new("TYPE_UINT32");
+        pub const TYPE_UINT32: Type = Type::new(13);
 
-        pub const TYPE_ENUM: Type = Type::new("TYPE_ENUM");
+        pub const TYPE_ENUM: Type = Type::new(14);
 
-        pub const TYPE_SFIXED32: Type = Type::new("TYPE_SFIXED32");
+        pub const TYPE_SFIXED32: Type = Type::new(15);
 
-        pub const TYPE_SFIXED64: Type = Type::new("TYPE_SFIXED64");
+        pub const TYPE_SFIXED64: Type = Type::new(16);
 
-        pub const TYPE_SINT32: Type = Type::new("TYPE_SINT32");
+        pub const TYPE_SINT32: Type = Type::new(17);
 
-        pub const TYPE_SINT64: Type = Type::new("TYPE_SINT64");
+        pub const TYPE_SINT64: Type = Type::new(18);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("TYPE_DOUBLE"),
+                2 => std::borrow::Cow::Borrowed("TYPE_FLOAT"),
+                3 => std::borrow::Cow::Borrowed("TYPE_INT64"),
+                4 => std::borrow::Cow::Borrowed("TYPE_UINT64"),
+                5 => std::borrow::Cow::Borrowed("TYPE_INT32"),
+                6 => std::borrow::Cow::Borrowed("TYPE_FIXED64"),
+                7 => std::borrow::Cow::Borrowed("TYPE_FIXED32"),
+                8 => std::borrow::Cow::Borrowed("TYPE_BOOL"),
+                9 => std::borrow::Cow::Borrowed("TYPE_STRING"),
+                10 => std::borrow::Cow::Borrowed("TYPE_GROUP"),
+                11 => std::borrow::Cow::Borrowed("TYPE_MESSAGE"),
+                12 => std::borrow::Cow::Borrowed("TYPE_BYTES"),
+                13 => std::borrow::Cow::Borrowed("TYPE_UINT32"),
+                14 => std::borrow::Cow::Borrowed("TYPE_ENUM"),
+                15 => std::borrow::Cow::Borrowed("TYPE_SFIXED32"),
+                16 => std::borrow::Cow::Borrowed("TYPE_SFIXED64"),
+                17 => std::borrow::Cow::Borrowed("TYPE_SINT32"),
+                18 => std::borrow::Cow::Borrowed("TYPE_SINT64"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_DOUBLE" => std::option::Option::Some(Self::TYPE_DOUBLE),
+                "TYPE_FLOAT" => std::option::Option::Some(Self::TYPE_FLOAT),
+                "TYPE_INT64" => std::option::Option::Some(Self::TYPE_INT64),
+                "TYPE_UINT64" => std::option::Option::Some(Self::TYPE_UINT64),
+                "TYPE_INT32" => std::option::Option::Some(Self::TYPE_INT32),
+                "TYPE_FIXED64" => std::option::Option::Some(Self::TYPE_FIXED64),
+                "TYPE_FIXED32" => std::option::Option::Some(Self::TYPE_FIXED32),
+                "TYPE_BOOL" => std::option::Option::Some(Self::TYPE_BOOL),
+                "TYPE_STRING" => std::option::Option::Some(Self::TYPE_STRING),
+                "TYPE_GROUP" => std::option::Option::Some(Self::TYPE_GROUP),
+                "TYPE_MESSAGE" => std::option::Option::Some(Self::TYPE_MESSAGE),
+                "TYPE_BYTES" => std::option::Option::Some(Self::TYPE_BYTES),
+                "TYPE_UINT32" => std::option::Option::Some(Self::TYPE_UINT32),
+                "TYPE_ENUM" => std::option::Option::Some(Self::TYPE_ENUM),
+                "TYPE_SFIXED32" => std::option::Option::Some(Self::TYPE_SFIXED32),
+                "TYPE_SFIXED64" => std::option::Option::Some(Self::TYPE_SFIXED64),
+                "TYPE_SINT32" => std::option::Option::Some(Self::TYPE_SINT32),
+                "TYPE_SINT64" => std::option::Option::Some(Self::TYPE_SINT64),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new("")
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Label(std::borrow::Cow<'static, str>);
+    pub struct Label(i32);
 
     impl Label {
-        /// Creates a new Label instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Label](Label)
-    pub mod label {
-        use super::Label;
-
         /// 0 is reserved for errors
-        pub const LABEL_OPTIONAL: Label = Label::new("LABEL_OPTIONAL");
+        pub const LABEL_OPTIONAL: Label = Label::new(1);
 
-        pub const LABEL_REPEATED: Label = Label::new("LABEL_REPEATED");
+        pub const LABEL_REPEATED: Label = Label::new(3);
 
         /// The required label is only allowed in google.protobuf.  In proto3 and Editions
         /// it's explicitly prohibited.  In Editions, the `field_presence` feature
         /// can be used to get this behavior.
-        pub const LABEL_REQUIRED: Label = Label::new("LABEL_REQUIRED");
+        pub const LABEL_REQUIRED: Label = Label::new(2);
+
+        /// Creates a new Label instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("LABEL_OPTIONAL"),
+                2 => std::borrow::Cow::Borrowed("LABEL_REQUIRED"),
+                3 => std::borrow::Cow::Borrowed("LABEL_REPEATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LABEL_OPTIONAL" => std::option::Option::Some(Self::LABEL_OPTIONAL),
+                "LABEL_REPEATED" => std::option::Option::Some(Self::LABEL_REPEATED),
+                "LABEL_REQUIRED" => std::option::Option::Some(Self::LABEL_REQUIRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Label {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Label {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Label {
         fn default() -> Self {
-            Self::new("")
+            Self::new(0)
         }
     }
 }
@@ -1991,41 +2064,56 @@ pub mod file_options {
 
     /// Generated classes can be optimized for speed or code size.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptimizeMode(std::borrow::Cow<'static, str>);
+    pub struct OptimizeMode(i32);
 
     impl OptimizeMode {
+        pub const SPEED: OptimizeMode = OptimizeMode::new(1);
+
+        /// etc.
+        pub const CODE_SIZE: OptimizeMode = OptimizeMode::new(2);
+
+        pub const LITE_RUNTIME: OptimizeMode = OptimizeMode::new(3);
+
         /// Creates a new OptimizeMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                1 => std::borrow::Cow::Borrowed("SPEED"),
+                2 => std::borrow::Cow::Borrowed("CODE_SIZE"),
+                3 => std::borrow::Cow::Borrowed("LITE_RUNTIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SPEED" => std::option::Option::Some(Self::SPEED),
+                "CODE_SIZE" => std::option::Option::Some(Self::CODE_SIZE),
+                "LITE_RUNTIME" => std::option::Option::Some(Self::LITE_RUNTIME),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [OptimizeMode](OptimizeMode)
-    pub mod optimize_mode {
-        use super::OptimizeMode;
-
-        pub const SPEED: OptimizeMode = OptimizeMode::new("SPEED");
-
-        /// etc.
-        pub const CODE_SIZE: OptimizeMode = OptimizeMode::new("CODE_SIZE");
-
-        pub const LITE_RUNTIME: OptimizeMode = OptimizeMode::new("LITE_RUNTIME");
-    }
-
-    impl std::convert::From<std::string::String> for OptimizeMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OptimizeMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OptimizeMode {
         fn default() -> Self {
-            Self::new("")
+            Self::new(0)
         }
     }
 }
@@ -2510,26 +2598,11 @@ pub mod field_options {
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CType(std::borrow::Cow<'static, str>);
+    pub struct CType(i32);
 
     impl CType {
-        /// Creates a new CType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CType](CType)
-    pub mod c_type {
-        use super::CType;
-
         /// Default mode.
-        pub const STRING: CType = CType::new("STRING");
+        pub const STRING: CType = CType::new(0);
 
         /// The option [ctype=CORD] may be applied to a non-repeated field of type
         /// "bytes". It indicates that in C++, the data should be stored in a Cord
@@ -2537,100 +2610,160 @@ pub mod field_options {
         /// fragmentation. It may also allow better performance when parsing from a
         /// Cord, or when parsing with aliasing enabled, as the parsed Cord may then
         /// alias the original buffer.
-        pub const CORD: CType = CType::new("CORD");
+        pub const CORD: CType = CType::new(1);
 
-        pub const STRING_PIECE: CType = CType::new("STRING_PIECE");
+        pub const STRING_PIECE: CType = CType::new(2);
+
+        /// Creates a new CType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STRING"),
+                1 => std::borrow::Cow::Borrowed("CORD"),
+                2 => std::borrow::Cow::Borrowed("STRING_PIECE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STRING" => std::option::Option::Some(Self::STRING),
+                "CORD" => std::option::Option::Some(Self::CORD),
+                "STRING_PIECE" => std::option::Option::Some(Self::STRING_PIECE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CType {
         fn default() -> Self {
-            c_type::STRING
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JSType(std::borrow::Cow<'static, str>);
+    pub struct JSType(i32);
 
     impl JSType {
+        /// Use the default type.
+        pub const JS_NORMAL: JSType = JSType::new(0);
+
+        /// Use JavaScript strings.
+        pub const JS_STRING: JSType = JSType::new(1);
+
+        /// Use JavaScript numbers.
+        pub const JS_NUMBER: JSType = JSType::new(2);
+
         /// Creates a new JSType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JS_NORMAL"),
+                1 => std::borrow::Cow::Borrowed("JS_STRING"),
+                2 => std::borrow::Cow::Borrowed("JS_NUMBER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JS_NORMAL" => std::option::Option::Some(Self::JS_NORMAL),
+                "JS_STRING" => std::option::Option::Some(Self::JS_STRING),
+                "JS_NUMBER" => std::option::Option::Some(Self::JS_NUMBER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [JSType](JSType)
-    pub mod js_type {
-        use super::JSType;
-
-        /// Use the default type.
-        pub const JS_NORMAL: JSType = JSType::new("JS_NORMAL");
-
-        /// Use JavaScript strings.
-        pub const JS_STRING: JSType = JSType::new("JS_STRING");
-
-        /// Use JavaScript numbers.
-        pub const JS_NUMBER: JSType = JSType::new("JS_NUMBER");
-    }
-
-    impl std::convert::From<std::string::String> for JSType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for JSType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for JSType {
         fn default() -> Self {
-            js_type::JS_NORMAL
+            Self::new(0)
         }
     }
 
     /// If set to RETENTION_SOURCE, the option will be omitted from the binary.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptionRetention(std::borrow::Cow<'static, str>);
+    pub struct OptionRetention(i32);
 
     impl OptionRetention {
+        pub const RETENTION_UNKNOWN: OptionRetention = OptionRetention::new(0);
+
+        pub const RETENTION_RUNTIME: OptionRetention = OptionRetention::new(1);
+
+        pub const RETENTION_SOURCE: OptionRetention = OptionRetention::new(2);
+
         /// Creates a new OptionRetention instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RETENTION_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("RETENTION_RUNTIME"),
+                2 => std::borrow::Cow::Borrowed("RETENTION_SOURCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RETENTION_UNKNOWN" => std::option::Option::Some(Self::RETENTION_UNKNOWN),
+                "RETENTION_RUNTIME" => std::option::Option::Some(Self::RETENTION_RUNTIME),
+                "RETENTION_SOURCE" => std::option::Option::Some(Self::RETENTION_SOURCE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [OptionRetention](OptionRetention)
-    pub mod option_retention {
-        use super::OptionRetention;
-
-        pub const RETENTION_UNKNOWN: OptionRetention = OptionRetention::new("RETENTION_UNKNOWN");
-
-        pub const RETENTION_RUNTIME: OptionRetention = OptionRetention::new("RETENTION_RUNTIME");
-
-        pub const RETENTION_SOURCE: OptionRetention = OptionRetention::new("RETENTION_SOURCE");
-    }
-
-    impl std::convert::From<std::string::String> for OptionRetention {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OptionRetention {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OptionRetention {
         fn default() -> Self {
-            option_retention::RETENTION_UNKNOWN
+            Self::new(0)
         }
     }
 
@@ -2638,60 +2771,85 @@ pub mod field_options {
     /// as an option. If it is unset, then the field may be freely used as an
     /// option on any kind of entity.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptionTargetType(std::borrow::Cow<'static, str>);
+    pub struct OptionTargetType(i32);
 
     impl OptionTargetType {
+        pub const TARGET_TYPE_UNKNOWN: OptionTargetType = OptionTargetType::new(0);
+
+        pub const TARGET_TYPE_FILE: OptionTargetType = OptionTargetType::new(1);
+
+        pub const TARGET_TYPE_EXTENSION_RANGE: OptionTargetType = OptionTargetType::new(2);
+
+        pub const TARGET_TYPE_MESSAGE: OptionTargetType = OptionTargetType::new(3);
+
+        pub const TARGET_TYPE_FIELD: OptionTargetType = OptionTargetType::new(4);
+
+        pub const TARGET_TYPE_ONEOF: OptionTargetType = OptionTargetType::new(5);
+
+        pub const TARGET_TYPE_ENUM: OptionTargetType = OptionTargetType::new(6);
+
+        pub const TARGET_TYPE_ENUM_ENTRY: OptionTargetType = OptionTargetType::new(7);
+
+        pub const TARGET_TYPE_SERVICE: OptionTargetType = OptionTargetType::new(8);
+
+        pub const TARGET_TYPE_METHOD: OptionTargetType = OptionTargetType::new(9);
+
         /// Creates a new OptionTargetType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TARGET_TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("TARGET_TYPE_FILE"),
+                2 => std::borrow::Cow::Borrowed("TARGET_TYPE_EXTENSION_RANGE"),
+                3 => std::borrow::Cow::Borrowed("TARGET_TYPE_MESSAGE"),
+                4 => std::borrow::Cow::Borrowed("TARGET_TYPE_FIELD"),
+                5 => std::borrow::Cow::Borrowed("TARGET_TYPE_ONEOF"),
+                6 => std::borrow::Cow::Borrowed("TARGET_TYPE_ENUM"),
+                7 => std::borrow::Cow::Borrowed("TARGET_TYPE_ENUM_ENTRY"),
+                8 => std::borrow::Cow::Borrowed("TARGET_TYPE_SERVICE"),
+                9 => std::borrow::Cow::Borrowed("TARGET_TYPE_METHOD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TARGET_TYPE_UNKNOWN" => std::option::Option::Some(Self::TARGET_TYPE_UNKNOWN),
+                "TARGET_TYPE_FILE" => std::option::Option::Some(Self::TARGET_TYPE_FILE),
+                "TARGET_TYPE_EXTENSION_RANGE" => {
+                    std::option::Option::Some(Self::TARGET_TYPE_EXTENSION_RANGE)
+                }
+                "TARGET_TYPE_MESSAGE" => std::option::Option::Some(Self::TARGET_TYPE_MESSAGE),
+                "TARGET_TYPE_FIELD" => std::option::Option::Some(Self::TARGET_TYPE_FIELD),
+                "TARGET_TYPE_ONEOF" => std::option::Option::Some(Self::TARGET_TYPE_ONEOF),
+                "TARGET_TYPE_ENUM" => std::option::Option::Some(Self::TARGET_TYPE_ENUM),
+                "TARGET_TYPE_ENUM_ENTRY" => std::option::Option::Some(Self::TARGET_TYPE_ENUM_ENTRY),
+                "TARGET_TYPE_SERVICE" => std::option::Option::Some(Self::TARGET_TYPE_SERVICE),
+                "TARGET_TYPE_METHOD" => std::option::Option::Some(Self::TARGET_TYPE_METHOD),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [OptionTargetType](OptionTargetType)
-    pub mod option_target_type {
-        use super::OptionTargetType;
-
-        pub const TARGET_TYPE_UNKNOWN: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_UNKNOWN");
-
-        pub const TARGET_TYPE_FILE: OptionTargetType = OptionTargetType::new("TARGET_TYPE_FILE");
-
-        pub const TARGET_TYPE_EXTENSION_RANGE: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_EXTENSION_RANGE");
-
-        pub const TARGET_TYPE_MESSAGE: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_MESSAGE");
-
-        pub const TARGET_TYPE_FIELD: OptionTargetType = OptionTargetType::new("TARGET_TYPE_FIELD");
-
-        pub const TARGET_TYPE_ONEOF: OptionTargetType = OptionTargetType::new("TARGET_TYPE_ONEOF");
-
-        pub const TARGET_TYPE_ENUM: OptionTargetType = OptionTargetType::new("TARGET_TYPE_ENUM");
-
-        pub const TARGET_TYPE_ENUM_ENTRY: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_ENUM_ENTRY");
-
-        pub const TARGET_TYPE_SERVICE: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_SERVICE");
-
-        pub const TARGET_TYPE_METHOD: OptionTargetType =
-            OptionTargetType::new("TARGET_TYPE_METHOD");
-    }
-
-    impl std::convert::From<std::string::String> for OptionTargetType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OptionTargetType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OptionTargetType {
         fn default() -> Self {
-            option_target_type::TARGET_TYPE_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -3047,41 +3205,55 @@ pub mod method_options {
     /// or neither? HTTP based RPC implementation may choose GET verb for safe
     /// methods, and PUT verb for idempotent methods instead of the default POST.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdempotencyLevel(std::borrow::Cow<'static, str>);
+    pub struct IdempotencyLevel(i32);
 
     impl IdempotencyLevel {
+        pub const IDEMPOTENCY_UNKNOWN: IdempotencyLevel = IdempotencyLevel::new(0);
+
+        pub const NO_SIDE_EFFECTS: IdempotencyLevel = IdempotencyLevel::new(1);
+
+        pub const IDEMPOTENT: IdempotencyLevel = IdempotencyLevel::new(2);
+
         /// Creates a new IdempotencyLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IDEMPOTENCY_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("NO_SIDE_EFFECTS"),
+                2 => std::borrow::Cow::Borrowed("IDEMPOTENT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IDEMPOTENCY_UNKNOWN" => std::option::Option::Some(Self::IDEMPOTENCY_UNKNOWN),
+                "NO_SIDE_EFFECTS" => std::option::Option::Some(Self::NO_SIDE_EFFECTS),
+                "IDEMPOTENT" => std::option::Option::Some(Self::IDEMPOTENT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [IdempotencyLevel](IdempotencyLevel)
-    pub mod idempotency_level {
-        use super::IdempotencyLevel;
-
-        pub const IDEMPOTENCY_UNKNOWN: IdempotencyLevel =
-            IdempotencyLevel::new("IDEMPOTENCY_UNKNOWN");
-
-        pub const NO_SIDE_EFFECTS: IdempotencyLevel = IdempotencyLevel::new("NO_SIDE_EFFECTS");
-
-        pub const IDEMPOTENT: IdempotencyLevel = IdempotencyLevel::new("IDEMPOTENT");
-    }
-
-    impl std::convert::From<std::string::String> for IdempotencyLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for IdempotencyLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for IdempotencyLevel {
         fn default() -> Self {
-            idempotency_level::IDEMPOTENCY_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -3327,236 +3499,331 @@ pub mod feature_set {
     use super::*;
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FieldPresence(std::borrow::Cow<'static, str>);
+    pub struct FieldPresence(i32);
 
     impl FieldPresence {
+        pub const FIELD_PRESENCE_UNKNOWN: FieldPresence = FieldPresence::new(0);
+
+        pub const EXPLICIT: FieldPresence = FieldPresence::new(1);
+
+        pub const IMPLICIT: FieldPresence = FieldPresence::new(2);
+
+        pub const LEGACY_REQUIRED: FieldPresence = FieldPresence::new(3);
+
         /// Creates a new FieldPresence instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FIELD_PRESENCE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("EXPLICIT"),
+                2 => std::borrow::Cow::Borrowed("IMPLICIT"),
+                3 => std::borrow::Cow::Borrowed("LEGACY_REQUIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FIELD_PRESENCE_UNKNOWN" => std::option::Option::Some(Self::FIELD_PRESENCE_UNKNOWN),
+                "EXPLICIT" => std::option::Option::Some(Self::EXPLICIT),
+                "IMPLICIT" => std::option::Option::Some(Self::IMPLICIT),
+                "LEGACY_REQUIRED" => std::option::Option::Some(Self::LEGACY_REQUIRED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [FieldPresence](FieldPresence)
-    pub mod field_presence {
-        use super::FieldPresence;
-
-        pub const FIELD_PRESENCE_UNKNOWN: FieldPresence =
-            FieldPresence::new("FIELD_PRESENCE_UNKNOWN");
-
-        pub const EXPLICIT: FieldPresence = FieldPresence::new("EXPLICIT");
-
-        pub const IMPLICIT: FieldPresence = FieldPresence::new("IMPLICIT");
-
-        pub const LEGACY_REQUIRED: FieldPresence = FieldPresence::new("LEGACY_REQUIRED");
-    }
-
-    impl std::convert::From<std::string::String> for FieldPresence {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FieldPresence {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FieldPresence {
         fn default() -> Self {
-            field_presence::FIELD_PRESENCE_UNKNOWN
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EnumType(std::borrow::Cow<'static, str>);
+    pub struct EnumType(i32);
 
     impl EnumType {
+        pub const ENUM_TYPE_UNKNOWN: EnumType = EnumType::new(0);
+
+        pub const OPEN: EnumType = EnumType::new(1);
+
+        pub const CLOSED: EnumType = EnumType::new(2);
+
         /// Creates a new EnumType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ENUM_TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("OPEN"),
+                2 => std::borrow::Cow::Borrowed("CLOSED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ENUM_TYPE_UNKNOWN" => std::option::Option::Some(Self::ENUM_TYPE_UNKNOWN),
+                "OPEN" => std::option::Option::Some(Self::OPEN),
+                "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [EnumType](EnumType)
-    pub mod enum_type {
-        use super::EnumType;
-
-        pub const ENUM_TYPE_UNKNOWN: EnumType = EnumType::new("ENUM_TYPE_UNKNOWN");
-
-        pub const OPEN: EnumType = EnumType::new("OPEN");
-
-        pub const CLOSED: EnumType = EnumType::new("CLOSED");
-    }
-
-    impl std::convert::From<std::string::String> for EnumType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for EnumType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for EnumType {
         fn default() -> Self {
-            enum_type::ENUM_TYPE_UNKNOWN
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RepeatedFieldEncoding(std::borrow::Cow<'static, str>);
+    pub struct RepeatedFieldEncoding(i32);
 
     impl RepeatedFieldEncoding {
+        pub const REPEATED_FIELD_ENCODING_UNKNOWN: RepeatedFieldEncoding =
+            RepeatedFieldEncoding::new(0);
+
+        pub const PACKED: RepeatedFieldEncoding = RepeatedFieldEncoding::new(1);
+
+        pub const EXPANDED: RepeatedFieldEncoding = RepeatedFieldEncoding::new(2);
+
         /// Creates a new RepeatedFieldEncoding instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REPEATED_FIELD_ENCODING_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("PACKED"),
+                2 => std::borrow::Cow::Borrowed("EXPANDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REPEATED_FIELD_ENCODING_UNKNOWN" => {
+                    std::option::Option::Some(Self::REPEATED_FIELD_ENCODING_UNKNOWN)
+                }
+                "PACKED" => std::option::Option::Some(Self::PACKED),
+                "EXPANDED" => std::option::Option::Some(Self::EXPANDED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RepeatedFieldEncoding](RepeatedFieldEncoding)
-    pub mod repeated_field_encoding {
-        use super::RepeatedFieldEncoding;
-
-        pub const REPEATED_FIELD_ENCODING_UNKNOWN: RepeatedFieldEncoding =
-            RepeatedFieldEncoding::new("REPEATED_FIELD_ENCODING_UNKNOWN");
-
-        pub const PACKED: RepeatedFieldEncoding = RepeatedFieldEncoding::new("PACKED");
-
-        pub const EXPANDED: RepeatedFieldEncoding = RepeatedFieldEncoding::new("EXPANDED");
-    }
-
-    impl std::convert::From<std::string::String> for RepeatedFieldEncoding {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RepeatedFieldEncoding {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RepeatedFieldEncoding {
         fn default() -> Self {
-            repeated_field_encoding::REPEATED_FIELD_ENCODING_UNKNOWN
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Utf8Validation(std::borrow::Cow<'static, str>);
+    pub struct Utf8Validation(i32);
 
     impl Utf8Validation {
+        pub const UTF8_VALIDATION_UNKNOWN: Utf8Validation = Utf8Validation::new(0);
+
+        pub const VERIFY: Utf8Validation = Utf8Validation::new(2);
+
+        pub const NONE: Utf8Validation = Utf8Validation::new(3);
+
         /// Creates a new Utf8Validation instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UTF8_VALIDATION_UNKNOWN"),
+                2 => std::borrow::Cow::Borrowed("VERIFY"),
+                3 => std::borrow::Cow::Borrowed("NONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UTF8_VALIDATION_UNKNOWN" => {
+                    std::option::Option::Some(Self::UTF8_VALIDATION_UNKNOWN)
+                }
+                "VERIFY" => std::option::Option::Some(Self::VERIFY),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Utf8Validation](Utf8Validation)
-    pub mod utf_8_validation {
-        use super::Utf8Validation;
-
-        pub const UTF8_VALIDATION_UNKNOWN: Utf8Validation =
-            Utf8Validation::new("UTF8_VALIDATION_UNKNOWN");
-
-        pub const VERIFY: Utf8Validation = Utf8Validation::new("VERIFY");
-
-        pub const NONE: Utf8Validation = Utf8Validation::new("NONE");
-    }
-
-    impl std::convert::From<std::string::String> for Utf8Validation {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Utf8Validation {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Utf8Validation {
         fn default() -> Self {
-            utf_8_validation::UTF8_VALIDATION_UNKNOWN
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MessageEncoding(std::borrow::Cow<'static, str>);
+    pub struct MessageEncoding(i32);
 
     impl MessageEncoding {
+        pub const MESSAGE_ENCODING_UNKNOWN: MessageEncoding = MessageEncoding::new(0);
+
+        pub const LENGTH_PREFIXED: MessageEncoding = MessageEncoding::new(1);
+
+        pub const DELIMITED: MessageEncoding = MessageEncoding::new(2);
+
         /// Creates a new MessageEncoding instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MESSAGE_ENCODING_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("LENGTH_PREFIXED"),
+                2 => std::borrow::Cow::Borrowed("DELIMITED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MESSAGE_ENCODING_UNKNOWN" => {
+                    std::option::Option::Some(Self::MESSAGE_ENCODING_UNKNOWN)
+                }
+                "LENGTH_PREFIXED" => std::option::Option::Some(Self::LENGTH_PREFIXED),
+                "DELIMITED" => std::option::Option::Some(Self::DELIMITED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MessageEncoding](MessageEncoding)
-    pub mod message_encoding {
-        use super::MessageEncoding;
-
-        pub const MESSAGE_ENCODING_UNKNOWN: MessageEncoding =
-            MessageEncoding::new("MESSAGE_ENCODING_UNKNOWN");
-
-        pub const LENGTH_PREFIXED: MessageEncoding = MessageEncoding::new("LENGTH_PREFIXED");
-
-        pub const DELIMITED: MessageEncoding = MessageEncoding::new("DELIMITED");
-    }
-
-    impl std::convert::From<std::string::String> for MessageEncoding {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MessageEncoding {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for MessageEncoding {
         fn default() -> Self {
-            message_encoding::MESSAGE_ENCODING_UNKNOWN
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct JsonFormat(std::borrow::Cow<'static, str>);
+    pub struct JsonFormat(i32);
 
     impl JsonFormat {
+        pub const JSON_FORMAT_UNKNOWN: JsonFormat = JsonFormat::new(0);
+
+        pub const ALLOW: JsonFormat = JsonFormat::new(1);
+
+        pub const LEGACY_BEST_EFFORT: JsonFormat = JsonFormat::new(2);
+
         /// Creates a new JsonFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("JSON_FORMAT_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                2 => std::borrow::Cow::Borrowed("LEGACY_BEST_EFFORT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "JSON_FORMAT_UNKNOWN" => std::option::Option::Some(Self::JSON_FORMAT_UNKNOWN),
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                "LEGACY_BEST_EFFORT" => std::option::Option::Some(Self::LEGACY_BEST_EFFORT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [JsonFormat](JsonFormat)
-    pub mod json_format {
-        use super::JsonFormat;
-
-        pub const JSON_FORMAT_UNKNOWN: JsonFormat = JsonFormat::new("JSON_FORMAT_UNKNOWN");
-
-        pub const ALLOW: JsonFormat = JsonFormat::new("ALLOW");
-
-        pub const LEGACY_BEST_EFFORT: JsonFormat = JsonFormat::new("LEGACY_BEST_EFFORT");
-    }
-
-    impl std::convert::From<std::string::String> for JsonFormat {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for JsonFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for JsonFormat {
         fn default() -> Self {
-            json_format::JSON_FORMAT_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -4053,43 +4320,58 @@ pub mod generated_code_info {
         /// Represents the identified object's effect on the element in the original
         /// .proto file.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Semantic(std::borrow::Cow<'static, str>);
+        pub struct Semantic(i32);
 
         impl Semantic {
+            /// There is no effect or the effect is indescribable.
+            pub const NONE: Semantic = Semantic::new(0);
+
+            /// The element is set or otherwise mutated.
+            pub const SET: Semantic = Semantic::new(1);
+
+            /// An alias to the element is returned.
+            pub const ALIAS: Semantic = Semantic::new(2);
+
             /// Creates a new Semantic instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("NONE"),
+                    1 => std::borrow::Cow::Borrowed("SET"),
+                    2 => std::borrow::Cow::Borrowed("ALIAS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "NONE" => std::option::Option::Some(Self::NONE),
+                    "SET" => std::option::Option::Some(Self::SET),
+                    "ALIAS" => std::option::Option::Some(Self::ALIAS),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Semantic](Semantic)
-        pub mod semantic {
-            use super::Semantic;
-
-            /// There is no effect or the effect is indescribable.
-            pub const NONE: Semantic = Semantic::new("NONE");
-
-            /// The element is set or otherwise mutated.
-            pub const SET: Semantic = Semantic::new("SET");
-
-            /// An alias to the element is returned.
-            pub const ALIAS: Semantic = Semantic::new("ALIAS");
-        }
-
-        impl std::convert::From<std::string::String> for Semantic {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Semantic {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Semantic {
             fn default() -> Self {
-                semantic::NONE
+                Self::new(0)
             }
         }
     }
@@ -4363,136 +4645,200 @@ pub mod field {
 
     /// Basic field types.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Kind(std::borrow::Cow<'static, str>);
+    pub struct Kind(i32);
 
     impl Kind {
+        /// Field type unknown.
+        pub const TYPE_UNKNOWN: Kind = Kind::new(0);
+
+        /// Field type double.
+        pub const TYPE_DOUBLE: Kind = Kind::new(1);
+
+        /// Field type float.
+        pub const TYPE_FLOAT: Kind = Kind::new(2);
+
+        /// Field type int64.
+        pub const TYPE_INT64: Kind = Kind::new(3);
+
+        /// Field type uint64.
+        pub const TYPE_UINT64: Kind = Kind::new(4);
+
+        /// Field type int32.
+        pub const TYPE_INT32: Kind = Kind::new(5);
+
+        /// Field type fixed64.
+        pub const TYPE_FIXED64: Kind = Kind::new(6);
+
+        /// Field type fixed32.
+        pub const TYPE_FIXED32: Kind = Kind::new(7);
+
+        /// Field type bool.
+        pub const TYPE_BOOL: Kind = Kind::new(8);
+
+        /// Field type string.
+        pub const TYPE_STRING: Kind = Kind::new(9);
+
+        /// Field type group. Proto2 syntax only, and deprecated.
+        pub const TYPE_GROUP: Kind = Kind::new(10);
+
+        /// Field type message.
+        pub const TYPE_MESSAGE: Kind = Kind::new(11);
+
+        /// Field type bytes.
+        pub const TYPE_BYTES: Kind = Kind::new(12);
+
+        /// Field type uint32.
+        pub const TYPE_UINT32: Kind = Kind::new(13);
+
+        /// Field type enum.
+        pub const TYPE_ENUM: Kind = Kind::new(14);
+
+        /// Field type sfixed32.
+        pub const TYPE_SFIXED32: Kind = Kind::new(15);
+
+        /// Field type sfixed64.
+        pub const TYPE_SFIXED64: Kind = Kind::new(16);
+
+        /// Field type sint32.
+        pub const TYPE_SINT32: Kind = Kind::new(17);
+
+        /// Field type sint64.
+        pub const TYPE_SINT64: Kind = Kind::new(18);
+
         /// Creates a new Kind instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("TYPE_DOUBLE"),
+                2 => std::borrow::Cow::Borrowed("TYPE_FLOAT"),
+                3 => std::borrow::Cow::Borrowed("TYPE_INT64"),
+                4 => std::borrow::Cow::Borrowed("TYPE_UINT64"),
+                5 => std::borrow::Cow::Borrowed("TYPE_INT32"),
+                6 => std::borrow::Cow::Borrowed("TYPE_FIXED64"),
+                7 => std::borrow::Cow::Borrowed("TYPE_FIXED32"),
+                8 => std::borrow::Cow::Borrowed("TYPE_BOOL"),
+                9 => std::borrow::Cow::Borrowed("TYPE_STRING"),
+                10 => std::borrow::Cow::Borrowed("TYPE_GROUP"),
+                11 => std::borrow::Cow::Borrowed("TYPE_MESSAGE"),
+                12 => std::borrow::Cow::Borrowed("TYPE_BYTES"),
+                13 => std::borrow::Cow::Borrowed("TYPE_UINT32"),
+                14 => std::borrow::Cow::Borrowed("TYPE_ENUM"),
+                15 => std::borrow::Cow::Borrowed("TYPE_SFIXED32"),
+                16 => std::borrow::Cow::Borrowed("TYPE_SFIXED64"),
+                17 => std::borrow::Cow::Borrowed("TYPE_SINT32"),
+                18 => std::borrow::Cow::Borrowed("TYPE_SINT64"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNKNOWN" => std::option::Option::Some(Self::TYPE_UNKNOWN),
+                "TYPE_DOUBLE" => std::option::Option::Some(Self::TYPE_DOUBLE),
+                "TYPE_FLOAT" => std::option::Option::Some(Self::TYPE_FLOAT),
+                "TYPE_INT64" => std::option::Option::Some(Self::TYPE_INT64),
+                "TYPE_UINT64" => std::option::Option::Some(Self::TYPE_UINT64),
+                "TYPE_INT32" => std::option::Option::Some(Self::TYPE_INT32),
+                "TYPE_FIXED64" => std::option::Option::Some(Self::TYPE_FIXED64),
+                "TYPE_FIXED32" => std::option::Option::Some(Self::TYPE_FIXED32),
+                "TYPE_BOOL" => std::option::Option::Some(Self::TYPE_BOOL),
+                "TYPE_STRING" => std::option::Option::Some(Self::TYPE_STRING),
+                "TYPE_GROUP" => std::option::Option::Some(Self::TYPE_GROUP),
+                "TYPE_MESSAGE" => std::option::Option::Some(Self::TYPE_MESSAGE),
+                "TYPE_BYTES" => std::option::Option::Some(Self::TYPE_BYTES),
+                "TYPE_UINT32" => std::option::Option::Some(Self::TYPE_UINT32),
+                "TYPE_ENUM" => std::option::Option::Some(Self::TYPE_ENUM),
+                "TYPE_SFIXED32" => std::option::Option::Some(Self::TYPE_SFIXED32),
+                "TYPE_SFIXED64" => std::option::Option::Some(Self::TYPE_SFIXED64),
+                "TYPE_SINT32" => std::option::Option::Some(Self::TYPE_SINT32),
+                "TYPE_SINT64" => std::option::Option::Some(Self::TYPE_SINT64),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Kind](Kind)
-    pub mod kind {
-        use super::Kind;
-
-        /// Field type unknown.
-        pub const TYPE_UNKNOWN: Kind = Kind::new("TYPE_UNKNOWN");
-
-        /// Field type double.
-        pub const TYPE_DOUBLE: Kind = Kind::new("TYPE_DOUBLE");
-
-        /// Field type float.
-        pub const TYPE_FLOAT: Kind = Kind::new("TYPE_FLOAT");
-
-        /// Field type int64.
-        pub const TYPE_INT64: Kind = Kind::new("TYPE_INT64");
-
-        /// Field type uint64.
-        pub const TYPE_UINT64: Kind = Kind::new("TYPE_UINT64");
-
-        /// Field type int32.
-        pub const TYPE_INT32: Kind = Kind::new("TYPE_INT32");
-
-        /// Field type fixed64.
-        pub const TYPE_FIXED64: Kind = Kind::new("TYPE_FIXED64");
-
-        /// Field type fixed32.
-        pub const TYPE_FIXED32: Kind = Kind::new("TYPE_FIXED32");
-
-        /// Field type bool.
-        pub const TYPE_BOOL: Kind = Kind::new("TYPE_BOOL");
-
-        /// Field type string.
-        pub const TYPE_STRING: Kind = Kind::new("TYPE_STRING");
-
-        /// Field type group. Proto2 syntax only, and deprecated.
-        pub const TYPE_GROUP: Kind = Kind::new("TYPE_GROUP");
-
-        /// Field type message.
-        pub const TYPE_MESSAGE: Kind = Kind::new("TYPE_MESSAGE");
-
-        /// Field type bytes.
-        pub const TYPE_BYTES: Kind = Kind::new("TYPE_BYTES");
-
-        /// Field type uint32.
-        pub const TYPE_UINT32: Kind = Kind::new("TYPE_UINT32");
-
-        /// Field type enum.
-        pub const TYPE_ENUM: Kind = Kind::new("TYPE_ENUM");
-
-        /// Field type sfixed32.
-        pub const TYPE_SFIXED32: Kind = Kind::new("TYPE_SFIXED32");
-
-        /// Field type sfixed64.
-        pub const TYPE_SFIXED64: Kind = Kind::new("TYPE_SFIXED64");
-
-        /// Field type sint32.
-        pub const TYPE_SINT32: Kind = Kind::new("TYPE_SINT32");
-
-        /// Field type sint64.
-        pub const TYPE_SINT64: Kind = Kind::new("TYPE_SINT64");
-    }
-
-    impl std::convert::From<std::string::String> for Kind {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Kind {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Kind {
         fn default() -> Self {
-            kind::TYPE_UNKNOWN
+            Self::new(0)
         }
     }
 
     /// Whether a field is optional, required, or repeated.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Cardinality(std::borrow::Cow<'static, str>);
+    pub struct Cardinality(i32);
 
     impl Cardinality {
+        /// For fields with unknown cardinality.
+        pub const CARDINALITY_UNKNOWN: Cardinality = Cardinality::new(0);
+
+        /// For optional fields.
+        pub const CARDINALITY_OPTIONAL: Cardinality = Cardinality::new(1);
+
+        /// For required fields. Proto2 syntax only.
+        pub const CARDINALITY_REQUIRED: Cardinality = Cardinality::new(2);
+
+        /// For repeated fields.
+        pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new(3);
+
         /// Creates a new Cardinality instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CARDINALITY_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("CARDINALITY_OPTIONAL"),
+                2 => std::borrow::Cow::Borrowed("CARDINALITY_REQUIRED"),
+                3 => std::borrow::Cow::Borrowed("CARDINALITY_REPEATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CARDINALITY_UNKNOWN" => std::option::Option::Some(Self::CARDINALITY_UNKNOWN),
+                "CARDINALITY_OPTIONAL" => std::option::Option::Some(Self::CARDINALITY_OPTIONAL),
+                "CARDINALITY_REQUIRED" => std::option::Option::Some(Self::CARDINALITY_REQUIRED),
+                "CARDINALITY_REPEATED" => std::option::Option::Some(Self::CARDINALITY_REPEATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Cardinality](Cardinality)
-    pub mod cardinality {
-        use super::Cardinality;
-
-        /// For fields with unknown cardinality.
-        pub const CARDINALITY_UNKNOWN: Cardinality = Cardinality::new("CARDINALITY_UNKNOWN");
-
-        /// For optional fields.
-        pub const CARDINALITY_OPTIONAL: Cardinality = Cardinality::new("CARDINALITY_OPTIONAL");
-
-        /// For required fields. Proto2 syntax only.
-        pub const CARDINALITY_REQUIRED: Cardinality = Cardinality::new("CARDINALITY_REQUIRED");
-
-        /// For repeated fields.
-        pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new("CARDINALITY_REPEATED");
-    }
-
-    impl std::convert::From<std::string::String> for Cardinality {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Cardinality {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Cardinality {
         fn default() -> Self {
-            cardinality::CARDINALITY_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -4692,114 +5038,162 @@ impl wkt::message::Message for Option {
 
 /// The full set of known editions.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Edition(std::borrow::Cow<'static, str>);
+pub struct Edition(i32);
 
 impl Edition {
-    /// Creates a new Edition instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [Edition](Edition)
-pub mod edition {
-    use super::Edition;
-
     /// A placeholder for an unknown edition value.
-    pub const EDITION_UNKNOWN: Edition = Edition::new("EDITION_UNKNOWN");
+    pub const EDITION_UNKNOWN: Edition = Edition::new(0);
 
     /// A placeholder edition for specifying default behaviors *before* a feature
     /// was first introduced.  This is effectively an "infinite past".
-    pub const EDITION_LEGACY: Edition = Edition::new("EDITION_LEGACY");
+    pub const EDITION_LEGACY: Edition = Edition::new(900);
 
     /// Legacy syntax "editions".  These pre-date editions, but behave much like
     /// distinct editions.  These can't be used to specify the edition of proto
     /// files, but feature definitions must supply proto2/proto3 defaults for
     /// backwards compatibility.
-    pub const EDITION_PROTO2: Edition = Edition::new("EDITION_PROTO2");
+    pub const EDITION_PROTO2: Edition = Edition::new(998);
 
-    pub const EDITION_PROTO3: Edition = Edition::new("EDITION_PROTO3");
+    pub const EDITION_PROTO3: Edition = Edition::new(999);
 
     /// Editions that have been released.  The specific values are arbitrary and
     /// should not be depended on, but they will always be time-ordered for easy
     /// comparison.
-    pub const EDITION_2023: Edition = Edition::new("EDITION_2023");
+    pub const EDITION_2023: Edition = Edition::new(1000);
 
-    pub const EDITION_2024: Edition = Edition::new("EDITION_2024");
+    pub const EDITION_2024: Edition = Edition::new(1001);
 
     /// Placeholder editions for testing feature resolution.  These should not be
     /// used or relied on outside of tests.
-    pub const EDITION_1_TEST_ONLY: Edition = Edition::new("EDITION_1_TEST_ONLY");
+    pub const EDITION_1_TEST_ONLY: Edition = Edition::new(1);
 
-    pub const EDITION_2_TEST_ONLY: Edition = Edition::new("EDITION_2_TEST_ONLY");
+    pub const EDITION_2_TEST_ONLY: Edition = Edition::new(2);
 
-    pub const EDITION_99997_TEST_ONLY: Edition = Edition::new("EDITION_99997_TEST_ONLY");
+    pub const EDITION_99997_TEST_ONLY: Edition = Edition::new(99997);
 
-    pub const EDITION_99998_TEST_ONLY: Edition = Edition::new("EDITION_99998_TEST_ONLY");
+    pub const EDITION_99998_TEST_ONLY: Edition = Edition::new(99998);
 
-    pub const EDITION_99999_TEST_ONLY: Edition = Edition::new("EDITION_99999_TEST_ONLY");
+    pub const EDITION_99999_TEST_ONLY: Edition = Edition::new(99999);
 
     /// Placeholder for specifying unbounded edition support.  This should only
     /// ever be used by plugins that can expect to never require any changes to
     /// support a new edition.
-    pub const EDITION_MAX: Edition = Edition::new("EDITION_MAX");
+    pub const EDITION_MAX: Edition = Edition::new(2147483647);
+
+    /// Creates a new Edition instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EDITION_UNKNOWN"),
+            1 => std::borrow::Cow::Borrowed("EDITION_1_TEST_ONLY"),
+            2 => std::borrow::Cow::Borrowed("EDITION_2_TEST_ONLY"),
+            900 => std::borrow::Cow::Borrowed("EDITION_LEGACY"),
+            998 => std::borrow::Cow::Borrowed("EDITION_PROTO2"),
+            999 => std::borrow::Cow::Borrowed("EDITION_PROTO3"),
+            1000 => std::borrow::Cow::Borrowed("EDITION_2023"),
+            1001 => std::borrow::Cow::Borrowed("EDITION_2024"),
+            99997 => std::borrow::Cow::Borrowed("EDITION_99997_TEST_ONLY"),
+            99998 => std::borrow::Cow::Borrowed("EDITION_99998_TEST_ONLY"),
+            99999 => std::borrow::Cow::Borrowed("EDITION_99999_TEST_ONLY"),
+            2147483647 => std::borrow::Cow::Borrowed("EDITION_MAX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EDITION_UNKNOWN" => std::option::Option::Some(Self::EDITION_UNKNOWN),
+            "EDITION_LEGACY" => std::option::Option::Some(Self::EDITION_LEGACY),
+            "EDITION_PROTO2" => std::option::Option::Some(Self::EDITION_PROTO2),
+            "EDITION_PROTO3" => std::option::Option::Some(Self::EDITION_PROTO3),
+            "EDITION_2023" => std::option::Option::Some(Self::EDITION_2023),
+            "EDITION_2024" => std::option::Option::Some(Self::EDITION_2024),
+            "EDITION_1_TEST_ONLY" => std::option::Option::Some(Self::EDITION_1_TEST_ONLY),
+            "EDITION_2_TEST_ONLY" => std::option::Option::Some(Self::EDITION_2_TEST_ONLY),
+            "EDITION_99997_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99997_TEST_ONLY),
+            "EDITION_99998_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99998_TEST_ONLY),
+            "EDITION_99999_TEST_ONLY" => std::option::Option::Some(Self::EDITION_99999_TEST_ONLY),
+            "EDITION_MAX" => std::option::Option::Some(Self::EDITION_MAX),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for Edition {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Edition {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Edition {
     fn default() -> Self {
-        edition::EDITION_UNKNOWN
+        Self::new(0)
     }
 }
 
 /// The syntax in which a protocol buffer element is defined.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Syntax(std::borrow::Cow<'static, str>);
+pub struct Syntax(i32);
 
 impl Syntax {
+    /// Syntax `proto2`.
+    pub const SYNTAX_PROTO2: Syntax = Syntax::new(0);
+
+    /// Syntax `proto3`.
+    pub const SYNTAX_PROTO3: Syntax = Syntax::new(1);
+
+    /// Syntax `editions`.
+    pub const SYNTAX_EDITIONS: Syntax = Syntax::new(2);
+
     /// Creates a new Syntax instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SYNTAX_PROTO2"),
+            1 => std::borrow::Cow::Borrowed("SYNTAX_PROTO3"),
+            2 => std::borrow::Cow::Borrowed("SYNTAX_EDITIONS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SYNTAX_PROTO2" => std::option::Option::Some(Self::SYNTAX_PROTO2),
+            "SYNTAX_PROTO3" => std::option::Option::Some(Self::SYNTAX_PROTO3),
+            "SYNTAX_EDITIONS" => std::option::Option::Some(Self::SYNTAX_EDITIONS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Syntax](Syntax)
-pub mod syntax {
-    use super::Syntax;
-
-    /// Syntax `proto2`.
-    pub const SYNTAX_PROTO2: Syntax = Syntax::new("SYNTAX_PROTO2");
-
-    /// Syntax `proto3`.
-    pub const SYNTAX_PROTO3: Syntax = Syntax::new("SYNTAX_PROTO3");
-
-    /// Syntax `editions`.
-    pub const SYNTAX_EDITIONS: Syntax = Syntax::new("SYNTAX_EDITIONS");
-}
-
-impl std::convert::From<std::string::String> for Syntax {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Syntax {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Syntax {
     fn default() -> Self {
-        syntax::SYNTAX_PROTO2
+        Self::new(0)
     }
 }

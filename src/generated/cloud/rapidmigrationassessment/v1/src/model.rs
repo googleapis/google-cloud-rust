@@ -295,63 +295,90 @@ pub mod collector {
     /// convention of legacy product:
     /// <https://cloud.google.com/migrate/stratozone/docs/about-stratoprobe>.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Collector state is not recognized.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Collector started to create, but hasn't been completed MC source creation
         /// and db object creation.
-        pub const STATE_INITIALIZING: State = State::new("STATE_INITIALIZING");
+        pub const STATE_INITIALIZING: State = State::new(1);
 
         /// Collector has been created, MC source creation and db object creation
         /// completed.
-        pub const STATE_READY_TO_USE: State = State::new("STATE_READY_TO_USE");
+        pub const STATE_READY_TO_USE: State = State::new(2);
 
         /// Collector client has been registered with client.
-        pub const STATE_REGISTERED: State = State::new("STATE_REGISTERED");
+        pub const STATE_REGISTERED: State = State::new(3);
 
         /// Collector client is actively scanning.
-        pub const STATE_ACTIVE: State = State::new("STATE_ACTIVE");
+        pub const STATE_ACTIVE: State = State::new(4);
 
         /// Collector is not actively scanning.
-        pub const STATE_PAUSED: State = State::new("STATE_PAUSED");
+        pub const STATE_PAUSED: State = State::new(5);
 
         /// Collector is starting background job for deletion.
-        pub const STATE_DELETING: State = State::new("STATE_DELETING");
+        pub const STATE_DELETING: State = State::new(6);
 
         /// Collector completed all tasks for deletion.
-        pub const STATE_DECOMMISSIONED: State = State::new("STATE_DECOMMISSIONED");
+        pub const STATE_DECOMMISSIONED: State = State::new(7);
 
         /// Collector is in error state.
-        pub const STATE_ERROR: State = State::new("STATE_ERROR");
+        pub const STATE_ERROR: State = State::new(8);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STATE_INITIALIZING"),
+                2 => std::borrow::Cow::Borrowed("STATE_READY_TO_USE"),
+                3 => std::borrow::Cow::Borrowed("STATE_REGISTERED"),
+                4 => std::borrow::Cow::Borrowed("STATE_ACTIVE"),
+                5 => std::borrow::Cow::Borrowed("STATE_PAUSED"),
+                6 => std::borrow::Cow::Borrowed("STATE_DELETING"),
+                7 => std::borrow::Cow::Borrowed("STATE_DECOMMISSIONED"),
+                8 => std::borrow::Cow::Borrowed("STATE_ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "STATE_INITIALIZING" => std::option::Option::Some(Self::STATE_INITIALIZING),
+                "STATE_READY_TO_USE" => std::option::Option::Some(Self::STATE_READY_TO_USE),
+                "STATE_REGISTERED" => std::option::Option::Some(Self::STATE_REGISTERED),
+                "STATE_ACTIVE" => std::option::Option::Some(Self::STATE_ACTIVE),
+                "STATE_PAUSED" => std::option::Option::Some(Self::STATE_PAUSED),
+                "STATE_DELETING" => std::option::Option::Some(Self::STATE_DELETING),
+                "STATE_DECOMMISSIONED" => std::option::Option::Some(Self::STATE_DECOMMISSIONED),
+                "STATE_ERROR" => std::option::Option::Some(Self::STATE_ERROR),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -444,43 +471,60 @@ pub mod annotation {
 
     /// Types for project level setting.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Unknown type
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Indicates that this project has opted into StratoZone export.
+        pub const TYPE_LEGACY_EXPORT_CONSENT: Type = Type::new(1);
+
+        /// Indicates that this project is created by Qwiklab.
+        pub const TYPE_QWIKLAB: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TYPE_LEGACY_EXPORT_CONSENT"),
+                2 => std::borrow::Cow::Borrowed("TYPE_QWIKLAB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "TYPE_LEGACY_EXPORT_CONSENT" => {
+                    std::option::Option::Some(Self::TYPE_LEGACY_EXPORT_CONSENT)
+                }
+                "TYPE_QWIKLAB" => std::option::Option::Some(Self::TYPE_QWIKLAB),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Unknown type
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Indicates that this project has opted into StratoZone export.
-        pub const TYPE_LEGACY_EXPORT_CONSENT: Type = Type::new("TYPE_LEGACY_EXPORT_CONSENT");
-
-        /// Indicates that this project is created by Qwiklab.
-        pub const TYPE_QWIKLAB: Type = Type::new("TYPE_QWIKLAB");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

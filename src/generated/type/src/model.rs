@@ -1580,191 +1580,277 @@ impl wkt::message::Message for TimeOfDay {
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CalendarPeriod(std::borrow::Cow<'static, str>);
+pub struct CalendarPeriod(i32);
 
 impl CalendarPeriod {
-    /// Creates a new CalendarPeriod instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [CalendarPeriod](CalendarPeriod)
-pub mod calendar_period {
-    use super::CalendarPeriod;
-
     /// Undefined period, raises an error.
-    pub const CALENDAR_PERIOD_UNSPECIFIED: CalendarPeriod =
-        CalendarPeriod::new("CALENDAR_PERIOD_UNSPECIFIED");
+    pub const CALENDAR_PERIOD_UNSPECIFIED: CalendarPeriod = CalendarPeriod::new(0);
 
     /// A day.
-    pub const DAY: CalendarPeriod = CalendarPeriod::new("DAY");
+    pub const DAY: CalendarPeriod = CalendarPeriod::new(1);
 
     /// A week. Weeks begin on Monday, following
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const WEEK: CalendarPeriod = CalendarPeriod::new("WEEK");
+    pub const WEEK: CalendarPeriod = CalendarPeriod::new(2);
 
     /// A fortnight. The first calendar fortnight of the year begins at the start
     /// of week 1 according to
     /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
-    pub const FORTNIGHT: CalendarPeriod = CalendarPeriod::new("FORTNIGHT");
+    pub const FORTNIGHT: CalendarPeriod = CalendarPeriod::new(3);
 
     /// A month.
-    pub const MONTH: CalendarPeriod = CalendarPeriod::new("MONTH");
+    pub const MONTH: CalendarPeriod = CalendarPeriod::new(4);
 
     /// A quarter. Quarters start on dates 1-Jan, 1-Apr, 1-Jul, and 1-Oct of each
     /// year.
-    pub const QUARTER: CalendarPeriod = CalendarPeriod::new("QUARTER");
+    pub const QUARTER: CalendarPeriod = CalendarPeriod::new(5);
 
     /// A half-year. Half-years start on dates 1-Jan and 1-Jul.
-    pub const HALF: CalendarPeriod = CalendarPeriod::new("HALF");
+    pub const HALF: CalendarPeriod = CalendarPeriod::new(6);
 
     /// A year.
-    pub const YEAR: CalendarPeriod = CalendarPeriod::new("YEAR");
+    pub const YEAR: CalendarPeriod = CalendarPeriod::new(7);
+
+    /// Creates a new CalendarPeriod instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("CALENDAR_PERIOD_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DAY"),
+            2 => std::borrow::Cow::Borrowed("WEEK"),
+            3 => std::borrow::Cow::Borrowed("FORTNIGHT"),
+            4 => std::borrow::Cow::Borrowed("MONTH"),
+            5 => std::borrow::Cow::Borrowed("QUARTER"),
+            6 => std::borrow::Cow::Borrowed("HALF"),
+            7 => std::borrow::Cow::Borrowed("YEAR"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "CALENDAR_PERIOD_UNSPECIFIED" => {
+                std::option::Option::Some(Self::CALENDAR_PERIOD_UNSPECIFIED)
+            }
+            "DAY" => std::option::Option::Some(Self::DAY),
+            "WEEK" => std::option::Option::Some(Self::WEEK),
+            "FORTNIGHT" => std::option::Option::Some(Self::FORTNIGHT),
+            "MONTH" => std::option::Option::Some(Self::MONTH),
+            "QUARTER" => std::option::Option::Some(Self::QUARTER),
+            "HALF" => std::option::Option::Some(Self::HALF),
+            "YEAR" => std::option::Option::Some(Self::YEAR),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for CalendarPeriod {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for CalendarPeriod {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for CalendarPeriod {
     fn default() -> Self {
-        calendar_period::CALENDAR_PERIOD_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Represents a day of the week.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DayOfWeek(std::borrow::Cow<'static, str>);
+pub struct DayOfWeek(i32);
 
 impl DayOfWeek {
+    /// The day of the week is unspecified.
+    pub const DAY_OF_WEEK_UNSPECIFIED: DayOfWeek = DayOfWeek::new(0);
+
+    /// Monday
+    pub const MONDAY: DayOfWeek = DayOfWeek::new(1);
+
+    /// Tuesday
+    pub const TUESDAY: DayOfWeek = DayOfWeek::new(2);
+
+    /// Wednesday
+    pub const WEDNESDAY: DayOfWeek = DayOfWeek::new(3);
+
+    /// Thursday
+    pub const THURSDAY: DayOfWeek = DayOfWeek::new(4);
+
+    /// Friday
+    pub const FRIDAY: DayOfWeek = DayOfWeek::new(5);
+
+    /// Saturday
+    pub const SATURDAY: DayOfWeek = DayOfWeek::new(6);
+
+    /// Sunday
+    pub const SUNDAY: DayOfWeek = DayOfWeek::new(7);
+
     /// Creates a new DayOfWeek instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DAY_OF_WEEK_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("MONDAY"),
+            2 => std::borrow::Cow::Borrowed("TUESDAY"),
+            3 => std::borrow::Cow::Borrowed("WEDNESDAY"),
+            4 => std::borrow::Cow::Borrowed("THURSDAY"),
+            5 => std::borrow::Cow::Borrowed("FRIDAY"),
+            6 => std::borrow::Cow::Borrowed("SATURDAY"),
+            7 => std::borrow::Cow::Borrowed("SUNDAY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DAY_OF_WEEK_UNSPECIFIED" => std::option::Option::Some(Self::DAY_OF_WEEK_UNSPECIFIED),
+            "MONDAY" => std::option::Option::Some(Self::MONDAY),
+            "TUESDAY" => std::option::Option::Some(Self::TUESDAY),
+            "WEDNESDAY" => std::option::Option::Some(Self::WEDNESDAY),
+            "THURSDAY" => std::option::Option::Some(Self::THURSDAY),
+            "FRIDAY" => std::option::Option::Some(Self::FRIDAY),
+            "SATURDAY" => std::option::Option::Some(Self::SATURDAY),
+            "SUNDAY" => std::option::Option::Some(Self::SUNDAY),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DayOfWeek](DayOfWeek)
-pub mod day_of_week {
-    use super::DayOfWeek;
-
-    /// The day of the week is unspecified.
-    pub const DAY_OF_WEEK_UNSPECIFIED: DayOfWeek = DayOfWeek::new("DAY_OF_WEEK_UNSPECIFIED");
-
-    /// Monday
-    pub const MONDAY: DayOfWeek = DayOfWeek::new("MONDAY");
-
-    /// Tuesday
-    pub const TUESDAY: DayOfWeek = DayOfWeek::new("TUESDAY");
-
-    /// Wednesday
-    pub const WEDNESDAY: DayOfWeek = DayOfWeek::new("WEDNESDAY");
-
-    /// Thursday
-    pub const THURSDAY: DayOfWeek = DayOfWeek::new("THURSDAY");
-
-    /// Friday
-    pub const FRIDAY: DayOfWeek = DayOfWeek::new("FRIDAY");
-
-    /// Saturday
-    pub const SATURDAY: DayOfWeek = DayOfWeek::new("SATURDAY");
-
-    /// Sunday
-    pub const SUNDAY: DayOfWeek = DayOfWeek::new("SUNDAY");
-}
-
-impl std::convert::From<std::string::String> for DayOfWeek {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DayOfWeek {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DayOfWeek {
     fn default() -> Self {
-        day_of_week::DAY_OF_WEEK_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Represents a month in the Gregorian calendar.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Month(std::borrow::Cow<'static, str>);
+pub struct Month(i32);
 
 impl Month {
+    /// The unspecified month.
+    pub const MONTH_UNSPECIFIED: Month = Month::new(0);
+
+    /// The month of January.
+    pub const JANUARY: Month = Month::new(1);
+
+    /// The month of February.
+    pub const FEBRUARY: Month = Month::new(2);
+
+    /// The month of March.
+    pub const MARCH: Month = Month::new(3);
+
+    /// The month of April.
+    pub const APRIL: Month = Month::new(4);
+
+    /// The month of May.
+    pub const MAY: Month = Month::new(5);
+
+    /// The month of June.
+    pub const JUNE: Month = Month::new(6);
+
+    /// The month of July.
+    pub const JULY: Month = Month::new(7);
+
+    /// The month of August.
+    pub const AUGUST: Month = Month::new(8);
+
+    /// The month of September.
+    pub const SEPTEMBER: Month = Month::new(9);
+
+    /// The month of October.
+    pub const OCTOBER: Month = Month::new(10);
+
+    /// The month of November.
+    pub const NOVEMBER: Month = Month::new(11);
+
+    /// The month of December.
+    pub const DECEMBER: Month = Month::new(12);
+
     /// Creates a new Month instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MONTH_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("JANUARY"),
+            2 => std::borrow::Cow::Borrowed("FEBRUARY"),
+            3 => std::borrow::Cow::Borrowed("MARCH"),
+            4 => std::borrow::Cow::Borrowed("APRIL"),
+            5 => std::borrow::Cow::Borrowed("MAY"),
+            6 => std::borrow::Cow::Borrowed("JUNE"),
+            7 => std::borrow::Cow::Borrowed("JULY"),
+            8 => std::borrow::Cow::Borrowed("AUGUST"),
+            9 => std::borrow::Cow::Borrowed("SEPTEMBER"),
+            10 => std::borrow::Cow::Borrowed("OCTOBER"),
+            11 => std::borrow::Cow::Borrowed("NOVEMBER"),
+            12 => std::borrow::Cow::Borrowed("DECEMBER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MONTH_UNSPECIFIED" => std::option::Option::Some(Self::MONTH_UNSPECIFIED),
+            "JANUARY" => std::option::Option::Some(Self::JANUARY),
+            "FEBRUARY" => std::option::Option::Some(Self::FEBRUARY),
+            "MARCH" => std::option::Option::Some(Self::MARCH),
+            "APRIL" => std::option::Option::Some(Self::APRIL),
+            "MAY" => std::option::Option::Some(Self::MAY),
+            "JUNE" => std::option::Option::Some(Self::JUNE),
+            "JULY" => std::option::Option::Some(Self::JULY),
+            "AUGUST" => std::option::Option::Some(Self::AUGUST),
+            "SEPTEMBER" => std::option::Option::Some(Self::SEPTEMBER),
+            "OCTOBER" => std::option::Option::Some(Self::OCTOBER),
+            "NOVEMBER" => std::option::Option::Some(Self::NOVEMBER),
+            "DECEMBER" => std::option::Option::Some(Self::DECEMBER),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Month](Month)
-pub mod month {
-    use super::Month;
-
-    /// The unspecified month.
-    pub const MONTH_UNSPECIFIED: Month = Month::new("MONTH_UNSPECIFIED");
-
-    /// The month of January.
-    pub const JANUARY: Month = Month::new("JANUARY");
-
-    /// The month of February.
-    pub const FEBRUARY: Month = Month::new("FEBRUARY");
-
-    /// The month of March.
-    pub const MARCH: Month = Month::new("MARCH");
-
-    /// The month of April.
-    pub const APRIL: Month = Month::new("APRIL");
-
-    /// The month of May.
-    pub const MAY: Month = Month::new("MAY");
-
-    /// The month of June.
-    pub const JUNE: Month = Month::new("JUNE");
-
-    /// The month of July.
-    pub const JULY: Month = Month::new("JULY");
-
-    /// The month of August.
-    pub const AUGUST: Month = Month::new("AUGUST");
-
-    /// The month of September.
-    pub const SEPTEMBER: Month = Month::new("SEPTEMBER");
-
-    /// The month of October.
-    pub const OCTOBER: Month = Month::new("OCTOBER");
-
-    /// The month of November.
-    pub const NOVEMBER: Month = Month::new("NOVEMBER");
-
-    /// The month of December.
-    pub const DECEMBER: Month = Month::new("DECEMBER");
-}
-
-impl std::convert::From<std::string::String> for Month {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Month {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Month {
     fn default() -> Self {
-        month::MONTH_UNSPECIFIED
+        Self::new(0)
     }
 }

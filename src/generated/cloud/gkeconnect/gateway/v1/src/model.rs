@@ -122,44 +122,59 @@ pub mod generate_credentials_request {
 
     /// Operating systems requiring specialized kubeconfigs.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OperatingSystem(std::borrow::Cow<'static, str>);
+    pub struct OperatingSystem(i32);
 
     impl OperatingSystem {
-        /// Creates a new OperatingSystem instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [OperatingSystem](OperatingSystem)
-    pub mod operating_system {
-        use super::OperatingSystem;
-
         /// Generates a kubeconfig that works for all operating systems not defined
         /// below.
-        pub const OPERATING_SYSTEM_UNSPECIFIED: OperatingSystem =
-            OperatingSystem::new("OPERATING_SYSTEM_UNSPECIFIED");
+        pub const OPERATING_SYSTEM_UNSPECIFIED: OperatingSystem = OperatingSystem::new(0);
 
         /// Generates a kubeconfig that is specifically designed to work with
         /// Windows.
-        pub const OPERATING_SYSTEM_WINDOWS: OperatingSystem =
-            OperatingSystem::new("OPERATING_SYSTEM_WINDOWS");
+        pub const OPERATING_SYSTEM_WINDOWS: OperatingSystem = OperatingSystem::new(1);
+
+        /// Creates a new OperatingSystem instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OPERATING_SYSTEM_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OPERATING_SYSTEM_WINDOWS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OPERATING_SYSTEM_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::OPERATING_SYSTEM_UNSPECIFIED)
+                }
+                "OPERATING_SYSTEM_WINDOWS" => {
+                    std::option::Option::Some(Self::OPERATING_SYSTEM_WINDOWS)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for OperatingSystem {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OperatingSystem {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OperatingSystem {
         fn default() -> Self {
-            operating_system::OPERATING_SYSTEM_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

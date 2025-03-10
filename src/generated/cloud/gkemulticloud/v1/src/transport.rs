@@ -52,7 +52,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/attachedClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82,7 +82,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -115,7 +115,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/attachedClusters:import", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -132,7 +132,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -154,7 +154,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/attachedClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -175,7 +175,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -198,7 +198,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -220,7 +220,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}:generateAttachedClusterInstallManifest", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -257,7 +257,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
                     req.attached_cluster
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -274,7 +274,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -296,7 +296,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -315,7 +315,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -334,7 +334,7 @@ impl crate::stubs::AttachedClusters for AttachedClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -391,7 +391,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/awsClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -421,7 +421,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -451,7 +451,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -473,7 +473,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/awsClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -494,7 +494,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -520,7 +520,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}:generateAwsClusterAgentToken", req.aws_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -540,7 +540,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}:generateAwsAccessToken", req.aws_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -562,7 +562,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/awsNodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -592,7 +592,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -622,7 +622,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:rollback", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -639,7 +639,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -661,7 +661,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/awsNodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -682,7 +682,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -708,7 +708,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/.well-known/openid-configuration", req.aws_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -730,7 +730,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/jwks", req.aws_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -749,7 +749,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -768,7 +768,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -790,7 +790,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -809,7 +809,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -828,7 +828,7 @@ impl crate::stubs::AwsClusters for AwsClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -885,7 +885,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/azureClients", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -906,7 +906,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -928,7 +928,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/azureClients", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -949,7 +949,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -973,7 +973,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/azureClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1003,7 +1003,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1033,7 +1033,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1055,7 +1055,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/azureClusters", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1076,7 +1076,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1102,7 +1102,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}:generateAzureClusterAgentToken", req.azure_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1122,7 +1122,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}:generateAzureAccessToken", req.azure_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1144,7 +1144,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::POST,
                 format!("/v1/{}/azureNodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1174,7 +1174,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1204,7 +1204,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1226,7 +1226,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/azureNodePools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1247,7 +1247,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1273,7 +1273,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/.well-known/openid-configuration", req.azure_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1295,7 +1295,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
                 reqwest::Method::GET,
                 format!("/v1/{}/jwks", req.azure_cluster),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1314,7 +1314,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1333,7 +1333,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1355,7 +1355,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1374,7 +1374,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1393,7 +1393,7 @@ impl crate::stubs::AzureClusters for AzureClusters {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

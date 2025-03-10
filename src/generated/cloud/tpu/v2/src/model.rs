@@ -215,45 +215,60 @@ pub mod attached_disk {
 
     /// The different mode of the attached disk.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DiskMode(std::borrow::Cow<'static, str>);
+    pub struct DiskMode(i32);
 
     impl DiskMode {
-        /// Creates a new DiskMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DiskMode](DiskMode)
-    pub mod disk_mode {
-        use super::DiskMode;
-
         /// The disk mode is not known/set.
-        pub const DISK_MODE_UNSPECIFIED: DiskMode = DiskMode::new("DISK_MODE_UNSPECIFIED");
+        pub const DISK_MODE_UNSPECIFIED: DiskMode = DiskMode::new(0);
 
         /// Attaches the disk in read-write mode. Only one TPU node can attach a disk
         /// in read-write mode at a time.
-        pub const READ_WRITE: DiskMode = DiskMode::new("READ_WRITE");
+        pub const READ_WRITE: DiskMode = DiskMode::new(1);
 
         /// Attaches the disk in read-only mode. Multiple TPU nodes can attach
         /// a disk in read-only mode at a time.
-        pub const READ_ONLY: DiskMode = DiskMode::new("READ_ONLY");
+        pub const READ_ONLY: DiskMode = DiskMode::new(2);
+
+        /// Creates a new DiskMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DISK_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ_WRITE"),
+                2 => std::borrow::Cow::Borrowed("READ_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DISK_MODE_UNSPECIFIED" => std::option::Option::Some(Self::DISK_MODE_UNSPECIFIED),
+                "READ_WRITE" => std::option::Option::Some(Self::READ_WRITE),
+                "READ_ONLY" => std::option::Option::Some(Self::READ_ONLY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DiskMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DiskMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DiskMode {
         fn default() -> Self {
-            disk_mode::DISK_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -871,182 +886,263 @@ pub mod node {
 
     /// Represents the different states of a TPU node during its lifecycle.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// TPU node state is not known/set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// TPU node is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// TPU node has been created.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// TPU node is restarting.
-        pub const RESTARTING: State = State::new("RESTARTING");
+        pub const RESTARTING: State = State::new(3);
 
         /// TPU node is undergoing reimaging.
-        pub const REIMAGING: State = State::new("REIMAGING");
+        pub const REIMAGING: State = State::new(4);
 
         /// TPU node is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(5);
 
         /// TPU node is being repaired and may be unusable. Details can be
         /// found in the 'help_description' field.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(6);
 
         /// TPU node is stopped.
-        pub const STOPPED: State = State::new("STOPPED");
+        pub const STOPPED: State = State::new(8);
 
         /// TPU node is currently stopping.
-        pub const STOPPING: State = State::new("STOPPING");
+        pub const STOPPING: State = State::new(9);
 
         /// TPU node is currently starting.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::new(10);
 
         /// TPU node has been preempted. Only applies to Preemptible TPU Nodes.
-        pub const PREEMPTED: State = State::new("PREEMPTED");
+        pub const PREEMPTED: State = State::new(11);
 
         /// TPU node has been terminated due to maintenance or has reached the end of
         /// its life cycle (for preemptible nodes).
-        pub const TERMINATED: State = State::new("TERMINATED");
+        pub const TERMINATED: State = State::new(12);
 
         /// TPU node is currently hiding.
-        pub const HIDING: State = State::new("HIDING");
+        pub const HIDING: State = State::new(13);
 
         /// TPU node has been hidden.
-        pub const HIDDEN: State = State::new("HIDDEN");
+        pub const HIDDEN: State = State::new(14);
 
         /// TPU node is currently unhiding.
-        pub const UNHIDING: State = State::new("UNHIDING");
+        pub const UNHIDING: State = State::new(15);
 
         /// TPU node has unknown state after a failed repair.
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::new(16);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("RESTARTING"),
+                4 => std::borrow::Cow::Borrowed("REIMAGING"),
+                5 => std::borrow::Cow::Borrowed("DELETING"),
+                6 => std::borrow::Cow::Borrowed("REPAIRING"),
+                8 => std::borrow::Cow::Borrowed("STOPPED"),
+                9 => std::borrow::Cow::Borrowed("STOPPING"),
+                10 => std::borrow::Cow::Borrowed("STARTING"),
+                11 => std::borrow::Cow::Borrowed("PREEMPTED"),
+                12 => std::borrow::Cow::Borrowed("TERMINATED"),
+                13 => std::borrow::Cow::Borrowed("HIDING"),
+                14 => std::borrow::Cow::Borrowed("HIDDEN"),
+                15 => std::borrow::Cow::Borrowed("UNHIDING"),
+                16 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "RESTARTING" => std::option::Option::Some(Self::RESTARTING),
+                "REIMAGING" => std::option::Option::Some(Self::REIMAGING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                "STOPPED" => std::option::Option::Some(Self::STOPPED),
+                "STOPPING" => std::option::Option::Some(Self::STOPPING),
+                "STARTING" => std::option::Option::Some(Self::STARTING),
+                "PREEMPTED" => std::option::Option::Some(Self::PREEMPTED),
+                "TERMINATED" => std::option::Option::Some(Self::TERMINATED),
+                "HIDING" => std::option::Option::Some(Self::HIDING),
+                "HIDDEN" => std::option::Option::Some(Self::HIDDEN),
+                "UNHIDING" => std::option::Option::Some(Self::UNHIDING),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Health defines the status of a TPU node as reported by
     /// Health Monitor.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Health(std::borrow::Cow<'static, str>);
+    pub struct Health(i32);
 
     impl Health {
-        /// Creates a new Health instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Health](Health)
-    pub mod health {
-        use super::Health;
-
         /// Health status is unknown: not initialized or failed to retrieve.
-        pub const HEALTH_UNSPECIFIED: Health = Health::new("HEALTH_UNSPECIFIED");
+        pub const HEALTH_UNSPECIFIED: Health = Health::new(0);
 
         /// The resource is healthy.
-        pub const HEALTHY: Health = Health::new("HEALTHY");
+        pub const HEALTHY: Health = Health::new(1);
 
         /// The resource is unresponsive.
-        pub const TIMEOUT: Health = Health::new("TIMEOUT");
+        pub const TIMEOUT: Health = Health::new(3);
 
         /// The in-guest ML stack is unhealthy.
-        pub const UNHEALTHY_TENSORFLOW: Health = Health::new("UNHEALTHY_TENSORFLOW");
+        pub const UNHEALTHY_TENSORFLOW: Health = Health::new(4);
 
         /// The node is under maintenance/priority boost caused rescheduling and
         /// will resume running once rescheduled.
-        pub const UNHEALTHY_MAINTENANCE: Health = Health::new("UNHEALTHY_MAINTENANCE");
+        pub const UNHEALTHY_MAINTENANCE: Health = Health::new(5);
+
+        /// Creates a new Health instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HEALTH_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HEALTHY"),
+                3 => std::borrow::Cow::Borrowed("TIMEOUT"),
+                4 => std::borrow::Cow::Borrowed("UNHEALTHY_TENSORFLOW"),
+                5 => std::borrow::Cow::Borrowed("UNHEALTHY_MAINTENANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HEALTH_UNSPECIFIED" => std::option::Option::Some(Self::HEALTH_UNSPECIFIED),
+                "HEALTHY" => std::option::Option::Some(Self::HEALTHY),
+                "TIMEOUT" => std::option::Option::Some(Self::TIMEOUT),
+                "UNHEALTHY_TENSORFLOW" => std::option::Option::Some(Self::UNHEALTHY_TENSORFLOW),
+                "UNHEALTHY_MAINTENANCE" => std::option::Option::Some(Self::UNHEALTHY_MAINTENANCE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Health {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Health {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Health {
         fn default() -> Self {
-            health::HEALTH_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// TPU API Version.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApiVersion(std::borrow::Cow<'static, str>);
+    pub struct ApiVersion(i32);
 
     impl ApiVersion {
+        /// API version is unknown.
+        pub const API_VERSION_UNSPECIFIED: ApiVersion = ApiVersion::new(0);
+
+        /// TPU API V1Alpha1 version.
+        pub const V1_ALPHA1: ApiVersion = ApiVersion::new(1);
+
+        /// TPU API V1 version.
+        pub const V1: ApiVersion = ApiVersion::new(2);
+
+        /// TPU API V2Alpha1 version.
+        pub const V2_ALPHA1: ApiVersion = ApiVersion::new(3);
+
+        /// TPU API V2 version.
+        pub const V2: ApiVersion = ApiVersion::new(4);
+
         /// Creates a new ApiVersion instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("API_VERSION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("V1_ALPHA1"),
+                2 => std::borrow::Cow::Borrowed("V1"),
+                3 => std::borrow::Cow::Borrowed("V2_ALPHA1"),
+                4 => std::borrow::Cow::Borrowed("V2"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "API_VERSION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::API_VERSION_UNSPECIFIED)
+                }
+                "V1_ALPHA1" => std::option::Option::Some(Self::V1_ALPHA1),
+                "V1" => std::option::Option::Some(Self::V1),
+                "V2_ALPHA1" => std::option::Option::Some(Self::V2_ALPHA1),
+                "V2" => std::option::Option::Some(Self::V2),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ApiVersion](ApiVersion)
-    pub mod api_version {
-        use super::ApiVersion;
-
-        /// API version is unknown.
-        pub const API_VERSION_UNSPECIFIED: ApiVersion = ApiVersion::new("API_VERSION_UNSPECIFIED");
-
-        /// TPU API V1Alpha1 version.
-        pub const V1_ALPHA1: ApiVersion = ApiVersion::new("V1_ALPHA1");
-
-        /// TPU API V1 version.
-        pub const V1: ApiVersion = ApiVersion::new("V1");
-
-        /// TPU API V2Alpha1 version.
-        pub const V2_ALPHA1: ApiVersion = ApiVersion::new("V2_ALPHA1");
-
-        /// TPU API V2 version.
-        pub const V2: ApiVersion = ApiVersion::new("V2");
-    }
-
-    impl std::convert::From<std::string::String> for ApiVersion {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ApiVersion {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ApiVersion {
         fn default() -> Self {
-            api_version::API_VERSION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2289,61 +2385,46 @@ pub mod queued_resource_state {
 
     /// Output only state of the request
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// State of the QueuedResource request is not known/set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The QueuedResource request has been received. We're still working on
         /// determining if we will be able to honor this request.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The QueuedResource request has passed initial validation/admission
         /// control and has been persisted in the queue.
-        pub const ACCEPTED: State = State::new("ACCEPTED");
+        pub const ACCEPTED: State = State::new(2);
 
         /// The QueuedResource request has been selected. The
         /// associated resources are currently being provisioned (or very soon
         /// will begin provisioning).
-        pub const PROVISIONING: State = State::new("PROVISIONING");
+        pub const PROVISIONING: State = State::new(3);
 
         /// The request could not be completed. This may be due to some
         /// late-discovered problem with the request itself, or due to
         /// unavailability of resources within the constraints of the request
         /// (e.g., the 'valid until' start timing constraint expired).
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
 
         /// The QueuedResource is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(5);
 
         /// The resources specified in the QueuedResource request have been
         /// provisioned and are ready for use by the end-user/consumer.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(6);
 
         /// The resources specified in the QueuedResource request are being
         /// deleted. This may have been initiated by the user, or
         /// the Cloud TPU service. Inspect the state data for more details.
-        pub const SUSPENDING: State = State::new("SUSPENDING");
+        pub const SUSPENDING: State = State::new(7);
 
         /// The resources specified in the QueuedResource request have been
         /// deleted.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(8);
 
         /// The QueuedResource request has passed initial validation and has been
         /// persisted in the queue. It will remain in this state until there are
@@ -2354,61 +2435,121 @@ pub mod queued_resource_state {
         /// reservation. To put a limit on how long you are willing to wait, use
         /// [timing
         /// constraints](https://cloud.google.com/tpu/docs/queued-resources#request_a_queued_resource_before_a_specified_time).
-        pub const WAITING_FOR_RESOURCES: State = State::new("WAITING_FOR_RESOURCES");
+        pub const WAITING_FOR_RESOURCES: State = State::new(9);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACCEPTED"),
+                3 => std::borrow::Cow::Borrowed("PROVISIONING"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("DELETING"),
+                6 => std::borrow::Cow::Borrowed("ACTIVE"),
+                7 => std::borrow::Cow::Borrowed("SUSPENDING"),
+                8 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                9 => std::borrow::Cow::Borrowed("WAITING_FOR_RESOURCES"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACCEPTED" => std::option::Option::Some(Self::ACCEPTED),
+                "PROVISIONING" => std::option::Option::Some(Self::PROVISIONING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "SUSPENDING" => std::option::Option::Some(Self::SUSPENDING),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "WAITING_FOR_RESOURCES" => std::option::Option::Some(Self::WAITING_FOR_RESOURCES),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The initiator of the QueuedResource's SUSPENDING/SUSPENDED state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StateInitiator(std::borrow::Cow<'static, str>);
+    pub struct StateInitiator(i32);
 
     impl StateInitiator {
+        /// The state initiator is unspecified.
+        pub const STATE_INITIATOR_UNSPECIFIED: StateInitiator = StateInitiator::new(0);
+
+        /// The current QueuedResource state was initiated by the user.
+        pub const USER: StateInitiator = StateInitiator::new(1);
+
+        /// The current QueuedResource state was initiated by the service.
+        pub const SERVICE: StateInitiator = StateInitiator::new(2);
+
         /// Creates a new StateInitiator instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_INITIATOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("USER"),
+                2 => std::borrow::Cow::Borrowed("SERVICE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_INITIATOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::STATE_INITIATOR_UNSPECIFIED)
+                }
+                "USER" => std::option::Option::Some(Self::USER),
+                "SERVICE" => std::option::Option::Some(Self::SERVICE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [StateInitiator](StateInitiator)
-    pub mod state_initiator {
-        use super::StateInitiator;
-
-        /// The state initiator is unspecified.
-        pub const STATE_INITIATOR_UNSPECIFIED: StateInitiator =
-            StateInitiator::new("STATE_INITIATOR_UNSPECIFIED");
-
-        /// The current QueuedResource state was initiated by the user.
-        pub const USER: StateInitiator = StateInitiator::new("USER");
-
-        /// The current QueuedResource state was initiated by the service.
-        pub const SERVICE: StateInitiator = StateInitiator::new("SERVICE");
-    }
-
-    impl std::convert::From<std::string::String> for StateInitiator {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for StateInitiator {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for StateInitiator {
         fn default() -> Self {
-            state_initiator::STATE_INITIATOR_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -3818,57 +3959,81 @@ pub mod symptom {
     /// SymptomType represents the different types of Symptoms that a TPU can be
     /// at.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SymptomType(std::borrow::Cow<'static, str>);
+    pub struct SymptomType(i32);
 
     impl SymptomType {
-        /// Creates a new SymptomType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SymptomType](SymptomType)
-    pub mod symptom_type {
-        use super::SymptomType;
-
         /// Unspecified symptom.
-        pub const SYMPTOM_TYPE_UNSPECIFIED: SymptomType =
-            SymptomType::new("SYMPTOM_TYPE_UNSPECIFIED");
+        pub const SYMPTOM_TYPE_UNSPECIFIED: SymptomType = SymptomType::new(0);
 
         /// TPU VM memory is low.
-        pub const LOW_MEMORY: SymptomType = SymptomType::new("LOW_MEMORY");
+        pub const LOW_MEMORY: SymptomType = SymptomType::new(1);
 
         /// TPU runtime is out of memory.
-        pub const OUT_OF_MEMORY: SymptomType = SymptomType::new("OUT_OF_MEMORY");
+        pub const OUT_OF_MEMORY: SymptomType = SymptomType::new(2);
 
         /// TPU runtime execution has timed out.
-        pub const EXECUTE_TIMED_OUT: SymptomType = SymptomType::new("EXECUTE_TIMED_OUT");
+        pub const EXECUTE_TIMED_OUT: SymptomType = SymptomType::new(3);
 
         /// TPU runtime fails to construct a mesh that recognizes each TPU device's
         /// neighbors.
-        pub const MESH_BUILD_FAIL: SymptomType = SymptomType::new("MESH_BUILD_FAIL");
+        pub const MESH_BUILD_FAIL: SymptomType = SymptomType::new(4);
 
         /// TPU HBM is out of memory.
-        pub const HBM_OUT_OF_MEMORY: SymptomType = SymptomType::new("HBM_OUT_OF_MEMORY");
+        pub const HBM_OUT_OF_MEMORY: SymptomType = SymptomType::new(5);
 
         /// Abusive behaviors have been identified on the current project.
-        pub const PROJECT_ABUSE: SymptomType = SymptomType::new("PROJECT_ABUSE");
+        pub const PROJECT_ABUSE: SymptomType = SymptomType::new(6);
+
+        /// Creates a new SymptomType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SYMPTOM_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOW_MEMORY"),
+                2 => std::borrow::Cow::Borrowed("OUT_OF_MEMORY"),
+                3 => std::borrow::Cow::Borrowed("EXECUTE_TIMED_OUT"),
+                4 => std::borrow::Cow::Borrowed("MESH_BUILD_FAIL"),
+                5 => std::borrow::Cow::Borrowed("HBM_OUT_OF_MEMORY"),
+                6 => std::borrow::Cow::Borrowed("PROJECT_ABUSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SYMPTOM_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SYMPTOM_TYPE_UNSPECIFIED)
+                }
+                "LOW_MEMORY" => std::option::Option::Some(Self::LOW_MEMORY),
+                "OUT_OF_MEMORY" => std::option::Option::Some(Self::OUT_OF_MEMORY),
+                "EXECUTE_TIMED_OUT" => std::option::Option::Some(Self::EXECUTE_TIMED_OUT),
+                "MESH_BUILD_FAIL" => std::option::Option::Some(Self::MESH_BUILD_FAIL),
+                "HBM_OUT_OF_MEMORY" => std::option::Option::Some(Self::HBM_OUT_OF_MEMORY),
+                "PROJECT_ABUSE" => std::option::Option::Some(Self::PROJECT_ABUSE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SymptomType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SymptomType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SymptomType {
         fn default() -> Self {
-            symptom_type::SYMPTOM_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4016,55 +4181,78 @@ pub mod accelerator_config {
 
     /// TPU type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Unspecified version.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// TPU v2.
+        pub const V2: Type = Type::new(2);
+
+        /// TPU v3.
+        pub const V3: Type = Type::new(4);
+
+        /// TPU v4.
+        pub const V4: Type = Type::new(7);
+
+        /// TPU v5lite pod.
+        pub const V5LITE_POD: Type = Type::new(9);
+
+        /// TPU v5p.
+        pub const V5P: Type = Type::new(10);
+
+        /// TPU v6e.
+        pub const V6E: Type = Type::new(11);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("V2"),
+                4 => std::borrow::Cow::Borrowed("V3"),
+                7 => std::borrow::Cow::Borrowed("V4"),
+                9 => std::borrow::Cow::Borrowed("V5LITE_POD"),
+                10 => std::borrow::Cow::Borrowed("V5P"),
+                11 => std::borrow::Cow::Borrowed("V6E"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "V2" => std::option::Option::Some(Self::V2),
+                "V3" => std::option::Option::Some(Self::V3),
+                "V4" => std::option::Option::Some(Self::V4),
+                "V5LITE_POD" => std::option::Option::Some(Self::V5LITE_POD),
+                "V5P" => std::option::Option::Some(Self::V5P),
+                "V6E" => std::option::Option::Some(Self::V6E),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Unspecified version.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// TPU v2.
-        pub const V2: Type = Type::new("V2");
-
-        /// TPU v3.
-        pub const V3: Type = Type::new("V3");
-
-        /// TPU v4.
-        pub const V4: Type = Type::new("V4");
-
-        /// TPU v5lite pod.
-        pub const V5LITE_POD: Type = Type::new("V5LITE_POD");
-
-        /// TPU v5p.
-        pub const V5P: Type = Type::new("V5P");
-
-        /// TPU v6e.
-        pub const V6E: Type = Type::new("V6E");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

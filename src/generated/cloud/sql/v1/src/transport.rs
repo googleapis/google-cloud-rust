@@ -56,7 +56,7 @@ impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
                         , req.id
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -82,7 +82,7 @@ impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
                         , req.id
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -107,7 +107,7 @@ impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -132,7 +132,7 @@ impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("maxResults", &req.max_results)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -183,7 +183,7 @@ impl crate::stubs::SqlConnectService for SqlConnectService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.read_time.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "readTime") });
         self.inner.execute(
@@ -209,7 +209,7 @@ impl crate::stubs::SqlConnectService for SqlConnectService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -259,7 +259,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.database
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -285,7 +285,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.database
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -310,7 +310,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -335,7 +335,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -361,7 +361,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.database
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -387,7 +387,7 @@ impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
                         , req.database
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -433,7 +433,7 @@ impl crate::stubs::SqlFlagsService for SqlFlagsService {
                 reqwest::Method::GET,
                 "/v1/flags".to_string()
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("databaseVersion", &req.database_version)]);
         self.inner.execute(
@@ -483,7 +483,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -508,7 +508,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -533,7 +533,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -558,7 +558,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -583,7 +583,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -608,7 +608,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -633,7 +633,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -658,7 +658,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -683,7 +683,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -708,7 +708,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -732,7 +732,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.project
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -756,7 +756,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.project
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("maxResults", &req.max_results)]);
@@ -784,7 +784,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -809,7 +809,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -834,7 +834,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("failover", &req.failover)]);
         self.inner.execute(
@@ -860,7 +860,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.db_timeout.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "dbTimeout") });
         self.inner.execute(
@@ -886,7 +886,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -911,7 +911,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -936,7 +936,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -961,7 +961,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -986,7 +986,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1011,7 +1011,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1036,7 +1036,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1061,7 +1061,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1086,7 +1086,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1111,7 +1111,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1136,7 +1136,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1161,7 +1161,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1186,7 +1186,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1211,7 +1211,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1236,7 +1236,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1261,7 +1261,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1286,7 +1286,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1311,7 +1311,7 @@ impl crate::stubs::SqlInstancesService for SqlInstancesService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1360,7 +1360,7 @@ impl crate::stubs::SqlOperationsService for SqlOperationsService {
                         , req.operation
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1384,7 +1384,7 @@ impl crate::stubs::SqlOperationsService for SqlOperationsService {
                         , req.project
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("instance", &req.instance)]);
         let builder = builder.query(&[("maxResults", &req.max_results)]);
@@ -1412,7 +1412,7 @@ impl crate::stubs::SqlOperationsService for SqlOperationsService {
                         , req.operation
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1462,7 +1462,7 @@ impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
                         , req.sha1_fingerprint
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1488,7 +1488,7 @@ impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
                         , req.sha1_fingerprint
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1513,7 +1513,7 @@ impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1538,7 +1538,7 @@ impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1586,7 +1586,7 @@ impl crate::stubs::SqlTiersService for SqlTiersService {
                         , req.project
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1635,7 +1635,7 @@ impl crate::stubs::SqlUsersService for SqlUsersService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("host", &req.host)]);
         let builder = builder.query(&[("name", &req.name)]);
@@ -1663,7 +1663,7 @@ impl crate::stubs::SqlUsersService for SqlUsersService {
                         , req.name
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("host", &req.host)]);
         self.inner.execute(
@@ -1689,7 +1689,7 @@ impl crate::stubs::SqlUsersService for SqlUsersService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1714,7 +1714,7 @@ impl crate::stubs::SqlUsersService for SqlUsersService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -1739,7 +1739,7 @@ impl crate::stubs::SqlUsersService for SqlUsersService {
                         , req.instance
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("host", &req.host)]);
         let builder = builder.query(&[("name", &req.name)]);

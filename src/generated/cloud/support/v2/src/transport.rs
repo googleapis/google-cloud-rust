@@ -52,7 +52,7 @@ impl crate::stubs::CaseAttachmentService for CaseAttachmentService {
                 reqwest::Method::GET,
                 format!("/v2/{}/attachments", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96,7 +96,7 @@ impl crate::stubs::CaseService for CaseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -115,7 +115,7 @@ impl crate::stubs::CaseService for CaseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/cases", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -140,7 +140,7 @@ impl crate::stubs::CaseService for CaseService {
                 reqwest::Method::GET,
                 format!("/v2/{}/cases:search", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -162,7 +162,7 @@ impl crate::stubs::CaseService for CaseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/cases", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -188,7 +188,7 @@ impl crate::stubs::CaseService for CaseService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -215,7 +215,7 @@ impl crate::stubs::CaseService for CaseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:escalate", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -232,7 +232,7 @@ impl crate::stubs::CaseService for CaseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:close", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -252,7 +252,7 @@ impl crate::stubs::CaseService for CaseService {
                 reqwest::Method::GET,
                 "/v2/caseClassifications:search".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -297,7 +297,7 @@ impl crate::stubs::CommentService for CommentService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/comments", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -321,7 +321,7 @@ impl crate::stubs::CommentService for CommentService {
                 reqwest::Method::POST,
                 format!("/v2/{}/comments", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

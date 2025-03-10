@@ -49,7 +49,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71,7 +71,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::GET,
                 format!("/v1/{}/dataSources", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95,7 +95,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}/transferConfigs", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -126,7 +126,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -158,7 +158,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -177,7 +177,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -199,7 +199,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::GET,
                 format!("/v1/{}/transferConfigs", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -227,7 +227,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}:scheduleRuns", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -247,7 +247,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}:startManualRuns", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -264,7 +264,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -283,7 +283,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -302,7 +302,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/runs", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -330,7 +330,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::GET,
                 format!("/v1/{}/transferLogs", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -357,7 +357,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}:checkValidCreds", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -377,7 +377,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}:enrollDataSources", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -397,7 +397,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
                 reqwest::Method::POST,
                 format!("/v1/{}:unenrollDataSources", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -414,7 +414,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -436,7 +436,7 @@ impl crate::stubs::DataTransferService for DataTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

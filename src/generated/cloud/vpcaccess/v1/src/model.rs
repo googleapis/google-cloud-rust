@@ -221,52 +221,73 @@ pub mod connector {
 
     /// State of a connector.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Invalid state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Connector is deployed and ready to receive traffic.
+        pub const READY: State = State::new(1);
+
+        /// An Insert operation is in progress. Transient condition.
+        pub const CREATING: State = State::new(2);
+
+        /// A Delete operation is in progress. Transient condition.
+        pub const DELETING: State = State::new(3);
+
+        /// Connector is in a bad state, manual deletion recommended.
+        pub const ERROR: State = State::new(4);
+
+        /// The connector is being updated.
+        pub const UPDATING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READY"),
+                2 => std::borrow::Cow::Borrowed("CREATING"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("ERROR"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "READY" => std::option::Option::Some(Self::READY),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Invalid state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Connector is deployed and ready to receive traffic.
-        pub const READY: State = State::new("READY");
-
-        /// An Insert operation is in progress. Transient condition.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// A Delete operation is in progress. Transient condition.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// Connector is in a bad state, manual deletion recommended.
-        pub const ERROR: State = State::new("ERROR");
-
-        /// The connector is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

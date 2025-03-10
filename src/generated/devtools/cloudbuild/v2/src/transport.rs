@@ -52,7 +52,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}/connections", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94,7 +94,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::GET,
                 format!("/v2/{}/connections", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -124,7 +124,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -155,7 +155,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -179,7 +179,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}/repositories", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -202,7 +202,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}/repositories:batchCreate", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -219,7 +219,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -241,7 +241,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::GET,
                 format!("/v2/{}/repositories", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -263,7 +263,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -287,7 +287,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}:accessReadWriteToken", req.repository),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -307,7 +307,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}:accessReadToken", req.repository),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -327,7 +327,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::GET,
                 format!("/v2/{}:fetchLinkableRepositories", req.connection),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -351,7 +351,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::GET,
                 format!("/v2/{}:fetchGitRefs", req.repository),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -374,7 +374,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -394,7 +394,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::GET,
                 format!("/v2/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -426,7 +426,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
                 reqwest::Method::POST,
                 format!("/v2/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -443,7 +443,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -462,7 +462,7 @@ impl crate::stubs::RepositoryManager for RepositoryManager {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

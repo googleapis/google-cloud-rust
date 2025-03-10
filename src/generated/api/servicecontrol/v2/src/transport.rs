@@ -52,7 +52,7 @@ impl crate::stubs::ServiceController for ServiceController {
                 reqwest::Method::POST,
                 format!("/v2/services/{}:check", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::ServiceController for ServiceController {
                 reqwest::Method::POST,
                 format!("/v2/services/{}:report", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

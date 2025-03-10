@@ -52,7 +52,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
                 reqwest::Method::GET,
                 format!("/v1/googleServiceAccounts/{}", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71,7 +71,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/transferJobs".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90,7 +90,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.job_name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -107,7 +107,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.job_name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -127,7 +127,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/transferJobs".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -149,7 +149,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:pause", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -166,7 +166,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:resume", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -183,7 +183,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:run", req.job_name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -200,7 +200,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.job_name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -223,7 +223,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/agentPools", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -252,7 +252,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -281,7 +281,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -303,7 +303,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/agentPools", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -325,7 +325,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -344,7 +344,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -366,7 +366,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -385,7 +385,7 @@ impl crate::stubs::StorageTransferService for StorageTransferService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

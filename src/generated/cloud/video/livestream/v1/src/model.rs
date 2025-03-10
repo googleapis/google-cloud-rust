@@ -426,44 +426,60 @@ pub mod manifest {
 
     /// The manifest type can be either `HLS` or `DASH`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ManifestType(std::borrow::Cow<'static, str>);
+    pub struct ManifestType(i32);
 
     impl ManifestType {
+        /// The manifest type is not specified.
+        pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType = ManifestType::new(0);
+
+        /// Create an `HLS` manifest. The corresponding file extension is `.m3u8`.
+        pub const HLS: ManifestType = ManifestType::new(1);
+
+        /// Create a `DASH` manifest. The corresponding file extension is `.mpd`.
+        pub const DASH: ManifestType = ManifestType::new(2);
+
         /// Creates a new ManifestType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MANIFEST_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HLS"),
+                2 => std::borrow::Cow::Borrowed("DASH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MANIFEST_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MANIFEST_TYPE_UNSPECIFIED)
+                }
+                "HLS" => std::option::Option::Some(Self::HLS),
+                "DASH" => std::option::Option::Some(Self::DASH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ManifestType](ManifestType)
-    pub mod manifest_type {
-        use super::ManifestType;
-
-        /// The manifest type is not specified.
-        pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType =
-            ManifestType::new("MANIFEST_TYPE_UNSPECIFIED");
-
-        /// Create an `HLS` manifest. The corresponding file extension is `.m3u8`.
-        pub const HLS: ManifestType = ManifestType::new("HLS");
-
-        /// Create a `DASH` manifest. The corresponding file extension is `.mpd`.
-        pub const DASH: ManifestType = ManifestType::new("DASH");
-    }
-
-    impl std::convert::From<std::string::String> for ManifestType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ManifestType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ManifestType {
         fn default() -> Self {
-            manifest_type::MANIFEST_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1563,44 +1579,60 @@ pub mod timecode_config {
 
     /// The source of timecode.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TimecodeSource(std::borrow::Cow<'static, str>);
+    pub struct TimecodeSource(i32);
 
     impl TimecodeSource {
+        /// The timecode source is not specified.
+        pub const TIMECODE_SOURCE_UNSPECIFIED: TimecodeSource = TimecodeSource::new(0);
+
+        /// Use input media timestamp.
+        pub const MEDIA_TIMESTAMP: TimecodeSource = TimecodeSource::new(1);
+
+        /// Use input embedded timecode e.g. picture timing SEI message.
+        pub const EMBEDDED_TIMECODE: TimecodeSource = TimecodeSource::new(2);
+
         /// Creates a new TimecodeSource instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIMECODE_SOURCE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MEDIA_TIMESTAMP"),
+                2 => std::borrow::Cow::Borrowed("EMBEDDED_TIMECODE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIMECODE_SOURCE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TIMECODE_SOURCE_UNSPECIFIED)
+                }
+                "MEDIA_TIMESTAMP" => std::option::Option::Some(Self::MEDIA_TIMESTAMP),
+                "EMBEDDED_TIMECODE" => std::option::Option::Some(Self::EMBEDDED_TIMECODE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TimecodeSource](TimecodeSource)
-    pub mod timecode_source {
-        use super::TimecodeSource;
-
-        /// The timecode source is not specified.
-        pub const TIMECODE_SOURCE_UNSPECIFIED: TimecodeSource =
-            TimecodeSource::new("TIMECODE_SOURCE_UNSPECIFIED");
-
-        /// Use input media timestamp.
-        pub const MEDIA_TIMESTAMP: TimecodeSource = TimecodeSource::new("MEDIA_TIMESTAMP");
-
-        /// Use input embedded timecode e.g. picture timing SEI message.
-        pub const EMBEDDED_TIMECODE: TimecodeSource = TimecodeSource::new("EMBEDDED_TIMECODE");
-    }
-
-    impl std::convert::From<std::string::String> for TimecodeSource {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TimecodeSource {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for TimecodeSource {
         fn default() -> Self {
-            timecode_source::TIMECODE_SOURCE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1821,88 +1853,120 @@ pub mod input {
 
     /// The type of the input.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Input type is not specified.
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Input will take an rtmp input stream.
+        pub const RTMP_PUSH: Type = Type::new(1);
+
+        /// Input will take an srt (Secure Reliable Transport) input stream.
+        pub const SRT_PUSH: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RTMP_PUSH"),
+                2 => std::borrow::Cow::Borrowed("SRT_PUSH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "RTMP_PUSH" => std::option::Option::Some(Self::RTMP_PUSH),
+                "SRT_PUSH" => std::option::Option::Some(Self::SRT_PUSH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Input type is not specified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Input will take an rtmp input stream.
-        pub const RTMP_PUSH: Type = Type::new("RTMP_PUSH");
-
-        /// Input will take an srt (Secure Reliable Transport) input stream.
-        pub const SRT_PUSH: Type = Type::new("SRT_PUSH");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Tier of the input specification.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(std::borrow::Cow<'static, str>);
+    pub struct Tier(i32);
 
     impl Tier {
+        /// Tier is not specified.
+        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
+
+        /// Resolution < 1280x720. Bitrate <= 6 Mbps. FPS <= 60.
+        pub const SD: Tier = Tier::new(1);
+
+        /// Resolution <= 1920x1080. Bitrate <= 25 Mbps. FPS <= 60.
+        pub const HD: Tier = Tier::new(2);
+
+        /// Resolution <= 4096x2160. Not supported yet.
+        pub const UHD: Tier = Tier::new(3);
+
         /// Creates a new Tier instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SD"),
+                2 => std::borrow::Cow::Borrowed("HD"),
+                3 => std::borrow::Cow::Borrowed("UHD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
+                "SD" => std::option::Option::Some(Self::SD),
+                "HD" => std::option::Option::Some(Self::HD),
+                "UHD" => std::option::Option::Some(Self::UHD),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Tier](Tier)
-    pub mod tier {
-        use super::Tier;
-
-        /// Tier is not specified.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
-
-        /// Resolution < 1280x720. Bitrate <= 6 Mbps. FPS <= 60.
-        pub const SD: Tier = Tier::new("SD");
-
-        /// Resolution <= 1920x1080. Bitrate <= 25 Mbps. FPS <= 60.
-        pub const HD: Tier = Tier::new("HD");
-
-        /// Resolution <= 4096x2160. Not supported yet.
-        pub const UHD: Tier = Tier::new("UHD");
-    }
-
-    impl std::convert::From<std::string::String> for Tier {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Tier {
         fn default() -> Self {
-            tier::TIER_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2253,64 +2317,90 @@ pub mod channel {
 
     /// State of streaming operation that the channel is running.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StreamingState(std::borrow::Cow<'static, str>);
+    pub struct StreamingState(i32);
 
     impl StreamingState {
-        /// Creates a new StreamingState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [StreamingState](StreamingState)
-    pub mod streaming_state {
-        use super::StreamingState;
-
         /// Streaming state is not specified.
-        pub const STREAMING_STATE_UNSPECIFIED: StreamingState =
-            StreamingState::new("STREAMING_STATE_UNSPECIFIED");
+        pub const STREAMING_STATE_UNSPECIFIED: StreamingState = StreamingState::new(0);
 
         /// Channel is getting the input stream, generating the live streams to the
         /// specified output location.
-        pub const STREAMING: StreamingState = StreamingState::new("STREAMING");
+        pub const STREAMING: StreamingState = StreamingState::new(1);
 
         /// Channel is waiting for the input stream through the input.
-        pub const AWAITING_INPUT: StreamingState = StreamingState::new("AWAITING_INPUT");
+        pub const AWAITING_INPUT: StreamingState = StreamingState::new(2);
 
         /// Channel is running, but has trouble publishing the live streams onto the
         /// specified output location (for example, the specified Cloud Storage
         /// bucket is not writable).
-        pub const STREAMING_ERROR: StreamingState = StreamingState::new("STREAMING_ERROR");
+        pub const STREAMING_ERROR: StreamingState = StreamingState::new(4);
 
         /// Channel is generating live streams with no input stream. Live streams are
         /// filled out with black screen, while input stream is missing.
         /// Not supported yet.
-        pub const STREAMING_NO_INPUT: StreamingState = StreamingState::new("STREAMING_NO_INPUT");
+        pub const STREAMING_NO_INPUT: StreamingState = StreamingState::new(5);
 
         /// Channel is stopped, finishing live streams.
-        pub const STOPPED: StreamingState = StreamingState::new("STOPPED");
+        pub const STOPPED: StreamingState = StreamingState::new(6);
 
         /// Channel is starting.
-        pub const STARTING: StreamingState = StreamingState::new("STARTING");
+        pub const STARTING: StreamingState = StreamingState::new(7);
 
         /// Channel is stopping.
-        pub const STOPPING: StreamingState = StreamingState::new("STOPPING");
+        pub const STOPPING: StreamingState = StreamingState::new(8);
+
+        /// Creates a new StreamingState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STREAMING_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STREAMING"),
+                2 => std::borrow::Cow::Borrowed("AWAITING_INPUT"),
+                4 => std::borrow::Cow::Borrowed("STREAMING_ERROR"),
+                5 => std::borrow::Cow::Borrowed("STREAMING_NO_INPUT"),
+                6 => std::borrow::Cow::Borrowed("STOPPED"),
+                7 => std::borrow::Cow::Borrowed("STARTING"),
+                8 => std::borrow::Cow::Borrowed("STOPPING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STREAMING_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::STREAMING_STATE_UNSPECIFIED)
+                }
+                "STREAMING" => std::option::Option::Some(Self::STREAMING),
+                "AWAITING_INPUT" => std::option::Option::Some(Self::AWAITING_INPUT),
+                "STREAMING_ERROR" => std::option::Option::Some(Self::STREAMING_ERROR),
+                "STREAMING_NO_INPUT" => std::option::Option::Some(Self::STREAMING_NO_INPUT),
+                "STOPPED" => std::option::Option::Some(Self::STOPPED),
+                "STARTING" => std::option::Option::Some(Self::STARTING),
+                "STOPPING" => std::option::Option::Some(Self::STOPPING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for StreamingState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for StreamingState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for StreamingState {
         fn default() -> Self {
-            streaming_state::STREAMING_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2508,27 +2598,11 @@ pub mod input_config {
 
     /// Input switch mode.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InputSwitchMode(std::borrow::Cow<'static, str>);
+    pub struct InputSwitchMode(i32);
 
     impl InputSwitchMode {
-        /// Creates a new InputSwitchMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [InputSwitchMode](InputSwitchMode)
-    pub mod input_switch_mode {
-        use super::InputSwitchMode;
-
         /// The input switch mode is not specified.
-        pub const INPUT_SWITCH_MODE_UNSPECIFIED: InputSwitchMode =
-            InputSwitchMode::new("INPUT_SWITCH_MODE_UNSPECIFIED");
+        pub const INPUT_SWITCH_MODE_UNSPECIFIED: InputSwitchMode = InputSwitchMode::new(0);
 
         /// Automatic failover is enabled. The primary input stream is always
         /// preferred over its backup input streams configured using the
@@ -2536,8 +2610,7 @@ pub mod input_config {
         /// field.
         ///
         /// [google.cloud.video.livestream.v1.InputAttachment.AutomaticFailover]: crate::model::input_attachment::AutomaticFailover
-        pub const FAILOVER_PREFER_PRIMARY: InputSwitchMode =
-            InputSwitchMode::new("FAILOVER_PREFER_PRIMARY");
+        pub const FAILOVER_PREFER_PRIMARY: InputSwitchMode = InputSwitchMode::new(1);
 
         /// Automatic failover is disabled. You must use the
         /// [inputSwitch][google.cloud.video.livestream.v1.Event.input_switch] event
@@ -2548,18 +2621,52 @@ pub mod input_config {
         ///
         /// [google.cloud.video.livestream.v1.Event.input_switch]: crate::model::Event::task
         /// [google.cloud.video.livestream.v1.InputAttachment.AutomaticFailover]: crate::model::input_attachment::AutomaticFailover
-        pub const MANUAL: InputSwitchMode = InputSwitchMode::new("MANUAL");
+        pub const MANUAL: InputSwitchMode = InputSwitchMode::new(3);
+
+        /// Creates a new InputSwitchMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INPUT_SWITCH_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FAILOVER_PREFER_PRIMARY"),
+                3 => std::borrow::Cow::Borrowed("MANUAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INPUT_SWITCH_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::INPUT_SWITCH_MODE_UNSPECIFIED)
+                }
+                "FAILOVER_PREFER_PRIMARY" => {
+                    std::option::Option::Some(Self::FAILOVER_PREFER_PRIMARY)
+                }
+                "MANUAL" => std::option::Option::Some(Self::MANUAL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for InputSwitchMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for InputSwitchMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for InputSwitchMode {
         fn default() -> Self {
-            input_switch_mode::INPUT_SWITCH_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2612,53 +2719,75 @@ pub mod log_config {
     /// [LogSeverity](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity)
     /// for more information.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSeverity(std::borrow::Cow<'static, str>);
+    pub struct LogSeverity(i32);
 
     impl LogSeverity {
+        /// Log severity is not specified. This is the same as log severity is OFF.
+        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity = LogSeverity::new(0);
+
+        /// Log is turned off.
+        pub const OFF: LogSeverity = LogSeverity::new(1);
+
+        /// Log with severity higher than or equal to DEBUG are logged.
+        pub const DEBUG: LogSeverity = LogSeverity::new(100);
+
+        /// Logs with severity higher than or equal to INFO are logged.
+        pub const INFO: LogSeverity = LogSeverity::new(200);
+
+        /// Logs with severity higher than or equal to WARNING are logged.
+        pub const WARNING: LogSeverity = LogSeverity::new(400);
+
+        /// Logs with severity higher than or equal to ERROR are logged.
+        pub const ERROR: LogSeverity = LogSeverity::new(500);
+
         /// Creates a new LogSeverity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOG_SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OFF"),
+                100 => std::borrow::Cow::Borrowed("DEBUG"),
+                200 => std::borrow::Cow::Borrowed("INFO"),
+                400 => std::borrow::Cow::Borrowed("WARNING"),
+                500 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOG_SEVERITY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::LOG_SEVERITY_UNSPECIFIED)
+                }
+                "OFF" => std::option::Option::Some(Self::OFF),
+                "DEBUG" => std::option::Option::Some(Self::DEBUG),
+                "INFO" => std::option::Option::Some(Self::INFO),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [LogSeverity](LogSeverity)
-    pub mod log_severity {
-        use super::LogSeverity;
-
-        /// Log severity is not specified. This is the same as log severity is OFF.
-        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity =
-            LogSeverity::new("LOG_SEVERITY_UNSPECIFIED");
-
-        /// Log is turned off.
-        pub const OFF: LogSeverity = LogSeverity::new("OFF");
-
-        /// Log with severity higher than or equal to DEBUG are logged.
-        pub const DEBUG: LogSeverity = LogSeverity::new("DEBUG");
-
-        /// Logs with severity higher than or equal to INFO are logged.
-        pub const INFO: LogSeverity = LogSeverity::new("INFO");
-
-        /// Logs with severity higher than or equal to WARNING are logged.
-        pub const WARNING: LogSeverity = LogSeverity::new("WARNING");
-
-        /// Logs with severity higher than or equal to ERROR are logged.
-        pub const ERROR: LogSeverity = LogSeverity::new("ERROR");
-    }
-
-    impl std::convert::From<std::string::String> for LogSeverity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LogSeverity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LogSeverity {
         fn default() -> Self {
-            log_severity::LOG_SEVERITY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3570,55 +3699,78 @@ pub mod event {
 
     /// State of the event
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Event state is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Event is scheduled but not executed yet.
+        pub const SCHEDULED: State = State::new(1);
+
+        /// Event is being executed.
+        pub const RUNNING: State = State::new(2);
+
+        /// Event has been successfully executed.
+        pub const SUCCEEDED: State = State::new(3);
+
+        /// Event fails to be executed.
+        pub const FAILED: State = State::new(4);
+
+        /// Event has been created but not scheduled yet.
+        pub const PENDING: State = State::new(5);
+
+        /// Event was stopped before running for its full duration.
+        pub const STOPPED: State = State::new(6);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SCHEDULED"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("PENDING"),
+                6 => std::borrow::Cow::Borrowed("STOPPED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "SCHEDULED" => std::option::Option::Some(Self::SCHEDULED),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "STOPPED" => std::option::Option::Some(Self::STOPPED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Event state is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Event is scheduled but not executed yet.
-        pub const SCHEDULED: State = State::new("SCHEDULED");
-
-        /// Event is being executed.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// Event has been successfully executed.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// Event fails to be executed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// Event has been created but not scheduled yet.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// Event was stopped before running for its full duration.
-        pub const STOPPED: State = State::new("STOPPED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -3985,52 +4137,71 @@ pub mod clip {
 
     /// State of clipping operation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The operation is pending to be picked up by the server.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(1);
 
         /// The server admitted this create clip request, and
         /// outputs are under processing.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(2);
 
         /// Outputs are available in the specified Cloud Storage bucket. For
         /// additional information, see the `outputs` field.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::new(3);
 
         /// The operation has failed. For additional information, see the `error`
         /// field.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("CREATING"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4289,49 +4460,68 @@ pub mod asset {
 
     /// State of the asset resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is not specified.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The asset is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The asset is ready for use.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The asset is being deleted.
+        pub const DELETING: State = State::new(3);
+
+        /// The asset has an error.
+        pub const ERROR: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("ERROR"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is not specified.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The asset is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The asset is ready for use.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The asset is being deleted.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// The asset has an error.
-        pub const ERROR: State = State::new("ERROR");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 

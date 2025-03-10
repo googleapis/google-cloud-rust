@@ -693,45 +693,60 @@ pub mod connect_settings {
 
     /// Various Certificate Authority (CA) modes for certificate signing.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(std::borrow::Cow<'static, str>);
+    pub struct CaMode(i32);
 
     impl CaMode {
-        /// Creates a new CaMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CaMode](CaMode)
-    pub mod ca_mode {
-        use super::CaMode;
-        
 
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new("CA_MODE_UNSPECIFIED");
+        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new(0);
 
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new("GOOGLE_MANAGED_INTERNAL_CA");
+        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new(1);
 
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
+        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new(2);
+
+        /// Creates a new CaMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CA_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_INTERNAL_CA"),
+                2 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_CAS_CA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CA_MODE_UNSPECIFIED" => std::option::Option::Some(Self::CA_MODE_UNSPECIFIED),
+                "GOOGLE_MANAGED_INTERNAL_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_INTERNAL_CA),
+                "GOOGLE_MANAGED_CAS_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_CAS_CA),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CaMode {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for CaMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for CaMode {
         fn default() -> Self {
-            ca_mode::CA_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2676,44 +2691,59 @@ pub mod backup_reencryption_config {
 
     /// Backup type for re-encryption
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackupType(std::borrow::Cow<'static, str>);
+    pub struct BackupType(i32);
 
     impl BackupType {
+
+        /// Unknown backup type, will be defaulted to AUTOMATIC backup type
+        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new(0);
+
+        /// Reencrypt automatic backups
+        pub const AUTOMATED: BackupType = BackupType::new(1);
+
+        /// Reencrypt on-demand backups
+        pub const ON_DEMAND: BackupType = BackupType::new(2);
+
         /// Creates a new BackupType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BACKUP_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTOMATED"),
+                2 => std::borrow::Cow::Borrowed("ON_DEMAND"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BACKUP_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::BACKUP_TYPE_UNSPECIFIED),
+                "AUTOMATED" => std::option::Option::Some(Self::AUTOMATED),
+                "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [BackupType](BackupType)
-    pub mod backup_type {
-        use super::BackupType;
-        
-
-        /// Unknown backup type, will be defaulted to AUTOMATIC backup type
-        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new("BACKUP_TYPE_UNSPECIFIED");
-
-        /// Reencrypt automatic backups
-        pub const AUTOMATED: BackupType = BackupType::new("AUTOMATED");
-
-        /// Reencrypt on-demand backups
-        pub const ON_DEMAND: BackupType = BackupType::new("ON_DEMAND");
-    }
-
-    impl std::convert::From<std::string::String> for BackupType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for BackupType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for BackupType {
         fn default() -> Self {
-            backup_type::BACKUP_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2888,90 +2918,120 @@ pub mod sql_instances_verify_external_sync_settings_request {
 
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExternalSyncMode(std::borrow::Cow<'static, str>);
+    pub struct ExternalSyncMode(i32);
 
     impl ExternalSyncMode {
-        /// Creates a new ExternalSyncMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ExternalSyncMode](ExternalSyncMode)
-    pub mod external_sync_mode {
-        use super::ExternalSyncMode;
-        
 
         /// Unknown external sync mode, will be defaulted to ONLINE mode
-        pub const EXTERNAL_SYNC_MODE_UNSPECIFIED: ExternalSyncMode = ExternalSyncMode::new("EXTERNAL_SYNC_MODE_UNSPECIFIED");
+        pub const EXTERNAL_SYNC_MODE_UNSPECIFIED: ExternalSyncMode = ExternalSyncMode::new(0);
 
         /// Online external sync will set up replication after initial data external
         /// sync
-        pub const ONLINE: ExternalSyncMode = ExternalSyncMode::new("ONLINE");
+        pub const ONLINE: ExternalSyncMode = ExternalSyncMode::new(1);
 
         /// Offline external sync only dumps and loads a one-time snapshot of
         /// the primary instance's data
-        pub const OFFLINE: ExternalSyncMode = ExternalSyncMode::new("OFFLINE");
+        pub const OFFLINE: ExternalSyncMode = ExternalSyncMode::new(2);
+
+        /// Creates a new ExternalSyncMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXTERNAL_SYNC_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ONLINE"),
+                2 => std::borrow::Cow::Borrowed("OFFLINE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXTERNAL_SYNC_MODE_UNSPECIFIED" => std::option::Option::Some(Self::EXTERNAL_SYNC_MODE_UNSPECIFIED),
+                "ONLINE" => std::option::Option::Some(Self::ONLINE),
+                "OFFLINE" => std::option::Option::Some(Self::OFFLINE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ExternalSyncMode {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for ExternalSyncMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for ExternalSyncMode {
         fn default() -> Self {
-            external_sync_mode::EXTERNAL_SYNC_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// MigrationType determines whether the migration is a physical file-based
     /// migration or a logical dump file-based migration.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MigrationType(std::borrow::Cow<'static, str>);
+    pub struct MigrationType(i32);
 
     impl MigrationType {
+
+        /// Default value is a logical dump file-based migration
+        pub const MIGRATION_TYPE_UNSPECIFIED: MigrationType = MigrationType::new(0);
+
+        /// Logical dump file-based migration
+        pub const LOGICAL: MigrationType = MigrationType::new(1);
+
+        /// Physical file-based migration
+        pub const PHYSICAL: MigrationType = MigrationType::new(2);
+
         /// Creates a new MigrationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MIGRATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOGICAL"),
+                2 => std::borrow::Cow::Borrowed("PHYSICAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MIGRATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::MIGRATION_TYPE_UNSPECIFIED),
+                "LOGICAL" => std::option::Option::Some(Self::LOGICAL),
+                "PHYSICAL" => std::option::Option::Some(Self::PHYSICAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MigrationType](MigrationType)
-    pub mod migration_type {
-        use super::MigrationType;
-        
-
-        /// Default value is a logical dump file-based migration
-        pub const MIGRATION_TYPE_UNSPECIFIED: MigrationType = MigrationType::new("MIGRATION_TYPE_UNSPECIFIED");
-
-        /// Logical dump file-based migration
-        pub const LOGICAL: MigrationType = MigrationType::new("LOGICAL");
-
-        /// Physical file-based migration
-        pub const PHYSICAL: MigrationType = MigrationType::new("PHYSICAL");
-    }
-
-    impl std::convert::From<std::string::String> for MigrationType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for MigrationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for MigrationType {
         fn default() -> Self {
-            migration_type::MIGRATION_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -4742,147 +4802,202 @@ pub mod database_instance {
 
         /// This enum lists all possible states regarding out-of-disk issues.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SqlOutOfDiskState(std::borrow::Cow<'static, str>);
+        pub struct SqlOutOfDiskState(i32);
 
         impl SqlOutOfDiskState {
-            /// Creates a new SqlOutOfDiskState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [SqlOutOfDiskState](SqlOutOfDiskState)
-        pub mod sql_out_of_disk_state {
-            use super::SqlOutOfDiskState;
-            
 
             /// Unspecified state
-            pub const SQL_OUT_OF_DISK_STATE_UNSPECIFIED: SqlOutOfDiskState = SqlOutOfDiskState::new("SQL_OUT_OF_DISK_STATE_UNSPECIFIED");
+            pub const SQL_OUT_OF_DISK_STATE_UNSPECIFIED: SqlOutOfDiskState = SqlOutOfDiskState::new(0);
 
             /// The instance has plenty space on data disk
-            pub const NORMAL: SqlOutOfDiskState = SqlOutOfDiskState::new("NORMAL");
+            pub const NORMAL: SqlOutOfDiskState = SqlOutOfDiskState::new(1);
 
             /// Data disk is almost used up. It is shutdown to prevent data
             /// corruption.
-            pub const SOFT_SHUTDOWN: SqlOutOfDiskState = SqlOutOfDiskState::new("SOFT_SHUTDOWN");
+            pub const SOFT_SHUTDOWN: SqlOutOfDiskState = SqlOutOfDiskState::new(2);
+
+            /// Creates a new SqlOutOfDiskState instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+            
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SQL_OUT_OF_DISK_STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("NORMAL"),
+                    2 => std::borrow::Cow::Borrowed("SOFT_SHUTDOWN"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SQL_OUT_OF_DISK_STATE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OUT_OF_DISK_STATE_UNSPECIFIED),
+                    "NORMAL" => std::option::Option::Some(Self::NORMAL),
+                    "SOFT_SHUTDOWN" => std::option::Option::Some(Self::SOFT_SHUTDOWN),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for SqlOutOfDiskState {
-          fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
-          }
+        impl std::convert::From<i32> for SqlOutOfDiskState {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
         }
 
         impl std::default::Default for SqlOutOfDiskState {
             fn default() -> Self {
-                sql_out_of_disk_state::SQL_OUT_OF_DISK_STATE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// The current serving state of the database instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlInstanceState(std::borrow::Cow<'static, str>);
+    pub struct SqlInstanceState(i32);
 
     impl SqlInstanceState {
-        /// Creates a new SqlInstanceState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SqlInstanceState](SqlInstanceState)
-    pub mod sql_instance_state {
-        use super::SqlInstanceState;
-        
 
         /// The state of the instance is unknown.
-        pub const SQL_INSTANCE_STATE_UNSPECIFIED: SqlInstanceState = SqlInstanceState::new("SQL_INSTANCE_STATE_UNSPECIFIED");
+        pub const SQL_INSTANCE_STATE_UNSPECIFIED: SqlInstanceState = SqlInstanceState::new(0);
 
         /// The instance is running, or has been stopped by owner.
-        pub const RUNNABLE: SqlInstanceState = SqlInstanceState::new("RUNNABLE");
+        pub const RUNNABLE: SqlInstanceState = SqlInstanceState::new(1);
 
         /// The instance is not available, for example due to problems with billing.
-        pub const SUSPENDED: SqlInstanceState = SqlInstanceState::new("SUSPENDED");
+        pub const SUSPENDED: SqlInstanceState = SqlInstanceState::new(2);
 
         /// The instance is being deleted.
-        pub const PENDING_DELETE: SqlInstanceState = SqlInstanceState::new("PENDING_DELETE");
+        pub const PENDING_DELETE: SqlInstanceState = SqlInstanceState::new(3);
 
         /// The instance is being created.
-        pub const PENDING_CREATE: SqlInstanceState = SqlInstanceState::new("PENDING_CREATE");
+        pub const PENDING_CREATE: SqlInstanceState = SqlInstanceState::new(4);
 
         /// The instance is down for maintenance.
-        pub const MAINTENANCE: SqlInstanceState = SqlInstanceState::new("MAINTENANCE");
+        pub const MAINTENANCE: SqlInstanceState = SqlInstanceState::new(5);
 
         /// The creation of the instance failed or a fatal error occurred during
         /// maintenance.
-        pub const FAILED: SqlInstanceState = SqlInstanceState::new("FAILED");
+        pub const FAILED: SqlInstanceState = SqlInstanceState::new(6);
 
         /// Deprecated
-        pub const ONLINE_MAINTENANCE: SqlInstanceState = SqlInstanceState::new("ONLINE_MAINTENANCE");
+        pub const ONLINE_MAINTENANCE: SqlInstanceState = SqlInstanceState::new(7);
+
+        /// Creates a new SqlInstanceState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_INSTANCE_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RUNNABLE"),
+                2 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                3 => std::borrow::Cow::Borrowed("PENDING_DELETE"),
+                4 => std::borrow::Cow::Borrowed("PENDING_CREATE"),
+                5 => std::borrow::Cow::Borrowed("MAINTENANCE"),
+                6 => std::borrow::Cow::Borrowed("FAILED"),
+                7 => std::borrow::Cow::Borrowed("ONLINE_MAINTENANCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_INSTANCE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_INSTANCE_STATE_UNSPECIFIED),
+                "RUNNABLE" => std::option::Option::Some(Self::RUNNABLE),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "PENDING_DELETE" => std::option::Option::Some(Self::PENDING_DELETE),
+                "PENDING_CREATE" => std::option::Option::Some(Self::PENDING_CREATE),
+                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "ONLINE_MAINTENANCE" => std::option::Option::Some(Self::ONLINE_MAINTENANCE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SqlInstanceState {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlInstanceState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlInstanceState {
         fn default() -> Self {
-            sql_instance_state::SQL_INSTANCE_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The SQL network architecture for the instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlNetworkArchitecture(std::borrow::Cow<'static, str>);
+    pub struct SqlNetworkArchitecture(i32);
 
     impl SqlNetworkArchitecture {
+
+        pub const SQL_NETWORK_ARCHITECTURE_UNSPECIFIED: SqlNetworkArchitecture = SqlNetworkArchitecture::new(0);
+
+        /// The instance uses the new network architecture.
+        pub const NEW_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new(1);
+
+        /// The instance uses the old network architecture.
+        pub const OLD_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new(2);
+
         /// Creates a new SqlNetworkArchitecture instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEW_NETWORK_ARCHITECTURE"),
+                2 => std::borrow::Cow::Borrowed("OLD_NETWORK_ARCHITECTURE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_NETWORK_ARCHITECTURE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_NETWORK_ARCHITECTURE_UNSPECIFIED),
+                "NEW_NETWORK_ARCHITECTURE" => std::option::Option::Some(Self::NEW_NETWORK_ARCHITECTURE),
+                "OLD_NETWORK_ARCHITECTURE" => std::option::Option::Some(Self::OLD_NETWORK_ARCHITECTURE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SqlNetworkArchitecture](SqlNetworkArchitecture)
-    pub mod sql_network_architecture {
-        use super::SqlNetworkArchitecture;
-        
-
-        pub const SQL_NETWORK_ARCHITECTURE_UNSPECIFIED: SqlNetworkArchitecture = SqlNetworkArchitecture::new("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED");
-
-        /// The instance uses the new network architecture.
-        pub const NEW_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new("NEW_NETWORK_ARCHITECTURE");
-
-        /// The instance uses the old network architecture.
-        pub const OLD_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new("OLD_NETWORK_ARCHITECTURE");
-    }
-
-    impl std::convert::From<std::string::String> for SqlNetworkArchitecture {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlNetworkArchitecture {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlNetworkArchitecture {
         fn default() -> Self {
-            sql_network_architecture::SQL_NETWORK_ARCHITECTURE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5160,47 +5275,64 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(std::borrow::Cow<'static, str>);
+    pub struct RescheduleType(i32);
 
     impl RescheduleType {
-        /// Creates a new RescheduleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
 
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RescheduleType](RescheduleType)
-    pub mod reschedule_type {
-        use super::RescheduleType;
-        
-
-        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new("RESCHEDULE_TYPE_UNSPECIFIED");
+        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new(0);
 
         /// Reschedules maintenance to happen now (within 5 minutes).
-        pub const IMMEDIATE: RescheduleType = RescheduleType::new("IMMEDIATE");
+        pub const IMMEDIATE: RescheduleType = RescheduleType::new(1);
 
         /// Reschedules maintenance to occur within one week from the originally
         /// scheduled day and time.
-        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new("NEXT_AVAILABLE_WINDOW");
+        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new(2);
 
         /// Reschedules maintenance to a specific time and day.
-        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new(3);
+
+        /// Creates a new RescheduleType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESCHEDULE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMMEDIATE"),
+                2 => std::borrow::Cow::Borrowed("NEXT_AVAILABLE_WINDOW"),
+                3 => std::borrow::Cow::Borrowed("SPECIFIC_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::RESCHEDULE_TYPE_UNSPECIFIED),
+                "IMMEDIATE" => std::option::Option::Some(Self::IMMEDIATE),
+                "NEXT_AVAILABLE_WINDOW" => std::option::Option::Some(Self::NEXT_AVAILABLE_WINDOW),
+                "SPECIFIC_TIME" => std::option::Option::Some(Self::SPECIFIC_TIME),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RescheduleType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for RescheduleType {
         fn default() -> Self {
-            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5566,201 +5698,310 @@ pub mod sql_external_sync_setting_error {
 
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlExternalSyncSettingErrorType(std::borrow::Cow<'static, str>);
+    pub struct SqlExternalSyncSettingErrorType(i32);
 
     impl SqlExternalSyncSettingErrorType {
-        /// Creates a new SqlExternalSyncSettingErrorType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
 
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
+        pub const SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(0);
 
-    /// Useful constants to work with [SqlExternalSyncSettingErrorType](SqlExternalSyncSettingErrorType)
-    pub mod sql_external_sync_setting_error_type {
-        use super::SqlExternalSyncSettingErrorType;
-        
+        pub const CONNECTION_FAILURE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(1);
 
-        pub const SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED");
+        pub const BINLOG_NOT_ENABLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(2);
 
-        pub const CONNECTION_FAILURE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("CONNECTION_FAILURE");
+        pub const INCOMPATIBLE_DATABASE_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(3);
 
-        pub const BINLOG_NOT_ENABLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("BINLOG_NOT_ENABLED");
-
-        pub const INCOMPATIBLE_DATABASE_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INCOMPATIBLE_DATABASE_VERSION");
-
-        pub const REPLICA_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("REPLICA_ALREADY_SETUP");
+        pub const REPLICA_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(4);
 
         /// The replication user is missing privileges that are required.
-        pub const INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_PRIVILEGE");
+        pub const INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(5);
 
         /// Unsupported migration type.
-        pub const UNSUPPORTED_MIGRATION_TYPE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_MIGRATION_TYPE");
+        pub const UNSUPPORTED_MIGRATION_TYPE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(6);
 
         /// No pglogical extension installed on databases, applicable for postgres.
-        pub const NO_PGLOGICAL_INSTALLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("NO_PGLOGICAL_INSTALLED");
+        pub const NO_PGLOGICAL_INSTALLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(7);
 
         /// pglogical node already exists on databases, applicable for postgres.
-        pub const PGLOGICAL_NODE_ALREADY_EXISTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PGLOGICAL_NODE_ALREADY_EXISTS");
+        pub const PGLOGICAL_NODE_ALREADY_EXISTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(8);
 
         /// The value of parameter wal_level is not set to logical.
-        pub const INVALID_WAL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_WAL_LEVEL");
+        pub const INVALID_WAL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(9);
 
         /// The value of parameter shared_preload_libraries does not include
         /// pglogical.
-        pub const INVALID_SHARED_PRELOAD_LIBRARY: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_SHARED_PRELOAD_LIBRARY");
+        pub const INVALID_SHARED_PRELOAD_LIBRARY: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(10);
 
         /// The value of parameter max_replication_slots is not sufficient.
-        pub const INSUFFICIENT_MAX_REPLICATION_SLOTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_REPLICATION_SLOTS");
+        pub const INSUFFICIENT_MAX_REPLICATION_SLOTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(11);
 
         /// The value of parameter max_wal_senders is not sufficient.
-        pub const INSUFFICIENT_MAX_WAL_SENDERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_WAL_SENDERS");
+        pub const INSUFFICIENT_MAX_WAL_SENDERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(12);
 
         /// The value of parameter max_worker_processes is not sufficient.
-        pub const INSUFFICIENT_MAX_WORKER_PROCESSES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MAX_WORKER_PROCESSES");
+        pub const INSUFFICIENT_MAX_WORKER_PROCESSES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(13);
 
         /// Extensions installed are either not supported or having unsupported
         /// versions.
-        pub const UNSUPPORTED_EXTENSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_EXTENSIONS");
+        pub const UNSUPPORTED_EXTENSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(14);
 
         /// The value of parameter rds.logical_replication is not set to 1.
-        pub const INVALID_RDS_LOGICAL_REPLICATION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_RDS_LOGICAL_REPLICATION");
+        pub const INVALID_RDS_LOGICAL_REPLICATION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(15);
 
         /// The primary instance logging setup doesn't allow EM sync.
-        pub const INVALID_LOGGING_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_LOGGING_SETUP");
+        pub const INVALID_LOGGING_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(16);
 
         /// The primary instance database parameter setup doesn't allow EM sync.
-        pub const INVALID_DB_PARAM: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_DB_PARAM");
+        pub const INVALID_DB_PARAM: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(17);
 
         /// The gtid_mode is not supported, applicable for MySQL.
-        pub const UNSUPPORTED_GTID_MODE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_GTID_MODE");
+        pub const UNSUPPORTED_GTID_MODE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(18);
 
         /// SQL Server Agent is not running.
-        pub const SQLSERVER_AGENT_NOT_RUNNING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQLSERVER_AGENT_NOT_RUNNING");
+        pub const SQLSERVER_AGENT_NOT_RUNNING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(19);
 
         /// The table definition is not support due to missing primary key or replica
         /// identity, applicable for postgres.
-        pub const UNSUPPORTED_TABLE_DEFINITION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_TABLE_DEFINITION");
+        pub const UNSUPPORTED_TABLE_DEFINITION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(20);
 
         /// The customer has a definer that will break EM setup.
-        pub const UNSUPPORTED_DEFINER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_DEFINER");
+        pub const UNSUPPORTED_DEFINER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(21);
 
         /// SQL Server @@SERVERNAME does not match actual host name.
-        pub const SQLSERVER_SERVERNAME_MISMATCH: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SQLSERVER_SERVERNAME_MISMATCH");
+        pub const SQLSERVER_SERVERNAME_MISMATCH: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(22);
 
         /// The primary instance has been setup and will fail the setup.
-        pub const PRIMARY_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PRIMARY_ALREADY_SETUP");
+        pub const PRIMARY_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(23);
 
         /// The primary instance has unsupported binary log format.
-        pub const UNSUPPORTED_BINLOG_FORMAT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_BINLOG_FORMAT");
+        pub const UNSUPPORTED_BINLOG_FORMAT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(24);
 
         /// The primary instance's binary log retention setting.
-        pub const BINLOG_RETENTION_SETTING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("BINLOG_RETENTION_SETTING");
+        pub const BINLOG_RETENTION_SETTING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(25);
 
         /// The primary instance has tables with unsupported storage engine.
-        pub const UNSUPPORTED_STORAGE_ENGINE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_STORAGE_ENGINE");
+        pub const UNSUPPORTED_STORAGE_ENGINE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(26);
 
         /// Source has tables with limited support
         /// eg: PostgreSQL tables without primary keys.
-        pub const LIMITED_SUPPORT_TABLES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("LIMITED_SUPPORT_TABLES");
+        pub const LIMITED_SUPPORT_TABLES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(27);
 
         /// The replica instance contains existing data.
-        pub const EXISTING_DATA_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXISTING_DATA_IN_REPLICA");
+        pub const EXISTING_DATA_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(28);
 
         /// The replication user is missing privileges that are optional.
-        pub const MISSING_OPTIONAL_PRIVILEGES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("MISSING_OPTIONAL_PRIVILEGES");
+        pub const MISSING_OPTIONAL_PRIVILEGES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(29);
 
         /// Additional BACKUP_ADMIN privilege is granted to the replication user
         /// which may lock source MySQL 8 instance for DDLs during initial sync.
-        pub const RISKY_BACKUP_ADMIN_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("RISKY_BACKUP_ADMIN_PRIVILEGE");
+        pub const RISKY_BACKUP_ADMIN_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(30);
 
         /// The Cloud Storage bucket is missing necessary permissions.
-        pub const INSUFFICIENT_GCS_PERMISSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_GCS_PERMISSIONS");
+        pub const INSUFFICIENT_GCS_PERMISSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(31);
 
         /// The Cloud Storage bucket has an error in the file or contains invalid
         /// file information.
-        pub const INVALID_FILE_INFO: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INVALID_FILE_INFO");
+        pub const INVALID_FILE_INFO: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(32);
 
         /// The source instance has unsupported database settings for migration.
-        pub const UNSUPPORTED_DATABASE_SETTINGS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_DATABASE_SETTINGS");
+        pub const UNSUPPORTED_DATABASE_SETTINGS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(33);
 
         /// The replication user is missing parallel import specific privileges.
         /// (e.g. LOCK TABLES) for MySQL.
-        pub const MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE");
+        pub const MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(34);
 
         /// The global variable local_infile is off on external server replica.
-        pub const LOCAL_INFILE_OFF: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("LOCAL_INFILE_OFF");
+        pub const LOCAL_INFILE_OFF: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(35);
 
         /// This code instructs customers to turn on point-in-time recovery manually
         /// for the instance after promoting the Cloud SQL for PostgreSQL instance.
-        pub const TURN_ON_PITR_AFTER_PROMOTE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("TURN_ON_PITR_AFTER_PROMOTE");
+        pub const TURN_ON_PITR_AFTER_PROMOTE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(36);
 
         /// The minor version of replica database is incompatible with the source.
-        pub const INCOMPATIBLE_DATABASE_MINOR_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INCOMPATIBLE_DATABASE_MINOR_VERSION");
+        pub const INCOMPATIBLE_DATABASE_MINOR_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(37);
 
         /// This warning message indicates that Cloud SQL uses the maximum number of
         /// subscriptions to migrate data from the source to the destination.
-        pub const SOURCE_MAX_SUBSCRIPTIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SOURCE_MAX_SUBSCRIPTIONS");
+        pub const SOURCE_MAX_SUBSCRIPTIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(38);
 
         /// Unable to verify definers on the source for MySQL.
-        pub const UNABLE_TO_VERIFY_DEFINERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNABLE_TO_VERIFY_DEFINERS");
+        pub const UNABLE_TO_VERIFY_DEFINERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(39);
 
         /// If a time out occurs while the subscription counts are calculated, then
         /// this value is set to 1. Otherwise, this value is set to 2.
-        pub const SUBSCRIPTION_CALCULATION_STATUS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("SUBSCRIPTION_CALCULATION_STATUS");
+        pub const SUBSCRIPTION_CALCULATION_STATUS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(40);
 
         /// Count of subscriptions needed to sync source data for PostgreSQL
         /// database.
-        pub const PG_SUBSCRIPTION_COUNT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_SUBSCRIPTION_COUNT");
+        pub const PG_SUBSCRIPTION_COUNT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(41);
 
         /// Final parallel level that is used to do migration.
-        pub const PG_SYNC_PARALLEL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_SYNC_PARALLEL_LEVEL");
+        pub const PG_SYNC_PARALLEL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(42);
 
         /// The disk size of the replica instance is smaller than the data size of
         /// the source instance.
-        pub const INSUFFICIENT_DISK_SIZE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_DISK_SIZE");
+        pub const INSUFFICIENT_DISK_SIZE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(43);
 
         /// The data size of the source instance is greater than 1 TB, the number of
         /// cores of the replica instance is less than 8, and the memory of the
         /// replica is less than 32 GB.
-        pub const INSUFFICIENT_MACHINE_TIER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("INSUFFICIENT_MACHINE_TIER");
+        pub const INSUFFICIENT_MACHINE_TIER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(44);
 
         /// The warning message indicates the unsupported extensions will not be
         /// migrated to the destination.
-        pub const UNSUPPORTED_EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED");
+        pub const UNSUPPORTED_EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(45);
 
         /// The warning message indicates the pg_cron extension and settings will not
         /// be migrated to the destination.
-        pub const EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXTENSIONS_NOT_MIGRATED");
+        pub const EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(46);
 
         /// The error message indicates that pg_cron flags are enabled on the
         /// destination which is not supported during the migration.
-        pub const PG_CRON_FLAG_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("PG_CRON_FLAG_ENABLED_IN_REPLICA");
+        pub const PG_CRON_FLAG_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(47);
 
         /// This error message indicates that the specified extensions are not
         /// enabled on destination instance. For example, before you can migrate
         /// data to the destination instance, you must enable the PGAudit extension
         /// on the instance.
-        pub const EXTENSIONS_NOT_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("EXTENSIONS_NOT_ENABLED_IN_REPLICA");
+        pub const EXTENSIONS_NOT_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(48);
 
         /// The source database has generated columns that can't be migrated. Please
         /// change them to regular columns before migration.
-        pub const UNSUPPORTED_COLUMNS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_COLUMNS");
+        pub const UNSUPPORTED_COLUMNS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(49);
+
+        /// Creates a new SqlExternalSyncSettingErrorType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONNECTION_FAILURE"),
+                2 => std::borrow::Cow::Borrowed("BINLOG_NOT_ENABLED"),
+                3 => std::borrow::Cow::Borrowed("INCOMPATIBLE_DATABASE_VERSION"),
+                4 => std::borrow::Cow::Borrowed("REPLICA_ALREADY_SETUP"),
+                5 => std::borrow::Cow::Borrowed("INSUFFICIENT_PRIVILEGE"),
+                6 => std::borrow::Cow::Borrowed("UNSUPPORTED_MIGRATION_TYPE"),
+                7 => std::borrow::Cow::Borrowed("NO_PGLOGICAL_INSTALLED"),
+                8 => std::borrow::Cow::Borrowed("PGLOGICAL_NODE_ALREADY_EXISTS"),
+                9 => std::borrow::Cow::Borrowed("INVALID_WAL_LEVEL"),
+                10 => std::borrow::Cow::Borrowed("INVALID_SHARED_PRELOAD_LIBRARY"),
+                11 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_REPLICATION_SLOTS"),
+                12 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_WAL_SENDERS"),
+                13 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_WORKER_PROCESSES"),
+                14 => std::borrow::Cow::Borrowed("UNSUPPORTED_EXTENSIONS"),
+                15 => std::borrow::Cow::Borrowed("INVALID_RDS_LOGICAL_REPLICATION"),
+                16 => std::borrow::Cow::Borrowed("INVALID_LOGGING_SETUP"),
+                17 => std::borrow::Cow::Borrowed("INVALID_DB_PARAM"),
+                18 => std::borrow::Cow::Borrowed("UNSUPPORTED_GTID_MODE"),
+                19 => std::borrow::Cow::Borrowed("SQLSERVER_AGENT_NOT_RUNNING"),
+                20 => std::borrow::Cow::Borrowed("UNSUPPORTED_TABLE_DEFINITION"),
+                21 => std::borrow::Cow::Borrowed("UNSUPPORTED_DEFINER"),
+                22 => std::borrow::Cow::Borrowed("SQLSERVER_SERVERNAME_MISMATCH"),
+                23 => std::borrow::Cow::Borrowed("PRIMARY_ALREADY_SETUP"),
+                24 => std::borrow::Cow::Borrowed("UNSUPPORTED_BINLOG_FORMAT"),
+                25 => std::borrow::Cow::Borrowed("BINLOG_RETENTION_SETTING"),
+                26 => std::borrow::Cow::Borrowed("UNSUPPORTED_STORAGE_ENGINE"),
+                27 => std::borrow::Cow::Borrowed("LIMITED_SUPPORT_TABLES"),
+                28 => std::borrow::Cow::Borrowed("EXISTING_DATA_IN_REPLICA"),
+                29 => std::borrow::Cow::Borrowed("MISSING_OPTIONAL_PRIVILEGES"),
+                30 => std::borrow::Cow::Borrowed("RISKY_BACKUP_ADMIN_PRIVILEGE"),
+                31 => std::borrow::Cow::Borrowed("INSUFFICIENT_GCS_PERMISSIONS"),
+                32 => std::borrow::Cow::Borrowed("INVALID_FILE_INFO"),
+                33 => std::borrow::Cow::Borrowed("UNSUPPORTED_DATABASE_SETTINGS"),
+                34 => std::borrow::Cow::Borrowed("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE"),
+                35 => std::borrow::Cow::Borrowed("LOCAL_INFILE_OFF"),
+                36 => std::borrow::Cow::Borrowed("TURN_ON_PITR_AFTER_PROMOTE"),
+                37 => std::borrow::Cow::Borrowed("INCOMPATIBLE_DATABASE_MINOR_VERSION"),
+                38 => std::borrow::Cow::Borrowed("SOURCE_MAX_SUBSCRIPTIONS"),
+                39 => std::borrow::Cow::Borrowed("UNABLE_TO_VERIFY_DEFINERS"),
+                40 => std::borrow::Cow::Borrowed("SUBSCRIPTION_CALCULATION_STATUS"),
+                41 => std::borrow::Cow::Borrowed("PG_SUBSCRIPTION_COUNT"),
+                42 => std::borrow::Cow::Borrowed("PG_SYNC_PARALLEL_LEVEL"),
+                43 => std::borrow::Cow::Borrowed("INSUFFICIENT_DISK_SIZE"),
+                44 => std::borrow::Cow::Borrowed("INSUFFICIENT_MACHINE_TIER"),
+                45 => std::borrow::Cow::Borrowed("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED"),
+                46 => std::borrow::Cow::Borrowed("EXTENSIONS_NOT_MIGRATED"),
+                47 => std::borrow::Cow::Borrowed("PG_CRON_FLAG_ENABLED_IN_REPLICA"),
+                48 => std::borrow::Cow::Borrowed("EXTENSIONS_NOT_ENABLED_IN_REPLICA"),
+                49 => std::borrow::Cow::Borrowed("UNSUPPORTED_COLUMNS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED),
+                "CONNECTION_FAILURE" => std::option::Option::Some(Self::CONNECTION_FAILURE),
+                "BINLOG_NOT_ENABLED" => std::option::Option::Some(Self::BINLOG_NOT_ENABLED),
+                "INCOMPATIBLE_DATABASE_VERSION" => std::option::Option::Some(Self::INCOMPATIBLE_DATABASE_VERSION),
+                "REPLICA_ALREADY_SETUP" => std::option::Option::Some(Self::REPLICA_ALREADY_SETUP),
+                "INSUFFICIENT_PRIVILEGE" => std::option::Option::Some(Self::INSUFFICIENT_PRIVILEGE),
+                "UNSUPPORTED_MIGRATION_TYPE" => std::option::Option::Some(Self::UNSUPPORTED_MIGRATION_TYPE),
+                "NO_PGLOGICAL_INSTALLED" => std::option::Option::Some(Self::NO_PGLOGICAL_INSTALLED),
+                "PGLOGICAL_NODE_ALREADY_EXISTS" => std::option::Option::Some(Self::PGLOGICAL_NODE_ALREADY_EXISTS),
+                "INVALID_WAL_LEVEL" => std::option::Option::Some(Self::INVALID_WAL_LEVEL),
+                "INVALID_SHARED_PRELOAD_LIBRARY" => std::option::Option::Some(Self::INVALID_SHARED_PRELOAD_LIBRARY),
+                "INSUFFICIENT_MAX_REPLICATION_SLOTS" => std::option::Option::Some(Self::INSUFFICIENT_MAX_REPLICATION_SLOTS),
+                "INSUFFICIENT_MAX_WAL_SENDERS" => std::option::Option::Some(Self::INSUFFICIENT_MAX_WAL_SENDERS),
+                "INSUFFICIENT_MAX_WORKER_PROCESSES" => std::option::Option::Some(Self::INSUFFICIENT_MAX_WORKER_PROCESSES),
+                "UNSUPPORTED_EXTENSIONS" => std::option::Option::Some(Self::UNSUPPORTED_EXTENSIONS),
+                "INVALID_RDS_LOGICAL_REPLICATION" => std::option::Option::Some(Self::INVALID_RDS_LOGICAL_REPLICATION),
+                "INVALID_LOGGING_SETUP" => std::option::Option::Some(Self::INVALID_LOGGING_SETUP),
+                "INVALID_DB_PARAM" => std::option::Option::Some(Self::INVALID_DB_PARAM),
+                "UNSUPPORTED_GTID_MODE" => std::option::Option::Some(Self::UNSUPPORTED_GTID_MODE),
+                "SQLSERVER_AGENT_NOT_RUNNING" => std::option::Option::Some(Self::SQLSERVER_AGENT_NOT_RUNNING),
+                "UNSUPPORTED_TABLE_DEFINITION" => std::option::Option::Some(Self::UNSUPPORTED_TABLE_DEFINITION),
+                "UNSUPPORTED_DEFINER" => std::option::Option::Some(Self::UNSUPPORTED_DEFINER),
+                "SQLSERVER_SERVERNAME_MISMATCH" => std::option::Option::Some(Self::SQLSERVER_SERVERNAME_MISMATCH),
+                "PRIMARY_ALREADY_SETUP" => std::option::Option::Some(Self::PRIMARY_ALREADY_SETUP),
+                "UNSUPPORTED_BINLOG_FORMAT" => std::option::Option::Some(Self::UNSUPPORTED_BINLOG_FORMAT),
+                "BINLOG_RETENTION_SETTING" => std::option::Option::Some(Self::BINLOG_RETENTION_SETTING),
+                "UNSUPPORTED_STORAGE_ENGINE" => std::option::Option::Some(Self::UNSUPPORTED_STORAGE_ENGINE),
+                "LIMITED_SUPPORT_TABLES" => std::option::Option::Some(Self::LIMITED_SUPPORT_TABLES),
+                "EXISTING_DATA_IN_REPLICA" => std::option::Option::Some(Self::EXISTING_DATA_IN_REPLICA),
+                "MISSING_OPTIONAL_PRIVILEGES" => std::option::Option::Some(Self::MISSING_OPTIONAL_PRIVILEGES),
+                "RISKY_BACKUP_ADMIN_PRIVILEGE" => std::option::Option::Some(Self::RISKY_BACKUP_ADMIN_PRIVILEGE),
+                "INSUFFICIENT_GCS_PERMISSIONS" => std::option::Option::Some(Self::INSUFFICIENT_GCS_PERMISSIONS),
+                "INVALID_FILE_INFO" => std::option::Option::Some(Self::INVALID_FILE_INFO),
+                "UNSUPPORTED_DATABASE_SETTINGS" => std::option::Option::Some(Self::UNSUPPORTED_DATABASE_SETTINGS),
+                "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => std::option::Option::Some(Self::MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE),
+                "LOCAL_INFILE_OFF" => std::option::Option::Some(Self::LOCAL_INFILE_OFF),
+                "TURN_ON_PITR_AFTER_PROMOTE" => std::option::Option::Some(Self::TURN_ON_PITR_AFTER_PROMOTE),
+                "INCOMPATIBLE_DATABASE_MINOR_VERSION" => std::option::Option::Some(Self::INCOMPATIBLE_DATABASE_MINOR_VERSION),
+                "SOURCE_MAX_SUBSCRIPTIONS" => std::option::Option::Some(Self::SOURCE_MAX_SUBSCRIPTIONS),
+                "UNABLE_TO_VERIFY_DEFINERS" => std::option::Option::Some(Self::UNABLE_TO_VERIFY_DEFINERS),
+                "SUBSCRIPTION_CALCULATION_STATUS" => std::option::Option::Some(Self::SUBSCRIPTION_CALCULATION_STATUS),
+                "PG_SUBSCRIPTION_COUNT" => std::option::Option::Some(Self::PG_SUBSCRIPTION_COUNT),
+                "PG_SYNC_PARALLEL_LEVEL" => std::option::Option::Some(Self::PG_SYNC_PARALLEL_LEVEL),
+                "INSUFFICIENT_DISK_SIZE" => std::option::Option::Some(Self::INSUFFICIENT_DISK_SIZE),
+                "INSUFFICIENT_MACHINE_TIER" => std::option::Option::Some(Self::INSUFFICIENT_MACHINE_TIER),
+                "UNSUPPORTED_EXTENSIONS_NOT_MIGRATED" => std::option::Option::Some(Self::UNSUPPORTED_EXTENSIONS_NOT_MIGRATED),
+                "EXTENSIONS_NOT_MIGRATED" => std::option::Option::Some(Self::EXTENSIONS_NOT_MIGRATED),
+                "PG_CRON_FLAG_ENABLED_IN_REPLICA" => std::option::Option::Some(Self::PG_CRON_FLAG_ENABLED_IN_REPLICA),
+                "EXTENSIONS_NOT_ENABLED_IN_REPLICA" => std::option::Option::Some(Self::EXTENSIONS_NOT_ENABLED_IN_REPLICA),
+                "UNSUPPORTED_COLUMNS" => std::option::Option::Some(Self::UNSUPPORTED_COLUMNS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SqlExternalSyncSettingErrorType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlExternalSyncSettingErrorType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlExternalSyncSettingErrorType {
         fn default() -> Self {
-            sql_external_sync_setting_error_type::SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6418,54 +6659,73 @@ pub mod api_warning {
 
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlApiWarningCode(std::borrow::Cow<'static, str>);
+    pub struct SqlApiWarningCode(i32);
 
     impl SqlApiWarningCode {
-        /// Creates a new SqlApiWarningCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SqlApiWarningCode](SqlApiWarningCode)
-    pub mod sql_api_warning_code {
-        use super::SqlApiWarningCode;
-        
 
         /// An unknown or unset warning type from Cloud SQL API.
-        pub const SQL_API_WARNING_CODE_UNSPECIFIED: SqlApiWarningCode = SqlApiWarningCode::new("SQL_API_WARNING_CODE_UNSPECIFIED");
+        pub const SQL_API_WARNING_CODE_UNSPECIFIED: SqlApiWarningCode = SqlApiWarningCode::new(0);
 
         /// Warning when one or more regions are not reachable.  The returned result
         /// set may be incomplete.
-        pub const REGION_UNREACHABLE: SqlApiWarningCode = SqlApiWarningCode::new("REGION_UNREACHABLE");
+        pub const REGION_UNREACHABLE: SqlApiWarningCode = SqlApiWarningCode::new(1);
 
         /// Warning when user provided maxResults parameter exceeds the limit.  The
         /// returned result set may be incomplete.
-        pub const MAX_RESULTS_EXCEEDS_LIMIT: SqlApiWarningCode = SqlApiWarningCode::new("MAX_RESULTS_EXCEEDS_LIMIT");
+        pub const MAX_RESULTS_EXCEEDS_LIMIT: SqlApiWarningCode = SqlApiWarningCode::new(2);
 
         /// Warning when user tries to create/update a user with credentials that
         /// have previously been compromised by a public data breach.
-        pub const COMPROMISED_CREDENTIALS: SqlApiWarningCode = SqlApiWarningCode::new("COMPROMISED_CREDENTIALS");
+        pub const COMPROMISED_CREDENTIALS: SqlApiWarningCode = SqlApiWarningCode::new(3);
 
         /// Warning when the operation succeeds but some non-critical workflow state
         /// failed.
-        pub const INTERNAL_STATE_FAILURE: SqlApiWarningCode = SqlApiWarningCode::new("INTERNAL_STATE_FAILURE");
+        pub const INTERNAL_STATE_FAILURE: SqlApiWarningCode = SqlApiWarningCode::new(4);
+
+        /// Creates a new SqlApiWarningCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_API_WARNING_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REGION_UNREACHABLE"),
+                2 => std::borrow::Cow::Borrowed("MAX_RESULTS_EXCEEDS_LIMIT"),
+                3 => std::borrow::Cow::Borrowed("COMPROMISED_CREDENTIALS"),
+                4 => std::borrow::Cow::Borrowed("INTERNAL_STATE_FAILURE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_API_WARNING_CODE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_API_WARNING_CODE_UNSPECIFIED),
+                "REGION_UNREACHABLE" => std::option::Option::Some(Self::REGION_UNREACHABLE),
+                "MAX_RESULTS_EXCEEDS_LIMIT" => std::option::Option::Some(Self::MAX_RESULTS_EXCEEDS_LIMIT),
+                "COMPROMISED_CREDENTIALS" => std::option::Option::Some(Self::COMPROMISED_CREDENTIALS),
+                "INTERNAL_STATE_FAILURE" => std::option::Option::Some(Self::INTERNAL_STATE_FAILURE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SqlApiWarningCode {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlApiWarningCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlApiWarningCode {
         fn default() -> Self {
-            sql_api_warning_code::SQL_API_WARNING_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6520,41 +6780,54 @@ pub mod backup_retention_settings {
 
     /// The units that retained_backups specifies, we only support COUNT.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RetentionUnit(std::borrow::Cow<'static, str>);
+    pub struct RetentionUnit(i32);
 
     impl RetentionUnit {
+
+        /// Backup retention unit is unspecified, will be treated as COUNT.
+        pub const RETENTION_UNIT_UNSPECIFIED: RetentionUnit = RetentionUnit::new(0);
+
+        /// Retention will be by count, eg. "retain the most recent 7 backups".
+        pub const COUNT: RetentionUnit = RetentionUnit::new(1);
+
         /// Creates a new RetentionUnit instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RETENTION_UNIT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COUNT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RETENTION_UNIT_UNSPECIFIED" => std::option::Option::Some(Self::RETENTION_UNIT_UNSPECIFIED),
+                "COUNT" => std::option::Option::Some(Self::COUNT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RetentionUnit](RetentionUnit)
-    pub mod retention_unit {
-        use super::RetentionUnit;
-        
-
-        /// Backup retention unit is unspecified, will be treated as COUNT.
-        pub const RETENTION_UNIT_UNSPECIFIED: RetentionUnit = RetentionUnit::new("RETENTION_UNIT_UNSPECIFIED");
-
-        /// Retention will be by count, eg. "retain the most recent 7 backups".
-        pub const COUNT: RetentionUnit = RetentionUnit::new("COUNT");
-    }
-
-    impl std::convert::From<std::string::String> for RetentionUnit {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for RetentionUnit {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for RetentionUnit {
         fn default() -> Self {
-            retention_unit::RETENTION_UNIT_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6692,56 +6965,75 @@ pub mod backup_configuration {
     /// This value contains the storage location of the transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionalLogStorageState(std::borrow::Cow<'static, str>);
+    pub struct TransactionalLogStorageState(i32);
 
     impl TransactionalLogStorageState {
-        /// Creates a new TransactionalLogStorageState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TransactionalLogStorageState](TransactionalLogStorageState)
-    pub mod transactional_log_storage_state {
-        use super::TransactionalLogStorageState;
-        
 
         /// Unspecified.
-        pub const TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED: TransactionalLogStorageState = TransactionalLogStorageState::new("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED");
+        pub const TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED: TransactionalLogStorageState = TransactionalLogStorageState::new(0);
 
         /// The transaction logs used for PITR for the instance are stored
         /// on a data disk.
-        pub const DISK: TransactionalLogStorageState = TransactionalLogStorageState::new("DISK");
+        pub const DISK: TransactionalLogStorageState = TransactionalLogStorageState::new(1);
 
         /// The transaction logs used for PITR for the instance are switching from
         /// being stored on a data disk to being stored in Cloud Storage.
         /// Only applicable to MySQL.
-        pub const SWITCHING_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("SWITCHING_TO_CLOUD_STORAGE");
+        pub const SWITCHING_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(2);
 
         /// The transaction logs used for PITR for the instance are now stored
         /// in Cloud Storage. Previously, they were stored on a data disk.
         /// Only applicable to MySQL.
-        pub const SWITCHED_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("SWITCHED_TO_CLOUD_STORAGE");
+        pub const SWITCHED_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(3);
 
         /// The transaction logs used for PITR for the instance are stored in
         /// Cloud Storage. Only applicable to MySQL and PostgreSQL.
-        pub const CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("CLOUD_STORAGE");
+        pub const CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(4);
+
+        /// Creates a new TransactionalLogStorageState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DISK"),
+                2 => std::borrow::Cow::Borrowed("SWITCHING_TO_CLOUD_STORAGE"),
+                3 => std::borrow::Cow::Borrowed("SWITCHED_TO_CLOUD_STORAGE"),
+                4 => std::borrow::Cow::Borrowed("CLOUD_STORAGE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED),
+                "DISK" => std::option::Option::Some(Self::DISK),
+                "SWITCHING_TO_CLOUD_STORAGE" => std::option::Option::Some(Self::SWITCHING_TO_CLOUD_STORAGE),
+                "SWITCHED_TO_CLOUD_STORAGE" => std::option::Option::Some(Self::SWITCHED_TO_CLOUD_STORAGE),
+                "CLOUD_STORAGE" => std::option::Option::Some(Self::CLOUD_STORAGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TransactionalLogStorageState {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for TransactionalLogStorageState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for TransactionalLogStorageState {
         fn default() -> Self {
-            transactional_log_storage_state::TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8369,27 +8661,12 @@ pub mod ip_configuration {
 
     /// The SSL options for database connections.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SslMode(std::borrow::Cow<'static, str>);
+    pub struct SslMode(i32);
 
     impl SslMode {
-        /// Creates a new SslMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SslMode](SslMode)
-    pub mod ssl_mode {
-        use super::SslMode;
-        
 
         /// The SSL mode is unknown.
-        pub const SSL_MODE_UNSPECIFIED: SslMode = SslMode::new("SSL_MODE_UNSPECIFIED");
+        pub const SSL_MODE_UNSPECIFIED: SslMode = SslMode::new(0);
 
         /// Allow non-SSL/non-TLS and SSL/TLS connections.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
@@ -8397,7 +8674,7 @@ pub mod ip_configuration {
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ALLOW_UNENCRYPTED_AND_ENCRYPTED: SslMode = SslMode::new("ALLOW_UNENCRYPTED_AND_ENCRYPTED");
+        pub const ALLOW_UNENCRYPTED_AND_ENCRYPTED: SslMode = SslMode::new(1);
 
         /// Only allow connections encrypted with SSL/TLS.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
@@ -8405,7 +8682,7 @@ pub mod ip_configuration {
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ENCRYPTED_ONLY: SslMode = SslMode::new("ENCRYPTED_ONLY");
+        pub const ENCRYPTED_ONLY: SslMode = SslMode::new(2);
 
         /// Only allow connections encrypted with SSL/TLS and with valid
         /// client certificates.
@@ -8421,62 +8698,109 @@ pub mod ip_configuration {
         /// to enforce client identity verification.
         ///
         /// Only applicable to MySQL and PostgreSQL. Not applicable to SQL Server.
-        pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: SslMode = SslMode::new("TRUSTED_CLIENT_CERTIFICATE_REQUIRED");
+        pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: SslMode = SslMode::new(3);
+
+        /// Creates a new SslMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SSL_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW_UNENCRYPTED_AND_ENCRYPTED"),
+                2 => std::borrow::Cow::Borrowed("ENCRYPTED_ONLY"),
+                3 => std::borrow::Cow::Borrowed("TRUSTED_CLIENT_CERTIFICATE_REQUIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SSL_MODE_UNSPECIFIED" => std::option::Option::Some(Self::SSL_MODE_UNSPECIFIED),
+                "ALLOW_UNENCRYPTED_AND_ENCRYPTED" => std::option::Option::Some(Self::ALLOW_UNENCRYPTED_AND_ENCRYPTED),
+                "ENCRYPTED_ONLY" => std::option::Option::Some(Self::ENCRYPTED_ONLY),
+                "TRUSTED_CLIENT_CERTIFICATE_REQUIRED" => std::option::Option::Some(Self::TRUSTED_CLIENT_CERTIFICATE_REQUIRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SslMode {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SslMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SslMode {
         fn default() -> Self {
-            ssl_mode::SSL_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Various Certificate Authority (CA) modes for certificate signing.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(std::borrow::Cow<'static, str>);
+    pub struct CaMode(i32);
 
     impl CaMode {
-        /// Creates a new CaMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CaMode](CaMode)
-    pub mod ca_mode {
-        use super::CaMode;
-        
 
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new("CA_MODE_UNSPECIFIED");
+        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new(0);
 
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new("GOOGLE_MANAGED_INTERNAL_CA");
+        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new(1);
 
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
+        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new(2);
+
+        /// Creates a new CaMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CA_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_INTERNAL_CA"),
+                2 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_CAS_CA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CA_MODE_UNSPECIFIED" => std::option::Option::Some(Self::CA_MODE_UNSPECIFIED),
+                "GOOGLE_MANAGED_INTERNAL_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_INTERNAL_CA),
+                "GOOGLE_MANAGED_CAS_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_CAS_CA),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CaMode {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for CaMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for CaMode {
         fn default() -> Self {
-            ca_mode::CA_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -9296,233 +9620,351 @@ pub mod operation {
 
     /// The type of Cloud SQL operation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationType(std::borrow::Cow<'static, str>);
+    pub struct SqlOperationType(i32);
 
     impl SqlOperationType {
-        /// Creates a new SqlOperationType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [SqlOperationType](SqlOperationType)
-    pub mod sql_operation_type {
-        use super::SqlOperationType;
-        
 
         /// Unknown operation type.
-        pub const SQL_OPERATION_TYPE_UNSPECIFIED: SqlOperationType = SqlOperationType::new("SQL_OPERATION_TYPE_UNSPECIFIED");
+        pub const SQL_OPERATION_TYPE_UNSPECIFIED: SqlOperationType = SqlOperationType::new(0);
 
         /// Imports data into a Cloud SQL instance.
-        pub const IMPORT: SqlOperationType = SqlOperationType::new("IMPORT");
+        pub const IMPORT: SqlOperationType = SqlOperationType::new(1);
 
         /// Exports data from a Cloud SQL instance to a Cloud Storage
         /// bucket.
-        pub const EXPORT: SqlOperationType = SqlOperationType::new("EXPORT");
+        pub const EXPORT: SqlOperationType = SqlOperationType::new(2);
 
         /// Creates a new Cloud SQL instance.
-        pub const CREATE: SqlOperationType = SqlOperationType::new("CREATE");
+        pub const CREATE: SqlOperationType = SqlOperationType::new(3);
 
         /// Updates the settings of a Cloud SQL instance.
-        pub const UPDATE: SqlOperationType = SqlOperationType::new("UPDATE");
+        pub const UPDATE: SqlOperationType = SqlOperationType::new(4);
 
         /// Deletes a Cloud SQL instance.
-        pub const DELETE: SqlOperationType = SqlOperationType::new("DELETE");
+        pub const DELETE: SqlOperationType = SqlOperationType::new(5);
 
         /// Restarts the Cloud SQL instance.
-        pub const RESTART: SqlOperationType = SqlOperationType::new("RESTART");
+        pub const RESTART: SqlOperationType = SqlOperationType::new(6);
 
-        pub const BACKUP: SqlOperationType = SqlOperationType::new("BACKUP");
+        pub const BACKUP: SqlOperationType = SqlOperationType::new(7);
 
-        pub const SNAPSHOT: SqlOperationType = SqlOperationType::new("SNAPSHOT");
+        pub const SNAPSHOT: SqlOperationType = SqlOperationType::new(8);
 
         /// Performs instance backup.
-        pub const BACKUP_VOLUME: SqlOperationType = SqlOperationType::new("BACKUP_VOLUME");
+        pub const BACKUP_VOLUME: SqlOperationType = SqlOperationType::new(9);
 
         /// Deletes an instance backup.
-        pub const DELETE_VOLUME: SqlOperationType = SqlOperationType::new("DELETE_VOLUME");
+        pub const DELETE_VOLUME: SqlOperationType = SqlOperationType::new(10);
 
         /// Restores an instance backup.
-        pub const RESTORE_VOLUME: SqlOperationType = SqlOperationType::new("RESTORE_VOLUME");
+        pub const RESTORE_VOLUME: SqlOperationType = SqlOperationType::new(11);
 
         /// Injects a privileged user in mysql for MOB instances.
-        pub const INJECT_USER: SqlOperationType = SqlOperationType::new("INJECT_USER");
+        pub const INJECT_USER: SqlOperationType = SqlOperationType::new(12);
 
         /// Clones a Cloud SQL instance.
-        pub const CLONE: SqlOperationType = SqlOperationType::new("CLONE");
+        pub const CLONE: SqlOperationType = SqlOperationType::new(14);
 
         /// Stops replication on a Cloud SQL read replica instance.
-        pub const STOP_REPLICA: SqlOperationType = SqlOperationType::new("STOP_REPLICA");
+        pub const STOP_REPLICA: SqlOperationType = SqlOperationType::new(15);
 
         /// Starts replication on a Cloud SQL read replica instance.
-        pub const START_REPLICA: SqlOperationType = SqlOperationType::new("START_REPLICA");
+        pub const START_REPLICA: SqlOperationType = SqlOperationType::new(16);
 
         /// Promotes a Cloud SQL replica instance.
-        pub const PROMOTE_REPLICA: SqlOperationType = SqlOperationType::new("PROMOTE_REPLICA");
+        pub const PROMOTE_REPLICA: SqlOperationType = SqlOperationType::new(17);
 
         /// Creates a Cloud SQL replica instance.
-        pub const CREATE_REPLICA: SqlOperationType = SqlOperationType::new("CREATE_REPLICA");
+        pub const CREATE_REPLICA: SqlOperationType = SqlOperationType::new(18);
 
         /// Creates a new user in a Cloud SQL instance.
-        pub const CREATE_USER: SqlOperationType = SqlOperationType::new("CREATE_USER");
+        pub const CREATE_USER: SqlOperationType = SqlOperationType::new(19);
 
         /// Deletes a user from a Cloud SQL instance.
-        pub const DELETE_USER: SqlOperationType = SqlOperationType::new("DELETE_USER");
+        pub const DELETE_USER: SqlOperationType = SqlOperationType::new(20);
 
         /// Updates an existing user in a Cloud SQL instance.
-        pub const UPDATE_USER: SqlOperationType = SqlOperationType::new("UPDATE_USER");
+        pub const UPDATE_USER: SqlOperationType = SqlOperationType::new(21);
 
         /// Creates a database in the Cloud SQL instance.
-        pub const CREATE_DATABASE: SqlOperationType = SqlOperationType::new("CREATE_DATABASE");
+        pub const CREATE_DATABASE: SqlOperationType = SqlOperationType::new(22);
 
         /// Deletes a database in the Cloud SQL instance.
-        pub const DELETE_DATABASE: SqlOperationType = SqlOperationType::new("DELETE_DATABASE");
+        pub const DELETE_DATABASE: SqlOperationType = SqlOperationType::new(23);
 
         /// Updates a database in the Cloud SQL instance.
-        pub const UPDATE_DATABASE: SqlOperationType = SqlOperationType::new("UPDATE_DATABASE");
+        pub const UPDATE_DATABASE: SqlOperationType = SqlOperationType::new(24);
 
         /// Performs failover of an HA-enabled Cloud SQL
         /// failover replica.
-        pub const FAILOVER: SqlOperationType = SqlOperationType::new("FAILOVER");
+        pub const FAILOVER: SqlOperationType = SqlOperationType::new(25);
 
         /// Deletes the backup taken by a backup run.
-        pub const DELETE_BACKUP: SqlOperationType = SqlOperationType::new("DELETE_BACKUP");
+        pub const DELETE_BACKUP: SqlOperationType = SqlOperationType::new(26);
 
-        pub const RECREATE_REPLICA: SqlOperationType = SqlOperationType::new("RECREATE_REPLICA");
+        pub const RECREATE_REPLICA: SqlOperationType = SqlOperationType::new(27);
 
         /// Truncates a general or slow log table in MySQL.
-        pub const TRUNCATE_LOG: SqlOperationType = SqlOperationType::new("TRUNCATE_LOG");
+        pub const TRUNCATE_LOG: SqlOperationType = SqlOperationType::new(28);
 
         /// Demotes the stand-alone instance to be a Cloud SQL
         /// read replica for an external database server.
-        pub const DEMOTE_MASTER: SqlOperationType = SqlOperationType::new("DEMOTE_MASTER");
+        pub const DEMOTE_MASTER: SqlOperationType = SqlOperationType::new(29);
 
         /// Indicates that the instance is currently in maintenance. Maintenance
         /// typically causes the instance to be unavailable for 1-3 minutes.
-        pub const MAINTENANCE: SqlOperationType = SqlOperationType::new("MAINTENANCE");
+        pub const MAINTENANCE: SqlOperationType = SqlOperationType::new(30);
 
         /// This field is deprecated, and will be removed in future version of API.
-        pub const ENABLE_PRIVATE_IP: SqlOperationType = SqlOperationType::new("ENABLE_PRIVATE_IP");
+        pub const ENABLE_PRIVATE_IP: SqlOperationType = SqlOperationType::new(31);
 
-        pub const DEFER_MAINTENANCE: SqlOperationType = SqlOperationType::new("DEFER_MAINTENANCE");
+        pub const DEFER_MAINTENANCE: SqlOperationType = SqlOperationType::new(32);
 
         /// Creates clone instance.
-        pub const CREATE_CLONE: SqlOperationType = SqlOperationType::new("CREATE_CLONE");
+        pub const CREATE_CLONE: SqlOperationType = SqlOperationType::new(33);
 
         /// Reschedule maintenance to another time.
-        pub const RESCHEDULE_MAINTENANCE: SqlOperationType = SqlOperationType::new("RESCHEDULE_MAINTENANCE");
+        pub const RESCHEDULE_MAINTENANCE: SqlOperationType = SqlOperationType::new(34);
 
         /// Starts external sync of a Cloud SQL EM replica to an external primary
         /// instance.
-        pub const START_EXTERNAL_SYNC: SqlOperationType = SqlOperationType::new("START_EXTERNAL_SYNC");
+        pub const START_EXTERNAL_SYNC: SqlOperationType = SqlOperationType::new(35);
 
         /// Recovers logs from an instance's old data disk.
-        pub const LOG_CLEANUP: SqlOperationType = SqlOperationType::new("LOG_CLEANUP");
+        pub const LOG_CLEANUP: SqlOperationType = SqlOperationType::new(36);
 
         /// Performs auto-restart of an HA-enabled Cloud SQL database for auto
         /// recovery.
-        pub const AUTO_RESTART: SqlOperationType = SqlOperationType::new("AUTO_RESTART");
+        pub const AUTO_RESTART: SqlOperationType = SqlOperationType::new(37);
 
         /// Re-encrypts CMEK instances with latest key version.
-        pub const REENCRYPT: SqlOperationType = SqlOperationType::new("REENCRYPT");
+        pub const REENCRYPT: SqlOperationType = SqlOperationType::new(38);
 
         /// Switches the roles of the primary and replica pair. The target instance
         /// should be the replica.
-        pub const SWITCHOVER: SqlOperationType = SqlOperationType::new("SWITCHOVER");
+        pub const SWITCHOVER: SqlOperationType = SqlOperationType::new(39);
 
         /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const ACQUIRE_SSRS_LEASE: SqlOperationType = SqlOperationType::new("ACQUIRE_SSRS_LEASE");
+        pub const ACQUIRE_SSRS_LEASE: SqlOperationType = SqlOperationType::new(42);
 
         /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const RELEASE_SSRS_LEASE: SqlOperationType = SqlOperationType::new("RELEASE_SSRS_LEASE");
+        pub const RELEASE_SSRS_LEASE: SqlOperationType = SqlOperationType::new(43);
 
         /// Reconfigures old primary after a promote replica operation. Effect of a
         /// promote operation to the old primary is executed in this operation,
         /// asynchronously from the promote replica operation executed to the
         /// replica.
-        pub const RECONFIGURE_OLD_PRIMARY: SqlOperationType = SqlOperationType::new("RECONFIGURE_OLD_PRIMARY");
+        pub const RECONFIGURE_OLD_PRIMARY: SqlOperationType = SqlOperationType::new(44);
 
         /// Indicates that the instance, its read replicas, and its cascading
         /// replicas are in maintenance. Maintenance typically gets initiated on
         /// groups of replicas first, followed by the primary instance. For each
         /// instance, maintenance typically causes the instance to be unavailable for
         /// 1-3 minutes.
-        pub const CLUSTER_MAINTENANCE: SqlOperationType = SqlOperationType::new("CLUSTER_MAINTENANCE");
+        pub const CLUSTER_MAINTENANCE: SqlOperationType = SqlOperationType::new(45);
 
         /// Indicates that the instance (and any of its replicas) are currently in
         /// maintenance. This is initiated as a self-service request by using SSM.
         /// Maintenance typically causes the instance to be unavailable for 1-3
         /// minutes.
-        pub const SELF_SERVICE_MAINTENANCE: SqlOperationType = SqlOperationType::new("SELF_SERVICE_MAINTENANCE");
+        pub const SELF_SERVICE_MAINTENANCE: SqlOperationType = SqlOperationType::new(46);
 
         /// Switches a primary instance to a replica. This operation runs as part of
         /// a switchover operation to the original primary instance.
-        pub const SWITCHOVER_TO_REPLICA: SqlOperationType = SqlOperationType::new("SWITCHOVER_TO_REPLICA");
+        pub const SWITCHOVER_TO_REPLICA: SqlOperationType = SqlOperationType::new(47);
 
         /// Updates the major version of a Cloud SQL instance.
-        pub const MAJOR_VERSION_UPGRADE: SqlOperationType = SqlOperationType::new("MAJOR_VERSION_UPGRADE");
+        pub const MAJOR_VERSION_UPGRADE: SqlOperationType = SqlOperationType::new(48);
+
+        /// Creates a new SqlOperationType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_OPERATION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMPORT"),
+                2 => std::borrow::Cow::Borrowed("EXPORT"),
+                3 => std::borrow::Cow::Borrowed("CREATE"),
+                4 => std::borrow::Cow::Borrowed("UPDATE"),
+                5 => std::borrow::Cow::Borrowed("DELETE"),
+                6 => std::borrow::Cow::Borrowed("RESTART"),
+                7 => std::borrow::Cow::Borrowed("BACKUP"),
+                8 => std::borrow::Cow::Borrowed("SNAPSHOT"),
+                9 => std::borrow::Cow::Borrowed("BACKUP_VOLUME"),
+                10 => std::borrow::Cow::Borrowed("DELETE_VOLUME"),
+                11 => std::borrow::Cow::Borrowed("RESTORE_VOLUME"),
+                12 => std::borrow::Cow::Borrowed("INJECT_USER"),
+                14 => std::borrow::Cow::Borrowed("CLONE"),
+                15 => std::borrow::Cow::Borrowed("STOP_REPLICA"),
+                16 => std::borrow::Cow::Borrowed("START_REPLICA"),
+                17 => std::borrow::Cow::Borrowed("PROMOTE_REPLICA"),
+                18 => std::borrow::Cow::Borrowed("CREATE_REPLICA"),
+                19 => std::borrow::Cow::Borrowed("CREATE_USER"),
+                20 => std::borrow::Cow::Borrowed("DELETE_USER"),
+                21 => std::borrow::Cow::Borrowed("UPDATE_USER"),
+                22 => std::borrow::Cow::Borrowed("CREATE_DATABASE"),
+                23 => std::borrow::Cow::Borrowed("DELETE_DATABASE"),
+                24 => std::borrow::Cow::Borrowed("UPDATE_DATABASE"),
+                25 => std::borrow::Cow::Borrowed("FAILOVER"),
+                26 => std::borrow::Cow::Borrowed("DELETE_BACKUP"),
+                27 => std::borrow::Cow::Borrowed("RECREATE_REPLICA"),
+                28 => std::borrow::Cow::Borrowed("TRUNCATE_LOG"),
+                29 => std::borrow::Cow::Borrowed("DEMOTE_MASTER"),
+                30 => std::borrow::Cow::Borrowed("MAINTENANCE"),
+                31 => std::borrow::Cow::Borrowed("ENABLE_PRIVATE_IP"),
+                32 => std::borrow::Cow::Borrowed("DEFER_MAINTENANCE"),
+                33 => std::borrow::Cow::Borrowed("CREATE_CLONE"),
+                34 => std::borrow::Cow::Borrowed("RESCHEDULE_MAINTENANCE"),
+                35 => std::borrow::Cow::Borrowed("START_EXTERNAL_SYNC"),
+                36 => std::borrow::Cow::Borrowed("LOG_CLEANUP"),
+                37 => std::borrow::Cow::Borrowed("AUTO_RESTART"),
+                38 => std::borrow::Cow::Borrowed("REENCRYPT"),
+                39 => std::borrow::Cow::Borrowed("SWITCHOVER"),
+                42 => std::borrow::Cow::Borrowed("ACQUIRE_SSRS_LEASE"),
+                43 => std::borrow::Cow::Borrowed("RELEASE_SSRS_LEASE"),
+                44 => std::borrow::Cow::Borrowed("RECONFIGURE_OLD_PRIMARY"),
+                45 => std::borrow::Cow::Borrowed("CLUSTER_MAINTENANCE"),
+                46 => std::borrow::Cow::Borrowed("SELF_SERVICE_MAINTENANCE"),
+                47 => std::borrow::Cow::Borrowed("SWITCHOVER_TO_REPLICA"),
+                48 => std::borrow::Cow::Borrowed("MAJOR_VERSION_UPGRADE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_OPERATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OPERATION_TYPE_UNSPECIFIED),
+                "IMPORT" => std::option::Option::Some(Self::IMPORT),
+                "EXPORT" => std::option::Option::Some(Self::EXPORT),
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                "RESTART" => std::option::Option::Some(Self::RESTART),
+                "BACKUP" => std::option::Option::Some(Self::BACKUP),
+                "SNAPSHOT" => std::option::Option::Some(Self::SNAPSHOT),
+                "BACKUP_VOLUME" => std::option::Option::Some(Self::BACKUP_VOLUME),
+                "DELETE_VOLUME" => std::option::Option::Some(Self::DELETE_VOLUME),
+                "RESTORE_VOLUME" => std::option::Option::Some(Self::RESTORE_VOLUME),
+                "INJECT_USER" => std::option::Option::Some(Self::INJECT_USER),
+                "CLONE" => std::option::Option::Some(Self::CLONE),
+                "STOP_REPLICA" => std::option::Option::Some(Self::STOP_REPLICA),
+                "START_REPLICA" => std::option::Option::Some(Self::START_REPLICA),
+                "PROMOTE_REPLICA" => std::option::Option::Some(Self::PROMOTE_REPLICA),
+                "CREATE_REPLICA" => std::option::Option::Some(Self::CREATE_REPLICA),
+                "CREATE_USER" => std::option::Option::Some(Self::CREATE_USER),
+                "DELETE_USER" => std::option::Option::Some(Self::DELETE_USER),
+                "UPDATE_USER" => std::option::Option::Some(Self::UPDATE_USER),
+                "CREATE_DATABASE" => std::option::Option::Some(Self::CREATE_DATABASE),
+                "DELETE_DATABASE" => std::option::Option::Some(Self::DELETE_DATABASE),
+                "UPDATE_DATABASE" => std::option::Option::Some(Self::UPDATE_DATABASE),
+                "FAILOVER" => std::option::Option::Some(Self::FAILOVER),
+                "DELETE_BACKUP" => std::option::Option::Some(Self::DELETE_BACKUP),
+                "RECREATE_REPLICA" => std::option::Option::Some(Self::RECREATE_REPLICA),
+                "TRUNCATE_LOG" => std::option::Option::Some(Self::TRUNCATE_LOG),
+                "DEMOTE_MASTER" => std::option::Option::Some(Self::DEMOTE_MASTER),
+                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
+                "ENABLE_PRIVATE_IP" => std::option::Option::Some(Self::ENABLE_PRIVATE_IP),
+                "DEFER_MAINTENANCE" => std::option::Option::Some(Self::DEFER_MAINTENANCE),
+                "CREATE_CLONE" => std::option::Option::Some(Self::CREATE_CLONE),
+                "RESCHEDULE_MAINTENANCE" => std::option::Option::Some(Self::RESCHEDULE_MAINTENANCE),
+                "START_EXTERNAL_SYNC" => std::option::Option::Some(Self::START_EXTERNAL_SYNC),
+                "LOG_CLEANUP" => std::option::Option::Some(Self::LOG_CLEANUP),
+                "AUTO_RESTART" => std::option::Option::Some(Self::AUTO_RESTART),
+                "REENCRYPT" => std::option::Option::Some(Self::REENCRYPT),
+                "SWITCHOVER" => std::option::Option::Some(Self::SWITCHOVER),
+                "ACQUIRE_SSRS_LEASE" => std::option::Option::Some(Self::ACQUIRE_SSRS_LEASE),
+                "RELEASE_SSRS_LEASE" => std::option::Option::Some(Self::RELEASE_SSRS_LEASE),
+                "RECONFIGURE_OLD_PRIMARY" => std::option::Option::Some(Self::RECONFIGURE_OLD_PRIMARY),
+                "CLUSTER_MAINTENANCE" => std::option::Option::Some(Self::CLUSTER_MAINTENANCE),
+                "SELF_SERVICE_MAINTENANCE" => std::option::Option::Some(Self::SELF_SERVICE_MAINTENANCE),
+                "SWITCHOVER_TO_REPLICA" => std::option::Option::Some(Self::SWITCHOVER_TO_REPLICA),
+                "MAJOR_VERSION_UPGRADE" => std::option::Option::Some(Self::MAJOR_VERSION_UPGRADE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for SqlOperationType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlOperationType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlOperationType {
         fn default() -> Self {
-            sql_operation_type::SQL_OPERATION_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The status of an operation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationStatus(std::borrow::Cow<'static, str>);
+    pub struct SqlOperationStatus(i32);
 
     impl SqlOperationStatus {
+
+        /// The state of the operation is unknown.
+        pub const SQL_OPERATION_STATUS_UNSPECIFIED: SqlOperationStatus = SqlOperationStatus::new(0);
+
+        /// The operation has been queued, but has not started yet.
+        pub const PENDING: SqlOperationStatus = SqlOperationStatus::new(1);
+
+        /// The operation is running.
+        pub const RUNNING: SqlOperationStatus = SqlOperationStatus::new(2);
+
+        /// The operation completed.
+        pub const DONE: SqlOperationStatus = SqlOperationStatus::new(3);
+
         /// Creates a new SqlOperationStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_OPERATION_STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_OPERATION_STATUS_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OPERATION_STATUS_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DONE" => std::option::Option::Some(Self::DONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SqlOperationStatus](SqlOperationStatus)
-    pub mod sql_operation_status {
-        use super::SqlOperationStatus;
-        
-
-        /// The state of the operation is unknown.
-        pub const SQL_OPERATION_STATUS_UNSPECIFIED: SqlOperationStatus = SqlOperationStatus::new("SQL_OPERATION_STATUS_UNSPECIFIED");
-
-        /// The operation has been queued, but has not started yet.
-        pub const PENDING: SqlOperationStatus = SqlOperationStatus::new("PENDING");
-
-        /// The operation is running.
-        pub const RUNNING: SqlOperationStatus = SqlOperationStatus::new("RUNNING");
-
-        /// The operation completed.
-        pub const DONE: SqlOperationStatus = SqlOperationStatus::new("DONE");
-    }
-
-    impl std::convert::From<std::string::String> for SqlOperationStatus {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlOperationStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlOperationStatus {
         fn default() -> Self {
-            sql_operation_status::SQL_OPERATION_STATUS_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -9721,42 +10163,55 @@ pub mod password_validation_policy {
 
     /// The complexity choices of the password.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Complexity(std::borrow::Cow<'static, str>);
+    pub struct Complexity(i32);
 
     impl Complexity {
-        /// Creates a new Complexity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Complexity](Complexity)
-    pub mod complexity {
-        use super::Complexity;
-        
 
         /// Complexity check is not specified.
-        pub const COMPLEXITY_UNSPECIFIED: Complexity = Complexity::new("COMPLEXITY_UNSPECIFIED");
+        pub const COMPLEXITY_UNSPECIFIED: Complexity = Complexity::new(0);
 
         /// A combination of lowercase, uppercase, numeric, and non-alphanumeric
         /// characters.
-        pub const COMPLEXITY_DEFAULT: Complexity = Complexity::new("COMPLEXITY_DEFAULT");
+        pub const COMPLEXITY_DEFAULT: Complexity = Complexity::new(1);
+
+        /// Creates a new Complexity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMPLEXITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COMPLEXITY_DEFAULT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMPLEXITY_UNSPECIFIED" => std::option::Option::Some(Self::COMPLEXITY_UNSPECIFIED),
+                "COMPLEXITY_DEFAULT" => std::option::Option::Some(Self::COMPLEXITY_DEFAULT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Complexity {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for Complexity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for Complexity {
         fn default() -> Self {
-            complexity::COMPLEXITY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -10226,135 +10681,182 @@ pub mod settings {
 
     /// Specifies when the instance is activated.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlActivationPolicy(std::borrow::Cow<'static, str>);
+    pub struct SqlActivationPolicy(i32);
 
     impl SqlActivationPolicy {
+
+        /// Unknown activation plan.
+        pub const SQL_ACTIVATION_POLICY_UNSPECIFIED: SqlActivationPolicy = SqlActivationPolicy::new(0);
+
+        /// The instance is always up and running.
+        pub const ALWAYS: SqlActivationPolicy = SqlActivationPolicy::new(1);
+
+        /// The instance never starts.
+        pub const NEVER: SqlActivationPolicy = SqlActivationPolicy::new(2);
+
+        /// The instance starts upon receiving requests.
+        pub const ON_DEMAND: SqlActivationPolicy = SqlActivationPolicy::new(3);
+
         /// Creates a new SqlActivationPolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SQL_ACTIVATION_POLICY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALWAYS"),
+                2 => std::borrow::Cow::Borrowed("NEVER"),
+                3 => std::borrow::Cow::Borrowed("ON_DEMAND"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SQL_ACTIVATION_POLICY_UNSPECIFIED" => std::option::Option::Some(Self::SQL_ACTIVATION_POLICY_UNSPECIFIED),
+                "ALWAYS" => std::option::Option::Some(Self::ALWAYS),
+                "NEVER" => std::option::Option::Some(Self::NEVER),
+                "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SqlActivationPolicy](SqlActivationPolicy)
-    pub mod sql_activation_policy {
-        use super::SqlActivationPolicy;
-        
-
-        /// Unknown activation plan.
-        pub const SQL_ACTIVATION_POLICY_UNSPECIFIED: SqlActivationPolicy = SqlActivationPolicy::new("SQL_ACTIVATION_POLICY_UNSPECIFIED");
-
-        /// The instance is always up and running.
-        pub const ALWAYS: SqlActivationPolicy = SqlActivationPolicy::new("ALWAYS");
-
-        /// The instance never starts.
-        pub const NEVER: SqlActivationPolicy = SqlActivationPolicy::new("NEVER");
-
-        /// The instance starts upon receiving requests.
-        pub const ON_DEMAND: SqlActivationPolicy = SqlActivationPolicy::new("ON_DEMAND");
-    }
-
-    impl std::convert::From<std::string::String> for SqlActivationPolicy {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlActivationPolicy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlActivationPolicy {
         fn default() -> Self {
-            sql_activation_policy::SQL_ACTIVATION_POLICY_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Edition(std::borrow::Cow<'static, str>);
+    pub struct Edition(i32);
 
     impl Edition {
+
+        /// The instance did not specify the edition.
+        pub const EDITION_UNSPECIFIED: Edition = Edition::new(0);
+
+        /// The instance is an enterprise edition.
+        pub const ENTERPRISE: Edition = Edition::new(2);
+
+        /// The instance is an Enterprise Plus edition.
+        pub const ENTERPRISE_PLUS: Edition = Edition::new(3);
+
         /// Creates a new Edition instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EDITION_UNSPECIFIED"),
+                2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                3 => std::borrow::Cow::Borrowed("ENTERPRISE_PLUS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EDITION_UNSPECIFIED" => std::option::Option::Some(Self::EDITION_UNSPECIFIED),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                "ENTERPRISE_PLUS" => std::option::Option::Some(Self::ENTERPRISE_PLUS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Edition](Edition)
-    pub mod edition {
-        use super::Edition;
-        
-
-        /// The instance did not specify the edition.
-        pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
-
-        /// The instance is an enterprise edition.
-        pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
-
-        /// The instance is an Enterprise Plus edition.
-        pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
-    }
-
-    impl std::convert::From<std::string::String> for Edition {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for Edition {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for Edition {
         fn default() -> Self {
-            edition::EDITION_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The options for enforcing Cloud SQL connectors in the instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectorEnforcement(std::borrow::Cow<'static, str>);
+    pub struct ConnectorEnforcement(i32);
 
     impl ConnectorEnforcement {
-        /// Creates a new ConnectorEnforcement instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConnectorEnforcement](ConnectorEnforcement)
-    pub mod connector_enforcement {
-        use super::ConnectorEnforcement;
-        
 
         /// The requirement for Cloud SQL connectors is unknown.
-        pub const CONNECTOR_ENFORCEMENT_UNSPECIFIED: ConnectorEnforcement = ConnectorEnforcement::new("CONNECTOR_ENFORCEMENT_UNSPECIFIED");
+        pub const CONNECTOR_ENFORCEMENT_UNSPECIFIED: ConnectorEnforcement = ConnectorEnforcement::new(0);
 
         /// Do not require Cloud SQL connectors.
-        pub const NOT_REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new("NOT_REQUIRED");
+        pub const NOT_REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new(1);
 
         /// Require all connections to use Cloud SQL connectors, including the
         /// Cloud SQL Auth Proxy and Cloud SQL Java, Python, and Go connectors.
         /// Note: This disables all existing authorized networks.
-        pub const REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new("REQUIRED");
+        pub const REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new(2);
+
+        /// Creates a new ConnectorEnforcement instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONNECTOR_ENFORCEMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_REQUIRED"),
+                2 => std::borrow::Cow::Borrowed("REQUIRED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONNECTOR_ENFORCEMENT_UNSPECIFIED" => std::option::Option::Some(Self::CONNECTOR_ENFORCEMENT_UNSPECIFIED),
+                "NOT_REQUIRED" => std::option::Option::Some(Self::NOT_REQUIRED),
+                "REQUIRED" => std::option::Option::Some(Self::REQUIRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConnectorEnforcement {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for ConnectorEnforcement {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for ConnectorEnforcement {
         fn default() -> Self {
-            connector_enforcement::CONNECTOR_ENFORCEMENT_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -11737,99 +12239,137 @@ pub mod user {
 
     /// The user type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlUserType(std::borrow::Cow<'static, str>);
+    pub struct SqlUserType(i32);
 
     impl SqlUserType {
+
+        /// The database's built-in user type.
+        pub const BUILT_IN: SqlUserType = SqlUserType::new(0);
+
+        /// Cloud IAM user.
+        pub const CLOUD_IAM_USER: SqlUserType = SqlUserType::new(1);
+
+        /// Cloud IAM service account.
+        pub const CLOUD_IAM_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new(2);
+
+        /// Cloud IAM group non-login user.
+        pub const CLOUD_IAM_GROUP: SqlUserType = SqlUserType::new(3);
+
+        /// Cloud IAM group login user.
+        pub const CLOUD_IAM_GROUP_USER: SqlUserType = SqlUserType::new(4);
+
+        /// Cloud IAM group login service account.
+        pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new(5);
+
         /// Creates a new SqlUserType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("BUILT_IN"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_IAM_USER"),
+                2 => std::borrow::Cow::Borrowed("CLOUD_IAM_SERVICE_ACCOUNT"),
+                3 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP"),
+                4 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP_USER"),
+                5 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP_SERVICE_ACCOUNT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "BUILT_IN" => std::option::Option::Some(Self::BUILT_IN),
+                "CLOUD_IAM_USER" => std::option::Option::Some(Self::CLOUD_IAM_USER),
+                "CLOUD_IAM_SERVICE_ACCOUNT" => std::option::Option::Some(Self::CLOUD_IAM_SERVICE_ACCOUNT),
+                "CLOUD_IAM_GROUP" => std::option::Option::Some(Self::CLOUD_IAM_GROUP),
+                "CLOUD_IAM_GROUP_USER" => std::option::Option::Some(Self::CLOUD_IAM_GROUP_USER),
+                "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => std::option::Option::Some(Self::CLOUD_IAM_GROUP_SERVICE_ACCOUNT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SqlUserType](SqlUserType)
-    pub mod sql_user_type {
-        use super::SqlUserType;
-        
-
-        /// The database's built-in user type.
-        pub const BUILT_IN: SqlUserType = SqlUserType::new("BUILT_IN");
-
-        /// Cloud IAM user.
-        pub const CLOUD_IAM_USER: SqlUserType = SqlUserType::new("CLOUD_IAM_USER");
-
-        /// Cloud IAM service account.
-        pub const CLOUD_IAM_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new("CLOUD_IAM_SERVICE_ACCOUNT");
-
-        /// Cloud IAM group non-login user.
-        pub const CLOUD_IAM_GROUP: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP");
-
-        /// Cloud IAM group login user.
-        pub const CLOUD_IAM_GROUP_USER: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP_USER");
-
-        /// Cloud IAM group login service account.
-        pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP_SERVICE_ACCOUNT");
-    }
-
-    impl std::convert::From<std::string::String> for SqlUserType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for SqlUserType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for SqlUserType {
         fn default() -> Self {
-            sql_user_type::BUILT_IN
+            Self::new(0)
         }
     }
 
     /// The type of retained password.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DualPasswordType(std::borrow::Cow<'static, str>);
+    pub struct DualPasswordType(i32);
 
     impl DualPasswordType {
+
+        /// The default value.
+        pub const DUAL_PASSWORD_TYPE_UNSPECIFIED: DualPasswordType = DualPasswordType::new(0);
+
+        /// Do not update the user's dual password status.
+        pub const NO_MODIFY_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(1);
+
+        /// No dual password usable for connecting using this user.
+        pub const NO_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(2);
+
+        /// Dual password usable for connecting using this user.
+        pub const DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(3);
+
         /// Creates a new DualPasswordType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DUAL_PASSWORD_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NO_MODIFY_DUAL_PASSWORD"),
+                2 => std::borrow::Cow::Borrowed("NO_DUAL_PASSWORD"),
+                3 => std::borrow::Cow::Borrowed("DUAL_PASSWORD"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DUAL_PASSWORD_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::DUAL_PASSWORD_TYPE_UNSPECIFIED),
+                "NO_MODIFY_DUAL_PASSWORD" => std::option::Option::Some(Self::NO_MODIFY_DUAL_PASSWORD),
+                "NO_DUAL_PASSWORD" => std::option::Option::Some(Self::NO_DUAL_PASSWORD),
+                "DUAL_PASSWORD" => std::option::Option::Some(Self::DUAL_PASSWORD),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DualPasswordType](DualPasswordType)
-    pub mod dual_password_type {
-        use super::DualPasswordType;
-        
-
-        /// The default value.
-        pub const DUAL_PASSWORD_TYPE_UNSPECIFIED: DualPasswordType = DualPasswordType::new("DUAL_PASSWORD_TYPE_UNSPECIFIED");
-
-        /// Do not update the user's dual password status.
-        pub const NO_MODIFY_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("NO_MODIFY_DUAL_PASSWORD");
-
-        /// No dual password usable for connecting using this user.
-        pub const NO_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("NO_DUAL_PASSWORD");
-
-        /// Dual password usable for connecting using this user.
-        pub const DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("DUAL_PASSWORD");
-    }
-
-    impl std::convert::From<std::string::String> for DualPasswordType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for DualPasswordType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for DualPasswordType {
         fn default() -> Self {
-            dual_password_type::DUAL_PASSWORD_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -11943,942 +12483,1325 @@ impl wkt::message::Message for UsersListResponse {
 
 /// The status of a backup run.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunStatus(std::borrow::Cow<'static, str>);
+pub struct SqlBackupRunStatus(i32);
 
 impl SqlBackupRunStatus {
-    /// Creates a new SqlBackupRunStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlBackupRunStatus](SqlBackupRunStatus)
-pub mod sql_backup_run_status {
-    use super::SqlBackupRunStatus;
-    
 
     /// The status of the run is unknown.
-    pub const SQL_BACKUP_RUN_STATUS_UNSPECIFIED: SqlBackupRunStatus = SqlBackupRunStatus::new("SQL_BACKUP_RUN_STATUS_UNSPECIFIED");
+    pub const SQL_BACKUP_RUN_STATUS_UNSPECIFIED: SqlBackupRunStatus = SqlBackupRunStatus::new(0);
 
     /// The backup operation was enqueued.
-    pub const ENQUEUED: SqlBackupRunStatus = SqlBackupRunStatus::new("ENQUEUED");
+    pub const ENQUEUED: SqlBackupRunStatus = SqlBackupRunStatus::new(1);
 
     /// The backup is overdue across a given backup window. Indicates a
     /// problem. Example: Long-running operation in progress during
     /// the whole window.
-    pub const OVERDUE: SqlBackupRunStatus = SqlBackupRunStatus::new("OVERDUE");
+    pub const OVERDUE: SqlBackupRunStatus = SqlBackupRunStatus::new(2);
 
     /// The backup is in progress.
-    pub const RUNNING: SqlBackupRunStatus = SqlBackupRunStatus::new("RUNNING");
+    pub const RUNNING: SqlBackupRunStatus = SqlBackupRunStatus::new(3);
 
     /// The backup failed.
-    pub const FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new("FAILED");
+    pub const FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new(4);
 
     /// The backup was successful.
-    pub const SUCCESSFUL: SqlBackupRunStatus = SqlBackupRunStatus::new("SUCCESSFUL");
+    pub const SUCCESSFUL: SqlBackupRunStatus = SqlBackupRunStatus::new(5);
 
     /// The backup was skipped (without problems) for a given backup
     /// window. Example: Instance was idle.
-    pub const SKIPPED: SqlBackupRunStatus = SqlBackupRunStatus::new("SKIPPED");
+    pub const SKIPPED: SqlBackupRunStatus = SqlBackupRunStatus::new(6);
 
     /// The backup is about to be deleted.
-    pub const DELETION_PENDING: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETION_PENDING");
+    pub const DELETION_PENDING: SqlBackupRunStatus = SqlBackupRunStatus::new(7);
 
     /// The backup deletion failed.
-    pub const DELETION_FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETION_FAILED");
+    pub const DELETION_FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new(8);
 
     /// The backup has been deleted.
-    pub const DELETED: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETED");
+    pub const DELETED: SqlBackupRunStatus = SqlBackupRunStatus::new(9);
+
+    /// Creates a new SqlBackupRunStatus instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_RUN_STATUS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ENQUEUED"),
+            2 => std::borrow::Cow::Borrowed("OVERDUE"),
+            3 => std::borrow::Cow::Borrowed("RUNNING"),
+            4 => std::borrow::Cow::Borrowed("FAILED"),
+            5 => std::borrow::Cow::Borrowed("SUCCESSFUL"),
+            6 => std::borrow::Cow::Borrowed("SKIPPED"),
+            7 => std::borrow::Cow::Borrowed("DELETION_PENDING"),
+            8 => std::borrow::Cow::Borrowed("DELETION_FAILED"),
+            9 => std::borrow::Cow::Borrowed("DELETED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_BACKUP_RUN_STATUS_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_RUN_STATUS_UNSPECIFIED),
+            "ENQUEUED" => std::option::Option::Some(Self::ENQUEUED),
+            "OVERDUE" => std::option::Option::Some(Self::OVERDUE),
+            "RUNNING" => std::option::Option::Some(Self::RUNNING),
+            "FAILED" => std::option::Option::Some(Self::FAILED),
+            "SUCCESSFUL" => std::option::Option::Some(Self::SUCCESSFUL),
+            "SKIPPED" => std::option::Option::Some(Self::SKIPPED),
+            "DELETION_PENDING" => std::option::Option::Some(Self::DELETION_PENDING),
+            "DELETION_FAILED" => std::option::Option::Some(Self::DELETION_FAILED),
+            "DELETED" => std::option::Option::Some(Self::DELETED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlBackupRunStatus {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlBackupRunStatus {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlBackupRunStatus {
     fn default() -> Self {
-        sql_backup_run_status::SQL_BACKUP_RUN_STATUS_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Defines the supported backup kinds.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupKind(std::borrow::Cow<'static, str>);
+pub struct SqlBackupKind(i32);
 
 impl SqlBackupKind {
+
+    /// This is an unknown BackupKind.
+    pub const SQL_BACKUP_KIND_UNSPECIFIED: SqlBackupKind = SqlBackupKind::new(0);
+
+    /// The snapshot based backups
+    pub const SNAPSHOT: SqlBackupKind = SqlBackupKind::new(1);
+
+    /// Physical backups
+    pub const PHYSICAL: SqlBackupKind = SqlBackupKind::new(2);
+
     /// Creates a new SqlBackupKind instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_KIND_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SNAPSHOT"),
+            2 => std::borrow::Cow::Borrowed("PHYSICAL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_BACKUP_KIND_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_KIND_UNSPECIFIED),
+            "SNAPSHOT" => std::option::Option::Some(Self::SNAPSHOT),
+            "PHYSICAL" => std::option::Option::Some(Self::PHYSICAL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlBackupKind](SqlBackupKind)
-pub mod sql_backup_kind {
-    use super::SqlBackupKind;
-    
-
-    /// This is an unknown BackupKind.
-    pub const SQL_BACKUP_KIND_UNSPECIFIED: SqlBackupKind = SqlBackupKind::new("SQL_BACKUP_KIND_UNSPECIFIED");
-
-    /// The snapshot based backups
-    pub const SNAPSHOT: SqlBackupKind = SqlBackupKind::new("SNAPSHOT");
-
-    /// Physical backups
-    pub const PHYSICAL: SqlBackupKind = SqlBackupKind::new("PHYSICAL");
-}
-
-impl std::convert::From<std::string::String> for SqlBackupKind {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlBackupKind {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlBackupKind {
     fn default() -> Self {
-        sql_backup_kind::SQL_BACKUP_KIND_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Type of backup (i.e. automated, on demand, etc).
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunType(std::borrow::Cow<'static, str>);
+pub struct SqlBackupRunType(i32);
 
 impl SqlBackupRunType {
+
+    /// This is an unknown BackupRun type.
+    pub const SQL_BACKUP_RUN_TYPE_UNSPECIFIED: SqlBackupRunType = SqlBackupRunType::new(0);
+
+    /// The backup schedule automatically triggers a backup.
+    pub const AUTOMATED: SqlBackupRunType = SqlBackupRunType::new(1);
+
+    /// The user manually triggers a backup.
+    pub const ON_DEMAND: SqlBackupRunType = SqlBackupRunType::new(2);
+
     /// Creates a new SqlBackupRunType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_RUN_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("AUTOMATED"),
+            2 => std::borrow::Cow::Borrowed("ON_DEMAND"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_BACKUP_RUN_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_RUN_TYPE_UNSPECIFIED),
+            "AUTOMATED" => std::option::Option::Some(Self::AUTOMATED),
+            "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlBackupRunType](SqlBackupRunType)
-pub mod sql_backup_run_type {
-    use super::SqlBackupRunType;
-    
-
-    /// This is an unknown BackupRun type.
-    pub const SQL_BACKUP_RUN_TYPE_UNSPECIFIED: SqlBackupRunType = SqlBackupRunType::new("SQL_BACKUP_RUN_TYPE_UNSPECIFIED");
-
-    /// The backup schedule automatically triggers a backup.
-    pub const AUTOMATED: SqlBackupRunType = SqlBackupRunType::new("AUTOMATED");
-
-    /// The user manually triggers a backup.
-    pub const ON_DEMAND: SqlBackupRunType = SqlBackupRunType::new("ON_DEMAND");
-}
-
-impl std::convert::From<std::string::String> for SqlBackupRunType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlBackupRunType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlBackupRunType {
     fn default() -> Self {
-        sql_backup_run_type::SQL_BACKUP_RUN_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFlagType(std::borrow::Cow<'static, str>);
+pub struct SqlFlagType(i32);
 
 impl SqlFlagType {
-    /// Creates a new SqlFlagType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlFlagType](SqlFlagType)
-pub mod sql_flag_type {
-    use super::SqlFlagType;
-    
 
     /// This is an unknown flag type.
-    pub const SQL_FLAG_TYPE_UNSPECIFIED: SqlFlagType = SqlFlagType::new("SQL_FLAG_TYPE_UNSPECIFIED");
+    pub const SQL_FLAG_TYPE_UNSPECIFIED: SqlFlagType = SqlFlagType::new(0);
 
     /// Boolean type flag.
-    pub const BOOLEAN: SqlFlagType = SqlFlagType::new("BOOLEAN");
+    pub const BOOLEAN: SqlFlagType = SqlFlagType::new(1);
 
     /// String type flag.
-    pub const STRING: SqlFlagType = SqlFlagType::new("STRING");
+    pub const STRING: SqlFlagType = SqlFlagType::new(2);
 
     /// Integer type flag.
-    pub const INTEGER: SqlFlagType = SqlFlagType::new("INTEGER");
+    pub const INTEGER: SqlFlagType = SqlFlagType::new(3);
 
     /// Flag type used for a server startup option.
-    pub const NONE: SqlFlagType = SqlFlagType::new("NONE");
+    pub const NONE: SqlFlagType = SqlFlagType::new(4);
 
     /// Type introduced specially for MySQL TimeZone offset. Accept a string value
     /// with the format [-12:59, 13:00].
-    pub const MYSQL_TIMEZONE_OFFSET: SqlFlagType = SqlFlagType::new("MYSQL_TIMEZONE_OFFSET");
+    pub const MYSQL_TIMEZONE_OFFSET: SqlFlagType = SqlFlagType::new(5);
 
     /// Float type flag.
-    pub const FLOAT: SqlFlagType = SqlFlagType::new("FLOAT");
+    pub const FLOAT: SqlFlagType = SqlFlagType::new(6);
 
     /// Comma-separated list of the strings in a SqlFlagType enum.
-    pub const REPEATED_STRING: SqlFlagType = SqlFlagType::new("REPEATED_STRING");
+    pub const REPEATED_STRING: SqlFlagType = SqlFlagType::new(7);
+
+    /// Creates a new SqlFlagType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_FLAG_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BOOLEAN"),
+            2 => std::borrow::Cow::Borrowed("STRING"),
+            3 => std::borrow::Cow::Borrowed("INTEGER"),
+            4 => std::borrow::Cow::Borrowed("NONE"),
+            5 => std::borrow::Cow::Borrowed("MYSQL_TIMEZONE_OFFSET"),
+            6 => std::borrow::Cow::Borrowed("FLOAT"),
+            7 => std::borrow::Cow::Borrowed("REPEATED_STRING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_FLAG_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_FLAG_TYPE_UNSPECIFIED),
+            "BOOLEAN" => std::option::Option::Some(Self::BOOLEAN),
+            "STRING" => std::option::Option::Some(Self::STRING),
+            "INTEGER" => std::option::Option::Some(Self::INTEGER),
+            "NONE" => std::option::Option::Some(Self::NONE),
+            "MYSQL_TIMEZONE_OFFSET" => std::option::Option::Some(Self::MYSQL_TIMEZONE_OFFSET),
+            "FLOAT" => std::option::Option::Some(Self::FLOAT),
+            "REPEATED_STRING" => std::option::Option::Some(Self::REPEATED_STRING),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlFlagType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlFlagType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlFlagType {
     fn default() -> Self {
-        sql_flag_type::SQL_FLAG_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// External Sync parallel level.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExternalSyncParallelLevel(std::borrow::Cow<'static, str>);
+pub struct ExternalSyncParallelLevel(i32);
 
 impl ExternalSyncParallelLevel {
+
+    /// Unknown sync parallel level. Will be defaulted to OPTIMAL.
+    pub const EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(0);
+
+    /// Minimal parallel level.
+    pub const MIN: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(1);
+
+    /// Optimal parallel level.
+    pub const OPTIMAL: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(2);
+
+    /// Maximum parallel level.
+    pub const MAX: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(3);
+
     /// Creates a new ExternalSyncParallelLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("MIN"),
+            2 => std::borrow::Cow::Borrowed("OPTIMAL"),
+            3 => std::borrow::Cow::Borrowed("MAX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED),
+            "MIN" => std::option::Option::Some(Self::MIN),
+            "OPTIMAL" => std::option::Option::Some(Self::OPTIMAL),
+            "MAX" => std::option::Option::Some(Self::MAX),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ExternalSyncParallelLevel](ExternalSyncParallelLevel)
-pub mod external_sync_parallel_level {
-    use super::ExternalSyncParallelLevel;
-    
-
-    /// Unknown sync parallel level. Will be defaulted to OPTIMAL.
-    pub const EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED");
-
-    /// Minimal parallel level.
-    pub const MIN: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("MIN");
-
-    /// Optimal parallel level.
-    pub const OPTIMAL: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("OPTIMAL");
-
-    /// Maximum parallel level.
-    pub const MAX: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("MAX");
-}
-
-impl std::convert::From<std::string::String> for ExternalSyncParallelLevel {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for ExternalSyncParallelLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for ExternalSyncParallelLevel {
     fn default() -> Self {
-        external_sync_parallel_level::EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlInstanceType(std::borrow::Cow<'static, str>);
+pub struct SqlInstanceType(i32);
 
 impl SqlInstanceType {
-    /// Creates a new SqlInstanceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlInstanceType](SqlInstanceType)
-pub mod sql_instance_type {
-    use super::SqlInstanceType;
-    
 
     /// This is an unknown Cloud SQL instance type.
-    pub const SQL_INSTANCE_TYPE_UNSPECIFIED: SqlInstanceType = SqlInstanceType::new("SQL_INSTANCE_TYPE_UNSPECIFIED");
+    pub const SQL_INSTANCE_TYPE_UNSPECIFIED: SqlInstanceType = SqlInstanceType::new(0);
 
     /// A regular Cloud SQL instance that is not replicating from a primary
     /// instance.
-    pub const CLOUD_SQL_INSTANCE: SqlInstanceType = SqlInstanceType::new("CLOUD_SQL_INSTANCE");
+    pub const CLOUD_SQL_INSTANCE: SqlInstanceType = SqlInstanceType::new(1);
 
     /// An instance running on the customer's premises that is not managed by
     /// Cloud SQL.
-    pub const ON_PREMISES_INSTANCE: SqlInstanceType = SqlInstanceType::new("ON_PREMISES_INSTANCE");
+    pub const ON_PREMISES_INSTANCE: SqlInstanceType = SqlInstanceType::new(2);
 
     /// A Cloud SQL instance acting as a read-replica.
-    pub const READ_REPLICA_INSTANCE: SqlInstanceType = SqlInstanceType::new("READ_REPLICA_INSTANCE");
+    pub const READ_REPLICA_INSTANCE: SqlInstanceType = SqlInstanceType::new(3);
+
+    /// Creates a new SqlInstanceType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_INSTANCE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
+            2 => std::borrow::Cow::Borrowed("ON_PREMISES_INSTANCE"),
+            3 => std::borrow::Cow::Borrowed("READ_REPLICA_INSTANCE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_INSTANCE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_INSTANCE_TYPE_UNSPECIFIED),
+            "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
+            "ON_PREMISES_INSTANCE" => std::option::Option::Some(Self::ON_PREMISES_INSTANCE),
+            "READ_REPLICA_INSTANCE" => std::option::Option::Some(Self::READ_REPLICA_INSTANCE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlInstanceType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlInstanceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlInstanceType {
     fn default() -> Self {
-        sql_instance_type::SQL_INSTANCE_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The suspension reason of the database instance if the state is SUSPENDED.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlSuspensionReason(std::borrow::Cow<'static, str>);
+pub struct SqlSuspensionReason(i32);
 
 impl SqlSuspensionReason {
-    /// Creates a new SqlSuspensionReason instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlSuspensionReason](SqlSuspensionReason)
-pub mod sql_suspension_reason {
-    use super::SqlSuspensionReason;
-    
 
     /// This is an unknown suspension reason.
-    pub const SQL_SUSPENSION_REASON_UNSPECIFIED: SqlSuspensionReason = SqlSuspensionReason::new("SQL_SUSPENSION_REASON_UNSPECIFIED");
+    pub const SQL_SUSPENSION_REASON_UNSPECIFIED: SqlSuspensionReason = SqlSuspensionReason::new(0);
 
     /// The instance is suspended due to billing issues (for example:, GCP account
     /// issue)
-    pub const BILLING_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("BILLING_ISSUE");
+    pub const BILLING_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(2);
 
     /// The instance is suspended due to illegal content (for example:, child
     /// pornography, copyrighted material, etc.).
-    pub const LEGAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("LEGAL_ISSUE");
+    pub const LEGAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(3);
 
     /// The instance is causing operational issues (for example:, causing the
     /// database to crash).
-    pub const OPERATIONAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("OPERATIONAL_ISSUE");
+    pub const OPERATIONAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(4);
 
     /// The KMS key used by the instance is either revoked or denied access to
-    pub const KMS_KEY_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("KMS_KEY_ISSUE");
+    pub const KMS_KEY_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(5);
+
+    /// Creates a new SqlSuspensionReason instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_SUSPENSION_REASON_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("BILLING_ISSUE"),
+            3 => std::borrow::Cow::Borrowed("LEGAL_ISSUE"),
+            4 => std::borrow::Cow::Borrowed("OPERATIONAL_ISSUE"),
+            5 => std::borrow::Cow::Borrowed("KMS_KEY_ISSUE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_SUSPENSION_REASON_UNSPECIFIED" => std::option::Option::Some(Self::SQL_SUSPENSION_REASON_UNSPECIFIED),
+            "BILLING_ISSUE" => std::option::Option::Some(Self::BILLING_ISSUE),
+            "LEGAL_ISSUE" => std::option::Option::Some(Self::LEGAL_ISSUE),
+            "OPERATIONAL_ISSUE" => std::option::Option::Some(Self::OPERATIONAL_ISSUE),
+            "KMS_KEY_ISSUE" => std::option::Option::Some(Self::KMS_KEY_ISSUE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlSuspensionReason {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlSuspensionReason {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlSuspensionReason {
     fn default() -> Self {
-        sql_suspension_reason::SQL_SUSPENSION_REASON_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFileType(std::borrow::Cow<'static, str>);
+pub struct SqlFileType(i32);
 
 impl SqlFileType {
+
+    /// Unknown file type.
+    pub const SQL_FILE_TYPE_UNSPECIFIED: SqlFileType = SqlFileType::new(0);
+
+    /// File containing SQL statements.
+    pub const SQL: SqlFileType = SqlFileType::new(1);
+
+    /// File in CSV format.
+    pub const CSV: SqlFileType = SqlFileType::new(2);
+
+    pub const BAK: SqlFileType = SqlFileType::new(4);
+
     /// Creates a new SqlFileType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_FILE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SQL"),
+            2 => std::borrow::Cow::Borrowed("CSV"),
+            4 => std::borrow::Cow::Borrowed("BAK"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_FILE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_FILE_TYPE_UNSPECIFIED),
+            "SQL" => std::option::Option::Some(Self::SQL),
+            "CSV" => std::option::Option::Some(Self::CSV),
+            "BAK" => std::option::Option::Some(Self::BAK),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlFileType](SqlFileType)
-pub mod sql_file_type {
-    use super::SqlFileType;
-    
-
-    /// Unknown file type.
-    pub const SQL_FILE_TYPE_UNSPECIFIED: SqlFileType = SqlFileType::new("SQL_FILE_TYPE_UNSPECIFIED");
-
-    /// File containing SQL statements.
-    pub const SQL: SqlFileType = SqlFileType::new("SQL");
-
-    /// File in CSV format.
-    pub const CSV: SqlFileType = SqlFileType::new("CSV");
-
-    pub const BAK: SqlFileType = SqlFileType::new("BAK");
-}
-
-impl std::convert::From<std::string::String> for SqlFileType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlFileType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlFileType {
     fn default() -> Self {
-        sql_file_type::SQL_FILE_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BakType(std::borrow::Cow<'static, str>);
+pub struct BakType(i32);
 
 impl BakType {
+
+    /// Default type.
+    pub const BAK_TYPE_UNSPECIFIED: BakType = BakType::new(0);
+
+    /// Full backup.
+    pub const FULL: BakType = BakType::new(1);
+
+    /// Differential backup.
+    pub const DIFF: BakType = BakType::new(2);
+
+    /// Transaction Log backup
+    pub const TLOG: BakType = BakType::new(3);
+
     /// Creates a new BakType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BAK_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("FULL"),
+            2 => std::borrow::Cow::Borrowed("DIFF"),
+            3 => std::borrow::Cow::Borrowed("TLOG"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BAK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::BAK_TYPE_UNSPECIFIED),
+            "FULL" => std::option::Option::Some(Self::FULL),
+            "DIFF" => std::option::Option::Some(Self::DIFF),
+            "TLOG" => std::option::Option::Some(Self::TLOG),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [BakType](BakType)
-pub mod bak_type {
-    use super::BakType;
-    
-
-    /// Default type.
-    pub const BAK_TYPE_UNSPECIFIED: BakType = BakType::new("BAK_TYPE_UNSPECIFIED");
-
-    /// Full backup.
-    pub const FULL: BakType = BakType::new("FULL");
-
-    /// Differential backup.
-    pub const DIFF: BakType = BakType::new("DIFF");
-
-    /// Transaction Log backup
-    pub const TLOG: BakType = BakType::new("TLOG");
-}
-
-impl std::convert::From<std::string::String> for BakType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for BakType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for BakType {
     fn default() -> Self {
-        bak_type::BAK_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackendType(std::borrow::Cow<'static, str>);
+pub struct SqlBackendType(i32);
 
 impl SqlBackendType {
+
+    /// This is an unknown backend type for instance.
+    pub const SQL_BACKEND_TYPE_UNSPECIFIED: SqlBackendType = SqlBackendType::new(0);
+
+    /// V1 speckle instance.
+    pub const FIRST_GEN: SqlBackendType = SqlBackendType::new(1);
+
+    /// V2 speckle instance.
+    pub const SECOND_GEN: SqlBackendType = SqlBackendType::new(2);
+
+    /// On premises instance.
+    pub const EXTERNAL: SqlBackendType = SqlBackendType::new(3);
+
     /// Creates a new SqlBackendType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_BACKEND_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("FIRST_GEN"),
+            2 => std::borrow::Cow::Borrowed("SECOND_GEN"),
+            3 => std::borrow::Cow::Borrowed("EXTERNAL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_BACKEND_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKEND_TYPE_UNSPECIFIED),
+            "FIRST_GEN" => std::option::Option::Some(Self::FIRST_GEN),
+            "SECOND_GEN" => std::option::Option::Some(Self::SECOND_GEN),
+            "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlBackendType](SqlBackendType)
-pub mod sql_backend_type {
-    use super::SqlBackendType;
-    
-
-    /// This is an unknown backend type for instance.
-    pub const SQL_BACKEND_TYPE_UNSPECIFIED: SqlBackendType = SqlBackendType::new("SQL_BACKEND_TYPE_UNSPECIFIED");
-
-    /// V1 speckle instance.
-    pub const FIRST_GEN: SqlBackendType = SqlBackendType::new("FIRST_GEN");
-
-    /// V2 speckle instance.
-    pub const SECOND_GEN: SqlBackendType = SqlBackendType::new("SECOND_GEN");
-
-    /// On premises instance.
-    pub const EXTERNAL: SqlBackendType = SqlBackendType::new("EXTERNAL");
-}
-
-impl std::convert::From<std::string::String> for SqlBackendType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlBackendType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlBackendType {
     fn default() -> Self {
-        sql_backend_type::SQL_BACKEND_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlIpAddressType(std::borrow::Cow<'static, str>);
+pub struct SqlIpAddressType(i32);
 
 impl SqlIpAddressType {
-    /// Creates a new SqlIpAddressType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlIpAddressType](SqlIpAddressType)
-pub mod sql_ip_address_type {
-    use super::SqlIpAddressType;
-    
 
     /// This is an unknown IP address type.
-    pub const SQL_IP_ADDRESS_TYPE_UNSPECIFIED: SqlIpAddressType = SqlIpAddressType::new("SQL_IP_ADDRESS_TYPE_UNSPECIFIED");
+    pub const SQL_IP_ADDRESS_TYPE_UNSPECIFIED: SqlIpAddressType = SqlIpAddressType::new(0);
 
     /// IP address the customer is supposed to connect to. Usually this is the
     /// load balancer's IP address
-    pub const PRIMARY: SqlIpAddressType = SqlIpAddressType::new("PRIMARY");
+    pub const PRIMARY: SqlIpAddressType = SqlIpAddressType::new(1);
 
     /// Source IP address of the connection a read replica establishes to its
     /// external primary instance. This IP address can be allowlisted by the
     /// customer in case it has a firewall that filters incoming connection to its
     /// on premises primary instance.
-    pub const OUTGOING: SqlIpAddressType = SqlIpAddressType::new("OUTGOING");
+    pub const OUTGOING: SqlIpAddressType = SqlIpAddressType::new(2);
 
     /// Private IP used when using private IPs and network peering.
-    pub const PRIVATE: SqlIpAddressType = SqlIpAddressType::new("PRIVATE");
+    pub const PRIVATE: SqlIpAddressType = SqlIpAddressType::new(3);
 
     /// V1 IP of a migrated instance. We want the user to
     /// decommission this IP as soon as the migration is complete.
     /// Note: V1 instances with V1 ip addresses will be counted as PRIMARY.
-    pub const MIGRATED_1ST_GEN: SqlIpAddressType = SqlIpAddressType::new("MIGRATED_1ST_GEN");
+    pub const MIGRATED_1ST_GEN: SqlIpAddressType = SqlIpAddressType::new(4);
+
+    /// Creates a new SqlIpAddressType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_IP_ADDRESS_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PRIMARY"),
+            2 => std::borrow::Cow::Borrowed("OUTGOING"),
+            3 => std::borrow::Cow::Borrowed("PRIVATE"),
+            4 => std::borrow::Cow::Borrowed("MIGRATED_1ST_GEN"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_IP_ADDRESS_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_IP_ADDRESS_TYPE_UNSPECIFIED),
+            "PRIMARY" => std::option::Option::Some(Self::PRIMARY),
+            "OUTGOING" => std::option::Option::Some(Self::OUTGOING),
+            "PRIVATE" => std::option::Option::Some(Self::PRIVATE),
+            "MIGRATED_1ST_GEN" => std::option::Option::Some(Self::MIGRATED_1ST_GEN),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlIpAddressType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlIpAddressType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlIpAddressType {
     fn default() -> Self {
-        sql_ip_address_type::SQL_IP_ADDRESS_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The database engine type and version.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDatabaseVersion(std::borrow::Cow<'static, str>);
+pub struct SqlDatabaseVersion(i32);
 
 impl SqlDatabaseVersion {
+
+    /// This is an unknown database version.
+    pub const SQL_DATABASE_VERSION_UNSPECIFIED: SqlDatabaseVersion = SqlDatabaseVersion::new(0);
+
+    /// The database version is MySQL 5.1.
+    pub const MYSQL_5_1: SqlDatabaseVersion = SqlDatabaseVersion::new(2);
+
+    /// The database version is MySQL 5.5.
+    pub const MYSQL_5_5: SqlDatabaseVersion = SqlDatabaseVersion::new(3);
+
+    /// The database version is MySQL 5.6.
+    pub const MYSQL_5_6: SqlDatabaseVersion = SqlDatabaseVersion::new(5);
+
+    /// The database version is MySQL 5.7.
+    pub const MYSQL_5_7: SqlDatabaseVersion = SqlDatabaseVersion::new(6);
+
+    /// The database version is SQL Server 2017 Standard.
+    pub const SQLSERVER_2017_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(11);
+
+    /// The database version is SQL Server 2017 Enterprise.
+    pub const SQLSERVER_2017_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(14);
+
+    /// The database version is SQL Server 2017 Express.
+    pub const SQLSERVER_2017_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(15);
+
+    /// The database version is SQL Server 2017 Web.
+    pub const SQLSERVER_2017_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(16);
+
+    /// The database version is PostgreSQL 9.6.
+    pub const POSTGRES_9_6: SqlDatabaseVersion = SqlDatabaseVersion::new(9);
+
+    /// The database version is PostgreSQL 10.
+    pub const POSTGRES_10: SqlDatabaseVersion = SqlDatabaseVersion::new(18);
+
+    /// The database version is PostgreSQL 11.
+    pub const POSTGRES_11: SqlDatabaseVersion = SqlDatabaseVersion::new(10);
+
+    /// The database version is PostgreSQL 12.
+    pub const POSTGRES_12: SqlDatabaseVersion = SqlDatabaseVersion::new(19);
+
+    /// The database version is PostgreSQL 13.
+    pub const POSTGRES_13: SqlDatabaseVersion = SqlDatabaseVersion::new(23);
+
+    /// The database version is PostgreSQL 14.
+    pub const POSTGRES_14: SqlDatabaseVersion = SqlDatabaseVersion::new(110);
+
+    /// The database version is PostgreSQL 15.
+    pub const POSTGRES_15: SqlDatabaseVersion = SqlDatabaseVersion::new(172);
+
+    /// The database version is PostgreSQL 16.
+    pub const POSTGRES_16: SqlDatabaseVersion = SqlDatabaseVersion::new(272);
+
+    /// The database version is MySQL 8.
+    pub const MYSQL_8_0: SqlDatabaseVersion = SqlDatabaseVersion::new(20);
+
+    /// The database major version is MySQL 8.0 and the minor version is 18.
+    pub const MYSQL_8_0_18: SqlDatabaseVersion = SqlDatabaseVersion::new(41);
+
+    /// The database major version is MySQL 8.0 and the minor version is 26.
+    pub const MYSQL_8_0_26: SqlDatabaseVersion = SqlDatabaseVersion::new(85);
+
+    /// The database major version is MySQL 8.0 and the minor version is 27.
+    pub const MYSQL_8_0_27: SqlDatabaseVersion = SqlDatabaseVersion::new(111);
+
+    /// The database major version is MySQL 8.0 and the minor version is 28.
+    pub const MYSQL_8_0_28: SqlDatabaseVersion = SqlDatabaseVersion::new(132);
+
+    /// The database major version is MySQL 8.0 and the minor version is 29.
+    pub const MYSQL_8_0_29: SqlDatabaseVersion = SqlDatabaseVersion::new(148);
+
+    /// The database major version is MySQL 8.0 and the minor version is 30.
+    pub const MYSQL_8_0_30: SqlDatabaseVersion = SqlDatabaseVersion::new(174);
+
+    /// The database major version is MySQL 8.0 and the minor version is 31.
+    pub const MYSQL_8_0_31: SqlDatabaseVersion = SqlDatabaseVersion::new(197);
+
+    /// The database major version is MySQL 8.0 and the minor version is 32.
+    pub const MYSQL_8_0_32: SqlDatabaseVersion = SqlDatabaseVersion::new(213);
+
+    /// The database major version is MySQL 8.0 and the minor version is 33.
+    pub const MYSQL_8_0_33: SqlDatabaseVersion = SqlDatabaseVersion::new(238);
+
+    /// The database major version is MySQL 8.0 and the minor version is 34.
+    pub const MYSQL_8_0_34: SqlDatabaseVersion = SqlDatabaseVersion::new(239);
+
+    /// The database major version is MySQL 8.0 and the minor version is 35.
+    pub const MYSQL_8_0_35: SqlDatabaseVersion = SqlDatabaseVersion::new(240);
+
+    /// The database major version is MySQL 8.0 and the minor version is 36.
+    pub const MYSQL_8_0_36: SqlDatabaseVersion = SqlDatabaseVersion::new(241);
+
+    /// The database major version is MySQL 8.0 and the minor version is 37.
+    pub const MYSQL_8_0_37: SqlDatabaseVersion = SqlDatabaseVersion::new(355);
+
+    /// The database major version is MySQL 8.0 and the minor version is 38.
+    pub const MYSQL_8_0_38: SqlDatabaseVersion = SqlDatabaseVersion::new(356);
+
+    /// The database major version is MySQL 8.0 and the minor version is 39.
+    pub const MYSQL_8_0_39: SqlDatabaseVersion = SqlDatabaseVersion::new(357);
+
+    /// The database major version is MySQL 8.0 and the minor version is 40.
+    pub const MYSQL_8_0_40: SqlDatabaseVersion = SqlDatabaseVersion::new(358);
+
+    /// The database version is MySQL 8.4.
+    pub const MYSQL_8_4: SqlDatabaseVersion = SqlDatabaseVersion::new(398);
+
+    /// The database version is MySQL 8.4 and the patch version is 0.
+    pub const MYSQL_8_4_0: SqlDatabaseVersion = SqlDatabaseVersion::new(399);
+
+    /// The database version is SQL Server 2019 Standard.
+    pub const SQLSERVER_2019_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(26);
+
+    /// The database version is SQL Server 2019 Enterprise.
+    pub const SQLSERVER_2019_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(27);
+
+    /// The database version is SQL Server 2019 Express.
+    pub const SQLSERVER_2019_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(28);
+
+    /// The database version is SQL Server 2019 Web.
+    pub const SQLSERVER_2019_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(29);
+
+    /// The database version is SQL Server 2022 Standard.
+    pub const SQLSERVER_2022_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(199);
+
+    /// The database version is SQL Server 2022 Enterprise.
+    pub const SQLSERVER_2022_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(200);
+
+    /// The database version is SQL Server 2022 Express.
+    pub const SQLSERVER_2022_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(201);
+
+    /// The database version is SQL Server 2022 Web.
+    pub const SQLSERVER_2022_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(202);
+
     /// Creates a new SqlDatabaseVersion instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_DATABASE_VERSION_UNSPECIFIED"),
+            2 => std::borrow::Cow::Borrowed("MYSQL_5_1"),
+            3 => std::borrow::Cow::Borrowed("MYSQL_5_5"),
+            5 => std::borrow::Cow::Borrowed("MYSQL_5_6"),
+            6 => std::borrow::Cow::Borrowed("MYSQL_5_7"),
+            9 => std::borrow::Cow::Borrowed("POSTGRES_9_6"),
+            10 => std::borrow::Cow::Borrowed("POSTGRES_11"),
+            11 => std::borrow::Cow::Borrowed("SQLSERVER_2017_STANDARD"),
+            14 => std::borrow::Cow::Borrowed("SQLSERVER_2017_ENTERPRISE"),
+            15 => std::borrow::Cow::Borrowed("SQLSERVER_2017_EXPRESS"),
+            16 => std::borrow::Cow::Borrowed("SQLSERVER_2017_WEB"),
+            18 => std::borrow::Cow::Borrowed("POSTGRES_10"),
+            19 => std::borrow::Cow::Borrowed("POSTGRES_12"),
+            20 => std::borrow::Cow::Borrowed("MYSQL_8_0"),
+            23 => std::borrow::Cow::Borrowed("POSTGRES_13"),
+            26 => std::borrow::Cow::Borrowed("SQLSERVER_2019_STANDARD"),
+            27 => std::borrow::Cow::Borrowed("SQLSERVER_2019_ENTERPRISE"),
+            28 => std::borrow::Cow::Borrowed("SQLSERVER_2019_EXPRESS"),
+            29 => std::borrow::Cow::Borrowed("SQLSERVER_2019_WEB"),
+            41 => std::borrow::Cow::Borrowed("MYSQL_8_0_18"),
+            85 => std::borrow::Cow::Borrowed("MYSQL_8_0_26"),
+            110 => std::borrow::Cow::Borrowed("POSTGRES_14"),
+            111 => std::borrow::Cow::Borrowed("MYSQL_8_0_27"),
+            132 => std::borrow::Cow::Borrowed("MYSQL_8_0_28"),
+            148 => std::borrow::Cow::Borrowed("MYSQL_8_0_29"),
+            172 => std::borrow::Cow::Borrowed("POSTGRES_15"),
+            174 => std::borrow::Cow::Borrowed("MYSQL_8_0_30"),
+            197 => std::borrow::Cow::Borrowed("MYSQL_8_0_31"),
+            199 => std::borrow::Cow::Borrowed("SQLSERVER_2022_STANDARD"),
+            200 => std::borrow::Cow::Borrowed("SQLSERVER_2022_ENTERPRISE"),
+            201 => std::borrow::Cow::Borrowed("SQLSERVER_2022_EXPRESS"),
+            202 => std::borrow::Cow::Borrowed("SQLSERVER_2022_WEB"),
+            213 => std::borrow::Cow::Borrowed("MYSQL_8_0_32"),
+            238 => std::borrow::Cow::Borrowed("MYSQL_8_0_33"),
+            239 => std::borrow::Cow::Borrowed("MYSQL_8_0_34"),
+            240 => std::borrow::Cow::Borrowed("MYSQL_8_0_35"),
+            241 => std::borrow::Cow::Borrowed("MYSQL_8_0_36"),
+            272 => std::borrow::Cow::Borrowed("POSTGRES_16"),
+            355 => std::borrow::Cow::Borrowed("MYSQL_8_0_37"),
+            356 => std::borrow::Cow::Borrowed("MYSQL_8_0_38"),
+            357 => std::borrow::Cow::Borrowed("MYSQL_8_0_39"),
+            358 => std::borrow::Cow::Borrowed("MYSQL_8_0_40"),
+            398 => std::borrow::Cow::Borrowed("MYSQL_8_4"),
+            399 => std::borrow::Cow::Borrowed("MYSQL_8_4_0"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_DATABASE_VERSION_UNSPECIFIED" => std::option::Option::Some(Self::SQL_DATABASE_VERSION_UNSPECIFIED),
+            "MYSQL_5_1" => std::option::Option::Some(Self::MYSQL_5_1),
+            "MYSQL_5_5" => std::option::Option::Some(Self::MYSQL_5_5),
+            "MYSQL_5_6" => std::option::Option::Some(Self::MYSQL_5_6),
+            "MYSQL_5_7" => std::option::Option::Some(Self::MYSQL_5_7),
+            "SQLSERVER_2017_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2017_STANDARD),
+            "SQLSERVER_2017_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2017_ENTERPRISE),
+            "SQLSERVER_2017_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2017_EXPRESS),
+            "SQLSERVER_2017_WEB" => std::option::Option::Some(Self::SQLSERVER_2017_WEB),
+            "POSTGRES_9_6" => std::option::Option::Some(Self::POSTGRES_9_6),
+            "POSTGRES_10" => std::option::Option::Some(Self::POSTGRES_10),
+            "POSTGRES_11" => std::option::Option::Some(Self::POSTGRES_11),
+            "POSTGRES_12" => std::option::Option::Some(Self::POSTGRES_12),
+            "POSTGRES_13" => std::option::Option::Some(Self::POSTGRES_13),
+            "POSTGRES_14" => std::option::Option::Some(Self::POSTGRES_14),
+            "POSTGRES_15" => std::option::Option::Some(Self::POSTGRES_15),
+            "POSTGRES_16" => std::option::Option::Some(Self::POSTGRES_16),
+            "MYSQL_8_0" => std::option::Option::Some(Self::MYSQL_8_0),
+            "MYSQL_8_0_18" => std::option::Option::Some(Self::MYSQL_8_0_18),
+            "MYSQL_8_0_26" => std::option::Option::Some(Self::MYSQL_8_0_26),
+            "MYSQL_8_0_27" => std::option::Option::Some(Self::MYSQL_8_0_27),
+            "MYSQL_8_0_28" => std::option::Option::Some(Self::MYSQL_8_0_28),
+            "MYSQL_8_0_29" => std::option::Option::Some(Self::MYSQL_8_0_29),
+            "MYSQL_8_0_30" => std::option::Option::Some(Self::MYSQL_8_0_30),
+            "MYSQL_8_0_31" => std::option::Option::Some(Self::MYSQL_8_0_31),
+            "MYSQL_8_0_32" => std::option::Option::Some(Self::MYSQL_8_0_32),
+            "MYSQL_8_0_33" => std::option::Option::Some(Self::MYSQL_8_0_33),
+            "MYSQL_8_0_34" => std::option::Option::Some(Self::MYSQL_8_0_34),
+            "MYSQL_8_0_35" => std::option::Option::Some(Self::MYSQL_8_0_35),
+            "MYSQL_8_0_36" => std::option::Option::Some(Self::MYSQL_8_0_36),
+            "MYSQL_8_0_37" => std::option::Option::Some(Self::MYSQL_8_0_37),
+            "MYSQL_8_0_38" => std::option::Option::Some(Self::MYSQL_8_0_38),
+            "MYSQL_8_0_39" => std::option::Option::Some(Self::MYSQL_8_0_39),
+            "MYSQL_8_0_40" => std::option::Option::Some(Self::MYSQL_8_0_40),
+            "MYSQL_8_4" => std::option::Option::Some(Self::MYSQL_8_4),
+            "MYSQL_8_4_0" => std::option::Option::Some(Self::MYSQL_8_4_0),
+            "SQLSERVER_2019_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2019_STANDARD),
+            "SQLSERVER_2019_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2019_ENTERPRISE),
+            "SQLSERVER_2019_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2019_EXPRESS),
+            "SQLSERVER_2019_WEB" => std::option::Option::Some(Self::SQLSERVER_2019_WEB),
+            "SQLSERVER_2022_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2022_STANDARD),
+            "SQLSERVER_2022_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2022_ENTERPRISE),
+            "SQLSERVER_2022_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2022_EXPRESS),
+            "SQLSERVER_2022_WEB" => std::option::Option::Some(Self::SQLSERVER_2022_WEB),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlDatabaseVersion](SqlDatabaseVersion)
-pub mod sql_database_version {
-    use super::SqlDatabaseVersion;
-    
-
-    /// This is an unknown database version.
-    pub const SQL_DATABASE_VERSION_UNSPECIFIED: SqlDatabaseVersion = SqlDatabaseVersion::new("SQL_DATABASE_VERSION_UNSPECIFIED");
-
-    /// The database version is MySQL 5.1.
-    pub const MYSQL_5_1: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_1");
-
-    /// The database version is MySQL 5.5.
-    pub const MYSQL_5_5: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_5");
-
-    /// The database version is MySQL 5.6.
-    pub const MYSQL_5_6: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_6");
-
-    /// The database version is MySQL 5.7.
-    pub const MYSQL_5_7: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_5_7");
-
-    /// The database version is SQL Server 2017 Standard.
-    pub const SQLSERVER_2017_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_STANDARD");
-
-    /// The database version is SQL Server 2017 Enterprise.
-    pub const SQLSERVER_2017_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_ENTERPRISE");
-
-    /// The database version is SQL Server 2017 Express.
-    pub const SQLSERVER_2017_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_EXPRESS");
-
-    /// The database version is SQL Server 2017 Web.
-    pub const SQLSERVER_2017_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2017_WEB");
-
-    /// The database version is PostgreSQL 9.6.
-    pub const POSTGRES_9_6: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_9_6");
-
-    /// The database version is PostgreSQL 10.
-    pub const POSTGRES_10: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_10");
-
-    /// The database version is PostgreSQL 11.
-    pub const POSTGRES_11: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_11");
-
-    /// The database version is PostgreSQL 12.
-    pub const POSTGRES_12: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_12");
-
-    /// The database version is PostgreSQL 13.
-    pub const POSTGRES_13: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_13");
-
-    /// The database version is PostgreSQL 14.
-    pub const POSTGRES_14: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_14");
-
-    /// The database version is PostgreSQL 15.
-    pub const POSTGRES_15: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_15");
-
-    /// The database version is PostgreSQL 16.
-    pub const POSTGRES_16: SqlDatabaseVersion = SqlDatabaseVersion::new("POSTGRES_16");
-
-    /// The database version is MySQL 8.
-    pub const MYSQL_8_0: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0");
-
-    /// The database major version is MySQL 8.0 and the minor version is 18.
-    pub const MYSQL_8_0_18: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_18");
-
-    /// The database major version is MySQL 8.0 and the minor version is 26.
-    pub const MYSQL_8_0_26: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_26");
-
-    /// The database major version is MySQL 8.0 and the minor version is 27.
-    pub const MYSQL_8_0_27: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_27");
-
-    /// The database major version is MySQL 8.0 and the minor version is 28.
-    pub const MYSQL_8_0_28: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_28");
-
-    /// The database major version is MySQL 8.0 and the minor version is 29.
-    pub const MYSQL_8_0_29: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_29");
-
-    /// The database major version is MySQL 8.0 and the minor version is 30.
-    pub const MYSQL_8_0_30: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_30");
-
-    /// The database major version is MySQL 8.0 and the minor version is 31.
-    pub const MYSQL_8_0_31: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_31");
-
-    /// The database major version is MySQL 8.0 and the minor version is 32.
-    pub const MYSQL_8_0_32: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_32");
-
-    /// The database major version is MySQL 8.0 and the minor version is 33.
-    pub const MYSQL_8_0_33: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_33");
-
-    /// The database major version is MySQL 8.0 and the minor version is 34.
-    pub const MYSQL_8_0_34: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_34");
-
-    /// The database major version is MySQL 8.0 and the minor version is 35.
-    pub const MYSQL_8_0_35: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_35");
-
-    /// The database major version is MySQL 8.0 and the minor version is 36.
-    pub const MYSQL_8_0_36: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_36");
-
-    /// The database major version is MySQL 8.0 and the minor version is 37.
-    pub const MYSQL_8_0_37: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_37");
-
-    /// The database major version is MySQL 8.0 and the minor version is 38.
-    pub const MYSQL_8_0_38: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_38");
-
-    /// The database major version is MySQL 8.0 and the minor version is 39.
-    pub const MYSQL_8_0_39: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_39");
-
-    /// The database major version is MySQL 8.0 and the minor version is 40.
-    pub const MYSQL_8_0_40: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_0_40");
-
-    /// The database version is MySQL 8.4.
-    pub const MYSQL_8_4: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_4");
-
-    /// The database version is MySQL 8.4 and the patch version is 0.
-    pub const MYSQL_8_4_0: SqlDatabaseVersion = SqlDatabaseVersion::new("MYSQL_8_4_0");
-
-    /// The database version is SQL Server 2019 Standard.
-    pub const SQLSERVER_2019_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_STANDARD");
-
-    /// The database version is SQL Server 2019 Enterprise.
-    pub const SQLSERVER_2019_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_ENTERPRISE");
-
-    /// The database version is SQL Server 2019 Express.
-    pub const SQLSERVER_2019_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_EXPRESS");
-
-    /// The database version is SQL Server 2019 Web.
-    pub const SQLSERVER_2019_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2019_WEB");
-
-    /// The database version is SQL Server 2022 Standard.
-    pub const SQLSERVER_2022_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_STANDARD");
-
-    /// The database version is SQL Server 2022 Enterprise.
-    pub const SQLSERVER_2022_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_ENTERPRISE");
-
-    /// The database version is SQL Server 2022 Express.
-    pub const SQLSERVER_2022_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_EXPRESS");
-
-    /// The database version is SQL Server 2022 Web.
-    pub const SQLSERVER_2022_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_WEB");
-}
-
-impl std::convert::From<std::string::String> for SqlDatabaseVersion {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlDatabaseVersion {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlDatabaseVersion {
     fn default() -> Self {
-        sql_database_version::SQL_DATABASE_VERSION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The pricing plan for this instance.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlPricingPlan(std::borrow::Cow<'static, str>);
+pub struct SqlPricingPlan(i32);
 
 impl SqlPricingPlan {
+
+    /// This is an unknown pricing plan for this instance.
+    pub const SQL_PRICING_PLAN_UNSPECIFIED: SqlPricingPlan = SqlPricingPlan::new(0);
+
+    /// The instance is billed at a monthly flat rate.
+    pub const PACKAGE: SqlPricingPlan = SqlPricingPlan::new(1);
+
+    /// The instance is billed per usage.
+    pub const PER_USE: SqlPricingPlan = SqlPricingPlan::new(2);
+
     /// Creates a new SqlPricingPlan instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_PRICING_PLAN_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PACKAGE"),
+            2 => std::borrow::Cow::Borrowed("PER_USE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_PRICING_PLAN_UNSPECIFIED" => std::option::Option::Some(Self::SQL_PRICING_PLAN_UNSPECIFIED),
+            "PACKAGE" => std::option::Option::Some(Self::PACKAGE),
+            "PER_USE" => std::option::Option::Some(Self::PER_USE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlPricingPlan](SqlPricingPlan)
-pub mod sql_pricing_plan {
-    use super::SqlPricingPlan;
-    
-
-    /// This is an unknown pricing plan for this instance.
-    pub const SQL_PRICING_PLAN_UNSPECIFIED: SqlPricingPlan = SqlPricingPlan::new("SQL_PRICING_PLAN_UNSPECIFIED");
-
-    /// The instance is billed at a monthly flat rate.
-    pub const PACKAGE: SqlPricingPlan = SqlPricingPlan::new("PACKAGE");
-
-    /// The instance is billed per usage.
-    pub const PER_USE: SqlPricingPlan = SqlPricingPlan::new("PER_USE");
-}
-
-impl std::convert::From<std::string::String> for SqlPricingPlan {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlPricingPlan {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlPricingPlan {
     fn default() -> Self {
-        sql_pricing_plan::SQL_PRICING_PLAN_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlReplicationType(std::borrow::Cow<'static, str>);
+pub struct SqlReplicationType(i32);
 
 impl SqlReplicationType {
-    /// Creates a new SqlReplicationType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlReplicationType](SqlReplicationType)
-pub mod sql_replication_type {
-    use super::SqlReplicationType;
-    
 
     /// This is an unknown replication type for a Cloud SQL instance.
-    pub const SQL_REPLICATION_TYPE_UNSPECIFIED: SqlReplicationType = SqlReplicationType::new("SQL_REPLICATION_TYPE_UNSPECIFIED");
+    pub const SQL_REPLICATION_TYPE_UNSPECIFIED: SqlReplicationType = SqlReplicationType::new(0);
 
     /// The synchronous replication mode for First Generation instances. It is the
     /// default value.
-    pub const SYNCHRONOUS: SqlReplicationType = SqlReplicationType::new("SYNCHRONOUS");
+    pub const SYNCHRONOUS: SqlReplicationType = SqlReplicationType::new(1);
 
     /// The asynchronous replication mode for First Generation instances. It
     /// provides a slight performance gain, but if an outage occurs while this
     /// option is set to asynchronous, you can lose up to a few seconds of updates
     /// to your data.
-    pub const ASYNCHRONOUS: SqlReplicationType = SqlReplicationType::new("ASYNCHRONOUS");
+    pub const ASYNCHRONOUS: SqlReplicationType = SqlReplicationType::new(2);
+
+    /// Creates a new SqlReplicationType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_REPLICATION_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SYNCHRONOUS"),
+            2 => std::borrow::Cow::Borrowed("ASYNCHRONOUS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_REPLICATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_REPLICATION_TYPE_UNSPECIFIED),
+            "SYNCHRONOUS" => std::option::Option::Some(Self::SYNCHRONOUS),
+            "ASYNCHRONOUS" => std::option::Option::Some(Self::ASYNCHRONOUS),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlReplicationType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlReplicationType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlReplicationType {
     fn default() -> Self {
-        sql_replication_type::SQL_REPLICATION_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The type of disk that is used for a v2 instance to use.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDataDiskType(std::borrow::Cow<'static, str>);
+pub struct SqlDataDiskType(i32);
 
 impl SqlDataDiskType {
-    /// Creates a new SqlDataDiskType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlDataDiskType](SqlDataDiskType)
-pub mod sql_data_disk_type {
-    use super::SqlDataDiskType;
-    
 
     /// This is an unknown data disk type.
-    pub const SQL_DATA_DISK_TYPE_UNSPECIFIED: SqlDataDiskType = SqlDataDiskType::new("SQL_DATA_DISK_TYPE_UNSPECIFIED");
+    pub const SQL_DATA_DISK_TYPE_UNSPECIFIED: SqlDataDiskType = SqlDataDiskType::new(0);
 
     /// An SSD data disk.
-    pub const PD_SSD: SqlDataDiskType = SqlDataDiskType::new("PD_SSD");
+    pub const PD_SSD: SqlDataDiskType = SqlDataDiskType::new(1);
 
     /// An HDD data disk.
-    pub const PD_HDD: SqlDataDiskType = SqlDataDiskType::new("PD_HDD");
+    pub const PD_HDD: SqlDataDiskType = SqlDataDiskType::new(2);
 
     /// This field is deprecated and will be removed from a future version of the
     /// API.
-    pub const OBSOLETE_LOCAL_SSD: SqlDataDiskType = SqlDataDiskType::new("OBSOLETE_LOCAL_SSD");
+    pub const OBSOLETE_LOCAL_SSD: SqlDataDiskType = SqlDataDiskType::new(3);
+
+    /// Creates a new SqlDataDiskType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_DATA_DISK_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("PD_SSD"),
+            2 => std::borrow::Cow::Borrowed("PD_HDD"),
+            3 => std::borrow::Cow::Borrowed("OBSOLETE_LOCAL_SSD"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_DATA_DISK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_DATA_DISK_TYPE_UNSPECIFIED),
+            "PD_SSD" => std::option::Option::Some(Self::PD_SSD),
+            "PD_HDD" => std::option::Option::Some(Self::PD_HDD),
+            "OBSOLETE_LOCAL_SSD" => std::option::Option::Some(Self::OBSOLETE_LOCAL_SSD),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlDataDiskType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlDataDiskType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlDataDiskType {
     fn default() -> Self {
-        sql_data_disk_type::SQL_DATA_DISK_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The availability type of the given Cloud SQL instance.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlAvailabilityType(std::borrow::Cow<'static, str>);
+pub struct SqlAvailabilityType(i32);
 
 impl SqlAvailabilityType {
+
+    /// This is an unknown Availability type.
+    pub const SQL_AVAILABILITY_TYPE_UNSPECIFIED: SqlAvailabilityType = SqlAvailabilityType::new(0);
+
+    /// Zonal available instance.
+    pub const ZONAL: SqlAvailabilityType = SqlAvailabilityType::new(1);
+
+    /// Regional available instance.
+    pub const REGIONAL: SqlAvailabilityType = SqlAvailabilityType::new(2);
+
     /// Creates a new SqlAvailabilityType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_AVAILABILITY_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ZONAL"),
+            2 => std::borrow::Cow::Borrowed("REGIONAL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_AVAILABILITY_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_AVAILABILITY_TYPE_UNSPECIFIED),
+            "ZONAL" => std::option::Option::Some(Self::ZONAL),
+            "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SqlAvailabilityType](SqlAvailabilityType)
-pub mod sql_availability_type {
-    use super::SqlAvailabilityType;
-    
-
-    /// This is an unknown Availability type.
-    pub const SQL_AVAILABILITY_TYPE_UNSPECIFIED: SqlAvailabilityType = SqlAvailabilityType::new("SQL_AVAILABILITY_TYPE_UNSPECIFIED");
-
-    /// Zonal available instance.
-    pub const ZONAL: SqlAvailabilityType = SqlAvailabilityType::new("ZONAL");
-
-    /// Regional available instance.
-    pub const REGIONAL: SqlAvailabilityType = SqlAvailabilityType::new("REGIONAL");
-}
-
-impl std::convert::From<std::string::String> for SqlAvailabilityType {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlAvailabilityType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlAvailabilityType {
     fn default() -> Self {
-        sql_availability_type::SQL_AVAILABILITY_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlUpdateTrack(std::borrow::Cow<'static, str>);
+pub struct SqlUpdateTrack(i32);
 
 impl SqlUpdateTrack {
-    /// Creates a new SqlUpdateTrack instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SqlUpdateTrack](SqlUpdateTrack)
-pub mod sql_update_track {
-    use super::SqlUpdateTrack;
-    
 
     /// This is an unknown maintenance timing preference.
-    pub const SQL_UPDATE_TRACK_UNSPECIFIED: SqlUpdateTrack = SqlUpdateTrack::new("SQL_UPDATE_TRACK_UNSPECIFIED");
+    pub const SQL_UPDATE_TRACK_UNSPECIFIED: SqlUpdateTrack = SqlUpdateTrack::new(0);
 
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 7 to 14 days
     /// after the notification is sent out. Also referred to as `Week 1` (Console)
     /// and `preview` (gcloud CLI).
-    pub const CANARY: SqlUpdateTrack = SqlUpdateTrack::new("CANARY");
+    pub const CANARY: SqlUpdateTrack = SqlUpdateTrack::new(1);
 
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 15 to 21 days
     /// after the notification is sent out. Also referred to as `Week 2` (Console)
     /// and `production` (gcloud CLI).
-    pub const STABLE: SqlUpdateTrack = SqlUpdateTrack::new("STABLE");
+    pub const STABLE: SqlUpdateTrack = SqlUpdateTrack::new(2);
 
     /// For instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 35 to 42 days
     /// after the notification is sent out.
-    pub const WEEK_5: SqlUpdateTrack = SqlUpdateTrack::new("WEEK_5");
+    pub const WEEK_5: SqlUpdateTrack = SqlUpdateTrack::new(3);
+
+    /// Creates a new SqlUpdateTrack instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SQL_UPDATE_TRACK_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("canary"),
+            2 => std::borrow::Cow::Borrowed("stable"),
+            3 => std::borrow::Cow::Borrowed("week5"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SQL_UPDATE_TRACK_UNSPECIFIED" => std::option::Option::Some(Self::SQL_UPDATE_TRACK_UNSPECIFIED),
+            "canary" => std::option::Option::Some(Self::CANARY),
+            "stable" => std::option::Option::Some(Self::STABLE),
+            "week5" => std::option::Option::Some(Self::WEEK_5),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SqlUpdateTrack {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for SqlUpdateTrack {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for SqlUpdateTrack {
     fn default() -> Self {
-        sql_update_track::SQL_UPDATE_TRACK_UNSPECIFIED
+        Self::new(0)
     }
 }

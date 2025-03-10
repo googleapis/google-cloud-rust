@@ -52,7 +52,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}:export", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72,7 +72,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}:import", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92,7 +92,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/indexes", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -112,7 +112,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::DELETE,
                 format!("/v1/projects/{}/indexes/{}", req.project_id, req.index_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -134,7 +134,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/indexes/{}", req.project_id, req.index_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -156,7 +156,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/indexes", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -178,7 +178,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -200,7 +200,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -219,7 +219,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -238,7 +238,7 @@ impl crate::stubs::DatastoreAdmin for DatastoreAdmin {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

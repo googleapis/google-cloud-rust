@@ -848,34 +848,19 @@ impl wkt::message::Message for Status {
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Code(std::borrow::Cow<'static, str>);
+pub struct Code(i32);
 
 impl Code {
-    /// Creates a new Code instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [Code](Code)
-pub mod code {
-    use super::Code;
-    
 
     /// Not an error; returned on success.
     ///
     /// HTTP Mapping: 200 OK
-    pub const OK: Code = Code::new("OK");
+    pub const OK: Code = Code::new(0);
 
     /// The operation was cancelled, typically by the caller.
     ///
     /// HTTP Mapping: 499 Client Closed Request
-    pub const CANCELLED: Code = Code::new("CANCELLED");
+    pub const CANCELLED: Code = Code::new(1);
 
     /// Unknown error.  For example, this error may be returned when
     /// a `Status` value received from another address space belongs to
@@ -884,7 +869,7 @@ pub mod code {
     /// may be converted to this error.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const UNKNOWN: Code = Code::new("UNKNOWN");
+    pub const UNKNOWN: Code = Code::new(2);
 
     /// The client specified an invalid argument.  Note that this differs
     /// from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
@@ -892,7 +877,7 @@ pub mod code {
     /// (e.g., a malformed file name).
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const INVALID_ARGUMENT: Code = Code::new("INVALID_ARGUMENT");
+    pub const INVALID_ARGUMENT: Code = Code::new(3);
 
     /// The deadline expired before the operation could complete. For operations
     /// that change the state of the system, this error may be returned
@@ -901,7 +886,7 @@ pub mod code {
     /// enough for the deadline to expire.
     ///
     /// HTTP Mapping: 504 Gateway Timeout
-    pub const DEADLINE_EXCEEDED: Code = Code::new("DEADLINE_EXCEEDED");
+    pub const DEADLINE_EXCEEDED: Code = Code::new(4);
 
     /// Some requested entity (e.g., file or directory) was not found.
     ///
@@ -912,13 +897,13 @@ pub mod code {
     /// must be used.
     ///
     /// HTTP Mapping: 404 Not Found
-    pub const NOT_FOUND: Code = Code::new("NOT_FOUND");
+    pub const NOT_FOUND: Code = Code::new(5);
 
     /// The entity that a client attempted to create (e.g., file or directory)
     /// already exists.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ALREADY_EXISTS: Code = Code::new("ALREADY_EXISTS");
+    pub const ALREADY_EXISTS: Code = Code::new(6);
 
     /// The caller does not have permission to execute the specified
     /// operation. `PERMISSION_DENIED` must not be used for rejections
@@ -930,19 +915,19 @@ pub mod code {
     /// other pre-conditions.
     ///
     /// HTTP Mapping: 403 Forbidden
-    pub const PERMISSION_DENIED: Code = Code::new("PERMISSION_DENIED");
+    pub const PERMISSION_DENIED: Code = Code::new(7);
 
     /// The request does not have valid authentication credentials for the
     /// operation.
     ///
     /// HTTP Mapping: 401 Unauthorized
-    pub const UNAUTHENTICATED: Code = Code::new("UNAUTHENTICATED");
+    pub const UNAUTHENTICATED: Code = Code::new(16);
 
     /// Some resource has been exhausted, perhaps a per-user quota, or
     /// perhaps the entire file system is out of space.
     ///
     /// HTTP Mapping: 429 Too Many Requests
-    pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
+    pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
 
     /// The operation was rejected because the system is not in a state
     /// required for the operation's execution.  For example, the directory
@@ -962,7 +947,7 @@ pub mod code {
     /// the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const FAILED_PRECONDITION: Code = Code::new("FAILED_PRECONDITION");
+    pub const FAILED_PRECONDITION: Code = Code::new(9);
 
     /// The operation was aborted, typically due to a concurrency issue such as
     /// a sequencer check failure or transaction abort.
@@ -971,7 +956,7 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ABORTED: Code = Code::new("ABORTED");
+    pub const ABORTED: Code = Code::new(10);
 
     /// The operation was attempted past the valid range.  E.g., seeking or
     /// reading past end-of-file.
@@ -990,20 +975,20 @@ pub mod code {
     /// they are done.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const OUT_OF_RANGE: Code = Code::new("OUT_OF_RANGE");
+    pub const OUT_OF_RANGE: Code = Code::new(11);
 
     /// The operation is not implemented or is not supported/enabled in this
     /// service.
     ///
     /// HTTP Mapping: 501 Not Implemented
-    pub const UNIMPLEMENTED: Code = Code::new("UNIMPLEMENTED");
+    pub const UNIMPLEMENTED: Code = Code::new(12);
 
     /// Internal errors.  This means that some invariants expected by the
     /// underlying system have been broken.  This error code is reserved
     /// for serious errors.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const INTERNAL: Code = Code::new("INTERNAL");
+    pub const INTERNAL: Code = Code::new(13);
 
     /// The service is currently unavailable.  This is most likely a
     /// transient condition, which can be corrected by retrying with
@@ -1014,22 +999,80 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 503 Service Unavailable
-    pub const UNAVAILABLE: Code = Code::new("UNAVAILABLE");
+    pub const UNAVAILABLE: Code = Code::new(14);
 
     /// Unrecoverable data loss or corruption.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const DATA_LOSS: Code = Code::new("DATA_LOSS");
+    pub const DATA_LOSS: Code = Code::new(15);
+
+    /// Creates a new Code instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+    
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("OK"),
+            1 => std::borrow::Cow::Borrowed("CANCELLED"),
+            2 => std::borrow::Cow::Borrowed("UNKNOWN"),
+            3 => std::borrow::Cow::Borrowed("INVALID_ARGUMENT"),
+            4 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+            5 => std::borrow::Cow::Borrowed("NOT_FOUND"),
+            6 => std::borrow::Cow::Borrowed("ALREADY_EXISTS"),
+            7 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
+            8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
+            9 => std::borrow::Cow::Borrowed("FAILED_PRECONDITION"),
+            10 => std::borrow::Cow::Borrowed("ABORTED"),
+            11 => std::borrow::Cow::Borrowed("OUT_OF_RANGE"),
+            12 => std::borrow::Cow::Borrowed("UNIMPLEMENTED"),
+            13 => std::borrow::Cow::Borrowed("INTERNAL"),
+            14 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
+            15 => std::borrow::Cow::Borrowed("DATA_LOSS"),
+            16 => std::borrow::Cow::Borrowed("UNAUTHENTICATED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "OK" => std::option::Option::Some(Self::OK),
+            "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+            "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+            "INVALID_ARGUMENT" => std::option::Option::Some(Self::INVALID_ARGUMENT),
+            "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+            "NOT_FOUND" => std::option::Option::Some(Self::NOT_FOUND),
+            "ALREADY_EXISTS" => std::option::Option::Some(Self::ALREADY_EXISTS),
+            "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
+            "UNAUTHENTICATED" => std::option::Option::Some(Self::UNAUTHENTICATED),
+            "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
+            "FAILED_PRECONDITION" => std::option::Option::Some(Self::FAILED_PRECONDITION),
+            "ABORTED" => std::option::Option::Some(Self::ABORTED),
+            "OUT_OF_RANGE" => std::option::Option::Some(Self::OUT_OF_RANGE),
+            "UNIMPLEMENTED" => std::option::Option::Some(Self::UNIMPLEMENTED),
+            "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
+            "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
+            "DATA_LOSS" => std::option::Option::Some(Self::DATA_LOSS),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for Code {
-  fn from(value: std::string::String) -> Self {
-    Self(std::borrow::Cow::Owned(value))
-  }
+impl std::convert::From<i32> for Code {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
 }
 
 impl std::default::Default for Code {
     fn default() -> Self {
-        code::OK
+        Self::new(0)
     }
 }

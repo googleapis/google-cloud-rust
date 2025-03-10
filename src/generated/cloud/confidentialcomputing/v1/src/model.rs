@@ -1108,97 +1108,134 @@ impl wkt::message::Message for ContainerImageSignature {
 
 /// SigningAlgorithm enumerates all the supported signing algorithms.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SigningAlgorithm(std::borrow::Cow<'static, str>);
+pub struct SigningAlgorithm(i32);
 
 impl SigningAlgorithm {
+    /// Unspecified signing algorithm.
+    pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm = SigningAlgorithm::new(0);
+
+    /// RSASSA-PSS with a SHA256 digest.
+    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new(1);
+
+    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
+    pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm = SigningAlgorithm::new(2);
+
+    /// ECDSA on the P-256 Curve with a SHA256 digest.
+    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new(3);
+
     /// Creates a new SigningAlgorithm instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SIGNING_ALGORITHM_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("RSASSA_PSS_SHA256"),
+            2 => std::borrow::Cow::Borrowed("RSASSA_PKCS1V15_SHA256"),
+            3 => std::borrow::Cow::Borrowed("ECDSA_P256_SHA256"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SIGNING_ALGORITHM_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SIGNING_ALGORITHM_UNSPECIFIED)
+            }
+            "RSASSA_PSS_SHA256" => std::option::Option::Some(Self::RSASSA_PSS_SHA256),
+            "RSASSA_PKCS1V15_SHA256" => std::option::Option::Some(Self::RSASSA_PKCS1V15_SHA256),
+            "ECDSA_P256_SHA256" => std::option::Option::Some(Self::ECDSA_P256_SHA256),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [SigningAlgorithm](SigningAlgorithm)
-pub mod signing_algorithm {
-    use super::SigningAlgorithm;
-
-    /// Unspecified signing algorithm.
-    pub const SIGNING_ALGORITHM_UNSPECIFIED: SigningAlgorithm =
-        SigningAlgorithm::new("SIGNING_ALGORITHM_UNSPECIFIED");
-
-    /// RSASSA-PSS with a SHA256 digest.
-    pub const RSASSA_PSS_SHA256: SigningAlgorithm = SigningAlgorithm::new("RSASSA_PSS_SHA256");
-
-    /// RSASSA-PKCS1 v1.5 with a SHA256 digest.
-    pub const RSASSA_PKCS1V15_SHA256: SigningAlgorithm =
-        SigningAlgorithm::new("RSASSA_PKCS1V15_SHA256");
-
-    /// ECDSA on the P-256 Curve with a SHA256 digest.
-    pub const ECDSA_P256_SHA256: SigningAlgorithm = SigningAlgorithm::new("ECDSA_P256_SHA256");
-}
-
-impl std::convert::From<std::string::String> for SigningAlgorithm {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SigningAlgorithm {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for SigningAlgorithm {
     fn default() -> Self {
-        signing_algorithm::SIGNING_ALGORITHM_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Token type enum contains the different types of token responses Confidential
 /// Space supports
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TokenType(std::borrow::Cow<'static, str>);
+pub struct TokenType(i32);
 
 impl TokenType {
+    /// Unspecified token type
+    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new(0);
+
+    /// OpenID Connect (OIDC) token type
+    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new(1);
+
+    /// Public Key Infrastructure (PKI) token type
+    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new(2);
+
+    /// Limited claim token type for AWS integration
+    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new(3);
+
+    /// Principal-tag-based token for AWS integration
+    pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType = TokenType::new(4);
+
     /// Creates a new TokenType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TOKEN_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TOKEN_TYPE_OIDC"),
+            2 => std::borrow::Cow::Borrowed("TOKEN_TYPE_PKI"),
+            3 => std::borrow::Cow::Borrowed("TOKEN_TYPE_LIMITED_AWS"),
+            4 => std::borrow::Cow::Borrowed("TOKEN_TYPE_AWS_PRINCIPALTAGS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TOKEN_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TOKEN_TYPE_UNSPECIFIED),
+            "TOKEN_TYPE_OIDC" => std::option::Option::Some(Self::TOKEN_TYPE_OIDC),
+            "TOKEN_TYPE_PKI" => std::option::Option::Some(Self::TOKEN_TYPE_PKI),
+            "TOKEN_TYPE_LIMITED_AWS" => std::option::Option::Some(Self::TOKEN_TYPE_LIMITED_AWS),
+            "TOKEN_TYPE_AWS_PRINCIPALTAGS" => {
+                std::option::Option::Some(Self::TOKEN_TYPE_AWS_PRINCIPALTAGS)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TokenType](TokenType)
-pub mod token_type {
-    use super::TokenType;
-
-    /// Unspecified token type
-    pub const TOKEN_TYPE_UNSPECIFIED: TokenType = TokenType::new("TOKEN_TYPE_UNSPECIFIED");
-
-    /// OpenID Connect (OIDC) token type
-    pub const TOKEN_TYPE_OIDC: TokenType = TokenType::new("TOKEN_TYPE_OIDC");
-
-    /// Public Key Infrastructure (PKI) token type
-    pub const TOKEN_TYPE_PKI: TokenType = TokenType::new("TOKEN_TYPE_PKI");
-
-    /// Limited claim token type for AWS integration
-    pub const TOKEN_TYPE_LIMITED_AWS: TokenType = TokenType::new("TOKEN_TYPE_LIMITED_AWS");
-
-    /// Principal-tag-based token for AWS integration
-    pub const TOKEN_TYPE_AWS_PRINCIPALTAGS: TokenType =
-        TokenType::new("TOKEN_TYPE_AWS_PRINCIPALTAGS");
-}
-
-impl std::convert::From<std::string::String> for TokenType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TokenType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for TokenType {
     fn default() -> Self {
-        token_type::TOKEN_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

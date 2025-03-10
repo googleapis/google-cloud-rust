@@ -50,7 +50,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::GET,
                 format!("/v1/{}/serviceAccounts", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71,7 +71,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93,7 +93,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 format!("/v1/{}/serviceAccounts", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -110,7 +110,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::PUT, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -136,7 +136,7 @@ impl crate::stubs::Iam for Iam {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -153,7 +153,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -172,7 +172,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undelete", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -189,7 +189,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -206,7 +206,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -223,7 +223,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/keys", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -245,7 +245,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -265,7 +265,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/keys", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -285,7 +285,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 format!("/v1/{}/keys:upload", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -302,7 +302,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -321,7 +321,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -338,7 +338,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -355,7 +355,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:signBlob", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -372,7 +372,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:signJwt", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -392,7 +392,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 format!("/v1/{}:getIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -424,7 +424,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 format!("/v1/{}:setIamPolicy", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -444,7 +444,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 format!("/v1/{}:testIamPermissions", req.resource),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -464,7 +464,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 "/v1/roles:queryGrantableRoles".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -481,7 +481,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/roles".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -505,7 +505,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -524,7 +524,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/roles", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -541,7 +541,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -568,7 +568,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -588,7 +588,7 @@ impl crate::stubs::Iam for Iam {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undelete", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -608,7 +608,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 "/v1/permissions:queryTestablePermissions".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -628,7 +628,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 "/v1/iamPolicies:queryAuditableServices".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -648,7 +648,7 @@ impl crate::stubs::Iam for Iam {
                 reqwest::Method::POST,
                 "/v1/iamPolicies:lintPolicy".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

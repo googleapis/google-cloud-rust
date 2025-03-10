@@ -170,53 +170,72 @@ pub mod environment {
 
     /// Possible execution states for an environment.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The environment's states is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The environment is not running and can't be connected to. Starting the
         /// environment will transition it to the PENDING state.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(1);
 
         /// The environment is being started but is not yet ready to accept
         /// connections.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(2);
 
         /// The environment is running and ready to accept connections. It will
         /// automatically transition back to DISABLED after a period of inactivity or
         /// if another environment is started.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(3);
 
         /// The environment is being deleted and can't be connected to.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                2 => std::borrow::Cow::Borrowed("PENDING"),
+                3 => std::borrow::Cow::Borrowed("RUNNING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -513,57 +532,78 @@ pub mod start_environment_metadata {
     /// through all of these states when starting. More states are likely to be
     /// added in the future.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The environment's start state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The environment is in the process of being started, but no additional
         /// details are available.
-        pub const STARTING: State = State::new("STARTING");
+        pub const STARTING: State = State::new(1);
 
         /// Startup is waiting for the user's disk to be unarchived. This can happen
         /// when the user returns to Cloud Shell after not having used it for a
         /// while, and suggests that startup will take longer than normal.
-        pub const UNARCHIVING_DISK: State = State::new("UNARCHIVING_DISK");
+        pub const UNARCHIVING_DISK: State = State::new(2);
 
         /// Startup is waiting for compute resources to be assigned to the
         /// environment. This should normally happen very quickly, but an environment
         /// might stay in this state for an extended period of time if the system is
         /// experiencing heavy load.
-        pub const AWAITING_COMPUTE_RESOURCES: State = State::new("AWAITING_COMPUTE_RESOURCES");
+        pub const AWAITING_COMPUTE_RESOURCES: State = State::new(4);
 
         /// Startup has completed. If the start operation was successful, the user
         /// should be able to establish an SSH connection to their environment.
         /// Otherwise, the operation will contain details of the failure.
-        pub const FINISHED: State = State::new("FINISHED");
+        pub const FINISHED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STARTING"),
+                2 => std::borrow::Cow::Borrowed("UNARCHIVING_DISK"),
+                3 => std::borrow::Cow::Borrowed("FINISHED"),
+                4 => std::borrow::Cow::Borrowed("AWAITING_COMPUTE_RESOURCES"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "STARTING" => std::option::Option::Some(Self::STARTING),
+                "UNARCHIVING_DISK" => std::option::Option::Some(Self::UNARCHIVING_DISK),
+                "AWAITING_COMPUTE_RESOURCES" => {
+                    std::option::Option::Some(Self::AWAITING_COMPUTE_RESOURCES)
+                }
+                "FINISHED" => std::option::Option::Some(Self::FINISHED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -836,61 +876,83 @@ pub mod cloud_shell_error_details {
 
     /// Set of possible errors returned from API calls.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CloudShellErrorCode(std::borrow::Cow<'static, str>);
+    pub struct CloudShellErrorCode(i32);
 
     impl CloudShellErrorCode {
-        /// Creates a new CloudShellErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CloudShellErrorCode](CloudShellErrorCode)
-    pub mod cloud_shell_error_code {
-        use super::CloudShellErrorCode;
-
         /// An unknown error occurred.
         pub const CLOUD_SHELL_ERROR_CODE_UNSPECIFIED: CloudShellErrorCode =
-            CloudShellErrorCode::new("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED");
+            CloudShellErrorCode::new(0);
 
         /// The image used by the Cloud Shell environment either does not exist or
         /// the user does not have access to it.
-        pub const IMAGE_UNAVAILABLE: CloudShellErrorCode =
-            CloudShellErrorCode::new("IMAGE_UNAVAILABLE");
+        pub const IMAGE_UNAVAILABLE: CloudShellErrorCode = CloudShellErrorCode::new(1);
 
         /// Cloud Shell has been disabled by an administrator for the user making the
         /// request.
-        pub const CLOUD_SHELL_DISABLED: CloudShellErrorCode =
-            CloudShellErrorCode::new("CLOUD_SHELL_DISABLED");
+        pub const CLOUD_SHELL_DISABLED: CloudShellErrorCode = CloudShellErrorCode::new(2);
 
         /// Cloud Shell has been permanently disabled due to a Terms of Service
         /// violation by the user.
-        pub const TOS_VIOLATION: CloudShellErrorCode = CloudShellErrorCode::new("TOS_VIOLATION");
+        pub const TOS_VIOLATION: CloudShellErrorCode = CloudShellErrorCode::new(4);
 
         /// The user has exhausted their weekly Cloud Shell quota, and Cloud Shell
         /// will be disabled until the quota resets.
-        pub const QUOTA_EXCEEDED: CloudShellErrorCode = CloudShellErrorCode::new("QUOTA_EXCEEDED");
+        pub const QUOTA_EXCEEDED: CloudShellErrorCode = CloudShellErrorCode::new(5);
 
         /// The Cloud Shell environment is unavailable and cannot be connected to at
         /// the moment.
-        pub const ENVIRONMENT_UNAVAILABLE: CloudShellErrorCode =
-            CloudShellErrorCode::new("ENVIRONMENT_UNAVAILABLE");
+        pub const ENVIRONMENT_UNAVAILABLE: CloudShellErrorCode = CloudShellErrorCode::new(6);
+
+        /// Creates a new CloudShellErrorCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMAGE_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("CLOUD_SHELL_DISABLED"),
+                4 => std::borrow::Cow::Borrowed("TOS_VIOLATION"),
+                5 => std::borrow::Cow::Borrowed("QUOTA_EXCEEDED"),
+                6 => std::borrow::Cow::Borrowed("ENVIRONMENT_UNAVAILABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED)
+                }
+                "IMAGE_UNAVAILABLE" => std::option::Option::Some(Self::IMAGE_UNAVAILABLE),
+                "CLOUD_SHELL_DISABLED" => std::option::Option::Some(Self::CLOUD_SHELL_DISABLED),
+                "TOS_VIOLATION" => std::option::Option::Some(Self::TOS_VIOLATION),
+                "QUOTA_EXCEEDED" => std::option::Option::Some(Self::QUOTA_EXCEEDED),
+                "ENVIRONMENT_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::ENVIRONMENT_UNAVAILABLE)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CloudShellErrorCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CloudShellErrorCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CloudShellErrorCode {
         fn default() -> Self {
-            cloud_shell_error_code::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

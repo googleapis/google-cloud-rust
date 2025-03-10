@@ -242,49 +242,68 @@ pub mod backtest_result {
 
     /// The possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -790,44 +809,60 @@ pub mod big_query_destination {
     /// WriteDisposition controls the behavior when the destination table already
     /// exists.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WriteDisposition(std::borrow::Cow<'static, str>);
+    pub struct WriteDisposition(i32);
 
     impl WriteDisposition {
+        /// Default behavior is the same as WRITE_EMPTY.
+        pub const WRITE_DISPOSITION_UNSPECIFIED: WriteDisposition = WriteDisposition::new(0);
+
+        /// If the table already exists and contains data, an error is returned.
+        pub const WRITE_EMPTY: WriteDisposition = WriteDisposition::new(1);
+
+        /// If the table already exists, the data will be overwritten.
+        pub const WRITE_TRUNCATE: WriteDisposition = WriteDisposition::new(2);
+
         /// Creates a new WriteDisposition instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("WRITE_DISPOSITION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("WRITE_EMPTY"),
+                2 => std::borrow::Cow::Borrowed("WRITE_TRUNCATE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "WRITE_DISPOSITION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::WRITE_DISPOSITION_UNSPECIFIED)
+                }
+                "WRITE_EMPTY" => std::option::Option::Some(Self::WRITE_EMPTY),
+                "WRITE_TRUNCATE" => std::option::Option::Some(Self::WRITE_TRUNCATE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [WriteDisposition](WriteDisposition)
-    pub mod write_disposition {
-        use super::WriteDisposition;
-
-        /// Default behavior is the same as WRITE_EMPTY.
-        pub const WRITE_DISPOSITION_UNSPECIFIED: WriteDisposition =
-            WriteDisposition::new("WRITE_DISPOSITION_UNSPECIFIED");
-
-        /// If the table already exists and contains data, an error is returned.
-        pub const WRITE_EMPTY: WriteDisposition = WriteDisposition::new("WRITE_EMPTY");
-
-        /// If the table already exists, the data will be overwritten.
-        pub const WRITE_TRUNCATE: WriteDisposition = WriteDisposition::new("WRITE_TRUNCATE");
-    }
-
-    impl std::convert::From<std::string::String> for WriteDisposition {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for WriteDisposition {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for WriteDisposition {
         fn default() -> Self {
-            write_disposition::WRITE_DISPOSITION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -973,49 +1008,68 @@ pub mod dataset {
 
     /// The possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1716,93 +1770,129 @@ pub mod engine_config {
 
     /// The possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The type of the hyperparameter source.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HyperparameterSourceType(std::borrow::Cow<'static, str>);
+    pub struct HyperparameterSourceType(i32);
 
     impl HyperparameterSourceType {
-        /// Creates a new HyperparameterSourceType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [HyperparameterSourceType](HyperparameterSourceType)
-    pub mod hyperparameter_source_type {
-        use super::HyperparameterSourceType;
-
         /// Hyperparameter source type is unspecified, defaults to TUNING.
         pub const HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED: HyperparameterSourceType =
-            HyperparameterSourceType::new("HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED");
+            HyperparameterSourceType::new(0);
 
         /// The EngineConfig creation starts a tuning job which selects the best
         /// hyperparameters.
-        pub const TUNING: HyperparameterSourceType = HyperparameterSourceType::new("TUNING");
+        pub const TUNING: HyperparameterSourceType = HyperparameterSourceType::new(1);
 
         /// The hyperparameters are inherited from another EngineConfig.
-        pub const INHERITED: HyperparameterSourceType = HyperparameterSourceType::new("INHERITED");
+        pub const INHERITED: HyperparameterSourceType = HyperparameterSourceType::new(2);
+
+        /// Creates a new HyperparameterSourceType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TUNING"),
+                2 => std::borrow::Cow::Borrowed("INHERITED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED)
+                }
+                "TUNING" => std::option::Option::Some(Self::TUNING),
+                "INHERITED" => std::option::Option::Some(Self::INHERITED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for HyperparameterSourceType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for HyperparameterSourceType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for HyperparameterSourceType {
         fn default() -> Self {
-            hyperparameter_source_type::HYPERPARAMETER_SOURCE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2349,47 +2439,64 @@ pub mod engine_version {
     /// State determines the lifecycle of a version and the models/engine configs
     /// trained with it.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default state, should never be used.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Version is available for training and inference.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(1);
 
         /// Models using this version can still be run, but new ones cannot be
         /// trained.
-        pub const LIMITED: State = State::new("LIMITED");
+        pub const LIMITED: State = State::new(2);
 
         /// Version is deprecated, listed for informational purposes only.
-        pub const DECOMMISSIONED: State = State::new("DECOMMISSIONED");
+        pub const DECOMMISSIONED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("LIMITED"),
+                3 => std::borrow::Cow::Borrowed("DECOMMISSIONED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "LIMITED" => std::option::Option::Some(Self::LIMITED),
+                "DECOMMISSIONED" => std::option::Option::Some(Self::DECOMMISSIONED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2681,49 +2788,68 @@ pub mod instance {
 
     /// The Resource State
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3197,43 +3323,60 @@ pub mod import_registered_parties_request {
 
     /// UpdateMode controls the behavior for ImportRegisteredParties.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UpdateMode(std::borrow::Cow<'static, str>);
+    pub struct UpdateMode(i32);
 
     impl UpdateMode {
+        /// Default mode.
+        pub const UPDATE_MODE_UNSPECIFIED: UpdateMode = UpdateMode::new(0);
+
+        /// Replace parties that are removable in Parties Table with new parties.
+        pub const REPLACE: UpdateMode = UpdateMode::new(1);
+
+        /// Add new parties to Parties Table.
+        pub const APPEND: UpdateMode = UpdateMode::new(2);
+
         /// Creates a new UpdateMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UPDATE_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REPLACE"),
+                2 => std::borrow::Cow::Borrowed("APPEND"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UPDATE_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::UPDATE_MODE_UNSPECIFIED)
+                }
+                "REPLACE" => std::option::Option::Some(Self::REPLACE),
+                "APPEND" => std::option::Option::Some(Self::APPEND),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [UpdateMode](UpdateMode)
-    pub mod update_mode {
-        use super::UpdateMode;
-
-        /// Default mode.
-        pub const UPDATE_MODE_UNSPECIFIED: UpdateMode = UpdateMode::new("UPDATE_MODE_UNSPECIFIED");
-
-        /// Replace parties that are removable in Parties Table with new parties.
-        pub const REPLACE: UpdateMode = UpdateMode::new("REPLACE");
-
-        /// Add new parties to Parties Table.
-        pub const APPEND: UpdateMode = UpdateMode::new("APPEND");
-    }
-
-    impl std::convert::From<std::string::String> for UpdateMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for UpdateMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for UpdateMode {
         fn default() -> Self {
-            update_mode::UPDATE_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3556,49 +3699,68 @@ pub mod model {
 
     /// The possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4266,49 +4428,68 @@ pub mod prediction_result {
 
     /// The possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State is unspecified, should not occur.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The resource has not finished being created.
+        pub const CREATING: State = State::new(1);
+
+        /// The resource is active/ready to be used.
+        pub const ACTIVE: State = State::new(2);
+
+        /// The resource is in the process of being updated.
+        pub const UPDATING: State = State::new(3);
+
+        /// The resource is in the process of being deleted.
+        pub const DELETING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State is unspecified, should not occur.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The resource has not finished being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// The resource is active/ready to be used.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The resource is in the process of being updated.
-        pub const UPDATING: State = State::new("UPDATING");
-
-        /// The resource is in the process of being deleted.
-        pub const DELETING: State = State::new("DELETING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4868,43 +5049,59 @@ impl wkt::message::Message for OperationMetadata {
 
 /// Indicate which LineOfBusiness a party belongs to.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineOfBusiness(std::borrow::Cow<'static, str>);
+pub struct LineOfBusiness(i32);
 
 impl LineOfBusiness {
+    /// An unspecified LineOfBusiness. Do not use.
+    pub const LINE_OF_BUSINESS_UNSPECIFIED: LineOfBusiness = LineOfBusiness::new(0);
+
+    /// Commercial LineOfBusiness.
+    pub const COMMERCIAL: LineOfBusiness = LineOfBusiness::new(1);
+
+    /// Retail LineOfBusiness.
+    pub const RETAIL: LineOfBusiness = LineOfBusiness::new(2);
+
     /// Creates a new LineOfBusiness instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LINE_OF_BUSINESS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("COMMERCIAL"),
+            2 => std::borrow::Cow::Borrowed("RETAIL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LINE_OF_BUSINESS_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LINE_OF_BUSINESS_UNSPECIFIED)
+            }
+            "COMMERCIAL" => std::option::Option::Some(Self::COMMERCIAL),
+            "RETAIL" => std::option::Option::Some(Self::RETAIL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [LineOfBusiness](LineOfBusiness)
-pub mod line_of_business {
-    use super::LineOfBusiness;
-
-    /// An unspecified LineOfBusiness. Do not use.
-    pub const LINE_OF_BUSINESS_UNSPECIFIED: LineOfBusiness =
-        LineOfBusiness::new("LINE_OF_BUSINESS_UNSPECIFIED");
-
-    /// Commercial LineOfBusiness.
-    pub const COMMERCIAL: LineOfBusiness = LineOfBusiness::new("COMMERCIAL");
-
-    /// Retail LineOfBusiness.
-    pub const RETAIL: LineOfBusiness = LineOfBusiness::new("RETAIL");
-}
-
-impl std::convert::From<std::string::String> for LineOfBusiness {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LineOfBusiness {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for LineOfBusiness {
     fn default() -> Self {
-        line_of_business::LINE_OF_BUSINESS_UNSPECIFIED
+        Self::new(0)
     }
 }

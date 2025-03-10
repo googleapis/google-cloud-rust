@@ -25,151 +25,205 @@ extern crate wkt;
 
 /// The encryption state of the device.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceEncryptionStatus(std::borrow::Cow<'static, str>);
+pub struct DeviceEncryptionStatus(i32);
 
 impl DeviceEncryptionStatus {
+    /// The encryption status of the device is not specified or not known.
+    pub const ENCRYPTION_UNSPECIFIED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(0);
+
+    /// The device does not support encryption.
+    pub const ENCRYPTION_UNSUPPORTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(1);
+
+    /// The device supports encryption, but is currently unencrypted.
+    pub const UNENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(2);
+
+    /// The device is encrypted.
+    pub const ENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(3);
+
     /// Creates a new DeviceEncryptionStatus instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("ENCRYPTION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ENCRYPTION_UNSUPPORTED"),
+            2 => std::borrow::Cow::Borrowed("UNENCRYPTED"),
+            3 => std::borrow::Cow::Borrowed("ENCRYPTED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "ENCRYPTION_UNSPECIFIED" => std::option::Option::Some(Self::ENCRYPTION_UNSPECIFIED),
+            "ENCRYPTION_UNSUPPORTED" => std::option::Option::Some(Self::ENCRYPTION_UNSUPPORTED),
+            "UNENCRYPTED" => std::option::Option::Some(Self::UNENCRYPTED),
+            "ENCRYPTED" => std::option::Option::Some(Self::ENCRYPTED),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DeviceEncryptionStatus](DeviceEncryptionStatus)
-pub mod device_encryption_status {
-    use super::DeviceEncryptionStatus;
-
-    /// The encryption status of the device is not specified or not known.
-    pub const ENCRYPTION_UNSPECIFIED: DeviceEncryptionStatus =
-        DeviceEncryptionStatus::new("ENCRYPTION_UNSPECIFIED");
-
-    /// The device does not support encryption.
-    pub const ENCRYPTION_UNSUPPORTED: DeviceEncryptionStatus =
-        DeviceEncryptionStatus::new("ENCRYPTION_UNSUPPORTED");
-
-    /// The device supports encryption, but is currently unencrypted.
-    pub const UNENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new("UNENCRYPTED");
-
-    /// The device is encrypted.
-    pub const ENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new("ENCRYPTED");
-}
-
-impl std::convert::From<std::string::String> for DeviceEncryptionStatus {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DeviceEncryptionStatus {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DeviceEncryptionStatus {
     fn default() -> Self {
-        device_encryption_status::ENCRYPTION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The operating system type of the device.
 /// Next id: 7
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OsType(std::borrow::Cow<'static, str>);
+pub struct OsType(i32);
 
 impl OsType {
+    /// The operating system of the device is not specified or not known.
+    pub const OS_UNSPECIFIED: OsType = OsType::new(0);
+
+    /// A desktop Mac operating system.
+    pub const DESKTOP_MAC: OsType = OsType::new(1);
+
+    /// A desktop Windows operating system.
+    pub const DESKTOP_WINDOWS: OsType = OsType::new(2);
+
+    /// A desktop Linux operating system.
+    pub const DESKTOP_LINUX: OsType = OsType::new(3);
+
+    /// A desktop ChromeOS operating system.
+    pub const DESKTOP_CHROME_OS: OsType = OsType::new(6);
+
+    /// An Android operating system.
+    pub const ANDROID: OsType = OsType::new(4);
+
+    /// An iOS operating system.
+    pub const IOS: OsType = OsType::new(5);
+
     /// Creates a new OsType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("OS_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DESKTOP_MAC"),
+            2 => std::borrow::Cow::Borrowed("DESKTOP_WINDOWS"),
+            3 => std::borrow::Cow::Borrowed("DESKTOP_LINUX"),
+            4 => std::borrow::Cow::Borrowed("ANDROID"),
+            5 => std::borrow::Cow::Borrowed("IOS"),
+            6 => std::borrow::Cow::Borrowed("DESKTOP_CHROME_OS"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "OS_UNSPECIFIED" => std::option::Option::Some(Self::OS_UNSPECIFIED),
+            "DESKTOP_MAC" => std::option::Option::Some(Self::DESKTOP_MAC),
+            "DESKTOP_WINDOWS" => std::option::Option::Some(Self::DESKTOP_WINDOWS),
+            "DESKTOP_LINUX" => std::option::Option::Some(Self::DESKTOP_LINUX),
+            "DESKTOP_CHROME_OS" => std::option::Option::Some(Self::DESKTOP_CHROME_OS),
+            "ANDROID" => std::option::Option::Some(Self::ANDROID),
+            "IOS" => std::option::Option::Some(Self::IOS),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [OsType](OsType)
-pub mod os_type {
-    use super::OsType;
-
-    /// The operating system of the device is not specified or not known.
-    pub const OS_UNSPECIFIED: OsType = OsType::new("OS_UNSPECIFIED");
-
-    /// A desktop Mac operating system.
-    pub const DESKTOP_MAC: OsType = OsType::new("DESKTOP_MAC");
-
-    /// A desktop Windows operating system.
-    pub const DESKTOP_WINDOWS: OsType = OsType::new("DESKTOP_WINDOWS");
-
-    /// A desktop Linux operating system.
-    pub const DESKTOP_LINUX: OsType = OsType::new("DESKTOP_LINUX");
-
-    /// A desktop ChromeOS operating system.
-    pub const DESKTOP_CHROME_OS: OsType = OsType::new("DESKTOP_CHROME_OS");
-
-    /// An Android operating system.
-    pub const ANDROID: OsType = OsType::new("ANDROID");
-
-    /// An iOS operating system.
-    pub const IOS: OsType = OsType::new("IOS");
-}
-
-impl std::convert::From<std::string::String> for OsType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for OsType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for OsType {
     fn default() -> Self {
-        os_type::OS_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The degree to which the device is managed by the Cloud organization.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceManagementLevel(std::borrow::Cow<'static, str>);
+pub struct DeviceManagementLevel(i32);
 
 impl DeviceManagementLevel {
-    /// Creates a new DeviceManagementLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [DeviceManagementLevel](DeviceManagementLevel)
-pub mod device_management_level {
-    use super::DeviceManagementLevel;
-
     /// The device's management level is not specified or not known.
-    pub const MANAGEMENT_UNSPECIFIED: DeviceManagementLevel =
-        DeviceManagementLevel::new("MANAGEMENT_UNSPECIFIED");
+    pub const MANAGEMENT_UNSPECIFIED: DeviceManagementLevel = DeviceManagementLevel::new(0);
 
     /// The device is not managed.
-    pub const NONE: DeviceManagementLevel = DeviceManagementLevel::new("NONE");
+    pub const NONE: DeviceManagementLevel = DeviceManagementLevel::new(1);
 
     /// Basic management is enabled, which is generally limited to monitoring and
     /// wiping the corporate account.
-    pub const BASIC: DeviceManagementLevel = DeviceManagementLevel::new("BASIC");
+    pub const BASIC: DeviceManagementLevel = DeviceManagementLevel::new(2);
 
     /// Complete device management. This includes more thorough monitoring and the
     /// ability to directly manage the device (such as remote wiping). This can be
     /// enabled through the Android Enterprise Platform.
-    pub const COMPLETE: DeviceManagementLevel = DeviceManagementLevel::new("COMPLETE");
+    pub const COMPLETE: DeviceManagementLevel = DeviceManagementLevel::new(3);
+
+    /// Creates a new DeviceManagementLevel instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("MANAGEMENT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NONE"),
+            2 => std::borrow::Cow::Borrowed("BASIC"),
+            3 => std::borrow::Cow::Borrowed("COMPLETE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "MANAGEMENT_UNSPECIFIED" => std::option::Option::Some(Self::MANAGEMENT_UNSPECIFIED),
+            "NONE" => std::option::Option::Some(Self::NONE),
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for DeviceManagementLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DeviceManagementLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DeviceManagementLevel {
     fn default() -> Self {
-        device_management_level::MANAGEMENT_UNSPECIFIED
+        Self::new(0)
     }
 }

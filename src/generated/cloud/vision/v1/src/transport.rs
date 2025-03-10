@@ -49,7 +49,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/images:annotate".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66,7 +66,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/files:annotate".to_string())
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86,7 +86,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
                 reqwest::Method::POST,
                 "/v1/images:asyncBatchAnnotate".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -106,7 +106,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
                 reqwest::Method::POST,
                 "/v1/files:asyncBatchAnnotate".to_string(),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -123,7 +123,7 @@ impl crate::stubs::ImageAnnotator for ImageAnnotator {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -182,7 +182,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}/productSets", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -205,7 +205,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::GET,
                 format!("/v1/{}/productSets", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -226,7 +226,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -254,7 +254,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -283,7 +283,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -305,7 +305,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}/products", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -325,7 +325,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/products", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -346,7 +346,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -374,7 +374,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -403,7 +403,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -425,7 +425,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}/referenceImages", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -445,7 +445,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -467,7 +467,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::GET,
                 format!("/v1/{}/referenceImages", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -488,7 +488,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -510,7 +510,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}:addProduct", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -530,7 +530,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}:removeProduct", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -547,7 +547,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/products", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -571,7 +571,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}/productSets:import", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -591,7 +591,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
                 reqwest::Method::POST,
                 format!("/v1/{}/products:purge", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -608,7 +608,7 @@ impl crate::stubs::ProductSearch for ProductSearch {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

@@ -151,43 +151,60 @@ pub mod version {
 
     /// Each type represents the release availability of a CDF version
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
+        /// Version does not have availability yet
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+        /// Version is under development and not considered stable
+        pub const TYPE_PREVIEW: Type = Type::new(1);
+
+        /// Version is available for public use
+        pub const TYPE_GENERAL_AVAILABILITY: Type = Type::new(2);
+
         /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("TYPE_PREVIEW"),
+                2 => std::borrow::Cow::Borrowed("TYPE_GENERAL_AVAILABILITY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "TYPE_PREVIEW" => std::option::Option::Some(Self::TYPE_PREVIEW),
+                "TYPE_GENERAL_AVAILABILITY" => {
+                    std::option::Option::Some(Self::TYPE_GENERAL_AVAILABILITY)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
-        /// Version does not have availability yet
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-        /// Version is under development and not considered stable
-        pub const TYPE_PREVIEW: Type = Type::new("TYPE_PREVIEW");
-
-        /// Version is available for public use
-        pub const TYPE_GENERAL_AVAILABILITY: Type = Type::new("TYPE_GENERAL_AVAILABILITY");
-    }
-
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -245,96 +262,131 @@ pub mod accelerator {
     /// Each type represents an Accelerator (Add-On) supported by Cloud Data Fusion
     /// service.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AcceleratorType(std::borrow::Cow<'static, str>);
+    pub struct AcceleratorType(i32);
 
     impl AcceleratorType {
-        /// Creates a new AcceleratorType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AcceleratorType](AcceleratorType)
-    pub mod accelerator_type {
-        use super::AcceleratorType;
-
         /// Default value, if unspecified.
-        pub const ACCELERATOR_TYPE_UNSPECIFIED: AcceleratorType =
-            AcceleratorType::new("ACCELERATOR_TYPE_UNSPECIFIED");
+        pub const ACCELERATOR_TYPE_UNSPECIFIED: AcceleratorType = AcceleratorType::new(0);
 
         /// Change Data Capture accelerator for CDF.
-        pub const CDC: AcceleratorType = AcceleratorType::new("CDC");
+        pub const CDC: AcceleratorType = AcceleratorType::new(1);
 
         /// Cloud Healthcare accelerator for CDF. This accelerator is to enable Cloud
         /// Healthcare specific CDF plugins developed by Healthcare team.
-        pub const HEALTHCARE: AcceleratorType = AcceleratorType::new("HEALTHCARE");
+        pub const HEALTHCARE: AcceleratorType = AcceleratorType::new(2);
 
         /// Contact Center AI Insights
         /// This accelerator is used to enable import and export pipelines
         /// custom built to streamline CCAI Insights processing.
-        pub const CCAI_INSIGHTS: AcceleratorType = AcceleratorType::new("CCAI_INSIGHTS");
+        pub const CCAI_INSIGHTS: AcceleratorType = AcceleratorType::new(3);
+
+        /// Creates a new AcceleratorType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACCELERATOR_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CDC"),
+                2 => std::borrow::Cow::Borrowed("HEALTHCARE"),
+                3 => std::borrow::Cow::Borrowed("CCAI_INSIGHTS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACCELERATOR_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACCELERATOR_TYPE_UNSPECIFIED)
+                }
+                "CDC" => std::option::Option::Some(Self::CDC),
+                "HEALTHCARE" => std::option::Option::Some(Self::HEALTHCARE),
+                "CCAI_INSIGHTS" => std::option::Option::Some(Self::CCAI_INSIGHTS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AcceleratorType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AcceleratorType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AcceleratorType {
         fn default() -> Self {
-            accelerator_type::ACCELERATOR_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Different values possible for the state of an accelerator
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Default value, do not use
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Indicates that the accelerator is enabled and available to use
-        pub const ENABLED: State = State::new("ENABLED");
+        pub const ENABLED: State = State::new(1);
 
         /// Indicates that the accelerator is disabled and not available to use
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(2);
 
         /// Indicates that accelerator state is currently unknown.
         /// Requests for enable, disable could be retried while in this state
-        pub const UNKNOWN: State = State::new("UNKNOWN");
+        pub const UNKNOWN: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                3 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -743,161 +795,223 @@ pub mod instance {
     /// Represents the type of Data Fusion instance. Each type is configured with
     /// the default settings for processing and memory.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::borrow::Cow<'static, str>);
+    pub struct Type(i32);
 
     impl Type {
-        /// Creates a new Type instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Type](Type)
-    pub mod r#type {
-        use super::Type;
-
         /// No type specified. The instance creation will fail.
-        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
+        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
 
         /// Basic Data Fusion instance. In Basic type, the user will be able to
         /// create data pipelines using point and click UI. However, there are
         /// certain limitations, such as fewer number of concurrent pipelines, no
         /// support for streaming pipelines, etc.
-        pub const BASIC: Type = Type::new("BASIC");
+        pub const BASIC: Type = Type::new(1);
 
         /// Enterprise Data Fusion instance. In Enterprise type, the user will have
         /// all features available, such as support for streaming pipelines, higher
         /// number of concurrent pipelines, etc.
-        pub const ENTERPRISE: Type = Type::new("ENTERPRISE");
+        pub const ENTERPRISE: Type = Type::new(2);
 
         /// Developer Data Fusion instance. In Developer type, the user will have all
         /// features available but with restrictive capabilities. This is to help
         /// enterprises design and develop their data ingestion and integration
         /// pipelines at low cost.
-        pub const DEVELOPER: Type = Type::new("DEVELOPER");
+        pub const DEVELOPER: Type = Type::new(3);
+
+        /// Creates a new Type instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASIC"),
+                2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                3 => std::borrow::Cow::Borrowed("DEVELOPER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                "DEVELOPER" => std::option::Option::Some(Self::DEVELOPER),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Type {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            r#type::TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Represents the state of a Data Fusion instance
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Instance does not have a state yet
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Instance is being created
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// Instance is active and ready for requests. This corresponds to 'RUNNING'
         /// in datafusion.v1beta1.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// Instance creation failed
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(3);
 
         /// Instance is being deleted
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// Instance is being upgraded
-        pub const UPGRADING: State = State::new("UPGRADING");
+        pub const UPGRADING: State = State::new(5);
 
         /// Instance is being restarted
-        pub const RESTARTING: State = State::new("RESTARTING");
+        pub const RESTARTING: State = State::new(6);
 
         /// Instance is being updated on customer request
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(7);
 
         /// Instance is being auto-updated
-        pub const AUTO_UPDATING: State = State::new("AUTO_UPDATING");
+        pub const AUTO_UPDATING: State = State::new(8);
 
         /// Instance is being auto-upgraded
-        pub const AUTO_UPGRADING: State = State::new("AUTO_UPGRADING");
+        pub const AUTO_UPGRADING: State = State::new(9);
 
         /// Instance is disabled
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(10);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("UPGRADING"),
+                6 => std::borrow::Cow::Borrowed("RESTARTING"),
+                7 => std::borrow::Cow::Borrowed("UPDATING"),
+                8 => std::borrow::Cow::Borrowed("AUTO_UPDATING"),
+                9 => std::borrow::Cow::Borrowed("AUTO_UPGRADING"),
+                10 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "UPGRADING" => std::option::Option::Some(Self::UPGRADING),
+                "RESTARTING" => std::option::Option::Some(Self::RESTARTING),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "AUTO_UPDATING" => std::option::Option::Some(Self::AUTO_UPDATING),
+                "AUTO_UPGRADING" => std::option::Option::Some(Self::AUTO_UPGRADING),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The reason for disabling the instance if the state is DISABLED.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DisabledReason(std::borrow::Cow<'static, str>);
+    pub struct DisabledReason(i32);
 
     impl DisabledReason {
+        /// This is an unknown reason for disabling.
+        pub const DISABLED_REASON_UNSPECIFIED: DisabledReason = DisabledReason::new(0);
+
+        /// The KMS key used by the instance is either revoked or denied access to
+        pub const KMS_KEY_ISSUE: DisabledReason = DisabledReason::new(1);
+
         /// Creates a new DisabledReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DISABLED_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("KMS_KEY_ISSUE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DISABLED_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DISABLED_REASON_UNSPECIFIED)
+                }
+                "KMS_KEY_ISSUE" => std::option::Option::Some(Self::KMS_KEY_ISSUE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DisabledReason](DisabledReason)
-    pub mod disabled_reason {
-        use super::DisabledReason;
-
-        /// This is an unknown reason for disabling.
-        pub const DISABLED_REASON_UNSPECIFIED: DisabledReason =
-            DisabledReason::new("DISABLED_REASON_UNSPECIFIED");
-
-        /// The KMS key used by the instance is either revoked or denied access to
-        pub const KMS_KEY_ISSUE: DisabledReason = DisabledReason::new("KMS_KEY_ISSUE");
-    }
-
-    impl std::convert::From<std::string::String> for DisabledReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DisabledReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DisabledReason {
         fn default() -> Self {
-            disabled_reason::DISABLED_REASON_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

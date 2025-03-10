@@ -52,7 +52,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/builds", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73,7 +73,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/builds/{}", req.project_id, req.id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96,7 +96,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/builds", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -122,7 +122,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/builds/{}:cancel", req.project_id, req.id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -142,7 +142,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/builds/{}:retry", req.project_id, req.id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -159,7 +159,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -179,7 +179,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/triggers", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -205,7 +205,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     req.project_id, req.trigger_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -228,7 +228,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/triggers", req.project_id),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -256,7 +256,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     req.project_id, req.trigger_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -282,7 +282,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     req.project_id, req.trigger_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -317,7 +317,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     req.project_id, req.trigger_id
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -341,7 +341,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                     req.project_id, req.trigger
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -363,7 +363,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::POST,
                 format!("/v1/{}/workerPools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -384,7 +384,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -403,7 +403,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -434,7 +434,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -467,7 +467,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
                 reqwest::Method::GET,
                 format!("/v1/{}/workerPools", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -488,7 +488,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -507,7 +507,7 @@ impl crate::stubs::CloudBuild for CloudBuild {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
