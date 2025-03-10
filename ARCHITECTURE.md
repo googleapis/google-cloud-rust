@@ -1,6 +1,6 @@
 # Architectuire Guide
 
-This document describes the high-level architecture of the Google Cloud C++
+This document describes the high-level architecture of the Google Cloud Rust
 Client libraries. Its main audience are developers and contributors making
 changes and additions to these libraries. If you want to familiarize yourself
 with the code in the `google-cloud-rust` project, you are at the right place.
@@ -67,7 +67,7 @@ hand-crafted code. The main directories are:
   client.
 - `src/lro`: support code for long-running operations.
 - `generator/`: the code generator, also known as `sidekick`.
-- `src/integration-tests`: the integration tests. This run against production
+- `src/integration-tests`: the integration tests. These run against production
   and validate (using a small number of services) that the generator produces
   working code.
 - `guide/src`: the user guide, a "Rust Book" containing several tutorials for

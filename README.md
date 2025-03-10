@@ -10,7 +10,8 @@ Idiomatic Rust client libraries for [Google Cloud Platform](https://cloud.google
 
 ## Getting Started
 
-The [User Guide] includes basic tutorials to get
+The [User Guide] includes basic tutorials to get started with the Google Cloud
+client libraries for Rust.
 
 ## Supported Rust Versions
 
