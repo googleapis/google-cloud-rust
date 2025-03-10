@@ -320,11 +320,12 @@ mod test {
         .await;
 
         let request = Client::new();
-        let token_provider = MDSAccessTokenProvider {
-            service_account_email: service_account.to_string(),
-            scopes: None,
-            endpoint,
-        };
+        let token_provider = MDSAccessTokenProviderBuilder::default()
+            .service_account_email(service_account.to_string())
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let result = token_provider.get_service_account_info(&request).await;
 
         assert!(result.is_ok());
@@ -347,11 +348,12 @@ mod test {
         )]))
         .await;
         let request = Client::new();
-        let token_provider = MDSAccessTokenProvider {
-            service_account_email: service_account.to_string(),
-            scopes: None,
-            endpoint,
-        };
+        let token_provider = MDSAccessTokenProviderBuilder::default()
+            .service_account_email(service_account.to_string())
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_ok());
         assert_eq!(result.unwrap(), service_account_info);
@@ -371,11 +373,12 @@ mod test {
         .await;
 
         let request = Client::new();
-        let token_provider = MDSAccessTokenProvider {
-            service_account_email: service_account.to_string(),
-            scopes: None,
-            endpoint,
-        };
+        let token_provider = MDSAccessTokenProviderBuilder::default()
+            .service_account_email(service_account.to_string())
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let result = token_provider.get_service_account_info(&request).await;
         assert!(result.is_err());
     }
@@ -396,11 +399,56 @@ mod test {
         )]))
         .await;
         println!("endpoint = {endpoint}");
-        let tp = MDSAccessTokenProvider {
-            service_account_email: "default".to_string(),
-            scopes: Some(vec!["scope1".to_string()]),
-            endpoint,
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .scopes(vec!["scope1".to_string()])
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
+        let mdsc = MDSCredential { token_provider: tp };
+        let now = std::time::Instant::now();
+        let token = mdsc.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
+        assert_eq!(token.token_type, "test-token-type");
+        assert!(token
+            .expires_at
+            .is_some_and(|d| d >= now + Duration::from_secs(3600)));
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_full_no_scopes() -> TestResult {
+        let service_account = "default";
+        let service_account_info_path = format!("/instance/service-accounts/{}/", service_account);
+        let service_account_info = ServiceAccountInfo {
+            email: "test@test.com".to_string(),
+            scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
+            aliases: None,
         };
+        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
+
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+        let path = format!("/instance/service-accounts/{}/token", service_account);
+
+        let (endpoint, _server) = start(HashMap::from([
+            (
+                service_account_info_path,
+                (StatusCode::OK, service_account_info_json),
+            ),
+            (path, (StatusCode::OK, response_body)),
+        ]))
+        .await;
+        println!("endpoint = {endpoint}");
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
 
         let mdsc = MDSCredential { token_provider: tp };
         let now = std::time::Instant::now();
@@ -430,11 +478,12 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider {
-            service_account_email: "default".to_string(),
-            scopes: Some(vec!["scope1".to_string()]),
-            endpoint,
-        };
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .scopes(vec!["scope1".to_string()])
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let mdsc = MDSCredential { token_provider: tp };
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -456,11 +505,12 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider {
-            service_account_email: "default".to_string(),
-            scopes: Some(vec!["scope1".to_string()]),
-            endpoint,
-        };
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .scopes(vec!["scope1".to_string()])
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
@@ -481,11 +531,12 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider {
-            service_account_email: "default".to_string(),
-            scopes: Some(vec!["scope1".to_string()]),
-            endpoint,
-        };
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .scopes(vec!["scope1".to_string()])
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -506,11 +557,12 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider {
-            service_account_email: "default".to_string(),
-            scopes: Some(vec!["scope1".to_string()]),
-            endpoint,
-        };
+        let tp = MDSAccessTokenProviderBuilder::default()
+            .scopes(vec!["scope1".to_string()])
+            .endpoint(endpoint)
+            .build()
+            .unwrap();
+
         let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
