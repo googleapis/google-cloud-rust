@@ -12,18 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub use gax::error::Error;
-pub use gax::Result;
-pub(crate) mod generated;
-
-pub mod model {
-    pub use super::generated::model::*;
-}
-
-pub(crate) mod google {
-    pub mod firestore {
-        pub mod v1 {}
-    }
-    pub mod rpc {}
-    pub mod r#type {}
-}
+// TODO(#1426) - fix references to the `client::Firestore::*` methods
+#[allow(rustdoc::broken_intra_doc_links)]
+pub mod model;

@@ -22,7 +22,7 @@ coverage:
 ignore:
   - guide/samples
   - src/generated
-  - src/wkt/src/generated
+  - src/**/src/generated
   - src/integration-tests
   - generator/testdata
   - tools/check-copyright
