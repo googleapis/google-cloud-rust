@@ -51,38 +51,44 @@ type modelAnnotations struct {
 }
 
 type serviceAnnotations struct {
-	// The service name using Dart naming conventions.
-	Name        string
+	Name        string // The service name using Dart naming conventions.
 	DocLines    []string
+	Methods     []*api.Method // Only a subset of the methods is generated.
 	FieldName   string
 	StructName  string
 	DefaultHost string
 }
 
 type messageAnnotation struct {
-	Name            string
-	DocLines        []string
-	ConstructorBody string // A custom body for the message's constructor.
-	BasicFields     []*api.Field
+	Name              string
+	DocLines          []string
+	ConstructorBody   string // A custom body for the message's constructor.
+	BasicFields       []*api.Field
+	HasFields         bool
+	HasCustomEncoding bool
+	FromJsonPreamble  []string
+	FromJsonLines     []string
+	ToJsonLines       []string
+	ToStringLines     []string
 }
 
 type methodAnnotation struct {
 	// The method name using Dart naming conventions.
-	Name         string
-	RequestType  string
-	ResponseType string
-	DocLines     []string
-	PathParams   []*api.Field
-	QueryParams  []*api.Field
-	BodyAccessor string
+	Name            string
+	RequestMethod   string
+	RequestType     string
+	ResponseType    string
+	DocLines        []string
+	HasBody         bool
+	ReturnsValue    bool
+	BodyMessageName string
+	PathParams      []*api.Field
+	QueryParams     []*api.Field
 }
 
 type pathInfoAnnotation struct {
-	Method      string
-	PathFmt     string
-	PathArgs    []string
-	HasPathArgs bool
-	HasBody     bool
+	PathFmt  string
+	PathArgs []string
 }
 
 type oneOfAnnotation struct {
@@ -91,10 +97,10 @@ type oneOfAnnotation struct {
 }
 
 type fieldAnnotation struct {
-	Name             string
-	Type             string
-	DocLines         []string
-	AsQueryParameter string
+	Name     string
+	Type     string
+	DocLines []string
+	Required bool
 }
 
 type enumAnnotation struct {
@@ -163,6 +169,12 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 		}
 	}
 
+	// Register any missing WKT.
+	registerMissingWkt(model.State)
+
+	// Calculate required fields.
+	requiredFields := calculateRequiredFields(model)
+
 	// Traverse and annotate the enums defined in this API.
 	for _, e := range model.Enums {
 		annotateEnum(e, model.State)
@@ -170,7 +182,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 
 	// Traverse and annotate the messages defined in this API.
 	for _, m := range model.Messages {
-		traverseMessage(m, model.State, packageMapping, imports)
+		annotateMessage(m, model.State, packageMapping, imports, requiredFields)
 	}
 
 	for _, s := range model.Services {
@@ -179,6 +191,10 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 
 	// Remove our self-reference.
 	delete(imports, model.PackageName)
+
+	// Add the import for the base google_cloud_common package.
+	commonImport := "package:google_cloud_common/common.dart"
+	imports["google_cloud_common"] = commonImport
 
 	deps := calculateDependencies(imports)
 
@@ -209,6 +225,28 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 
 	model.Codec = ann
 	return ann, nil
+}
+
+func registerMissingWkt(state *api.APIState) {
+	// If these definitions weren't provided by protoc then provide our own
+	// placeholders.
+	for _, message := range []struct {
+		ID      string
+		Name    string
+		Package string
+	}{
+		{".google.protobuf.Any", "Any", "google.protobuf"},
+		{".google.protobuf.Empty", "Empty", "google.protobuf"},
+	} {
+		_, ok := state.MessageByID[message.ID]
+		if !ok {
+			state.MessageByID[message.ID] = &api.Message{
+				ID:      message.ID,
+				Name:    message.Name,
+				Package: message.Package,
+			}
+		}
+	}
 }
 
 // Calculate package dependencies based on `package:` imports.
@@ -255,20 +293,44 @@ func calculateImports(usedImports map[string]string) []string {
 	return imports
 }
 
-func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
-	// Require package:http when generating services.
-	imports["http"] = httpImport
+func calculateRequiredFields(model *api.API) map[string]*api.Field {
+	required := map[string]*api.Field{}
 
+	for _, s := range model.Services {
+		// Some methods are skipped.
+		methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
+			return generateMethod(m)
+		})
+
+		for _, method := range methods {
+			for _, field := range language.PathParams(method, model.State) {
+				required[field.ID] = field
+			}
+
+			for _, field := range method.InputType.Fields {
+				if field.Name == method.PathInfo.BodyFieldPath {
+					required[field.ID] = field
+				}
+			}
+		}
+	}
+
+	return required
+}
+
+func annotateService(s *api.Service, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
 	})
+
 	for _, m := range methods {
 		annotateMethod(m, state, packageMapping, imports)
 	}
 	ann := &serviceAnnotations{
 		Name:        s.Name,
 		DocLines:    formatDocComments(s.Documentation, state),
+		Methods:     methods,
 		FieldName:   strcase.ToLowerCamel(s.Name),
 		StructName:  s.Name,
 		DefaultHost: s.DefaultHost,
@@ -276,24 +338,19 @@ func annotateService(s *api.Service, state *api.APIState, packageMapping map[str
 	s.Codec = ann
 }
 
-func traverseMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
-	annotateMessage(m, state, packageMapping, imports)
-
-	for _, e := range m.Enums {
-		annotateEnum(e, state)
-	}
-
-	for _, m := range m.Messages {
-		traverseMessage(m, state, packageMapping, imports)
-	}
-}
-
-func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[string]string,
+	imports map[string]string, requiredFields map[string]*api.Field) {
 	for _, f := range m.Fields {
-		annotateField(f, state, packageMapping, imports)
+		annotateField(f, state, packageMapping, imports, requiredFields)
 	}
 	for _, f := range m.OneOfs {
 		annotateOneOf(f, state)
+	}
+	for _, e := range m.Enums {
+		annotateEnum(e, state)
+	}
+	for _, m := range m.Messages {
+		annotateMessage(m, state, packageMapping, imports, requiredFields)
 	}
 
 	constructorBody := ";"
@@ -302,6 +359,8 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		constructorBody = " {\n    _validate();\n  }"
 	}
 
+	_, hasCustomEncoding := usesCustomEncoding[m.ID]
+
 	m.Codec = &messageAnnotation{
 		Name:            messageName(m),
 		DocLines:        formatDocComments(m.Documentation, state),
@@ -309,25 +368,221 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
+		HasFields:         len(m.Fields) > 0,
+		HasCustomEncoding: hasCustomEncoding,
+		FromJsonLines:     createFromJsonLines(m, state),
+		ToJsonLines:       createToJsonLines(m, state),
+		ToStringLines:     createToStringLines(m),
 	}
 }
 
+func createFromJsonLines(message *api.Message, state *api.APIState) []string {
+	_, hasCustomEncoding := usesCustomEncoding[message.ID]
+	if hasCustomEncoding {
+		return []string{}
+	}
+
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+		message := state.MessageByID[field.TypezID]
+		typeName := ""
+
+		isCustom := false
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+		isEnum := field.Typez == api.ENUM_TYPE
+		isMap := message != nil && message.IsMap
+		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+		isRequired := codec.Required
+
+		if isMessage {
+			typeName = messageName(message)
+			_, isCustom = usesCustomEncoding[message.ID]
+		} else if isEnum {
+			enum := state.EnumByID[field.TypezID]
+			typeName = enumName(enum)
+		}
+
+		opt := ""
+		bang := "!"
+		if !isRequired {
+			opt = "?"
+			bang = ""
+		}
+
+		if isMessageMap {
+			// message maps
+			//   name: $toMap(json['name'], Status.fromJson)!,
+			//   name: $toMap(json['name'], Status.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toMap(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isMap {
+			// primative maps
+			//   name: (json['name'] as Map).cast(),
+			//   name: (json['name'] as Map?)?.cast(),
+			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as Map%s)%s.cast(),", name, name, opt, opt))
+		} else if isList && isCustom {
+			// custom lists
+			//   name: $toCustomList(json['name'], FieldMask.fromJson)!,
+			//   name: $toCustomList(json['name'], FieldMask.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toCustomList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isList && isMessage {
+			// message lists
+			//   name: $toMessageList(json['name'], Status.fromJson)!,
+			//   name: $toMessageList(json['name'], Status.fromJson),
+			lines = append(lines, fmt.Sprintf("%s: $toMessageList(json['%s'], %s.fromJson)%s,", name, name, typeName, bang))
+		} else if isList {
+			// primative lists
+			//   name: (json['name'] as List).cast(),
+			//   name: (json['name'] as List?)?.cast(),
+			lines = append(lines, fmt.Sprintf("%s: (json['%s'] as List%s)%s.cast(),", name, name, opt, opt))
+		} else if isEnum || isCustom {
+			// enum
+			if isRequired {
+				// name: FieldMask.fromJson(json['name']),
+				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
+			} else {
+				// name: $toCustom(json['name'], FieldMask.fromJson),
+				lines = append(lines, fmt.Sprintf("%s: $toCustom(json['%s'], %s.fromJson),", name, name, typeName))
+			}
+		} else if isMessage {
+			// message
+			if isRequired {
+				// name: Status.fromJson(json['name']),
+				lines = append(lines, fmt.Sprintf("%s: %s.fromJson(json['%s']),", name, typeName, name))
+			} else {
+				// name: $toMessage(json['name'], Status.fromJson),
+				lines = append(lines, fmt.Sprintf("%s: $toMessage(json['%s'], %s.fromJson),", name, name, typeName))
+			}
+		} else {
+			// primatives
+			// name: json['name'],
+			lines = append(lines, fmt.Sprintf("%s: json['%s'],", name, name))
+		}
+	}
+
+	return lines
+}
+
+func createToJsonLines(message *api.Message, state *api.APIState) []string {
+	_, hasCustomEncoding := usesCustomEncoding[message.ID]
+	if hasCustomEncoding {
+		return []string{}
+	}
+
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+		message := state.MessageByID[field.TypezID]
+
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+		isEnum := field.Typez == api.ENUM_TYPE
+		isMap := message != nil && message.IsMap
+		isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+		isRequired := codec.Required
+
+		prefix := ""
+		if !isRequired {
+			prefix = fmt.Sprintf("if (%s != null) ", name)
+		}
+
+		if isMessageMap {
+			// message maps
+			//   'name': $fromMap(name),
+			//   if (name != null) 'name': $fromMap(name),
+			lines = append(lines, fmt.Sprintf("%s'%s': $fromMap(%s),", prefix, name, name))
+		} else if isList && (isMessage || isEnum) {
+			// message lists, custom lists, and enum lists
+			//   'name': $fromList(name),
+			//   if (name != null) 'name': $fromList(name),
+			lines = append(lines, fmt.Sprintf("%s'%s': $fromList(%s),", prefix, name, name))
+		} else if (isMessage && !isMap) || isEnum {
+			// message, enum, and custom
+			if isRequired {
+				// 'name': name.toJson(),
+				lines = append(lines, fmt.Sprintf("'%s': %s.toJson(),", name, name))
+			} else {
+				// if (name != null) 'name': name!.toJson(),
+				lines = append(lines, fmt.Sprintf("if (%s != null) '%s': %s!.toJson(),", name, name, name))
+			}
+		} else {
+			// primative, primative lists, and primative maps
+			//   'name': name
+			//   if (name != null) 'name': name,
+			lines = append(lines, fmt.Sprintf("%s'%s': %s,", prefix, name, name))
+		}
+	}
+
+	return lines
+}
+
+func createToStringLines(message *api.Message) []string {
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+
+		// Don't generate toString() entries for lists, maps, or messages.
+		if isList || isMessage {
+			continue
+		}
+
+		if codec.Required {
+			// 'name=$name',
+			lines = append(lines, fmt.Sprintf("'%s=$%s',", name, name))
+		} else {
+			// if (name != null) 'name=$name',
+			lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+		}
+	}
+
+	return lines
+}
+
 func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+	// Ignore imports added from the input and output messages.
+	tempImports := map[string]string{}
+	tempRequiredFields := map[string]*api.Field{}
+	if method.InputType.Codec == nil {
+		annotateMessage(method.InputType, state, packageMapping, tempImports, tempRequiredFields)
+	}
+	if method.OutputType.Codec == nil {
+		annotateMessage(method.OutputType, state, packageMapping, tempImports, tempRequiredFields)
+	}
+
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   method.PathInfo.Verb,
 		PathFmt:  httpPathFmt(method.PathInfo),
 		PathArgs: httpPathArgs(method.PathInfo),
-		HasBody:  method.PathInfo.BodyFieldPath != "",
 	}
 	method.PathInfo.Codec = pathInfoAnnotation
+
+	bodyMessageName := method.PathInfo.BodyFieldPath
+	if bodyMessageName == "*" {
+		bodyMessageName = "request"
+	} else if bodyMessageName != "" {
+		bodyMessageName = "request." + strcase.ToLowerCamel(bodyMessageName)
+	}
+
 	annotation := &methodAnnotation{
-		Name:         strcase.ToLowerCamel(method.Name),
-		RequestType:  resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
-		ResponseType: resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
-		DocLines:     formatDocComments(method.Documentation, state),
-		BodyAccessor: bodyAccessor(method),
-		PathParams:   language.PathParams(method, state),
-		QueryParams:  language.QueryParams(method, state),
+		Name:            strcase.ToLowerCamel(method.Name),
+		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
+		RequestType:     resolveTypeName(state.MessageByID[method.InputTypeID], packageMapping, imports),
+		ResponseType:    resolveTypeName(state.MessageByID[method.OutputTypeID], packageMapping, imports),
+		DocLines:        formatDocComments(method.Documentation, state),
+		HasBody:         method.PathInfo.BodyFieldPath != "",
+		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
+		BodyMessageName: bodyMessageName,
+		PathParams:      language.PathParams(method, state),
+		QueryParams:     language.QueryParams(method, state),
 	}
 	method.Codec = annotation
 }
@@ -339,11 +594,15 @@ func annotateOneOf(field *api.OneOf, state *api.APIState) {
 	}
 }
 
-func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
+func annotateField(field *api.Field, state *api.APIState, packageMapping map[string]string,
+	imports map[string]string, requiredFields map[string]*api.Field) {
+	_, ok := requiredFields[field.ID]
+
 	field.Codec = &fieldAnnotation{
 		Name:     strcase.ToLowerCamel(field.Name),
 		Type:     fieldType(field, state, packageMapping, imports),
 		DocLines: formatDocComments(field.Documentation, state),
+		Required: ok,
 	}
 }
 

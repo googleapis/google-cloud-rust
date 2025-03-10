@@ -17,9 +17,11 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} {
-  static const String defaultHost = 'https://{{DefaultHost}}';
-  {{#Methods}}
+class {{Codec.Name}} extends CloudService {
+  static const String host = '{{DefaultHost}}';
+
+  {{Codec.Name}}({required super.client});
+  {{#Codec.Methods}}
   {{> method}}
-  {{/Methods}}
+  {{/Codec.Methods}}
 }

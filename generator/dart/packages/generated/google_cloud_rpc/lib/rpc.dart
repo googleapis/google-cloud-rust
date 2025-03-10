@@ -21,6 +21,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:google_cloud_common/common.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 /// Describes the cause of the error with structured details.
@@ -47,7 +48,7 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 ///         "availableRegions": "us-central1,us-east2"
 ///       }
 ///     }
-class ErrorInfo {
+class ErrorInfo extends CloudMessage {
 
   /// The reason of the error. This is a constant value that identifies the
   /// proximate cause of the error. Error reasons are unique within a particular
@@ -80,6 +81,32 @@ class ErrorInfo {
     this.domain,
     this.metadata,
   });
+
+  factory ErrorInfo.fromJson(Map<String, dynamic> json) {
+    return ErrorInfo(
+      reason: json['reason'],
+      domain: json['domain'],
+      metadata: (json['metadata'] as Map?)?.cast(),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (reason != null) 'reason': reason,
+      if (domain != null) 'domain': domain,
+      if (metadata != null) 'metadata': metadata,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (reason != null) 'reason=$reason',
+      if (domain != null) 'domain=$domain',
+    ].join(',');
+    return 'ErrorInfo($contents)';
+  }
 }
 
 /// Describes when the clients can retry a failed request. Clients could ignore
@@ -95,7 +122,7 @@ class ErrorInfo {
 /// the delay between retries based on `retry_delay`, until either a maximum
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
-class RetryInfo {
+class RetryInfo extends CloudMessage {
 
   /// Clients should wait at least this long between retrying the same request.
   final Duration? retryDelay;
@@ -103,10 +130,30 @@ class RetryInfo {
   RetryInfo({
     this.retryDelay,
   });
+
+  factory RetryInfo.fromJson(Map<String, dynamic> json) {
+    return RetryInfo(
+      retryDelay: $toCustom(json['retryDelay'], Duration.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (retryDelay != null) 'retryDelay': retryDelay!.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+    ].join(',');
+    return 'RetryInfo($contents)';
+  }
 }
 
 /// Describes additional debugging info.
-class DebugInfo {
+class DebugInfo extends CloudMessage {
 
   /// The stack trace entries indicating where the error occurred.
   final List<String>? stackEntries;
@@ -118,6 +165,29 @@ class DebugInfo {
     this.stackEntries,
     this.detail,
   });
+
+  factory DebugInfo.fromJson(Map<String, dynamic> json) {
+    return DebugInfo(
+      stackEntries: (json['stackEntries'] as List?)?.cast(),
+      detail: json['detail'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (stackEntries != null) 'stackEntries': stackEntries,
+      if (detail != null) 'detail': detail,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (detail != null) 'detail=$detail',
+    ].join(',');
+    return 'DebugInfo($contents)';
+  }
 }
 
 /// Describes how a quota check failed.
@@ -131,7 +201,7 @@ class DebugInfo {
 ///
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
-class QuotaFailure {
+class QuotaFailure extends CloudMessage {
 
   /// Describes all quota violations.
   final List<QuotaFailure$Violation>? violations;
@@ -139,11 +209,31 @@ class QuotaFailure {
   QuotaFailure({
     this.violations,
   });
+
+  factory QuotaFailure.fromJson(Map<String, dynamic> json) {
+    return QuotaFailure(
+      violations: $toMessageList(json['violations'], QuotaFailure$Violation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (violations != null) 'violations': $fromList(violations),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+    ].join(',');
+    return 'QuotaFailure($contents)';
+  }
 }
 
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
-class QuotaFailure$Violation {
+class QuotaFailure$Violation extends CloudMessage {
 
   /// The subject on which the quota check failed.
   /// For example, "clientip:<ip address of client>" or "project:<Google
@@ -163,6 +253,30 @@ class QuotaFailure$Violation {
     this.subject,
     this.description,
   });
+
+  factory QuotaFailure$Violation.fromJson(Map<String, dynamic> json) {
+    return QuotaFailure$Violation(
+      subject: json['subject'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (subject != null) 'subject': subject,
+      if (description != null) 'description': description,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (subject != null) 'subject=$subject',
+      if (description != null) 'description=$description',
+    ].join(',');
+    return 'Violation($contents)';
+  }
 }
 
 /// Describes what preconditions have failed.
@@ -170,7 +284,7 @@ class QuotaFailure$Violation {
 /// For example, if an RPC failed because it required the Terms of Service to be
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
-class PreconditionFailure {
+class PreconditionFailure extends CloudMessage {
 
   /// Describes all precondition violations.
   final List<PreconditionFailure$Violation>? violations;
@@ -178,10 +292,30 @@ class PreconditionFailure {
   PreconditionFailure({
     this.violations,
   });
+
+  factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
+    return PreconditionFailure(
+      violations: $toMessageList(json['violations'], PreconditionFailure$Violation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (violations != null) 'violations': $fromList(violations),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+    ].join(',');
+    return 'PreconditionFailure($contents)';
+  }
 }
 
 /// A message type used to describe a single precondition failure.
-class PreconditionFailure$Violation {
+class PreconditionFailure$Violation extends CloudMessage {
 
   /// The type of PreconditionFailure. We recommend using a service-specific
   /// enum type to define the supported precondition violation subjects. For
@@ -204,11 +338,38 @@ class PreconditionFailure$Violation {
     this.subject,
     this.description,
   });
+
+  factory PreconditionFailure$Violation.fromJson(Map<String, dynamic> json) {
+    return PreconditionFailure$Violation(
+      type: json['type'],
+      subject: json['subject'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (type != null) 'type': type,
+      if (subject != null) 'subject': subject,
+      if (description != null) 'description': description,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (type != null) 'type=$type',
+      if (subject != null) 'subject=$subject',
+      if (description != null) 'description=$description',
+    ].join(',');
+    return 'Violation($contents)';
+  }
 }
 
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
-class BadRequest {
+class BadRequest extends CloudMessage {
 
   /// Describes all violations in a client request.
   final List<BadRequest$FieldViolation>? fieldViolations;
@@ -216,10 +377,30 @@ class BadRequest {
   BadRequest({
     this.fieldViolations,
   });
+
+  factory BadRequest.fromJson(Map<String, dynamic> json) {
+    return BadRequest(
+      fieldViolations: $toMessageList(json['fieldViolations'], BadRequest$FieldViolation.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (fieldViolations != null) 'fieldViolations': $fromList(fieldViolations),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+    ].join(',');
+    return 'BadRequest($contents)';
+  }
 }
 
 /// A message type used to describe a single bad request field.
-class BadRequest$FieldViolation {
+class BadRequest$FieldViolation extends CloudMessage {
 
   /// A path that leads to a field in the request body. The value will be a
   /// sequence of dot-separated identifiers that identify a protocol buffer
@@ -281,11 +462,40 @@ class BadRequest$FieldViolation {
     this.reason,
     this.localizedMessage,
   });
+
+  factory BadRequest$FieldViolation.fromJson(Map<String, dynamic> json) {
+    return BadRequest$FieldViolation(
+      field: json['field'],
+      description: json['description'],
+      reason: json['reason'],
+      localizedMessage: $toMessage(json['localizedMessage'], LocalizedMessage.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (field != null) 'field': field,
+      if (description != null) 'description': description,
+      if (reason != null) 'reason': reason,
+      if (localizedMessage != null) 'localizedMessage': localizedMessage!.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (field != null) 'field=$field',
+      if (description != null) 'description=$description',
+      if (reason != null) 'reason=$reason',
+    ].join(',');
+    return 'FieldViolation($contents)';
+  }
 }
 
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
-class RequestInfo {
+class RequestInfo extends CloudMessage {
 
   /// An opaque string that should only be interpreted by the service generating
   /// it. For example, it can be used to identify requests in the service's logs.
@@ -299,10 +509,34 @@ class RequestInfo {
     this.requestId,
     this.servingData,
   });
+
+  factory RequestInfo.fromJson(Map<String, dynamic> json) {
+    return RequestInfo(
+      requestId: json['requestId'],
+      servingData: json['servingData'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (requestId != null) 'requestId': requestId,
+      if (servingData != null) 'servingData': servingData,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (requestId != null) 'requestId=$requestId',
+      if (servingData != null) 'servingData=$servingData',
+    ].join(',');
+    return 'RequestInfo($contents)';
+  }
 }
 
 /// Describes the resource that is being accessed.
-class ResourceInfo {
+class ResourceInfo extends CloudMessage {
 
   /// A name for the type of resource being accessed, e.g. "sql table",
   /// "cloud storage bucket", "file", "Google calendar"; or the type URL
@@ -331,6 +565,36 @@ class ResourceInfo {
     this.owner,
     this.description,
   });
+
+  factory ResourceInfo.fromJson(Map<String, dynamic> json) {
+    return ResourceInfo(
+      resourceType: json['resourceType'],
+      resourceName: json['resourceName'],
+      owner: json['owner'],
+      description: json['description'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (resourceType != null) 'resourceType': resourceType,
+      if (resourceName != null) 'resourceName': resourceName,
+      if (owner != null) 'owner': owner,
+      if (description != null) 'description': description,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (resourceType != null) 'resourceType=$resourceType',
+      if (resourceName != null) 'resourceName=$resourceName',
+      if (owner != null) 'owner=$owner',
+      if (description != null) 'description=$description',
+    ].join(',');
+    return 'ResourceInfo($contents)';
+  }
 }
 
 /// Provides links to documentation or for performing an out of band action.
@@ -338,7 +602,7 @@ class ResourceInfo {
 /// For example, if a quota check failed with an error indicating the calling
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
-class Help {
+class Help extends CloudMessage {
 
   /// URL(s) pointing to additional information on handling the current error.
   final List<Help$Link>? links;
@@ -346,10 +610,30 @@ class Help {
   Help({
     this.links,
   });
+
+  factory Help.fromJson(Map<String, dynamic> json) {
+    return Help(
+      links: $toMessageList(json['links'], Help$Link.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (links != null) 'links': $fromList(links),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+    ].join(',');
+    return 'Help($contents)';
+  }
 }
 
 /// Describes a URL link.
-class Help$Link {
+class Help$Link extends CloudMessage {
 
   /// Describes what the link offers.
   final String? description;
@@ -361,11 +645,35 @@ class Help$Link {
     this.description,
     this.url,
   });
+
+  factory Help$Link.fromJson(Map<String, dynamic> json) {
+    return Help$Link(
+      description: json['description'],
+      url: json['url'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (description != null) 'description': description,
+      if (url != null) 'url': url,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (description != null) 'description=$description',
+      if (url != null) 'url=$url',
+    ].join(',');
+    return 'Link($contents)';
+  }
 }
 
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
-class LocalizedMessage {
+class LocalizedMessage extends CloudMessage {
 
   /// The locale used following the specification defined at
   /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
@@ -379,10 +687,34 @@ class LocalizedMessage {
     this.locale,
     this.message,
   });
+
+  factory LocalizedMessage.fromJson(Map<String, dynamic> json) {
+    return LocalizedMessage(
+      locale: json['locale'],
+      message: json['message'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (locale != null) 'locale': locale,
+      if (message != null) 'message': message,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (locale != null) 'locale=$locale',
+      if (message != null) 'message=$message',
+    ].join(',');
+    return 'LocalizedMessage($contents)';
+  }
 }
 
 /// Represents an HTTP request.
-class HttpRequest {
+class HttpRequest extends CloudMessage {
 
   /// The HTTP request method.
   final String? method;
@@ -403,10 +735,39 @@ class HttpRequest {
     this.headers,
     this.body,
   });
+
+  factory HttpRequest.fromJson(Map<String, dynamic> json) {
+    return HttpRequest(
+      method: json['method'],
+      uri: json['uri'],
+      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      body: json['body'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (method != null) 'method': method,
+      if (uri != null) 'uri': uri,
+      if (headers != null) 'headers': $fromList(headers),
+      if (body != null) 'body': body,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (method != null) 'method=$method',
+      if (uri != null) 'uri=$uri',
+      if (body != null) 'body=$body',
+    ].join(',');
+    return 'HttpRequest($contents)';
+  }
 }
 
 /// Represents an HTTP response.
-class HttpResponse {
+class HttpResponse extends CloudMessage {
 
   /// The HTTP status code, such as 200 or 404.
   final int? status;
@@ -427,10 +788,39 @@ class HttpResponse {
     this.headers,
     this.body,
   });
+
+  factory HttpResponse.fromJson(Map<String, dynamic> json) {
+    return HttpResponse(
+      status: json['status'],
+      reason: json['reason'],
+      headers: $toMessageList(json['headers'], HttpHeader.fromJson),
+      body: json['body'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (status != null) 'status': status,
+      if (reason != null) 'reason': reason,
+      if (headers != null) 'headers': $fromList(headers),
+      if (body != null) 'body': body,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (status != null) 'status=$status',
+      if (reason != null) 'reason=$reason',
+      if (body != null) 'body=$body',
+    ].join(',');
+    return 'HttpResponse($contents)';
+  }
 }
 
 /// Represents an HTTP header.
-class HttpHeader {
+class HttpHeader extends CloudMessage {
 
   /// The HTTP header key. It is case insensitive.
   final String? key;
@@ -442,6 +832,30 @@ class HttpHeader {
     this.key,
     this.value,
   });
+
+  factory HttpHeader.fromJson(Map<String, dynamic> json) {
+    return HttpHeader(
+      key: json['key'],
+      value: json['value'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (key != null) 'key': key,
+      if (value != null) 'value': value,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (key != null) 'key=$key',
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'HttpHeader($contents)';
+  }
 }
 
 /// The `Status` type defines a logical error model that is suitable for
@@ -451,7 +865,7 @@ class HttpHeader {
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
-class Status {
+class Status extends CloudMessage {
 
   /// The status code, which should be an enum value of
   /// [google.rpc.Code][google.rpc.Code].
@@ -472,6 +886,32 @@ class Status {
     this.message,
     this.details,
   });
+
+  factory Status.fromJson(Map<String, dynamic> json) {
+    return Status(
+      code: json['code'],
+      message: json['message'],
+      details: $toMessageList(json['details'], Any.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (code != null) 'code': code,
+      if (message != null) 'message': message,
+      if (details != null) 'details': $fromList(details),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (code != null) 'code=$code',
+      if (message != null) 'message=$message',
+    ].join(',');
+    return 'Status($contents)';
+  }
 }
 
 /// The canonical error codes for gRPC APIs.
@@ -481,16 +921,16 @@ class Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-class Code {
+class Code extends CloudEnum {
   /// Not an error; returned on success.
   ///
   /// HTTP Mapping: 200 OK
-  static const Code ok = Code('OK');
+  static const ok = Code('OK');
 
   /// The operation was cancelled, typically by the caller.
   ///
   /// HTTP Mapping: 499 Client Closed Request
-  static const Code cancelled = Code('CANCELLED');
+  static const cancelled = Code('CANCELLED');
 
   /// Unknown error.  For example, this error may be returned when
   /// a `Status` value received from another address space belongs to
@@ -499,7 +939,7 @@ class Code {
   /// may be converted to this error.
   ///
   /// HTTP Mapping: 500 Internal Server Error
-  static const Code unknown = Code('UNKNOWN');
+  static const unknown = Code('UNKNOWN');
 
   /// The client specified an invalid argument.  Note that this differs
   /// from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
@@ -507,7 +947,7 @@ class Code {
   /// (e.g., a malformed file name).
   ///
   /// HTTP Mapping: 400 Bad Request
-  static const Code invalidArgument = Code('INVALID_ARGUMENT');
+  static const invalidArgument = Code('INVALID_ARGUMENT');
 
   /// The deadline expired before the operation could complete. For operations
   /// that change the state of the system, this error may be returned
@@ -516,7 +956,7 @@ class Code {
   /// enough for the deadline to expire.
   ///
   /// HTTP Mapping: 504 Gateway Timeout
-  static const Code deadlineExceeded = Code('DEADLINE_EXCEEDED');
+  static const deadlineExceeded = Code('DEADLINE_EXCEEDED');
 
   /// Some requested entity (e.g., file or directory) was not found.
   ///
@@ -527,13 +967,13 @@ class Code {
   /// must be used.
   ///
   /// HTTP Mapping: 404 Not Found
-  static const Code notFound = Code('NOT_FOUND');
+  static const notFound = Code('NOT_FOUND');
 
   /// The entity that a client attempted to create (e.g., file or directory)
   /// already exists.
   ///
   /// HTTP Mapping: 409 Conflict
-  static const Code alreadyExists = Code('ALREADY_EXISTS');
+  static const alreadyExists = Code('ALREADY_EXISTS');
 
   /// The caller does not have permission to execute the specified
   /// operation. `PERMISSION_DENIED` must not be used for rejections
@@ -545,19 +985,19 @@ class Code {
   /// other pre-conditions.
   ///
   /// HTTP Mapping: 403 Forbidden
-  static const Code permissionDenied = Code('PERMISSION_DENIED');
+  static const permissionDenied = Code('PERMISSION_DENIED');
 
   /// The request does not have valid authentication credentials for the
   /// operation.
   ///
   /// HTTP Mapping: 401 Unauthorized
-  static const Code unauthenticated = Code('UNAUTHENTICATED');
+  static const unauthenticated = Code('UNAUTHENTICATED');
 
   /// Some resource has been exhausted, perhaps a per-user quota, or
   /// perhaps the entire file system is out of space.
   ///
   /// HTTP Mapping: 429 Too Many Requests
-  static const Code resourceExhausted = Code('RESOURCE_EXHAUSTED');
+  static const resourceExhausted = Code('RESOURCE_EXHAUSTED');
 
   /// The operation was rejected because the system is not in a state
   /// required for the operation's execution.  For example, the directory
@@ -577,7 +1017,7 @@ class Code {
   ///      the files are deleted from the directory.
   ///
   /// HTTP Mapping: 400 Bad Request
-  static const Code failedPrecondition = Code('FAILED_PRECONDITION');
+  static const failedPrecondition = Code('FAILED_PRECONDITION');
 
   /// The operation was aborted, typically due to a concurrency issue such as
   /// a sequencer check failure or transaction abort.
@@ -586,7 +1026,7 @@ class Code {
   /// `ABORTED`, and `UNAVAILABLE`.
   ///
   /// HTTP Mapping: 409 Conflict
-  static const Code aborted = Code('ABORTED');
+  static const aborted = Code('ABORTED');
 
   /// The operation was attempted past the valid range.  E.g., seeking or
   /// reading past end-of-file.
@@ -605,20 +1045,20 @@ class Code {
   /// they are done.
   ///
   /// HTTP Mapping: 400 Bad Request
-  static const Code outOfRange = Code('OUT_OF_RANGE');
+  static const outOfRange = Code('OUT_OF_RANGE');
 
   /// The operation is not implemented or is not supported/enabled in this
   /// service.
   ///
   /// HTTP Mapping: 501 Not Implemented
-  static const Code unimplemented = Code('UNIMPLEMENTED');
+  static const unimplemented = Code('UNIMPLEMENTED');
 
   /// Internal errors.  This means that some invariants expected by the
   /// underlying system have been broken.  This error code is reserved
   /// for serious errors.
   ///
   /// HTTP Mapping: 500 Internal Server Error
-  static const Code internal = Code('INTERNAL');
+  static const internal = Code('INTERNAL');
 
   /// The service is currently unavailable.  This is most likely a
   /// transient condition, which can be corrected by retrying with
@@ -629,14 +1069,21 @@ class Code {
   /// `ABORTED`, and `UNAVAILABLE`.
   ///
   /// HTTP Mapping: 503 Service Unavailable
-  static const Code unavailable = Code('UNAVAILABLE');
+  static const unavailable = Code('UNAVAILABLE');
 
   /// Unrecoverable data loss or corruption.
   ///
   /// HTTP Mapping: 500 Internal Server Error
-  static const Code dataLoss = Code('DATA_LOSS');
+  static const dataLoss = Code('DATA_LOSS');
 
-  final String value;
+  const Code(super.value);
 
-  const Code(this.value);
+  factory Code.fromJson(String json) => Code(json);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Code && value == other.value;
+
+  @override
+  String toString() => 'Code.$value';
 }

@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// For createFromJsonLines tests, see
+// generator/dart/packages/generated/google_cloud_rpc/test/json_test.dart.
+
+// For createToJsonLines tests, see
+// generator/dart/packages/generated/google_cloud_rpc/test/json_test.dart.
+
 package dart
 
 import (
@@ -69,8 +75,10 @@ func TestAnnotateMethod(t *testing.T) {
 		Package:       sample.Package,
 	}
 	model := api.NewTestAPI(
-		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse()},
-		[]*api.Enum{},
+		[]*api.Message{sample.ListSecretVersionsRequest(), sample.ListSecretVersionsResponse(),
+			sample.Secret(), sample.SecretVersion(), sample.Replication(), sample.Automatic(),
+			sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
 		[]*api.Service{service},
 	)
 	api.Validate(model)
@@ -89,13 +97,13 @@ func TestAnnotateMethod(t *testing.T) {
 	}
 
 	got = codec.RequestType
-	want = "ListSecretVersionRequest" // todo:
+	want = "ListSecretVersionRequest"
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
 
 	got = codec.ResponseType
-	want = "ListSecretVersionsResponse" // todo:
+	want = "ListSecretVersionsResponse"
 	if got != want {
 		t.Errorf("mismatched type, got=%q, want=%q", got, want)
 	}
@@ -108,11 +116,11 @@ func TestCalculateDependencies(t *testing.T) {
 		want    []string
 	}{
 		{name: "empty", imports: []string{}, want: []string{}},
-		{name: "dart import", imports: []string{typedDataImport}, want: []string{}},
-		{name: "package import", imports: []string{httpImport}, want: []string{"http"}},
-		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{"http"}},
+		{name: "dart import", imports: []string{dartTypedDataImport}, want: []string{}},
+		{name: "package import", imports: []string{packageHttpImport}, want: []string{"http"}},
+		{name: "dart and package imports", imports: []string{dartTypedDataImport, packageHttpImport}, want: []string{"http"}},
 		{name: "package imports", imports: []string{
-			httpImport,
+			packageHttpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{"google_cloud_foo", "http"}},
 	} {
@@ -141,19 +149,19 @@ func TestCalculateImports(t *testing.T) {
 		imports []string
 		want    []string
 	}{
-		{name: "dart import", imports: []string{typedDataImport}, want: []string{
+		{name: "dart import", imports: []string{dartTypedDataImport}, want: []string{
 			"import 'dart:typed_data';",
 		}},
-		{name: "package import", imports: []string{httpImport}, want: []string{
+		{name: "package import", imports: []string{packageHttpImport}, want: []string{
 			"import 'package:http/http.dart';",
 		}},
-		{name: "dart and package imports", imports: []string{typedDataImport, httpImport}, want: []string{
+		{name: "dart and package imports", imports: []string{dartTypedDataImport, packageHttpImport}, want: []string{
 			"import 'dart:typed_data';",
 			"",
 			"import 'package:http/http.dart';",
 		}},
 		{name: "package imports", imports: []string{
-			httpImport,
+			packageHttpImport,
 			"package:google_cloud_foo/foo.dart",
 		}, want: []string{
 			"import 'package:google_cloud_foo/foo.dart';",
@@ -169,6 +177,41 @@ func TestCalculateImports(t *testing.T) {
 
 			if diff := cmp.Diff(test.want, got); diff != "" {
 				t.Errorf("mismatch in calculateImports (-want, +got)\n:%s", diff)
+			}
+		})
+	}
+}
+
+func TestAnnotateMessageToString(t *testing.T) {
+	model := api.NewTestAPI(
+		[]*api.Message{sample.Secret(), sample.SecretVersion(), sample.Replication(),
+			sample.Automatic(), sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{},
+	)
+
+	for _, test := range []struct {
+		message  *api.Message
+		expected int
+	}{
+		// Expect the number of fields less the number of message fields.
+		{message: sample.Secret(), expected: 1},
+		{message: sample.SecretVersion(), expected: 2},
+		{message: sample.Replication(), expected: 0},
+		{message: sample.Automatic(), expected: 0},
+	} {
+		t.Run(test.message.Name, func(t *testing.T) {
+			packageMapping := map[string]string{}
+			imports := map[string]string{}
+			requiredFields := map[string]*api.Field{}
+
+			annotateMessage(test.message, model.State, packageMapping, imports, requiredFields)
+
+			codec := test.message.Codec.(*messageAnnotation)
+			actual := codec.ToStringLines
+
+			if len(actual) != test.expected {
+				t.Errorf("Expected list of length %d, got %d", test.expected, len(actual))
 			}
 		})
 	}

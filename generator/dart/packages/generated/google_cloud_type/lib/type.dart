@@ -19,6 +19,69 @@
 /// Defines common types for Google APIs.
 library;
 
+import 'package:google_cloud_common/common.dart';
+
+/// Represents a whole or partial calendar date, such as a birthday. The time of
+/// day and time zone are either specified elsewhere or are insignificant. The
+/// date is relative to the Gregorian Calendar. This can represent one of the
+/// following:
+///
+/// * A full date, with non-zero year, month, and day values
+/// * A month and day value, with a zero year, such as an anniversary
+/// * A year on its own, with zero month and day values
+/// * A year and month value, with a zero day, such as a credit card expiration
+/// date
+///
+/// Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and
+/// `google.protobuf.Timestamp`.
+class Date extends CloudMessage {
+
+  /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
+  /// a year.
+  final int? year;
+
+  /// Month of a year. Must be from 1 to 12, or 0 to specify a year without a
+  /// month and day.
+  final int? month;
+
+  /// Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
+  /// to specify a year by itself or a year and month where the day isn't
+  /// significant.
+  final int? day;
+
+  Date({
+    this.year,
+    this.month,
+    this.day,
+  });
+
+  factory Date.fromJson(Map<String, dynamic> json) {
+    return Date(
+      year: json['year'],
+      month: json['month'],
+      day: json['day'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (year != null) 'year': year,
+      if (month != null) 'month': month,
+      if (day != null) 'day': day,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (year != null) 'year=$year',
+      if (month != null) 'month=$month',
+      if (day != null) 'day=$day',
+    ].join(',');
+    return 'Date($contents)';
+  }
+}
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
@@ -51,7 +114,7 @@ library;
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-class Expr {
+class Expr extends CloudMessage {
 
   /// Textual representation of an expression in Common Expression Language
   /// syntax.
@@ -76,4 +139,34 @@ class Expr {
     this.description,
     this.location,
   });
+
+  factory Expr.fromJson(Map<String, dynamic> json) {
+    return Expr(
+      expression: json['expression'],
+      title: json['title'],
+      description: json['description'],
+      location: json['location'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (expression != null) 'expression': expression,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (location != null) 'location': location,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (expression != null) 'expression=$expression',
+      if (title != null) 'title=$title',
+      if (description != null) 'description=$description',
+      if (location != null) 'location=$location',
+    ].join(',');
+    return 'Expr($contents)';
+  }
 }
