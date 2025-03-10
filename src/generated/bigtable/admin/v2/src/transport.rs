@@ -770,6 +770,7 @@ impl crate::stubs::BigtableTableAdmin for BigtableTableAdmin {
                 use gax::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
+        let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
         self.inner.execute(builder, Some(req.table), options).await
     }
 

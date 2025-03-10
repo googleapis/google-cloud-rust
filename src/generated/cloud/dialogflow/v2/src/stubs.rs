@@ -500,6 +500,19 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
         )))
     }
 
+    /// Implements [crate::client::Conversations::ingest_context_references].
+    fn ingest_context_references(
+        &self,
+        _req: crate::model::IngestContextReferencesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::model::IngestContextReferencesResponse>,
+    > + Send {
+        std::future::ready::<crate::Result<crate::model::IngestContextReferencesResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
     /// Implements [crate::client::Conversations::list_messages].
     fn list_messages(
         &self,
@@ -559,6 +572,18 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchKnowledgeResponse>> + Send
     {
         std::future::ready::<crate::Result<crate::model::SearchKnowledgeResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [crate::client::Conversations::generate_suggestions].
+    fn generate_suggestions(
+        &self,
+        _req: crate::model::GenerateSuggestionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::GenerateSuggestionsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::GenerateSuggestionsResponse>>(Err(
             Error::other("unimplemented"),
         ))
     }

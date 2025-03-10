@@ -242,6 +242,18 @@ pub trait CloudFilestoreManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
+    /// Implements [crate::client::CloudFilestoreManager::promote_replica].
+    fn promote_replica(
+        &self,
+        _req: crate::model::PromoteReplicaRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
+    {
+        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
+            "unimplemented",
+        )))
+    }
+
     /// Implements [crate::client::CloudFilestoreManager::list_locations].
     fn list_locations(
         &self,

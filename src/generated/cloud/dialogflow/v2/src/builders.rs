@@ -2198,6 +2198,64 @@ pub mod conversations {
         }
     }
 
+    /// The request builder for a Conversations::ingest_context_references call.
+    #[derive(Clone, Debug)]
+    pub struct IngestContextReferences(
+        RequestBuilder<crate::model::IngestContextReferencesRequest>,
+    );
+
+    impl IngestContextReferences {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Conversations>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::IngestContextReferencesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IngestContextReferencesResponse> {
+            (*self.0.stub)
+                .ingest_context_references(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [conversation][crate::model::IngestContextReferencesRequest::conversation].
+        pub fn set_conversation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.conversation = v.into();
+            self
+        }
+
+        /// Sets the value of [context_references][crate::model::IngestContextReferencesRequest::context_references].
+        pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::conversation::ContextReference>,
+        {
+            self.0.request.context_references =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for IngestContextReferences {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for a Conversations::list_messages call.
     #[derive(Clone, Debug)]
     pub struct ListMessages(RequestBuilder<crate::model::ListMessagesRequest>);
@@ -2480,6 +2538,18 @@ pub mod conversations {
             self
         }
 
+        /// Sets the value of [context_references][crate::model::GenerateStatelessSuggestionRequest::context_references].
+        pub fn set_context_references<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::conversation::ContextReference>,
+        {
+            self.0.request.context_references =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
         /// Sets the value of `generator_resource`.
         pub fn set_generator_resource<
             T: Into<Option<crate::model::generate_stateless_suggestion_request::GeneratorResource>>,
@@ -2602,6 +2672,67 @@ pub mod conversations {
     }
 
     impl gax::options::RequestBuilder for SearchKnowledge {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for a Conversations::generate_suggestions call.
+    #[derive(Clone, Debug)]
+    pub struct GenerateSuggestions(RequestBuilder<crate::model::GenerateSuggestionsRequest>);
+
+    impl GenerateSuggestions {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Conversations>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GenerateSuggestionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::GenerateSuggestionsResponse> {
+            (*self.0.stub)
+                .generate_suggestions(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [conversation][crate::model::GenerateSuggestionsRequest::conversation].
+        pub fn set_conversation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.conversation = v.into();
+            self
+        }
+
+        /// Sets the value of [latest_message][crate::model::GenerateSuggestionsRequest::latest_message].
+        pub fn set_latest_message<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.latest_message = v.into();
+            self
+        }
+
+        /// Sets the value of [trigger_events][crate::model::GenerateSuggestionsRequest::trigger_events].
+        pub fn set_trigger_events<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::TriggerEvent>,
+        {
+            use std::iter::Iterator;
+            self.0.request.trigger_events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for GenerateSuggestions {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

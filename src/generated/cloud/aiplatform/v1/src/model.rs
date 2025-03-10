@@ -48873,6 +48873,13 @@ pub struct ModelGardenSource {
     /// Required. The model garden source model resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub public_model_name: std::string::String,
+
+    /// Optional. The model garden source model version ID.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub version_id: std::string::String,
+
+    /// Optional. Whether to avoid pulling the model from the HF cache.
+    pub skip_hf_model_cache: bool,
 }
 
 impl ModelGardenSource {
@@ -48886,6 +48893,18 @@ impl ModelGardenSource {
         v: T,
     ) -> Self {
         self.public_model_name = v.into();
+        self
+    }
+
+    /// Sets the value of [version_id][crate::model::ModelGardenSource::version_id].
+    pub fn set_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version_id = v.into();
+        self
+    }
+
+    /// Sets the value of [skip_hf_model_cache][crate::model::ModelGardenSource::skip_hf_model_cache].
+    pub fn set_skip_hf_model_cache<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.skip_hf_model_cache = v.into();
         self
     }
 }
@@ -80717,6 +80736,142 @@ impl wkt::message::Message for RagFileTransformationConfig {
     }
 }
 
+/// Specifies the parsing config for RagFiles.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RagFileParsingConfig {
+    /// The parser to use for RagFiles.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub parser: std::option::Option<crate::model::rag_file_parsing_config::Parser>,
+}
+
+impl RagFileParsingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of `parser`.
+    pub fn set_parser<
+        T: std::convert::Into<std::option::Option<crate::model::rag_file_parsing_config::Parser>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parser = v.into();
+        self
+    }
+
+    /// The value of [parser][crate::model::RagFileParsingConfig::parser]
+    /// if it holds a `LayoutParser`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_layout_parser(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::rag_file_parsing_config::LayoutParser>>
+    {
+        #[allow(unreachable_patterns)]
+        self.parser.as_ref().and_then(|v| match v {
+            crate::model::rag_file_parsing_config::Parser::LayoutParser(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [parser][crate::model::RagFileParsingConfig::parser]
+    /// to hold a `LayoutParser`.
+    ///
+    /// Note that all the setters affecting `parser` are
+    /// mutually exclusive.
+    pub fn set_layout_parser<
+        T: std::convert::Into<std::boxed::Box<crate::model::rag_file_parsing_config::LayoutParser>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parser = std::option::Option::Some(
+            crate::model::rag_file_parsing_config::Parser::LayoutParser(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for RagFileParsingConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.aiplatform.v1.RagFileParsingConfig"
+    }
+}
+
+/// Defines additional types related to RagFileParsingConfig
+pub mod rag_file_parsing_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Document AI Layout Parser config.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct LayoutParser {
+        /// The full resource name of a Document AI processor or processor version.
+        /// The processor must have type `LAYOUT_PARSER_PROCESSOR`. If specified, the
+        /// `additional_config.parse_as_scanned_pdf` field must be false.
+        /// Format:
+        ///
+        /// * `projects/{project_id}/locations/{location}/processors/{processor_id}`
+        /// * `projects/{project_id}/locations/{location}/processors/{processor_id}/processorVersions/{processor_version_id}`
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub processor_name: std::string::String,
+
+        /// The maximum number of requests the job is allowed to make to the Document
+        /// AI processor per minute. Consult
+        /// <https://cloud.google.com/document-ai/quotas> and the Quota page for your
+        /// project to set an appropriate value here. If unspecified, a default value
+        /// of 120 QPM would be used.
+        pub max_parsing_requests_per_min: i32,
+    }
+
+    impl LayoutParser {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [processor_name][crate::model::rag_file_parsing_config::LayoutParser::processor_name].
+        pub fn set_processor_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.processor_name = v.into();
+            self
+        }
+
+        /// Sets the value of [max_parsing_requests_per_min][crate::model::rag_file_parsing_config::LayoutParser::max_parsing_requests_per_min].
+        pub fn set_max_parsing_requests_per_min<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.max_parsing_requests_per_min = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LayoutParser {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.aiplatform.v1.RagFileParsingConfig.LayoutParser"
+        }
+    }
+
+    /// The parser to use for RagFiles.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Parser {
+        /// The Layout Parser to use for RagFiles.
+        LayoutParser(std::boxed::Box<crate::model::rag_file_parsing_config::LayoutParser>),
+    }
+}
+
 /// Config for uploading RagFile.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -80763,6 +80918,11 @@ pub struct ImportRagFilesConfig {
     pub rag_file_transformation_config:
         std::option::Option<crate::model::RagFileTransformationConfig>,
 
+    /// Optional. Specifies the parsing config for RagFiles.
+    /// RAG will use the default parser if this field is not set.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rag_file_parsing_config: std::option::Option<crate::model::RagFileParsingConfig>,
+
     /// Optional. The max number of queries per minute that this job is allowed to
     /// make to the embedding model specified on the corpus. This value is specific
     /// to this job and not shared across other import jobs. Consult the Quotas
@@ -80794,6 +80954,17 @@ impl ImportRagFilesConfig {
         v: T,
     ) -> Self {
         self.rag_file_transformation_config = v.into();
+        self
+    }
+
+    /// Sets the value of [rag_file_parsing_config][crate::model::ImportRagFilesConfig::rag_file_parsing_config].
+    pub fn set_rag_file_parsing_config<
+        T: std::convert::Into<std::option::Option<crate::model::RagFileParsingConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.rag_file_parsing_config = v.into();
         self
     }
 
