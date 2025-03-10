@@ -40,7 +40,7 @@ func checkMessage(t *testing.T, got *api.Message, want *api.Message) {
 
 func checkEnum(t *testing.T, got api.Enum, want api.Enum) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Enum{}, "Values", "Parent")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Enum{}, "Values", "UniqueNumberValues", "Parent")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 	less := func(a, b *api.EnumValue) bool { return a.Name < b.Name }

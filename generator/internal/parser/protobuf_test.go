@@ -455,6 +455,58 @@ func TestProtobuf_Comments(t *testing.T) {
 	})
 }
 
+func TestProtobuf_UniqueEnumValues(t *testing.T) {
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "enum_values.proto"))
+	withAlias, ok := test.State.EnumByID[".test.WithAlias"]
+	if !ok {
+		t.Fatalf("Cannot find enum %s in API State", ".test.WithAlias")
+	}
+	fullList := []*api.EnumValue{
+		{
+			Name:   "X_UNSPECIFIED",
+			Number: 0,
+		},
+		{
+			Name:   "LONG_NAME_VALUE",
+			Number: 2,
+		},
+		{
+			Name:   "V2",
+			Number: 2,
+		},
+		{
+			Name:   "bad_style",
+			Number: 3,
+		},
+		{
+			Name:   "FOLLOWS_STYLE",
+			Number: 3,
+		},
+	}
+	uniqueList := []*api.EnumValue{
+		{
+			Name:   "X_UNSPECIFIED",
+			Number: 0,
+		},
+		{
+			Name:   "V2",
+			Number: 2,
+		},
+		{
+			Name:   "FOLLOWS_STYLE",
+			Number: 3,
+		},
+	}
+
+	less := func(a, b *api.EnumValue) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(fullList, withAlias.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.EnumValue{}, "Parent")); diff != "" {
+		t.Errorf("method mismatch (-want, +got):\n%s", diff)
+	}
+	if diff := cmp.Diff(uniqueList, withAlias.UniqueNumberValues, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.EnumValue{}, "Parent")); diff != "" {
+		t.Errorf("method mismatch (-want, +got):\n%s", diff)
+	}
+}
+
 func TestProtobuf_OneOfs(t *testing.T) {
 	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
