@@ -515,4 +515,12 @@ mod test {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn get_token_test() {
+        
+        let mdsc = new();
+        let token = mdsc.get_token().await.unwrap();
+        println!("token = {token:?}");
+    }
 }
