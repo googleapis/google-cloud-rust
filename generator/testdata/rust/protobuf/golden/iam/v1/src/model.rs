@@ -721,47 +721,64 @@ pub mod audit_log_config {
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogType(std::borrow::Cow<'static, str>);
+    pub struct LogType(i32);
 
     impl LogType {
+
+        /// Default case. Should never be this.
+        pub const LOG_TYPE_UNSPECIFIED: LogType = LogType::new(0);
+
+        /// Admin reads. Example: CloudIAM getIamPolicy
+        pub const ADMIN_READ: LogType = LogType::new(1);
+
+        /// Data writes. Example: CloudSQL Users create
+        pub const DATA_WRITE: LogType = LogType::new(2);
+
+        /// Data reads. Example: CloudSQL Users list
+        pub const DATA_READ: LogType = LogType::new(3);
+
         /// Creates a new LogType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOG_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ADMIN_READ"),
+                2 => std::borrow::Cow::Borrowed("DATA_WRITE"),
+                3 => std::borrow::Cow::Borrowed("DATA_READ"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOG_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::LOG_TYPE_UNSPECIFIED),
+                "ADMIN_READ" => std::option::Option::Some(Self::ADMIN_READ),
+                "DATA_WRITE" => std::option::Option::Some(Self::DATA_WRITE),
+                "DATA_READ" => std::option::Option::Some(Self::DATA_READ),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [LogType](LogType)
-    pub mod log_type {
-        use super::LogType;
-        
-
-        /// Default case. Should never be this.
-        pub const LOG_TYPE_UNSPECIFIED: LogType = LogType::new("LOG_TYPE_UNSPECIFIED");
-
-        /// Admin reads. Example: CloudIAM getIamPolicy
-        pub const ADMIN_READ: LogType = LogType::new("ADMIN_READ");
-
-        /// Data writes. Example: CloudSQL Users create
-        pub const DATA_WRITE: LogType = LogType::new("DATA_WRITE");
-
-        /// Data reads. Example: CloudSQL Users list
-        pub const DATA_READ: LogType = LogType::new("DATA_READ");
-    }
-
-    impl std::convert::From<std::string::String> for LogType {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for LogType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for LogType {
         fn default() -> Self {
-            log_type::LOG_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -889,44 +906,59 @@ pub mod binding_delta {
 
     /// The type of action performed on a Binding in a policy.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    pub struct Action(i32);
 
     impl Action {
+
+        /// Unspecified.
+        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+        /// Addition of a Binding.
+        pub const ADD: Action = Action::new(1);
+
+        /// Removal of a Binding.
+        pub const REMOVE: Action = Action::new(2);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ADD"),
+                2 => std::borrow::Cow::Borrowed("REMOVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+                "ADD" => std::option::Option::Some(Self::ADD),
+                "REMOVE" => std::option::Option::Some(Self::REMOVE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-        
-
-        /// Unspecified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-        /// Addition of a Binding.
-        pub const ADD: Action = Action::new("ADD");
-
-        /// Removal of a Binding.
-        pub const REMOVE: Action = Action::new("REMOVE");
-    }
-
-    impl std::convert::From<std::string::String> for Action {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1007,44 +1039,59 @@ pub mod audit_config_delta {
 
     /// The type of action performed on an audit configuration in a policy.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    pub struct Action(i32);
 
     impl Action {
+
+        /// Unspecified.
+        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+        /// Addition of an audit configuration.
+        pub const ADD: Action = Action::new(1);
+
+        /// Removal of an audit configuration.
+        pub const REMOVE: Action = Action::new(2);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ADD"),
+                2 => std::borrow::Cow::Borrowed("REMOVE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+                "ADD" => std::option::Option::Some(Self::ADD),
+                "REMOVE" => std::option::Option::Some(Self::REMOVE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-        
-
-        /// Unspecified.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-        /// Addition of an audit configuration.
-        pub const ADD: Action = Action::new("ADD");
-
-        /// Removal of an audit configuration.
-        pub const REMOVE: Action = Action::new("REMOVE");
-    }
-
-    impl std::convert::From<std::string::String> for Action {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

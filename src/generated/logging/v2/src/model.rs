@@ -1480,47 +1480,62 @@ pub mod tail_log_entries_response {
 
         /// An indicator of why entries were omitted.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Reason(std::borrow::Cow<'static, str>);
+        pub struct Reason(i32);
 
         impl Reason {
-            /// Creates a new Reason instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Reason](Reason)
-        pub mod reason {
-            use super::Reason;
-
             /// Unexpected default.
-            pub const REASON_UNSPECIFIED: Reason = Reason::new("REASON_UNSPECIFIED");
+            pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
 
             /// Indicates suppression occurred due to relevant entries being
             /// received in excess of rate limits. For quotas and limits, see
             /// [Logging API quotas and
             /// limits](https://cloud.google.com/logging/quotas#api-limits).
-            pub const RATE_LIMIT: Reason = Reason::new("RATE_LIMIT");
+            pub const RATE_LIMIT: Reason = Reason::new(1);
 
             /// Indicates suppression occurred due to the client not consuming
             /// responses quickly enough.
-            pub const NOT_CONSUMED: Reason = Reason::new("NOT_CONSUMED");
+            pub const NOT_CONSUMED: Reason = Reason::new(2);
+
+            /// Creates a new Reason instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("RATE_LIMIT"),
+                    2 => std::borrow::Cow::Borrowed("NOT_CONSUMED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
+                    "RATE_LIMIT" => std::option::Option::Some(Self::RATE_LIMIT),
+                    "NOT_CONSUMED" => std::option::Option::Some(Self::NOT_CONSUMED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Reason {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Reason {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Reason {
             fn default() -> Self {
-                reason::REASON_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -2128,44 +2143,60 @@ pub mod log_sink {
 
     /// Deprecated. This is unused.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VersionFormat(std::borrow::Cow<'static, str>);
+    pub struct VersionFormat(i32);
 
     impl VersionFormat {
+        /// An unspecified format version that will default to V2.
+        pub const VERSION_FORMAT_UNSPECIFIED: VersionFormat = VersionFormat::new(0);
+
+        /// `LogEntry` version 2 format.
+        pub const V2: VersionFormat = VersionFormat::new(1);
+
+        /// `LogEntry` version 1 format.
+        pub const V1: VersionFormat = VersionFormat::new(2);
+
         /// Creates a new VersionFormat instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VERSION_FORMAT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("V2"),
+                2 => std::borrow::Cow::Borrowed("V1"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VERSION_FORMAT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::VERSION_FORMAT_UNSPECIFIED)
+                }
+                "V2" => std::option::Option::Some(Self::V2),
+                "V1" => std::option::Option::Some(Self::V1),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [VersionFormat](VersionFormat)
-    pub mod version_format {
-        use super::VersionFormat;
-
-        /// An unspecified format version that will default to V2.
-        pub const VERSION_FORMAT_UNSPECIFIED: VersionFormat =
-            VersionFormat::new("VERSION_FORMAT_UNSPECIFIED");
-
-        /// `LogEntry` version 2 format.
-        pub const V2: VersionFormat = VersionFormat::new("V2");
-
-        /// `LogEntry` version 1 format.
-        pub const V1: VersionFormat = VersionFormat::new("V1");
-    }
-
-    impl std::convert::From<std::string::String> for VersionFormat {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for VersionFormat {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for VersionFormat {
         fn default() -> Self {
-            version_format::VERSION_FORMAT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -5437,40 +5468,53 @@ pub mod log_metric {
 
     /// Logging API version.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApiVersion(std::borrow::Cow<'static, str>);
+    pub struct ApiVersion(i32);
 
     impl ApiVersion {
+        /// Logging API v2.
+        pub const V2: ApiVersion = ApiVersion::new(0);
+
+        /// Logging API v1.
+        pub const V1: ApiVersion = ApiVersion::new(1);
+
         /// Creates a new ApiVersion instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("V2"),
+                1 => std::borrow::Cow::Borrowed("V1"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "V2" => std::option::Option::Some(Self::V2),
+                "V1" => std::option::Option::Some(Self::V1),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ApiVersion](ApiVersion)
-    pub mod api_version {
-        use super::ApiVersion;
-
-        /// Logging API v2.
-        pub const V2: ApiVersion = ApiVersion::new("V2");
-
-        /// Logging API v1.
-        pub const V1: ApiVersion = ApiVersion::new("V1");
-    }
-
-    impl std::convert::From<std::string::String> for ApiVersion {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ApiVersion {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ApiVersion {
         fn default() -> Self {
-            api_version::V2
+            Self::new(0)
         }
     }
 }
@@ -5762,160 +5806,223 @@ impl wkt::message::Message for DeleteLogMetricRequest {
 /// the current state of the operation can be queried even before the
 /// operation is finished and the final result is available.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationState(std::borrow::Cow<'static, str>);
+pub struct OperationState(i32);
 
 impl OperationState {
+    /// Should not be used.
+    pub const OPERATION_STATE_UNSPECIFIED: OperationState = OperationState::new(0);
+
+    /// The operation is scheduled.
+    pub const OPERATION_STATE_SCHEDULED: OperationState = OperationState::new(1);
+
+    /// Waiting for necessary permissions.
+    pub const OPERATION_STATE_WAITING_FOR_PERMISSIONS: OperationState = OperationState::new(2);
+
+    /// The operation is running.
+    pub const OPERATION_STATE_RUNNING: OperationState = OperationState::new(3);
+
+    /// The operation was completed successfully.
+    pub const OPERATION_STATE_SUCCEEDED: OperationState = OperationState::new(4);
+
+    /// The operation failed.
+    pub const OPERATION_STATE_FAILED: OperationState = OperationState::new(5);
+
+    /// The operation was cancelled by the user.
+    pub const OPERATION_STATE_CANCELLED: OperationState = OperationState::new(6);
+
     /// Creates a new OperationState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("OPERATION_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("OPERATION_STATE_SCHEDULED"),
+            2 => std::borrow::Cow::Borrowed("OPERATION_STATE_WAITING_FOR_PERMISSIONS"),
+            3 => std::borrow::Cow::Borrowed("OPERATION_STATE_RUNNING"),
+            4 => std::borrow::Cow::Borrowed("OPERATION_STATE_SUCCEEDED"),
+            5 => std::borrow::Cow::Borrowed("OPERATION_STATE_FAILED"),
+            6 => std::borrow::Cow::Borrowed("OPERATION_STATE_CANCELLED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "OPERATION_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::OPERATION_STATE_UNSPECIFIED)
+            }
+            "OPERATION_STATE_SCHEDULED" => {
+                std::option::Option::Some(Self::OPERATION_STATE_SCHEDULED)
+            }
+            "OPERATION_STATE_WAITING_FOR_PERMISSIONS" => {
+                std::option::Option::Some(Self::OPERATION_STATE_WAITING_FOR_PERMISSIONS)
+            }
+            "OPERATION_STATE_RUNNING" => std::option::Option::Some(Self::OPERATION_STATE_RUNNING),
+            "OPERATION_STATE_SUCCEEDED" => {
+                std::option::Option::Some(Self::OPERATION_STATE_SUCCEEDED)
+            }
+            "OPERATION_STATE_FAILED" => std::option::Option::Some(Self::OPERATION_STATE_FAILED),
+            "OPERATION_STATE_CANCELLED" => {
+                std::option::Option::Some(Self::OPERATION_STATE_CANCELLED)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [OperationState](OperationState)
-pub mod operation_state {
-    use super::OperationState;
-
-    /// Should not be used.
-    pub const OPERATION_STATE_UNSPECIFIED: OperationState =
-        OperationState::new("OPERATION_STATE_UNSPECIFIED");
-
-    /// The operation is scheduled.
-    pub const OPERATION_STATE_SCHEDULED: OperationState =
-        OperationState::new("OPERATION_STATE_SCHEDULED");
-
-    /// Waiting for necessary permissions.
-    pub const OPERATION_STATE_WAITING_FOR_PERMISSIONS: OperationState =
-        OperationState::new("OPERATION_STATE_WAITING_FOR_PERMISSIONS");
-
-    /// The operation is running.
-    pub const OPERATION_STATE_RUNNING: OperationState =
-        OperationState::new("OPERATION_STATE_RUNNING");
-
-    /// The operation was completed successfully.
-    pub const OPERATION_STATE_SUCCEEDED: OperationState =
-        OperationState::new("OPERATION_STATE_SUCCEEDED");
-
-    /// The operation failed.
-    pub const OPERATION_STATE_FAILED: OperationState =
-        OperationState::new("OPERATION_STATE_FAILED");
-
-    /// The operation was cancelled by the user.
-    pub const OPERATION_STATE_CANCELLED: OperationState =
-        OperationState::new("OPERATION_STATE_CANCELLED");
-}
-
-impl std::convert::From<std::string::String> for OperationState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for OperationState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for OperationState {
     fn default() -> Self {
-        operation_state::OPERATION_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// LogBucket lifecycle states.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LifecycleState(std::borrow::Cow<'static, str>);
+pub struct LifecycleState(i32);
 
 impl LifecycleState {
-    /// Creates a new LifecycleState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LifecycleState](LifecycleState)
-pub mod lifecycle_state {
-    use super::LifecycleState;
-
     /// Unspecified state. This is only used/useful for distinguishing unset
     /// values.
-    pub const LIFECYCLE_STATE_UNSPECIFIED: LifecycleState =
-        LifecycleState::new("LIFECYCLE_STATE_UNSPECIFIED");
+    pub const LIFECYCLE_STATE_UNSPECIFIED: LifecycleState = LifecycleState::new(0);
 
     /// The normal and active state.
-    pub const ACTIVE: LifecycleState = LifecycleState::new("ACTIVE");
+    pub const ACTIVE: LifecycleState = LifecycleState::new(1);
 
     /// The resource has been marked for deletion by the user. For some resources
     /// (e.g. buckets), this can be reversed by an un-delete operation.
-    pub const DELETE_REQUESTED: LifecycleState = LifecycleState::new("DELETE_REQUESTED");
+    pub const DELETE_REQUESTED: LifecycleState = LifecycleState::new(2);
 
     /// The resource has been marked for an update by the user. It will remain in
     /// this state until the update is complete.
-    pub const UPDATING: LifecycleState = LifecycleState::new("UPDATING");
+    pub const UPDATING: LifecycleState = LifecycleState::new(3);
 
     /// The resource has been marked for creation by the user. It will remain in
     /// this state until the creation is complete.
-    pub const CREATING: LifecycleState = LifecycleState::new("CREATING");
+    pub const CREATING: LifecycleState = LifecycleState::new(4);
 
     /// The resource is in an INTERNAL error state.
-    pub const FAILED: LifecycleState = LifecycleState::new("FAILED");
+    pub const FAILED: LifecycleState = LifecycleState::new(5);
+
+    /// Creates a new LifecycleState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("LIFECYCLE_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ACTIVE"),
+            2 => std::borrow::Cow::Borrowed("DELETE_REQUESTED"),
+            3 => std::borrow::Cow::Borrowed("UPDATING"),
+            4 => std::borrow::Cow::Borrowed("CREATING"),
+            5 => std::borrow::Cow::Borrowed("FAILED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "LIFECYCLE_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::LIFECYCLE_STATE_UNSPECIFIED)
+            }
+            "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+            "DELETE_REQUESTED" => std::option::Option::Some(Self::DELETE_REQUESTED),
+            "UPDATING" => std::option::Option::Some(Self::UPDATING),
+            "CREATING" => std::option::Option::Some(Self::CREATING),
+            "FAILED" => std::option::Option::Some(Self::FAILED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LifecycleState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LifecycleState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for LifecycleState {
     fn default() -> Self {
-        lifecycle_state::LIFECYCLE_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// IndexType is used for custom indexing. It describes the type of an indexed
 /// field.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IndexType(std::borrow::Cow<'static, str>);
+pub struct IndexType(i32);
 
 impl IndexType {
+    /// The index's type is unspecified.
+    pub const INDEX_TYPE_UNSPECIFIED: IndexType = IndexType::new(0);
+
+    /// The index is a string-type index.
+    pub const INDEX_TYPE_STRING: IndexType = IndexType::new(1);
+
+    /// The index is a integer-type index.
+    pub const INDEX_TYPE_INTEGER: IndexType = IndexType::new(2);
+
     /// Creates a new IndexType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("INDEX_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("INDEX_TYPE_STRING"),
+            2 => std::borrow::Cow::Borrowed("INDEX_TYPE_INTEGER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "INDEX_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::INDEX_TYPE_UNSPECIFIED),
+            "INDEX_TYPE_STRING" => std::option::Option::Some(Self::INDEX_TYPE_STRING),
+            "INDEX_TYPE_INTEGER" => std::option::Option::Some(Self::INDEX_TYPE_INTEGER),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [IndexType](IndexType)
-pub mod index_type {
-    use super::IndexType;
-
-    /// The index's type is unspecified.
-    pub const INDEX_TYPE_UNSPECIFIED: IndexType = IndexType::new("INDEX_TYPE_UNSPECIFIED");
-
-    /// The index is a string-type index.
-    pub const INDEX_TYPE_STRING: IndexType = IndexType::new("INDEX_TYPE_STRING");
-
-    /// The index is a integer-type index.
-    pub const INDEX_TYPE_INTEGER: IndexType = IndexType::new("INDEX_TYPE_INTEGER");
-}
-
-impl std::convert::From<std::string::String> for IndexType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for IndexType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for IndexType {
     fn default() -> Self {
-        index_type::INDEX_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

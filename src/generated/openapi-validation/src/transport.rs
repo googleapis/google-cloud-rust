@@ -52,7 +52,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/locations", req.project),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86,7 +86,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/locations/{}", req.project, req.location),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -108,7 +108,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/secrets", req.project),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -142,7 +142,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::POST,
                 format!("/v1/projects/{}/secrets", req.project),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -168,7 +168,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -205,7 +205,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -231,7 +231,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -254,7 +254,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -274,7 +274,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::GET,
                 format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -296,7 +296,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::DELETE,
                 format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -322,7 +322,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                 reqwest::Method::PATCH,
                 format!("/v1/projects/{}/secrets/{}", req.project, req.secret),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -353,7 +353,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -378,7 +378,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -407,7 +407,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -438,7 +438,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -475,7 +475,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -512,7 +512,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -537,7 +537,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -562,7 +562,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -587,7 +587,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -612,7 +612,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -635,7 +635,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -658,7 +658,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -681,7 +681,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -704,7 +704,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -727,7 +727,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret, req.version
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -750,7 +750,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -773,7 +773,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -796,7 +796,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -827,7 +827,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -858,7 +858,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -881,7 +881,7 @@ impl crate::stubs::SecretManagerService for SecretManagerService {
                     req.project, req.location, req.secret
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

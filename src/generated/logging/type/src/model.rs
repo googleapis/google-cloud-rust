@@ -232,61 +232,88 @@ impl wkt::message::Message for HttpRequest {
 /// FINER, and FINEST levels to `LogSeverity.DEBUG`. You can preserve the
 /// original severity level in the log entry payload if you wish.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LogSeverity(std::borrow::Cow<'static, str>);
+pub struct LogSeverity(i32);
 
 impl LogSeverity {
-    /// Creates a new LogSeverity instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [LogSeverity](LogSeverity)
-pub mod log_severity {
-    use super::LogSeverity;
-
     /// (0) The log entry has no assigned severity level.
-    pub const DEFAULT: LogSeverity = LogSeverity::new("DEFAULT");
+    pub const DEFAULT: LogSeverity = LogSeverity::new(0);
 
     /// (100) Debug or trace information.
-    pub const DEBUG: LogSeverity = LogSeverity::new("DEBUG");
+    pub const DEBUG: LogSeverity = LogSeverity::new(100);
 
     /// (200) Routine information, such as ongoing status or performance.
-    pub const INFO: LogSeverity = LogSeverity::new("INFO");
+    pub const INFO: LogSeverity = LogSeverity::new(200);
 
     /// (300) Normal but significant events, such as start up, shut down, or
     /// a configuration change.
-    pub const NOTICE: LogSeverity = LogSeverity::new("NOTICE");
+    pub const NOTICE: LogSeverity = LogSeverity::new(300);
 
     /// (400) Warning events might cause problems.
-    pub const WARNING: LogSeverity = LogSeverity::new("WARNING");
+    pub const WARNING: LogSeverity = LogSeverity::new(400);
 
     /// (500) Error events are likely to cause problems.
-    pub const ERROR: LogSeverity = LogSeverity::new("ERROR");
+    pub const ERROR: LogSeverity = LogSeverity::new(500);
 
     /// (600) Critical events cause more severe problems or outages.
-    pub const CRITICAL: LogSeverity = LogSeverity::new("CRITICAL");
+    pub const CRITICAL: LogSeverity = LogSeverity::new(600);
 
     /// (700) A person must take an action immediately.
-    pub const ALERT: LogSeverity = LogSeverity::new("ALERT");
+    pub const ALERT: LogSeverity = LogSeverity::new(700);
 
     /// (800) One or more systems are unusable.
-    pub const EMERGENCY: LogSeverity = LogSeverity::new("EMERGENCY");
+    pub const EMERGENCY: LogSeverity = LogSeverity::new(800);
+
+    /// Creates a new LogSeverity instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DEFAULT"),
+            100 => std::borrow::Cow::Borrowed("DEBUG"),
+            200 => std::borrow::Cow::Borrowed("INFO"),
+            300 => std::borrow::Cow::Borrowed("NOTICE"),
+            400 => std::borrow::Cow::Borrowed("WARNING"),
+            500 => std::borrow::Cow::Borrowed("ERROR"),
+            600 => std::borrow::Cow::Borrowed("CRITICAL"),
+            700 => std::borrow::Cow::Borrowed("ALERT"),
+            800 => std::borrow::Cow::Borrowed("EMERGENCY"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
+            "DEBUG" => std::option::Option::Some(Self::DEBUG),
+            "INFO" => std::option::Option::Some(Self::INFO),
+            "NOTICE" => std::option::Option::Some(Self::NOTICE),
+            "WARNING" => std::option::Option::Some(Self::WARNING),
+            "ERROR" => std::option::Option::Some(Self::ERROR),
+            "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+            "ALERT" => std::option::Option::Some(Self::ALERT),
+            "EMERGENCY" => std::option::Option::Some(Self::EMERGENCY),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for LogSeverity {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for LogSeverity {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for LogSeverity {
     fn default() -> Self {
-        log_severity::DEFAULT
+        Self::new(0)
     }
 }

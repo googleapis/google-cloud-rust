@@ -52,7 +52,7 @@ impl crate::stubs::QuotaController for QuotaController {
                 reqwest::Method::POST,
                 format!("/v1/services/{}:allocateQuota", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95,7 +95,7 @@ impl crate::stubs::ServiceController for ServiceController {
                 reqwest::Method::POST,
                 format!("/v1/services/{}:check", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -115,7 +115,7 @@ impl crate::stubs::ServiceController for ServiceController {
                 reqwest::Method::POST,
                 format!("/v1/services/{}:report", req.service_name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

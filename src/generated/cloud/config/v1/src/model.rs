@@ -419,172 +419,249 @@ pub mod deployment {
 
     /// Possible states of a deployment.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The deployment is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The deployment is healthy.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The deployment is being updated.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// The deployment is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// The deployment has encountered an unexpected error.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(5);
 
         /// The deployment is no longer being actively reconciled.
         /// This may be the result of recovering the project after deletion.
-        pub const SUSPENDED: State = State::new("SUSPENDED");
+        pub const SUSPENDED: State = State::new(6);
 
         /// The deployment has been deleted.
-        pub const DELETED: State = State::new("DELETED");
+        pub const DELETED: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                6 => std::borrow::Cow::Borrowed("SUSPENDED"),
+                7 => std::borrow::Cow::Borrowed("DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible errors that can occur with deployments.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ErrorCode(std::borrow::Cow<'static, str>);
+    pub struct ErrorCode(i32);
 
     impl ErrorCode {
-        /// Creates a new ErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ErrorCode](ErrorCode)
-    pub mod error_code {
-        use super::ErrorCode;
-
         /// No error code was specified.
-        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new("ERROR_CODE_UNSPECIFIED");
+        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new(0);
 
         /// The revision failed. See Revision for more details.
-        pub const REVISION_FAILED: ErrorCode = ErrorCode::new("REVISION_FAILED");
+        pub const REVISION_FAILED: ErrorCode = ErrorCode::new(1);
 
         /// Cloud Build failed due to a permission issue.
-        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode =
-            ErrorCode::new("CLOUD_BUILD_PERMISSION_DENIED");
+        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode = ErrorCode::new(3);
 
         /// Cloud Build job associated with a deployment deletion could not be
         /// started.
-        pub const DELETE_BUILD_API_FAILED: ErrorCode = ErrorCode::new("DELETE_BUILD_API_FAILED");
+        pub const DELETE_BUILD_API_FAILED: ErrorCode = ErrorCode::new(5);
 
         /// Cloud Build job associated with a deployment deletion was started but
         /// failed.
-        pub const DELETE_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new("DELETE_BUILD_RUN_FAILED");
+        pub const DELETE_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new(6);
 
         /// Cloud Storage bucket creation failed due to a permission issue.
-        pub const BUCKET_CREATION_PERMISSION_DENIED: ErrorCode =
-            ErrorCode::new("BUCKET_CREATION_PERMISSION_DENIED");
+        pub const BUCKET_CREATION_PERMISSION_DENIED: ErrorCode = ErrorCode::new(7);
 
         /// Cloud Storage bucket creation failed due to an issue unrelated to
         /// permissions.
-        pub const BUCKET_CREATION_FAILED: ErrorCode = ErrorCode::new("BUCKET_CREATION_FAILED");
+        pub const BUCKET_CREATION_FAILED: ErrorCode = ErrorCode::new(8);
+
+        /// Creates a new ErrorCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ERROR_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REVISION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("CLOUD_BUILD_PERMISSION_DENIED"),
+                5 => std::borrow::Cow::Borrowed("DELETE_BUILD_API_FAILED"),
+                6 => std::borrow::Cow::Borrowed("DELETE_BUILD_RUN_FAILED"),
+                7 => std::borrow::Cow::Borrowed("BUCKET_CREATION_PERMISSION_DENIED"),
+                8 => std::borrow::Cow::Borrowed("BUCKET_CREATION_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
+                "REVISION_FAILED" => std::option::Option::Some(Self::REVISION_FAILED),
+                "CLOUD_BUILD_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_PERMISSION_DENIED)
+                }
+                "DELETE_BUILD_API_FAILED" => {
+                    std::option::Option::Some(Self::DELETE_BUILD_API_FAILED)
+                }
+                "DELETE_BUILD_RUN_FAILED" => {
+                    std::option::Option::Some(Self::DELETE_BUILD_RUN_FAILED)
+                }
+                "BUCKET_CREATION_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::BUCKET_CREATION_PERMISSION_DENIED)
+                }
+                "BUCKET_CREATION_FAILED" => std::option::Option::Some(Self::BUCKET_CREATION_FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ErrorCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ErrorCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ErrorCode {
         fn default() -> Self {
-            error_code::ERROR_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible lock states of a deployment.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LockState(std::borrow::Cow<'static, str>);
+    pub struct LockState(i32);
 
     impl LockState {
+        /// The default value. This value is used if the lock state is omitted.
+        pub const LOCK_STATE_UNSPECIFIED: LockState = LockState::new(0);
+
+        /// The deployment is locked.
+        pub const LOCKED: LockState = LockState::new(1);
+
+        /// The deployment is unlocked.
+        pub const UNLOCKED: LockState = LockState::new(2);
+
+        /// The deployment is being locked.
+        pub const LOCKING: LockState = LockState::new(3);
+
+        /// The deployment is being unlocked.
+        pub const UNLOCKING: LockState = LockState::new(4);
+
+        /// The deployment has failed to lock.
+        pub const LOCK_FAILED: LockState = LockState::new(5);
+
+        /// The deployment has failed to unlock.
+        pub const UNLOCK_FAILED: LockState = LockState::new(6);
+
         /// Creates a new LockState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOCK_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOCKED"),
+                2 => std::borrow::Cow::Borrowed("UNLOCKED"),
+                3 => std::borrow::Cow::Borrowed("LOCKING"),
+                4 => std::borrow::Cow::Borrowed("UNLOCKING"),
+                5 => std::borrow::Cow::Borrowed("LOCK_FAILED"),
+                6 => std::borrow::Cow::Borrowed("UNLOCK_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOCK_STATE_UNSPECIFIED" => std::option::Option::Some(Self::LOCK_STATE_UNSPECIFIED),
+                "LOCKED" => std::option::Option::Some(Self::LOCKED),
+                "UNLOCKED" => std::option::Option::Some(Self::UNLOCKED),
+                "LOCKING" => std::option::Option::Some(Self::LOCKING),
+                "UNLOCKING" => std::option::Option::Some(Self::UNLOCKING),
+                "LOCK_FAILED" => std::option::Option::Some(Self::LOCK_FAILED),
+                "UNLOCK_FAILED" => std::option::Option::Some(Self::UNLOCK_FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [LockState](LockState)
-    pub mod lock_state {
-        use super::LockState;
-
-        /// The default value. This value is used if the lock state is omitted.
-        pub const LOCK_STATE_UNSPECIFIED: LockState = LockState::new("LOCK_STATE_UNSPECIFIED");
-
-        /// The deployment is locked.
-        pub const LOCKED: LockState = LockState::new("LOCKED");
-
-        /// The deployment is unlocked.
-        pub const UNLOCKED: LockState = LockState::new("UNLOCKED");
-
-        /// The deployment is being locked.
-        pub const LOCKING: LockState = LockState::new("LOCKING");
-
-        /// The deployment is being unlocked.
-        pub const UNLOCKING: LockState = LockState::new("UNLOCKING");
-
-        /// The deployment has failed to lock.
-        pub const LOCK_FAILED: LockState = LockState::new("LOCK_FAILED");
-
-        /// The deployment has failed to unlock.
-        pub const UNLOCK_FAILED: LockState = LockState::new("UNLOCK_FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for LockState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LockState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LockState {
         fn default() -> Self {
-            lock_state::LOCK_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1491,44 +1568,60 @@ pub mod delete_deployment_request {
 
     /// Policy on how resources actuated by the deployment should be deleted.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DeletePolicy(std::borrow::Cow<'static, str>);
+    pub struct DeletePolicy(i32);
 
     impl DeletePolicy {
+        /// Unspecified policy, resources will be deleted.
+        pub const DELETE_POLICY_UNSPECIFIED: DeletePolicy = DeletePolicy::new(0);
+
+        /// Deletes resources actuated by the deployment.
+        pub const DELETE: DeletePolicy = DeletePolicy::new(1);
+
+        /// Abandons resources and only deletes the deployment and its metadata.
+        pub const ABANDON: DeletePolicy = DeletePolicy::new(2);
+
         /// Creates a new DeletePolicy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DELETE_POLICY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DELETE"),
+                2 => std::borrow::Cow::Borrowed("ABANDON"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DELETE_POLICY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DELETE_POLICY_UNSPECIFIED)
+                }
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                "ABANDON" => std::option::Option::Some(Self::ABANDON),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DeletePolicy](DeletePolicy)
-    pub mod delete_policy {
-        use super::DeletePolicy;
-
-        /// Unspecified policy, resources will be deleted.
-        pub const DELETE_POLICY_UNSPECIFIED: DeletePolicy =
-            DeletePolicy::new("DELETE_POLICY_UNSPECIFIED");
-
-        /// Deletes resources actuated by the deployment.
-        pub const DELETE: DeletePolicy = DeletePolicy::new("DELETE");
-
-        /// Abandons resources and only deletes the deployment and its metadata.
-        pub const ABANDON: DeletePolicy = DeletePolicy::new("ABANDON");
-    }
-
-    impl std::convert::From<std::string::String> for DeletePolicy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DeletePolicy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DeletePolicy {
         fn default() -> Self {
-            delete_policy::DELETE_POLICY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2047,143 +2140,199 @@ pub mod revision {
 
     /// Actions that generate a revision.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::borrow::Cow<'static, str>);
+    pub struct Action(i32);
 
     impl Action {
+        /// The default value. This value is used if the action is omitted.
+        pub const ACTION_UNSPECIFIED: Action = Action::new(0);
+
+        /// The revision was generated by creating a deployment.
+        pub const CREATE: Action = Action::new(1);
+
+        /// The revision was generated by updating a deployment.
+        pub const UPDATE: Action = Action::new(2);
+
+        /// The revision was deleted.
+        pub const DELETE: Action = Action::new(3);
+
         /// Creates a new Action instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATE"),
+                2 => std::borrow::Cow::Borrowed("UPDATE"),
+                3 => std::borrow::Cow::Borrowed("DELETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Action](Action)
-    pub mod action {
-        use super::Action;
-
-        /// The default value. This value is used if the action is omitted.
-        pub const ACTION_UNSPECIFIED: Action = Action::new("ACTION_UNSPECIFIED");
-
-        /// The revision was generated by creating a deployment.
-        pub const CREATE: Action = Action::new("CREATE");
-
-        /// The revision was generated by updating a deployment.
-        pub const UPDATE: Action = Action::new("UPDATE");
-
-        /// The revision was deleted.
-        pub const DELETE: Action = Action::new("DELETE");
-    }
-
-    impl std::convert::From<std::string::String> for Action {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Action {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Action {
         fn default() -> Self {
-            action::ACTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible states of a revision.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The default value. This value is used if the state is omitted.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The revision is being applied.
+        pub const APPLYING: State = State::new(1);
+
+        /// The revision was applied successfully.
+        pub const APPLIED: State = State::new(2);
+
+        /// The revision could not be applied successfully.
+        pub const FAILED: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("APPLYING"),
+                2 => std::borrow::Cow::Borrowed("APPLIED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "APPLYING" => std::option::Option::Some(Self::APPLYING),
+                "APPLIED" => std::option::Option::Some(Self::APPLIED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The revision is being applied.
-        pub const APPLYING: State = State::new("APPLYING");
-
-        /// The revision was applied successfully.
-        pub const APPLIED: State = State::new("APPLIED");
-
-        /// The revision could not be applied successfully.
-        pub const FAILED: State = State::new("FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible errors if Revision could not be created or updated successfully.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ErrorCode(std::borrow::Cow<'static, str>);
+    pub struct ErrorCode(i32);
 
     impl ErrorCode {
-        /// Creates a new ErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ErrorCode](ErrorCode)
-    pub mod error_code {
-        use super::ErrorCode;
-
         /// No error code was specified.
-        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new("ERROR_CODE_UNSPECIFIED");
+        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new(0);
 
         /// Cloud Build failed due to a permission issue.
-        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode =
-            ErrorCode::new("CLOUD_BUILD_PERMISSION_DENIED");
+        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode = ErrorCode::new(1);
 
         /// Cloud Build job associated with creating or updating a deployment could
         /// not be started.
-        pub const APPLY_BUILD_API_FAILED: ErrorCode = ErrorCode::new("APPLY_BUILD_API_FAILED");
+        pub const APPLY_BUILD_API_FAILED: ErrorCode = ErrorCode::new(4);
 
         /// Cloud Build job associated with creating or updating a deployment was
         /// started but failed.
-        pub const APPLY_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new("APPLY_BUILD_RUN_FAILED");
+        pub const APPLY_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new(5);
 
         /// quota validation failed for one or more resources in terraform
         /// configuration files.
-        pub const QUOTA_VALIDATION_FAILED: ErrorCode = ErrorCode::new("QUOTA_VALIDATION_FAILED");
+        pub const QUOTA_VALIDATION_FAILED: ErrorCode = ErrorCode::new(7);
+
+        /// Creates a new ErrorCode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ERROR_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_PERMISSION_DENIED"),
+                4 => std::borrow::Cow::Borrowed("APPLY_BUILD_API_FAILED"),
+                5 => std::borrow::Cow::Borrowed("APPLY_BUILD_RUN_FAILED"),
+                7 => std::borrow::Cow::Borrowed("QUOTA_VALIDATION_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
+                "CLOUD_BUILD_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_PERMISSION_DENIED)
+                }
+                "APPLY_BUILD_API_FAILED" => std::option::Option::Some(Self::APPLY_BUILD_API_FAILED),
+                "APPLY_BUILD_RUN_FAILED" => std::option::Option::Some(Self::APPLY_BUILD_RUN_FAILED),
+                "QUOTA_VALIDATION_FAILED" => {
+                    std::option::Option::Some(Self::QUOTA_VALIDATION_FAILED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ErrorCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ErrorCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ErrorCode {
         fn default() -> Self {
-            error_code::ERROR_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -2405,80 +2554,115 @@ pub mod deployment_operation_metadata {
 
     /// The possible steps a deployment may be running.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DeploymentStep(std::borrow::Cow<'static, str>);
+    pub struct DeploymentStep(i32);
 
     impl DeploymentStep {
-        /// Creates a new DeploymentStep instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DeploymentStep](DeploymentStep)
-    pub mod deployment_step {
-        use super::DeploymentStep;
-
         /// Unspecified deployment step
-        pub const DEPLOYMENT_STEP_UNSPECIFIED: DeploymentStep =
-            DeploymentStep::new("DEPLOYMENT_STEP_UNSPECIFIED");
+        pub const DEPLOYMENT_STEP_UNSPECIFIED: DeploymentStep = DeploymentStep::new(0);
 
         /// Infra Manager is creating a Google Cloud Storage bucket to store
         /// artifacts and metadata about the deployment and revision
-        pub const PREPARING_STORAGE_BUCKET: DeploymentStep =
-            DeploymentStep::new("PREPARING_STORAGE_BUCKET");
+        pub const PREPARING_STORAGE_BUCKET: DeploymentStep = DeploymentStep::new(1);
 
         /// Downloading the blueprint onto the Google Cloud Storage bucket
-        pub const DOWNLOADING_BLUEPRINT: DeploymentStep =
-            DeploymentStep::new("DOWNLOADING_BLUEPRINT");
+        pub const DOWNLOADING_BLUEPRINT: DeploymentStep = DeploymentStep::new(2);
 
         /// Initializing Terraform using `terraform init`
-        pub const RUNNING_TF_INIT: DeploymentStep = DeploymentStep::new("RUNNING_TF_INIT");
+        pub const RUNNING_TF_INIT: DeploymentStep = DeploymentStep::new(3);
 
         /// Running `terraform plan`
-        pub const RUNNING_TF_PLAN: DeploymentStep = DeploymentStep::new("RUNNING_TF_PLAN");
+        pub const RUNNING_TF_PLAN: DeploymentStep = DeploymentStep::new(4);
 
         /// Actuating resources using Terraform using `terraform apply`
-        pub const RUNNING_TF_APPLY: DeploymentStep = DeploymentStep::new("RUNNING_TF_APPLY");
+        pub const RUNNING_TF_APPLY: DeploymentStep = DeploymentStep::new(5);
 
         /// Destroying resources using Terraform using `terraform destroy`
-        pub const RUNNING_TF_DESTROY: DeploymentStep = DeploymentStep::new("RUNNING_TF_DESTROY");
+        pub const RUNNING_TF_DESTROY: DeploymentStep = DeploymentStep::new(6);
 
         /// Validating the uploaded TF state file when unlocking a deployment
-        pub const RUNNING_TF_VALIDATE: DeploymentStep = DeploymentStep::new("RUNNING_TF_VALIDATE");
+        pub const RUNNING_TF_VALIDATE: DeploymentStep = DeploymentStep::new(7);
 
         /// Unlocking a deployment
-        pub const UNLOCKING_DEPLOYMENT: DeploymentStep =
-            DeploymentStep::new("UNLOCKING_DEPLOYMENT");
+        pub const UNLOCKING_DEPLOYMENT: DeploymentStep = DeploymentStep::new(8);
 
         /// Operation was successful
-        pub const SUCCEEDED: DeploymentStep = DeploymentStep::new("SUCCEEDED");
+        pub const SUCCEEDED: DeploymentStep = DeploymentStep::new(9);
 
         /// Operation failed
-        pub const FAILED: DeploymentStep = DeploymentStep::new("FAILED");
+        pub const FAILED: DeploymentStep = DeploymentStep::new(10);
 
         /// Validating the provided repository.
-        pub const VALIDATING_REPOSITORY: DeploymentStep =
-            DeploymentStep::new("VALIDATING_REPOSITORY");
+        pub const VALIDATING_REPOSITORY: DeploymentStep = DeploymentStep::new(11);
 
         /// Running quota validation
-        pub const RUNNING_QUOTA_VALIDATION: DeploymentStep =
-            DeploymentStep::new("RUNNING_QUOTA_VALIDATION");
+        pub const RUNNING_QUOTA_VALIDATION: DeploymentStep = DeploymentStep::new(12);
+
+        /// Creates a new DeploymentStep instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DEPLOYMENT_STEP_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PREPARING_STORAGE_BUCKET"),
+                2 => std::borrow::Cow::Borrowed("DOWNLOADING_BLUEPRINT"),
+                3 => std::borrow::Cow::Borrowed("RUNNING_TF_INIT"),
+                4 => std::borrow::Cow::Borrowed("RUNNING_TF_PLAN"),
+                5 => std::borrow::Cow::Borrowed("RUNNING_TF_APPLY"),
+                6 => std::borrow::Cow::Borrowed("RUNNING_TF_DESTROY"),
+                7 => std::borrow::Cow::Borrowed("RUNNING_TF_VALIDATE"),
+                8 => std::borrow::Cow::Borrowed("UNLOCKING_DEPLOYMENT"),
+                9 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                10 => std::borrow::Cow::Borrowed("FAILED"),
+                11 => std::borrow::Cow::Borrowed("VALIDATING_REPOSITORY"),
+                12 => std::borrow::Cow::Borrowed("RUNNING_QUOTA_VALIDATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DEPLOYMENT_STEP_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DEPLOYMENT_STEP_UNSPECIFIED)
+                }
+                "PREPARING_STORAGE_BUCKET" => {
+                    std::option::Option::Some(Self::PREPARING_STORAGE_BUCKET)
+                }
+                "DOWNLOADING_BLUEPRINT" => std::option::Option::Some(Self::DOWNLOADING_BLUEPRINT),
+                "RUNNING_TF_INIT" => std::option::Option::Some(Self::RUNNING_TF_INIT),
+                "RUNNING_TF_PLAN" => std::option::Option::Some(Self::RUNNING_TF_PLAN),
+                "RUNNING_TF_APPLY" => std::option::Option::Some(Self::RUNNING_TF_APPLY),
+                "RUNNING_TF_DESTROY" => std::option::Option::Some(Self::RUNNING_TF_DESTROY),
+                "RUNNING_TF_VALIDATE" => std::option::Option::Some(Self::RUNNING_TF_VALIDATE),
+                "UNLOCKING_DEPLOYMENT" => std::option::Option::Some(Self::UNLOCKING_DEPLOYMENT),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "VALIDATING_REPOSITORY" => std::option::Option::Some(Self::VALIDATING_REPOSITORY),
+                "RUNNING_QUOTA_VALIDATION" => {
+                    std::option::Option::Some(Self::RUNNING_QUOTA_VALIDATION)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DeploymentStep {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DeploymentStep {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DeploymentStep {
         fn default() -> Self {
-            deployment_step::DEPLOYMENT_STEP_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2577,100 +2761,140 @@ pub mod resource {
 
     /// Possible intent of the resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Intent(std::borrow::Cow<'static, str>);
+    pub struct Intent(i32);
 
     impl Intent {
+        /// The default value. This value is used if the intent is omitted.
+        pub const INTENT_UNSPECIFIED: Intent = Intent::new(0);
+
+        /// Infra Manager will create this Resource.
+        pub const CREATE: Intent = Intent::new(1);
+
+        /// Infra Manager will update this Resource.
+        pub const UPDATE: Intent = Intent::new(2);
+
+        /// Infra Manager will delete this Resource.
+        pub const DELETE: Intent = Intent::new(3);
+
+        /// Infra Manager will destroy and recreate this Resource.
+        pub const RECREATE: Intent = Intent::new(4);
+
+        /// Infra Manager will leave this Resource untouched.
+        pub const UNCHANGED: Intent = Intent::new(5);
+
         /// Creates a new Intent instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INTENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATE"),
+                2 => std::borrow::Cow::Borrowed("UPDATE"),
+                3 => std::borrow::Cow::Borrowed("DELETE"),
+                4 => std::borrow::Cow::Borrowed("RECREATE"),
+                5 => std::borrow::Cow::Borrowed("UNCHANGED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INTENT_UNSPECIFIED" => std::option::Option::Some(Self::INTENT_UNSPECIFIED),
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                "RECREATE" => std::option::Option::Some(Self::RECREATE),
+                "UNCHANGED" => std::option::Option::Some(Self::UNCHANGED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Intent](Intent)
-    pub mod intent {
-        use super::Intent;
-
-        /// The default value. This value is used if the intent is omitted.
-        pub const INTENT_UNSPECIFIED: Intent = Intent::new("INTENT_UNSPECIFIED");
-
-        /// Infra Manager will create this Resource.
-        pub const CREATE: Intent = Intent::new("CREATE");
-
-        /// Infra Manager will update this Resource.
-        pub const UPDATE: Intent = Intent::new("UPDATE");
-
-        /// Infra Manager will delete this Resource.
-        pub const DELETE: Intent = Intent::new("DELETE");
-
-        /// Infra Manager will destroy and recreate this Resource.
-        pub const RECREATE: Intent = Intent::new("RECREATE");
-
-        /// Infra Manager will leave this Resource untouched.
-        pub const UNCHANGED: Intent = Intent::new("UNCHANGED");
-    }
-
-    impl std::convert::From<std::string::String> for Intent {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Intent {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Intent {
         fn default() -> Self {
-            intent::INTENT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible states of a resource.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The default value. This value is used if the state is omitted.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Resource has been planned for reconcile.
+        pub const PLANNED: State = State::new(1);
+
+        /// Resource is actively reconciling into the intended state.
+        pub const IN_PROGRESS: State = State::new(2);
+
+        /// Resource has reconciled to intended state.
+        pub const RECONCILED: State = State::new(3);
+
+        /// Resource failed to reconcile.
+        pub const FAILED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PLANNED"),
+                2 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                3 => std::borrow::Cow::Borrowed("RECONCILED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PLANNED" => std::option::Option::Some(Self::PLANNED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "RECONCILED" => std::option::Option::Some(Self::RECONCILED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Resource has been planned for reconcile.
-        pub const PLANNED: State = State::new("PLANNED");
-
-        /// Resource is actively reconciling into the intended state.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
-
-        /// Resource has reconciled to intended state.
-        pub const RECONCILED: State = State::new("RECONCILED");
-
-        /// Resource failed to reconcile.
-        pub const FAILED: State = State::new("FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3667,160 +3891,231 @@ pub mod preview {
 
     /// Possible states of a preview.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The default value. This value is used if the state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The preview is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The preview has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::new(2);
 
         /// The preview is being applied.
-        pub const APPLYING: State = State::new("APPLYING");
+        pub const APPLYING: State = State::new(3);
 
         /// The preview is stale. A preview can become stale if a revision has been
         /// applied after this preview was created.
-        pub const STALE: State = State::new("STALE");
+        pub const STALE: State = State::new(4);
 
         /// The preview is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(5);
 
         /// The preview has encountered an unexpected error.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(6);
 
         /// The preview has been deleted.
-        pub const DELETED: State = State::new("DELETED");
+        pub const DELETED: State = State::new(7);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("APPLYING"),
+                4 => std::borrow::Cow::Borrowed("STALE"),
+                5 => std::borrow::Cow::Borrowed("DELETING"),
+                6 => std::borrow::Cow::Borrowed("FAILED"),
+                7 => std::borrow::Cow::Borrowed("DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "APPLYING" => std::option::Option::Some(Self::APPLYING),
+                "STALE" => std::option::Option::Some(Self::STALE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Preview mode provides options for customizing preview operations.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PreviewMode(std::borrow::Cow<'static, str>);
+    pub struct PreviewMode(i32);
 
     impl PreviewMode {
-        /// Creates a new PreviewMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PreviewMode](PreviewMode)
-    pub mod preview_mode {
-        use super::PreviewMode;
-
         /// Unspecified policy, default mode will be used.
-        pub const PREVIEW_MODE_UNSPECIFIED: PreviewMode =
-            PreviewMode::new("PREVIEW_MODE_UNSPECIFIED");
+        pub const PREVIEW_MODE_UNSPECIFIED: PreviewMode = PreviewMode::new(0);
 
         /// DEFAULT mode generates an execution plan for reconciling current resource
         /// state into expected resource state.
-        pub const DEFAULT: PreviewMode = PreviewMode::new("DEFAULT");
+        pub const DEFAULT: PreviewMode = PreviewMode::new(1);
 
         /// DELETE mode generates as execution plan for destroying current resources.
-        pub const DELETE: PreviewMode = PreviewMode::new("DELETE");
+        pub const DELETE: PreviewMode = PreviewMode::new(2);
+
+        /// Creates a new PreviewMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PREVIEW_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DEFAULT"),
+                2 => std::borrow::Cow::Borrowed("DELETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PREVIEW_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PREVIEW_MODE_UNSPECIFIED)
+                }
+                "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PreviewMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PreviewMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PreviewMode {
         fn default() -> Self {
-            preview_mode::PREVIEW_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible errors that can occur with previews.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ErrorCode(std::borrow::Cow<'static, str>);
+    pub struct ErrorCode(i32);
 
     impl ErrorCode {
+        /// No error code was specified.
+        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new(0);
+
+        /// Cloud Build failed due to a permissions issue.
+        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode = ErrorCode::new(1);
+
+        /// Cloud Storage bucket failed to create due to a permissions issue.
+        pub const BUCKET_CREATION_PERMISSION_DENIED: ErrorCode = ErrorCode::new(2);
+
+        /// Cloud Storage bucket failed for a non-permissions-related issue.
+        pub const BUCKET_CREATION_FAILED: ErrorCode = ErrorCode::new(3);
+
+        /// Acquiring lock on provided deployment reference failed.
+        pub const DEPLOYMENT_LOCK_ACQUIRE_FAILED: ErrorCode = ErrorCode::new(4);
+
+        /// Preview encountered an error when trying to access Cloud Build API.
+        pub const PREVIEW_BUILD_API_FAILED: ErrorCode = ErrorCode::new(5);
+
+        /// Preview created a build but build failed and logs were generated.
+        pub const PREVIEW_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new(6);
+
         /// Creates a new ErrorCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ERROR_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_PERMISSION_DENIED"),
+                2 => std::borrow::Cow::Borrowed("BUCKET_CREATION_PERMISSION_DENIED"),
+                3 => std::borrow::Cow::Borrowed("BUCKET_CREATION_FAILED"),
+                4 => std::borrow::Cow::Borrowed("DEPLOYMENT_LOCK_ACQUIRE_FAILED"),
+                5 => std::borrow::Cow::Borrowed("PREVIEW_BUILD_API_FAILED"),
+                6 => std::borrow::Cow::Borrowed("PREVIEW_BUILD_RUN_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
+                "CLOUD_BUILD_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_PERMISSION_DENIED)
+                }
+                "BUCKET_CREATION_PERMISSION_DENIED" => {
+                    std::option::Option::Some(Self::BUCKET_CREATION_PERMISSION_DENIED)
+                }
+                "BUCKET_CREATION_FAILED" => std::option::Option::Some(Self::BUCKET_CREATION_FAILED),
+                "DEPLOYMENT_LOCK_ACQUIRE_FAILED" => {
+                    std::option::Option::Some(Self::DEPLOYMENT_LOCK_ACQUIRE_FAILED)
+                }
+                "PREVIEW_BUILD_API_FAILED" => {
+                    std::option::Option::Some(Self::PREVIEW_BUILD_API_FAILED)
+                }
+                "PREVIEW_BUILD_RUN_FAILED" => {
+                    std::option::Option::Some(Self::PREVIEW_BUILD_RUN_FAILED)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ErrorCode](ErrorCode)
-    pub mod error_code {
-        use super::ErrorCode;
-
-        /// No error code was specified.
-        pub const ERROR_CODE_UNSPECIFIED: ErrorCode = ErrorCode::new("ERROR_CODE_UNSPECIFIED");
-
-        /// Cloud Build failed due to a permissions issue.
-        pub const CLOUD_BUILD_PERMISSION_DENIED: ErrorCode =
-            ErrorCode::new("CLOUD_BUILD_PERMISSION_DENIED");
-
-        /// Cloud Storage bucket failed to create due to a permissions issue.
-        pub const BUCKET_CREATION_PERMISSION_DENIED: ErrorCode =
-            ErrorCode::new("BUCKET_CREATION_PERMISSION_DENIED");
-
-        /// Cloud Storage bucket failed for a non-permissions-related issue.
-        pub const BUCKET_CREATION_FAILED: ErrorCode = ErrorCode::new("BUCKET_CREATION_FAILED");
-
-        /// Acquiring lock on provided deployment reference failed.
-        pub const DEPLOYMENT_LOCK_ACQUIRE_FAILED: ErrorCode =
-            ErrorCode::new("DEPLOYMENT_LOCK_ACQUIRE_FAILED");
-
-        /// Preview encountered an error when trying to access Cloud Build API.
-        pub const PREVIEW_BUILD_API_FAILED: ErrorCode = ErrorCode::new("PREVIEW_BUILD_API_FAILED");
-
-        /// Preview created a build but build failed and logs were generated.
-        pub const PREVIEW_BUILD_RUN_FAILED: ErrorCode = ErrorCode::new("PREVIEW_BUILD_RUN_FAILED");
-    }
-
-    impl std::convert::From<std::string::String> for ErrorCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ErrorCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ErrorCode {
         fn default() -> Self {
-            error_code::ERROR_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -3909,70 +4204,103 @@ pub mod preview_operation_metadata {
 
     /// The possible steps a preview may be running.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PreviewStep(std::borrow::Cow<'static, str>);
+    pub struct PreviewStep(i32);
 
     impl PreviewStep {
-        /// Creates a new PreviewStep instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PreviewStep](PreviewStep)
-    pub mod preview_step {
-        use super::PreviewStep;
-
         /// Unspecified preview step.
-        pub const PREVIEW_STEP_UNSPECIFIED: PreviewStep =
-            PreviewStep::new("PREVIEW_STEP_UNSPECIFIED");
+        pub const PREVIEW_STEP_UNSPECIFIED: PreviewStep = PreviewStep::new(0);
 
         /// Infra Manager is creating a Google Cloud Storage bucket to store
         /// artifacts and metadata about the preview.
-        pub const PREPARING_STORAGE_BUCKET: PreviewStep =
-            PreviewStep::new("PREPARING_STORAGE_BUCKET");
+        pub const PREPARING_STORAGE_BUCKET: PreviewStep = PreviewStep::new(1);
 
         /// Downloading the blueprint onto the Google Cloud Storage bucket.
-        pub const DOWNLOADING_BLUEPRINT: PreviewStep = PreviewStep::new("DOWNLOADING_BLUEPRINT");
+        pub const DOWNLOADING_BLUEPRINT: PreviewStep = PreviewStep::new(2);
 
         /// Initializing Terraform using `terraform init`.
-        pub const RUNNING_TF_INIT: PreviewStep = PreviewStep::new("RUNNING_TF_INIT");
+        pub const RUNNING_TF_INIT: PreviewStep = PreviewStep::new(3);
 
         /// Running `terraform plan`.
-        pub const RUNNING_TF_PLAN: PreviewStep = PreviewStep::new("RUNNING_TF_PLAN");
+        pub const RUNNING_TF_PLAN: PreviewStep = PreviewStep::new(4);
 
         /// Fetching a deployment.
-        pub const FETCHING_DEPLOYMENT: PreviewStep = PreviewStep::new("FETCHING_DEPLOYMENT");
+        pub const FETCHING_DEPLOYMENT: PreviewStep = PreviewStep::new(5);
 
         /// Locking a deployment.
-        pub const LOCKING_DEPLOYMENT: PreviewStep = PreviewStep::new("LOCKING_DEPLOYMENT");
+        pub const LOCKING_DEPLOYMENT: PreviewStep = PreviewStep::new(6);
 
         /// Unlocking a deployment.
-        pub const UNLOCKING_DEPLOYMENT: PreviewStep = PreviewStep::new("UNLOCKING_DEPLOYMENT");
+        pub const UNLOCKING_DEPLOYMENT: PreviewStep = PreviewStep::new(7);
 
         /// Operation was successful.
-        pub const SUCCEEDED: PreviewStep = PreviewStep::new("SUCCEEDED");
+        pub const SUCCEEDED: PreviewStep = PreviewStep::new(8);
 
         /// Operation failed.
-        pub const FAILED: PreviewStep = PreviewStep::new("FAILED");
+        pub const FAILED: PreviewStep = PreviewStep::new(9);
 
         /// Validating the provided repository.
-        pub const VALIDATING_REPOSITORY: PreviewStep = PreviewStep::new("VALIDATING_REPOSITORY");
+        pub const VALIDATING_REPOSITORY: PreviewStep = PreviewStep::new(10);
+
+        /// Creates a new PreviewStep instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PREVIEW_STEP_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PREPARING_STORAGE_BUCKET"),
+                2 => std::borrow::Cow::Borrowed("DOWNLOADING_BLUEPRINT"),
+                3 => std::borrow::Cow::Borrowed("RUNNING_TF_INIT"),
+                4 => std::borrow::Cow::Borrowed("RUNNING_TF_PLAN"),
+                5 => std::borrow::Cow::Borrowed("FETCHING_DEPLOYMENT"),
+                6 => std::borrow::Cow::Borrowed("LOCKING_DEPLOYMENT"),
+                7 => std::borrow::Cow::Borrowed("UNLOCKING_DEPLOYMENT"),
+                8 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                9 => std::borrow::Cow::Borrowed("FAILED"),
+                10 => std::borrow::Cow::Borrowed("VALIDATING_REPOSITORY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PREVIEW_STEP_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PREVIEW_STEP_UNSPECIFIED)
+                }
+                "PREPARING_STORAGE_BUCKET" => {
+                    std::option::Option::Some(Self::PREPARING_STORAGE_BUCKET)
+                }
+                "DOWNLOADING_BLUEPRINT" => std::option::Option::Some(Self::DOWNLOADING_BLUEPRINT),
+                "RUNNING_TF_INIT" => std::option::Option::Some(Self::RUNNING_TF_INIT),
+                "RUNNING_TF_PLAN" => std::option::Option::Some(Self::RUNNING_TF_PLAN),
+                "FETCHING_DEPLOYMENT" => std::option::Option::Some(Self::FETCHING_DEPLOYMENT),
+                "LOCKING_DEPLOYMENT" => std::option::Option::Some(Self::LOCKING_DEPLOYMENT),
+                "UNLOCKING_DEPLOYMENT" => std::option::Option::Some(Self::UNLOCKING_DEPLOYMENT),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "VALIDATING_REPOSITORY" => std::option::Option::Some(Self::VALIDATING_REPOSITORY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PreviewStep {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PreviewStep {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PreviewStep {
         fn default() -> Self {
-            preview_step::PREVIEW_STEP_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4727,46 +5055,63 @@ pub mod terraform_version {
 
     /// Possible states of a TerraformVersion.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The default value. This value is used if the state is omitted.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The version is actively supported.
+        pub const ACTIVE: State = State::new(1);
+
+        /// The version is deprecated.
+        pub const DEPRECATED: State = State::new(2);
+
+        /// The version is obsolete.
+        pub const OBSOLETE: State = State::new(3);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ACTIVE"),
+                2 => std::borrow::Cow::Borrowed("DEPRECATED"),
+                3 => std::borrow::Cow::Borrowed("OBSOLETE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DEPRECATED" => std::option::Option::Some(Self::DEPRECATED),
+                "OBSOLETE" => std::option::Option::Some(Self::OBSOLETE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The version is actively supported.
-        pub const ACTIVE: State = State::new("ACTIVE");
-
-        /// The version is deprecated.
-        pub const DEPRECATED: State = State::new("DEPRECATED");
-
-        /// The version is obsolete.
-        pub const OBSOLETE: State = State::new("OBSOLETE");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4774,47 +5119,63 @@ pub mod terraform_version {
 /// Enum values to control quota checks for resources in terraform
 /// configuration files.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct QuotaValidation(std::borrow::Cow<'static, str>);
+pub struct QuotaValidation(i32);
 
 impl QuotaValidation {
-    /// Creates a new QuotaValidation instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [QuotaValidation](QuotaValidation)
-pub mod quota_validation {
-    use super::QuotaValidation;
-
     /// The default value.
     /// QuotaValidation on terraform configuration files will be disabled in
     /// this case.
-    pub const QUOTA_VALIDATION_UNSPECIFIED: QuotaValidation =
-        QuotaValidation::new("QUOTA_VALIDATION_UNSPECIFIED");
+    pub const QUOTA_VALIDATION_UNSPECIFIED: QuotaValidation = QuotaValidation::new(0);
 
     /// Enable computing quotas for resources in terraform configuration files to
     /// get visibility on resources with insufficient quotas.
-    pub const ENABLED: QuotaValidation = QuotaValidation::new("ENABLED");
+    pub const ENABLED: QuotaValidation = QuotaValidation::new(1);
 
     /// Enforce quota checks so deployment fails if there isn't sufficient quotas
     /// available to deploy resources in terraform configuration files.
-    pub const ENFORCED: QuotaValidation = QuotaValidation::new("ENFORCED");
+    pub const ENFORCED: QuotaValidation = QuotaValidation::new(2);
+
+    /// Creates a new QuotaValidation instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("QUOTA_VALIDATION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("ENABLED"),
+            2 => std::borrow::Cow::Borrowed("ENFORCED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "QUOTA_VALIDATION_UNSPECIFIED" => {
+                std::option::Option::Some(Self::QUOTA_VALIDATION_UNSPECIFIED)
+            }
+            "ENABLED" => std::option::Option::Some(Self::ENABLED),
+            "ENFORCED" => std::option::Option::Some(Self::ENFORCED),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for QuotaValidation {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for QuotaValidation {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for QuotaValidation {
     fn default() -> Self {
-        quota_validation::QUOTA_VALIDATION_UNSPECIFIED
+        Self::new(0)
     }
 }

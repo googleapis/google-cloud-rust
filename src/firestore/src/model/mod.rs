@@ -4367,32 +4367,17 @@ pub mod target_change {
 
     /// The type of change.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetChangeType(std::borrow::Cow<'static, str>);
+    pub struct TargetChangeType(i32);
 
     impl TargetChangeType {
-        /// Creates a new TargetChangeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TargetChangeType](TargetChangeType)
-    pub mod target_change_type {
-        use super::TargetChangeType;
-
         /// No change has occurred. Used only to send an updated `resume_token`.
-        pub const NO_CHANGE: TargetChangeType = TargetChangeType::new("NO_CHANGE");
+        pub const NO_CHANGE: TargetChangeType = TargetChangeType::new(0);
 
         /// The targets have been added.
-        pub const ADD: TargetChangeType = TargetChangeType::new("ADD");
+        pub const ADD: TargetChangeType = TargetChangeType::new(1);
 
         /// The targets have been removed.
-        pub const REMOVE: TargetChangeType = TargetChangeType::new("REMOVE");
+        pub const REMOVE: TargetChangeType = TargetChangeType::new(2);
 
         /// The targets reflect all changes committed before the targets were added
         /// to the stream.
@@ -4402,25 +4387,59 @@ pub mod target_change {
         ///
         /// Listeners can wait for this change if read-after-write semantics
         /// are desired.
-        pub const CURRENT: TargetChangeType = TargetChangeType::new("CURRENT");
+        pub const CURRENT: TargetChangeType = TargetChangeType::new(3);
 
         /// The targets have been reset, and a new initial state for the targets
         /// will be returned in subsequent changes.
         ///
         /// After the initial state is complete, `CURRENT` will be returned even
         /// if the target was previously indicated to be `CURRENT`.
-        pub const RESET: TargetChangeType = TargetChangeType::new("RESET");
+        pub const RESET: TargetChangeType = TargetChangeType::new(4);
+
+        /// Creates a new TargetChangeType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NO_CHANGE"),
+                1 => std::borrow::Cow::Borrowed("ADD"),
+                2 => std::borrow::Cow::Borrowed("REMOVE"),
+                3 => std::borrow::Cow::Borrowed("CURRENT"),
+                4 => std::borrow::Cow::Borrowed("RESET"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NO_CHANGE" => std::option::Option::Some(Self::NO_CHANGE),
+                "ADD" => std::option::Option::Some(Self::ADD),
+                "REMOVE" => std::option::Option::Some(Self::REMOVE),
+                "CURRENT" => std::option::Option::Some(Self::CURRENT),
+                "RESET" => std::option::Option::Some(Self::RESET),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TargetChangeType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TargetChangeType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for TargetChangeType {
         fn default() -> Self {
-            target_change_type::NO_CHANGE
+            Self::new(0)
         }
     }
 }
@@ -5217,43 +5236,58 @@ pub mod structured_query {
 
         /// A composite filter operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(std::borrow::Cow<'static, str>);
+        pub struct Operator(i32);
 
         impl Operator {
+            /// Unspecified. This value must not be used.
+            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
+
+            /// Documents are required to satisfy all of the combined filters.
+            pub const AND: Operator = Operator::new(1);
+
+            /// Documents are required to satisfy at least one of the combined filters.
+            pub const OR: Operator = Operator::new(2);
+
             /// Creates a new Operator instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("AND"),
+                    2 => std::borrow::Cow::Borrowed("OR"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
+                    "AND" => std::option::Option::Some(Self::AND),
+                    "OR" => std::option::Option::Some(Self::OR),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Operator](Operator)
-        pub mod operator {
-            use super::Operator;
-
-            /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
-
-            /// Documents are required to satisfy all of the combined filters.
-            pub const AND: Operator = Operator::new("AND");
-
-            /// Documents are required to satisfy at least one of the combined filters.
-            pub const OR: Operator = Operator::new("OR");
-        }
-
-        impl std::convert::From<std::string::String> for Operator {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                operator::OPERATOR_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -5326,57 +5360,42 @@ pub mod structured_query {
 
         /// A field filter operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(std::borrow::Cow<'static, str>);
+        pub struct Operator(i32);
 
         impl Operator {
-            /// Creates a new Operator instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Operator](Operator)
-        pub mod operator {
-            use super::Operator;
-
             /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
+            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
 
             /// The given `field` is less than the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const LESS_THAN: Operator = Operator::new("LESS_THAN");
+            pub const LESS_THAN: Operator = Operator::new(1);
 
             /// The given `field` is less than or equal to the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const LESS_THAN_OR_EQUAL: Operator = Operator::new("LESS_THAN_OR_EQUAL");
+            pub const LESS_THAN_OR_EQUAL: Operator = Operator::new(2);
 
             /// The given `field` is greater than the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const GREATER_THAN: Operator = Operator::new("GREATER_THAN");
+            pub const GREATER_THAN: Operator = Operator::new(3);
 
             /// The given `field` is greater than or equal to the given `value`.
             ///
             /// Requires:
             ///
             /// * That `field` come first in `order_by`.
-            pub const GREATER_THAN_OR_EQUAL: Operator = Operator::new("GREATER_THAN_OR_EQUAL");
+            pub const GREATER_THAN_OR_EQUAL: Operator = Operator::new(4);
 
             /// The given `field` is equal to the given `value`.
-            pub const EQUAL: Operator = Operator::new("EQUAL");
+            pub const EQUAL: Operator = Operator::new(5);
 
             /// The given `field` is not equal to the given `value`.
             ///
@@ -5384,10 +5403,10 @@ pub mod structured_query {
             ///
             /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const NOT_EQUAL: Operator = Operator::new("NOT_EQUAL");
+            pub const NOT_EQUAL: Operator = Operator::new(6);
 
             /// The given `field` is an array that contains the given `value`.
-            pub const ARRAY_CONTAINS: Operator = Operator::new("ARRAY_CONTAINS");
+            pub const ARRAY_CONTAINS: Operator = Operator::new(7);
 
             /// The given `field` is equal to at least one value in the given array.
             ///
@@ -5396,7 +5415,7 @@ pub mod structured_query {
             /// * That `value` is a non-empty `ArrayValue`, subject to disjunction
             ///   limits.
             /// * No `NOT_IN` filters in the same query.
-            pub const IN: Operator = Operator::new("IN");
+            pub const IN: Operator = Operator::new(8);
 
             /// The given `field` is an array that contains any of the values in the
             /// given array.
@@ -5407,7 +5426,7 @@ pub mod structured_query {
             ///   limits.
             /// * No other `ARRAY_CONTAINS_ANY` filters within the same disjunction.
             /// * No `NOT_IN` filters in the same query.
-            pub const ARRAY_CONTAINS_ANY: Operator = Operator::new("ARRAY_CONTAINS_ANY");
+            pub const ARRAY_CONTAINS_ANY: Operator = Operator::new(9);
 
             /// The value of the `field` is not in the given array.
             ///
@@ -5417,18 +5436,66 @@ pub mod structured_query {
             /// * No other `OR`, `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
             ///   `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const NOT_IN: Operator = Operator::new("NOT_IN");
+            pub const NOT_IN: Operator = Operator::new(10);
+
+            /// Creates a new Operator instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("LESS_THAN"),
+                    2 => std::borrow::Cow::Borrowed("LESS_THAN_OR_EQUAL"),
+                    3 => std::borrow::Cow::Borrowed("GREATER_THAN"),
+                    4 => std::borrow::Cow::Borrowed("GREATER_THAN_OR_EQUAL"),
+                    5 => std::borrow::Cow::Borrowed("EQUAL"),
+                    6 => std::borrow::Cow::Borrowed("NOT_EQUAL"),
+                    7 => std::borrow::Cow::Borrowed("ARRAY_CONTAINS"),
+                    8 => std::borrow::Cow::Borrowed("IN"),
+                    9 => std::borrow::Cow::Borrowed("ARRAY_CONTAINS_ANY"),
+                    10 => std::borrow::Cow::Borrowed("NOT_IN"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
+                    "LESS_THAN" => std::option::Option::Some(Self::LESS_THAN),
+                    "LESS_THAN_OR_EQUAL" => std::option::Option::Some(Self::LESS_THAN_OR_EQUAL),
+                    "GREATER_THAN" => std::option::Option::Some(Self::GREATER_THAN),
+                    "GREATER_THAN_OR_EQUAL" => {
+                        std::option::Option::Some(Self::GREATER_THAN_OR_EQUAL)
+                    }
+                    "EQUAL" => std::option::Option::Some(Self::EQUAL),
+                    "NOT_EQUAL" => std::option::Option::Some(Self::NOT_EQUAL),
+                    "ARRAY_CONTAINS" => std::option::Option::Some(Self::ARRAY_CONTAINS),
+                    "IN" => std::option::Option::Some(Self::IN),
+                    "ARRAY_CONTAINS_ANY" => std::option::Option::Some(Self::ARRAY_CONTAINS_ANY),
+                    "NOT_IN" => std::option::Option::Some(Self::NOT_IN),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Operator {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                operator::OPERATOR_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -5524,32 +5591,17 @@ pub mod structured_query {
 
         /// A unary operator.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(std::borrow::Cow<'static, str>);
+        pub struct Operator(i32);
 
         impl Operator {
-            /// Creates a new Operator instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [Operator](Operator)
-        pub mod operator {
-            use super::Operator;
-
             /// Unspecified. This value must not be used.
-            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
+            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new(0);
 
             /// The given `field` is equal to `NaN`.
-            pub const IS_NAN: Operator = Operator::new("IS_NAN");
+            pub const IS_NAN: Operator = Operator::new(2);
 
             /// The given `field` is equal to `NULL`.
-            pub const IS_NULL: Operator = Operator::new("IS_NULL");
+            pub const IS_NULL: Operator = Operator::new(3);
 
             /// The given `field` is not equal to `NaN`.
             ///
@@ -5557,7 +5609,7 @@ pub mod structured_query {
             ///
             /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const IS_NOT_NAN: Operator = Operator::new("IS_NOT_NAN");
+            pub const IS_NOT_NAN: Operator = Operator::new(4);
 
             /// The given `field` is not equal to `NULL`.
             ///
@@ -5565,18 +5617,52 @@ pub mod structured_query {
             ///
             /// * A single `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
             /// * That `field` comes first in the `order_by`.
-            pub const IS_NOT_NULL: Operator = Operator::new("IS_NOT_NULL");
+            pub const IS_NOT_NULL: Operator = Operator::new(5);
+
+            /// Creates a new Operator instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("OPERATOR_UNSPECIFIED"),
+                    2 => std::borrow::Cow::Borrowed("IS_NAN"),
+                    3 => std::borrow::Cow::Borrowed("IS_NULL"),
+                    4 => std::borrow::Cow::Borrowed("IS_NOT_NAN"),
+                    5 => std::borrow::Cow::Borrowed("IS_NOT_NULL"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "OPERATOR_UNSPECIFIED" => std::option::Option::Some(Self::OPERATOR_UNSPECIFIED),
+                    "IS_NAN" => std::option::Option::Some(Self::IS_NAN),
+                    "IS_NULL" => std::option::Option::Some(Self::IS_NULL),
+                    "IS_NOT_NAN" => std::option::Option::Some(Self::IS_NOT_NAN),
+                    "IS_NOT_NULL" => std::option::Option::Some(Self::IS_NOT_NULL),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for Operator {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Operator {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Operator {
             fn default() -> Self {
-                operator::OPERATOR_UNSPECIFIED
+                Self::new(0)
             }
         }
 
@@ -5837,33 +5923,17 @@ pub mod structured_query {
 
         /// The distance measure to use when comparing vectors.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct DistanceMeasure(std::borrow::Cow<'static, str>);
+        pub struct DistanceMeasure(i32);
 
         impl DistanceMeasure {
-            /// Creates a new DistanceMeasure instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [DistanceMeasure](DistanceMeasure)
-        pub mod distance_measure {
-            use super::DistanceMeasure;
-
             /// Should not be set.
-            pub const DISTANCE_MEASURE_UNSPECIFIED: DistanceMeasure =
-                DistanceMeasure::new("DISTANCE_MEASURE_UNSPECIFIED");
+            pub const DISTANCE_MEASURE_UNSPECIFIED: DistanceMeasure = DistanceMeasure::new(0);
 
             /// Measures the EUCLIDEAN distance between the vectors. See
             /// [Euclidean](https://en.wikipedia.org/wiki/Euclidean_distance) to learn
             /// more. The resulting distance decreases the more similar two vectors
             /// are.
-            pub const EUCLIDEAN: DistanceMeasure = DistanceMeasure::new("EUCLIDEAN");
+            pub const EUCLIDEAN: DistanceMeasure = DistanceMeasure::new(1);
 
             /// COSINE distance compares vectors based on the angle between them, which
             /// allows you to measure similarity that isn't based on the vectors
@@ -5873,66 +5943,115 @@ pub mod structured_query {
             /// Similarity](https://en.wikipedia.org/wiki/Cosine_similarity) to learn
             /// more about COSINE similarity and COSINE distance. The resulting
             /// COSINE distance decreases the more similar two vectors are.
-            pub const COSINE: DistanceMeasure = DistanceMeasure::new("COSINE");
+            pub const COSINE: DistanceMeasure = DistanceMeasure::new(2);
 
             /// Similar to cosine but is affected by the magnitude of the vectors. See
             /// [Dot Product](https://en.wikipedia.org/wiki/Dot_product) to learn more.
             /// The resulting distance increases the more similar two vectors are.
-            pub const DOT_PRODUCT: DistanceMeasure = DistanceMeasure::new("DOT_PRODUCT");
+            pub const DOT_PRODUCT: DistanceMeasure = DistanceMeasure::new(3);
+
+            /// Creates a new DistanceMeasure instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("DISTANCE_MEASURE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("EUCLIDEAN"),
+                    2 => std::borrow::Cow::Borrowed("COSINE"),
+                    3 => std::borrow::Cow::Borrowed("DOT_PRODUCT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "DISTANCE_MEASURE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::DISTANCE_MEASURE_UNSPECIFIED)
+                    }
+                    "EUCLIDEAN" => std::option::Option::Some(Self::EUCLIDEAN),
+                    "COSINE" => std::option::Option::Some(Self::COSINE),
+                    "DOT_PRODUCT" => std::option::Option::Some(Self::DOT_PRODUCT),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for DistanceMeasure {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for DistanceMeasure {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for DistanceMeasure {
             fn default() -> Self {
-                distance_measure::DISTANCE_MEASURE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// A sort direction.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(std::borrow::Cow<'static, str>);
+    pub struct Direction(i32);
 
     impl Direction {
+        /// Unspecified.
+        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
+
+        /// Ascending.
+        pub const ASCENDING: Direction = Direction::new(1);
+
+        /// Descending.
+        pub const DESCENDING: Direction = Direction::new(2);
+
         /// Creates a new Direction instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ASCENDING"),
+                2 => std::borrow::Cow::Borrowed("DESCENDING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
+                "ASCENDING" => std::option::Option::Some(Self::ASCENDING),
+                "DESCENDING" => std::option::Option::Some(Self::DESCENDING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Direction](Direction)
-    pub mod direction {
-        use super::Direction;
-
-        /// Unspecified.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new("DIRECTION_UNSPECIFIED");
-
-        /// Ascending.
-        pub const ASCENDING: Direction = Direction::new("ASCENDING");
-
-        /// Descending.
-        pub const DESCENDING: Direction = Direction::new("DESCENDING");
-    }
-
-    impl std::convert::From<std::string::String> for Direction {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            direction::DIRECTION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -7144,43 +7263,57 @@ pub mod document_transform {
 
         /// A value that is calculated by the server.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ServerValue(std::borrow::Cow<'static, str>);
+        pub struct ServerValue(i32);
 
         impl ServerValue {
-            /// Creates a new ServerValue instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ServerValue](ServerValue)
-        pub mod server_value {
-            use super::ServerValue;
-
             /// Unspecified. This value must not be used.
-            pub const SERVER_VALUE_UNSPECIFIED: ServerValue =
-                ServerValue::new("SERVER_VALUE_UNSPECIFIED");
+            pub const SERVER_VALUE_UNSPECIFIED: ServerValue = ServerValue::new(0);
 
             /// The time at which the server processed the request, with millisecond
             /// precision. If used on multiple fields (same or different documents) in
             /// a transaction, all the fields will get the same server timestamp.
-            pub const REQUEST_TIME: ServerValue = ServerValue::new("REQUEST_TIME");
+            pub const REQUEST_TIME: ServerValue = ServerValue::new(1);
+
+            /// Creates a new ServerValue instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SERVER_VALUE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("REQUEST_TIME"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SERVER_VALUE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SERVER_VALUE_UNSPECIFIED)
+                    }
+                    "REQUEST_TIME" => std::option::Option::Some(Self::REQUEST_TIME),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ServerValue {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ServerValue {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for ServerValue {
             fn default() -> Self {
-                server_value::SERVER_VALUE_UNSPECIFIED
+                Self::new(0)
             }
         }
 

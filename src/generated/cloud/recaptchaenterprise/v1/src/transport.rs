@@ -52,7 +52,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}/assessments", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71,7 +71,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:annotate", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88,7 +88,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/keys", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -105,7 +105,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/keys", req.parent))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -129,7 +129,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::GET,
                 format!("/v1/{}:retrieveLegacySecretKey", req.key),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -148,7 +148,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -176,7 +176,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -203,7 +203,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -222,7 +222,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:migrate", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -242,7 +242,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}:addIpOverride", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -262,7 +262,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}:removeIpOverride", req.name),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -282,7 +282,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::GET,
                 format!("/v1/{}:listIpOverrides", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -303,7 +303,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -325,7 +325,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}/firewallpolicies", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -347,7 +347,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::GET,
                 format!("/v1/{}/firewallpolicies", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -368,7 +368,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -396,7 +396,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                         .name
                 ),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -425,7 +425,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -447,7 +447,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}/firewallpolicies:reorder", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -467,7 +467,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::GET,
                 format!("/v1/{}/relatedaccountgroups", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -491,7 +491,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::GET,
                 format!("/v1/{}/memberships", req.parent),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -515,7 +515,7 @@ impl crate::stubs::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 reqwest::Method::POST,
                 format!("/v1/{}/relatedaccountgroupmemberships:search", req.project),
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

@@ -531,33 +531,18 @@ pub mod secret_version {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-        
 
         /// Not specified. This value is unused and invalid.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
         /// accessed.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const ENABLED: State = State::new("ENABLED");
+        pub const ENABLED: State = State::new(1);
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
         /// be accessed, but the secret data is still available and can be placed
@@ -567,25 +552,57 @@ pub mod secret_version {
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
         /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
-        pub const DISABLED: State = State::new("DISABLED");
+        pub const DISABLED: State = State::new(2);
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
         /// destroyed and the secret data is no longer stored. A version may not
         /// leave this state once entered.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const DESTROYED: State = State::new("DESTROYED");
+        pub const DESTROYED: State = State::new(3);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+        
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                3 => std::borrow::Cow::Borrowed("DESTROYED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "DESTROYED" => std::option::Option::Some(Self::DESTROYED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-      fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
-      }
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

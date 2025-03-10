@@ -501,45 +501,30 @@ impl gax::paginator::PageableResponse for ListProfilesResponse {
 /// NOTE: the enumeration member names are used (in lowercase) as unique string
 /// identifiers of profile types, so they must not be renamed.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ProfileType(std::borrow::Cow<'static, str>);
+pub struct ProfileType(i32);
 
 impl ProfileType {
-    /// Creates a new ProfileType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ProfileType](ProfileType)
-pub mod profile_type {
-    use super::ProfileType;
-
     /// Unspecified profile type.
-    pub const PROFILE_TYPE_UNSPECIFIED: ProfileType = ProfileType::new("PROFILE_TYPE_UNSPECIFIED");
+    pub const PROFILE_TYPE_UNSPECIFIED: ProfileType = ProfileType::new(0);
 
     /// Thread CPU time sampling.
-    pub const CPU: ProfileType = ProfileType::new("CPU");
+    pub const CPU: ProfileType = ProfileType::new(1);
 
     /// Wallclock time sampling. More expensive as stops all threads.
-    pub const WALL: ProfileType = ProfileType::new("WALL");
+    pub const WALL: ProfileType = ProfileType::new(2);
 
     /// In-use heap profile. Represents a snapshot of the allocations that are
     /// live at the time of the profiling.
-    pub const HEAP: ProfileType = ProfileType::new("HEAP");
+    pub const HEAP: ProfileType = ProfileType::new(3);
 
     /// Single-shot collection of all thread stacks.
-    pub const THREADS: ProfileType = ProfileType::new("THREADS");
+    pub const THREADS: ProfileType = ProfileType::new(4);
 
     /// Synchronization contention profile.
-    pub const CONTENTION: ProfileType = ProfileType::new("CONTENTION");
+    pub const CONTENTION: ProfileType = ProfileType::new(5);
 
     /// Peak heap profile.
-    pub const PEAK_HEAP: ProfileType = ProfileType::new("PEAK_HEAP");
+    pub const PEAK_HEAP: ProfileType = ProfileType::new(6);
 
     /// Heap allocation profile. It represents the aggregation of all allocations
     /// made over the duration of the profile. All allocations are included,
@@ -547,17 +532,57 @@ pub mod profile_type {
     /// interval. The profile is in particular useful for garbage collecting
     /// languages to understand which parts of the code create most of the garbage
     /// collection pressure to see if those can be optimized.
-    pub const HEAP_ALLOC: ProfileType = ProfileType::new("HEAP_ALLOC");
+    pub const HEAP_ALLOC: ProfileType = ProfileType::new(7);
+
+    /// Creates a new ProfileType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("PROFILE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("CPU"),
+            2 => std::borrow::Cow::Borrowed("WALL"),
+            3 => std::borrow::Cow::Borrowed("HEAP"),
+            4 => std::borrow::Cow::Borrowed("THREADS"),
+            5 => std::borrow::Cow::Borrowed("CONTENTION"),
+            6 => std::borrow::Cow::Borrowed("PEAK_HEAP"),
+            7 => std::borrow::Cow::Borrowed("HEAP_ALLOC"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "PROFILE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::PROFILE_TYPE_UNSPECIFIED),
+            "CPU" => std::option::Option::Some(Self::CPU),
+            "WALL" => std::option::Option::Some(Self::WALL),
+            "HEAP" => std::option::Option::Some(Self::HEAP),
+            "THREADS" => std::option::Option::Some(Self::THREADS),
+            "CONTENTION" => std::option::Option::Some(Self::CONTENTION),
+            "PEAK_HEAP" => std::option::Option::Some(Self::PEAK_HEAP),
+            "HEAP_ALLOC" => std::option::Option::Some(Self::HEAP_ALLOC),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ProfileType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ProfileType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ProfileType {
     fn default() -> Self {
-        profile_type::PROFILE_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

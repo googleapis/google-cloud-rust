@@ -284,47 +284,63 @@ pub mod constraint {
     ///
     /// Immutable after creation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConstraintDefault(std::borrow::Cow<'static, str>);
+    pub struct ConstraintDefault(i32);
 
     impl ConstraintDefault {
-        /// Creates a new ConstraintDefault instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConstraintDefault](ConstraintDefault)
-    pub mod constraint_default {
-        use super::ConstraintDefault;
-
         /// This is only used for distinguishing unset values and should never be
         /// used.
-        pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault =
-            ConstraintDefault::new("CONSTRAINT_DEFAULT_UNSPECIFIED");
+        pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault = ConstraintDefault::new(0);
 
         /// Indicate that all values are allowed for list constraints.
         /// Indicate that enforcement is off for boolean constraints.
-        pub const ALLOW: ConstraintDefault = ConstraintDefault::new("ALLOW");
+        pub const ALLOW: ConstraintDefault = ConstraintDefault::new(1);
 
         /// Indicate that all values are denied for list constraints.
         /// Indicate that enforcement is on for boolean constraints.
-        pub const DENY: ConstraintDefault = ConstraintDefault::new("DENY");
+        pub const DENY: ConstraintDefault = ConstraintDefault::new(2);
+
+        /// Creates a new ConstraintDefault instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONSTRAINT_DEFAULT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                2 => std::borrow::Cow::Borrowed("DENY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONSTRAINT_DEFAULT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONSTRAINT_DEFAULT_UNSPECIFIED)
+                }
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                "DENY" => std::option::Option::Some(Self::DENY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConstraintDefault {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConstraintDefault {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ConstraintDefault {
         fn default() -> Self {
-            constraint_default::CONSTRAINT_DEFAULT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -493,95 +509,135 @@ pub mod custom_constraint {
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MethodType(std::borrow::Cow<'static, str>);
+    pub struct MethodType(i32);
 
     impl MethodType {
-        /// Creates a new MethodType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [MethodType](MethodType)
-    pub mod method_type {
-        use super::MethodType;
-
         /// Unspecified. Results in an error.
-        pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new("METHOD_TYPE_UNSPECIFIED");
+        pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
 
         /// Constraint applied when creating the resource.
-        pub const CREATE: MethodType = MethodType::new("CREATE");
+        pub const CREATE: MethodType = MethodType::new(1);
 
         /// Constraint applied when updating the resource.
-        pub const UPDATE: MethodType = MethodType::new("UPDATE");
+        pub const UPDATE: MethodType = MethodType::new(2);
 
         /// Constraint applied when deleting the resource.
         /// Not supported yet.
-        pub const DELETE: MethodType = MethodType::new("DELETE");
+        pub const DELETE: MethodType = MethodType::new(3);
 
         /// Constraint applied when removing an IAM grant.
-        pub const REMOVE_GRANT: MethodType = MethodType::new("REMOVE_GRANT");
+        pub const REMOVE_GRANT: MethodType = MethodType::new(4);
 
         /// Constraint applied when enforcing forced tagging.
-        pub const GOVERN_TAGS: MethodType = MethodType::new("GOVERN_TAGS");
+        pub const GOVERN_TAGS: MethodType = MethodType::new(5);
+
+        /// Creates a new MethodType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METHOD_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATE"),
+                2 => std::borrow::Cow::Borrowed("UPDATE"),
+                3 => std::borrow::Cow::Borrowed("DELETE"),
+                4 => std::borrow::Cow::Borrowed("REMOVE_GRANT"),
+                5 => std::borrow::Cow::Borrowed("GOVERN_TAGS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METHOD_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::METHOD_TYPE_UNSPECIFIED)
+                }
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                "DELETE" => std::option::Option::Some(Self::DELETE),
+                "REMOVE_GRANT" => std::option::Option::Some(Self::REMOVE_GRANT),
+                "GOVERN_TAGS" => std::option::Option::Some(Self::GOVERN_TAGS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for MethodType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MethodType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for MethodType {
         fn default() -> Self {
-            method_type::METHOD_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Allow or deny type.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ActionType(std::borrow::Cow<'static, str>);
+    pub struct ActionType(i32);
 
     impl ActionType {
+        /// Unspecified. Results in an error.
+        pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
+
+        /// Allowed action type.
+        pub const ALLOW: ActionType = ActionType::new(1);
+
+        /// Deny action type.
+        pub const DENY: ActionType = ActionType::new(2);
+
         /// Creates a new ActionType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ACTION_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOW"),
+                2 => std::borrow::Cow::Borrowed("DENY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ACTION_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ACTION_TYPE_UNSPECIFIED)
+                }
+                "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                "DENY" => std::option::Option::Some(Self::DENY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ActionType](ActionType)
-    pub mod action_type {
-        use super::ActionType;
-
-        /// Unspecified. Results in an error.
-        pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new("ACTION_TYPE_UNSPECIFIED");
-
-        /// Allowed action type.
-        pub const ALLOW: ActionType = ActionType::new("ALLOW");
-
-        /// Deny action type.
-        pub const DENY: ActionType = ActionType::new("DENY");
-    }
-
-    impl std::convert::From<std::string::String> for ActionType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ActionType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ActionType {
         fn default() -> Self {
-            action_type::ACTION_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

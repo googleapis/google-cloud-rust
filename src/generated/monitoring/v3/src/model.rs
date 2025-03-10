@@ -2110,53 +2110,78 @@ pub mod alert_policy {
         /// are evaluated when data stops arriving.
         /// This control doesn't affect metric-absence policies.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EvaluationMissingData(std::borrow::Cow<'static, str>);
+        pub struct EvaluationMissingData(i32);
 
         impl EvaluationMissingData {
-            /// Creates a new EvaluationMissingData instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [EvaluationMissingData](EvaluationMissingData)
-        pub mod evaluation_missing_data {
-            use super::EvaluationMissingData;
-
             /// An unspecified evaluation missing data option.  Equivalent to
             /// EVALUATION_MISSING_DATA_NO_OP.
             pub const EVALUATION_MISSING_DATA_UNSPECIFIED: EvaluationMissingData =
-                EvaluationMissingData::new("EVALUATION_MISSING_DATA_UNSPECIFIED");
+                EvaluationMissingData::new(0);
 
             /// If there is no data to evaluate the condition, then evaluate the
             /// condition as false.
             pub const EVALUATION_MISSING_DATA_INACTIVE: EvaluationMissingData =
-                EvaluationMissingData::new("EVALUATION_MISSING_DATA_INACTIVE");
+                EvaluationMissingData::new(1);
 
             /// If there is no data to evaluate the condition, then evaluate the
             /// condition as true.
             pub const EVALUATION_MISSING_DATA_ACTIVE: EvaluationMissingData =
-                EvaluationMissingData::new("EVALUATION_MISSING_DATA_ACTIVE");
+                EvaluationMissingData::new(2);
 
             /// Do not evaluate the condition to any value if there is no data.
             pub const EVALUATION_MISSING_DATA_NO_OP: EvaluationMissingData =
-                EvaluationMissingData::new("EVALUATION_MISSING_DATA_NO_OP");
+                EvaluationMissingData::new(3);
+
+            /// Creates a new EvaluationMissingData instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("EVALUATION_MISSING_DATA_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("EVALUATION_MISSING_DATA_INACTIVE"),
+                    2 => std::borrow::Cow::Borrowed("EVALUATION_MISSING_DATA_ACTIVE"),
+                    3 => std::borrow::Cow::Borrowed("EVALUATION_MISSING_DATA_NO_OP"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "EVALUATION_MISSING_DATA_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::EVALUATION_MISSING_DATA_UNSPECIFIED)
+                    }
+                    "EVALUATION_MISSING_DATA_INACTIVE" => {
+                        std::option::Option::Some(Self::EVALUATION_MISSING_DATA_INACTIVE)
+                    }
+                    "EVALUATION_MISSING_DATA_ACTIVE" => {
+                        std::option::Option::Some(Self::EVALUATION_MISSING_DATA_ACTIVE)
+                    }
+                    "EVALUATION_MISSING_DATA_NO_OP" => {
+                        std::option::Option::Some(Self::EVALUATION_MISSING_DATA_NO_OP)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for EvaluationMissingData {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for EvaluationMissingData {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for EvaluationMissingData {
             fn default() -> Self {
-                evaluation_missing_data::EVALUATION_MISSING_DATA_UNSPECIFIED
+                Self::new(0)
             }
         }
 
@@ -2386,147 +2411,198 @@ pub mod alert_policy {
 
         /// Control when notifications will be sent out.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct NotificationPrompt(std::borrow::Cow<'static, str>);
+        pub struct NotificationPrompt(i32);
 
         impl NotificationPrompt {
+            /// No strategy specified. Treated as error.
+            pub const NOTIFICATION_PROMPT_UNSPECIFIED: NotificationPrompt =
+                NotificationPrompt::new(0);
+
+            /// Notify when an incident is opened.
+            pub const OPENED: NotificationPrompt = NotificationPrompt::new(1);
+
+            /// Notify when an incident is closed.
+            pub const CLOSED: NotificationPrompt = NotificationPrompt::new(3);
+
             /// Creates a new NotificationPrompt instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("NOTIFICATION_PROMPT_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("OPENED"),
+                    3 => std::borrow::Cow::Borrowed("CLOSED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "NOTIFICATION_PROMPT_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::NOTIFICATION_PROMPT_UNSPECIFIED)
+                    }
+                    "OPENED" => std::option::Option::Some(Self::OPENED),
+                    "CLOSED" => std::option::Option::Some(Self::CLOSED),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [NotificationPrompt](NotificationPrompt)
-        pub mod notification_prompt {
-            use super::NotificationPrompt;
-
-            /// No strategy specified. Treated as error.
-            pub const NOTIFICATION_PROMPT_UNSPECIFIED: NotificationPrompt =
-                NotificationPrompt::new("NOTIFICATION_PROMPT_UNSPECIFIED");
-
-            /// Notify when an incident is opened.
-            pub const OPENED: NotificationPrompt = NotificationPrompt::new("OPENED");
-
-            /// Notify when an incident is closed.
-            pub const CLOSED: NotificationPrompt = NotificationPrompt::new("CLOSED");
-        }
-
-        impl std::convert::From<std::string::String> for NotificationPrompt {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for NotificationPrompt {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for NotificationPrompt {
             fn default() -> Self {
-                notification_prompt::NOTIFICATION_PROMPT_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// Operators for combining conditions.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConditionCombinerType(std::borrow::Cow<'static, str>);
+    pub struct ConditionCombinerType(i32);
 
     impl ConditionCombinerType {
-        /// Creates a new ConditionCombinerType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConditionCombinerType](ConditionCombinerType)
-    pub mod condition_combiner_type {
-        use super::ConditionCombinerType;
-
         /// An unspecified combiner.
-        pub const COMBINE_UNSPECIFIED: ConditionCombinerType =
-            ConditionCombinerType::new("COMBINE_UNSPECIFIED");
+        pub const COMBINE_UNSPECIFIED: ConditionCombinerType = ConditionCombinerType::new(0);
 
         /// Combine conditions using the logical `AND` operator. An
         /// incident is created only if all the conditions are met
         /// simultaneously. This combiner is satisfied if all conditions are
         /// met, even if they are met on completely different resources.
-        pub const AND: ConditionCombinerType = ConditionCombinerType::new("AND");
+        pub const AND: ConditionCombinerType = ConditionCombinerType::new(1);
 
         /// Combine conditions using the logical `OR` operator. An incident
         /// is created if any of the listed conditions is met.
-        pub const OR: ConditionCombinerType = ConditionCombinerType::new("OR");
+        pub const OR: ConditionCombinerType = ConditionCombinerType::new(2);
 
         /// Combine conditions using logical `AND` operator, but unlike the regular
         /// `AND` option, an incident is created only if all conditions are met
         /// simultaneously on at least one resource.
-        pub const AND_WITH_MATCHING_RESOURCE: ConditionCombinerType =
-            ConditionCombinerType::new("AND_WITH_MATCHING_RESOURCE");
+        pub const AND_WITH_MATCHING_RESOURCE: ConditionCombinerType = ConditionCombinerType::new(3);
+
+        /// Creates a new ConditionCombinerType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMBINE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AND"),
+                2 => std::borrow::Cow::Borrowed("OR"),
+                3 => std::borrow::Cow::Borrowed("AND_WITH_MATCHING_RESOURCE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMBINE_UNSPECIFIED" => std::option::Option::Some(Self::COMBINE_UNSPECIFIED),
+                "AND" => std::option::Option::Some(Self::AND),
+                "OR" => std::option::Option::Some(Self::OR),
+                "AND_WITH_MATCHING_RESOURCE" => {
+                    std::option::Option::Some(Self::AND_WITH_MATCHING_RESOURCE)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConditionCombinerType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConditionCombinerType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ConditionCombinerType {
         fn default() -> Self {
-            condition_combiner_type::COMBINE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// An enumeration of possible severity level for an alerting policy.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    pub struct Severity(i32);
 
     impl Severity {
-        /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
         /// No severity is specified. This is the default value.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
 
         /// This is the highest severity level. Use this if the problem could
         /// cause significant damage or downtime.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
+        pub const CRITICAL: Severity = Severity::new(1);
 
         /// This is the medium severity level. Use this if the problem could
         /// cause minor damage or downtime.
-        pub const ERROR: Severity = Severity::new("ERROR");
+        pub const ERROR: Severity = Severity::new(2);
 
         /// This is the lowest severity level. Use this if the problem is not causing
         /// any damage or downtime, but could potentially lead to a problem in the
         /// future.
-        pub const WARNING: Severity = Severity::new("WARNING");
+        pub const WARNING: Severity = Severity::new(3);
+
+        /// Creates a new Severity instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CRITICAL"),
+                2 => std::borrow::Cow::Borrowed("ERROR"),
+                3 => std::borrow::Cow::Borrowed("WARNING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "WARNING" => std::option::Option::Some(Self::WARNING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -3324,28 +3400,13 @@ pub mod aggregation {
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Aligner(std::borrow::Cow<'static, str>);
+    pub struct Aligner(i32);
 
     impl Aligner {
-        /// Creates a new Aligner instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Aligner](Aligner)
-    pub mod aligner {
-        use super::Aligner;
-
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
         /// is requested. The `value_type` of the result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_NONE: Aligner = Aligner::new("ALIGN_NONE");
+        pub const ALIGN_NONE: Aligner = Aligner::new(0);
 
         /// Align and convert to
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA].
@@ -3360,7 +3421,7 @@ pub mod aggregation {
         ///
         /// [google.api.MetricDescriptor.MetricKind.CUMULATIVE]: api::model::metric_descriptor::metric_kind::CUMULATIVE
         /// [google.api.MetricDescriptor.MetricKind.DELTA]: api::model::metric_descriptor::metric_kind::DELTA
-        pub const ALIGN_DELTA: Aligner = Aligner::new("ALIGN_DELTA");
+        pub const ALIGN_DELTA: Aligner = Aligner::new(1);
 
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
@@ -3375,70 +3436,70 @@ pub mod aggregation {
         ///
         /// If, by "rate", you mean "percentage change", see the
         /// `ALIGN_PERCENT_CHANGE` aligner instead.
-        pub const ALIGN_RATE: Aligner = Aligner::new("ALIGN_RATE");
+        pub const ALIGN_RATE: Aligner = Aligner::new(2);
 
         /// Align by interpolating between adjacent points around the alignment
         /// period boundary. This aligner is valid for `GAUGE` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new("ALIGN_INTERPOLATE");
+        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new(3);
 
         /// Align by moving the most recent data point before the end of the
         /// alignment period to the boundary at the end of the alignment
         /// period. This aligner is valid for `GAUGE` metrics. The `value_type` of
         /// the aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new("ALIGN_NEXT_OLDER");
+        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new(4);
 
         /// Align the time series by returning the minimum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MIN: Aligner = Aligner::new("ALIGN_MIN");
+        pub const ALIGN_MIN: Aligner = Aligner::new(10);
 
         /// Align the time series by returning the maximum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MAX: Aligner = Aligner::new("ALIGN_MAX");
+        pub const ALIGN_MAX: Aligner = Aligner::new(11);
 
         /// Align the time series by returning the mean value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is `DOUBLE`.
-        pub const ALIGN_MEAN: Aligner = Aligner::new("ALIGN_MEAN");
+        pub const ALIGN_MEAN: Aligner = Aligner::new(12);
 
         /// Align the time series by returning the number of values in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric or Boolean values. The `value_type` of the aligned result is
         /// `INT64`.
-        pub const ALIGN_COUNT: Aligner = Aligner::new("ALIGN_COUNT");
+        pub const ALIGN_COUNT: Aligner = Aligner::new(13);
 
         /// Align the time series by returning the sum of the values in each
         /// alignment period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with numeric and distribution values. The `value_type` of the
         /// aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_SUM: Aligner = Aligner::new("ALIGN_SUM");
+        pub const ALIGN_SUM: Aligner = Aligner::new(14);
 
         /// Align the time series by returning the standard deviation of the values
         /// in each alignment period. This aligner is valid for `GAUGE` and
         /// `DELTA` metrics with numeric values. The `value_type` of the output is
         /// `DOUBLE`.
-        pub const ALIGN_STDDEV: Aligner = Aligner::new("ALIGN_STDDEV");
+        pub const ALIGN_STDDEV: Aligner = Aligner::new(15);
 
         /// Align the time series by returning the number of `True` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new("ALIGN_COUNT_TRUE");
+        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new(16);
 
         /// Align the time series by returning the number of `False` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new("ALIGN_COUNT_FALSE");
+        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new(24);
 
         /// Align the time series by returning the ratio of the number of `True`
         /// values to the total number of values in each alignment period. This
         /// aligner is valid for `GAUGE` metrics with Boolean values. The output
         /// value is in the range [0.0, 1.0] and has `value_type` `DOUBLE`.
-        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new("ALIGN_FRACTION_TRUE");
+        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new(17);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -3446,7 +3507,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new("ALIGN_PERCENTILE_99");
+        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new(18);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -3454,7 +3515,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new("ALIGN_PERCENTILE_95");
+        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new(19);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -3462,7 +3523,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new("ALIGN_PERCENTILE_50");
+        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new(20);
 
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
@@ -3470,7 +3531,7 @@ pub mod aggregation {
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new("ALIGN_PERCENTILE_05");
+        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new(21);
 
         /// Align and convert to a percentage change. This aligner is valid for
         /// `GAUGE` and `DELTA` metrics with numeric values. This alignment returns
@@ -3488,18 +3549,80 @@ pub mod aggregation {
         /// metrics are accepted by this alignment, special care should be taken that
         /// the values for the metric will always be positive. The output is a
         /// `GAUGE` metric with `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new("ALIGN_PERCENT_CHANGE");
+        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new(23);
+
+        /// Creates a new Aligner instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ALIGN_NONE"),
+                1 => std::borrow::Cow::Borrowed("ALIGN_DELTA"),
+                2 => std::borrow::Cow::Borrowed("ALIGN_RATE"),
+                3 => std::borrow::Cow::Borrowed("ALIGN_INTERPOLATE"),
+                4 => std::borrow::Cow::Borrowed("ALIGN_NEXT_OLDER"),
+                10 => std::borrow::Cow::Borrowed("ALIGN_MIN"),
+                11 => std::borrow::Cow::Borrowed("ALIGN_MAX"),
+                12 => std::borrow::Cow::Borrowed("ALIGN_MEAN"),
+                13 => std::borrow::Cow::Borrowed("ALIGN_COUNT"),
+                14 => std::borrow::Cow::Borrowed("ALIGN_SUM"),
+                15 => std::borrow::Cow::Borrowed("ALIGN_STDDEV"),
+                16 => std::borrow::Cow::Borrowed("ALIGN_COUNT_TRUE"),
+                17 => std::borrow::Cow::Borrowed("ALIGN_FRACTION_TRUE"),
+                18 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_99"),
+                19 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_95"),
+                20 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_50"),
+                21 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_05"),
+                23 => std::borrow::Cow::Borrowed("ALIGN_PERCENT_CHANGE"),
+                24 => std::borrow::Cow::Borrowed("ALIGN_COUNT_FALSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ALIGN_NONE" => std::option::Option::Some(Self::ALIGN_NONE),
+                "ALIGN_DELTA" => std::option::Option::Some(Self::ALIGN_DELTA),
+                "ALIGN_RATE" => std::option::Option::Some(Self::ALIGN_RATE),
+                "ALIGN_INTERPOLATE" => std::option::Option::Some(Self::ALIGN_INTERPOLATE),
+                "ALIGN_NEXT_OLDER" => std::option::Option::Some(Self::ALIGN_NEXT_OLDER),
+                "ALIGN_MIN" => std::option::Option::Some(Self::ALIGN_MIN),
+                "ALIGN_MAX" => std::option::Option::Some(Self::ALIGN_MAX),
+                "ALIGN_MEAN" => std::option::Option::Some(Self::ALIGN_MEAN),
+                "ALIGN_COUNT" => std::option::Option::Some(Self::ALIGN_COUNT),
+                "ALIGN_SUM" => std::option::Option::Some(Self::ALIGN_SUM),
+                "ALIGN_STDDEV" => std::option::Option::Some(Self::ALIGN_STDDEV),
+                "ALIGN_COUNT_TRUE" => std::option::Option::Some(Self::ALIGN_COUNT_TRUE),
+                "ALIGN_COUNT_FALSE" => std::option::Option::Some(Self::ALIGN_COUNT_FALSE),
+                "ALIGN_FRACTION_TRUE" => std::option::Option::Some(Self::ALIGN_FRACTION_TRUE),
+                "ALIGN_PERCENTILE_99" => std::option::Option::Some(Self::ALIGN_PERCENTILE_99),
+                "ALIGN_PERCENTILE_95" => std::option::Option::Some(Self::ALIGN_PERCENTILE_95),
+                "ALIGN_PERCENTILE_50" => std::option::Option::Some(Self::ALIGN_PERCENTILE_50),
+                "ALIGN_PERCENTILE_05" => std::option::Option::Some(Self::ALIGN_PERCENTILE_05),
+                "ALIGN_PERCENT_CHANGE" => std::option::Option::Some(Self::ALIGN_PERCENT_CHANGE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Aligner {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Aligner {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Aligner {
         fn default() -> Self {
-            aligner::ALIGN_NONE
+            Self::new(0)
         }
     }
 
@@ -3508,27 +3631,12 @@ pub mod aggregation {
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reducer(std::borrow::Cow<'static, str>);
+    pub struct Reducer(i32);
 
     impl Reducer {
-        /// Creates a new Reducer instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Reducer](Reducer)
-    pub mod reducer {
-        use super::Reducer;
-
         /// No cross-time series reduction. The output of the `Aligner` is
         /// returned.
-        pub const REDUCE_NONE: Reducer = Reducer::new("REDUCE_NONE");
+        pub const REDUCE_NONE: Reducer = Reducer::new(0);
 
         /// Reduce by computing the mean value across time series for each
         /// alignment period. This reducer is valid for
@@ -3540,95 +3648,147 @@ pub mod aggregation {
         /// [google.api.MetricDescriptor.MetricKind.DELTA]: api::model::metric_descriptor::metric_kind::DELTA
         /// [google.api.MetricDescriptor.MetricKind.GAUGE]: api::model::metric_descriptor::metric_kind::GAUGE
         /// [google.api.MetricDescriptor.ValueType.DOUBLE]: api::model::metric_descriptor::value_type::DOUBLE
-        pub const REDUCE_MEAN: Reducer = Reducer::new("REDUCE_MEAN");
+        pub const REDUCE_MEAN: Reducer = Reducer::new(1);
 
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MIN: Reducer = Reducer::new("REDUCE_MIN");
+        pub const REDUCE_MIN: Reducer = Reducer::new(2);
 
         /// Reduce by computing the maximum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MAX: Reducer = Reducer::new("REDUCE_MAX");
+        pub const REDUCE_MAX: Reducer = Reducer::new(3);
 
         /// Reduce by computing the sum across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric and distribution values. The `value_type` of the output is
         /// the same as the `value_type` of the input.
-        pub const REDUCE_SUM: Reducer = Reducer::new("REDUCE_SUM");
+        pub const REDUCE_SUM: Reducer = Reducer::new(4);
 
         /// Reduce by computing the standard deviation across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics with numeric or distribution values. The `value_type`
         /// of the output is `DOUBLE`.
-        pub const REDUCE_STDDEV: Reducer = Reducer::new("REDUCE_STDDEV");
+        pub const REDUCE_STDDEV: Reducer = Reducer::new(5);
 
         /// Reduce by computing the number of data points across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of numeric, Boolean, distribution, and string
         /// `value_type`. The `value_type` of the output is `INT64`.
-        pub const REDUCE_COUNT: Reducer = Reducer::new("REDUCE_COUNT");
+        pub const REDUCE_COUNT: Reducer = Reducer::new(6);
 
         /// Reduce by computing the number of `True`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new("REDUCE_COUNT_TRUE");
+        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new(7);
 
         /// Reduce by computing the number of `False`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new("REDUCE_COUNT_FALSE");
+        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new(15);
 
         /// Reduce by computing the ratio of the number of `True`-valued data points
         /// to the total number of data points for each alignment period. This
         /// reducer is valid for `DELTA` and `GAUGE` metrics of Boolean `value_type`.
         /// The output value is in the range [0.0, 1.0] and has `value_type`
         /// `DOUBLE`.
-        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new("REDUCE_FRACTION_TRUE");
+        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new(8);
 
         /// Reduce by computing the [99th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new("REDUCE_PERCENTILE_99");
+        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new(9);
 
         /// Reduce by computing the [95th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new("REDUCE_PERCENTILE_95");
+        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new(10);
 
         /// Reduce by computing the [50th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new("REDUCE_PERCENTILE_50");
+        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new(11);
 
         /// Reduce by computing the [5th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new("REDUCE_PERCENTILE_05");
+        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new(12);
+
+        /// Creates a new Reducer instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REDUCE_NONE"),
+                1 => std::borrow::Cow::Borrowed("REDUCE_MEAN"),
+                2 => std::borrow::Cow::Borrowed("REDUCE_MIN"),
+                3 => std::borrow::Cow::Borrowed("REDUCE_MAX"),
+                4 => std::borrow::Cow::Borrowed("REDUCE_SUM"),
+                5 => std::borrow::Cow::Borrowed("REDUCE_STDDEV"),
+                6 => std::borrow::Cow::Borrowed("REDUCE_COUNT"),
+                7 => std::borrow::Cow::Borrowed("REDUCE_COUNT_TRUE"),
+                8 => std::borrow::Cow::Borrowed("REDUCE_FRACTION_TRUE"),
+                9 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_99"),
+                10 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_95"),
+                11 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_50"),
+                12 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_05"),
+                15 => std::borrow::Cow::Borrowed("REDUCE_COUNT_FALSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REDUCE_NONE" => std::option::Option::Some(Self::REDUCE_NONE),
+                "REDUCE_MEAN" => std::option::Option::Some(Self::REDUCE_MEAN),
+                "REDUCE_MIN" => std::option::Option::Some(Self::REDUCE_MIN),
+                "REDUCE_MAX" => std::option::Option::Some(Self::REDUCE_MAX),
+                "REDUCE_SUM" => std::option::Option::Some(Self::REDUCE_SUM),
+                "REDUCE_STDDEV" => std::option::Option::Some(Self::REDUCE_STDDEV),
+                "REDUCE_COUNT" => std::option::Option::Some(Self::REDUCE_COUNT),
+                "REDUCE_COUNT_TRUE" => std::option::Option::Some(Self::REDUCE_COUNT_TRUE),
+                "REDUCE_COUNT_FALSE" => std::option::Option::Some(Self::REDUCE_COUNT_FALSE),
+                "REDUCE_FRACTION_TRUE" => std::option::Option::Some(Self::REDUCE_FRACTION_TRUE),
+                "REDUCE_PERCENTILE_99" => std::option::Option::Some(Self::REDUCE_PERCENTILE_99),
+                "REDUCE_PERCENTILE_95" => std::option::Option::Some(Self::REDUCE_PERCENTILE_95),
+                "REDUCE_PERCENTILE_50" => std::option::Option::Some(Self::REDUCE_PERCENTILE_50),
+                "REDUCE_PERCENTILE_05" => std::option::Option::Some(Self::REDUCE_PERCENTILE_05),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Reducer {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Reducer {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Reducer {
         fn default() -> Self {
-            reducer::REDUCE_NONE
+            Self::new(0)
         }
     }
 }
@@ -5766,42 +5926,55 @@ pub mod list_time_series_request {
 
     /// Controls which fields are returned by `ListTimeSeries*`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TimeSeriesView(std::borrow::Cow<'static, str>);
+    pub struct TimeSeriesView(i32);
 
     impl TimeSeriesView {
-        /// Creates a new TimeSeriesView instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [TimeSeriesView](TimeSeriesView)
-    pub mod time_series_view {
-        use super::TimeSeriesView;
-
         /// Returns the identity of the metric(s), the time series,
         /// and the time series data.
-        pub const FULL: TimeSeriesView = TimeSeriesView::new("FULL");
+        pub const FULL: TimeSeriesView = TimeSeriesView::new(0);
 
         /// Returns the identity of the metric and the time series resource,
         /// but not the time series data.
-        pub const HEADERS: TimeSeriesView = TimeSeriesView::new("HEADERS");
+        pub const HEADERS: TimeSeriesView = TimeSeriesView::new(1);
+
+        /// Creates a new TimeSeriesView instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FULL"),
+                1 => std::borrow::Cow::Borrowed("HEADERS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FULL" => std::option::Option::Some(Self::FULL),
+                "HEADERS" => std::option::Option::Some(Self::HEADERS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for TimeSeriesView {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TimeSeriesView {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for TimeSeriesView {
         fn default() -> Self {
-            time_series_view::FULL
+            Self::new(0)
         }
     }
 }
@@ -6691,51 +6864,67 @@ pub mod notification_channel {
     /// [google.monitoring.v3.NotificationChannelService.CreateNotificationChannel]: crate::client::NotificationChannelService::create_notification_channel
     /// [google.monitoring.v3.NotificationChannelService.UpdateNotificationChannel]: crate::client::NotificationChannelService::update_notification_channel
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VerificationStatus(std::borrow::Cow<'static, str>);
+    pub struct VerificationStatus(i32);
 
     impl VerificationStatus {
-        /// Creates a new VerificationStatus instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [VerificationStatus](VerificationStatus)
-    pub mod verification_status {
-        use super::VerificationStatus;
-
         /// Sentinel value used to indicate that the state is unknown, omitted, or
         /// is not applicable (as in the case of channels that neither support
         /// nor require verification in order to function).
-        pub const VERIFICATION_STATUS_UNSPECIFIED: VerificationStatus =
-            VerificationStatus::new("VERIFICATION_STATUS_UNSPECIFIED");
+        pub const VERIFICATION_STATUS_UNSPECIFIED: VerificationStatus = VerificationStatus::new(0);
 
         /// The channel has yet to be verified and requires verification to function.
         /// Note that this state also applies to the case where the verification
         /// process has been initiated by sending a verification code but where
         /// the verification code has not been submitted to complete the process.
-        pub const UNVERIFIED: VerificationStatus = VerificationStatus::new("UNVERIFIED");
+        pub const UNVERIFIED: VerificationStatus = VerificationStatus::new(1);
 
         /// It has been proven that notifications can be received on this
         /// notification channel and that someone on the project has access
         /// to messages that are delivered to that channel.
-        pub const VERIFIED: VerificationStatus = VerificationStatus::new("VERIFIED");
+        pub const VERIFIED: VerificationStatus = VerificationStatus::new(2);
+
+        /// Creates a new VerificationStatus instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VERIFICATION_STATUS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UNVERIFIED"),
+                2 => std::borrow::Cow::Borrowed("VERIFIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VERIFICATION_STATUS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::VERIFICATION_STATUS_UNSPECIFIED)
+                }
+                "UNVERIFIED" => std::option::Option::Some(Self::UNVERIFIED),
+                "VERIFIED" => std::option::Option::Some(Self::VERIFIED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for VerificationStatus {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for VerificationStatus {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for VerificationStatus {
         fn default() -> Self {
-            verification_status::VERIFICATION_STATUS_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8706,48 +8895,63 @@ pub mod service_level_objective {
     /// `ServiceLevelObjective` is returned from `GetServiceLevelObjective`,
     /// `ListServiceLevelObjectives`, and `ListServiceLevelObjectiveVersions` RPCs.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct View(std::borrow::Cow<'static, str>);
+    pub struct View(i32);
 
     impl View {
-        /// Creates a new View instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [View](View)
-    pub mod view {
-        use super::View;
-
         /// Same as FULL.
-        pub const VIEW_UNSPECIFIED: View = View::new("VIEW_UNSPECIFIED");
+        pub const VIEW_UNSPECIFIED: View = View::new(0);
 
         /// Return the embedded `ServiceLevelIndicator` in the form in which it was
         /// defined. If it was defined using a `BasicSli`, return that `BasicSli`.
-        pub const FULL: View = View::new("FULL");
+        pub const FULL: View = View::new(2);
 
         /// For `ServiceLevelIndicator`s using `BasicSli` articulation, instead
         /// return the `ServiceLevelIndicator` with its mode of computation fully
         /// spelled out as a `RequestBasedSli`. For `ServiceLevelIndicator`s using
         /// `RequestBasedSli` or `WindowsBasedSli`, return the
         /// `ServiceLevelIndicator` as it was provided.
-        pub const EXPLICIT: View = View::new("EXPLICIT");
+        pub const EXPLICIT: View = View::new(1);
+
+        /// Creates a new View instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("VIEW_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("EXPLICIT"),
+                2 => std::borrow::Cow::Borrowed("FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VIEW_UNSPECIFIED),
+                "FULL" => std::option::Option::Some(Self::FULL),
+                "EXPLICIT" => std::option::Option::Some(Self::EXPLICIT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for View {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for View {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for View {
         fn default() -> Self {
-            view::VIEW_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -11077,33 +11281,18 @@ pub mod internal_checker {
 
     /// Operational states for an internal checker.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// An internal checker should never be in the unspecified state.
-        pub const UNSPECIFIED: State = State::new("UNSPECIFIED");
+        pub const UNSPECIFIED: State = State::new(0);
 
         /// The checker is being created, provisioned, and configured. A checker in
         /// this state can be returned by `ListInternalCheckers` or
         /// `GetInternalChecker`, as well as by examining the [long running
         /// Operation](https://cloud.google.com/apis/design/design_patterns#long_running_operations)
         /// that created it.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The checker is running and available for use. A checker in this state
         /// can be returned by `ListInternalCheckers` or `GetInternalChecker` as
@@ -11112,18 +11301,48 @@ pub mod internal_checker {
         /// that created it.
         /// If a checker is being torn down, it is neither visible nor usable, so
         /// there is no "deleting" or "down" state.
-        pub const RUNNING: State = State::new("RUNNING");
+        pub const RUNNING: State = State::new(2);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -12167,56 +12386,80 @@ pub mod uptime_check_config {
 
             /// An HTTP status code class.
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct StatusClass(std::borrow::Cow<'static, str>);
+            pub struct StatusClass(i32);
 
             impl StatusClass {
+                /// Default value that matches no status codes.
+                pub const STATUS_CLASS_UNSPECIFIED: StatusClass = StatusClass::new(0);
+
+                /// The class of status codes between 100 and 199.
+                pub const STATUS_CLASS_1XX: StatusClass = StatusClass::new(100);
+
+                /// The class of status codes between 200 and 299.
+                pub const STATUS_CLASS_2XX: StatusClass = StatusClass::new(200);
+
+                /// The class of status codes between 300 and 399.
+                pub const STATUS_CLASS_3XX: StatusClass = StatusClass::new(300);
+
+                /// The class of status codes between 400 and 499.
+                pub const STATUS_CLASS_4XX: StatusClass = StatusClass::new(400);
+
+                /// The class of status codes between 500 and 599.
+                pub const STATUS_CLASS_5XX: StatusClass = StatusClass::new(500);
+
+                /// The class of all status codes.
+                pub const STATUS_CLASS_ANY: StatusClass = StatusClass::new(1000);
+
                 /// Creates a new StatusClass instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
                 }
 
                 /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("STATUS_CLASS_UNSPECIFIED"),
+                        100 => std::borrow::Cow::Borrowed("STATUS_CLASS_1XX"),
+                        200 => std::borrow::Cow::Borrowed("STATUS_CLASS_2XX"),
+                        300 => std::borrow::Cow::Borrowed("STATUS_CLASS_3XX"),
+                        400 => std::borrow::Cow::Borrowed("STATUS_CLASS_4XX"),
+                        500 => std::borrow::Cow::Borrowed("STATUS_CLASS_5XX"),
+                        1000 => std::borrow::Cow::Borrowed("STATUS_CLASS_ANY"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "STATUS_CLASS_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::STATUS_CLASS_UNSPECIFIED)
+                        }
+                        "STATUS_CLASS_1XX" => std::option::Option::Some(Self::STATUS_CLASS_1XX),
+                        "STATUS_CLASS_2XX" => std::option::Option::Some(Self::STATUS_CLASS_2XX),
+                        "STATUS_CLASS_3XX" => std::option::Option::Some(Self::STATUS_CLASS_3XX),
+                        "STATUS_CLASS_4XX" => std::option::Option::Some(Self::STATUS_CLASS_4XX),
+                        "STATUS_CLASS_5XX" => std::option::Option::Some(Self::STATUS_CLASS_5XX),
+                        "STATUS_CLASS_ANY" => std::option::Option::Some(Self::STATUS_CLASS_ANY),
+                        _ => std::option::Option::None,
+                    }
                 }
             }
 
-            /// Useful constants to work with [StatusClass](StatusClass)
-            pub mod status_class {
-                use super::StatusClass;
-
-                /// Default value that matches no status codes.
-                pub const STATUS_CLASS_UNSPECIFIED: StatusClass =
-                    StatusClass::new("STATUS_CLASS_UNSPECIFIED");
-
-                /// The class of status codes between 100 and 199.
-                pub const STATUS_CLASS_1XX: StatusClass = StatusClass::new("STATUS_CLASS_1XX");
-
-                /// The class of status codes between 200 and 299.
-                pub const STATUS_CLASS_2XX: StatusClass = StatusClass::new("STATUS_CLASS_2XX");
-
-                /// The class of status codes between 300 and 399.
-                pub const STATUS_CLASS_3XX: StatusClass = StatusClass::new("STATUS_CLASS_3XX");
-
-                /// The class of status codes between 400 and 499.
-                pub const STATUS_CLASS_4XX: StatusClass = StatusClass::new("STATUS_CLASS_4XX");
-
-                /// The class of status codes between 500 and 599.
-                pub const STATUS_CLASS_5XX: StatusClass = StatusClass::new("STATUS_CLASS_5XX");
-
-                /// The class of all status codes.
-                pub const STATUS_CLASS_ANY: StatusClass = StatusClass::new("STATUS_CLASS_ANY");
-            }
-
-            impl std::convert::From<std::string::String> for StatusClass {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::convert::From<i32> for StatusClass {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
                 }
             }
 
             impl std::default::Default for StatusClass {
                 fn default() -> Self {
-                    status_class::STATUS_CLASS_UNSPECIFIED
+                    Self::new(0)
                 }
             }
 
@@ -12274,132 +12517,179 @@ pub mod uptime_check_config {
 
             /// Type of authentication.
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct ServiceAgentAuthenticationType(std::borrow::Cow<'static, str>);
+            pub struct ServiceAgentAuthenticationType(i32);
 
             impl ServiceAgentAuthenticationType {
-                /// Creates a new ServiceAgentAuthenticationType instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
-
-            /// Useful constants to work with [ServiceAgentAuthenticationType](ServiceAgentAuthenticationType)
-            pub mod service_agent_authentication_type {
-                use super::ServiceAgentAuthenticationType;
-
                 /// Default value, will result in OIDC Authentication.
                 pub const SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED:
-                    ServiceAgentAuthenticationType = ServiceAgentAuthenticationType::new(
-                    "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED",
-                );
+                    ServiceAgentAuthenticationType = ServiceAgentAuthenticationType::new(0);
 
                 /// OIDC Authentication
                 pub const OIDC_TOKEN: ServiceAgentAuthenticationType =
-                    ServiceAgentAuthenticationType::new("OIDC_TOKEN");
+                    ServiceAgentAuthenticationType::new(1);
+
+                /// Creates a new ServiceAgentAuthenticationType instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed(
+                            "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED",
+                        ),
+                        1 => std::borrow::Cow::Borrowed("OIDC_TOKEN"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED" => {
+                            std::option::Option::Some(
+                                Self::SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED,
+                            )
+                        }
+                        "OIDC_TOKEN" => std::option::Option::Some(Self::OIDC_TOKEN),
+                        _ => std::option::Option::None,
+                    }
+                }
             }
 
-            impl std::convert::From<std::string::String> for ServiceAgentAuthenticationType {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::convert::From<i32> for ServiceAgentAuthenticationType {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
                 }
             }
 
             impl std::default::Default for ServiceAgentAuthenticationType {
                 fn default() -> Self {
-                    service_agent_authentication_type::SERVICE_AGENT_AUTHENTICATION_TYPE_UNSPECIFIED
+                    Self::new(0)
                 }
             }
         }
 
         /// The HTTP request method options.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct RequestMethod(std::borrow::Cow<'static, str>);
+        pub struct RequestMethod(i32);
 
         impl RequestMethod {
+            /// No request method specified.
+            pub const METHOD_UNSPECIFIED: RequestMethod = RequestMethod::new(0);
+
+            /// GET request.
+            pub const GET: RequestMethod = RequestMethod::new(1);
+
+            /// POST request.
+            pub const POST: RequestMethod = RequestMethod::new(2);
+
             /// Creates a new RequestMethod instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("GET"),
+                    2 => std::borrow::Cow::Borrowed("POST"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
+                    "GET" => std::option::Option::Some(Self::GET),
+                    "POST" => std::option::Option::Some(Self::POST),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [RequestMethod](RequestMethod)
-        pub mod request_method {
-            use super::RequestMethod;
-
-            /// No request method specified.
-            pub const METHOD_UNSPECIFIED: RequestMethod = RequestMethod::new("METHOD_UNSPECIFIED");
-
-            /// GET request.
-            pub const GET: RequestMethod = RequestMethod::new("GET");
-
-            /// POST request.
-            pub const POST: RequestMethod = RequestMethod::new("POST");
-        }
-
-        impl std::convert::From<std::string::String> for RequestMethod {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for RequestMethod {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for RequestMethod {
             fn default() -> Self {
-                request_method::METHOD_UNSPECIFIED
+                Self::new(0)
             }
         }
 
         /// Header options corresponding to the content type of a HTTP request body.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ContentType(std::borrow::Cow<'static, str>);
+        pub struct ContentType(i32);
 
         impl ContentType {
-            /// Creates a new ContentType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ContentType](ContentType)
-        pub mod content_type {
-            use super::ContentType;
-
             /// No content type specified.
-            pub const TYPE_UNSPECIFIED: ContentType = ContentType::new("TYPE_UNSPECIFIED");
+            pub const TYPE_UNSPECIFIED: ContentType = ContentType::new(0);
 
             /// `body` is in URL-encoded form. Equivalent to setting the `Content-Type`
             /// to `application/x-www-form-urlencoded` in the HTTP request.
-            pub const URL_ENCODED: ContentType = ContentType::new("URL_ENCODED");
+            pub const URL_ENCODED: ContentType = ContentType::new(1);
 
             /// `body` is in `custom_content_type` form. Equivalent to setting the
             /// `Content-Type` to the contents of `custom_content_type` in the HTTP
             /// request.
-            pub const USER_PROVIDED: ContentType = ContentType::new("USER_PROVIDED");
+            pub const USER_PROVIDED: ContentType = ContentType::new(2);
+
+            /// Creates a new ContentType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("URL_ENCODED"),
+                    2 => std::borrow::Cow::Borrowed("USER_PROVIDED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                    "URL_ENCODED" => std::option::Option::Some(Self::URL_ENCODED),
+                    "USER_PROVIDED" => std::option::Option::Some(Self::USER_PROVIDED),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ContentType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ContentType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for ContentType {
             fn default() -> Self {
-                content_type::TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
 
@@ -12636,127 +12926,163 @@ pub mod uptime_check_config {
 
             /// Options to perform JSONPath content matching.
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct JsonPathMatcherOption(std::borrow::Cow<'static, str>);
+            pub struct JsonPathMatcherOption(i32);
 
             impl JsonPathMatcherOption {
-                /// Creates a new JsonPathMatcherOption instance.
-                pub const fn new(v: &'static str) -> Self {
-                    Self(std::borrow::Cow::Borrowed(v))
-                }
-
-                /// Gets the enum value.
-                pub fn value(&self) -> &str {
-                    &self.0
-                }
-            }
-
-            /// Useful constants to work with [JsonPathMatcherOption](JsonPathMatcherOption)
-            pub mod json_path_matcher_option {
-                use super::JsonPathMatcherOption;
-
                 /// No JSONPath matcher type specified (not valid).
                 pub const JSON_PATH_MATCHER_OPTION_UNSPECIFIED: JsonPathMatcherOption =
-                    JsonPathMatcherOption::new("JSON_PATH_MATCHER_OPTION_UNSPECIFIED");
+                    JsonPathMatcherOption::new(0);
 
                 /// Selects 'exact string' matching. The match succeeds if the content at
                 /// the `json_path` within the output is exactly the same as the
                 /// `content` string.
-                pub const EXACT_MATCH: JsonPathMatcherOption =
-                    JsonPathMatcherOption::new("EXACT_MATCH");
+                pub const EXACT_MATCH: JsonPathMatcherOption = JsonPathMatcherOption::new(1);
 
                 /// Selects regular-expression matching. The match succeeds if the
                 /// content at the `json_path` within the output matches the regular
                 /// expression specified in the `content` string.
-                pub const REGEX_MATCH: JsonPathMatcherOption =
-                    JsonPathMatcherOption::new("REGEX_MATCH");
+                pub const REGEX_MATCH: JsonPathMatcherOption = JsonPathMatcherOption::new(2);
+
+                /// Creates a new JsonPathMatcherOption instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("JSON_PATH_MATCHER_OPTION_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("EXACT_MATCH"),
+                        2 => std::borrow::Cow::Borrowed("REGEX_MATCH"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "JSON_PATH_MATCHER_OPTION_UNSPECIFIED" => {
+                            std::option::Option::Some(Self::JSON_PATH_MATCHER_OPTION_UNSPECIFIED)
+                        }
+                        "EXACT_MATCH" => std::option::Option::Some(Self::EXACT_MATCH),
+                        "REGEX_MATCH" => std::option::Option::Some(Self::REGEX_MATCH),
+                        _ => std::option::Option::None,
+                    }
+                }
             }
 
-            impl std::convert::From<std::string::String> for JsonPathMatcherOption {
-                fn from(value: std::string::String) -> Self {
-                    Self(std::borrow::Cow::Owned(value))
+            impl std::convert::From<i32> for JsonPathMatcherOption {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
                 }
             }
 
             impl std::default::Default for JsonPathMatcherOption {
                 fn default() -> Self {
-                    json_path_matcher_option::JSON_PATH_MATCHER_OPTION_UNSPECIFIED
+                    Self::new(0)
                 }
             }
         }
 
         /// Options to perform content matching.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ContentMatcherOption(std::borrow::Cow<'static, str>);
+        pub struct ContentMatcherOption(i32);
 
         impl ContentMatcherOption {
-            /// Creates a new ContentMatcherOption instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [ContentMatcherOption](ContentMatcherOption)
-        pub mod content_matcher_option {
-            use super::ContentMatcherOption;
-
             /// No content matcher type specified (maintained for backward
             /// compatibility, but deprecated for future use).
             /// Treated as `CONTAINS_STRING`.
             pub const CONTENT_MATCHER_OPTION_UNSPECIFIED: ContentMatcherOption =
-                ContentMatcherOption::new("CONTENT_MATCHER_OPTION_UNSPECIFIED");
+                ContentMatcherOption::new(0);
 
             /// Selects substring matching. The match succeeds if the output contains
             /// the `content` string.  This is the default value for checks without
             /// a `matcher` option, or where the value of `matcher` is
             /// `CONTENT_MATCHER_OPTION_UNSPECIFIED`.
-            pub const CONTAINS_STRING: ContentMatcherOption =
-                ContentMatcherOption::new("CONTAINS_STRING");
+            pub const CONTAINS_STRING: ContentMatcherOption = ContentMatcherOption::new(1);
 
             /// Selects negation of substring matching. The match succeeds if the
             /// output does _NOT_ contain the `content` string.
-            pub const NOT_CONTAINS_STRING: ContentMatcherOption =
-                ContentMatcherOption::new("NOT_CONTAINS_STRING");
+            pub const NOT_CONTAINS_STRING: ContentMatcherOption = ContentMatcherOption::new(2);
 
             /// Selects regular-expression matching. The match succeeds if the output
             /// matches the regular expression specified in the `content` string.
             /// Regex matching is only supported for HTTP/HTTPS checks.
-            pub const MATCHES_REGEX: ContentMatcherOption =
-                ContentMatcherOption::new("MATCHES_REGEX");
+            pub const MATCHES_REGEX: ContentMatcherOption = ContentMatcherOption::new(3);
 
             /// Selects negation of regular-expression matching. The match succeeds if
             /// the output does _NOT_ match the regular expression specified in the
             /// `content` string. Regex matching is only supported for HTTP/HTTPS
             /// checks.
-            pub const NOT_MATCHES_REGEX: ContentMatcherOption =
-                ContentMatcherOption::new("NOT_MATCHES_REGEX");
+            pub const NOT_MATCHES_REGEX: ContentMatcherOption = ContentMatcherOption::new(4);
 
             /// Selects JSONPath matching. See `JsonPathMatcher` for details on when
             /// the match succeeds. JSONPath matching is only supported for HTTP/HTTPS
             /// checks.
-            pub const MATCHES_JSON_PATH: ContentMatcherOption =
-                ContentMatcherOption::new("MATCHES_JSON_PATH");
+            pub const MATCHES_JSON_PATH: ContentMatcherOption = ContentMatcherOption::new(5);
 
             /// Selects JSONPath matching. See `JsonPathMatcher` for details on when
             /// the match succeeds. Succeeds when output does _NOT_ match as specified.
             /// JSONPath is only supported for HTTP/HTTPS checks.
-            pub const NOT_MATCHES_JSON_PATH: ContentMatcherOption =
-                ContentMatcherOption::new("NOT_MATCHES_JSON_PATH");
+            pub const NOT_MATCHES_JSON_PATH: ContentMatcherOption = ContentMatcherOption::new(6);
+
+            /// Creates a new ContentMatcherOption instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("CONTENT_MATCHER_OPTION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CONTAINS_STRING"),
+                    2 => std::borrow::Cow::Borrowed("NOT_CONTAINS_STRING"),
+                    3 => std::borrow::Cow::Borrowed("MATCHES_REGEX"),
+                    4 => std::borrow::Cow::Borrowed("NOT_MATCHES_REGEX"),
+                    5 => std::borrow::Cow::Borrowed("MATCHES_JSON_PATH"),
+                    6 => std::borrow::Cow::Borrowed("NOT_MATCHES_JSON_PATH"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "CONTENT_MATCHER_OPTION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::CONTENT_MATCHER_OPTION_UNSPECIFIED)
+                    }
+                    "CONTAINS_STRING" => std::option::Option::Some(Self::CONTAINS_STRING),
+                    "NOT_CONTAINS_STRING" => std::option::Option::Some(Self::NOT_CONTAINS_STRING),
+                    "MATCHES_REGEX" => std::option::Option::Some(Self::MATCHES_REGEX),
+                    "NOT_MATCHES_REGEX" => std::option::Option::Some(Self::NOT_MATCHES_REGEX),
+                    "MATCHES_JSON_PATH" => std::option::Option::Some(Self::MATCHES_JSON_PATH),
+                    "NOT_MATCHES_JSON_PATH" => {
+                        std::option::Option::Some(Self::NOT_MATCHES_JSON_PATH)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for ContentMatcherOption {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for ContentMatcherOption {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for ContentMatcherOption {
             fn default() -> Self {
-                content_matcher_option::CONTENT_MATCHER_OPTION_UNSPECIFIED
+                Self::new(0)
             }
         }
 
@@ -12778,49 +13104,65 @@ pub mod uptime_check_config {
 
     /// What kind of checkers are available to be used by the check.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CheckerType(std::borrow::Cow<'static, str>);
+    pub struct CheckerType(i32);
 
     impl CheckerType {
-        /// Creates a new CheckerType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CheckerType](CheckerType)
-    pub mod checker_type {
-        use super::CheckerType;
-
         /// The default checker type. Currently converted to `STATIC_IP_CHECKERS`
         /// on creation, the default conversion behavior may change in the future.
-        pub const CHECKER_TYPE_UNSPECIFIED: CheckerType =
-            CheckerType::new("CHECKER_TYPE_UNSPECIFIED");
+        pub const CHECKER_TYPE_UNSPECIFIED: CheckerType = CheckerType::new(0);
 
         /// `STATIC_IP_CHECKERS` are used for uptime checks that perform egress
         /// across the public internet. `STATIC_IP_CHECKERS` use the static IP
         /// addresses returned by `ListUptimeCheckIps`.
-        pub const STATIC_IP_CHECKERS: CheckerType = CheckerType::new("STATIC_IP_CHECKERS");
+        pub const STATIC_IP_CHECKERS: CheckerType = CheckerType::new(1);
 
         /// `VPC_CHECKERS` are used for uptime checks that perform egress using
         /// Service Directory and private network access. When using `VPC_CHECKERS`,
         /// the monitored resource type must be `servicedirectory_service`.
-        pub const VPC_CHECKERS: CheckerType = CheckerType::new("VPC_CHECKERS");
+        pub const VPC_CHECKERS: CheckerType = CheckerType::new(3);
+
+        /// Creates a new CheckerType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CHECKER_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STATIC_IP_CHECKERS"),
+                3 => std::borrow::Cow::Borrowed("VPC_CHECKERS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CHECKER_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CHECKER_TYPE_UNSPECIFIED)
+                }
+                "STATIC_IP_CHECKERS" => std::option::Option::Some(Self::STATIC_IP_CHECKERS),
+                "VPC_CHECKERS" => std::option::Option::Some(Self::VPC_CHECKERS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CheckerType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CheckerType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CheckerType {
         fn default() -> Self {
-            checker_type::CHECKER_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -13349,56 +13691,78 @@ impl gax::paginator::PageableResponse for ListUptimeCheckIpsResponse {
 /// Specifies an ordering relationship on two arguments, called `left` and
 /// `right`.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ComparisonType(std::borrow::Cow<'static, str>);
+pub struct ComparisonType(i32);
 
 impl ComparisonType {
+    /// No ordering relationship is specified.
+    pub const COMPARISON_UNSPECIFIED: ComparisonType = ComparisonType::new(0);
+
+    /// True if the left argument is greater than the right argument.
+    pub const COMPARISON_GT: ComparisonType = ComparisonType::new(1);
+
+    /// True if the left argument is greater than or equal to the right argument.
+    pub const COMPARISON_GE: ComparisonType = ComparisonType::new(2);
+
+    /// True if the left argument is less than the right argument.
+    pub const COMPARISON_LT: ComparisonType = ComparisonType::new(3);
+
+    /// True if the left argument is less than or equal to the right argument.
+    pub const COMPARISON_LE: ComparisonType = ComparisonType::new(4);
+
+    /// True if the left argument is equal to the right argument.
+    pub const COMPARISON_EQ: ComparisonType = ComparisonType::new(5);
+
+    /// True if the left argument is not equal to the right argument.
+    pub const COMPARISON_NE: ComparisonType = ComparisonType::new(6);
+
     /// Creates a new ComparisonType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("COMPARISON_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("COMPARISON_GT"),
+            2 => std::borrow::Cow::Borrowed("COMPARISON_GE"),
+            3 => std::borrow::Cow::Borrowed("COMPARISON_LT"),
+            4 => std::borrow::Cow::Borrowed("COMPARISON_LE"),
+            5 => std::borrow::Cow::Borrowed("COMPARISON_EQ"),
+            6 => std::borrow::Cow::Borrowed("COMPARISON_NE"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "COMPARISON_UNSPECIFIED" => std::option::Option::Some(Self::COMPARISON_UNSPECIFIED),
+            "COMPARISON_GT" => std::option::Option::Some(Self::COMPARISON_GT),
+            "COMPARISON_GE" => std::option::Option::Some(Self::COMPARISON_GE),
+            "COMPARISON_LT" => std::option::Option::Some(Self::COMPARISON_LT),
+            "COMPARISON_LE" => std::option::Option::Some(Self::COMPARISON_LE),
+            "COMPARISON_EQ" => std::option::Option::Some(Self::COMPARISON_EQ),
+            "COMPARISON_NE" => std::option::Option::Some(Self::COMPARISON_NE),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ComparisonType](ComparisonType)
-pub mod comparison_type {
-    use super::ComparisonType;
-
-    /// No ordering relationship is specified.
-    pub const COMPARISON_UNSPECIFIED: ComparisonType =
-        ComparisonType::new("COMPARISON_UNSPECIFIED");
-
-    /// True if the left argument is greater than the right argument.
-    pub const COMPARISON_GT: ComparisonType = ComparisonType::new("COMPARISON_GT");
-
-    /// True if the left argument is greater than or equal to the right argument.
-    pub const COMPARISON_GE: ComparisonType = ComparisonType::new("COMPARISON_GE");
-
-    /// True if the left argument is less than the right argument.
-    pub const COMPARISON_LT: ComparisonType = ComparisonType::new("COMPARISON_LT");
-
-    /// True if the left argument is less than or equal to the right argument.
-    pub const COMPARISON_LE: ComparisonType = ComparisonType::new("COMPARISON_LE");
-
-    /// True if the left argument is equal to the right argument.
-    pub const COMPARISON_EQ: ComparisonType = ComparisonType::new("COMPARISON_EQ");
-
-    /// True if the left argument is not equal to the right argument.
-    pub const COMPARISON_NE: ComparisonType = ComparisonType::new("COMPARISON_NE");
-}
-
-impl std::convert::From<std::string::String> for ComparisonType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ComparisonType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ComparisonType {
     fn default() -> Self {
-        comparison_type::COMPARISON_UNSPECIFIED
+        Self::new(0)
     }
 }
 
@@ -13407,115 +13771,155 @@ impl std::default::Default for ComparisonType {
 /// documentation](https://cloud.google.com/monitoring/workspaces/tiers) for more
 /// details.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceTier(std::borrow::Cow<'static, str>);
+pub struct ServiceTier(i32);
 
 impl ServiceTier {
-    /// Creates a new ServiceTier instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [ServiceTier](ServiceTier)
-pub mod service_tier {
-    use super::ServiceTier;
-
     /// An invalid sentinel value, used to indicate that a tier has not
     /// been provided explicitly.
-    pub const SERVICE_TIER_UNSPECIFIED: ServiceTier = ServiceTier::new("SERVICE_TIER_UNSPECIFIED");
+    pub const SERVICE_TIER_UNSPECIFIED: ServiceTier = ServiceTier::new(0);
 
     /// The Cloud Monitoring Basic tier, a free tier of service that provides basic
     /// features, a moderate allotment of logs, and access to built-in metrics.
     /// A number of features are not available in this tier. For more details,
     /// see [the service tiers
     /// documentation](https://cloud.google.com/monitoring/workspaces/tiers).
-    pub const SERVICE_TIER_BASIC: ServiceTier = ServiceTier::new("SERVICE_TIER_BASIC");
+    pub const SERVICE_TIER_BASIC: ServiceTier = ServiceTier::new(1);
 
     /// The Cloud Monitoring Premium tier, a higher, more expensive tier of service
     /// that provides access to all Cloud Monitoring features, lets you use Cloud
     /// Monitoring with AWS accounts, and has a larger allotments for logs and
     /// metrics. For more details, see [the service tiers
     /// documentation](https://cloud.google.com/monitoring/workspaces/tiers).
-    pub const SERVICE_TIER_PREMIUM: ServiceTier = ServiceTier::new("SERVICE_TIER_PREMIUM");
+    pub const SERVICE_TIER_PREMIUM: ServiceTier = ServiceTier::new(2);
+
+    /// Creates a new ServiceTier instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SERVICE_TIER_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SERVICE_TIER_BASIC"),
+            2 => std::borrow::Cow::Borrowed("SERVICE_TIER_PREMIUM"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SERVICE_TIER_UNSPECIFIED" => std::option::Option::Some(Self::SERVICE_TIER_UNSPECIFIED),
+            "SERVICE_TIER_BASIC" => std::option::Option::Some(Self::SERVICE_TIER_BASIC),
+            "SERVICE_TIER_PREMIUM" => std::option::Option::Some(Self::SERVICE_TIER_PREMIUM),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for ServiceTier {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ServiceTier {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ServiceTier {
     fn default() -> Self {
-        service_tier::SERVICE_TIER_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The regions from which an Uptime check can be run.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct UptimeCheckRegion(std::borrow::Cow<'static, str>);
+pub struct UptimeCheckRegion(i32);
 
 impl UptimeCheckRegion {
-    /// Creates a new UptimeCheckRegion instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [UptimeCheckRegion](UptimeCheckRegion)
-pub mod uptime_check_region {
-    use super::UptimeCheckRegion;
-
     /// Default value if no region is specified. Will result in Uptime checks
     /// running from all regions.
-    pub const REGION_UNSPECIFIED: UptimeCheckRegion = UptimeCheckRegion::new("REGION_UNSPECIFIED");
+    pub const REGION_UNSPECIFIED: UptimeCheckRegion = UptimeCheckRegion::new(0);
 
     /// Allows checks to run from locations within the United States of America.
-    pub const USA: UptimeCheckRegion = UptimeCheckRegion::new("USA");
+    pub const USA: UptimeCheckRegion = UptimeCheckRegion::new(1);
 
     /// Allows checks to run from locations within the continent of Europe.
-    pub const EUROPE: UptimeCheckRegion = UptimeCheckRegion::new("EUROPE");
+    pub const EUROPE: UptimeCheckRegion = UptimeCheckRegion::new(2);
 
     /// Allows checks to run from locations within the continent of South
     /// America.
-    pub const SOUTH_AMERICA: UptimeCheckRegion = UptimeCheckRegion::new("SOUTH_AMERICA");
+    pub const SOUTH_AMERICA: UptimeCheckRegion = UptimeCheckRegion::new(3);
 
     /// Allows checks to run from locations within the Asia Pacific area (ex:
     /// Singapore).
-    pub const ASIA_PACIFIC: UptimeCheckRegion = UptimeCheckRegion::new("ASIA_PACIFIC");
+    pub const ASIA_PACIFIC: UptimeCheckRegion = UptimeCheckRegion::new(4);
 
     /// Allows checks to run from locations within the western United States of
     /// America
-    pub const USA_OREGON: UptimeCheckRegion = UptimeCheckRegion::new("USA_OREGON");
+    pub const USA_OREGON: UptimeCheckRegion = UptimeCheckRegion::new(5);
 
     /// Allows checks to run from locations within the central United States of
     /// America
-    pub const USA_IOWA: UptimeCheckRegion = UptimeCheckRegion::new("USA_IOWA");
+    pub const USA_IOWA: UptimeCheckRegion = UptimeCheckRegion::new(6);
 
     /// Allows checks to run from locations within the eastern United States of
     /// America
-    pub const USA_VIRGINIA: UptimeCheckRegion = UptimeCheckRegion::new("USA_VIRGINIA");
+    pub const USA_VIRGINIA: UptimeCheckRegion = UptimeCheckRegion::new(7);
+
+    /// Creates a new UptimeCheckRegion instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("REGION_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("USA"),
+            2 => std::borrow::Cow::Borrowed("EUROPE"),
+            3 => std::borrow::Cow::Borrowed("SOUTH_AMERICA"),
+            4 => std::borrow::Cow::Borrowed("ASIA_PACIFIC"),
+            5 => std::borrow::Cow::Borrowed("USA_OREGON"),
+            6 => std::borrow::Cow::Borrowed("USA_IOWA"),
+            7 => std::borrow::Cow::Borrowed("USA_VIRGINIA"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "REGION_UNSPECIFIED" => std::option::Option::Some(Self::REGION_UNSPECIFIED),
+            "USA" => std::option::Option::Some(Self::USA),
+            "EUROPE" => std::option::Option::Some(Self::EUROPE),
+            "SOUTH_AMERICA" => std::option::Option::Some(Self::SOUTH_AMERICA),
+            "ASIA_PACIFIC" => std::option::Option::Some(Self::ASIA_PACIFIC),
+            "USA_OREGON" => std::option::Option::Some(Self::USA_OREGON),
+            "USA_IOWA" => std::option::Option::Some(Self::USA_IOWA),
+            "USA_VIRGINIA" => std::option::Option::Some(Self::USA_VIRGINIA),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for UptimeCheckRegion {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for UptimeCheckRegion {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for UptimeCheckRegion {
     fn default() -> Self {
-        uptime_check_region::REGION_UNSPECIFIED
+        Self::new(0)
     }
 }
 
@@ -13525,45 +13929,60 @@ impl std::default::Default for UptimeCheckRegion {
 /// The resource types `gae_app` and `uptime_url` are not valid here because
 /// group checks on App Engine modules and URLs are not allowed.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct GroupResourceType(std::borrow::Cow<'static, str>);
+pub struct GroupResourceType(i32);
 
 impl GroupResourceType {
-    /// Creates a new GroupResourceType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [GroupResourceType](GroupResourceType)
-pub mod group_resource_type {
-    use super::GroupResourceType;
-
     /// Default value (not valid).
-    pub const RESOURCE_TYPE_UNSPECIFIED: GroupResourceType =
-        GroupResourceType::new("RESOURCE_TYPE_UNSPECIFIED");
+    pub const RESOURCE_TYPE_UNSPECIFIED: GroupResourceType = GroupResourceType::new(0);
 
     /// A group of instances from Google Cloud Platform (GCP) or
     /// Amazon Web Services (AWS).
-    pub const INSTANCE: GroupResourceType = GroupResourceType::new("INSTANCE");
+    pub const INSTANCE: GroupResourceType = GroupResourceType::new(1);
 
     /// A group of Amazon ELB load balancers.
-    pub const AWS_ELB_LOAD_BALANCER: GroupResourceType =
-        GroupResourceType::new("AWS_ELB_LOAD_BALANCER");
+    pub const AWS_ELB_LOAD_BALANCER: GroupResourceType = GroupResourceType::new(2);
+
+    /// Creates a new GroupResourceType instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("RESOURCE_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("INSTANCE"),
+            2 => std::borrow::Cow::Borrowed("AWS_ELB_LOAD_BALANCER"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "RESOURCE_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::RESOURCE_TYPE_UNSPECIFIED)
+            }
+            "INSTANCE" => std::option::Option::Some(Self::INSTANCE),
+            "AWS_ELB_LOAD_BALANCER" => std::option::Option::Some(Self::AWS_ELB_LOAD_BALANCER),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for GroupResourceType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for GroupResourceType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for GroupResourceType {
     fn default() -> Self {
-        group_resource_type::RESOURCE_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

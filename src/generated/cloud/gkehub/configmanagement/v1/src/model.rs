@@ -238,43 +238,58 @@ pub mod membership_spec {
 
     /// Whether to automatically manage the Feature.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Management(std::borrow::Cow<'static, str>);
+    pub struct Management(i32);
 
     impl Management {
+        /// Unspecified
+        pub const MANAGEMENT_UNSPECIFIED: Management = Management::new(0);
+
+        /// Google will manage the Feature for the cluster.
+        pub const MANAGEMENT_AUTOMATIC: Management = Management::new(1);
+
+        /// User will manually manage the Feature for the cluster.
+        pub const MANAGEMENT_MANUAL: Management = Management::new(2);
+
         /// Creates a new Management instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MANAGEMENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MANAGEMENT_AUTOMATIC"),
+                2 => std::borrow::Cow::Borrowed("MANAGEMENT_MANUAL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MANAGEMENT_UNSPECIFIED" => std::option::Option::Some(Self::MANAGEMENT_UNSPECIFIED),
+                "MANAGEMENT_AUTOMATIC" => std::option::Option::Some(Self::MANAGEMENT_AUTOMATIC),
+                "MANAGEMENT_MANUAL" => std::option::Option::Some(Self::MANAGEMENT_MANUAL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Management](Management)
-    pub mod management {
-        use super::Management;
-
-        /// Unspecified
-        pub const MANAGEMENT_UNSPECIFIED: Management = Management::new("MANAGEMENT_UNSPECIFIED");
-
-        /// Google will manage the Feature for the cluster.
-        pub const MANAGEMENT_AUTOMATIC: Management = Management::new("MANAGEMENT_AUTOMATIC");
-
-        /// User will manually manage the Feature for the cluster.
-        pub const MANAGEMENT_MANUAL: Management = Management::new("MANAGEMENT_MANUAL");
-    }
-
-    impl std::convert::From<std::string::String> for Management {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Management {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Management {
         fn default() -> Self {
-            management::MANAGEMENT_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1038,96 +1053,136 @@ pub mod config_sync_state {
 
     /// CRDState representing the state of a CRD
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CRDState(std::borrow::Cow<'static, str>);
+    pub struct CRDState(i32);
 
     impl CRDState {
+        /// CRD's state cannot be determined
+        pub const CRD_STATE_UNSPECIFIED: CRDState = CRDState::new(0);
+
+        /// CRD is not installed
+        pub const NOT_INSTALLED: CRDState = CRDState::new(1);
+
+        /// CRD is installed
+        pub const INSTALLED: CRDState = CRDState::new(2);
+
+        /// CRD is terminating (i.e., it has been deleted and is cleaning up)
+        pub const TERMINATING: CRDState = CRDState::new(3);
+
+        /// CRD is installing
+        pub const INSTALLING: CRDState = CRDState::new(4);
+
         /// Creates a new CRDState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CRD_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NOT_INSTALLED"),
+                2 => std::borrow::Cow::Borrowed("INSTALLED"),
+                3 => std::borrow::Cow::Borrowed("TERMINATING"),
+                4 => std::borrow::Cow::Borrowed("INSTALLING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CRD_STATE_UNSPECIFIED" => std::option::Option::Some(Self::CRD_STATE_UNSPECIFIED),
+                "NOT_INSTALLED" => std::option::Option::Some(Self::NOT_INSTALLED),
+                "INSTALLED" => std::option::Option::Some(Self::INSTALLED),
+                "TERMINATING" => std::option::Option::Some(Self::TERMINATING),
+                "INSTALLING" => std::option::Option::Some(Self::INSTALLING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [CRDState](CRDState)
-    pub mod crd_state {
-        use super::CRDState;
-
-        /// CRD's state cannot be determined
-        pub const CRD_STATE_UNSPECIFIED: CRDState = CRDState::new("CRD_STATE_UNSPECIFIED");
-
-        /// CRD is not installed
-        pub const NOT_INSTALLED: CRDState = CRDState::new("NOT_INSTALLED");
-
-        /// CRD is installed
-        pub const INSTALLED: CRDState = CRDState::new("INSTALLED");
-
-        /// CRD is terminating (i.e., it has been deleted and is cleaning up)
-        pub const TERMINATING: CRDState = CRDState::new("TERMINATING");
-
-        /// CRD is installing
-        pub const INSTALLING: CRDState = CRDState::new("INSTALLING");
-    }
-
-    impl std::convert::From<std::string::String> for CRDState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CRDState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CRDState {
         fn default() -> Self {
-            crd_state::CRD_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// CS's state cannot be determined.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// CS is not installed.
+        pub const CONFIG_SYNC_NOT_INSTALLED: State = State::new(1);
+
+        /// The expected CS version is installed successfully.
+        pub const CONFIG_SYNC_INSTALLED: State = State::new(2);
+
+        /// CS encounters errors.
+        pub const CONFIG_SYNC_ERROR: State = State::new(3);
+
+        /// CS is installing or terminating.
+        pub const CONFIG_SYNC_PENDING: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CONFIG_SYNC_NOT_INSTALLED"),
+                2 => std::borrow::Cow::Borrowed("CONFIG_SYNC_INSTALLED"),
+                3 => std::borrow::Cow::Borrowed("CONFIG_SYNC_ERROR"),
+                4 => std::borrow::Cow::Borrowed("CONFIG_SYNC_PENDING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CONFIG_SYNC_NOT_INSTALLED" => {
+                    std::option::Option::Some(Self::CONFIG_SYNC_NOT_INSTALLED)
+                }
+                "CONFIG_SYNC_INSTALLED" => std::option::Option::Some(Self::CONFIG_SYNC_INSTALLED),
+                "CONFIG_SYNC_ERROR" => std::option::Option::Some(Self::CONFIG_SYNC_ERROR),
+                "CONFIG_SYNC_PENDING" => std::option::Option::Some(Self::CONFIG_SYNC_PENDING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// CS's state cannot be determined.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// CS is not installed.
-        pub const CONFIG_SYNC_NOT_INSTALLED: State = State::new("CONFIG_SYNC_NOT_INSTALLED");
-
-        /// The expected CS version is installed successfully.
-        pub const CONFIG_SYNC_INSTALLED: State = State::new("CONFIG_SYNC_INSTALLED");
-
-        /// CS encounters errors.
-        pub const CONFIG_SYNC_ERROR: State = State::new("CONFIG_SYNC_ERROR");
-
-        /// CS is installing or terminating.
-        pub const CONFIG_SYNC_PENDING: State = State::new("CONFIG_SYNC_PENDING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1469,58 +1524,83 @@ pub mod sync_state {
 
     /// An enum representing Config Sync's status of syncing configs to a cluster.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SyncCode(std::borrow::Cow<'static, str>);
+    pub struct SyncCode(i32);
 
     impl SyncCode {
+        /// Config Sync cannot determine a sync code
+        pub const SYNC_CODE_UNSPECIFIED: SyncCode = SyncCode::new(0);
+
+        /// Config Sync successfully synced the git Repo with the cluster
+        pub const SYNCED: SyncCode = SyncCode::new(1);
+
+        /// Config Sync is in the progress of syncing a new change
+        pub const PENDING: SyncCode = SyncCode::new(2);
+
+        /// Indicates an error configuring Config Sync, and user action is required
+        pub const ERROR: SyncCode = SyncCode::new(3);
+
+        /// Config Sync has been installed but not configured
+        pub const NOT_CONFIGURED: SyncCode = SyncCode::new(4);
+
+        /// Config Sync has not been installed
+        pub const NOT_INSTALLED: SyncCode = SyncCode::new(5);
+
+        /// Error authorizing with the cluster
+        pub const UNAUTHORIZED: SyncCode = SyncCode::new(6);
+
+        /// Cluster could not be reached
+        pub const UNREACHABLE: SyncCode = SyncCode::new(7);
+
         /// Creates a new SyncCode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SYNC_CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SYNCED"),
+                2 => std::borrow::Cow::Borrowed("PENDING"),
+                3 => std::borrow::Cow::Borrowed("ERROR"),
+                4 => std::borrow::Cow::Borrowed("NOT_CONFIGURED"),
+                5 => std::borrow::Cow::Borrowed("NOT_INSTALLED"),
+                6 => std::borrow::Cow::Borrowed("UNAUTHORIZED"),
+                7 => std::borrow::Cow::Borrowed("UNREACHABLE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SYNC_CODE_UNSPECIFIED" => std::option::Option::Some(Self::SYNC_CODE_UNSPECIFIED),
+                "SYNCED" => std::option::Option::Some(Self::SYNCED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "NOT_CONFIGURED" => std::option::Option::Some(Self::NOT_CONFIGURED),
+                "NOT_INSTALLED" => std::option::Option::Some(Self::NOT_INSTALLED),
+                "UNAUTHORIZED" => std::option::Option::Some(Self::UNAUTHORIZED),
+                "UNREACHABLE" => std::option::Option::Some(Self::UNREACHABLE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SyncCode](SyncCode)
-    pub mod sync_code {
-        use super::SyncCode;
-
-        /// Config Sync cannot determine a sync code
-        pub const SYNC_CODE_UNSPECIFIED: SyncCode = SyncCode::new("SYNC_CODE_UNSPECIFIED");
-
-        /// Config Sync successfully synced the git Repo with the cluster
-        pub const SYNCED: SyncCode = SyncCode::new("SYNCED");
-
-        /// Config Sync is in the progress of syncing a new change
-        pub const PENDING: SyncCode = SyncCode::new("PENDING");
-
-        /// Indicates an error configuring Config Sync, and user action is required
-        pub const ERROR: SyncCode = SyncCode::new("ERROR");
-
-        /// Config Sync has been installed but not configured
-        pub const NOT_CONFIGURED: SyncCode = SyncCode::new("NOT_CONFIGURED");
-
-        /// Config Sync has not been installed
-        pub const NOT_INSTALLED: SyncCode = SyncCode::new("NOT_INSTALLED");
-
-        /// Error authorizing with the cluster
-        pub const UNAUTHORIZED: SyncCode = SyncCode::new("UNAUTHORIZED");
-
-        /// Cluster could not be reached
-        pub const UNREACHABLE: SyncCode = SyncCode::new("UNREACHABLE");
-    }
-
-    impl std::convert::From<std::string::String> for SyncCode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SyncCode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SyncCode {
         fn default() -> Self {
-            sync_code::SYNC_CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1821,49 +1901,69 @@ impl wkt::message::Message for GatekeeperDeploymentState {
 
 /// Enum representing the state of an ACM's deployment on a cluster
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentState(std::borrow::Cow<'static, str>);
+pub struct DeploymentState(i32);
 
 impl DeploymentState {
+    /// Deployment's state cannot be determined
+    pub const DEPLOYMENT_STATE_UNSPECIFIED: DeploymentState = DeploymentState::new(0);
+
+    /// Deployment is not installed
+    pub const NOT_INSTALLED: DeploymentState = DeploymentState::new(1);
+
+    /// Deployment is installed
+    pub const INSTALLED: DeploymentState = DeploymentState::new(2);
+
+    /// Deployment was attempted to be installed, but has errors
+    pub const ERROR: DeploymentState = DeploymentState::new(3);
+
+    /// Deployment is installing or terminating
+    pub const PENDING: DeploymentState = DeploymentState::new(4);
+
     /// Creates a new DeploymentState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DEPLOYMENT_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("NOT_INSTALLED"),
+            2 => std::borrow::Cow::Borrowed("INSTALLED"),
+            3 => std::borrow::Cow::Borrowed("ERROR"),
+            4 => std::borrow::Cow::Borrowed("PENDING"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DEPLOYMENT_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DEPLOYMENT_STATE_UNSPECIFIED)
+            }
+            "NOT_INSTALLED" => std::option::Option::Some(Self::NOT_INSTALLED),
+            "INSTALLED" => std::option::Option::Some(Self::INSTALLED),
+            "ERROR" => std::option::Option::Some(Self::ERROR),
+            "PENDING" => std::option::Option::Some(Self::PENDING),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DeploymentState](DeploymentState)
-pub mod deployment_state {
-    use super::DeploymentState;
-
-    /// Deployment's state cannot be determined
-    pub const DEPLOYMENT_STATE_UNSPECIFIED: DeploymentState =
-        DeploymentState::new("DEPLOYMENT_STATE_UNSPECIFIED");
-
-    /// Deployment is not installed
-    pub const NOT_INSTALLED: DeploymentState = DeploymentState::new("NOT_INSTALLED");
-
-    /// Deployment is installed
-    pub const INSTALLED: DeploymentState = DeploymentState::new("INSTALLED");
-
-    /// Deployment was attempted to be installed, but has errors
-    pub const ERROR: DeploymentState = DeploymentState::new("ERROR");
-
-    /// Deployment is installing or terminating
-    pub const PENDING: DeploymentState = DeploymentState::new("PENDING");
-}
-
-impl std::convert::From<std::string::String> for DeploymentState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DeploymentState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DeploymentState {
     fn default() -> Self {
-        deployment_state::DEPLOYMENT_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }

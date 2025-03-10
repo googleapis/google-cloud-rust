@@ -291,142 +291,195 @@ pub mod job {
 
     /// The current state of the job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingState(std::borrow::Cow<'static, str>);
+    pub struct ProcessingState(i32);
 
     impl ProcessingState {
-        /// Creates a new ProcessingState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ProcessingState](ProcessingState)
-    pub mod processing_state {
-        use super::ProcessingState;
-
         /// The processing state is not specified.
-        pub const PROCESSING_STATE_UNSPECIFIED: ProcessingState =
-            ProcessingState::new("PROCESSING_STATE_UNSPECIFIED");
+        pub const PROCESSING_STATE_UNSPECIFIED: ProcessingState = ProcessingState::new(0);
 
         /// The job is enqueued and will be picked up for processing soon.
-        pub const PENDING: ProcessingState = ProcessingState::new("PENDING");
+        pub const PENDING: ProcessingState = ProcessingState::new(1);
 
         /// The job is being processed.
-        pub const RUNNING: ProcessingState = ProcessingState::new("RUNNING");
+        pub const RUNNING: ProcessingState = ProcessingState::new(2);
 
         /// The job has been completed successfully.
-        pub const SUCCEEDED: ProcessingState = ProcessingState::new("SUCCEEDED");
+        pub const SUCCEEDED: ProcessingState = ProcessingState::new(3);
 
         /// The job has failed. For additional information, see `failure_reason` and
         /// `failure_details`
-        pub const FAILED: ProcessingState = ProcessingState::new("FAILED");
+        pub const FAILED: ProcessingState = ProcessingState::new(4);
+
+        /// Creates a new ProcessingState instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PROCESSING_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PROCESSING_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PROCESSING_STATE_UNSPECIFIED)
+                }
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ProcessingState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ProcessingState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ProcessingState {
         fn default() -> Self {
-            processing_state::PROCESSING_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The processing mode of the job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingMode(std::borrow::Cow<'static, str>);
+    pub struct ProcessingMode(i32);
 
     impl ProcessingMode {
-        /// Creates a new ProcessingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ProcessingMode](ProcessingMode)
-    pub mod processing_mode {
-        use super::ProcessingMode;
-
         /// The job processing mode is not specified.
-        pub const PROCESSING_MODE_UNSPECIFIED: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_UNSPECIFIED");
+        pub const PROCESSING_MODE_UNSPECIFIED: ProcessingMode = ProcessingMode::new(0);
 
         /// The job processing mode is interactive mode.
         /// Interactive job will either be ran or rejected if quota does not allow
         /// for it.
-        pub const PROCESSING_MODE_INTERACTIVE: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_INTERACTIVE");
+        pub const PROCESSING_MODE_INTERACTIVE: ProcessingMode = ProcessingMode::new(1);
 
         /// The job processing mode is batch mode.
         /// Batch mode allows queuing of jobs.
-        pub const PROCESSING_MODE_BATCH: ProcessingMode =
-            ProcessingMode::new("PROCESSING_MODE_BATCH");
+        pub const PROCESSING_MODE_BATCH: ProcessingMode = ProcessingMode::new(2);
+
+        /// Creates a new ProcessingMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PROCESSING_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PROCESSING_MODE_INTERACTIVE"),
+                2 => std::borrow::Cow::Borrowed("PROCESSING_MODE_BATCH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PROCESSING_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PROCESSING_MODE_UNSPECIFIED)
+                }
+                "PROCESSING_MODE_INTERACTIVE" => {
+                    std::option::Option::Some(Self::PROCESSING_MODE_INTERACTIVE)
+                }
+                "PROCESSING_MODE_BATCH" => std::option::Option::Some(Self::PROCESSING_MODE_BATCH),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ProcessingMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ProcessingMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ProcessingMode {
         fn default() -> Self {
-            processing_mode::PROCESSING_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// The optimization strategy of the job. The default is `AUTODETECT`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OptimizationStrategy(std::borrow::Cow<'static, str>);
+    pub struct OptimizationStrategy(i32);
 
     impl OptimizationStrategy {
+        /// The optimization strategy is not specified.
+        pub const OPTIMIZATION_STRATEGY_UNSPECIFIED: OptimizationStrategy =
+            OptimizationStrategy::new(0);
+
+        /// Prioritize job processing speed.
+        pub const AUTODETECT: OptimizationStrategy = OptimizationStrategy::new(1);
+
+        /// Disable all optimizations.
+        pub const DISABLED: OptimizationStrategy = OptimizationStrategy::new(2);
+
         /// Creates a new OptimizationStrategy instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OPTIMIZATION_STRATEGY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("AUTODETECT"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OPTIMIZATION_STRATEGY_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::OPTIMIZATION_STRATEGY_UNSPECIFIED)
+                }
+                "AUTODETECT" => std::option::Option::Some(Self::AUTODETECT),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [OptimizationStrategy](OptimizationStrategy)
-    pub mod optimization_strategy {
-        use super::OptimizationStrategy;
-
-        /// The optimization strategy is not specified.
-        pub const OPTIMIZATION_STRATEGY_UNSPECIFIED: OptimizationStrategy =
-            OptimizationStrategy::new("OPTIMIZATION_STRATEGY_UNSPECIFIED");
-
-        /// Prioritize job processing speed.
-        pub const AUTODETECT: OptimizationStrategy = OptimizationStrategy::new("AUTODETECT");
-
-        /// Disable all optimizations.
-        pub const DISABLED: OptimizationStrategy = OptimizationStrategy::new("DISABLED");
-    }
-
-    impl std::convert::From<std::string::String> for OptimizationStrategy {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OptimizationStrategy {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OptimizationStrategy {
         fn default() -> Self {
-            optimization_strategy::OPTIMIZATION_STRATEGY_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1310,90 +1363,124 @@ pub mod manifest {
 
         /// The segment reference scheme for a `DASH` manifest.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SegmentReferenceScheme(std::borrow::Cow<'static, str>);
+        pub struct SegmentReferenceScheme(i32);
 
         impl SegmentReferenceScheme {
-            /// Creates a new SegmentReferenceScheme instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [SegmentReferenceScheme](SegmentReferenceScheme)
-        pub mod segment_reference_scheme {
-            use super::SegmentReferenceScheme;
-
             /// The segment reference scheme is not specified.
             pub const SEGMENT_REFERENCE_SCHEME_UNSPECIFIED: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED");
+                SegmentReferenceScheme::new(0);
 
             /// Lists the URLs of media files for each segment.
-            pub const SEGMENT_LIST: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_LIST");
+            pub const SEGMENT_LIST: SegmentReferenceScheme = SegmentReferenceScheme::new(1);
 
             /// Lists each segment from a template with $Number$ variable.
             pub const SEGMENT_TEMPLATE_NUMBER: SegmentReferenceScheme =
-                SegmentReferenceScheme::new("SEGMENT_TEMPLATE_NUMBER");
+                SegmentReferenceScheme::new(2);
+
+            /// Creates a new SegmentReferenceScheme instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("SEGMENT_REFERENCE_SCHEME_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SEGMENT_LIST"),
+                    2 => std::borrow::Cow::Borrowed("SEGMENT_TEMPLATE_NUMBER"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED)
+                    }
+                    "SEGMENT_LIST" => std::option::Option::Some(Self::SEGMENT_LIST),
+                    "SEGMENT_TEMPLATE_NUMBER" => {
+                        std::option::Option::Some(Self::SEGMENT_TEMPLATE_NUMBER)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for SegmentReferenceScheme {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for SegmentReferenceScheme {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for SegmentReferenceScheme {
             fn default() -> Self {
-                segment_reference_scheme::SEGMENT_REFERENCE_SCHEME_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// The manifest type, which corresponds to the adaptive streaming format used.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ManifestType(std::borrow::Cow<'static, str>);
+    pub struct ManifestType(i32);
 
     impl ManifestType {
+        /// The manifest type is not specified.
+        pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType = ManifestType::new(0);
+
+        /// Create an HLS manifest. The corresponding file extension is `.m3u8`.
+        pub const HLS: ManifestType = ManifestType::new(1);
+
+        /// Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
+        pub const DASH: ManifestType = ManifestType::new(2);
+
         /// Creates a new ManifestType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MANIFEST_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HLS"),
+                2 => std::borrow::Cow::Borrowed("DASH"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MANIFEST_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::MANIFEST_TYPE_UNSPECIFIED)
+                }
+                "HLS" => std::option::Option::Some(Self::HLS),
+                "DASH" => std::option::Option::Some(Self::DASH),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ManifestType](ManifestType)
-    pub mod manifest_type {
-        use super::ManifestType;
-
-        /// The manifest type is not specified.
-        pub const MANIFEST_TYPE_UNSPECIFIED: ManifestType =
-            ManifestType::new("MANIFEST_TYPE_UNSPECIFIED");
-
-        /// Create an HLS manifest. The corresponding file extension is `.m3u8`.
-        pub const HLS: ManifestType = ManifestType::new("HLS");
-
-        /// Create an MPEG-DASH manifest. The corresponding file extension is `.mpd`.
-        pub const DASH: ManifestType = ManifestType::new("DASH");
-    }
-
-    impl std::convert::From<std::string::String> for ManifestType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ManifestType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ManifestType {
         fn default() -> Self {
-            manifest_type::MANIFEST_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -2142,43 +2229,58 @@ pub mod overlay {
 
     /// Fade type for the overlay: `FADE_IN` or `FADE_OUT`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FadeType(std::borrow::Cow<'static, str>);
+    pub struct FadeType(i32);
 
     impl FadeType {
+        /// The fade type is not specified.
+        pub const FADE_TYPE_UNSPECIFIED: FadeType = FadeType::new(0);
+
+        /// Fade the overlay object into view.
+        pub const FADE_IN: FadeType = FadeType::new(1);
+
+        /// Fade the overlay object out of view.
+        pub const FADE_OUT: FadeType = FadeType::new(2);
+
         /// Creates a new FadeType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FADE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("FADE_IN"),
+                2 => std::borrow::Cow::Borrowed("FADE_OUT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FADE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::FADE_TYPE_UNSPECIFIED),
+                "FADE_IN" => std::option::Option::Some(Self::FADE_IN),
+                "FADE_OUT" => std::option::Option::Some(Self::FADE_OUT),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [FadeType](FadeType)
-    pub mod fade_type {
-        use super::FadeType;
-
-        /// The fade type is not specified.
-        pub const FADE_TYPE_UNSPECIFIED: FadeType = FadeType::new("FADE_TYPE_UNSPECIFIED");
-
-        /// Fade the overlay object into view.
-        pub const FADE_IN: FadeType = FadeType::new("FADE_IN");
-
-        /// Fade the overlay object out of view.
-        pub const FADE_OUT: FadeType = FadeType::new("FADE_OUT");
-    }
-
-    impl std::convert::From<std::string::String> for FadeType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FadeType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FadeType {
         fn default() -> Self {
-            fade_type::FADE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

@@ -612,283 +612,386 @@ pub mod instance {
 
     /// Represents the different states of a Redis instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// Redis instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// Redis instance has been created and is fully usable.
-        pub const READY: State = State::new("READY");
+        pub const READY: State = State::new(2);
 
         /// Redis instance configuration is being updated. Certain kinds of updates
         /// may cause the instance to become unusable while the update is in
         /// progress.
-        pub const UPDATING: State = State::new("UPDATING");
+        pub const UPDATING: State = State::new(3);
 
         /// Redis instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(4);
 
         /// Redis instance is being repaired and may be unusable.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(5);
 
         /// Maintenance is being performed on this Redis instance.
-        pub const MAINTENANCE: State = State::new("MAINTENANCE");
+        pub const MAINTENANCE: State = State::new(6);
 
         /// Redis instance is importing data (availability may be affected).
-        pub const IMPORTING: State = State::new("IMPORTING");
+        pub const IMPORTING: State = State::new(8);
 
         /// Redis instance is failing over (availability may be affected).
-        pub const FAILING_OVER: State = State::new("FAILING_OVER");
+        pub const FAILING_OVER: State = State::new(9);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("READY"),
+                3 => std::borrow::Cow::Borrowed("UPDATING"),
+                4 => std::borrow::Cow::Borrowed("DELETING"),
+                5 => std::borrow::Cow::Borrowed("REPAIRING"),
+                6 => std::borrow::Cow::Borrowed("MAINTENANCE"),
+                8 => std::borrow::Cow::Borrowed("IMPORTING"),
+                9 => std::borrow::Cow::Borrowed("FAILING_OVER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "READY" => std::option::Option::Some(Self::READY),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
+                "IMPORTING" => std::option::Option::Some(Self::IMPORTING),
+                "FAILING_OVER" => std::option::Option::Some(Self::FAILING_OVER),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Available service tiers to choose from
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Tier(std::borrow::Cow<'static, str>);
+    pub struct Tier(i32);
 
     impl Tier {
+        /// Not set.
+        pub const TIER_UNSPECIFIED: Tier = Tier::new(0);
+
+        /// BASIC tier: standalone instance
+        pub const BASIC: Tier = Tier::new(1);
+
+        /// STANDARD_HA tier: highly available primary/replica instances
+        pub const STANDARD_HA: Tier = Tier::new(3);
+
         /// Creates a new Tier instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TIER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("BASIC"),
+                3 => std::borrow::Cow::Borrowed("STANDARD_HA"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TIER_UNSPECIFIED" => std::option::Option::Some(Self::TIER_UNSPECIFIED),
+                "BASIC" => std::option::Option::Some(Self::BASIC),
+                "STANDARD_HA" => std::option::Option::Some(Self::STANDARD_HA),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Tier](Tier)
-    pub mod tier {
-        use super::Tier;
-
-        /// Not set.
-        pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
-
-        /// BASIC tier: standalone instance
-        pub const BASIC: Tier = Tier::new("BASIC");
-
-        /// STANDARD_HA tier: highly available primary/replica instances
-        pub const STANDARD_HA: Tier = Tier::new("STANDARD_HA");
-    }
-
-    impl std::convert::From<std::string::String> for Tier {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Tier {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Tier {
         fn default() -> Self {
-            tier::TIER_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Available connection modes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectMode(std::borrow::Cow<'static, str>);
+    pub struct ConnectMode(i32);
 
     impl ConnectMode {
-        /// Creates a new ConnectMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ConnectMode](ConnectMode)
-    pub mod connect_mode {
-        use super::ConnectMode;
-
         /// Not set.
-        pub const CONNECT_MODE_UNSPECIFIED: ConnectMode =
-            ConnectMode::new("CONNECT_MODE_UNSPECIFIED");
+        pub const CONNECT_MODE_UNSPECIFIED: ConnectMode = ConnectMode::new(0);
 
         /// Connect via direct peering to the Memorystore for Redis hosted service.
-        pub const DIRECT_PEERING: ConnectMode = ConnectMode::new("DIRECT_PEERING");
+        pub const DIRECT_PEERING: ConnectMode = ConnectMode::new(1);
 
         /// Connect your Memorystore for Redis instance using Private Service
         /// Access. Private services access provides an IP address range for multiple
         /// Google Cloud services, including Memorystore.
-        pub const PRIVATE_SERVICE_ACCESS: ConnectMode = ConnectMode::new("PRIVATE_SERVICE_ACCESS");
+        pub const PRIVATE_SERVICE_ACCESS: ConnectMode = ConnectMode::new(2);
+
+        /// Creates a new ConnectMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CONNECT_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DIRECT_PEERING"),
+                2 => std::borrow::Cow::Borrowed("PRIVATE_SERVICE_ACCESS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CONNECT_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::CONNECT_MODE_UNSPECIFIED)
+                }
+                "DIRECT_PEERING" => std::option::Option::Some(Self::DIRECT_PEERING),
+                "PRIVATE_SERVICE_ACCESS" => std::option::Option::Some(Self::PRIVATE_SERVICE_ACCESS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ConnectMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ConnectMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ConnectMode {
         fn default() -> Self {
-            connect_mode::CONNECT_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Available TLS modes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransitEncryptionMode(std::borrow::Cow<'static, str>);
+    pub struct TransitEncryptionMode(i32);
 
     impl TransitEncryptionMode {
+        /// Not set.
+        pub const TRANSIT_ENCRYPTION_MODE_UNSPECIFIED: TransitEncryptionMode =
+            TransitEncryptionMode::new(0);
+
+        /// Client to Server traffic encryption enabled with server authentication.
+        pub const SERVER_AUTHENTICATION: TransitEncryptionMode = TransitEncryptionMode::new(1);
+
+        /// TLS is disabled for the instance.
+        pub const DISABLED: TransitEncryptionMode = TransitEncryptionMode::new(2);
+
         /// Creates a new TransitEncryptionMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("TRANSIT_ENCRYPTION_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SERVER_AUTHENTICATION"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "TRANSIT_ENCRYPTION_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::TRANSIT_ENCRYPTION_MODE_UNSPECIFIED)
+                }
+                "SERVER_AUTHENTICATION" => std::option::Option::Some(Self::SERVER_AUTHENTICATION),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [TransitEncryptionMode](TransitEncryptionMode)
-    pub mod transit_encryption_mode {
-        use super::TransitEncryptionMode;
-
-        /// Not set.
-        pub const TRANSIT_ENCRYPTION_MODE_UNSPECIFIED: TransitEncryptionMode =
-            TransitEncryptionMode::new("TRANSIT_ENCRYPTION_MODE_UNSPECIFIED");
-
-        /// Client to Server traffic encryption enabled with server authentication.
-        pub const SERVER_AUTHENTICATION: TransitEncryptionMode =
-            TransitEncryptionMode::new("SERVER_AUTHENTICATION");
-
-        /// TLS is disabled for the instance.
-        pub const DISABLED: TransitEncryptionMode = TransitEncryptionMode::new("DISABLED");
-    }
-
-    impl std::convert::From<std::string::String> for TransitEncryptionMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for TransitEncryptionMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for TransitEncryptionMode {
         fn default() -> Self {
-            transit_encryption_mode::TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Read replicas mode.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReadReplicasMode(std::borrow::Cow<'static, str>);
+    pub struct ReadReplicasMode(i32);
 
     impl ReadReplicasMode {
-        /// Creates a new ReadReplicasMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [ReadReplicasMode](ReadReplicasMode)
-    pub mod read_replicas_mode {
-        use super::ReadReplicasMode;
-
         /// If not set, Memorystore Redis backend will default to
         /// READ_REPLICAS_DISABLED.
-        pub const READ_REPLICAS_MODE_UNSPECIFIED: ReadReplicasMode =
-            ReadReplicasMode::new("READ_REPLICAS_MODE_UNSPECIFIED");
+        pub const READ_REPLICAS_MODE_UNSPECIFIED: ReadReplicasMode = ReadReplicasMode::new(0);
 
         /// If disabled, read endpoint will not be provided and the instance cannot
         /// scale up or down the number of replicas.
-        pub const READ_REPLICAS_DISABLED: ReadReplicasMode =
-            ReadReplicasMode::new("READ_REPLICAS_DISABLED");
+        pub const READ_REPLICAS_DISABLED: ReadReplicasMode = ReadReplicasMode::new(1);
 
         /// If enabled, read endpoint will be provided and the instance can scale
         /// up and down the number of replicas. Not valid for basic tier.
-        pub const READ_REPLICAS_ENABLED: ReadReplicasMode =
-            ReadReplicasMode::new("READ_REPLICAS_ENABLED");
+        pub const READ_REPLICAS_ENABLED: ReadReplicasMode = ReadReplicasMode::new(2);
+
+        /// Creates a new ReadReplicasMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("READ_REPLICAS_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("READ_REPLICAS_DISABLED"),
+                2 => std::borrow::Cow::Borrowed("READ_REPLICAS_ENABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "READ_REPLICAS_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::READ_REPLICAS_MODE_UNSPECIFIED)
+                }
+                "READ_REPLICAS_DISABLED" => std::option::Option::Some(Self::READ_REPLICAS_DISABLED),
+                "READ_REPLICAS_ENABLED" => std::option::Option::Some(Self::READ_REPLICAS_ENABLED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for ReadReplicasMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ReadReplicasMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ReadReplicasMode {
         fn default() -> Self {
-            read_replicas_mode::READ_REPLICAS_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Possible reasons for the instance to be in a "SUSPENDED" state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SuspensionReason(std::borrow::Cow<'static, str>);
+    pub struct SuspensionReason(i32);
 
     impl SuspensionReason {
+        /// Not set.
+        pub const SUSPENSION_REASON_UNSPECIFIED: SuspensionReason = SuspensionReason::new(0);
+
+        /// Something wrong with the CMEK key provided by customer.
+        pub const CUSTOMER_MANAGED_KEY_ISSUE: SuspensionReason = SuspensionReason::new(1);
+
         /// Creates a new SuspensionReason instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SUSPENSION_REASON_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CUSTOMER_MANAGED_KEY_ISSUE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SUSPENSION_REASON_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SUSPENSION_REASON_UNSPECIFIED)
+                }
+                "CUSTOMER_MANAGED_KEY_ISSUE" => {
+                    std::option::Option::Some(Self::CUSTOMER_MANAGED_KEY_ISSUE)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SuspensionReason](SuspensionReason)
-    pub mod suspension_reason {
-        use super::SuspensionReason;
-
-        /// Not set.
-        pub const SUSPENSION_REASON_UNSPECIFIED: SuspensionReason =
-            SuspensionReason::new("SUSPENSION_REASON_UNSPECIFIED");
-
-        /// Something wrong with the CMEK key provided by customer.
-        pub const CUSTOMER_MANAGED_KEY_ISSUE: SuspensionReason =
-            SuspensionReason::new("CUSTOMER_MANAGED_KEY_ISSUE");
-    }
-
-    impl std::convert::From<std::string::String> for SuspensionReason {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SuspensionReason {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SuspensionReason {
         fn default() -> Self {
-            suspension_reason::SUSPENSION_REASON_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -985,94 +1088,130 @@ pub mod persistence_config {
 
     /// Available Persistence modes.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PersistenceMode(std::borrow::Cow<'static, str>);
+    pub struct PersistenceMode(i32);
 
     impl PersistenceMode {
-        /// Creates a new PersistenceMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PersistenceMode](PersistenceMode)
-    pub mod persistence_mode {
-        use super::PersistenceMode;
-
         /// Not set.
-        pub const PERSISTENCE_MODE_UNSPECIFIED: PersistenceMode =
-            PersistenceMode::new("PERSISTENCE_MODE_UNSPECIFIED");
+        pub const PERSISTENCE_MODE_UNSPECIFIED: PersistenceMode = PersistenceMode::new(0);
 
         /// Persistence is disabled for the instance,
         /// and any existing snapshots are deleted.
-        pub const DISABLED: PersistenceMode = PersistenceMode::new("DISABLED");
+        pub const DISABLED: PersistenceMode = PersistenceMode::new(1);
 
         /// RDB based Persistence is enabled.
-        pub const RDB: PersistenceMode = PersistenceMode::new("RDB");
+        pub const RDB: PersistenceMode = PersistenceMode::new(2);
+
+        /// Creates a new PersistenceMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("PERSISTENCE_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("DISABLED"),
+                2 => std::borrow::Cow::Borrowed("RDB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "PERSISTENCE_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::PERSISTENCE_MODE_UNSPECIFIED)
+                }
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "RDB" => std::option::Option::Some(Self::RDB),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PersistenceMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PersistenceMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PersistenceMode {
         fn default() -> Self {
-            persistence_mode::PERSISTENCE_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Available snapshot periods for scheduling.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SnapshotPeriod(std::borrow::Cow<'static, str>);
+    pub struct SnapshotPeriod(i32);
 
     impl SnapshotPeriod {
+        /// Not set.
+        pub const SNAPSHOT_PERIOD_UNSPECIFIED: SnapshotPeriod = SnapshotPeriod::new(0);
+
+        /// Snapshot every 1 hour.
+        pub const ONE_HOUR: SnapshotPeriod = SnapshotPeriod::new(3);
+
+        /// Snapshot every 6 hours.
+        pub const SIX_HOURS: SnapshotPeriod = SnapshotPeriod::new(4);
+
+        /// Snapshot every 12 hours.
+        pub const TWELVE_HOURS: SnapshotPeriod = SnapshotPeriod::new(5);
+
+        /// Snapshot every 24 hours.
+        pub const TWENTY_FOUR_HOURS: SnapshotPeriod = SnapshotPeriod::new(6);
+
         /// Creates a new SnapshotPeriod instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SNAPSHOT_PERIOD_UNSPECIFIED"),
+                3 => std::borrow::Cow::Borrowed("ONE_HOUR"),
+                4 => std::borrow::Cow::Borrowed("SIX_HOURS"),
+                5 => std::borrow::Cow::Borrowed("TWELVE_HOURS"),
+                6 => std::borrow::Cow::Borrowed("TWENTY_FOUR_HOURS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SNAPSHOT_PERIOD_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SNAPSHOT_PERIOD_UNSPECIFIED)
+                }
+                "ONE_HOUR" => std::option::Option::Some(Self::ONE_HOUR),
+                "SIX_HOURS" => std::option::Option::Some(Self::SIX_HOURS),
+                "TWELVE_HOURS" => std::option::Option::Some(Self::TWELVE_HOURS),
+                "TWENTY_FOUR_HOURS" => std::option::Option::Some(Self::TWENTY_FOUR_HOURS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SnapshotPeriod](SnapshotPeriod)
-    pub mod snapshot_period {
-        use super::SnapshotPeriod;
-
-        /// Not set.
-        pub const SNAPSHOT_PERIOD_UNSPECIFIED: SnapshotPeriod =
-            SnapshotPeriod::new("SNAPSHOT_PERIOD_UNSPECIFIED");
-
-        /// Snapshot every 1 hour.
-        pub const ONE_HOUR: SnapshotPeriod = SnapshotPeriod::new("ONE_HOUR");
-
-        /// Snapshot every 6 hours.
-        pub const SIX_HOURS: SnapshotPeriod = SnapshotPeriod::new("SIX_HOURS");
-
-        /// Snapshot every 12 hours.
-        pub const TWELVE_HOURS: SnapshotPeriod = SnapshotPeriod::new("TWELVE_HOURS");
-
-        /// Snapshot every 24 hours.
-        pub const TWENTY_FOUR_HOURS: SnapshotPeriod = SnapshotPeriod::new("TWENTY_FOUR_HOURS");
-    }
-
-    impl std::convert::From<std::string::String> for SnapshotPeriod {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SnapshotPeriod {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SnapshotPeriod {
         fn default() -> Self {
-            snapshot_period::SNAPSHOT_PERIOD_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1148,49 +1287,66 @@ pub mod reschedule_maintenance_request {
 
     /// Reschedule options.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(std::borrow::Cow<'static, str>);
+    pub struct RescheduleType(i32);
 
     impl RescheduleType {
-        /// Creates a new RescheduleType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RescheduleType](RescheduleType)
-    pub mod reschedule_type {
-        use super::RescheduleType;
-
         /// Not set.
-        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType =
-            RescheduleType::new("RESCHEDULE_TYPE_UNSPECIFIED");
+        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new(0);
 
         /// If the user wants to schedule the maintenance to happen now.
-        pub const IMMEDIATE: RescheduleType = RescheduleType::new("IMMEDIATE");
+        pub const IMMEDIATE: RescheduleType = RescheduleType::new(1);
 
         /// If the user wants to use the existing maintenance policy to find the
         /// next available window.
-        pub const NEXT_AVAILABLE_WINDOW: RescheduleType =
-            RescheduleType::new("NEXT_AVAILABLE_WINDOW");
+        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new(2);
 
         /// If the user wants to reschedule the maintenance to a specific time.
-        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new(3);
+
+        /// Creates a new RescheduleType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESCHEDULE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IMMEDIATE"),
+                2 => std::borrow::Cow::Borrowed("NEXT_AVAILABLE_WINDOW"),
+                3 => std::borrow::Cow::Borrowed("SPECIFIC_TIME"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESCHEDULE_TYPE_UNSPECIFIED)
+                }
+                "IMMEDIATE" => std::option::Option::Some(Self::IMMEDIATE),
+                "NEXT_AVAILABLE_WINDOW" => std::option::Option::Some(Self::NEXT_AVAILABLE_WINDOW),
+                "SPECIFIC_TIME" => std::option::Option::Some(Self::SPECIFIC_TIME),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RescheduleType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RescheduleType {
         fn default() -> Self {
-            reschedule_type::RESCHEDULE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2208,49 +2364,64 @@ pub mod failover_instance_request {
 
     /// Specifies different modes of operation in relation to the data retention.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataProtectionMode(std::borrow::Cow<'static, str>);
+    pub struct DataProtectionMode(i32);
 
     impl DataProtectionMode {
-        /// Creates a new DataProtectionMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DataProtectionMode](DataProtectionMode)
-    pub mod data_protection_mode {
-        use super::DataProtectionMode;
-
         /// Defaults to LIMITED_DATA_LOSS if a data protection mode is not
         /// specified.
-        pub const DATA_PROTECTION_MODE_UNSPECIFIED: DataProtectionMode =
-            DataProtectionMode::new("DATA_PROTECTION_MODE_UNSPECIFIED");
+        pub const DATA_PROTECTION_MODE_UNSPECIFIED: DataProtectionMode = DataProtectionMode::new(0);
 
         /// Instance failover will be protected with data loss control. More
         /// specifically, the failover will only be performed if the current
         /// replication offset diff between primary and replica is under a certain
         /// threshold.
-        pub const LIMITED_DATA_LOSS: DataProtectionMode =
-            DataProtectionMode::new("LIMITED_DATA_LOSS");
+        pub const LIMITED_DATA_LOSS: DataProtectionMode = DataProtectionMode::new(1);
 
         /// Instance failover will be performed without data loss control.
-        pub const FORCE_DATA_LOSS: DataProtectionMode = DataProtectionMode::new("FORCE_DATA_LOSS");
+        pub const FORCE_DATA_LOSS: DataProtectionMode = DataProtectionMode::new(2);
+
+        /// Creates a new DataProtectionMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATA_PROTECTION_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LIMITED_DATA_LOSS"),
+                2 => std::borrow::Cow::Borrowed("FORCE_DATA_LOSS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATA_PROTECTION_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATA_PROTECTION_MODE_UNSPECIFIED)
+                }
+                "LIMITED_DATA_LOSS" => std::option::Option::Some(Self::LIMITED_DATA_LOSS),
+                "FORCE_DATA_LOSS" => std::option::Option::Some(Self::FORCE_DATA_LOSS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DataProtectionMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DataProtectionMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DataProtectionMode {
         fn default() -> Self {
-            data_protection_mode::DATA_PROTECTION_MODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

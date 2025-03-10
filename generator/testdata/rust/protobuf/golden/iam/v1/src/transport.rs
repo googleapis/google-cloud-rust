@@ -54,7 +54,7 @@ impl crate::stubs::IAMPolicy for IAMPolicy {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -78,7 +78,7 @@ impl crate::stubs::IAMPolicy for IAMPolicy {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
@@ -102,7 +102,7 @@ impl crate::stubs::IAMPolicy for IAMPolicy {
                         , req.resource
                 )
             )
-            .query(&[("alt", "json")])
+            .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,

@@ -1102,92 +1102,125 @@ impl wkt::message::Message for DeleteParameterVersionRequest {
 /// JSON). This option is user specified at the time of creation of the resource
 /// and is immutable.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ParameterFormat(std::borrow::Cow<'static, str>);
+pub struct ParameterFormat(i32);
 
 impl ParameterFormat {
+    /// The default / unset value.
+    /// The API will default to the UNFORMATTED format.
+    pub const PARAMETER_FORMAT_UNSPECIFIED: ParameterFormat = ParameterFormat::new(0);
+
+    /// Unformatted.
+    pub const UNFORMATTED: ParameterFormat = ParameterFormat::new(1);
+
+    /// YAML format.
+    pub const YAML: ParameterFormat = ParameterFormat::new(2);
+
+    /// JSON format.
+    pub const JSON: ParameterFormat = ParameterFormat::new(3);
+
     /// Creates a new ParameterFormat instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("PARAMETER_FORMAT_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("UNFORMATTED"),
+            2 => std::borrow::Cow::Borrowed("YAML"),
+            3 => std::borrow::Cow::Borrowed("JSON"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "PARAMETER_FORMAT_UNSPECIFIED" => {
+                std::option::Option::Some(Self::PARAMETER_FORMAT_UNSPECIFIED)
+            }
+            "UNFORMATTED" => std::option::Option::Some(Self::UNFORMATTED),
+            "YAML" => std::option::Option::Some(Self::YAML),
+            "JSON" => std::option::Option::Some(Self::JSON),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [ParameterFormat](ParameterFormat)
-pub mod parameter_format {
-    use super::ParameterFormat;
-
-    /// The default / unset value.
-    /// The API will default to the UNFORMATTED format.
-    pub const PARAMETER_FORMAT_UNSPECIFIED: ParameterFormat =
-        ParameterFormat::new("PARAMETER_FORMAT_UNSPECIFIED");
-
-    /// Unformatted.
-    pub const UNFORMATTED: ParameterFormat = ParameterFormat::new("UNFORMATTED");
-
-    /// YAML format.
-    pub const YAML: ParameterFormat = ParameterFormat::new("YAML");
-
-    /// JSON format.
-    pub const JSON: ParameterFormat = ParameterFormat::new("JSON");
-}
-
-impl std::convert::From<std::string::String> for ParameterFormat {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for ParameterFormat {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for ParameterFormat {
     fn default() -> Self {
-        parameter_format::PARAMETER_FORMAT_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Option for requesting only metadata, or user provided payload
 /// of a ParameterVersion resource.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct View(std::borrow::Cow<'static, str>);
+pub struct View(i32);
 
 impl View {
-    /// Creates a new View instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [View](View)
-pub mod view {
-    use super::View;
-
     /// The default / unset value.
     /// The API will default to the FULL view..
-    pub const VIEW_UNSPECIFIED: View = View::new("VIEW_UNSPECIFIED");
+    pub const VIEW_UNSPECIFIED: View = View::new(0);
 
     /// Include only the metadata for the resource.
-    pub const BASIC: View = View::new("BASIC");
+    pub const BASIC: View = View::new(1);
 
     /// Include metadata & other relevant payload data as well.
     /// This is the default view.
-    pub const FULL: View = View::new("FULL");
+    pub const FULL: View = View::new(2);
+
+    /// Creates a new View instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("VIEW_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BASIC"),
+            2 => std::borrow::Cow::Borrowed("FULL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VIEW_UNSPECIFIED),
+            "BASIC" => std::option::Option::Some(Self::BASIC),
+            "FULL" => std::option::Option::Some(Self::FULL),
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for View {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for View {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for View {
     fn default() -> Self {
-        view::VIEW_UNSPECIFIED
+        Self::new(0)
     }
 }

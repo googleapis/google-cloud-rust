@@ -222,44 +222,60 @@ pub mod storage_source {
 
     /// Specifies the tool to fetch the source file for the build.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SourceFetcher(std::borrow::Cow<'static, str>);
+    pub struct SourceFetcher(i32);
 
     impl SourceFetcher {
+        /// Unspecified. Defaults to GSUTIL.
+        pub const SOURCE_FETCHER_UNSPECIFIED: SourceFetcher = SourceFetcher::new(0);
+
+        /// Use the "gsutil" tool to download the source file.
+        pub const GSUTIL: SourceFetcher = SourceFetcher::new(1);
+
+        /// Use the Cloud Storage Fetcher tool to download the source file.
+        pub const GCS_FETCHER: SourceFetcher = SourceFetcher::new(2);
+
         /// Creates a new SourceFetcher instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SOURCE_FETCHER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GSUTIL"),
+                2 => std::borrow::Cow::Borrowed("GCS_FETCHER"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SOURCE_FETCHER_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::SOURCE_FETCHER_UNSPECIFIED)
+                }
+                "GSUTIL" => std::option::Option::Some(Self::GSUTIL),
+                "GCS_FETCHER" => std::option::Option::Some(Self::GCS_FETCHER),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SourceFetcher](SourceFetcher)
-    pub mod source_fetcher {
-        use super::SourceFetcher;
-
-        /// Unspecified. Defaults to GSUTIL.
-        pub const SOURCE_FETCHER_UNSPECIFIED: SourceFetcher =
-            SourceFetcher::new("SOURCE_FETCHER_UNSPECIFIED");
-
-        /// Use the "gsutil" tool to download the source file.
-        pub const GSUTIL: SourceFetcher = SourceFetcher::new("GSUTIL");
-
-        /// Use the Cloud Storage Fetcher tool to download the source file.
-        pub const GCS_FETCHER: SourceFetcher = SourceFetcher::new("GCS_FETCHER");
-    }
-
-    impl std::convert::From<std::string::String> for SourceFetcher {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SourceFetcher {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SourceFetcher {
         fn default() -> Self {
-            source_fetcher::SOURCE_FETCHER_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2118,46 +2134,63 @@ pub mod build {
 
         /// The relative importance of this warning.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Priority(std::borrow::Cow<'static, str>);
+        pub struct Priority(i32);
 
         impl Priority {
+            /// Should not be used.
+            pub const PRIORITY_UNSPECIFIED: Priority = Priority::new(0);
+
+            /// e.g. deprecation warnings and alternative feature highlights.
+            pub const INFO: Priority = Priority::new(1);
+
+            /// e.g. automated detection of possible issues with the build.
+            pub const WARNING: Priority = Priority::new(2);
+
+            /// e.g. alerts that a feature used in the build is pending removal
+            pub const ALERT: Priority = Priority::new(3);
+
             /// Creates a new Priority instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("PRIORITY_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("INFO"),
+                    2 => std::borrow::Cow::Borrowed("WARNING"),
+                    3 => std::borrow::Cow::Borrowed("ALERT"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "PRIORITY_UNSPECIFIED" => std::option::Option::Some(Self::PRIORITY_UNSPECIFIED),
+                    "INFO" => std::option::Option::Some(Self::INFO),
+                    "WARNING" => std::option::Option::Some(Self::WARNING),
+                    "ALERT" => std::option::Option::Some(Self::ALERT),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [Priority](Priority)
-        pub mod priority {
-            use super::Priority;
-
-            /// Should not be used.
-            pub const PRIORITY_UNSPECIFIED: Priority = Priority::new("PRIORITY_UNSPECIFIED");
-
-            /// e.g. deprecation warnings and alternative feature highlights.
-            pub const INFO: Priority = Priority::new("INFO");
-
-            /// e.g. automated detection of possible issues with the build.
-            pub const WARNING: Priority = Priority::new("WARNING");
-
-            /// e.g. alerts that a feature used in the build is pending removal
-            pub const ALERT: Priority = Priority::new("ALERT");
-        }
-
-        impl std::convert::From<std::string::String> for Priority {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for Priority {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for Priority {
             fn default() -> Self {
-                priority::PRIORITY_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -2212,121 +2245,174 @@ pub mod build {
         /// The name of a fatal problem encountered during the execution of the
         /// build.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FailureType(std::borrow::Cow<'static, str>);
+        pub struct FailureType(i32);
 
         impl FailureType {
+            /// Type unspecified
+            pub const FAILURE_TYPE_UNSPECIFIED: FailureType = FailureType::new(0);
+
+            /// Unable to push the image to the repository.
+            pub const PUSH_FAILED: FailureType = FailureType::new(1);
+
+            /// Final image not found.
+            pub const PUSH_IMAGE_NOT_FOUND: FailureType = FailureType::new(2);
+
+            /// Unauthorized push of the final image.
+            pub const PUSH_NOT_AUTHORIZED: FailureType = FailureType::new(3);
+
+            /// Backend logging failures. Should retry.
+            pub const LOGGING_FAILURE: FailureType = FailureType::new(4);
+
+            /// A build step has failed.
+            pub const USER_BUILD_STEP: FailureType = FailureType::new(5);
+
+            /// The source fetching has failed.
+            pub const FETCH_SOURCE_FAILED: FailureType = FailureType::new(6);
+
             /// Creates a new FailureType instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FAILURE_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("PUSH_FAILED"),
+                    2 => std::borrow::Cow::Borrowed("PUSH_IMAGE_NOT_FOUND"),
+                    3 => std::borrow::Cow::Borrowed("PUSH_NOT_AUTHORIZED"),
+                    4 => std::borrow::Cow::Borrowed("LOGGING_FAILURE"),
+                    5 => std::borrow::Cow::Borrowed("USER_BUILD_STEP"),
+                    6 => std::borrow::Cow::Borrowed("FETCH_SOURCE_FAILED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FAILURE_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::FAILURE_TYPE_UNSPECIFIED)
+                    }
+                    "PUSH_FAILED" => std::option::Option::Some(Self::PUSH_FAILED),
+                    "PUSH_IMAGE_NOT_FOUND" => std::option::Option::Some(Self::PUSH_IMAGE_NOT_FOUND),
+                    "PUSH_NOT_AUTHORIZED" => std::option::Option::Some(Self::PUSH_NOT_AUTHORIZED),
+                    "LOGGING_FAILURE" => std::option::Option::Some(Self::LOGGING_FAILURE),
+                    "USER_BUILD_STEP" => std::option::Option::Some(Self::USER_BUILD_STEP),
+                    "FETCH_SOURCE_FAILED" => std::option::Option::Some(Self::FETCH_SOURCE_FAILED),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [FailureType](FailureType)
-        pub mod failure_type {
-            use super::FailureType;
-
-            /// Type unspecified
-            pub const FAILURE_TYPE_UNSPECIFIED: FailureType =
-                FailureType::new("FAILURE_TYPE_UNSPECIFIED");
-
-            /// Unable to push the image to the repository.
-            pub const PUSH_FAILED: FailureType = FailureType::new("PUSH_FAILED");
-
-            /// Final image not found.
-            pub const PUSH_IMAGE_NOT_FOUND: FailureType = FailureType::new("PUSH_IMAGE_NOT_FOUND");
-
-            /// Unauthorized push of the final image.
-            pub const PUSH_NOT_AUTHORIZED: FailureType = FailureType::new("PUSH_NOT_AUTHORIZED");
-
-            /// Backend logging failures. Should retry.
-            pub const LOGGING_FAILURE: FailureType = FailureType::new("LOGGING_FAILURE");
-
-            /// A build step has failed.
-            pub const USER_BUILD_STEP: FailureType = FailureType::new("USER_BUILD_STEP");
-
-            /// The source fetching has failed.
-            pub const FETCH_SOURCE_FAILED: FailureType = FailureType::new("FETCH_SOURCE_FAILED");
-        }
-
-        impl std::convert::From<std::string::String> for FailureType {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for FailureType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for FailureType {
             fn default() -> Self {
-                failure_type::FAILURE_TYPE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
 
     /// Possible status of a build or build step.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::borrow::Cow<'static, str>);
+    pub struct Status(i32);
 
     impl Status {
-        /// Creates a new Status instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Status](Status)
-    pub mod status {
-        use super::Status;
-
         /// Status of the build is unknown.
-        pub const STATUS_UNKNOWN: Status = Status::new("STATUS_UNKNOWN");
+        pub const STATUS_UNKNOWN: Status = Status::new(0);
 
         /// Build has been created and is pending execution and queuing. It has not
         /// been queued.
-        pub const PENDING: Status = Status::new("PENDING");
+        pub const PENDING: Status = Status::new(10);
 
         /// Build or step is queued; work has not yet begun.
-        pub const QUEUED: Status = Status::new("QUEUED");
+        pub const QUEUED: Status = Status::new(1);
 
         /// Build or step is being executed.
-        pub const WORKING: Status = Status::new("WORKING");
+        pub const WORKING: Status = Status::new(2);
 
         /// Build or step finished successfully.
-        pub const SUCCESS: Status = Status::new("SUCCESS");
+        pub const SUCCESS: Status = Status::new(3);
 
         /// Build or step failed to complete successfully.
-        pub const FAILURE: Status = Status::new("FAILURE");
+        pub const FAILURE: Status = Status::new(4);
 
         /// Build or step failed due to an internal cause.
-        pub const INTERNAL_ERROR: Status = Status::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Status = Status::new(5);
 
         /// Build or step took longer than was allowed.
-        pub const TIMEOUT: Status = Status::new("TIMEOUT");
+        pub const TIMEOUT: Status = Status::new(6);
 
         /// Build or step was canceled by a user.
-        pub const CANCELLED: Status = Status::new("CANCELLED");
+        pub const CANCELLED: Status = Status::new(7);
 
         /// Build was enqueued for longer than the value of `queue_ttl`.
-        pub const EXPIRED: Status = Status::new("EXPIRED");
+        pub const EXPIRED: Status = Status::new(9);
+
+        /// Creates a new Status instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATUS_UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("QUEUED"),
+                2 => std::borrow::Cow::Borrowed("WORKING"),
+                3 => std::borrow::Cow::Borrowed("SUCCESS"),
+                4 => std::borrow::Cow::Borrowed("FAILURE"),
+                5 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
+                6 => std::borrow::Cow::Borrowed("TIMEOUT"),
+                7 => std::borrow::Cow::Borrowed("CANCELLED"),
+                9 => std::borrow::Cow::Borrowed("EXPIRED"),
+                10 => std::borrow::Cow::Borrowed("PENDING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATUS_UNKNOWN" => std::option::Option::Some(Self::STATUS_UNKNOWN),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "QUEUED" => std::option::Option::Some(Self::QUEUED),
+                "WORKING" => std::option::Option::Some(Self::WORKING),
+                "SUCCESS" => std::option::Option::Some(Self::SUCCESS),
+                "FAILURE" => std::option::Option::Some(Self::FAILURE),
+                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
+                "TIMEOUT" => std::option::Option::Some(Self::TIMEOUT),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Status {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Status {
         fn default() -> Self {
-            status::STATUS_UNKNOWN
+            Self::new(0)
         }
     }
 }
@@ -3450,49 +3536,68 @@ pub mod hash {
 
     /// Specifies the hash algorithm, if any.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct HashType(std::borrow::Cow<'static, str>);
+    pub struct HashType(i32);
 
     impl HashType {
+        /// No hash requested.
+        pub const NONE: HashType = HashType::new(0);
+
+        /// Use a sha256 hash.
+        pub const SHA256: HashType = HashType::new(1);
+
+        /// Use a md5 hash.
+        pub const MD5: HashType = HashType::new(2);
+
+        /// Dirhash of a Go module's source code which is then hex-encoded.
+        pub const GO_MODULE_H1: HashType = HashType::new(3);
+
+        /// Use a sha512 hash.
+        pub const SHA512: HashType = HashType::new(4);
+
         /// Creates a new HashType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NONE"),
+                1 => std::borrow::Cow::Borrowed("SHA256"),
+                2 => std::borrow::Cow::Borrowed("MD5"),
+                3 => std::borrow::Cow::Borrowed("GO_MODULE_H1"),
+                4 => std::borrow::Cow::Borrowed("SHA512"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NONE" => std::option::Option::Some(Self::NONE),
+                "SHA256" => std::option::Option::Some(Self::SHA256),
+                "MD5" => std::option::Option::Some(Self::MD5),
+                "GO_MODULE_H1" => std::option::Option::Some(Self::GO_MODULE_H1),
+                "SHA512" => std::option::Option::Some(Self::SHA512),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [HashType](HashType)
-    pub mod hash_type {
-        use super::HashType;
-
-        /// No hash requested.
-        pub const NONE: HashType = HashType::new("NONE");
-
-        /// Use a sha256 hash.
-        pub const SHA256: HashType = HashType::new("SHA256");
-
-        /// Use a md5 hash.
-        pub const MD5: HashType = HashType::new("MD5");
-
-        /// Dirhash of a Go module's source code which is then hex-encoded.
-        pub const GO_MODULE_H1: HashType = HashType::new("GO_MODULE_H1");
-
-        /// Use a sha512 hash.
-        pub const SHA512: HashType = HashType::new("SHA512");
-    }
-
-    impl std::convert::From<std::string::String> for HashType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for HashType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for HashType {
         fn default() -> Self {
-            hash_type::NONE
+            Self::new(0)
         }
     }
 }
@@ -4095,49 +4200,68 @@ pub mod build_approval {
 
     /// Specifies the current state of a build's approval.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// Default enum type. This should not be used.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// Build approval is pending.
+        pub const PENDING: State = State::new(1);
+
+        /// Build approval has been approved.
+        pub const APPROVED: State = State::new(2);
+
+        /// Build approval has been rejected.
+        pub const REJECTED: State = State::new(3);
+
+        /// Build was cancelled while it was still pending approval.
+        pub const CANCELLED: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("APPROVED"),
+                3 => std::borrow::Cow::Borrowed("REJECTED"),
+                5 => std::borrow::Cow::Borrowed("CANCELLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "APPROVED" => std::option::Option::Some(Self::APPROVED),
+                "REJECTED" => std::option::Option::Some(Self::REJECTED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// Default enum type. This should not be used.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// Build approval is pending.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// Build approval has been approved.
-        pub const APPROVED: State = State::new("APPROVED");
-
-        /// Build approval has been rejected.
-        pub const REJECTED: State = State::new("REJECTED");
-
-        /// Build was cancelled while it was still pending approval.
-        pub const CANCELLED: State = State::new("CANCELLED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4262,43 +4386,58 @@ pub mod approval_result {
     /// Specifies whether or not this manual approval result is to approve
     /// or reject a build.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Decision(std::borrow::Cow<'static, str>);
+    pub struct Decision(i32);
 
     impl Decision {
+        /// Default enum type. This should not be used.
+        pub const DECISION_UNSPECIFIED: Decision = Decision::new(0);
+
+        /// Build is approved.
+        pub const APPROVED: Decision = Decision::new(1);
+
+        /// Build is rejected.
+        pub const REJECTED: Decision = Decision::new(2);
+
         /// Creates a new Decision instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DECISION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("APPROVED"),
+                2 => std::borrow::Cow::Borrowed("REJECTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DECISION_UNSPECIFIED" => std::option::Option::Some(Self::DECISION_UNSPECIFIED),
+                "APPROVED" => std::option::Option::Some(Self::APPROVED),
+                "REJECTED" => std::option::Option::Some(Self::REJECTED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Decision](Decision)
-    pub mod decision {
-        use super::Decision;
-
-        /// Default enum type. This should not be used.
-        pub const DECISION_UNSPECIFIED: Decision = Decision::new("DECISION_UNSPECIFIED");
-
-        /// Build is approved.
-        pub const APPROVED: Decision = Decision::new("APPROVED");
-
-        /// Build is rejected.
-        pub const REJECTED: Decision = Decision::new("REJECTED");
-    }
-
-    impl std::convert::From<std::string::String> for Decision {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Decision {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Decision {
         fn default() -> Self {
-            decision::DECISION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -4625,51 +4764,72 @@ pub mod git_file_source {
     /// The type of the repo, since it may not be explicit from the `repo` field
     /// (e.g from a URL).
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RepoType(std::borrow::Cow<'static, str>);
+    pub struct RepoType(i32);
 
     impl RepoType {
-        /// Creates a new RepoType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [RepoType](RepoType)
-    pub mod repo_type {
-        use super::RepoType;
-
         /// The default, unknown repo type. Don't use it, instead use one of
         /// the other repo types.
-        pub const UNKNOWN: RepoType = RepoType::new("UNKNOWN");
+        pub const UNKNOWN: RepoType = RepoType::new(0);
 
         /// A Google Cloud Source Repositories-hosted repo.
-        pub const CLOUD_SOURCE_REPOSITORIES: RepoType = RepoType::new("CLOUD_SOURCE_REPOSITORIES");
+        pub const CLOUD_SOURCE_REPOSITORIES: RepoType = RepoType::new(1);
 
         /// A GitHub-hosted repo not necessarily on "github.com" (i.e. GitHub
         /// Enterprise).
-        pub const GITHUB: RepoType = RepoType::new("GITHUB");
+        pub const GITHUB: RepoType = RepoType::new(2);
 
         /// A Bitbucket Server-hosted repo.
-        pub const BITBUCKET_SERVER: RepoType = RepoType::new("BITBUCKET_SERVER");
+        pub const BITBUCKET_SERVER: RepoType = RepoType::new(3);
 
         /// A GitLab-hosted repo.
-        pub const GITLAB: RepoType = RepoType::new("GITLAB");
+        pub const GITLAB: RepoType = RepoType::new(4);
+
+        /// Creates a new RepoType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNKNOWN"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_SOURCE_REPOSITORIES"),
+                2 => std::borrow::Cow::Borrowed("GITHUB"),
+                3 => std::borrow::Cow::Borrowed("BITBUCKET_SERVER"),
+                4 => std::borrow::Cow::Borrowed("GITLAB"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
+                "CLOUD_SOURCE_REPOSITORIES" => {
+                    std::option::Option::Some(Self::CLOUD_SOURCE_REPOSITORIES)
+                }
+                "GITHUB" => std::option::Option::Some(Self::GITHUB),
+                "BITBUCKET_SERVER" => std::option::Option::Some(Self::BITBUCKET_SERVER),
+                "GITLAB" => std::option::Option::Some(Self::GITLAB),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for RepoType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RepoType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RepoType {
         fn default() -> Self {
-            repo_type::UNKNOWN
+            Self::new(0)
         }
     }
 
@@ -5273,47 +5433,65 @@ pub mod repository_event_config {
 
     /// All possible SCM repo types from Repo API.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RepositoryType(std::borrow::Cow<'static, str>);
+    pub struct RepositoryType(i32);
 
     impl RepositoryType {
+        /// If unspecified, RepositoryType defaults to GITHUB.
+        pub const REPOSITORY_TYPE_UNSPECIFIED: RepositoryType = RepositoryType::new(0);
+
+        /// The SCM repo is GITHUB.
+        pub const GITHUB: RepositoryType = RepositoryType::new(1);
+
+        /// The SCM repo is GITHUB Enterprise.
+        pub const GITHUB_ENTERPRISE: RepositoryType = RepositoryType::new(2);
+
+        /// The SCM repo is GITLAB Enterprise.
+        pub const GITLAB_ENTERPRISE: RepositoryType = RepositoryType::new(3);
+
         /// Creates a new RepositoryType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("REPOSITORY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("GITHUB"),
+                2 => std::borrow::Cow::Borrowed("GITHUB_ENTERPRISE"),
+                3 => std::borrow::Cow::Borrowed("GITLAB_ENTERPRISE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "REPOSITORY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::REPOSITORY_TYPE_UNSPECIFIED)
+                }
+                "GITHUB" => std::option::Option::Some(Self::GITHUB),
+                "GITHUB_ENTERPRISE" => std::option::Option::Some(Self::GITHUB_ENTERPRISE),
+                "GITLAB_ENTERPRISE" => std::option::Option::Some(Self::GITLAB_ENTERPRISE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RepositoryType](RepositoryType)
-    pub mod repository_type {
-        use super::RepositoryType;
-
-        /// If unspecified, RepositoryType defaults to GITHUB.
-        pub const REPOSITORY_TYPE_UNSPECIFIED: RepositoryType =
-            RepositoryType::new("REPOSITORY_TYPE_UNSPECIFIED");
-
-        /// The SCM repo is GITHUB.
-        pub const GITHUB: RepositoryType = RepositoryType::new("GITHUB");
-
-        /// The SCM repo is GITHUB Enterprise.
-        pub const GITHUB_ENTERPRISE: RepositoryType = RepositoryType::new("GITHUB_ENTERPRISE");
-
-        /// The SCM repo is GITLAB Enterprise.
-        pub const GITLAB_ENTERPRISE: RepositoryType = RepositoryType::new("GITLAB_ENTERPRISE");
-    }
-
-    impl std::convert::From<std::string::String> for RepositoryType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RepositoryType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RepositoryType {
         fn default() -> Self {
-            repository_type::REPOSITORY_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -5549,49 +5727,70 @@ pub mod pubsub_config {
     /// Enumerates potential issues with the underlying Pub/Sub subscription
     /// configuration.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The subscription configuration has not been checked.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The Pub/Sub subscription is properly configured.
+        pub const OK: State = State::new(1);
+
+        /// The subscription has been deleted.
+        pub const SUBSCRIPTION_DELETED: State = State::new(2);
+
+        /// The topic has been deleted.
+        pub const TOPIC_DELETED: State = State::new(3);
+
+        /// Some of the subscription's field are misconfigured.
+        pub const SUBSCRIPTION_MISCONFIGURED: State = State::new(4);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OK"),
+                2 => std::borrow::Cow::Borrowed("SUBSCRIPTION_DELETED"),
+                3 => std::borrow::Cow::Borrowed("TOPIC_DELETED"),
+                4 => std::borrow::Cow::Borrowed("SUBSCRIPTION_MISCONFIGURED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "OK" => std::option::Option::Some(Self::OK),
+                "SUBSCRIPTION_DELETED" => std::option::Option::Some(Self::SUBSCRIPTION_DELETED),
+                "TOPIC_DELETED" => std::option::Option::Some(Self::TOPIC_DELETED),
+                "SUBSCRIPTION_MISCONFIGURED" => {
+                    std::option::Option::Some(Self::SUBSCRIPTION_MISCONFIGURED)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The subscription configuration has not been checked.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The Pub/Sub subscription is properly configured.
-        pub const OK: State = State::new("OK");
-
-        /// The subscription has been deleted.
-        pub const SUBSCRIPTION_DELETED: State = State::new("SUBSCRIPTION_DELETED");
-
-        /// The topic has been deleted.
-        pub const TOPIC_DELETED: State = State::new("TOPIC_DELETED");
-
-        /// Some of the subscription's field are misconfigured.
-        pub const SUBSCRIPTION_MISCONFIGURED: State = State::new("SUBSCRIPTION_MISCONFIGURED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5674,43 +5873,58 @@ pub mod webhook_config {
     /// Enumerates potential issues with the Secret Manager secret provided by the
     /// user.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The webhook auth configuration not been checked.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The auth configuration is properly setup.
+        pub const OK: State = State::new(1);
+
+        /// The secret provided in auth_method has been deleted.
+        pub const SECRET_DELETED: State = State::new(2);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("OK"),
+                2 => std::borrow::Cow::Borrowed("SECRET_DELETED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "OK" => std::option::Option::Some(Self::OK),
+                "SECRET_DELETED" => std::option::Option::Some(Self::SECRET_DELETED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The webhook auth configuration not been checked.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The auth configuration is properly setup.
-        pub const OK: State = State::new("OK");
-
-        /// The secret provided in auth_method has been deleted.
-        pub const SECRET_DELETED: State = State::new("SECRET_DELETED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -5827,29 +6041,14 @@ pub mod pull_request_filter {
     /// [GitLab](https://cloud.google.com/build/docs/automating-builds/gitlab/build-repos-from-gitlab#creating_a_gitlab_trigger)
     /// for details.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CommentControl(std::borrow::Cow<'static, str>);
+    pub struct CommentControl(i32);
 
     impl CommentControl {
-        /// Creates a new CommentControl instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [CommentControl](CommentControl)
-    pub mod comment_control {
-        use super::CommentControl;
-
         /// Do not require `/gcbrun` comments from a user with repository write
         /// permission or above on pull requests before builds are triggered.
         /// Comments that contain `/gcbrun` will still fire builds so this should
         /// be thought of as comments not required.
-        pub const COMMENTS_DISABLED: CommentControl = CommentControl::new("COMMENTS_DISABLED");
+        pub const COMMENTS_DISABLED: CommentControl = CommentControl::new(0);
 
         /// Builds will only fire in response to pull requests if:
         ///
@@ -5857,7 +6056,7 @@ pub mod pull_request_filter {
         ///   `/gcbrun` is in the PR description.
         /// . A user with repository writer permissions or above comments `/gcbrun`
         ///   on a pull request authored by any user.
-        pub const COMMENTS_ENABLED: CommentControl = CommentControl::new("COMMENTS_ENABLED");
+        pub const COMMENTS_ENABLED: CommentControl = CommentControl::new(1);
 
         /// Builds will only fire in response to pull requests if:
         ///
@@ -5865,18 +6064,50 @@ pub mod pull_request_filter {
         /// . If the author does not have write permissions, a user with write
         ///   permissions or above must comment `/gcbrun` in order to fire a build.
         pub const COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY: CommentControl =
-            CommentControl::new("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY");
+            CommentControl::new(2);
+
+        /// Creates a new CommentControl instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("COMMENTS_DISABLED"),
+                1 => std::borrow::Cow::Borrowed("COMMENTS_ENABLED"),
+                2 => std::borrow::Cow::Borrowed("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "COMMENTS_DISABLED" => std::option::Option::Some(Self::COMMENTS_DISABLED),
+                "COMMENTS_ENABLED" => std::option::Option::Some(Self::COMMENTS_ENABLED),
+                "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY" => {
+                    std::option::Option::Some(Self::COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for CommentControl {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for CommentControl {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for CommentControl {
         fn default() -> Self {
-            comment_control::COMMENTS_DISABLED
+            Self::new(0)
         }
     }
 
@@ -6654,40 +6885,53 @@ pub mod build_options {
     /// For more information, see [Viewing Build
     /// Provenance](https://cloud.google.com/build/docs/securing-builds/view-build-provenance).
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VerifyOption(std::borrow::Cow<'static, str>);
+    pub struct VerifyOption(i32);
 
     impl VerifyOption {
+        /// Not a verifiable build (the default).
+        pub const NOT_VERIFIED: VerifyOption = VerifyOption::new(0);
+
+        /// Build must be verified.
+        pub const VERIFIED: VerifyOption = VerifyOption::new(1);
+
         /// Creates a new VerifyOption instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("NOT_VERIFIED"),
+                1 => std::borrow::Cow::Borrowed("VERIFIED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "NOT_VERIFIED" => std::option::Option::Some(Self::NOT_VERIFIED),
+                "VERIFIED" => std::option::Option::Some(Self::VERIFIED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [VerifyOption](VerifyOption)
-    pub mod verify_option {
-        use super::VerifyOption;
-
-        /// Not a verifiable build (the default).
-        pub const NOT_VERIFIED: VerifyOption = VerifyOption::new("NOT_VERIFIED");
-
-        /// Build must be verified.
-        pub const VERIFIED: VerifyOption = VerifyOption::new("VERIFIED");
-    }
-
-    impl std::convert::From<std::string::String> for VerifyOption {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for VerifyOption {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for VerifyOption {
         fn default() -> Self {
-            verify_option::NOT_VERIFIED
+            Self::new(0)
         }
     }
 
@@ -6695,236 +6939,324 @@ pub mod build_options {
     /// For more information, see [Machine
     /// types](https://cloud.google.com/compute/docs/machine-types).
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MachineType(std::borrow::Cow<'static, str>);
+    pub struct MachineType(i32);
 
     impl MachineType {
+        /// Standard machine type.
+        pub const UNSPECIFIED: MachineType = MachineType::new(0);
+
+        /// Highcpu machine with 8 CPUs.
+        pub const N1_HIGHCPU_8: MachineType = MachineType::new(1);
+
+        /// Highcpu machine with 32 CPUs.
+        pub const N1_HIGHCPU_32: MachineType = MachineType::new(2);
+
+        /// Highcpu e2 machine with 8 CPUs.
+        pub const E2_HIGHCPU_8: MachineType = MachineType::new(5);
+
+        /// Highcpu e2 machine with 32 CPUs.
+        pub const E2_HIGHCPU_32: MachineType = MachineType::new(6);
+
+        /// E2 machine with 1 CPU.
+        pub const E2_MEDIUM: MachineType = MachineType::new(7);
+
         /// Creates a new MachineType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("N1_HIGHCPU_8"),
+                2 => std::borrow::Cow::Borrowed("N1_HIGHCPU_32"),
+                5 => std::borrow::Cow::Borrowed("E2_HIGHCPU_8"),
+                6 => std::borrow::Cow::Borrowed("E2_HIGHCPU_32"),
+                7 => std::borrow::Cow::Borrowed("E2_MEDIUM"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
+                "N1_HIGHCPU_8" => std::option::Option::Some(Self::N1_HIGHCPU_8),
+                "N1_HIGHCPU_32" => std::option::Option::Some(Self::N1_HIGHCPU_32),
+                "E2_HIGHCPU_8" => std::option::Option::Some(Self::E2_HIGHCPU_8),
+                "E2_HIGHCPU_32" => std::option::Option::Some(Self::E2_HIGHCPU_32),
+                "E2_MEDIUM" => std::option::Option::Some(Self::E2_MEDIUM),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [MachineType](MachineType)
-    pub mod machine_type {
-        use super::MachineType;
-
-        /// Standard machine type.
-        pub const UNSPECIFIED: MachineType = MachineType::new("UNSPECIFIED");
-
-        /// Highcpu machine with 8 CPUs.
-        pub const N1_HIGHCPU_8: MachineType = MachineType::new("N1_HIGHCPU_8");
-
-        /// Highcpu machine with 32 CPUs.
-        pub const N1_HIGHCPU_32: MachineType = MachineType::new("N1_HIGHCPU_32");
-
-        /// Highcpu e2 machine with 8 CPUs.
-        pub const E2_HIGHCPU_8: MachineType = MachineType::new("E2_HIGHCPU_8");
-
-        /// Highcpu e2 machine with 32 CPUs.
-        pub const E2_HIGHCPU_32: MachineType = MachineType::new("E2_HIGHCPU_32");
-
-        /// E2 machine with 1 CPU.
-        pub const E2_MEDIUM: MachineType = MachineType::new("E2_MEDIUM");
-    }
-
-    impl std::convert::From<std::string::String> for MachineType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for MachineType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for MachineType {
         fn default() -> Self {
-            machine_type::UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Specifies the behavior when there is an error in the substitution checks.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SubstitutionOption(std::borrow::Cow<'static, str>);
+    pub struct SubstitutionOption(i32);
 
     impl SubstitutionOption {
+        /// Fails the build if error in substitutions checks, like missing
+        /// a substitution in the template or in the map.
+        pub const MUST_MATCH: SubstitutionOption = SubstitutionOption::new(0);
+
+        /// Do not fail the build if error in substitutions checks.
+        pub const ALLOW_LOOSE: SubstitutionOption = SubstitutionOption::new(1);
+
         /// Creates a new SubstitutionOption instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("MUST_MATCH"),
+                1 => std::borrow::Cow::Borrowed("ALLOW_LOOSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "MUST_MATCH" => std::option::Option::Some(Self::MUST_MATCH),
+                "ALLOW_LOOSE" => std::option::Option::Some(Self::ALLOW_LOOSE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [SubstitutionOption](SubstitutionOption)
-    pub mod substitution_option {
-        use super::SubstitutionOption;
-
-        /// Fails the build if error in substitutions checks, like missing
-        /// a substitution in the template or in the map.
-        pub const MUST_MATCH: SubstitutionOption = SubstitutionOption::new("MUST_MATCH");
-
-        /// Do not fail the build if error in substitutions checks.
-        pub const ALLOW_LOOSE: SubstitutionOption = SubstitutionOption::new("ALLOW_LOOSE");
-    }
-
-    impl std::convert::From<std::string::String> for SubstitutionOption {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for SubstitutionOption {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for SubstitutionOption {
         fn default() -> Self {
-            substitution_option::MUST_MATCH
+            Self::new(0)
         }
     }
 
     /// Specifies the behavior when writing build logs to Cloud Storage.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogStreamingOption(std::borrow::Cow<'static, str>);
+    pub struct LogStreamingOption(i32);
 
     impl LogStreamingOption {
-        /// Creates a new LogStreamingOption instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [LogStreamingOption](LogStreamingOption)
-    pub mod log_streaming_option {
-        use super::LogStreamingOption;
-
         /// Service may automatically determine build log streaming behavior.
-        pub const STREAM_DEFAULT: LogStreamingOption = LogStreamingOption::new("STREAM_DEFAULT");
+        pub const STREAM_DEFAULT: LogStreamingOption = LogStreamingOption::new(0);
 
         /// Build logs should be streamed to Cloud Storage.
-        pub const STREAM_ON: LogStreamingOption = LogStreamingOption::new("STREAM_ON");
+        pub const STREAM_ON: LogStreamingOption = LogStreamingOption::new(1);
 
         /// Build logs should not be streamed to Cloud Storage; they will be
         /// written when the build is completed.
-        pub const STREAM_OFF: LogStreamingOption = LogStreamingOption::new("STREAM_OFF");
+        pub const STREAM_OFF: LogStreamingOption = LogStreamingOption::new(2);
+
+        /// Creates a new LogStreamingOption instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STREAM_DEFAULT"),
+                1 => std::borrow::Cow::Borrowed("STREAM_ON"),
+                2 => std::borrow::Cow::Borrowed("STREAM_OFF"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STREAM_DEFAULT" => std::option::Option::Some(Self::STREAM_DEFAULT),
+                "STREAM_ON" => std::option::Option::Some(Self::STREAM_ON),
+                "STREAM_OFF" => std::option::Option::Some(Self::STREAM_OFF),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for LogStreamingOption {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LogStreamingOption {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LogStreamingOption {
         fn default() -> Self {
-            log_streaming_option::STREAM_DEFAULT
+            Self::new(0)
         }
     }
 
     /// Specifies the logging mode.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LoggingMode(std::borrow::Cow<'static, str>);
+    pub struct LoggingMode(i32);
 
     impl LoggingMode {
-        /// Creates a new LoggingMode instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [LoggingMode](LoggingMode)
-    pub mod logging_mode {
-        use super::LoggingMode;
-
         /// The service determines the logging mode. The default is `LEGACY`. Do not
         /// rely on the default logging behavior as it may change in the future.
-        pub const LOGGING_UNSPECIFIED: LoggingMode = LoggingMode::new("LOGGING_UNSPECIFIED");
+        pub const LOGGING_UNSPECIFIED: LoggingMode = LoggingMode::new(0);
 
         /// Build logs are stored in Cloud Logging and Cloud Storage.
-        pub const LEGACY: LoggingMode = LoggingMode::new("LEGACY");
+        pub const LEGACY: LoggingMode = LoggingMode::new(1);
 
         /// Build logs are stored in Cloud Storage.
-        pub const GCS_ONLY: LoggingMode = LoggingMode::new("GCS_ONLY");
+        pub const GCS_ONLY: LoggingMode = LoggingMode::new(2);
 
         /// This option is the same as CLOUD_LOGGING_ONLY.
-        pub const STACKDRIVER_ONLY: LoggingMode = LoggingMode::new("STACKDRIVER_ONLY");
+        pub const STACKDRIVER_ONLY: LoggingMode = LoggingMode::new(3);
 
         /// Build logs are stored in Cloud Logging. Selecting this option will not
         /// allow [logs
         /// streaming](https://cloud.google.com/sdk/gcloud/reference/builds/log).
-        pub const CLOUD_LOGGING_ONLY: LoggingMode = LoggingMode::new("CLOUD_LOGGING_ONLY");
+        pub const CLOUD_LOGGING_ONLY: LoggingMode = LoggingMode::new(5);
 
         /// Turn off all logging. No build logs will be captured.
-        pub const NONE: LoggingMode = LoggingMode::new("NONE");
+        pub const NONE: LoggingMode = LoggingMode::new(4);
+
+        /// Creates a new LoggingMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOGGING_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LEGACY"),
+                2 => std::borrow::Cow::Borrowed("GCS_ONLY"),
+                3 => std::borrow::Cow::Borrowed("STACKDRIVER_ONLY"),
+                4 => std::borrow::Cow::Borrowed("NONE"),
+                5 => std::borrow::Cow::Borrowed("CLOUD_LOGGING_ONLY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOGGING_UNSPECIFIED" => std::option::Option::Some(Self::LOGGING_UNSPECIFIED),
+                "LEGACY" => std::option::Option::Some(Self::LEGACY),
+                "GCS_ONLY" => std::option::Option::Some(Self::GCS_ONLY),
+                "STACKDRIVER_ONLY" => std::option::Option::Some(Self::STACKDRIVER_ONLY),
+                "CLOUD_LOGGING_ONLY" => std::option::Option::Some(Self::CLOUD_LOGGING_ONLY),
+                "NONE" => std::option::Option::Some(Self::NONE),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for LoggingMode {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for LoggingMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for LoggingMode {
         fn default() -> Self {
-            logging_mode::LOGGING_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Default Cloud Storage log bucket behavior options.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DefaultLogsBucketBehavior(std::borrow::Cow<'static, str>);
+    pub struct DefaultLogsBucketBehavior(i32);
 
     impl DefaultLogsBucketBehavior {
-        /// Creates a new DefaultLogsBucketBehavior instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [DefaultLogsBucketBehavior](DefaultLogsBucketBehavior)
-    pub mod default_logs_bucket_behavior {
-        use super::DefaultLogsBucketBehavior;
-
         /// Unspecified.
         pub const DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED: DefaultLogsBucketBehavior =
-            DefaultLogsBucketBehavior::new("DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED");
+            DefaultLogsBucketBehavior::new(0);
 
         /// Bucket is located in user-owned project in the same region as the
         /// build. The builder service account must have access to create and write
         /// to Cloud Storage buckets in the build project.
         pub const REGIONAL_USER_OWNED_BUCKET: DefaultLogsBucketBehavior =
-            DefaultLogsBucketBehavior::new("REGIONAL_USER_OWNED_BUCKET");
+            DefaultLogsBucketBehavior::new(1);
 
         /// Bucket is located in a Google-owned project and is not regionalized.
-        pub const LEGACY_BUCKET: DefaultLogsBucketBehavior =
-            DefaultLogsBucketBehavior::new("LEGACY_BUCKET");
+        pub const LEGACY_BUCKET: DefaultLogsBucketBehavior = DefaultLogsBucketBehavior::new(2);
+
+        /// Creates a new DefaultLogsBucketBehavior instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("REGIONAL_USER_OWNED_BUCKET"),
+                2 => std::borrow::Cow::Borrowed("LEGACY_BUCKET"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED)
+                }
+                "REGIONAL_USER_OWNED_BUCKET" => {
+                    std::option::Option::Some(Self::REGIONAL_USER_OWNED_BUCKET)
+                }
+                "LEGACY_BUCKET" => std::option::Option::Some(Self::LEGACY_BUCKET),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for DefaultLogsBucketBehavior {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DefaultLogsBucketBehavior {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DefaultLogsBucketBehavior {
         fn default() -> Self {
-            default_logs_bucket_behavior::DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -7430,52 +7762,73 @@ pub mod worker_pool {
 
     /// State of the `WorkerPool`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// State of the `WorkerPool` is unknown.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// `WorkerPool` is being created.
+        pub const CREATING: State = State::new(1);
+
+        /// `WorkerPool` is running.
+        pub const RUNNING: State = State::new(2);
+
+        /// `WorkerPool` is being deleted: cancelling builds and draining workers.
+        pub const DELETING: State = State::new(3);
+
+        /// `WorkerPool` is deleted.
+        pub const DELETED: State = State::new(4);
+
+        /// `WorkerPool` is being updated; new builds cannot be run.
+        pub const UPDATING: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("RUNNING"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("DELETED"),
+                5 => std::borrow::Cow::Borrowed("UPDATING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "RUNNING" => std::option::Option::Some(Self::RUNNING),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "DELETED" => std::option::Option::Some(Self::DELETED),
+                "UPDATING" => std::option::Option::Some(Self::UPDATING),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// State of the `WorkerPool` is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// `WorkerPool` is being created.
-        pub const CREATING: State = State::new("CREATING");
-
-        /// `WorkerPool` is running.
-        pub const RUNNING: State = State::new("RUNNING");
-
-        /// `WorkerPool` is being deleted: cancelling builds and draining workers.
-        pub const DELETING: State = State::new("DELETING");
-
-        /// `WorkerPool` is deleted.
-        pub const DELETED: State = State::new("DELETED");
-
-        /// `WorkerPool` is being updated; new builds cannot be run.
-        pub const UPDATING: State = State::new("UPDATING");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -7695,46 +8048,62 @@ pub mod private_pool_v_1_config {
 
         /// Defines the egress option for the pool.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct EgressOption(std::borrow::Cow<'static, str>);
+        pub struct EgressOption(i32);
 
         impl EgressOption {
-            /// Creates a new EgressOption instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [EgressOption](EgressOption)
-        pub mod egress_option {
-            use super::EgressOption;
-
             /// If set, defaults to PUBLIC_EGRESS.
-            pub const EGRESS_OPTION_UNSPECIFIED: EgressOption =
-                EgressOption::new("EGRESS_OPTION_UNSPECIFIED");
+            pub const EGRESS_OPTION_UNSPECIFIED: EgressOption = EgressOption::new(0);
 
             /// If set, workers are created without any public address, which prevents
             /// network egress to public IPs unless a network proxy is configured.
-            pub const NO_PUBLIC_EGRESS: EgressOption = EgressOption::new("NO_PUBLIC_EGRESS");
+            pub const NO_PUBLIC_EGRESS: EgressOption = EgressOption::new(1);
 
             /// If set, workers are created with a public address which allows for
             /// public internet egress.
-            pub const PUBLIC_EGRESS: EgressOption = EgressOption::new("PUBLIC_EGRESS");
+            pub const PUBLIC_EGRESS: EgressOption = EgressOption::new(2);
+
+            /// Creates a new EgressOption instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("EGRESS_OPTION_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("NO_PUBLIC_EGRESS"),
+                    2 => std::borrow::Cow::Borrowed("PUBLIC_EGRESS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "EGRESS_OPTION_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::EGRESS_OPTION_UNSPECIFIED)
+                    }
+                    "NO_PUBLIC_EGRESS" => std::option::Option::Some(Self::NO_PUBLIC_EGRESS),
+                    "PUBLIC_EGRESS" => std::option::Option::Some(Self::PUBLIC_EGRESS),
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for EgressOption {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for EgressOption {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for EgressOption {
             fn default() -> Self {
-                egress_option::EGRESS_OPTION_UNSPECIFIED
+                Self::new(0)
             }
         }
     }

@@ -825,91 +825,129 @@ pub mod reauth_settings {
 
     /// Types of reauthentication methods supported by IAP.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(std::borrow::Cow<'static, str>);
+    pub struct Method(i32);
 
     impl Method {
+        /// Reauthentication disabled.
+        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
+
+        /// Prompts the user to log in again.
+        pub const LOGIN: Method = Method::new(1);
+
+        pub const PASSWORD: Method = Method::new(2);
+
+        /// User must use their secure key 2nd factor device.
+        pub const SECURE_KEY: Method = Method::new(3);
+
+        /// User can use any enabled 2nd factor.
+        pub const ENROLLED_SECOND_FACTORS: Method = Method::new(4);
+
         /// Creates a new Method instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOGIN"),
+                2 => std::borrow::Cow::Borrowed("PASSWORD"),
+                3 => std::borrow::Cow::Borrowed("SECURE_KEY"),
+                4 => std::borrow::Cow::Borrowed("ENROLLED_SECOND_FACTORS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
+                "LOGIN" => std::option::Option::Some(Self::LOGIN),
+                "PASSWORD" => std::option::Option::Some(Self::PASSWORD),
+                "SECURE_KEY" => std::option::Option::Some(Self::SECURE_KEY),
+                "ENROLLED_SECOND_FACTORS" => {
+                    std::option::Option::Some(Self::ENROLLED_SECOND_FACTORS)
+                }
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Method](Method)
-    pub mod method {
-        use super::Method;
-
-        /// Reauthentication disabled.
-        pub const METHOD_UNSPECIFIED: Method = Method::new("METHOD_UNSPECIFIED");
-
-        /// Prompts the user to log in again.
-        pub const LOGIN: Method = Method::new("LOGIN");
-
-        pub const PASSWORD: Method = Method::new("PASSWORD");
-
-        /// User must use their secure key 2nd factor device.
-        pub const SECURE_KEY: Method = Method::new("SECURE_KEY");
-
-        /// User can use any enabled 2nd factor.
-        pub const ENROLLED_SECOND_FACTORS: Method = Method::new("ENROLLED_SECOND_FACTORS");
-    }
-
-    impl std::convert::From<std::string::String> for Method {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            method::METHOD_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Type of policy in the case of hierarchial policies.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyType(std::borrow::Cow<'static, str>);
+    pub struct PolicyType(i32);
 
     impl PolicyType {
-        /// Creates a new PolicyType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PolicyType](PolicyType)
-    pub mod policy_type {
-        use super::PolicyType;
-
         /// Default value. This value is unused.
-        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new("POLICY_TYPE_UNSPECIFIED");
+        pub const POLICY_TYPE_UNSPECIFIED: PolicyType = PolicyType::new(0);
 
         /// This policy acts as a minimum to other policies, lower in the hierarchy.
         /// Effective policy may only be the same or stricter.
-        pub const MINIMUM: PolicyType = PolicyType::new("MINIMUM");
+        pub const MINIMUM: PolicyType = PolicyType::new(1);
 
         /// This policy acts as a default if no other reauth policy is set.
-        pub const DEFAULT: PolicyType = PolicyType::new("DEFAULT");
+        pub const DEFAULT: PolicyType = PolicyType::new(2);
+
+        /// Creates a new PolicyType instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("POLICY_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("MINIMUM"),
+                2 => std::borrow::Cow::Borrowed("DEFAULT"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "POLICY_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::POLICY_TYPE_UNSPECIFIED)
+                }
+                "MINIMUM" => std::option::Option::Some(Self::MINIMUM),
+                "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PolicyType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PolicyType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyType {
         fn default() -> Self {
-            policy_type::POLICY_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1243,49 +1281,67 @@ pub mod attribute_propagation_settings {
     /// credential maps to a "field" in the response. For example, selecting JWT
     /// will propagate all attributes in the IAP JWT, header in the headers, etc.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OutputCredentials(std::borrow::Cow<'static, str>);
+    pub struct OutputCredentials(i32);
 
     impl OutputCredentials {
-        /// Creates a new OutputCredentials instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [OutputCredentials](OutputCredentials)
-    pub mod output_credentials {
-        use super::OutputCredentials;
-
         /// An output credential is required.
-        pub const OUTPUT_CREDENTIALS_UNSPECIFIED: OutputCredentials =
-            OutputCredentials::new("OUTPUT_CREDENTIALS_UNSPECIFIED");
+        pub const OUTPUT_CREDENTIALS_UNSPECIFIED: OutputCredentials = OutputCredentials::new(0);
 
         /// Propagate attributes in the headers with "x-goog-iap-attr-" prefix.
-        pub const HEADER: OutputCredentials = OutputCredentials::new("HEADER");
+        pub const HEADER: OutputCredentials = OutputCredentials::new(1);
 
         /// Propagate attributes in the JWT of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const JWT: OutputCredentials = OutputCredentials::new("JWT");
+        pub const JWT: OutputCredentials = OutputCredentials::new(2);
 
         /// Propagate attributes in the RCToken of the form: `"additional_claims": {
         /// "my_attribute": ["value1", "value2"] }`
-        pub const RCTOKEN: OutputCredentials = OutputCredentials::new("RCTOKEN");
+        pub const RCTOKEN: OutputCredentials = OutputCredentials::new(3);
+
+        /// Creates a new OutputCredentials instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OUTPUT_CREDENTIALS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("HEADER"),
+                2 => std::borrow::Cow::Borrowed("JWT"),
+                3 => std::borrow::Cow::Borrowed("RCTOKEN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "OUTPUT_CREDENTIALS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::OUTPUT_CREDENTIALS_UNSPECIFIED)
+                }
+                "HEADER" => std::option::Option::Some(Self::HEADER),
+                "JWT" => std::option::Option::Some(Self::JWT),
+                "RCTOKEN" => std::option::Option::Some(Self::RCTOKEN),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for OutputCredentials {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for OutputCredentials {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for OutputCredentials {
         fn default() -> Self {
-            output_credentials::OUTPUT_CREDENTIALS_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

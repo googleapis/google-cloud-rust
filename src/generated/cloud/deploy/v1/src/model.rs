@@ -3158,55 +3158,76 @@ pub mod execution_config {
 
     /// Possible usages of this configuration.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionEnvironmentUsage(std::borrow::Cow<'static, str>);
+    pub struct ExecutionEnvironmentUsage(i32);
 
     impl ExecutionEnvironmentUsage {
+        /// Default value. This value is unused.
+        pub const EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED: ExecutionEnvironmentUsage =
+            ExecutionEnvironmentUsage::new(0);
+
+        /// Use for rendering.
+        pub const RENDER: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new(1);
+
+        /// Use for deploying and deployment hooks.
+        pub const DEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new(2);
+
+        /// Use for deployment verification.
+        pub const VERIFY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new(3);
+
+        /// Use for predeploy job execution.
+        pub const PREDEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new(4);
+
+        /// Use for postdeploy job execution.
+        pub const POSTDEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new(5);
+
         /// Creates a new ExecutionEnvironmentUsage instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("RENDER"),
+                2 => std::borrow::Cow::Borrowed("DEPLOY"),
+                3 => std::borrow::Cow::Borrowed("VERIFY"),
+                4 => std::borrow::Cow::Borrowed("PREDEPLOY"),
+                5 => std::borrow::Cow::Borrowed("POSTDEPLOY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED)
+                }
+                "RENDER" => std::option::Option::Some(Self::RENDER),
+                "DEPLOY" => std::option::Option::Some(Self::DEPLOY),
+                "VERIFY" => std::option::Option::Some(Self::VERIFY),
+                "PREDEPLOY" => std::option::Option::Some(Self::PREDEPLOY),
+                "POSTDEPLOY" => std::option::Option::Some(Self::POSTDEPLOY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ExecutionEnvironmentUsage](ExecutionEnvironmentUsage)
-    pub mod execution_environment_usage {
-        use super::ExecutionEnvironmentUsage;
-
-        /// Default value. This value is unused.
-        pub const EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED");
-
-        /// Use for rendering.
-        pub const RENDER: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("RENDER");
-
-        /// Use for deploying and deployment hooks.
-        pub const DEPLOY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("DEPLOY");
-
-        /// Use for deployment verification.
-        pub const VERIFY: ExecutionEnvironmentUsage = ExecutionEnvironmentUsage::new("VERIFY");
-
-        /// Use for predeploy job execution.
-        pub const PREDEPLOY: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("PREDEPLOY");
-
-        /// Use for postdeploy job execution.
-        pub const POSTDEPLOY: ExecutionEnvironmentUsage =
-            ExecutionEnvironmentUsage::new("POSTDEPLOY");
-    }
-
-    impl std::convert::From<std::string::String> for ExecutionEnvironmentUsage {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExecutionEnvironmentUsage {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ExecutionEnvironmentUsage {
         fn default() -> Self {
-            execution_environment_usage::EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -5250,44 +5271,59 @@ pub mod deploy_policy {
     /// What invoked the action. Filters enforcing the policy depending on what
     /// invoked the action.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Invoker(std::borrow::Cow<'static, str>);
+    pub struct Invoker(i32);
 
     impl Invoker {
-        /// Creates a new Invoker instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Invoker](Invoker)
-    pub mod invoker {
-        use super::Invoker;
-
         /// Unspecified.
-        pub const INVOKER_UNSPECIFIED: Invoker = Invoker::new("INVOKER_UNSPECIFIED");
+        pub const INVOKER_UNSPECIFIED: Invoker = Invoker::new(0);
 
         /// The action is user-driven. For example, creating a rollout manually via a
         /// gcloud create command.
-        pub const USER: Invoker = Invoker::new("USER");
+        pub const USER: Invoker = Invoker::new(1);
 
         /// Automated action by Cloud Deploy.
-        pub const DEPLOY_AUTOMATION: Invoker = Invoker::new("DEPLOY_AUTOMATION");
+        pub const DEPLOY_AUTOMATION: Invoker = Invoker::new(2);
+
+        /// Creates a new Invoker instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("INVOKER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("USER"),
+                2 => std::borrow::Cow::Borrowed("DEPLOY_AUTOMATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "INVOKER_UNSPECIFIED" => std::option::Option::Some(Self::INVOKER_UNSPECIFIED),
+                "USER" => std::option::Option::Some(Self::USER),
+                "DEPLOY_AUTOMATION" => std::option::Option::Some(Self::DEPLOY_AUTOMATION),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Invoker {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Invoker {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Invoker {
         fn default() -> Self {
-            invoker::INVOKER_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -5601,62 +5637,90 @@ pub mod rollout_restriction {
 
     /// Rollout actions to be restricted as part of the policy.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutActions(std::borrow::Cow<'static, str>);
+    pub struct RolloutActions(i32);
 
     impl RolloutActions {
+        /// Unspecified.
+        pub const ROLLOUT_ACTIONS_UNSPECIFIED: RolloutActions = RolloutActions::new(0);
+
+        /// Advance the rollout to the next phase.
+        pub const ADVANCE: RolloutActions = RolloutActions::new(1);
+
+        /// Approve the rollout.
+        pub const APPROVE: RolloutActions = RolloutActions::new(2);
+
+        /// Cancel the rollout.
+        pub const CANCEL: RolloutActions = RolloutActions::new(3);
+
+        /// Create a rollout.
+        pub const CREATE: RolloutActions = RolloutActions::new(4);
+
+        /// Ignore a job result on the rollout.
+        pub const IGNORE_JOB: RolloutActions = RolloutActions::new(5);
+
+        /// Retry a job for a rollout.
+        pub const RETRY_JOB: RolloutActions = RolloutActions::new(6);
+
+        /// Rollback a rollout.
+        pub const ROLLBACK: RolloutActions = RolloutActions::new(7);
+
+        /// Terminate a jobrun.
+        pub const TERMINATE_JOBRUN: RolloutActions = RolloutActions::new(8);
+
         /// Creates a new RolloutActions instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLLOUT_ACTIONS_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ADVANCE"),
+                2 => std::borrow::Cow::Borrowed("APPROVE"),
+                3 => std::borrow::Cow::Borrowed("CANCEL"),
+                4 => std::borrow::Cow::Borrowed("CREATE"),
+                5 => std::borrow::Cow::Borrowed("IGNORE_JOB"),
+                6 => std::borrow::Cow::Borrowed("RETRY_JOB"),
+                7 => std::borrow::Cow::Borrowed("ROLLBACK"),
+                8 => std::borrow::Cow::Borrowed("TERMINATE_JOBRUN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLLOUT_ACTIONS_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROLLOUT_ACTIONS_UNSPECIFIED)
+                }
+                "ADVANCE" => std::option::Option::Some(Self::ADVANCE),
+                "APPROVE" => std::option::Option::Some(Self::APPROVE),
+                "CANCEL" => std::option::Option::Some(Self::CANCEL),
+                "CREATE" => std::option::Option::Some(Self::CREATE),
+                "IGNORE_JOB" => std::option::Option::Some(Self::IGNORE_JOB),
+                "RETRY_JOB" => std::option::Option::Some(Self::RETRY_JOB),
+                "ROLLBACK" => std::option::Option::Some(Self::ROLLBACK),
+                "TERMINATE_JOBRUN" => std::option::Option::Some(Self::TERMINATE_JOBRUN),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RolloutActions](RolloutActions)
-    pub mod rollout_actions {
-        use super::RolloutActions;
-
-        /// Unspecified.
-        pub const ROLLOUT_ACTIONS_UNSPECIFIED: RolloutActions =
-            RolloutActions::new("ROLLOUT_ACTIONS_UNSPECIFIED");
-
-        /// Advance the rollout to the next phase.
-        pub const ADVANCE: RolloutActions = RolloutActions::new("ADVANCE");
-
-        /// Approve the rollout.
-        pub const APPROVE: RolloutActions = RolloutActions::new("APPROVE");
-
-        /// Cancel the rollout.
-        pub const CANCEL: RolloutActions = RolloutActions::new("CANCEL");
-
-        /// Create a rollout.
-        pub const CREATE: RolloutActions = RolloutActions::new("CREATE");
-
-        /// Ignore a job result on the rollout.
-        pub const IGNORE_JOB: RolloutActions = RolloutActions::new("IGNORE_JOB");
-
-        /// Retry a job for a rollout.
-        pub const RETRY_JOB: RolloutActions = RolloutActions::new("RETRY_JOB");
-
-        /// Rollback a rollout.
-        pub const ROLLBACK: RolloutActions = RolloutActions::new("ROLLBACK");
-
-        /// Terminate a jobrun.
-        pub const TERMINATE_JOBRUN: RolloutActions = RolloutActions::new("TERMINATE_JOBRUN");
-    }
-
-    impl std::convert::From<std::string::String> for RolloutActions {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RolloutActions {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RolloutActions {
         fn default() -> Self {
-            rollout_actions::ROLLOUT_ACTIONS_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -6397,120 +6461,171 @@ pub mod release {
 
         /// Valid states of the render operation.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetRenderState(std::borrow::Cow<'static, str>);
+        pub struct TargetRenderState(i32);
 
         impl TargetRenderState {
+            /// The render operation state is unspecified.
+            pub const TARGET_RENDER_STATE_UNSPECIFIED: TargetRenderState =
+                TargetRenderState::new(0);
+
+            /// The render operation has completed successfully.
+            pub const SUCCEEDED: TargetRenderState = TargetRenderState::new(1);
+
+            /// The render operation has failed.
+            pub const FAILED: TargetRenderState = TargetRenderState::new(2);
+
+            /// The render operation is in progress.
+            pub const IN_PROGRESS: TargetRenderState = TargetRenderState::new(3);
+
             /// Creates a new TargetRenderState instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("TARGET_RENDER_STATE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                    2 => std::borrow::Cow::Borrowed("FAILED"),
+                    3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "TARGET_RENDER_STATE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::TARGET_RENDER_STATE_UNSPECIFIED)
+                    }
+                    "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                    "FAILED" => std::option::Option::Some(Self::FAILED),
+                    "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [TargetRenderState](TargetRenderState)
-        pub mod target_render_state {
-            use super::TargetRenderState;
-
-            /// The render operation state is unspecified.
-            pub const TARGET_RENDER_STATE_UNSPECIFIED: TargetRenderState =
-                TargetRenderState::new("TARGET_RENDER_STATE_UNSPECIFIED");
-
-            /// The render operation has completed successfully.
-            pub const SUCCEEDED: TargetRenderState = TargetRenderState::new("SUCCEEDED");
-
-            /// The render operation has failed.
-            pub const FAILED: TargetRenderState = TargetRenderState::new("FAILED");
-
-            /// The render operation is in progress.
-            pub const IN_PROGRESS: TargetRenderState = TargetRenderState::new("IN_PROGRESS");
-        }
-
-        impl std::convert::From<std::string::String> for TargetRenderState {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for TargetRenderState {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for TargetRenderState {
             fn default() -> Self {
-                target_render_state::TARGET_RENDER_STATE_UNSPECIFIED
+                Self::new(0)
             }
         }
 
         /// Well-known rendering failures.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FailureCause(std::borrow::Cow<'static, str>);
+        pub struct FailureCause(i32);
 
         impl FailureCause {
-            /// Creates a new FailureCause instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
-            }
-        }
-
-        /// Useful constants to work with [FailureCause](FailureCause)
-        pub mod failure_cause {
-            use super::FailureCause;
-
             /// No reason for failure is specified.
-            pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-                FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+            pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
             /// Cloud Build is not available, either because it is not enabled or
             /// because Cloud Deploy has insufficient permissions. See [required
             /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-            pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-                FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+            pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
             /// The render operation did not complete successfully; check Cloud Build
             /// logs.
-            pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+            pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
             /// Cloud Build failed to fulfill Cloud Deploy's request. See
             /// failure_message for additional details.
-            pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-                FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+            pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(3);
 
             /// The render operation did not complete successfully because the
             /// verification stanza required for verify was not found on the Skaffold
             /// configuration.
-            pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-                FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+            pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause = FailureCause::new(4);
 
             /// The render operation did not complete successfully because the custom
             /// action required for predeploy or postdeploy was not found in the
             /// Skaffold configuration. See failure_message for additional details.
-            pub const CUSTOM_ACTION_NOT_FOUND: FailureCause =
-                FailureCause::new("CUSTOM_ACTION_NOT_FOUND");
+            pub const CUSTOM_ACTION_NOT_FOUND: FailureCause = FailureCause::new(5);
 
             /// Release failed during rendering because the release configuration is
             /// not supported with the specified deployment strategy.
-            pub const DEPLOYMENT_STRATEGY_NOT_SUPPORTED: FailureCause =
-                FailureCause::new("DEPLOYMENT_STRATEGY_NOT_SUPPORTED");
+            pub const DEPLOYMENT_STRATEGY_NOT_SUPPORTED: FailureCause = FailureCause::new(6);
 
             /// The render operation had a feature configured that is not supported.
-            pub const RENDER_FEATURE_NOT_SUPPORTED: FailureCause =
-                FailureCause::new("RENDER_FEATURE_NOT_SUPPORTED");
+            pub const RENDER_FEATURE_NOT_SUPPORTED: FailureCause = FailureCause::new(7);
+
+            /// Creates a new FailureCause instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                    2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                    3 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                    4 => std::borrow::Cow::Borrowed("VERIFICATION_CONFIG_NOT_FOUND"),
+                    5 => std::borrow::Cow::Borrowed("CUSTOM_ACTION_NOT_FOUND"),
+                    6 => std::borrow::Cow::Borrowed("DEPLOYMENT_STRATEGY_NOT_SUPPORTED"),
+                    7 => std::borrow::Cow::Borrowed("RENDER_FEATURE_NOT_SUPPORTED"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "FAILURE_CAUSE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                    }
+                    "CLOUD_BUILD_UNAVAILABLE" => {
+                        std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                    }
+                    "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                    "CLOUD_BUILD_REQUEST_FAILED" => {
+                        std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                    }
+                    "VERIFICATION_CONFIG_NOT_FOUND" => {
+                        std::option::Option::Some(Self::VERIFICATION_CONFIG_NOT_FOUND)
+                    }
+                    "CUSTOM_ACTION_NOT_FOUND" => {
+                        std::option::Option::Some(Self::CUSTOM_ACTION_NOT_FOUND)
+                    }
+                    "DEPLOYMENT_STRATEGY_NOT_SUPPORTED" => {
+                        std::option::Option::Some(Self::DEPLOYMENT_STRATEGY_NOT_SUPPORTED)
+                    }
+                    "RENDER_FEATURE_NOT_SUPPORTED" => {
+                        std::option::Option::Some(Self::RENDER_FEATURE_NOT_SUPPORTED)
+                    }
+                    _ => std::option::Option::None,
+                }
+            }
         }
 
-        impl std::convert::From<std::string::String> for FailureCause {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for FailureCause {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for FailureCause {
             fn default() -> Self {
-                failure_cause::FAILURE_CAUSE_UNSPECIFIED
+                Self::new(0)
             }
         }
     }
@@ -6679,47 +6794,65 @@ pub mod release {
 
     /// Valid states of the render operation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RenderState(std::borrow::Cow<'static, str>);
+    pub struct RenderState(i32);
 
     impl RenderState {
+        /// The render state is unspecified.
+        pub const RENDER_STATE_UNSPECIFIED: RenderState = RenderState::new(0);
+
+        /// All rendering operations have completed successfully.
+        pub const SUCCEEDED: RenderState = RenderState::new(1);
+
+        /// All rendering operations have completed, and one or more have failed.
+        pub const FAILED: RenderState = RenderState::new(2);
+
+        /// Rendering has started and is not complete.
+        pub const IN_PROGRESS: RenderState = RenderState::new(3);
+
         /// Creates a new RenderState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RENDER_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                2 => std::borrow::Cow::Borrowed("FAILED"),
+                3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RENDER_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RENDER_STATE_UNSPECIFIED)
+                }
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RenderState](RenderState)
-    pub mod render_state {
-        use super::RenderState;
-
-        /// The render state is unspecified.
-        pub const RENDER_STATE_UNSPECIFIED: RenderState =
-            RenderState::new("RENDER_STATE_UNSPECIFIED");
-
-        /// All rendering operations have completed successfully.
-        pub const SUCCEEDED: RenderState = RenderState::new("SUCCEEDED");
-
-        /// All rendering operations have completed, and one or more have failed.
-        pub const FAILED: RenderState = RenderState::new("FAILED");
-
-        /// Rendering has started and is not complete.
-        pub const IN_PROGRESS: RenderState = RenderState::new("IN_PROGRESS");
-    }
-
-    impl std::convert::From<std::string::String> for RenderState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RenderState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RenderState {
         fn default() -> Self {
-            render_state::RENDER_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8127,187 +8260,269 @@ pub mod rollout {
 
     /// Valid approval states of a `Rollout`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ApprovalState(std::borrow::Cow<'static, str>);
+    pub struct ApprovalState(i32);
 
     impl ApprovalState {
+        /// The `Rollout` has an unspecified approval state.
+        pub const APPROVAL_STATE_UNSPECIFIED: ApprovalState = ApprovalState::new(0);
+
+        /// The `Rollout` requires approval.
+        pub const NEEDS_APPROVAL: ApprovalState = ApprovalState::new(1);
+
+        /// The `Rollout` does not require approval.
+        pub const DOES_NOT_NEED_APPROVAL: ApprovalState = ApprovalState::new(2);
+
+        /// The `Rollout` has been approved.
+        pub const APPROVED: ApprovalState = ApprovalState::new(3);
+
+        /// The `Rollout` has been rejected.
+        pub const REJECTED: ApprovalState = ApprovalState::new(4);
+
         /// Creates a new ApprovalState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("APPROVAL_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NEEDS_APPROVAL"),
+                2 => std::borrow::Cow::Borrowed("DOES_NOT_NEED_APPROVAL"),
+                3 => std::borrow::Cow::Borrowed("APPROVED"),
+                4 => std::borrow::Cow::Borrowed("REJECTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "APPROVAL_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::APPROVAL_STATE_UNSPECIFIED)
+                }
+                "NEEDS_APPROVAL" => std::option::Option::Some(Self::NEEDS_APPROVAL),
+                "DOES_NOT_NEED_APPROVAL" => std::option::Option::Some(Self::DOES_NOT_NEED_APPROVAL),
+                "APPROVED" => std::option::Option::Some(Self::APPROVED),
+                "REJECTED" => std::option::Option::Some(Self::REJECTED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ApprovalState](ApprovalState)
-    pub mod approval_state {
-        use super::ApprovalState;
-
-        /// The `Rollout` has an unspecified approval state.
-        pub const APPROVAL_STATE_UNSPECIFIED: ApprovalState =
-            ApprovalState::new("APPROVAL_STATE_UNSPECIFIED");
-
-        /// The `Rollout` requires approval.
-        pub const NEEDS_APPROVAL: ApprovalState = ApprovalState::new("NEEDS_APPROVAL");
-
-        /// The `Rollout` does not require approval.
-        pub const DOES_NOT_NEED_APPROVAL: ApprovalState =
-            ApprovalState::new("DOES_NOT_NEED_APPROVAL");
-
-        /// The `Rollout` has been approved.
-        pub const APPROVED: ApprovalState = ApprovalState::new("APPROVED");
-
-        /// The `Rollout` has been rejected.
-        pub const REJECTED: ApprovalState = ApprovalState::new("REJECTED");
-    }
-
-    impl std::convert::From<std::string::String> for ApprovalState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ApprovalState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ApprovalState {
         fn default() -> Self {
-            approval_state::APPROVAL_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Valid states of a `Rollout`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// The `Rollout` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The `Rollout` has completed successfully.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
+        pub const SUCCEEDED: State = State::new(1);
 
         /// The `Rollout` has failed.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(2);
 
         /// The `Rollout` is being deployed.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
+        pub const IN_PROGRESS: State = State::new(3);
 
         /// The `Rollout` needs approval.
-        pub const PENDING_APPROVAL: State = State::new("PENDING_APPROVAL");
+        pub const PENDING_APPROVAL: State = State::new(4);
 
         /// An approver rejected the `Rollout`.
-        pub const APPROVAL_REJECTED: State = State::new("APPROVAL_REJECTED");
+        pub const APPROVAL_REJECTED: State = State::new(5);
 
         /// The `Rollout` is waiting for an earlier Rollout(s) to complete on this
         /// `Target`.
-        pub const PENDING: State = State::new("PENDING");
+        pub const PENDING: State = State::new(6);
 
         /// The `Rollout` is waiting for the `Release` to be fully rendered.
-        pub const PENDING_RELEASE: State = State::new("PENDING_RELEASE");
+        pub const PENDING_RELEASE: State = State::new(7);
 
         /// The `Rollout` is in the process of being cancelled.
-        pub const CANCELLING: State = State::new("CANCELLING");
+        pub const CANCELLING: State = State::new(8);
 
         /// The `Rollout` has been cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
+        pub const CANCELLED: State = State::new(9);
 
         /// The `Rollout` is halted.
-        pub const HALTED: State = State::new("HALTED");
+        pub const HALTED: State = State::new(10);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                2 => std::borrow::Cow::Borrowed("FAILED"),
+                3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                4 => std::borrow::Cow::Borrowed("PENDING_APPROVAL"),
+                5 => std::borrow::Cow::Borrowed("APPROVAL_REJECTED"),
+                6 => std::borrow::Cow::Borrowed("PENDING"),
+                7 => std::borrow::Cow::Borrowed("PENDING_RELEASE"),
+                8 => std::borrow::Cow::Borrowed("CANCELLING"),
+                9 => std::borrow::Cow::Borrowed("CANCELLED"),
+                10 => std::borrow::Cow::Borrowed("HALTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "PENDING_APPROVAL" => std::option::Option::Some(Self::PENDING_APPROVAL),
+                "APPROVAL_REJECTED" => std::option::Option::Some(Self::APPROVAL_REJECTED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "PENDING_RELEASE" => std::option::Option::Some(Self::PENDING_RELEASE),
+                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "HALTED" => std::option::Option::Some(Self::HALTED),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Well-known rollout failures.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
+    pub struct FailureCause(i32);
 
     impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FailureCause](FailureCause)
-    pub mod failure_cause {
-        use super::FailureCause;
-
         /// No reason for failure is specified.
-        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
         /// The deploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
         /// Deployment did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Release is in a failed state.
-        pub const RELEASE_FAILED: FailureCause = FailureCause::new("RELEASE_FAILED");
+        pub const RELEASE_FAILED: FailureCause = FailureCause::new(4);
 
         /// Release is abandoned.
-        pub const RELEASE_ABANDONED: FailureCause = FailureCause::new("RELEASE_ABANDONED");
+        pub const RELEASE_ABANDONED: FailureCause = FailureCause::new(5);
 
         /// No Skaffold verify configuration was found.
-        pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-            FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+        pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause = FailureCause::new(6);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
-        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(7);
 
         /// A Rollout operation had a feature configured that is not supported.
-        pub const OPERATION_FEATURE_NOT_SUPPORTED: FailureCause =
-            FailureCause::new("OPERATION_FEATURE_NOT_SUPPORTED");
+        pub const OPERATION_FEATURE_NOT_SUPPORTED: FailureCause = FailureCause::new(8);
+
+        /// Creates a new FailureCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+                4 => std::borrow::Cow::Borrowed("RELEASE_FAILED"),
+                5 => std::borrow::Cow::Borrowed("RELEASE_ABANDONED"),
+                6 => std::borrow::Cow::Borrowed("VERIFICATION_CONFIG_NOT_FOUND"),
+                7 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                8 => std::borrow::Cow::Borrowed("OPERATION_FEATURE_NOT_SUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FAILURE_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                }
+                "CLOUD_BUILD_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                }
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+                "RELEASE_FAILED" => std::option::Option::Some(Self::RELEASE_FAILED),
+                "RELEASE_ABANDONED" => std::option::Option::Some(Self::RELEASE_ABANDONED),
+                "VERIFICATION_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::VERIFICATION_CONFIG_NOT_FOUND)
+                }
+                "CLOUD_BUILD_REQUEST_FAILED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                }
+                "OPERATION_FEATURE_NOT_SUPPORTED" => {
+                    std::option::Option::Some(Self::OPERATION_FEATURE_NOT_SUPPORTED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FailureCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -8768,55 +8983,78 @@ pub mod phase {
 
     /// Valid states of a Phase.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The Phase has an unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The Phase is waiting for an earlier Phase(s) to complete.
+        pub const PENDING: State = State::new(1);
+
+        /// The Phase is in progress.
+        pub const IN_PROGRESS: State = State::new(2);
+
+        /// The Phase has succeeded.
+        pub const SUCCEEDED: State = State::new(3);
+
+        /// The Phase has failed.
+        pub const FAILED: State = State::new(4);
+
+        /// The Phase was aborted.
+        pub const ABORTED: State = State::new(5);
+
+        /// The Phase was skipped.
+        pub const SKIPPED: State = State::new(6);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                3 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("ABORTED"),
+                6 => std::borrow::Cow::Borrowed("SKIPPED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "ABORTED" => std::option::Option::Some(Self::ABORTED),
+                "SKIPPED" => std::option::Option::Some(Self::SKIPPED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The Phase has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The Phase is waiting for an earlier Phase(s) to complete.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The Phase is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
-
-        /// The Phase has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The Phase has failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The Phase was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
-
-        /// The Phase was skipped.
-        pub const SKIPPED: State = State::new("SKIPPED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -9194,61 +9432,88 @@ pub mod job {
 
     /// Valid states of a Job.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The Job has an unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The Job is waiting for an earlier Phase(s) or Job(s) to complete.
+        pub const PENDING: State = State::new(1);
+
+        /// The Job is disabled.
+        pub const DISABLED: State = State::new(2);
+
+        /// The Job is in progress.
+        pub const IN_PROGRESS: State = State::new(3);
+
+        /// The Job succeeded.
+        pub const SUCCEEDED: State = State::new(4);
+
+        /// The Job failed.
+        pub const FAILED: State = State::new(5);
+
+        /// The Job was aborted.
+        pub const ABORTED: State = State::new(6);
+
+        /// The Job was skipped.
+        pub const SKIPPED: State = State::new(7);
+
+        /// The Job was ignored.
+        pub const IGNORED: State = State::new(8);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                4 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                5 => std::borrow::Cow::Borrowed("FAILED"),
+                6 => std::borrow::Cow::Borrowed("ABORTED"),
+                7 => std::borrow::Cow::Borrowed("SKIPPED"),
+                8 => std::borrow::Cow::Borrowed("IGNORED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "ABORTED" => std::option::Option::Some(Self::ABORTED),
+                "SKIPPED" => std::option::Option::Some(Self::SKIPPED),
+                "IGNORED" => std::option::Option::Some(Self::IGNORED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The Job has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The Job is waiting for an earlier Phase(s) or Job(s) to complete.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The Job is disabled.
-        pub const DISABLED: State = State::new("DISABLED");
-
-        /// The Job is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
-
-        /// The Job succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The Job failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The Job was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
-
-        /// The Job was skipped.
-        pub const SKIPPED: State = State::new("SKIPPED");
-
-        /// The Job was ignored.
-        pub const IGNORED: State = State::new("IGNORED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -10571,52 +10836,73 @@ pub mod job_run {
 
     /// Valid states of a `JobRun`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The `JobRun` has an unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The `JobRun` is in progress.
+        pub const IN_PROGRESS: State = State::new(1);
+
+        /// The `JobRun` has succeeded.
+        pub const SUCCEEDED: State = State::new(2);
+
+        /// The `JobRun` has failed.
+        pub const FAILED: State = State::new(3);
+
+        /// The `JobRun` is terminating.
+        pub const TERMINATING: State = State::new(4);
+
+        /// The `JobRun` was terminated.
+        pub const TERMINATED: State = State::new(5);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                2 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("TERMINATING"),
+                5 => std::borrow::Cow::Borrowed("TERMINATED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "TERMINATING" => std::option::Option::Some(Self::TERMINATING),
+                "TERMINATED" => std::option::Option::Some(Self::TERMINATED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The `JobRun` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The `JobRun` is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
-
-        /// The `JobRun` has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The `JobRun` has failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The `JobRun` is terminating.
-        pub const TERMINATING: State = State::new("TERMINATING");
-
-        /// The `JobRun` was terminated.
-        pub const TERMINATED: State = State::new("TERMINATED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -10731,65 +11017,93 @@ pub mod deploy_job_run {
 
     /// Well-known deploy failures.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
+    pub struct FailureCause(i32);
 
     impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FailureCause](FailureCause)
-    pub mod failure_cause {
-        use super::FailureCause;
-
         /// No reason for failure is specified.
-        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [Required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
         /// The deploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
         /// The deploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// There were missing resources in the runtime environment required for a
         /// canary deployment. Check the Cloud Build logs for more information.
-        pub const MISSING_RESOURCES_FOR_CANARY: FailureCause =
-            FailureCause::new("MISSING_RESOURCES_FOR_CANARY");
+        pub const MISSING_RESOURCES_FOR_CANARY: FailureCause = FailureCause::new(4);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
-        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(5);
 
         /// The deploy operation had a feature configured that is not supported.
-        pub const DEPLOY_FEATURE_NOT_SUPPORTED: FailureCause =
-            FailureCause::new("DEPLOY_FEATURE_NOT_SUPPORTED");
+        pub const DEPLOY_FEATURE_NOT_SUPPORTED: FailureCause = FailureCause::new(6);
+
+        /// Creates a new FailureCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+                4 => std::borrow::Cow::Borrowed("MISSING_RESOURCES_FOR_CANARY"),
+                5 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                6 => std::borrow::Cow::Borrowed("DEPLOY_FEATURE_NOT_SUPPORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FAILURE_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                }
+                "CLOUD_BUILD_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                }
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+                "MISSING_RESOURCES_FOR_CANARY" => {
+                    std::option::Option::Some(Self::MISSING_RESOURCES_FOR_CANARY)
+                }
+                "CLOUD_BUILD_REQUEST_FAILED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                }
+                "DEPLOY_FEATURE_NOT_SUPPORTED" => {
+                    std::option::Option::Some(Self::DEPLOY_FEATURE_NOT_SUPPORTED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FailureCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -10877,60 +11191,85 @@ pub mod verify_job_run {
 
     /// Well-known verify failures.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
+    pub struct FailureCause(i32);
 
     impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FailureCause](FailureCause)
-    pub mod failure_cause {
-        use super::FailureCause;
-
         /// No reason for failure is specified.
-        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
         /// The verify operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
         /// The verify job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// No Skaffold verify configuration was found.
-        pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause =
-            FailureCause::new("VERIFICATION_CONFIG_NOT_FOUND");
+        pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause = FailureCause::new(4);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
-        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(5);
+
+        /// Creates a new FailureCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+                4 => std::borrow::Cow::Borrowed("VERIFICATION_CONFIG_NOT_FOUND"),
+                5 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FAILURE_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                }
+                "CLOUD_BUILD_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                }
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+                "VERIFICATION_CONFIG_NOT_FOUND" => {
+                    std::option::Option::Some(Self::VERIFICATION_CONFIG_NOT_FOUND)
+                }
+                "CLOUD_BUILD_REQUEST_FAILED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FailureCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -10999,56 +11338,78 @@ pub mod predeploy_job_run {
 
     /// Well-known predeploy failures.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
+    pub struct FailureCause(i32);
 
     impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FailureCause](FailureCause)
-    pub mod failure_cause {
-        use super::FailureCause;
-
         /// No reason for failure is specified.
-        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
         /// The predeploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
         /// The predeploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
-        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(4);
+
+        /// Creates a new FailureCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+                4 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FAILURE_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                }
+                "CLOUD_BUILD_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                }
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+                "CLOUD_BUILD_REQUEST_FAILED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FailureCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -11117,56 +11478,78 @@ pub mod postdeploy_job_run {
 
     /// Well-known postdeploy failures.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FailureCause(std::borrow::Cow<'static, str>);
+    pub struct FailureCause(i32);
 
     impl FailureCause {
-        /// Creates a new FailureCause instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [FailureCause](FailureCause)
-    pub mod failure_cause {
-        use super::FailureCause;
-
         /// No reason for failure is specified.
-        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause =
-            FailureCause::new("FAILURE_CAUSE_UNSPECIFIED");
+        pub const FAILURE_CAUSE_UNSPECIFIED: FailureCause = FailureCause::new(0);
 
         /// Cloud Build is not available, either because it is not enabled or because
         /// Cloud Deploy has insufficient permissions. See [required
         /// permission](https://cloud.google.com/deploy/docs/cloud-deploy-service-account#required_permissions).
-        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause =
-            FailureCause::new("CLOUD_BUILD_UNAVAILABLE");
+        pub const CLOUD_BUILD_UNAVAILABLE: FailureCause = FailureCause::new(1);
 
         /// The postdeploy operation did not complete successfully; check Cloud Build
         /// logs.
-        pub const EXECUTION_FAILED: FailureCause = FailureCause::new("EXECUTION_FAILED");
+        pub const EXECUTION_FAILED: FailureCause = FailureCause::new(2);
 
         /// The postdeploy job run did not complete within the alloted time.
-        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new("DEADLINE_EXCEEDED");
+        pub const DEADLINE_EXCEEDED: FailureCause = FailureCause::new(3);
 
         /// Cloud Build failed to fulfill Cloud Deploy's request. See failure_message
         /// for additional details.
-        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause =
-            FailureCause::new("CLOUD_BUILD_REQUEST_FAILED");
+        pub const CLOUD_BUILD_REQUEST_FAILED: FailureCause = FailureCause::new(4);
+
+        /// Creates a new FailureCause instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("FAILURE_CAUSE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CLOUD_BUILD_UNAVAILABLE"),
+                2 => std::borrow::Cow::Borrowed("EXECUTION_FAILED"),
+                3 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
+                4 => std::borrow::Cow::Borrowed("CLOUD_BUILD_REQUEST_FAILED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "FAILURE_CAUSE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FAILURE_CAUSE_UNSPECIFIED)
+                }
+                "CLOUD_BUILD_UNAVAILABLE" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_UNAVAILABLE)
+                }
+                "EXECUTION_FAILED" => std::option::Option::Some(Self::EXECUTION_FAILED),
+                "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
+                "CLOUD_BUILD_REQUEST_FAILED" => {
+                    std::option::Option::Some(Self::CLOUD_BUILD_REQUEST_FAILED)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for FailureCause {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for FailureCause {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for FailureCause {
         fn default() -> Self {
-            failure_cause::FAILURE_CAUSE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -13670,55 +14053,78 @@ pub mod automation_run {
 
     /// Valid state of an `AutomationRun`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
+        /// The `AutomationRun` has an unspecified state.
+        pub const STATE_UNSPECIFIED: State = State::new(0);
+
+        /// The `AutomationRun` has succeeded.
+        pub const SUCCEEDED: State = State::new(1);
+
+        /// The `AutomationRun` was cancelled.
+        pub const CANCELLED: State = State::new(2);
+
+        /// The `AutomationRun` has failed.
+        pub const FAILED: State = State::new(3);
+
+        /// The `AutomationRun` is in progress.
+        pub const IN_PROGRESS: State = State::new(4);
+
+        /// The `AutomationRun` is pending.
+        pub const PENDING: State = State::new(5);
+
+        /// The `AutomationRun` was aborted.
+        pub const ABORTED: State = State::new(6);
+
         /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                2 => std::borrow::Cow::Borrowed("CANCELLED"),
+                3 => std::borrow::Cow::Borrowed("FAILED"),
+                4 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                5 => std::borrow::Cow::Borrowed("PENDING"),
+                6 => std::borrow::Cow::Borrowed("ABORTED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "ABORTED" => std::option::Option::Some(Self::ABORTED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
-        /// The `AutomationRun` has an unspecified state.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
-
-        /// The `AutomationRun` has succeeded.
-        pub const SUCCEEDED: State = State::new("SUCCEEDED");
-
-        /// The `AutomationRun` was cancelled.
-        pub const CANCELLED: State = State::new("CANCELLED");
-
-        /// The `AutomationRun` has failed.
-        pub const FAILED: State = State::new("FAILED");
-
-        /// The `AutomationRun` is in progress.
-        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
-
-        /// The `AutomationRun` is pending.
-        pub const PENDING: State = State::new("PENDING");
-
-        /// The `AutomationRun` was aborted.
-        pub const ABORTED: State = State::new("ABORTED");
-    }
-
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -14833,92 +15239,123 @@ pub mod deploy_policy_evaluation_event {
 
     /// The policy verdict of the request.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyVerdict(std::borrow::Cow<'static, str>);
+    pub struct PolicyVerdict(i32);
 
     impl PolicyVerdict {
-        /// Creates a new PolicyVerdict instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [PolicyVerdict](PolicyVerdict)
-    pub mod policy_verdict {
-        use super::PolicyVerdict;
-
         /// This should never happen.
-        pub const POLICY_VERDICT_UNSPECIFIED: PolicyVerdict =
-            PolicyVerdict::new("POLICY_VERDICT_UNSPECIFIED");
+        pub const POLICY_VERDICT_UNSPECIFIED: PolicyVerdict = PolicyVerdict::new(0);
 
         /// Allowed by policy. This enum value is not currently used but may be used
         /// in the future. Currently logs are only generated when a request is denied
         /// by policy.
-        pub const ALLOWED_BY_POLICY: PolicyVerdict = PolicyVerdict::new("ALLOWED_BY_POLICY");
+        pub const ALLOWED_BY_POLICY: PolicyVerdict = PolicyVerdict::new(1);
 
         /// Denied by policy.
-        pub const DENIED_BY_POLICY: PolicyVerdict = PolicyVerdict::new("DENIED_BY_POLICY");
+        pub const DENIED_BY_POLICY: PolicyVerdict = PolicyVerdict::new(2);
+
+        /// Creates a new PolicyVerdict instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("POLICY_VERDICT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ALLOWED_BY_POLICY"),
+                2 => std::borrow::Cow::Borrowed("DENIED_BY_POLICY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "POLICY_VERDICT_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::POLICY_VERDICT_UNSPECIFIED)
+                }
+                "ALLOWED_BY_POLICY" => std::option::Option::Some(Self::ALLOWED_BY_POLICY),
+                "DENIED_BY_POLICY" => std::option::Option::Some(Self::DENIED_BY_POLICY),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for PolicyVerdict {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PolicyVerdict {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyVerdict {
         fn default() -> Self {
-            policy_verdict::POLICY_VERDICT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Things that could have overridden the policy verdict. When overrides are
     /// used, the request will be allowed even if it is DENIED_BY_POLICY.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyVerdictOverride(std::borrow::Cow<'static, str>);
+    pub struct PolicyVerdictOverride(i32);
 
     impl PolicyVerdictOverride {
+        /// This should never happen.
+        pub const POLICY_VERDICT_OVERRIDE_UNSPECIFIED: PolicyVerdictOverride =
+            PolicyVerdictOverride::new(0);
+
+        /// The policy was overridden.
+        pub const POLICY_OVERRIDDEN: PolicyVerdictOverride = PolicyVerdictOverride::new(1);
+
+        /// The policy was suspended.
+        pub const POLICY_SUSPENDED: PolicyVerdictOverride = PolicyVerdictOverride::new(2);
+
         /// Creates a new PolicyVerdictOverride instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("POLICY_VERDICT_OVERRIDE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("POLICY_OVERRIDDEN"),
+                2 => std::borrow::Cow::Borrowed("POLICY_SUSPENDED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "POLICY_VERDICT_OVERRIDE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::POLICY_VERDICT_OVERRIDE_UNSPECIFIED)
+                }
+                "POLICY_OVERRIDDEN" => std::option::Option::Some(Self::POLICY_OVERRIDDEN),
+                "POLICY_SUSPENDED" => std::option::Option::Some(Self::POLICY_SUSPENDED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [PolicyVerdictOverride](PolicyVerdictOverride)
-    pub mod policy_verdict_override {
-        use super::PolicyVerdictOverride;
-
-        /// This should never happen.
-        pub const POLICY_VERDICT_OVERRIDE_UNSPECIFIED: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_VERDICT_OVERRIDE_UNSPECIFIED");
-
-        /// The policy was overridden.
-        pub const POLICY_OVERRIDDEN: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_OVERRIDDEN");
-
-        /// The policy was suspended.
-        pub const POLICY_SUSPENDED: PolicyVerdictOverride =
-            PolicyVerdictOverride::new("POLICY_SUSPENDED");
-    }
-
-    impl std::convert::From<std::string::String> for PolicyVerdictOverride {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for PolicyVerdictOverride {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyVerdictOverride {
         fn default() -> Self {
-            policy_verdict_override::POLICY_VERDICT_OVERRIDE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -15459,78 +15896,115 @@ pub mod rollout_update_event {
 
     /// RolloutUpdateType indicates the type of the rollout update.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolloutUpdateType(std::borrow::Cow<'static, str>);
+    pub struct RolloutUpdateType(i32);
 
     impl RolloutUpdateType {
+        /// Rollout update type unspecified.
+        pub const ROLLOUT_UPDATE_TYPE_UNSPECIFIED: RolloutUpdateType = RolloutUpdateType::new(0);
+
+        /// rollout state updated to pending.
+        pub const PENDING: RolloutUpdateType = RolloutUpdateType::new(1);
+
+        /// Rollout state updated to pending release.
+        pub const PENDING_RELEASE: RolloutUpdateType = RolloutUpdateType::new(2);
+
+        /// Rollout state updated to in progress.
+        pub const IN_PROGRESS: RolloutUpdateType = RolloutUpdateType::new(3);
+
+        /// Rollout state updated to cancelling.
+        pub const CANCELLING: RolloutUpdateType = RolloutUpdateType::new(4);
+
+        /// Rollout state updated to cancelled.
+        pub const CANCELLED: RolloutUpdateType = RolloutUpdateType::new(5);
+
+        /// Rollout state updated to halted.
+        pub const HALTED: RolloutUpdateType = RolloutUpdateType::new(6);
+
+        /// Rollout state updated to succeeded.
+        pub const SUCCEEDED: RolloutUpdateType = RolloutUpdateType::new(7);
+
+        /// Rollout state updated to failed.
+        pub const FAILED: RolloutUpdateType = RolloutUpdateType::new(8);
+
+        /// Rollout requires approval.
+        pub const APPROVAL_REQUIRED: RolloutUpdateType = RolloutUpdateType::new(9);
+
+        /// Rollout has been approved.
+        pub const APPROVED: RolloutUpdateType = RolloutUpdateType::new(10);
+
+        /// Rollout has been rejected.
+        pub const REJECTED: RolloutUpdateType = RolloutUpdateType::new(11);
+
+        /// Rollout requires advance to the next phase.
+        pub const ADVANCE_REQUIRED: RolloutUpdateType = RolloutUpdateType::new(12);
+
+        /// Rollout has been advanced.
+        pub const ADVANCED: RolloutUpdateType = RolloutUpdateType::new(13);
+
         /// Creates a new RolloutUpdateType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ROLLOUT_UPDATE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("PENDING"),
+                2 => std::borrow::Cow::Borrowed("PENDING_RELEASE"),
+                3 => std::borrow::Cow::Borrowed("IN_PROGRESS"),
+                4 => std::borrow::Cow::Borrowed("CANCELLING"),
+                5 => std::borrow::Cow::Borrowed("CANCELLED"),
+                6 => std::borrow::Cow::Borrowed("HALTED"),
+                7 => std::borrow::Cow::Borrowed("SUCCEEDED"),
+                8 => std::borrow::Cow::Borrowed("FAILED"),
+                9 => std::borrow::Cow::Borrowed("APPROVAL_REQUIRED"),
+                10 => std::borrow::Cow::Borrowed("APPROVED"),
+                11 => std::borrow::Cow::Borrowed("REJECTED"),
+                12 => std::borrow::Cow::Borrowed("ADVANCE_REQUIRED"),
+                13 => std::borrow::Cow::Borrowed("ADVANCED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ROLLOUT_UPDATE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ROLLOUT_UPDATE_TYPE_UNSPECIFIED)
+                }
+                "PENDING" => std::option::Option::Some(Self::PENDING),
+                "PENDING_RELEASE" => std::option::Option::Some(Self::PENDING_RELEASE),
+                "IN_PROGRESS" => std::option::Option::Some(Self::IN_PROGRESS),
+                "CANCELLING" => std::option::Option::Some(Self::CANCELLING),
+                "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
+                "HALTED" => std::option::Option::Some(Self::HALTED),
+                "SUCCEEDED" => std::option::Option::Some(Self::SUCCEEDED),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "APPROVAL_REQUIRED" => std::option::Option::Some(Self::APPROVAL_REQUIRED),
+                "APPROVED" => std::option::Option::Some(Self::APPROVED),
+                "REJECTED" => std::option::Option::Some(Self::REJECTED),
+                "ADVANCE_REQUIRED" => std::option::Option::Some(Self::ADVANCE_REQUIRED),
+                "ADVANCED" => std::option::Option::Some(Self::ADVANCED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RolloutUpdateType](RolloutUpdateType)
-    pub mod rollout_update_type {
-        use super::RolloutUpdateType;
-
-        /// Rollout update type unspecified.
-        pub const ROLLOUT_UPDATE_TYPE_UNSPECIFIED: RolloutUpdateType =
-            RolloutUpdateType::new("ROLLOUT_UPDATE_TYPE_UNSPECIFIED");
-
-        /// rollout state updated to pending.
-        pub const PENDING: RolloutUpdateType = RolloutUpdateType::new("PENDING");
-
-        /// Rollout state updated to pending release.
-        pub const PENDING_RELEASE: RolloutUpdateType = RolloutUpdateType::new("PENDING_RELEASE");
-
-        /// Rollout state updated to in progress.
-        pub const IN_PROGRESS: RolloutUpdateType = RolloutUpdateType::new("IN_PROGRESS");
-
-        /// Rollout state updated to cancelling.
-        pub const CANCELLING: RolloutUpdateType = RolloutUpdateType::new("CANCELLING");
-
-        /// Rollout state updated to cancelled.
-        pub const CANCELLED: RolloutUpdateType = RolloutUpdateType::new("CANCELLED");
-
-        /// Rollout state updated to halted.
-        pub const HALTED: RolloutUpdateType = RolloutUpdateType::new("HALTED");
-
-        /// Rollout state updated to succeeded.
-        pub const SUCCEEDED: RolloutUpdateType = RolloutUpdateType::new("SUCCEEDED");
-
-        /// Rollout state updated to failed.
-        pub const FAILED: RolloutUpdateType = RolloutUpdateType::new("FAILED");
-
-        /// Rollout requires approval.
-        pub const APPROVAL_REQUIRED: RolloutUpdateType =
-            RolloutUpdateType::new("APPROVAL_REQUIRED");
-
-        /// Rollout has been approved.
-        pub const APPROVED: RolloutUpdateType = RolloutUpdateType::new("APPROVED");
-
-        /// Rollout has been rejected.
-        pub const REJECTED: RolloutUpdateType = RolloutUpdateType::new("REJECTED");
-
-        /// Rollout requires advance to the next phase.
-        pub const ADVANCE_REQUIRED: RolloutUpdateType = RolloutUpdateType::new("ADVANCE_REQUIRED");
-
-        /// Rollout has been advanced.
-        pub const ADVANCED: RolloutUpdateType = RolloutUpdateType::new("ADVANCED");
-    }
-
-    impl std::convert::From<std::string::String> for RolloutUpdateType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RolloutUpdateType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RolloutUpdateType {
         fn default() -> Self {
-            rollout_update_type::ROLLOUT_UPDATE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -15588,206 +16062,304 @@ impl wkt::message::Message for TargetNotificationEvent {
 
 /// The support state of a specific Skaffold version.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SkaffoldSupportState(std::borrow::Cow<'static, str>);
+pub struct SkaffoldSupportState(i32);
 
 impl SkaffoldSupportState {
-    /// Creates a new SkaffoldSupportState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
-
-/// Useful constants to work with [SkaffoldSupportState](SkaffoldSupportState)
-pub mod skaffold_support_state {
-    use super::SkaffoldSupportState;
-
     /// Default value. This value is unused.
     pub const SKAFFOLD_SUPPORT_STATE_UNSPECIFIED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_UNSPECIFIED");
+        SkaffoldSupportState::new(0);
 
     /// This Skaffold version is currently supported.
-    pub const SKAFFOLD_SUPPORT_STATE_SUPPORTED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_SUPPORTED");
+    pub const SKAFFOLD_SUPPORT_STATE_SUPPORTED: SkaffoldSupportState = SkaffoldSupportState::new(1);
 
     /// This Skaffold version is in maintenance mode.
     pub const SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE");
+        SkaffoldSupportState::new(2);
 
     /// This Skaffold version is no longer supported.
     pub const SKAFFOLD_SUPPORT_STATE_UNSUPPORTED: SkaffoldSupportState =
-        SkaffoldSupportState::new("SKAFFOLD_SUPPORT_STATE_UNSUPPORTED");
+        SkaffoldSupportState::new(3);
+
+    /// Creates a new SkaffoldSupportState instance.
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("SKAFFOLD_SUPPORT_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SKAFFOLD_SUPPORT_STATE_SUPPORTED"),
+            2 => std::borrow::Cow::Borrowed("SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE"),
+            3 => std::borrow::Cow::Borrowed("SKAFFOLD_SUPPORT_STATE_UNSUPPORTED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "SKAFFOLD_SUPPORT_STATE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED)
+            }
+            "SKAFFOLD_SUPPORT_STATE_SUPPORTED" => {
+                std::option::Option::Some(Self::SKAFFOLD_SUPPORT_STATE_SUPPORTED)
+            }
+            "SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE" => {
+                std::option::Option::Some(Self::SKAFFOLD_SUPPORT_STATE_MAINTENANCE_MODE)
+            }
+            "SKAFFOLD_SUPPORT_STATE_UNSUPPORTED" => {
+                std::option::Option::Some(Self::SKAFFOLD_SUPPORT_STATE_UNSUPPORTED)
+            }
+            _ => std::option::Option::None,
+        }
+    }
 }
 
-impl std::convert::From<std::string::String> for SkaffoldSupportState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for SkaffoldSupportState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for SkaffoldSupportState {
     fn default() -> Self {
-        skaffold_support_state::SKAFFOLD_SUPPORT_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// The pattern of how wait time is increased.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BackoffMode(std::borrow::Cow<'static, str>);
+pub struct BackoffMode(i32);
 
 impl BackoffMode {
+    /// No WaitMode is specified.
+    pub const BACKOFF_MODE_UNSPECIFIED: BackoffMode = BackoffMode::new(0);
+
+    /// Increases the wait time linearly.
+    pub const BACKOFF_MODE_LINEAR: BackoffMode = BackoffMode::new(1);
+
+    /// Increases the wait time exponentially.
+    pub const BACKOFF_MODE_EXPONENTIAL: BackoffMode = BackoffMode::new(2);
+
     /// Creates a new BackoffMode instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("BACKOFF_MODE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("BACKOFF_MODE_LINEAR"),
+            2 => std::borrow::Cow::Borrowed("BACKOFF_MODE_EXPONENTIAL"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "BACKOFF_MODE_UNSPECIFIED" => std::option::Option::Some(Self::BACKOFF_MODE_UNSPECIFIED),
+            "BACKOFF_MODE_LINEAR" => std::option::Option::Some(Self::BACKOFF_MODE_LINEAR),
+            "BACKOFF_MODE_EXPONENTIAL" => std::option::Option::Some(Self::BACKOFF_MODE_EXPONENTIAL),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [BackoffMode](BackoffMode)
-pub mod backoff_mode {
-    use super::BackoffMode;
-
-    /// No WaitMode is specified.
-    pub const BACKOFF_MODE_UNSPECIFIED: BackoffMode = BackoffMode::new("BACKOFF_MODE_UNSPECIFIED");
-
-    /// Increases the wait time linearly.
-    pub const BACKOFF_MODE_LINEAR: BackoffMode = BackoffMode::new("BACKOFF_MODE_LINEAR");
-
-    /// Increases the wait time exponentially.
-    pub const BACKOFF_MODE_EXPONENTIAL: BackoffMode = BackoffMode::new("BACKOFF_MODE_EXPONENTIAL");
-}
-
-impl std::convert::From<std::string::String> for BackoffMode {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for BackoffMode {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for BackoffMode {
     fn default() -> Self {
-        backoff_mode::BACKOFF_MODE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Valid state of a repair attempt.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RepairState(std::borrow::Cow<'static, str>);
+pub struct RepairState(i32);
 
 impl RepairState {
+    /// The `repair` has an unspecified state.
+    pub const REPAIR_STATE_UNSPECIFIED: RepairState = RepairState::new(0);
+
+    /// The `repair` action has succeeded.
+    pub const REPAIR_STATE_SUCCEEDED: RepairState = RepairState::new(1);
+
+    /// The `repair` action was cancelled.
+    pub const REPAIR_STATE_CANCELLED: RepairState = RepairState::new(2);
+
+    /// The `repair` action has failed.
+    pub const REPAIR_STATE_FAILED: RepairState = RepairState::new(3);
+
+    /// The `repair` action is in progress.
+    pub const REPAIR_STATE_IN_PROGRESS: RepairState = RepairState::new(4);
+
+    /// The `repair` action is pending.
+    pub const REPAIR_STATE_PENDING: RepairState = RepairState::new(5);
+
+    /// The `repair` action was aborted.
+    pub const REPAIR_STATE_ABORTED: RepairState = RepairState::new(7);
+
     /// Creates a new RepairState instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("REPAIR_STATE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("REPAIR_STATE_SUCCEEDED"),
+            2 => std::borrow::Cow::Borrowed("REPAIR_STATE_CANCELLED"),
+            3 => std::borrow::Cow::Borrowed("REPAIR_STATE_FAILED"),
+            4 => std::borrow::Cow::Borrowed("REPAIR_STATE_IN_PROGRESS"),
+            5 => std::borrow::Cow::Borrowed("REPAIR_STATE_PENDING"),
+            7 => std::borrow::Cow::Borrowed("REPAIR_STATE_ABORTED"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "REPAIR_STATE_UNSPECIFIED" => std::option::Option::Some(Self::REPAIR_STATE_UNSPECIFIED),
+            "REPAIR_STATE_SUCCEEDED" => std::option::Option::Some(Self::REPAIR_STATE_SUCCEEDED),
+            "REPAIR_STATE_CANCELLED" => std::option::Option::Some(Self::REPAIR_STATE_CANCELLED),
+            "REPAIR_STATE_FAILED" => std::option::Option::Some(Self::REPAIR_STATE_FAILED),
+            "REPAIR_STATE_IN_PROGRESS" => std::option::Option::Some(Self::REPAIR_STATE_IN_PROGRESS),
+            "REPAIR_STATE_PENDING" => std::option::Option::Some(Self::REPAIR_STATE_PENDING),
+            "REPAIR_STATE_ABORTED" => std::option::Option::Some(Self::REPAIR_STATE_ABORTED),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [RepairState](RepairState)
-pub mod repair_state {
-    use super::RepairState;
-
-    /// The `repair` has an unspecified state.
-    pub const REPAIR_STATE_UNSPECIFIED: RepairState = RepairState::new("REPAIR_STATE_UNSPECIFIED");
-
-    /// The `repair` action has succeeded.
-    pub const REPAIR_STATE_SUCCEEDED: RepairState = RepairState::new("REPAIR_STATE_SUCCEEDED");
-
-    /// The `repair` action was cancelled.
-    pub const REPAIR_STATE_CANCELLED: RepairState = RepairState::new("REPAIR_STATE_CANCELLED");
-
-    /// The `repair` action has failed.
-    pub const REPAIR_STATE_FAILED: RepairState = RepairState::new("REPAIR_STATE_FAILED");
-
-    /// The `repair` action is in progress.
-    pub const REPAIR_STATE_IN_PROGRESS: RepairState = RepairState::new("REPAIR_STATE_IN_PROGRESS");
-
-    /// The `repair` action is pending.
-    pub const REPAIR_STATE_PENDING: RepairState = RepairState::new("REPAIR_STATE_PENDING");
-
-    /// The `repair` action was aborted.
-    pub const REPAIR_STATE_ABORTED: RepairState = RepairState::new("REPAIR_STATE_ABORTED");
-}
-
-impl std::convert::From<std::string::String> for RepairState {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for RepairState {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for RepairState {
     fn default() -> Self {
-        repair_state::REPAIR_STATE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Type indicates the type of the log entry and can be used as a filter.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Type(std::borrow::Cow<'static, str>);
+pub struct Type(i32);
 
 impl Type {
+    /// Type is unspecified.
+    pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+    /// A Pub/Sub notification failed to be sent.
+    pub const TYPE_PUBSUB_NOTIFICATION_FAILURE: Type = Type::new(1);
+
+    /// Resource state changed.
+    pub const TYPE_RESOURCE_STATE_CHANGE: Type = Type::new(3);
+
+    /// A process aborted.
+    pub const TYPE_PROCESS_ABORTED: Type = Type::new(4);
+
+    /// Restriction check failed.
+    pub const TYPE_RESTRICTION_VIOLATED: Type = Type::new(5);
+
+    /// Resource deleted.
+    pub const TYPE_RESOURCE_DELETED: Type = Type::new(6);
+
+    /// Rollout updated.
+    pub const TYPE_ROLLOUT_UPDATE: Type = Type::new(7);
+
+    /// Deploy Policy evaluation.
+    pub const TYPE_DEPLOY_POLICY_EVALUATION: Type = Type::new(8);
+
+    /// Deprecated: This field is never used. Use release_render log type instead.
+    pub const TYPE_RENDER_STATUES_CHANGE: Type = Type::new(2);
+
     /// Creates a new Type instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("TYPE_PUBSUB_NOTIFICATION_FAILURE"),
+            2 => std::borrow::Cow::Borrowed("TYPE_RENDER_STATUES_CHANGE"),
+            3 => std::borrow::Cow::Borrowed("TYPE_RESOURCE_STATE_CHANGE"),
+            4 => std::borrow::Cow::Borrowed("TYPE_PROCESS_ABORTED"),
+            5 => std::borrow::Cow::Borrowed("TYPE_RESTRICTION_VIOLATED"),
+            6 => std::borrow::Cow::Borrowed("TYPE_RESOURCE_DELETED"),
+            7 => std::borrow::Cow::Borrowed("TYPE_ROLLOUT_UPDATE"),
+            8 => std::borrow::Cow::Borrowed("TYPE_DEPLOY_POLICY_EVALUATION"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+            "TYPE_PUBSUB_NOTIFICATION_FAILURE" => {
+                std::option::Option::Some(Self::TYPE_PUBSUB_NOTIFICATION_FAILURE)
+            }
+            "TYPE_RESOURCE_STATE_CHANGE" => {
+                std::option::Option::Some(Self::TYPE_RESOURCE_STATE_CHANGE)
+            }
+            "TYPE_PROCESS_ABORTED" => std::option::Option::Some(Self::TYPE_PROCESS_ABORTED),
+            "TYPE_RESTRICTION_VIOLATED" => {
+                std::option::Option::Some(Self::TYPE_RESTRICTION_VIOLATED)
+            }
+            "TYPE_RESOURCE_DELETED" => std::option::Option::Some(Self::TYPE_RESOURCE_DELETED),
+            "TYPE_ROLLOUT_UPDATE" => std::option::Option::Some(Self::TYPE_ROLLOUT_UPDATE),
+            "TYPE_DEPLOY_POLICY_EVALUATION" => {
+                std::option::Option::Some(Self::TYPE_DEPLOY_POLICY_EVALUATION)
+            }
+            "TYPE_RENDER_STATUES_CHANGE" => {
+                std::option::Option::Some(Self::TYPE_RENDER_STATUES_CHANGE)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [Type](Type)
-pub mod r#type {
-    use super::Type;
-
-    /// Type is unspecified.
-    pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
-
-    /// A Pub/Sub notification failed to be sent.
-    pub const TYPE_PUBSUB_NOTIFICATION_FAILURE: Type =
-        Type::new("TYPE_PUBSUB_NOTIFICATION_FAILURE");
-
-    /// Resource state changed.
-    pub const TYPE_RESOURCE_STATE_CHANGE: Type = Type::new("TYPE_RESOURCE_STATE_CHANGE");
-
-    /// A process aborted.
-    pub const TYPE_PROCESS_ABORTED: Type = Type::new("TYPE_PROCESS_ABORTED");
-
-    /// Restriction check failed.
-    pub const TYPE_RESTRICTION_VIOLATED: Type = Type::new("TYPE_RESTRICTION_VIOLATED");
-
-    /// Resource deleted.
-    pub const TYPE_RESOURCE_DELETED: Type = Type::new("TYPE_RESOURCE_DELETED");
-
-    /// Rollout updated.
-    pub const TYPE_ROLLOUT_UPDATE: Type = Type::new("TYPE_ROLLOUT_UPDATE");
-
-    /// Deploy Policy evaluation.
-    pub const TYPE_DEPLOY_POLICY_EVALUATION: Type = Type::new("TYPE_DEPLOY_POLICY_EVALUATION");
-
-    /// Deprecated: This field is never used. Use release_render log type instead.
-    pub const TYPE_RENDER_STATUES_CHANGE: Type = Type::new("TYPE_RENDER_STATUES_CHANGE");
-}
-
-impl std::convert::From<std::string::String> for Type {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for Type {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for Type {
     fn default() -> Self {
-        r#type::TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

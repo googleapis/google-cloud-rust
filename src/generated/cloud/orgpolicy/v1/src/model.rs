@@ -445,43 +445,60 @@ pub mod policy {
         /// must be unset. Setting this to `ALL_VALUES_UNSPECIFIED` allows for
         /// setting `allowed_values` and `denied_values`.
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct AllValues(std::borrow::Cow<'static, str>);
+        pub struct AllValues(i32);
 
         impl AllValues {
+            /// Indicates that allowed_values or denied_values must be set.
+            pub const ALL_VALUES_UNSPECIFIED: AllValues = AllValues::new(0);
+
+            /// A policy with this set allows all values.
+            pub const ALLOW: AllValues = AllValues::new(1);
+
+            /// A policy with this set denies all values.
+            pub const DENY: AllValues = AllValues::new(2);
+
             /// Creates a new AllValues instance.
-            pub const fn new(v: &'static str) -> Self {
-                Self(std::borrow::Cow::Borrowed(v))
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
             }
 
             /// Gets the enum value.
-            pub fn value(&self) -> &str {
-                &self.0
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ALL_VALUES_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ALLOW"),
+                    2 => std::borrow::Cow::Borrowed("DENY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ALL_VALUES_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ALL_VALUES_UNSPECIFIED)
+                    }
+                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                    "DENY" => std::option::Option::Some(Self::DENY),
+                    _ => std::option::Option::None,
+                }
             }
         }
 
-        /// Useful constants to work with [AllValues](AllValues)
-        pub mod all_values {
-            use super::AllValues;
-
-            /// Indicates that allowed_values or denied_values must be set.
-            pub const ALL_VALUES_UNSPECIFIED: AllValues = AllValues::new("ALL_VALUES_UNSPECIFIED");
-
-            /// A policy with this set allows all values.
-            pub const ALLOW: AllValues = AllValues::new("ALLOW");
-
-            /// A policy with this set denies all values.
-            pub const DENY: AllValues = AllValues::new("DENY");
-        }
-
-        impl std::convert::From<std::string::String> for AllValues {
-            fn from(value: std::string::String) -> Self {
-                Self(std::borrow::Cow::Owned(value))
+        impl std::convert::From<i32> for AllValues {
+            fn from(value: i32) -> Self {
+                Self::new(value)
             }
         }
 
         impl std::default::Default for AllValues {
             fn default() -> Self {
-                all_values::ALL_VALUES_UNSPECIFIED
+                Self::new(0)
             }
         }
     }

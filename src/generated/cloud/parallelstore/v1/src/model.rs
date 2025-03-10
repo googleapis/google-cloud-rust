@@ -268,56 +268,79 @@ pub mod instance {
 
     /// The possible states of a Parallelstore instance.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::borrow::Cow<'static, str>);
+    pub struct State(i32);
 
     impl State {
-        /// Creates a new State instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [State](State)
-    pub mod state {
-        use super::State;
-
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
+        pub const STATE_UNSPECIFIED: State = State::new(0);
 
         /// The instance is being created.
-        pub const CREATING: State = State::new("CREATING");
+        pub const CREATING: State = State::new(1);
 
         /// The instance is available for use.
-        pub const ACTIVE: State = State::new("ACTIVE");
+        pub const ACTIVE: State = State::new(2);
 
         /// The instance is being deleted.
-        pub const DELETING: State = State::new("DELETING");
+        pub const DELETING: State = State::new(3);
 
         /// The instance is not usable.
-        pub const FAILED: State = State::new("FAILED");
+        pub const FAILED: State = State::new(4);
 
         /// The instance is being upgraded.
-        pub const UPGRADING: State = State::new("UPGRADING");
+        pub const UPGRADING: State = State::new(5);
 
         /// The instance is being repaired. This should only be used by instances
         /// using the `PERSISTENT` deployment type.
-        pub const REPAIRING: State = State::new("REPAIRING");
+        pub const REPAIRING: State = State::new(6);
+
+        /// Creates a new State instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CREATING"),
+                2 => std::borrow::Cow::Borrowed("ACTIVE"),
+                3 => std::borrow::Cow::Borrowed("DELETING"),
+                4 => std::borrow::Cow::Borrowed("FAILED"),
+                5 => std::borrow::Cow::Borrowed("UPGRADING"),
+                6 => std::borrow::Cow::Borrowed("REPAIRING"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
+                "CREATING" => std::option::Option::Some(Self::CREATING),
+                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
+                "DELETING" => std::option::Option::Some(Self::DELETING),
+                "FAILED" => std::option::Option::Some(Self::FAILED),
+                "UPGRADING" => std::option::Option::Some(Self::UPGRADING),
+                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for State {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            state::STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2031,185 +2054,256 @@ impl wkt::message::Message for TransferCounters {
 
 /// Type of transfer that occurred.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferType(std::borrow::Cow<'static, str>);
+pub struct TransferType(i32);
 
 impl TransferType {
+    /// Zero is an illegal value.
+    pub const TRANSFER_TYPE_UNSPECIFIED: TransferType = TransferType::new(0);
+
+    /// Imports to Parallelstore.
+    pub const IMPORT: TransferType = TransferType::new(1);
+
+    /// Exports from Parallelstore.
+    pub const EXPORT: TransferType = TransferType::new(2);
+
     /// Creates a new TransferType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("TRANSFER_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("IMPORT"),
+            2 => std::borrow::Cow::Borrowed("EXPORT"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "TRANSFER_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::TRANSFER_TYPE_UNSPECIFIED)
+            }
+            "IMPORT" => std::option::Option::Some(Self::IMPORT),
+            "EXPORT" => std::option::Option::Some(Self::EXPORT),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [TransferType](TransferType)
-pub mod transfer_type {
-    use super::TransferType;
-
-    /// Zero is an illegal value.
-    pub const TRANSFER_TYPE_UNSPECIFIED: TransferType =
-        TransferType::new("TRANSFER_TYPE_UNSPECIFIED");
-
-    /// Imports to Parallelstore.
-    pub const IMPORT: TransferType = TransferType::new("IMPORT");
-
-    /// Exports from Parallelstore.
-    pub const EXPORT: TransferType = TransferType::new("EXPORT");
-}
-
-impl std::convert::From<std::string::String> for TransferType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for TransferType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for TransferType {
     fn default() -> Self {
-        transfer_type::TRANSFER_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Represents the striping options for files.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FileStripeLevel(std::borrow::Cow<'static, str>);
+pub struct FileStripeLevel(i32);
 
 impl FileStripeLevel {
+    /// If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
+    pub const FILE_STRIPE_LEVEL_UNSPECIFIED: FileStripeLevel = FileStripeLevel::new(0);
+
+    /// Minimum file striping
+    pub const FILE_STRIPE_LEVEL_MIN: FileStripeLevel = FileStripeLevel::new(1);
+
+    /// Medium file striping
+    pub const FILE_STRIPE_LEVEL_BALANCED: FileStripeLevel = FileStripeLevel::new(2);
+
+    /// Maximum file striping
+    pub const FILE_STRIPE_LEVEL_MAX: FileStripeLevel = FileStripeLevel::new(3);
+
     /// Creates a new FileStripeLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_MIN"),
+            2 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_BALANCED"),
+            3 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_MAX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "FILE_STRIPE_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::FILE_STRIPE_LEVEL_UNSPECIFIED)
+            }
+            "FILE_STRIPE_LEVEL_MIN" => std::option::Option::Some(Self::FILE_STRIPE_LEVEL_MIN),
+            "FILE_STRIPE_LEVEL_BALANCED" => {
+                std::option::Option::Some(Self::FILE_STRIPE_LEVEL_BALANCED)
+            }
+            "FILE_STRIPE_LEVEL_MAX" => std::option::Option::Some(Self::FILE_STRIPE_LEVEL_MAX),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [FileStripeLevel](FileStripeLevel)
-pub mod file_stripe_level {
-    use super::FileStripeLevel;
-
-    /// If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
-    pub const FILE_STRIPE_LEVEL_UNSPECIFIED: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_UNSPECIFIED");
-
-    /// Minimum file striping
-    pub const FILE_STRIPE_LEVEL_MIN: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_MIN");
-
-    /// Medium file striping
-    pub const FILE_STRIPE_LEVEL_BALANCED: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_BALANCED");
-
-    /// Maximum file striping
-    pub const FILE_STRIPE_LEVEL_MAX: FileStripeLevel =
-        FileStripeLevel::new("FILE_STRIPE_LEVEL_MAX");
-}
-
-impl std::convert::From<std::string::String> for FileStripeLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for FileStripeLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for FileStripeLevel {
     fn default() -> Self {
-        file_stripe_level::FILE_STRIPE_LEVEL_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Represents the striping options for directories.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DirectoryStripeLevel(std::borrow::Cow<'static, str>);
+pub struct DirectoryStripeLevel(i32);
 
 impl DirectoryStripeLevel {
+    /// If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
+    pub const DIRECTORY_STRIPE_LEVEL_UNSPECIFIED: DirectoryStripeLevel =
+        DirectoryStripeLevel::new(0);
+
+    /// Minimum directory striping
+    pub const DIRECTORY_STRIPE_LEVEL_MIN: DirectoryStripeLevel = DirectoryStripeLevel::new(1);
+
+    /// Medium directory striping
+    pub const DIRECTORY_STRIPE_LEVEL_BALANCED: DirectoryStripeLevel = DirectoryStripeLevel::new(2);
+
+    /// Maximum directory striping
+    pub const DIRECTORY_STRIPE_LEVEL_MAX: DirectoryStripeLevel = DirectoryStripeLevel::new(3);
+
     /// Creates a new DirectoryStripeLevel instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_MIN"),
+            2 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_BALANCED"),
+            3 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_MAX"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DIRECTORY_STRIPE_LEVEL_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED)
+            }
+            "DIRECTORY_STRIPE_LEVEL_MIN" => {
+                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_MIN)
+            }
+            "DIRECTORY_STRIPE_LEVEL_BALANCED" => {
+                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_BALANCED)
+            }
+            "DIRECTORY_STRIPE_LEVEL_MAX" => {
+                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_MAX)
+            }
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DirectoryStripeLevel](DirectoryStripeLevel)
-pub mod directory_stripe_level {
-    use super::DirectoryStripeLevel;
-
-    /// If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
-    pub const DIRECTORY_STRIPE_LEVEL_UNSPECIFIED: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED");
-
-    /// Minimum directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_MIN: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_MIN");
-
-    /// Medium directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_BALANCED: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_BALANCED");
-
-    /// Maximum directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_MAX: DirectoryStripeLevel =
-        DirectoryStripeLevel::new("DIRECTORY_STRIPE_LEVEL_MAX");
-}
-
-impl std::convert::From<std::string::String> for DirectoryStripeLevel {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DirectoryStripeLevel {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DirectoryStripeLevel {
     fn default() -> Self {
-        directory_stripe_level::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED
+        Self::new(0)
     }
 }
 
 /// Represents the deployment type for the instance.
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentType(std::borrow::Cow<'static, str>);
+pub struct DeploymentType(i32);
 
 impl DeploymentType {
+    /// Default Deployment Type
+    /// It is equivalent to SCRATCH
+    pub const DEPLOYMENT_TYPE_UNSPECIFIED: DeploymentType = DeploymentType::new(0);
+
+    /// Scratch
+    pub const SCRATCH: DeploymentType = DeploymentType::new(1);
+
+    /// Persistent
+    pub const PERSISTENT: DeploymentType = DeploymentType::new(2);
+
     /// Creates a new DeploymentType instance.
-    pub const fn new(v: &'static str) -> Self {
-        Self(std::borrow::Cow::Borrowed(v))
+    pub(crate) const fn new(value: i32) -> Self {
+        Self(value)
     }
 
     /// Gets the enum value.
-    pub fn value(&self) -> &str {
-        &self.0
+    pub fn value(&self) -> i32 {
+        self.0
+    }
+
+    /// Gets the enum value as a string.
+    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+        match self.0 {
+            0 => std::borrow::Cow::Borrowed("DEPLOYMENT_TYPE_UNSPECIFIED"),
+            1 => std::borrow::Cow::Borrowed("SCRATCH"),
+            2 => std::borrow::Cow::Borrowed("PERSISTENT"),
+            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        }
+    }
+
+    /// Creates an enum value from the value name.
+    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+        match name {
+            "DEPLOYMENT_TYPE_UNSPECIFIED" => {
+                std::option::Option::Some(Self::DEPLOYMENT_TYPE_UNSPECIFIED)
+            }
+            "SCRATCH" => std::option::Option::Some(Self::SCRATCH),
+            "PERSISTENT" => std::option::Option::Some(Self::PERSISTENT),
+            _ => std::option::Option::None,
+        }
     }
 }
 
-/// Useful constants to work with [DeploymentType](DeploymentType)
-pub mod deployment_type {
-    use super::DeploymentType;
-
-    /// Default Deployment Type
-    /// It is equivalent to SCRATCH
-    pub const DEPLOYMENT_TYPE_UNSPECIFIED: DeploymentType =
-        DeploymentType::new("DEPLOYMENT_TYPE_UNSPECIFIED");
-
-    /// Scratch
-    pub const SCRATCH: DeploymentType = DeploymentType::new("SCRATCH");
-
-    /// Persistent
-    pub const PERSISTENT: DeploymentType = DeploymentType::new("PERSISTENT");
-}
-
-impl std::convert::From<std::string::String> for DeploymentType {
-    fn from(value: std::string::String) -> Self {
-        Self(std::borrow::Cow::Owned(value))
+impl std::convert::From<i32> for DeploymentType {
+    fn from(value: i32) -> Self {
+        Self::new(value)
     }
 }
 
 impl std::default::Default for DeploymentType {
     fn default() -> Self {
-        deployment_type::DEPLOYMENT_TYPE_UNSPECIFIED
+        Self::new(0)
     }
 }

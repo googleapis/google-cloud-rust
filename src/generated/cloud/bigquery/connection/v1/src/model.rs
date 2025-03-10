@@ -735,44 +735,60 @@ pub mod cloud_sql_properties {
 
     /// Supported Cloud SQL database types.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(std::borrow::Cow<'static, str>);
+    pub struct DatabaseType(i32);
 
     impl DatabaseType {
+        /// Unspecified database type.
+        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
+
+        /// Cloud SQL for PostgreSQL.
+        pub const POSTGRES: DatabaseType = DatabaseType::new(1);
+
+        /// Cloud SQL for MySQL.
+        pub const MYSQL: DatabaseType = DatabaseType::new(2);
+
         /// Creates a new DatabaseType instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("POSTGRES"),
+                2 => std::borrow::Cow::Borrowed("MYSQL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATABASE_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
+                }
+                "POSTGRES" => std::option::Option::Some(Self::POSTGRES),
+                "MYSQL" => std::option::Option::Some(Self::MYSQL),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [DatabaseType](DatabaseType)
-    pub mod database_type {
-        use super::DatabaseType;
-
-        /// Unspecified database type.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType =
-            DatabaseType::new("DATABASE_TYPE_UNSPECIFIED");
-
-        /// Cloud SQL for PostgreSQL.
-        pub const POSTGRES: DatabaseType = DatabaseType::new("POSTGRES");
-
-        /// Cloud SQL for MySQL.
-        pub const MYSQL: DatabaseType = DatabaseType::new("MYSQL");
-    }
-
-    impl std::convert::From<std::string::String> for DatabaseType {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            database_type::DATABASE_TYPE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }

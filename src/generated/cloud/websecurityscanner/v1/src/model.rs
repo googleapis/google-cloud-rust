@@ -334,49 +334,68 @@ pub mod finding {
 
     /// The severity level of a vulnerability.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::borrow::Cow<'static, str>);
+    pub struct Severity(i32);
 
     impl Severity {
+        /// No severity specified. The default value.
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
+
+        /// Critical severity.
+        pub const CRITICAL: Severity = Severity::new(1);
+
+        /// High severity.
+        pub const HIGH: Severity = Severity::new(2);
+
+        /// Medium severity.
+        pub const MEDIUM: Severity = Severity::new(3);
+
+        /// Low severity.
+        pub const LOW: Severity = Severity::new(4);
+
         /// Creates a new Severity instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CRITICAL"),
+                2 => std::borrow::Cow::Borrowed("HIGH"),
+                3 => std::borrow::Cow::Borrowed("MEDIUM"),
+                4 => std::borrow::Cow::Borrowed("LOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
+                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
+                "HIGH" => std::option::Option::Some(Self::HIGH),
+                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Severity](Severity)
-    pub mod severity {
-        use super::Severity;
-
-        /// No severity specified. The default value.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
-
-        /// Critical severity.
-        pub const CRITICAL: Severity = Severity::new("CRITICAL");
-
-        /// High severity.
-        pub const HIGH: Severity = Severity::new("HIGH");
-
-        /// Medium severity.
-        pub const MEDIUM: Severity = Severity::new("MEDIUM");
-
-        /// Low severity.
-        pub const LOW: Severity = Severity::new("LOW");
-    }
-
-    impl std::convert::From<std::string::String> for Severity {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            severity::SEVERITY_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -723,84 +742,126 @@ pub mod xss {
 
     /// Types of XSS attack vector.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttackVector(std::borrow::Cow<'static, str>);
+    pub struct AttackVector(i32);
 
     impl AttackVector {
-        /// Creates a new AttackVector instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [AttackVector](AttackVector)
-    pub mod attack_vector {
-        use super::AttackVector;
-
         /// Unknown attack vector.
-        pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector =
-            AttackVector::new("ATTACK_VECTOR_UNSPECIFIED");
+        pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector = AttackVector::new(0);
 
         /// The attack comes from fuzzing the browser's localStorage.
-        pub const LOCAL_STORAGE: AttackVector = AttackVector::new("LOCAL_STORAGE");
+        pub const LOCAL_STORAGE: AttackVector = AttackVector::new(1);
 
         /// The attack comes from fuzzing the browser's sessionStorage.
-        pub const SESSION_STORAGE: AttackVector = AttackVector::new("SESSION_STORAGE");
+        pub const SESSION_STORAGE: AttackVector = AttackVector::new(2);
 
         /// The attack comes from fuzzing the window's name property.
-        pub const WINDOW_NAME: AttackVector = AttackVector::new("WINDOW_NAME");
+        pub const WINDOW_NAME: AttackVector = AttackVector::new(3);
 
         /// The attack comes from fuzzing the referrer property.
-        pub const REFERRER: AttackVector = AttackVector::new("REFERRER");
+        pub const REFERRER: AttackVector = AttackVector::new(4);
 
         /// The attack comes from fuzzing an input element.
-        pub const FORM_INPUT: AttackVector = AttackVector::new("FORM_INPUT");
+        pub const FORM_INPUT: AttackVector = AttackVector::new(5);
 
         /// The attack comes from fuzzing the browser's cookies.
-        pub const COOKIE: AttackVector = AttackVector::new("COOKIE");
+        pub const COOKIE: AttackVector = AttackVector::new(6);
 
         /// The attack comes from hijacking the post messaging mechanism.
-        pub const POST_MESSAGE: AttackVector = AttackVector::new("POST_MESSAGE");
+        pub const POST_MESSAGE: AttackVector = AttackVector::new(7);
 
         /// The attack comes from fuzzing parameters in the url.
-        pub const GET_PARAMETERS: AttackVector = AttackVector::new("GET_PARAMETERS");
+        pub const GET_PARAMETERS: AttackVector = AttackVector::new(8);
 
         /// The attack comes from fuzzing the fragment in the url.
-        pub const URL_FRAGMENT: AttackVector = AttackVector::new("URL_FRAGMENT");
+        pub const URL_FRAGMENT: AttackVector = AttackVector::new(9);
 
         /// The attack comes from fuzzing the HTML comments.
-        pub const HTML_COMMENT: AttackVector = AttackVector::new("HTML_COMMENT");
+        pub const HTML_COMMENT: AttackVector = AttackVector::new(10);
 
         /// The attack comes from fuzzing the POST parameters.
-        pub const POST_PARAMETERS: AttackVector = AttackVector::new("POST_PARAMETERS");
+        pub const POST_PARAMETERS: AttackVector = AttackVector::new(11);
 
         /// The attack comes from fuzzing the protocol.
-        pub const PROTOCOL: AttackVector = AttackVector::new("PROTOCOL");
+        pub const PROTOCOL: AttackVector = AttackVector::new(12);
 
         /// The attack comes from the server side and is stored.
-        pub const STORED_XSS: AttackVector = AttackVector::new("STORED_XSS");
+        pub const STORED_XSS: AttackVector = AttackVector::new(13);
 
         /// The attack is a Same-Origin Method Execution attack via a GET parameter.
-        pub const SAME_ORIGIN: AttackVector = AttackVector::new("SAME_ORIGIN");
+        pub const SAME_ORIGIN: AttackVector = AttackVector::new(14);
 
         /// The attack payload is received from a third-party host via a URL that is
         /// user-controllable
-        pub const USER_CONTROLLABLE_URL: AttackVector = AttackVector::new("USER_CONTROLLABLE_URL");
+        pub const USER_CONTROLLABLE_URL: AttackVector = AttackVector::new(15);
+
+        /// Creates a new AttackVector instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("LOCAL_STORAGE"),
+                2 => std::borrow::Cow::Borrowed("SESSION_STORAGE"),
+                3 => std::borrow::Cow::Borrowed("WINDOW_NAME"),
+                4 => std::borrow::Cow::Borrowed("REFERRER"),
+                5 => std::borrow::Cow::Borrowed("FORM_INPUT"),
+                6 => std::borrow::Cow::Borrowed("COOKIE"),
+                7 => std::borrow::Cow::Borrowed("POST_MESSAGE"),
+                8 => std::borrow::Cow::Borrowed("GET_PARAMETERS"),
+                9 => std::borrow::Cow::Borrowed("URL_FRAGMENT"),
+                10 => std::borrow::Cow::Borrowed("HTML_COMMENT"),
+                11 => std::borrow::Cow::Borrowed("POST_PARAMETERS"),
+                12 => std::borrow::Cow::Borrowed("PROTOCOL"),
+                13 => std::borrow::Cow::Borrowed("STORED_XSS"),
+                14 => std::borrow::Cow::Borrowed("SAME_ORIGIN"),
+                15 => std::borrow::Cow::Borrowed("USER_CONTROLLABLE_URL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "ATTACK_VECTOR_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::ATTACK_VECTOR_UNSPECIFIED)
+                }
+                "LOCAL_STORAGE" => std::option::Option::Some(Self::LOCAL_STORAGE),
+                "SESSION_STORAGE" => std::option::Option::Some(Self::SESSION_STORAGE),
+                "WINDOW_NAME" => std::option::Option::Some(Self::WINDOW_NAME),
+                "REFERRER" => std::option::Option::Some(Self::REFERRER),
+                "FORM_INPUT" => std::option::Option::Some(Self::FORM_INPUT),
+                "COOKIE" => std::option::Option::Some(Self::COOKIE),
+                "POST_MESSAGE" => std::option::Option::Some(Self::POST_MESSAGE),
+                "GET_PARAMETERS" => std::option::Option::Some(Self::GET_PARAMETERS),
+                "URL_FRAGMENT" => std::option::Option::Some(Self::URL_FRAGMENT),
+                "HTML_COMMENT" => std::option::Option::Some(Self::HTML_COMMENT),
+                "POST_PARAMETERS" => std::option::Option::Some(Self::POST_PARAMETERS),
+                "PROTOCOL" => std::option::Option::Some(Self::PROTOCOL),
+                "STORED_XSS" => std::option::Option::Some(Self::STORED_XSS),
+                "SAME_ORIGIN" => std::option::Option::Some(Self::SAME_ORIGIN),
+                "USER_CONTROLLABLE_URL" => std::option::Option::Some(Self::USER_CONTROLLABLE_URL),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for AttackVector {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for AttackVector {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for AttackVector {
         fn default() -> Self {
-            attack_vector::ATTACK_VECTOR_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -854,40 +915,53 @@ pub mod xxe {
 
     /// Locations within a request where XML was substituted.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Location(std::borrow::Cow<'static, str>);
+    pub struct Location(i32);
 
     impl Location {
+        /// Unknown Location.
+        pub const LOCATION_UNSPECIFIED: Location = Location::new(0);
+
+        /// The XML payload replaced the complete request body.
+        pub const COMPLETE_REQUEST_BODY: Location = Location::new(1);
+
         /// Creates a new Location instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("LOCATION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("COMPLETE_REQUEST_BODY"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "LOCATION_UNSPECIFIED" => std::option::Option::Some(Self::LOCATION_UNSPECIFIED),
+                "COMPLETE_REQUEST_BODY" => std::option::Option::Some(Self::COMPLETE_REQUEST_BODY),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [Location](Location)
-    pub mod location {
-        use super::Location;
-
-        /// Unknown Location.
-        pub const LOCATION_UNSPECIFIED: Location = Location::new("LOCATION_UNSPECIFIED");
-
-        /// The XML payload replaced the complete request body.
-        pub const COMPLETE_REQUEST_BODY: Location = Location::new("COMPLETE_REQUEST_BODY");
-    }
-
-    impl std::convert::From<std::string::String> for Location {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Location {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Location {
         fn default() -> Self {
-            location::LOCATION_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1557,46 +1631,63 @@ pub mod scan_config {
 
     /// Type of user agents used for scanning.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UserAgent(std::borrow::Cow<'static, str>);
+    pub struct UserAgent(i32);
 
     impl UserAgent {
+        /// The user agent is unknown. Service will default to CHROME_LINUX.
+        pub const USER_AGENT_UNSPECIFIED: UserAgent = UserAgent::new(0);
+
+        /// Chrome on Linux. This is the service default if unspecified.
+        pub const CHROME_LINUX: UserAgent = UserAgent::new(1);
+
+        /// Chrome on Android.
+        pub const CHROME_ANDROID: UserAgent = UserAgent::new(2);
+
+        /// Safari on IPhone.
+        pub const SAFARI_IPHONE: UserAgent = UserAgent::new(3);
+
         /// Creates a new UserAgent instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("USER_AGENT_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("CHROME_LINUX"),
+                2 => std::borrow::Cow::Borrowed("CHROME_ANDROID"),
+                3 => std::borrow::Cow::Borrowed("SAFARI_IPHONE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "USER_AGENT_UNSPECIFIED" => std::option::Option::Some(Self::USER_AGENT_UNSPECIFIED),
+                "CHROME_LINUX" => std::option::Option::Some(Self::CHROME_LINUX),
+                "CHROME_ANDROID" => std::option::Option::Some(Self::CHROME_ANDROID),
+                "SAFARI_IPHONE" => std::option::Option::Some(Self::SAFARI_IPHONE),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [UserAgent](UserAgent)
-    pub mod user_agent {
-        use super::UserAgent;
-
-        /// The user agent is unknown. Service will default to CHROME_LINUX.
-        pub const USER_AGENT_UNSPECIFIED: UserAgent = UserAgent::new("USER_AGENT_UNSPECIFIED");
-
-        /// Chrome on Linux. This is the service default if unspecified.
-        pub const CHROME_LINUX: UserAgent = UserAgent::new("CHROME_LINUX");
-
-        /// Chrome on Android.
-        pub const CHROME_ANDROID: UserAgent = UserAgent::new("CHROME_ANDROID");
-
-        /// Safari on IPhone.
-        pub const SAFARI_IPHONE: UserAgent = UserAgent::new("SAFARI_IPHONE");
-    }
-
-    impl std::convert::From<std::string::String> for UserAgent {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for UserAgent {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for UserAgent {
         fn default() -> Self {
-            user_agent::USER_AGENT_UNSPECIFIED
+            Self::new(0)
         }
     }
 
@@ -1604,89 +1695,119 @@ pub mod scan_config {
     /// scanning will minimize requests with the potential to modify data. To
     /// achieve the maximum scan coverage, NORMAL risk level is recommended.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskLevel(std::borrow::Cow<'static, str>);
+    pub struct RiskLevel(i32);
 
     impl RiskLevel {
+        /// Use default, which is NORMAL.
+        pub const RISK_LEVEL_UNSPECIFIED: RiskLevel = RiskLevel::new(0);
+
+        /// Normal scanning (Recommended)
+        pub const NORMAL: RiskLevel = RiskLevel::new(1);
+
+        /// Lower impact scanning
+        pub const LOW: RiskLevel = RiskLevel::new(2);
+
         /// Creates a new RiskLevel instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RISK_LEVEL_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("NORMAL"),
+                2 => std::borrow::Cow::Borrowed("LOW"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RISK_LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::RISK_LEVEL_UNSPECIFIED),
+                "NORMAL" => std::option::Option::Some(Self::NORMAL),
+                "LOW" => std::option::Option::Some(Self::LOW),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [RiskLevel](RiskLevel)
-    pub mod risk_level {
-        use super::RiskLevel;
-
-        /// Use default, which is NORMAL.
-        pub const RISK_LEVEL_UNSPECIFIED: RiskLevel = RiskLevel::new("RISK_LEVEL_UNSPECIFIED");
-
-        /// Normal scanning (Recommended)
-        pub const NORMAL: RiskLevel = RiskLevel::new("NORMAL");
-
-        /// Lower impact scanning
-        pub const LOW: RiskLevel = RiskLevel::new("LOW");
-    }
-
-    impl std::convert::From<std::string::String> for RiskLevel {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for RiskLevel {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for RiskLevel {
         fn default() -> Self {
-            risk_level::RISK_LEVEL_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Controls export of scan configurations and results to Security
     /// Command Center.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExportToSecurityCommandCenter(std::borrow::Cow<'static, str>);
+    pub struct ExportToSecurityCommandCenter(i32);
 
     impl ExportToSecurityCommandCenter {
+        /// Use default, which is ENABLED.
+        pub const EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED: ExportToSecurityCommandCenter =
+            ExportToSecurityCommandCenter::new(0);
+
+        /// Export results of this scan to Security Command Center.
+        pub const ENABLED: ExportToSecurityCommandCenter = ExportToSecurityCommandCenter::new(1);
+
+        /// Do not export results of this scan to Security Command Center.
+        pub const DISABLED: ExportToSecurityCommandCenter = ExportToSecurityCommandCenter::new(2);
+
         /// Creates a new ExportToSecurityCommandCenter instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("ENABLED"),
+                2 => std::borrow::Cow::Borrowed("DISABLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED)
+                }
+                "ENABLED" => std::option::Option::Some(Self::ENABLED),
+                "DISABLED" => std::option::Option::Some(Self::DISABLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ExportToSecurityCommandCenter](ExportToSecurityCommandCenter)
-    pub mod export_to_security_command_center {
-        use super::ExportToSecurityCommandCenter;
-
-        /// Use default, which is ENABLED.
-        pub const EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED");
-
-        /// Export results of this scan to Security Command Center.
-        pub const ENABLED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("ENABLED");
-
-        /// Do not export results of this scan to Security Command Center.
-        pub const DISABLED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new("DISABLED");
-    }
-
-    impl std::convert::From<std::string::String> for ExportToSecurityCommandCenter {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExportToSecurityCommandCenter {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ExportToSecurityCommandCenter {
         fn default() -> Self {
-            export_to_security_command_center::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -1747,192 +1868,326 @@ pub mod scan_config_error {
     /// Defines an error reason code.
     /// Next id: 44
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
+        /// There is no error.
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// There is no error.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
-
-        /// There is no error.
-        pub const OK: Code = Code::new("OK");
+        pub const OK: Code = Code::new(0);
 
         /// Indicates an internal server error.
         /// Please DO NOT USE THIS ERROR CODE unless the root cause is truly unknown.
-        pub const INTERNAL_ERROR: Code = Code::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Code = Code::new(1);
 
         /// One of the seed URLs is an App Engine URL but we cannot validate the scan
         /// settings due to an App Engine API backend error.
-        pub const APPENGINE_API_BACKEND_ERROR: Code = Code::new("APPENGINE_API_BACKEND_ERROR");
+        pub const APPENGINE_API_BACKEND_ERROR: Code = Code::new(2);
 
         /// One of the seed URLs is an App Engine URL but we cannot access the
         /// App Engine API to validate scan settings.
-        pub const APPENGINE_API_NOT_ACCESSIBLE: Code = Code::new("APPENGINE_API_NOT_ACCESSIBLE");
+        pub const APPENGINE_API_NOT_ACCESSIBLE: Code = Code::new(3);
 
         /// One of the seed URLs is an App Engine URL but the Default Host of the
         /// App Engine is not set.
-        pub const APPENGINE_DEFAULT_HOST_MISSING: Code =
-            Code::new("APPENGINE_DEFAULT_HOST_MISSING");
+        pub const APPENGINE_DEFAULT_HOST_MISSING: Code = Code::new(4);
 
         /// Google corporate accounts can not be used for scanning.
-        pub const CANNOT_USE_GOOGLE_COM_ACCOUNT: Code = Code::new("CANNOT_USE_GOOGLE_COM_ACCOUNT");
+        pub const CANNOT_USE_GOOGLE_COM_ACCOUNT: Code = Code::new(6);
 
         /// The account of the scan creator can not be used for scanning.
-        pub const CANNOT_USE_OWNER_ACCOUNT: Code = Code::new("CANNOT_USE_OWNER_ACCOUNT");
+        pub const CANNOT_USE_OWNER_ACCOUNT: Code = Code::new(7);
 
         /// This scan targets Compute Engine, but we cannot validate scan settings
         /// due to a Compute Engine API backend error.
-        pub const COMPUTE_API_BACKEND_ERROR: Code = Code::new("COMPUTE_API_BACKEND_ERROR");
+        pub const COMPUTE_API_BACKEND_ERROR: Code = Code::new(8);
 
         /// This scan targets Compute Engine, but we cannot access the Compute Engine
         /// API to validate the scan settings.
-        pub const COMPUTE_API_NOT_ACCESSIBLE: Code = Code::new("COMPUTE_API_NOT_ACCESSIBLE");
+        pub const COMPUTE_API_NOT_ACCESSIBLE: Code = Code::new(9);
 
         /// The Custom Login URL does not belong to the current project.
-        pub const CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code =
-            Code::new("CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT");
+        pub const CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code = Code::new(10);
 
         /// The Custom Login URL is malformed (can not be parsed).
-        pub const CUSTOM_LOGIN_URL_MALFORMED: Code = Code::new("CUSTOM_LOGIN_URL_MALFORMED");
+        pub const CUSTOM_LOGIN_URL_MALFORMED: Code = Code::new(11);
 
         /// The Custom Login URL is mapped to a non-routable IP address in DNS.
-        pub const CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS");
+        pub const CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code = Code::new(12);
 
         /// The Custom Login URL is mapped to an IP address which is not reserved for
         /// the current project.
-        pub const CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS");
+        pub const CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code = Code::new(13);
 
         /// The Custom Login URL has a non-routable IP address.
-        pub const CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS");
+        pub const CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code = Code::new(14);
 
         /// The Custom Login URL has an IP address which is not reserved for the
         /// current project.
-        pub const CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS: Code =
-            Code::new("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS");
+        pub const CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS: Code = Code::new(15);
 
         /// Another scan with the same name (case-sensitive) already exists.
-        pub const DUPLICATE_SCAN_NAME: Code = Code::new("DUPLICATE_SCAN_NAME");
+        pub const DUPLICATE_SCAN_NAME: Code = Code::new(16);
 
         /// A field is set to an invalid value.
-        pub const INVALID_FIELD_VALUE: Code = Code::new("INVALID_FIELD_VALUE");
+        pub const INVALID_FIELD_VALUE: Code = Code::new(18);
 
         /// There was an error trying to authenticate to the scan target.
-        pub const FAILED_TO_AUTHENTICATE_TO_TARGET: Code =
-            Code::new("FAILED_TO_AUTHENTICATE_TO_TARGET");
+        pub const FAILED_TO_AUTHENTICATE_TO_TARGET: Code = Code::new(19);
 
         /// Finding type value is not specified in the list findings request.
-        pub const FINDING_TYPE_UNSPECIFIED: Code = Code::new("FINDING_TYPE_UNSPECIFIED");
+        pub const FINDING_TYPE_UNSPECIFIED: Code = Code::new(20);
 
         /// Scan targets Compute Engine, yet current project was not whitelisted for
         /// Google Compute Engine Scanning Alpha access.
-        pub const FORBIDDEN_TO_SCAN_COMPUTE: Code = Code::new("FORBIDDEN_TO_SCAN_COMPUTE");
+        pub const FORBIDDEN_TO_SCAN_COMPUTE: Code = Code::new(21);
 
         /// User tries to update managed scan
-        pub const FORBIDDEN_UPDATE_TO_MANAGED_SCAN: Code =
-            Code::new("FORBIDDEN_UPDATE_TO_MANAGED_SCAN");
+        pub const FORBIDDEN_UPDATE_TO_MANAGED_SCAN: Code = Code::new(43);
 
         /// The supplied filter is malformed. For example, it can not be parsed, does
         /// not have a filter type in expression, or the same filter type appears
         /// more than once.
-        pub const MALFORMED_FILTER: Code = Code::new("MALFORMED_FILTER");
+        pub const MALFORMED_FILTER: Code = Code::new(22);
 
         /// The supplied resource name is malformed (can not be parsed).
-        pub const MALFORMED_RESOURCE_NAME: Code = Code::new("MALFORMED_RESOURCE_NAME");
+        pub const MALFORMED_RESOURCE_NAME: Code = Code::new(23);
 
         /// The current project is not in an active state.
-        pub const PROJECT_INACTIVE: Code = Code::new("PROJECT_INACTIVE");
+        pub const PROJECT_INACTIVE: Code = Code::new(24);
 
         /// A required field is not set.
-        pub const REQUIRED_FIELD: Code = Code::new("REQUIRED_FIELD");
+        pub const REQUIRED_FIELD: Code = Code::new(25);
 
         /// Project id, scanconfig id, scanrun id, or finding id are not consistent
         /// with each other in resource name.
-        pub const RESOURCE_NAME_INCONSISTENT: Code = Code::new("RESOURCE_NAME_INCONSISTENT");
+        pub const RESOURCE_NAME_INCONSISTENT: Code = Code::new(26);
 
         /// The scan being requested to start is already running.
-        pub const SCAN_ALREADY_RUNNING: Code = Code::new("SCAN_ALREADY_RUNNING");
+        pub const SCAN_ALREADY_RUNNING: Code = Code::new(27);
 
         /// The scan that was requested to be stopped is not running.
-        pub const SCAN_NOT_RUNNING: Code = Code::new("SCAN_NOT_RUNNING");
+        pub const SCAN_NOT_RUNNING: Code = Code::new(28);
 
         /// One of the seed URLs does not belong to the current project.
-        pub const SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code =
-            Code::new("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT");
+        pub const SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code = Code::new(29);
 
         /// One of the seed URLs is malformed (can not be parsed).
-        pub const SEED_URL_MALFORMED: Code = Code::new("SEED_URL_MALFORMED");
+        pub const SEED_URL_MALFORMED: Code = Code::new(30);
 
         /// One of the seed URLs is mapped to a non-routable IP address in DNS.
-        pub const SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code =
-            Code::new("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS");
+        pub const SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code = Code::new(31);
 
         /// One of the seed URLs is mapped to an IP address which is not reserved
         /// for the current project.
-        pub const SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code =
-            Code::new("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS");
+        pub const SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code = Code::new(32);
 
         /// One of the seed URLs has on-routable IP address.
-        pub const SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code =
-            Code::new("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS");
+        pub const SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code = Code::new(33);
 
         /// One of the seed URLs has an IP address that is not reserved
         /// for the current project.
-        pub const SEED_URL_HAS_UNRESERVED_IP_ADDRESS: Code =
-            Code::new("SEED_URL_HAS_UNRESERVED_IP_ADDRESS");
+        pub const SEED_URL_HAS_UNRESERVED_IP_ADDRESS: Code = Code::new(35);
 
         /// The Web Security Scanner service account is not configured under the
         /// project.
-        pub const SERVICE_ACCOUNT_NOT_CONFIGURED: Code =
-            Code::new("SERVICE_ACCOUNT_NOT_CONFIGURED");
+        pub const SERVICE_ACCOUNT_NOT_CONFIGURED: Code = Code::new(36);
 
         /// A project has reached the maximum number of scans.
-        pub const TOO_MANY_SCANS: Code = Code::new("TOO_MANY_SCANS");
+        pub const TOO_MANY_SCANS: Code = Code::new(37);
 
         /// Resolving the details of the current project fails.
-        pub const UNABLE_TO_RESOLVE_PROJECT_INFO: Code =
-            Code::new("UNABLE_TO_RESOLVE_PROJECT_INFO");
+        pub const UNABLE_TO_RESOLVE_PROJECT_INFO: Code = Code::new(38);
 
         /// One or more blacklist patterns were in the wrong format.
-        pub const UNSUPPORTED_BLACKLIST_PATTERN_FORMAT: Code =
-            Code::new("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT");
+        pub const UNSUPPORTED_BLACKLIST_PATTERN_FORMAT: Code = Code::new(39);
 
         /// The supplied filter is not supported.
-        pub const UNSUPPORTED_FILTER: Code = Code::new("UNSUPPORTED_FILTER");
+        pub const UNSUPPORTED_FILTER: Code = Code::new(40);
 
         /// The supplied finding type is not supported. For example, we do not
         /// provide findings of the given finding type.
-        pub const UNSUPPORTED_FINDING_TYPE: Code = Code::new("UNSUPPORTED_FINDING_TYPE");
+        pub const UNSUPPORTED_FINDING_TYPE: Code = Code::new(41);
 
         /// The URL scheme of one or more of the supplied URLs is not supported.
-        pub const UNSUPPORTED_URL_SCHEME: Code = Code::new("UNSUPPORTED_URL_SCHEME");
+        pub const UNSUPPORTED_URL_SCHEME: Code = Code::new(42);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("OK"),
+                1 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
+                2 => std::borrow::Cow::Borrowed("APPENGINE_API_BACKEND_ERROR"),
+                3 => std::borrow::Cow::Borrowed("APPENGINE_API_NOT_ACCESSIBLE"),
+                4 => std::borrow::Cow::Borrowed("APPENGINE_DEFAULT_HOST_MISSING"),
+                6 => std::borrow::Cow::Borrowed("CANNOT_USE_GOOGLE_COM_ACCOUNT"),
+                7 => std::borrow::Cow::Borrowed("CANNOT_USE_OWNER_ACCOUNT"),
+                8 => std::borrow::Cow::Borrowed("COMPUTE_API_BACKEND_ERROR"),
+                9 => std::borrow::Cow::Borrowed("COMPUTE_API_NOT_ACCESSIBLE"),
+                10 => std::borrow::Cow::Borrowed(
+                    "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT",
+                ),
+                11 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MALFORMED"),
+                12 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS"),
+                13 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS"),
+                14 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS"),
+                15 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS"),
+                16 => std::borrow::Cow::Borrowed("DUPLICATE_SCAN_NAME"),
+                18 => std::borrow::Cow::Borrowed("INVALID_FIELD_VALUE"),
+                19 => std::borrow::Cow::Borrowed("FAILED_TO_AUTHENTICATE_TO_TARGET"),
+                20 => std::borrow::Cow::Borrowed("FINDING_TYPE_UNSPECIFIED"),
+                21 => std::borrow::Cow::Borrowed("FORBIDDEN_TO_SCAN_COMPUTE"),
+                22 => std::borrow::Cow::Borrowed("MALFORMED_FILTER"),
+                23 => std::borrow::Cow::Borrowed("MALFORMED_RESOURCE_NAME"),
+                24 => std::borrow::Cow::Borrowed("PROJECT_INACTIVE"),
+                25 => std::borrow::Cow::Borrowed("REQUIRED_FIELD"),
+                26 => std::borrow::Cow::Borrowed("RESOURCE_NAME_INCONSISTENT"),
+                27 => std::borrow::Cow::Borrowed("SCAN_ALREADY_RUNNING"),
+                28 => std::borrow::Cow::Borrowed("SCAN_NOT_RUNNING"),
+                29 => std::borrow::Cow::Borrowed("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT"),
+                30 => std::borrow::Cow::Borrowed("SEED_URL_MALFORMED"),
+                31 => std::borrow::Cow::Borrowed("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS"),
+                32 => std::borrow::Cow::Borrowed("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS"),
+                33 => std::borrow::Cow::Borrowed("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS"),
+                35 => std::borrow::Cow::Borrowed("SEED_URL_HAS_UNRESERVED_IP_ADDRESS"),
+                36 => std::borrow::Cow::Borrowed("SERVICE_ACCOUNT_NOT_CONFIGURED"),
+                37 => std::borrow::Cow::Borrowed("TOO_MANY_SCANS"),
+                38 => std::borrow::Cow::Borrowed("UNABLE_TO_RESOLVE_PROJECT_INFO"),
+                39 => std::borrow::Cow::Borrowed("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT"),
+                40 => std::borrow::Cow::Borrowed("UNSUPPORTED_FILTER"),
+                41 => std::borrow::Cow::Borrowed("UNSUPPORTED_FINDING_TYPE"),
+                42 => std::borrow::Cow::Borrowed("UNSUPPORTED_URL_SCHEME"),
+                43 => std::borrow::Cow::Borrowed("FORBIDDEN_UPDATE_TO_MANAGED_SCAN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "OK" => std::option::Option::Some(Self::OK),
+                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
+                "APPENGINE_API_BACKEND_ERROR" => {
+                    std::option::Option::Some(Self::APPENGINE_API_BACKEND_ERROR)
+                }
+                "APPENGINE_API_NOT_ACCESSIBLE" => {
+                    std::option::Option::Some(Self::APPENGINE_API_NOT_ACCESSIBLE)
+                }
+                "APPENGINE_DEFAULT_HOST_MISSING" => {
+                    std::option::Option::Some(Self::APPENGINE_DEFAULT_HOST_MISSING)
+                }
+                "CANNOT_USE_GOOGLE_COM_ACCOUNT" => {
+                    std::option::Option::Some(Self::CANNOT_USE_GOOGLE_COM_ACCOUNT)
+                }
+                "CANNOT_USE_OWNER_ACCOUNT" => {
+                    std::option::Option::Some(Self::CANNOT_USE_OWNER_ACCOUNT)
+                }
+                "COMPUTE_API_BACKEND_ERROR" => {
+                    std::option::Option::Some(Self::COMPUTE_API_BACKEND_ERROR)
+                }
+                "COMPUTE_API_NOT_ACCESSIBLE" => {
+                    std::option::Option::Some(Self::COMPUTE_API_NOT_ACCESSIBLE)
+                }
+                "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => std::option::Option::Some(
+                    Self::CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT,
+                ),
+                "CUSTOM_LOGIN_URL_MALFORMED" => {
+                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MALFORMED)
+                }
+                "CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS)
+                }
+                "CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
+                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS)
+                }
+                "CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS)
+                }
+                "CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS)
+                }
+                "DUPLICATE_SCAN_NAME" => std::option::Option::Some(Self::DUPLICATE_SCAN_NAME),
+                "INVALID_FIELD_VALUE" => std::option::Option::Some(Self::INVALID_FIELD_VALUE),
+                "FAILED_TO_AUTHENTICATE_TO_TARGET" => {
+                    std::option::Option::Some(Self::FAILED_TO_AUTHENTICATE_TO_TARGET)
+                }
+                "FINDING_TYPE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::FINDING_TYPE_UNSPECIFIED)
+                }
+                "FORBIDDEN_TO_SCAN_COMPUTE" => {
+                    std::option::Option::Some(Self::FORBIDDEN_TO_SCAN_COMPUTE)
+                }
+                "FORBIDDEN_UPDATE_TO_MANAGED_SCAN" => {
+                    std::option::Option::Some(Self::FORBIDDEN_UPDATE_TO_MANAGED_SCAN)
+                }
+                "MALFORMED_FILTER" => std::option::Option::Some(Self::MALFORMED_FILTER),
+                "MALFORMED_RESOURCE_NAME" => {
+                    std::option::Option::Some(Self::MALFORMED_RESOURCE_NAME)
+                }
+                "PROJECT_INACTIVE" => std::option::Option::Some(Self::PROJECT_INACTIVE),
+                "REQUIRED_FIELD" => std::option::Option::Some(Self::REQUIRED_FIELD),
+                "RESOURCE_NAME_INCONSISTENT" => {
+                    std::option::Option::Some(Self::RESOURCE_NAME_INCONSISTENT)
+                }
+                "SCAN_ALREADY_RUNNING" => std::option::Option::Some(Self::SCAN_ALREADY_RUNNING),
+                "SCAN_NOT_RUNNING" => std::option::Option::Some(Self::SCAN_NOT_RUNNING),
+                "SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
+                    std::option::Option::Some(Self::SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT)
+                }
+                "SEED_URL_MALFORMED" => std::option::Option::Some(Self::SEED_URL_MALFORMED),
+                "SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    std::option::Option::Some(Self::SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS)
+                }
+                "SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
+                    std::option::Option::Some(Self::SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS)
+                }
+                "SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS)
+                }
+                "SEED_URL_HAS_UNRESERVED_IP_ADDRESS" => {
+                    std::option::Option::Some(Self::SEED_URL_HAS_UNRESERVED_IP_ADDRESS)
+                }
+                "SERVICE_ACCOUNT_NOT_CONFIGURED" => {
+                    std::option::Option::Some(Self::SERVICE_ACCOUNT_NOT_CONFIGURED)
+                }
+                "TOO_MANY_SCANS" => std::option::Option::Some(Self::TOO_MANY_SCANS),
+                "UNABLE_TO_RESOLVE_PROJECT_INFO" => {
+                    std::option::Option::Some(Self::UNABLE_TO_RESOLVE_PROJECT_INFO)
+                }
+                "UNSUPPORTED_BLACKLIST_PATTERN_FORMAT" => {
+                    std::option::Option::Some(Self::UNSUPPORTED_BLACKLIST_PATTERN_FORMAT)
+                }
+                "UNSUPPORTED_FILTER" => std::option::Option::Some(Self::UNSUPPORTED_FILTER),
+                "UNSUPPORTED_FINDING_TYPE" => {
+                    std::option::Option::Some(Self::UNSUPPORTED_FINDING_TYPE)
+                }
+                "UNSUPPORTED_URL_SCHEME" => std::option::Option::Some(Self::UNSUPPORTED_URL_SCHEME),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2104,95 +2359,131 @@ pub mod scan_run {
 
     /// Types of ScanRun execution state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionState(std::borrow::Cow<'static, str>);
+    pub struct ExecutionState(i32);
 
     impl ExecutionState {
+        /// Represents an invalid state caused by internal server error. This value
+        /// should never be returned.
+        pub const EXECUTION_STATE_UNSPECIFIED: ExecutionState = ExecutionState::new(0);
+
+        /// The scan is waiting in the queue.
+        pub const QUEUED: ExecutionState = ExecutionState::new(1);
+
+        /// The scan is in progress.
+        pub const SCANNING: ExecutionState = ExecutionState::new(2);
+
+        /// The scan is either finished or stopped by user.
+        pub const FINISHED: ExecutionState = ExecutionState::new(3);
+
         /// Creates a new ExecutionState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("EXECUTION_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("QUEUED"),
+                2 => std::borrow::Cow::Borrowed("SCANNING"),
+                3 => std::borrow::Cow::Borrowed("FINISHED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "EXECUTION_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::EXECUTION_STATE_UNSPECIFIED)
+                }
+                "QUEUED" => std::option::Option::Some(Self::QUEUED),
+                "SCANNING" => std::option::Option::Some(Self::SCANNING),
+                "FINISHED" => std::option::Option::Some(Self::FINISHED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ExecutionState](ExecutionState)
-    pub mod execution_state {
-        use super::ExecutionState;
-
-        /// Represents an invalid state caused by internal server error. This value
-        /// should never be returned.
-        pub const EXECUTION_STATE_UNSPECIFIED: ExecutionState =
-            ExecutionState::new("EXECUTION_STATE_UNSPECIFIED");
-
-        /// The scan is waiting in the queue.
-        pub const QUEUED: ExecutionState = ExecutionState::new("QUEUED");
-
-        /// The scan is in progress.
-        pub const SCANNING: ExecutionState = ExecutionState::new("SCANNING");
-
-        /// The scan is either finished or stopped by user.
-        pub const FINISHED: ExecutionState = ExecutionState::new("FINISHED");
-    }
-
-    impl std::convert::From<std::string::String> for ExecutionState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ExecutionState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ExecutionState {
         fn default() -> Self {
-            execution_state::EXECUTION_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 
     /// Types of ScanRun result state.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResultState(std::borrow::Cow<'static, str>);
+    pub struct ResultState(i32);
 
     impl ResultState {
+        /// Default value. This value is returned when the ScanRun is not yet
+        /// finished.
+        pub const RESULT_STATE_UNSPECIFIED: ResultState = ResultState::new(0);
+
+        /// The scan finished without errors.
+        pub const SUCCESS: ResultState = ResultState::new(1);
+
+        /// The scan finished with errors.
+        pub const ERROR: ResultState = ResultState::new(2);
+
+        /// The scan was terminated by user.
+        pub const KILLED: ResultState = ResultState::new(3);
+
         /// Creates a new ResultState instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
         }
 
         /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("RESULT_STATE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SUCCESS"),
+                2 => std::borrow::Cow::Borrowed("ERROR"),
+                3 => std::borrow::Cow::Borrowed("KILLED"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "RESULT_STATE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::RESULT_STATE_UNSPECIFIED)
+                }
+                "SUCCESS" => std::option::Option::Some(Self::SUCCESS),
+                "ERROR" => std::option::Option::Some(Self::ERROR),
+                "KILLED" => std::option::Option::Some(Self::KILLED),
+                _ => std::option::Option::None,
+            }
         }
     }
 
-    /// Useful constants to work with [ResultState](ResultState)
-    pub mod result_state {
-        use super::ResultState;
-
-        /// Default value. This value is returned when the ScanRun is not yet
-        /// finished.
-        pub const RESULT_STATE_UNSPECIFIED: ResultState =
-            ResultState::new("RESULT_STATE_UNSPECIFIED");
-
-        /// The scan finished without errors.
-        pub const SUCCESS: ResultState = ResultState::new("SUCCESS");
-
-        /// The scan finished with errors.
-        pub const ERROR: ResultState = ResultState::new("ERROR");
-
-        /// The scan was terminated by user.
-        pub const KILLED: ResultState = ResultState::new("KILLED");
-    }
-
-    impl std::convert::From<std::string::String> for ResultState {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for ResultState {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for ResultState {
         fn default() -> Self {
-            result_state::RESULT_STATE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2266,60 +2557,87 @@ pub mod scan_run_error_trace {
     /// Defines an error reason code.
     /// Next id: 8
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// Indicates that the scan run failed due to an internal server error.
-        pub const INTERNAL_ERROR: Code = Code::new("INTERNAL_ERROR");
+        pub const INTERNAL_ERROR: Code = Code::new(1);
 
         /// Indicates a scan configuration error, usually due to outdated ScanConfig
         /// settings, such as starting_urls or the DNS configuration.
-        pub const SCAN_CONFIG_ISSUE: Code = Code::new("SCAN_CONFIG_ISSUE");
+        pub const SCAN_CONFIG_ISSUE: Code = Code::new(2);
 
         /// Indicates an authentication error, usually due to outdated ScanConfig
         /// authentication settings.
-        pub const AUTHENTICATION_CONFIG_ISSUE: Code = Code::new("AUTHENTICATION_CONFIG_ISSUE");
+        pub const AUTHENTICATION_CONFIG_ISSUE: Code = Code::new(3);
 
         /// Indicates a scan operation timeout, usually caused by a very large site.
-        pub const TIMED_OUT_WHILE_SCANNING: Code = Code::new("TIMED_OUT_WHILE_SCANNING");
+        pub const TIMED_OUT_WHILE_SCANNING: Code = Code::new(4);
 
         /// Indicates that a scan encountered excessive redirects, either to
         /// authentication or some other page outside of the scan scope.
-        pub const TOO_MANY_REDIRECTS: Code = Code::new("TOO_MANY_REDIRECTS");
+        pub const TOO_MANY_REDIRECTS: Code = Code::new(5);
 
         /// Indicates that a scan encountered numerous errors from the web site
         /// pages. When available, most_common_http_error_code field indicates the
         /// most common HTTP error code encountered during the scan.
-        pub const TOO_MANY_HTTP_ERRORS: Code = Code::new("TOO_MANY_HTTP_ERRORS");
+        pub const TOO_MANY_HTTP_ERRORS: Code = Code::new(6);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
+                2 => std::borrow::Cow::Borrowed("SCAN_CONFIG_ISSUE"),
+                3 => std::borrow::Cow::Borrowed("AUTHENTICATION_CONFIG_ISSUE"),
+                4 => std::borrow::Cow::Borrowed("TIMED_OUT_WHILE_SCANNING"),
+                5 => std::borrow::Cow::Borrowed("TOO_MANY_REDIRECTS"),
+                6 => std::borrow::Cow::Borrowed("TOO_MANY_HTTP_ERRORS"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
+                "SCAN_CONFIG_ISSUE" => std::option::Option::Some(Self::SCAN_CONFIG_ISSUE),
+                "AUTHENTICATION_CONFIG_ISSUE" => {
+                    std::option::Option::Some(Self::AUTHENTICATION_CONFIG_ISSUE)
+                }
+                "TIMED_OUT_WHILE_SCANNING" => {
+                    std::option::Option::Some(Self::TIMED_OUT_WHILE_SCANNING)
+                }
+                "TOO_MANY_REDIRECTS" => std::option::Option::Some(Self::TOO_MANY_REDIRECTS),
+                "TOO_MANY_HTTP_ERRORS" => std::option::Option::Some(Self::TOO_MANY_HTTP_ERRORS),
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
@@ -2473,58 +2791,82 @@ pub mod scan_run_warning_trace {
     /// Defines a warning message code.
     /// Next id: 6
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::borrow::Cow<'static, str>);
+    pub struct Code(i32);
 
     impl Code {
-        /// Creates a new Code instance.
-        pub const fn new(v: &'static str) -> Self {
-            Self(std::borrow::Cow::Borrowed(v))
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> &str {
-            &self.0
-        }
-    }
-
-    /// Useful constants to work with [Code](Code)
-    pub mod code {
-        use super::Code;
-
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new("CODE_UNSPECIFIED");
+        pub const CODE_UNSPECIFIED: Code = Code::new(0);
 
         /// Indicates that a scan discovered an unexpectedly low number of URLs. This
         /// is sometimes caused by complex navigation features or by using a single
         /// URL for numerous pages.
-        pub const INSUFFICIENT_CRAWL_RESULTS: Code = Code::new("INSUFFICIENT_CRAWL_RESULTS");
+        pub const INSUFFICIENT_CRAWL_RESULTS: Code = Code::new(1);
 
         /// Indicates that a scan discovered too many URLs to test, or excessive
         /// redundant URLs.
-        pub const TOO_MANY_CRAWL_RESULTS: Code = Code::new("TOO_MANY_CRAWL_RESULTS");
+        pub const TOO_MANY_CRAWL_RESULTS: Code = Code::new(2);
 
         /// Indicates that too many tests have been generated for the scan. Customer
         /// should try reducing the number of starting URLs, increasing the QPS rate,
         /// or narrowing down the scope of the scan using the excluded patterns.
-        pub const TOO_MANY_FUZZ_TASKS: Code = Code::new("TOO_MANY_FUZZ_TASKS");
+        pub const TOO_MANY_FUZZ_TASKS: Code = Code::new(3);
 
         /// Indicates that a scan is blocked by IAP.
-        pub const BLOCKED_BY_IAP: Code = Code::new("BLOCKED_BY_IAP");
+        pub const BLOCKED_BY_IAP: Code = Code::new(4);
 
         /// Indicates that no seeds is found for a scan
-        pub const NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN: Code =
-            Code::new("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN");
+        pub const NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN: Code = Code::new(5);
+
+        /// Creates a new Code instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("INSUFFICIENT_CRAWL_RESULTS"),
+                2 => std::borrow::Cow::Borrowed("TOO_MANY_CRAWL_RESULTS"),
+                3 => std::borrow::Cow::Borrowed("TOO_MANY_FUZZ_TASKS"),
+                4 => std::borrow::Cow::Borrowed("BLOCKED_BY_IAP"),
+                5 => std::borrow::Cow::Borrowed("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
+                "INSUFFICIENT_CRAWL_RESULTS" => {
+                    std::option::Option::Some(Self::INSUFFICIENT_CRAWL_RESULTS)
+                }
+                "TOO_MANY_CRAWL_RESULTS" => std::option::Option::Some(Self::TOO_MANY_CRAWL_RESULTS),
+                "TOO_MANY_FUZZ_TASKS" => std::option::Option::Some(Self::TOO_MANY_FUZZ_TASKS),
+                "BLOCKED_BY_IAP" => std::option::Option::Some(Self::BLOCKED_BY_IAP),
+                "NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN" => {
+                    std::option::Option::Some(Self::NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN)
+                }
+                _ => std::option::Option::None,
+            }
+        }
     }
 
-    impl std::convert::From<std::string::String> for Code {
-        fn from(value: std::string::String) -> Self {
-            Self(std::borrow::Cow::Owned(value))
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            code::CODE_UNSPECIFIED
+            Self::new(0)
         }
     }
 }
