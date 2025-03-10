@@ -113,12 +113,14 @@ impl MDSAccessTokenProvider {
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
-        let mut scopes = self.scopes.clone();
-        if scopes.is_none() {
-            let service_account_info = self.get_service_account_info(&client).await?;
-            scopes = service_account_info.scopes;
-        }
-        let scopes = scopes.unwrap_or_default().join(",");
+        // Determine scopes, fetching from metadata server if needed.
+        let scopes = match &self.scopes {
+            Some(s) => s.clone().join(","),
+            None => {
+                let service_account_info = self.get_service_account_info(&client).await?;
+                service_account_info.scopes.unwrap_or_default().join(",")
+            }
+        };
 
         let request = client
             .get(format!(
