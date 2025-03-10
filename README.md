@@ -8,6 +8,11 @@ Idiomatic Rust client libraries for [Google Cloud Platform](https://cloud.google
 > **NOTE:** this project is under development, all APIs are subject to change
 > without notice. Some documentation is aspirational.
 
+## Getting Started
+
+The [User Guide] includes basic tutorials to get started with the Google Cloud
+client libraries for Rust.
+
 ## Supported Rust Versions
 
 We have not defined policies with respect to the Minimum Supported Rust Version
@@ -17,11 +22,15 @@ or Minimum Supported Rust Edition.
 
 Contributions to this library are always welcome and highly encouraged.
 
-See [CONTRIBUTING] for more information on how to get started.
+See [CONTRIBUTING] for more information on how to get started. You may also find
+the [Set Up Development Environment] and the [architecture] guides useful.
 
 ## License
 
 Apache 2.0 - See [LICENSE] for more information.
 
+[architecture]: ARCHITECTURE.md
 [contributing]: CONTRIBUTING.md
 [license]: LICENSE
+[set up development environment]: doc/contributor/howto-guide-set-up-development-environment.md
+[user guide]: https://googleapis.github.io/google-cloud-rust
