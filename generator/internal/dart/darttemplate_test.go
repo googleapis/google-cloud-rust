@@ -173,3 +173,37 @@ func TestCalculateImports(t *testing.T) {
 		})
 	}
 }
+
+func TestAnnotateMessageToString(t *testing.T) {
+	model := api.NewTestAPI(
+		[]*api.Message{sample.Secret(), sample.SecretVersion(), sample.Replication(),
+			sample.Automatic(), sample.CustomerManagedEncryption()},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{},
+	)
+
+	for _, test := range []struct {
+		message  *api.Message
+		expected int
+	}{
+		// Expect the number of fields less the number of message fields.
+		{message: sample.Secret(), expected: 1},
+		{message: sample.SecretVersion(), expected: 2},
+		{message: sample.Replication(), expected: 0},
+		{message: sample.Automatic(), expected: 0},
+	} {
+		t.Run(test.message.Name, func(t *testing.T) {
+			packageMapping := map[string]string{}
+			imports := map[string]string{}
+
+			annotateMessage(test.message, model.State, packageMapping, imports)
+
+			codec := test.message.Codec.(*messageAnnotation)
+			actual := codec.ToStringLines
+
+			if len(actual) != test.expected {
+				t.Errorf("Expected list of length %d, got %d", test.expected, len(actual))
+			}
+		})
+	}
+}

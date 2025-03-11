@@ -77,4 +77,15 @@ class Expr extends CloudMessage {
     this.description,
     this.location,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (expression != null) 'expression=$expression',
+      if (title != null) 'title=$title',
+      if (description != null) 'description=$description',
+      if (location != null) 'location=$location',
+    ].join(',');
+    return 'Expr($contents)';
+  }
 }

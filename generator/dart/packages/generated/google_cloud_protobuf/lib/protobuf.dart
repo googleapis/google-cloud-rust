@@ -102,6 +102,15 @@ class Duration extends CloudMessage {
   }) {
     _validate();
   }
+
+  @override
+  String toString() {
+    final contents = [
+      if (seconds != null) 'seconds=$seconds',
+      if (nanos != null) 'nanos=$nanos',
+    ].join(',');
+    return 'Duration($contents)';
+  }
 }
 
 /// `FieldMask` represents a set of symbolic field paths, for example:
@@ -311,4 +320,7 @@ class FieldMask extends CloudMessage {
   FieldMask({
     this.paths,
   });
+
+  @override
+  String toString() => 'FieldMask()';
 }

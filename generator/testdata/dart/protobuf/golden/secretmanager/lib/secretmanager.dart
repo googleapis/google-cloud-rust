@@ -282,6 +282,15 @@ class Secret extends CloudMessage {
     this.versionDestroyTtl,
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (etag != null) 'etag=$etag',
+    ].join(',');
+    return 'Secret($contents)';
+  }
 }
 
 /// A secret version resource in the Secret Manager API.
@@ -352,6 +361,17 @@ class SecretVersion extends CloudMessage {
     this.scheduledDestroyTime,
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (state != null) 'state=$state',
+      if (etag != null) 'etag=$etag',
+      if (clientSpecifiedPayloadChecksum != null) 'clientSpecifiedPayloadChecksum=$clientSpecifiedPayloadChecksum',
+    ].join(',');
+    return 'SecretVersion($contents)';
+  }
 }
 
 /// The state of a
@@ -404,6 +424,9 @@ class Replication extends CloudMessage {
     this.automatic,
     this.userManaged,
   });
+
+  @override
+  String toString() => 'Replication()';
 }
 
 /// A replication policy that replicates the
@@ -425,6 +448,9 @@ class Replication$Automatic extends CloudMessage {
   Replication$Automatic({
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() => 'Automatic()';
 }
 
 /// A replication policy that replicates the
@@ -441,6 +467,9 @@ class Replication$UserManaged extends CloudMessage {
   Replication$UserManaged({
     this.replicas,
   });
+
+  @override
+  String toString() => 'UserManaged()';
 }
 
 /// Represents a Replica for this
@@ -466,6 +495,14 @@ class Replication$UserManaged$Replica extends CloudMessage {
     this.location,
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (location != null) 'location=$location',
+    ].join(',');
+    return 'Replica($contents)';
+  }
 }
 
 /// Configuration for encrypting secret payloads using customer-managed
@@ -490,6 +527,14 @@ class CustomerManagedEncryption extends CloudMessage {
   CustomerManagedEncryption({
     this.kmsKeyName,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (kmsKeyName != null) 'kmsKeyName=$kmsKeyName',
+    ].join(',');
+    return 'CustomerManagedEncryption($contents)';
+  }
 }
 
 /// The replication status of a
@@ -518,6 +563,9 @@ class ReplicationStatus extends CloudMessage {
     this.automatic,
     this.userManaged,
   });
+
+  @override
+  String toString() => 'ReplicationStatus()';
 }
 
 /// The replication status of a
@@ -536,6 +584,9 @@ class ReplicationStatus$AutomaticStatus extends CloudMessage {
   ReplicationStatus$AutomaticStatus({
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() => 'AutomaticStatus()';
 }
 
 /// The replication status of a
@@ -553,6 +604,9 @@ class ReplicationStatus$UserManagedStatus extends CloudMessage {
   ReplicationStatus$UserManagedStatus({
     this.replicas,
   });
+
+  @override
+  String toString() => 'UserManagedStatus()';
 }
 
 /// Describes the status of a user-managed replica for the
@@ -572,6 +626,14 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends CloudMessage {
     this.location,
     this.customerManagedEncryption,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (location != null) 'location=$location',
+    ].join(',');
+    return 'ReplicaStatus($contents)';
+  }
 }
 
 /// Describes the status of customer-managed encryption.
@@ -585,6 +647,14 @@ class CustomerManagedEncryptionStatus extends CloudMessage {
   CustomerManagedEncryptionStatus({
     this.kmsKeyVersionName,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (kmsKeyVersionName != null) 'kmsKeyVersionName=$kmsKeyVersionName',
+    ].join(',');
+    return 'CustomerManagedEncryptionStatus($contents)';
+  }
 }
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
@@ -601,6 +671,14 @@ class Topic extends CloudMessage {
   Topic({
     this.name,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'Topic($contents)';
+  }
 }
 
 /// The rotation time and period for a
@@ -638,6 +716,9 @@ class Rotation extends CloudMessage {
     this.nextRotationTime,
     this.rotationPeriod,
   });
+
+  @override
+  String toString() => 'Rotation()';
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -670,6 +751,15 @@ class SecretPayload extends CloudMessage {
     this.data,
     this.dataCrc32C,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (data != null) 'data=$data',
+      if (dataCrc32C != null) 'dataCrc32C=$dataCrc32C',
+    ].join(',');
+    return 'SecretPayload($contents)';
+  }
 }
 
 /// Request message for
@@ -703,6 +793,17 @@ class ListSecretsRequest extends CloudMessage {
     this.pageToken,
     this.filter,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (parent != null) 'parent=$parent',
+      if (pageSize != null) 'pageSize=$pageSize',
+      if (pageToken != null) 'pageToken=$pageToken',
+      if (filter != null) 'filter=$filter',
+    ].join(',');
+    return 'ListSecretsRequest($contents)';
+  }
 }
 
 /// Response message for
@@ -729,6 +830,15 @@ class ListSecretsResponse extends CloudMessage {
     this.nextPageToken,
     this.totalSize,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (nextPageToken != null) 'nextPageToken=$nextPageToken',
+      if (totalSize != null) 'totalSize=$totalSize',
+    ].join(',');
+    return 'ListSecretsResponse($contents)';
+  }
 }
 
 /// Request message for
@@ -756,6 +866,15 @@ class CreateSecretRequest extends CloudMessage {
     this.secretId,
     this.secret,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (parent != null) 'parent=$parent',
+      if (secretId != null) 'secretId=$secretId',
+    ].join(',');
+    return 'CreateSecretRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -776,6 +895,14 @@ class AddSecretVersionRequest extends CloudMessage {
     this.parent,
     this.payload,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (parent != null) 'parent=$parent',
+    ].join(',');
+    return 'AddSecretVersionRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -790,6 +917,14 @@ class GetSecretRequest extends CloudMessage {
   GetSecretRequest({
     this.name,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'GetSecretRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -824,6 +959,17 @@ class ListSecretVersionsRequest extends CloudMessage {
     this.pageToken,
     this.filter,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (parent != null) 'parent=$parent',
+      if (pageSize != null) 'pageSize=$pageSize',
+      if (pageToken != null) 'pageToken=$pageToken',
+      if (filter != null) 'filter=$filter',
+    ].join(',');
+    return 'ListSecretVersionsRequest($contents)';
+  }
 }
 
 /// Response message for
@@ -851,6 +997,15 @@ class ListSecretVersionsResponse extends CloudMessage {
     this.nextPageToken,
     this.totalSize,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (nextPageToken != null) 'nextPageToken=$nextPageToken',
+      if (totalSize != null) 'totalSize=$totalSize',
+    ].join(',');
+    return 'ListSecretVersionsResponse($contents)';
+  }
 }
 
 /// Request message for
@@ -871,6 +1026,14 @@ class GetSecretVersionRequest extends CloudMessage {
   GetSecretVersionRequest({
     this.name,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'GetSecretVersionRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -888,6 +1051,9 @@ class UpdateSecretRequest extends CloudMessage {
     this.secret,
     this.updateMask,
   });
+
+  @override
+  String toString() => 'UpdateSecretRequest()';
 }
 
 /// Request message for
@@ -908,6 +1074,14 @@ class AccessSecretVersionRequest extends CloudMessage {
   AccessSecretVersionRequest({
     this.name,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'AccessSecretVersionRequest($contents)';
+  }
 }
 
 /// Response message for
@@ -927,6 +1101,14 @@ class AccessSecretVersionResponse extends CloudMessage {
     this.name,
     this.payload,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'AccessSecretVersionResponse($contents)';
+  }
 }
 
 /// Request message for
@@ -947,6 +1129,15 @@ class DeleteSecretRequest extends CloudMessage {
     this.name,
     this.etag,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (etag != null) 'etag=$etag',
+    ].join(',');
+    return 'DeleteSecretRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -969,6 +1160,15 @@ class DisableSecretVersionRequest extends CloudMessage {
     this.name,
     this.etag,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (etag != null) 'etag=$etag',
+    ].join(',');
+    return 'DisableSecretVersionRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -991,6 +1191,15 @@ class EnableSecretVersionRequest extends CloudMessage {
     this.name,
     this.etag,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (etag != null) 'etag=$etag',
+    ].join(',');
+    return 'EnableSecretVersionRequest($contents)';
+  }
 }
 
 /// Request message for
@@ -1013,4 +1222,13 @@ class DestroySecretVersionRequest extends CloudMessage {
     this.name,
     this.etag,
   });
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (etag != null) 'etag=$etag',
+    ].join(',');
+    return 'DestroySecretVersionRequest($contents)';
+  }
 }

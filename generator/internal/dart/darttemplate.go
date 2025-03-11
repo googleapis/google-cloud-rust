@@ -60,10 +60,12 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name            string
-	DocLines        []string
-	ConstructorBody string // A custom body for the message's constructor.
-	BasicFields     []*api.Field
+	Name             string
+	DocLines         []string
+	ConstructorBody  string // A custom body for the message's constructor.
+	BasicFields      []*api.Field
+	HasToStringLines bool
+	ToStringLines    []string
 }
 
 type methodAnnotation struct {
@@ -306,6 +308,8 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		constructorBody = " {\n    _validate();\n  }"
 	}
 
+	toStringLines := createToStringLines(m)
+
 	m.Codec = &messageAnnotation{
 		Name:            messageName(m),
 		DocLines:        formatDocComments(m.Documentation, state),
@@ -313,7 +317,31 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
+		HasToStringLines: len(toStringLines) > 0,
+		ToStringLines:    toStringLines,
 	}
+}
+
+func createToStringLines(message *api.Message) []string {
+	lines := []string{}
+
+	for _, field := range message.Fields {
+		codec := field.Codec.(*fieldAnnotation)
+		name := codec.Name
+
+		isList := field.Repeated
+		isMessage := field.Typez == api.MESSAGE_TYPE
+
+		// Don't generate toString() entries for lists, maps, or messages.
+		if isList || isMessage {
+			continue
+		}
+
+		// if (name != null) 'name=$name',
+		lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+	}
+
+	return lines
 }
 
 func annotateMethod(method *api.Method, state *api.APIState, packageMapping map[string]string, imports map[string]string) {
