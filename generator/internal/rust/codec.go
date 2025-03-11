@@ -95,12 +95,6 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 		switch {
 		case key == "package-name-override":
 			codec.packageNameOverride = definition
-		case key == "generate-module":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `generate-module` value %q to boolean: %w", definition, err)
-			}
-			codec.generateModule = value
 		case key == "module-path":
 			codec.modulePath = definition
 		case key == "copyright-year":
@@ -126,6 +120,8 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			}
 		case key == "disabled-rustdoc-warnings":
 			codec.disabledRustdocWarnings = strings.Split(definition, ",")
+		case key == "template-override":
+			codec.templateOverride = definition
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -195,8 +191,6 @@ type codec struct {
 	packageNameOverride string
 	// The year when the files were first generated.
 	generationYear string
-	// Generate a module of a larger crate, as opposed to a full crate.
-	generateModule bool
 	// The full path of the generated module within the crate. This defaults to
 	// `model`. When generating only a module within a larger crate (see
 	// `GenerateModule`), this overrides the path for elements within the crate.
@@ -225,6 +219,8 @@ type codec struct {
 	disabledRustdocWarnings []string
 	// The default system parameters included in all requests.
 	systemParameters []systemParameter
+	// Overrides the template sudirectory.
+	templateOverride string
 }
 
 type systemParameter struct {
@@ -676,10 +672,11 @@ func templatesProvider() language.TemplateProvider {
 }
 
 func (c *codec) generatedFiles(hasServices bool) []language.GeneratedFile {
+	if c.templateOverride != "" {
+		return language.WalkTemplatesDir(rustTemplates, c.templateOverride)
+	}
 	var root string
 	switch {
-	case c.generateModule:
-		root = "templates/mod"
 	case !hasServices:
 		root = "templates/nosvc"
 	default:

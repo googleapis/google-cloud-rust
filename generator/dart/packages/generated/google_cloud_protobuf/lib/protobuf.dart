@@ -484,11 +484,7 @@ class FieldMask extends CloudMessage {
   Object toJson() => FieldMaskHelper.encode(this);
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'FieldMask($contents)';
-  }
+  String toString() => 'FieldMask()';
 }
 
 /// A Timestamp represents a point in time independent of any time zone or local

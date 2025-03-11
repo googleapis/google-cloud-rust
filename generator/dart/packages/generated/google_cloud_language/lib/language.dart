@@ -188,11 +188,7 @@ class Sentence extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'Sentence($contents)';
-  }
+  String toString() => 'Sentence()';
 }
 
 /// Represents a phrase in the text that is a known entity, such as
@@ -769,11 +765,7 @@ class ClassifyTextRequest extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'ClassifyTextRequest($contents)';
-  }
+  String toString() => 'ClassifyTextRequest()';
 }
 
 /// The document classification response message.

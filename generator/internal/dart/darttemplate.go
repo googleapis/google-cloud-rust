@@ -66,9 +66,9 @@ type messageAnnotation struct {
 	BasicFields       []*api.Field
 	HasFields         bool
 	HasCustomEncoding bool
-	FromJsonPreamble  []string
 	FromJsonLines     []string
 	ToJsonLines       []string
+	HasToStringLines  bool
 	ToStringLines     []string
 }
 
@@ -360,6 +360,7 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 	}
 
 	_, hasCustomEncoding := usesCustomEncoding[m.ID]
+	toStringLines := createToStringLines(m)
 
 	m.Codec = &messageAnnotation{
 		Name:            messageName(m),
@@ -372,7 +373,8 @@ func annotateMessage(m *api.Message, state *api.APIState, packageMapping map[str
 		HasCustomEncoding: hasCustomEncoding,
 		FromJsonLines:     createFromJsonLines(m, state),
 		ToJsonLines:       createToJsonLines(m, state),
-		ToStringLines:     createToStringLines(m),
+		HasToStringLines:  len(toStringLines) > 0,
+		ToStringLines:     toStringLines,
 	}
 }
 

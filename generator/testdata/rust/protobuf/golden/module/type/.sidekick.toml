@@ -23,4 +23,4 @@ googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
-generate-module = 'true'
+template-override = 'templates/mod'

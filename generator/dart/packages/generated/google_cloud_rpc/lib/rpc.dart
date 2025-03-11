@@ -145,11 +145,7 @@ class RetryInfo extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'RetryInfo($contents)';
-  }
+  String toString() => 'RetryInfo()';
 }
 
 /// Describes additional debugging info.
@@ -224,11 +220,7 @@ class QuotaFailure extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'QuotaFailure($contents)';
-  }
+  String toString() => 'QuotaFailure()';
 }
 
 /// A message type used to describe a single quota violation.  For example, a
@@ -307,11 +299,7 @@ class PreconditionFailure extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'PreconditionFailure($contents)';
-  }
+  String toString() => 'PreconditionFailure()';
 }
 
 /// A message type used to describe a single precondition failure.
@@ -392,11 +380,7 @@ class BadRequest extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'BadRequest($contents)';
-  }
+  String toString() => 'BadRequest()';
 }
 
 /// A message type used to describe a single bad request field.
@@ -625,11 +609,7 @@ class Help extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'Help($contents)';
-  }
+  String toString() => 'Help()';
 }
 
 /// Describes a URL link.

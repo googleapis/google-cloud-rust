@@ -57,6 +57,7 @@ class {{Codec.Name}} extends CloudMessage {
 {{/Codec.HasCustomEncoding}}
 
   @override
+  {{#Codec.HasToStringLines}}
   String toString() {
     final contents = [
       {{#Codec.ToStringLines}}
@@ -65,6 +66,10 @@ class {{Codec.Name}} extends CloudMessage {
     ].join(',');
     return '{{Name}}($contents)';
   }
+  {{/Codec.HasToStringLines}}
+  {{^Codec.HasToStringLines}}
+  String toString() => '{{Name}}()';
+  {{/Codec.HasToStringLines}}
 }
 {{#Messages}}
 {{> message}}

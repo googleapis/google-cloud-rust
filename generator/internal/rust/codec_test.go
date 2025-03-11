@@ -147,6 +147,45 @@ func TestParseOptionsOpenAPI(t *testing.T) {
 	checkRustPackages(t, got, want)
 }
 
+func TestParseOptionsTemplateOverride(t *testing.T) {
+	options := map[string]string{
+		"version":               "1.2.3",
+		"package-name-override": "test-only",
+		"copyright-year":        "2038",
+		"template-override":     "templates/mod-prost",
+	}
+	got, err := newCodec(false, options)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &codec{
+		version:             "1.2.3",
+		releaseLevel:        "preview",
+		packageNameOverride: "test-only",
+		generationYear:      "2038",
+		modulePath:          "crate::model",
+		extraPackages:       []*packagez{},
+		packageMapping:      map[string]*packagez{},
+		systemParameters: []systemParameter{
+			{Name: "$alt", Value: "json"},
+		},
+		templateOverride: "templates/mod-prost",
+	}
+	sort.Slice(want.extraPackages, func(i, j int) bool {
+		return want.extraPackages[i].name < want.extraPackages[j].name
+	})
+	sort.Slice(got.extraPackages, func(i, j int) bool {
+		return got.extraPackages[i].name < got.extraPackages[j].name
+	})
+	if diff := cmp.Diff(want, got, cmp.AllowUnexported(codec{}, packagez{})); diff != "" {
+		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
+	}
+	if want.packageNameOverride != got.packageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.packageNameOverride, got.packageNameOverride)
+	}
+	checkRustPackages(t, got, want)
+}
+
 func TestPackageName(t *testing.T) {
 	rustPackageNameImpl(t, "test-only-overridden", map[string]string{
 		"package-name-override": "test-only-overridden",
@@ -296,8 +335,9 @@ func TestWellKnownTypesAsMethod(t *testing.T) {
 }
 
 func TestGeneratedFiles(t *testing.T) {
-	c := codec{}
-	c.generateModule = true
+	c := codec{
+		templateOverride: "templates/mod",
+	}
 	files := c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(true, false)")
@@ -312,7 +352,7 @@ func TestGeneratedFiles(t *testing.T) {
 	// No crate for module-only files
 	unexpectedGeneratedFile(t, "Cargo.toml", files)
 
-	c.generateModule = false
+	c.templateOverride = ""
 	files = c.generatedFiles(false)
 	if len(files) == 0 {
 		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")

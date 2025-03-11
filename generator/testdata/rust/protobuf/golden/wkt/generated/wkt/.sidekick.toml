@@ -23,5 +23,5 @@ include-list = 'source_context.proto'
 
 [codec]
 copyright-year = '2025'
-generate-module = 'true'
 module-path = 'crate'
+template-override = 'templates/mod'

@@ -353,6 +353,9 @@ class Secret extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       if (name != null) 'name=$name',
@@ -461,6 +464,9 @@ class SecretVersion extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       if (name != null) 'name=$name',
@@ -539,11 +545,10 @@ class Replication extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'Replication($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'Replication()';
 }
 
 /// A replication policy that replicates the
@@ -580,11 +585,10 @@ class Replication$Automatic extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'Automatic($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'Automatic()';
 }
 
 /// A replication policy that replicates the
@@ -616,11 +620,10 @@ class Replication$UserManaged extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'UserManaged($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'UserManaged()';
 }
 
 /// Represents a Replica for this
@@ -661,6 +664,9 @@ class Replication$UserManaged$Replica extends CloudMessage {
       if (customerManagedEncryption != null) 'customerManagedEncryption': customerManagedEncryption!.toJson(),
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -706,6 +712,9 @@ class CustomerManagedEncryption extends CloudMessage {
       if (kmsKeyName != null) 'kmsKeyName': kmsKeyName,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -759,11 +768,10 @@ class ReplicationStatus extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'ReplicationStatus($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'ReplicationStatus()';
 }
 
 /// The replication status of a
@@ -797,11 +805,10 @@ class ReplicationStatus$AutomaticStatus extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'AutomaticStatus($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'AutomaticStatus()';
 }
 
 /// The replication status of a
@@ -834,11 +841,10 @@ class ReplicationStatus$UserManagedStatus extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'UserManagedStatus($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'UserManagedStatus()';
 }
 
 /// Describes the status of a user-managed replica for the
@@ -875,6 +881,9 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       if (location != null) 'location=$location',
@@ -907,6 +916,9 @@ class CustomerManagedEncryptionStatus extends CloudMessage {
       if (kmsKeyVersionName != null) 'kmsKeyVersionName': kmsKeyVersionName,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -944,6 +956,9 @@ class Topic extends CloudMessage {
       if (name != null) 'name': name,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1006,11 +1021,10 @@ class Rotation extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'Rotation($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'Rotation()';
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -1058,6 +1072,9 @@ class SecretPayload extends CloudMessage {
       if (dataCrc32C != null) 'dataCrc32C': dataCrc32C,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1121,6 +1138,9 @@ class ListSecretsRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'parent=$parent',
@@ -1173,6 +1193,9 @@ class ListSecretsResponse extends CloudMessage {
       if (totalSize != null) 'totalSize': totalSize,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1228,6 +1251,9 @@ class CreateSecretRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'parent=$parent',
@@ -1272,6 +1298,9 @@ class AddSecretVersionRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'parent=$parent',
@@ -1305,6 +1334,9 @@ class GetSecretRequest extends CloudMessage {
       'name': name,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1368,6 +1400,9 @@ class ListSecretVersionsRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'parent=$parent',
@@ -1423,6 +1458,9 @@ class ListSecretVersionsResponse extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       if (nextPageToken != null) 'nextPageToken=$nextPageToken',
@@ -1465,6 +1503,9 @@ class GetSecretVersionRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'name=$name',
@@ -1505,11 +1546,10 @@ class UpdateSecretRequest extends CloudMessage {
   }
 
   @override
-  String toString() {
-    final contents = [
-    ].join(',');
-    return 'UpdateSecretRequest($contents)';
-  }
+  });
+
+  @override
+  String toString() => 'UpdateSecretRequest()';
 }
 
 /// Request message for
@@ -1543,6 +1583,9 @@ class AccessSecretVersionRequest extends CloudMessage {
       'name': name,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1587,6 +1630,9 @@ class AccessSecretVersionResponse extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       if (name != null) 'name=$name',
@@ -1628,6 +1674,9 @@ class DeleteSecretRequest extends CloudMessage {
       if (etag != null) 'etag': etag,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
@@ -1676,6 +1725,9 @@ class DisableSecretVersionRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'name=$name',
@@ -1722,6 +1774,9 @@ class EnableSecretVersionRequest extends CloudMessage {
   }
 
   @override
+  });
+
+  @override
   String toString() {
     final contents = [
       'name=$name',
@@ -1766,6 +1821,9 @@ class DestroySecretVersionRequest extends CloudMessage {
       if (etag != null) 'etag': etag,
     };
   }
+
+  @override
+  });
 
   @override
   String toString() {
