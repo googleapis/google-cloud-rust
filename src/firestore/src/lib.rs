@@ -14,9 +14,11 @@
 
 pub use gax::error::Error;
 pub use gax::Result;
-// TODO(#1426) - fix references to the `client::Firestore::*` methods
-#[allow(rustdoc::broken_intra_doc_links)]
-pub mod model;
+pub(crate) mod generated;
+
+pub mod model {
+    pub use super::generated::model::*;
+}
 
 pub(crate) mod google {
     pub mod firestore {

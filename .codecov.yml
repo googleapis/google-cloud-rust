@@ -23,6 +23,8 @@ ignore:
   - guide/samples
   - src/generated
   - src/wkt/src/generated
+  - src/firestore/src/generated
   - src/integration-tests
+  - src/auth/integration-tests
   - generator/testdata
   - tools/check-copyright

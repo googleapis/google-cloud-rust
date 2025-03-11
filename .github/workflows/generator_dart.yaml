@@ -74,4 +74,3 @@ jobs:
       - name: "test package:google_cloud_rpc"
         run: dart test
         working-directory: generator/dart/packages/generated/google_cloud_rpc
-

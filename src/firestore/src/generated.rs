@@ -12,18 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "run-integration-tests"))]
-mod driver {
-    use auth_integration_tests::Result;
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    #[serial_test::serial]
-    async fn run_service_account() -> Result<()> {
-        auth_integration_tests::service_account().await
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_api_key() -> Result<()> {
-        auth_integration_tests::api_key().await
-    }
-}
+// TODO(#1426) - fix references to the `client::Firestore::*` methods
+#[allow(rustdoc::broken_intra_doc_links)]
+pub mod model;

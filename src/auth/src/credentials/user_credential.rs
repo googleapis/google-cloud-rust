@@ -26,11 +26,14 @@ const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     let au =
         serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
+
+    let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
+
     let token_provider = UserTokenProvider {
         client_id: au.client_id,
         client_secret: au.client_secret,
         refresh_token: au.refresh_token,
-        endpoint: OAUTH2_ENDPOINT.to_string(),
+        endpoint,
     };
 
     Ok(Credential {
@@ -152,6 +155,8 @@ pub(crate) struct AuthorizedUser {
     client_secret: String,
     refresh_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    token_uri: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     quota_project_id: Option<String>,
 }
 
@@ -217,7 +222,8 @@ mod test {
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
             "universe_domain": "googleapis.com",
-            "quota_project_id": "test-project"
+            "quota_project_id": "test-project",
+            "token_uri" : "test-token-uri",
         });
 
         let expected = AuthorizedUser {
@@ -226,6 +232,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: Some("test-project".to_string()),
+            token_uri: Some("test-token-uri".to_string()),
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -246,6 +253,7 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: None,
+            token_uri: None,
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -520,6 +528,38 @@ mod test {
             now,
             token.expires_at
         );
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn creds_from_json_custom_token_uri() -> TestResult {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_string(&response).unwrap();
+        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
+        println!("endpoint = {endpoint}");
+
+        let json = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project",
+            "token_uri": endpoint,
+        });
+
+        let cred = creds_from(json).unwrap();
+
+        let token = cred.get_token().await?;
+        assert_eq!(token.token, "test-access-token");
 
         Ok(())
     }

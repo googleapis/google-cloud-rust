@@ -13,7 +13,7 @@
 # limitations under the License.
 
 name: google_cloud_common
-description: Common code for the Google Cloud client librariy packages.
+description: Common code for the Google Cloud client library packages.
 version: 0.1.0
 
 environment:
