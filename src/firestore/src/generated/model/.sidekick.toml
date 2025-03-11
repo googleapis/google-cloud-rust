@@ -19,4 +19,4 @@ service-config       = 'google/firestore/v1/firestore_v1.yaml'
 
 [codec]
 copyright-year    = '2025'
-template-override = 'templates/mod'
+template-override = 'templates/mod-prost'
