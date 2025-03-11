@@ -28,9 +28,9 @@ repository.workspace = true
 [dependencies]
 base64      = "0.22"
 bytes       = "1"
-futures     = { version = "0.3", optional = true }
+futures     = { version = "0.3"}
 http        = "1"
-pin-project = { version = "1", optional = true }
+pin-project = { version = "1"}
 rand        = "0.9"
 reqwest     = { version = "0.12", optional = true }
 serde       = "1"
@@ -61,4 +61,4 @@ built = "0.7"
 
 [features]
 unstable-sdk-client = ["dep:reqwest"]
-unstable-stream     = ["dep:futures", "dep:pin-project"]
+unstable-stream     = []
