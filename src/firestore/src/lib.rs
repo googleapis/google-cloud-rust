@@ -29,6 +29,7 @@ pub(crate) mod google {
     }
     pub mod rpc {
         include!("generated/protos/rpc/google.rpc.rs");
+        include!("generated/convert/rpc/convert.rs");
     }
     pub mod r#type {
         // TODO(#1414) - decide if we want to generate this as its own directory.
