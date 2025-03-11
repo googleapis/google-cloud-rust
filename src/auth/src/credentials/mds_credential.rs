@@ -13,35 +13,107 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::{Credential, Result};
+use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
+use bon::bon;
 use bon::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::Client;
+use reqwest::StatusCode;
 use std::sync::Arc;
 use std::time::Duration;
+use std::vec;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
+const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
 pub(crate) fn new() -> Credential {
-    let token_provider = MDSAccessTokenProvider::builder()
-        .endpoint(METADATA_ROOT)
+    let mds_credential: MDSCredential<MDSAccessTokenProvider> = MDSCredential::builder()
+        .endpoint(METADATA_ROOT.to_string())
         .build();
     Credential {
-        inner: Arc::new(MDSCredential { token_provider }),
+        inner: Arc::new(mds_credential),
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct MDSCredential<T>
 where
     T: TokenProvider,
 {
+    scopes: Option<Vec<String>>,
+    quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     token_provider: T,
+}
+
+#[bon]
+impl MDSCredential<MDSAccessTokenProvider> {
+    #[builder]
+    fn new(
+        scopes: Option<Vec<String>>,
+        quota_project_id: Option<String>,
+        universe_domain: Option<String>,
+        endpoint: String,
+    ) -> Self {
+        let token_provider = MDSAccessTokenProvider::builder()
+            .endpoint(endpoint)
+            .maybe_scopes(scopes.clone())
+            .build();
+
+        MDSCredential {
+            scopes,
+            quota_project_id,
+            universe_domain,
+            token_provider,
+        }
+    }
+}
+
+#[allow(dead_code)]
+impl<T> MDSCredential<T>
+where
+    T: TokenProvider,
+{
+    pub async fn get_universe_domain(endpoint: String) -> Result<String> {
+        let client = Client::new();
+        let request = client
+            .get(format!("{}/universe/universe-domain", endpoint))
+            .header(
+                METADATA_FLAVOR,
+                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+            );
+
+        let response = request.send().await.map_err(CredentialError::retryable)?;
+
+        if !response.status().is_success() {
+            let status = response.status();
+            if status == StatusCode::NOT_FOUND {
+                return Ok(DEFAULT_UNIVERSE_DOMAIN.to_string());
+            }
+            let body = response
+                .text()
+                .await
+                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
+            return Err(CredentialError::from_str(
+                is_retryable(status),
+                format!("Failed to fetch universe domain. {body}"),
+            ));
+        }
+        let universe_domain = response
+            .json::<UniverseDomainResponse>()
+            .await
+            .map_err(CredentialError::non_retryable)
+            .unwrap()
+            .universe_domain;
+
+        Ok(universe_domain)
+    }
 }
 
 #[async_trait::async_trait]
@@ -58,7 +130,14 @@ where
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
-        Ok(vec![(AUTHORIZATION, value)])
+        let mut headers = vec![(AUTHORIZATION, value)];
+        if let Some(project) = &self.quota_project_id {
+            headers.push((
+                HeaderName::from_static(QUOTA_PROJECT_KEY),
+                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+            ));
+        }
+        Ok(headers)
     }
 }
 
@@ -83,6 +162,11 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+struct UniverseDomainResponse {
+    universe_domain: String,
 }
 
 impl MDSAccessTokenProvider {
@@ -200,6 +284,9 @@ mod test {
             .return_once(|| Ok(expected_clone));
 
         let mdsc = MDSCredential {
+            scopes: None,
+            quota_project_id: None,
+            universe_domain: None,
             token_provider: mock,
         };
         let actual = mdsc.get_token().await.unwrap();
@@ -214,6 +301,9 @@ mod test {
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
+            scopes: None,
+            quota_project_id: None,
+            universe_domain: None,
             token_provider: mock,
         };
         assert!(mdsc.get_token().await.is_err());
@@ -232,6 +322,9 @@ mod test {
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
         let mdsc = MDSCredential {
+            scopes: None,
+            quota_project_id: None,
+            universe_domain: None,
             token_provider: mock,
         };
         let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
@@ -247,6 +340,43 @@ mod test {
     }
 
     #[tokio::test]
+    async fn get_headers_success_with_quota_project() {
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token().times(1).return_once(|| Ok(token));
+
+        let mdsc = MDSCredential {
+            scopes: None,
+            quota_project_id: Some("test-project".to_string()),
+            universe_domain: None,
+            token_provider: mock,
+        };
+
+        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
+        assert_eq!(
+            headers,
+            vec![
+                HV {
+                    header: AUTHORIZATION.to_string(),
+                    value: "Bearer test-token".to_string(),
+                    is_sensitive: true,
+                },
+                HV {
+                    header: QUOTA_PROJECT_KEY.to_string(),
+                    value: "test-project".to_string(),
+                    is_sensitive: false,
+                }
+            ]
+        );
+    }
+
+    #[tokio::test]
     async fn get_headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
@@ -254,6 +384,9 @@ mod test {
             .return_once(|| Err(CredentialError::non_retryable_from_str("fail")));
 
         let mdsc = MDSCredential {
+            scopes: None,
+            quota_project_id: None,
+            universe_domain: None,
             token_provider: mock,
         };
         assert!(mdsc.get_headers().await.is_err());
@@ -376,12 +509,11 @@ mod test {
         )]))
         .await;
         println!("endpoint = {endpoint}");
-        let tp = MDSAccessTokenProvider::builder()
+
+        let mdsc = MDSCredential::builder()
             .scopes(scopes)
             .endpoint(endpoint)
             .build();
-
-        let mdsc = MDSCredential { token_provider: tp };
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -438,9 +570,8 @@ mod test {
         ]))
         .await;
         println!("endpoint = {endpoint}");
-        let tp = MDSAccessTokenProvider::builder().endpoint(endpoint).build();
 
-        let mdsc = MDSCredential { token_provider: tp };
+        let mdsc = MDSCredential::builder().endpoint(endpoint).build();
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -476,12 +607,10 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider::builder()
-            .scopes(scopes)
+        let mdsc = MDSCredential::builder()
             .endpoint(endpoint)
+            .scopes(scopes)
             .build();
-
-        let mdsc = MDSCredential { token_provider: tp };
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -507,12 +636,10 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider::builder()
-            .scopes(scopes)
+        let mdsc = MDSCredential::builder()
             .endpoint(endpoint)
+            .scopes(scopes)
             .build();
-
-        let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -537,12 +664,11 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider::builder()
-            .scopes(scopes)
+        let mdsc = MDSCredential::builder()
             .endpoint(endpoint)
+            .scopes(scopes)
             .build();
 
-        let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
@@ -567,15 +693,91 @@ mod test {
         )]))
         .await;
 
-        let tp = MDSAccessTokenProvider::builder()
-            .scopes(scopes)
+        let mdsc = MDSCredential::builder()
             .endpoint(endpoint)
+            .scopes(scopes)
             .build();
 
-        let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
 
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_success() {
+        let path = "/universe/universe-domain";
+        let ud = "test-universe-domain";
+        let universe_domain_response = serde_json::to_value(UniverseDomainResponse {
+            universe_domain: ud.to_string(),
+        })
+        .unwrap();
+
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (
+                StatusCode::OK,
+                universe_domain_response,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let universe_domain_response =
+            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint)
+                .await
+                .unwrap();
+        assert_eq!(universe_domain_response, ud);
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_not_found() {
+        let path = "/universe/universe-domain";
+        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
+
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (
+                StatusCode::NOT_FOUND,
+                universe_domain_response,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let universe_domain_response =
+            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint)
+                .await
+                .unwrap();
+        assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+    }
+
+    #[tokio::test]
+    async fn get_universe_domain_error() {
+        let path = "/universe/universe-domain";
+        let universe_domain_response = serde_json::to_value("invalid_response").unwrap();
+
+        let (endpoint, _server) = start(HashMap::from([(
+            path.to_string(),
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                universe_domain_response,
+                TokenQueryParams {
+                    scopes: None,
+                    recursive: None,
+                },
+            ),
+        )]))
+        .await;
+
+        let universe_domain_response =
+            MDSCredential::<MDSAccessTokenProvider>::get_universe_domain(endpoint).await;
+        assert!(universe_domain_response.is_err());
     }
 }
